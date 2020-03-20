@@ -1,0 +1,43 @@
+.form-group {
+  margin-bottom: 3.4rem;
+}
+.action-block {
+  .btn {
+    border: none;
+    padding: 1.7rem 7.3rem;
+  }
+}
+.input-group {
+  position: relative;
+  &__input {
+    border-radius: 0.7rem;
+    border: 0.1rem solid #cccccc;
+    height: 5.9rem;
+    width: 100%;
+    font-size: 1.5rem;
+    color: #a7a7a7;
+    font-weight: 400;
+    padding-right: 2.7rem;
+    padding-left: 2.7rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    outline: none;
+  }
+  &__addon {
+    position: absolute;
+    height: 100%;
+    padding: 0 2.65rem;
+    background: #ebebeb;
+    right: -0.1rem;
+    bottom: 0;
+    top: 0;
+    border-radius: 1rem;
+    border: 0.1rem solid #d7d7d7;
+    cursor: pointer;
+    outline: none;
+    padding-top: 1.5rem;
+    img {
+      width: 2.7rem;
+    }
+  }
+}

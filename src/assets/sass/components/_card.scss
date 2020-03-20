@@ -1,0 +1,68 @@
+@import "../abstracts/variables";
+
+.card {
+  background: $color-white;
+  border-radius: 1.7rem;
+  border: 0.1rem solid #d7d7d7;
+  padding: 4rem 5rem 5rem 5rem;
+  // ::ng-deep{
+  .card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.25rem;
+    .heading {
+      h2 {
+        font-size: 3.5rem;
+        color: #3a3b3f;
+        font-weight: 700;
+      }
+    }
+    .table-search {
+      margin-left: auto;
+      padding-left: 4rem;
+      img.search-icon {
+        width: 2.2rem;
+        position: absolute;
+        left: -4rem;
+      }
+      .mat-form-field-infix {
+        width: 19.6rem;
+        .mat-input-element {
+          line-height: 2.2rem;
+          font-size: 1.5rem;
+        }
+        .mat-form-field-label {
+          font-size: 1.5rem;
+        }
+      }
+      .mat-form-field-underline {
+        background-color: #d7d7d7;
+        height: 0.1rem;
+      }
+    }
+    .page-navigator {
+      padding: 0 1.2rem;
+      button {
+        font-size: 1.7rem;
+        line-height: 1;
+        color: $color-primary;
+        font-weight: 400;
+        border: 0.1rem solid $color-primary-dark;
+        background: $color-white;
+        border-radius: 0.8rem;
+        padding: 1.1rem 4.4rem;
+        margin-left: 2.9rem;
+        outline: none;
+        cursor: pointer;
+        &.btn-gredient {
+          color: $color-white;
+          background-image: linear-gradient(-3deg, $color-primary-dark 0%, $color-primary-light 100%);
+          border: none;
+          padding: 1.2rem 4.5rem;
+        }
+      }
+    }
+  }
+  // }
+}

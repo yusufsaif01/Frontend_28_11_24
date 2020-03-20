@@ -1,0 +1,8 @@
+@import "~@angular/material/theming";
+@import "../theme-generator";
+
+$blue-primary: mat-palette(generate-custom-color-theme($blue, $white), 50);
+$blue-accent: mat-palette(generate-custom-color-theme($blue, $white), 400);
+$blue-warn: mat-palette(generate-custom-color-theme($error, $white), 800);
+
+$blue-theme: mat-light-theme($blue-primary, $blue-accent, $blue-warn);

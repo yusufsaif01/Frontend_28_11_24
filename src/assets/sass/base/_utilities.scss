@@ -1,0 +1,63 @@
+//margin padding classes
+//All side
+@for $i from 0 through 100 {
+  @if ($i%5 == 0 or $i == 0) {
+    .margin-all-#{$i} {
+      margin: #{$i}px !important;
+    }
+    .padding-all-#{$i} {
+      padding: #{$i}px !important;
+    }
+  }
+}
+//Top Bottom
+@for $i from 0 through 100 {
+  @if ($i%5 == 0 or $i == 0) {
+    .margin-tb-#{$i} {
+      margin: #{$i}px 0 !important;
+    }
+    .padding-tb-#{$i} {
+      padding: #{$i}px 0 !important;
+    }
+  }
+}
+//Left right
+@for $i from 0 through 100 {
+  @if ($i%5 == 0 or $i == 0) {
+    .margin-lr-#{$i} {
+      margin: 0 #{$i}px !important;
+    }
+    .padding-lr-#{$i} {
+      padding: 0 #{$i}px !important;
+    }
+  }
+}
+// Each side
+$sides: (top, bottom, left, right);
+@for $i from 0 through 100 {
+  @if ($i%5 == 0 or $i == 0) {
+    @each $side in $sides {
+      .margin-#{$side}-#{$i} {
+        margin-#{$side}: #{$i}px !important;
+      }
+
+      .padding-#{$side}-#{$i} {
+        padding-#{$side}: #{$i}px !important;
+      }
+    }
+  }
+}
+//margin padding classes
+
+.text-sm {
+  font-size: 12px;
+}
+.text-center {
+  text-align: center;
+}
+.left {
+  float: left !important;
+}
+.right {
+  float: right !important;
+}

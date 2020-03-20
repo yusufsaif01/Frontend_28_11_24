@@ -1,0 +1,50 @@
+@import "../abstracts/variables";
+
+.mat-checkbox {
+  &.custom-checkbox {
+    .mat-checkbox-layout {
+      margin-bottom: 0;
+    }
+    .mat-checkbox-inner-container {
+      height: 1.7rem;
+      width: 1.7rem;
+      .mat-checkbox-frame {
+        border-radius: 0.3rem;
+        background-color: #f8f8f8;
+        border: 0.1rem solid #d7d7d7;
+      }
+      .mat-checkbox-background {
+        background: transparent;
+        background-image: url("./assets/images/icons/checkbox-tick.png");
+        background-size: 1.7rem;
+        background-position: top right;
+        background-repeat: no-repeat;
+        margin-top: -0.4rem;
+        margin-right: -0.4rem;
+        display: none;
+      }
+      .mat-checkbox-ripple {
+        position: absolute;
+        left: calc(50% - 1.7rem);
+        top: calc(50% - 1.7rem);
+        height: 3.4rem;
+        width: 3.4rem;
+        z-index: 1;
+        pointer-events: none;
+      }
+    }
+    &.mat-checkbox-checked {
+      .mat-checkbox-inner-container {
+        .mat-checkbox-background {
+          display: inline-block;
+          .mat-checkbox-mixedmark {
+            display: none;
+          }
+          .mat-checkbox-checkmark {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

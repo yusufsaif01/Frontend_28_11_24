@@ -1,0 +1,53 @@
+<div class="knowledge-repo card">
+  <div class="card__header">
+    <div class="heading">
+      <h2>Select Chapter</h2>
+    </div>
+    <div class="table-search">
+      <mat-form-field>
+        <img src="assets/images/icons/search.png" alt="Search" class="search-icon" />
+        <input type="text" placeholder="Search" matInput />
+      </mat-form-field>
+    </div>
+    <div class="page-navigator">
+      <button (click)="onSubmit()">Submit</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <mat-table [dataSource]="dataSource">
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </mat-cell>
+      </ng-container>
+      <!-- Chapter Name Column -->
+      <ng-container matColumnDef="chapter_name">
+        <mat-header-cell *matHeaderCellDef> Content </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.chapter_name }}</mat-cell>
+      </ng-container>
+      <!-- Course Type Column -->
+      <ng-container matColumnDef="course_type">
+        <mat-header-cell *matHeaderCellDef> Department </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.course_type }} </mat-cell>
+      </ng-container>
+      <!-- Select Column -->
+      <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <mat-checkbox class="custom-checkbox"></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </div>
+</div>
+<div class="pagination">
+  <button class="pagination__item">Prev</button>
+  <button class="pagination__item">1</button>
+  <button class="pagination__item active">2</button>
+  <button class="pagination__item">3</button>
+  <button class="pagination__item">4</button>
+  <button class="pagination__item">Next</button>
+</div>

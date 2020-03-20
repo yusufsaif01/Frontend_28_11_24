@@ -1,0 +1,54 @@
+@import "../abstracts/variables";
+
+.tab-container {
+  .tabs {
+    .tablinks {
+      padding: 1.9rem 1.9rem;
+      line-height: 1;
+      font-size: 2rem;
+      border: none;
+      font-weight: 700;
+      min-width: 24.4rem;
+      border-radius: 0.8rem;
+      background: $color-white;
+      color: #575757;
+      outline: none;
+      border: 0.1rem solid #e1e1e1;
+      &:not(:last-child) {
+        margin-right: 2rem;
+      }
+      &.active {
+        color: $color-white;
+        border: none;
+        padding: 2rem 2rem;
+        background-image: linear-gradient(-3deg, $color-primary-dark 0%, $color-primary-light 100%);
+      }
+    }
+  }
+  .tabcontent {
+    border-radius: 1rem;
+    border: 0.1rem solid #e1e1e1;
+    padding: 7.4rem 3.1rem 6rem 4.3rem;
+    margin-top: -0.2rem;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+  }
+}
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,17 @@
+<div class="sidebar">
+  <div class="sidebar__avatar">
+    <img src="assets/images/avatar.png" />
+    <h3 class="name">Ravi Parkash</h3>
+    <h4 class="designation">Production Executive</h4>
+  </div>
+  <div class="sidebar__menu">
+    <ul>
+      <li *ngFor="let item of sidebarList" routerLinkActive="active">
+        <a [routerLink]="item.link">
+          <img [src]="item.imagePath" [alt]="item.name" />
+          {{ item.name }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

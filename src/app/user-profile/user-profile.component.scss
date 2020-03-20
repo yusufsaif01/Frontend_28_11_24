@@ -1,0 +1,136 @@
+@import "src/assets/sass/abstracts/variables";
+
+.profile {
+  .page-heading {
+    margin-bottom: 2.165rem;
+  }
+  &-card {
+    padding: 0;
+    border-radius: 0.6rem;
+    .card-body {
+      padding: 1.9rem 1.9rem 2.8rem 1.9rem;
+      .details {
+        text-align: center;
+        .name {
+          font-size: 1.75rem;
+          color: #3a3b3f;
+          font-weight: 600;
+          line-height: 1;
+          margin-bottom: 0.707rem;
+          margin-top: 0.4rem;
+        }
+        .designation {
+          font-size: 1.2rem;
+          color: #848484;
+          font-weight: 500;
+          line-height: 1;
+          margin-bottom: 0.6rem;
+        }
+        .department {
+          font-size: 1.1rem;
+          color: #848484;
+          font-weight: 500;
+          line-height: 1;
+        }
+      }
+      .img-box {
+        height: 11.6rem;
+        width: 11.5rem;
+        background: #a8b4c2;
+        border-radius: 1rem;
+        overflow: hidden;
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+    .card-footer {
+      border-top: 0.1rem solid #d7d7d7;
+      padding: 0.2rem 0;
+      .btn {
+        padding: 1.23rem 0;
+        font-size: 1.4rem;
+        text-transform: uppercase;
+        width: 50%;
+        border-color: transparent;
+        &.upload {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+  &-form {
+    padding: 0;
+    border-radius: 0.6rem;
+    .card-header {
+      padding: 2.7rem 2.1rem;
+      border-bottom: 0.1rem solid #d7d7d7;
+      h3 {
+        color: #3a3b3f;
+        font-size: 1.6rem;
+        font-weight: 600;
+        span {
+          font-weight: 300;
+          font-size: 1.24rem;
+          margin-left: 1rem;
+        }
+      }
+    }
+    .card-body {
+      padding: 3rem 2.421rem 2rem 2.421rem;
+      ::ng-deep {
+        .mat-form-field {
+          .mat-form-field-infix {
+            padding: 0;
+            .mat-input-element {
+              padding: 1.52rem 1.42rem;
+              border-radius: 0.4rem;
+              border: 0.1rem solid rgba($color-black, 0.32);
+              margin-top: -0.5em;
+              font-weight: normal;
+              &.ng-invalid.ng-touched {
+                border: 0.1rem solid rgba($error, 1);
+              }
+            }
+            .mat-form-field-label-wrapper {
+              position: absolute;
+              left: 1.42rem;
+              label {
+                span {
+                  padding: 0 0.8rem;
+                  background-color: $color-white;
+                }
+              }
+            }
+          }
+          .mat-form-field-subscript-wrapper {
+            position: static;
+          }
+          .mat-form-field-underline {
+            display: none;
+          }
+          &.mat-focused {
+            .mat-form-field-infix {
+              padding: 0;
+              .mat-input-element {
+                border: 0.1rem solid rgba($color-primary, 1);
+              }
+            }
+          }
+        }
+      }
+    }
+    .card-footer {
+      border-top: 0.1rem solid #d7d7d7;
+      padding: 1.56rem 2.38rem 2.44rem 2.38rem;
+      .btn {
+        padding: 1.38rem 1.42rem;
+        font-size: 1.4rem;
+        text-transform: uppercase;
+        width: auto;
+        border-radius: 0.4rem;
+      }
+    }
+  }
+}

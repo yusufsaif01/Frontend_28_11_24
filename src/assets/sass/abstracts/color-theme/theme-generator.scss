@@ -1,0 +1,34 @@
+@function generate-custom-color-theme($color, $contrastColor) {
+  @return (
+    50: $color,
+    100: $color,
+    200: $color,
+    300: $color,
+    400: $color,
+    500: $color,
+    600: $color,
+    700: $color,
+    800: $color,
+    900: $color,
+    A100: $color,
+    A200: $color,
+    A400: $color,
+    A700: $color,
+    contrast: (
+      50: $contrastColor,
+      100: $contrastColor,
+      200: $contrastColor,
+      300: $contrastColor,
+      400: $contrastColor,
+      500: $contrastColor,
+      600: $contrastColor,
+      700: $contrastColor,
+      800: $contrastColor,
+      900: $contrastColor,
+      A100: $contrastColor,
+      A200: $contrastColor,
+      A400: $contrastColor,
+      A700: $contrastColor
+    )
+  );
+}

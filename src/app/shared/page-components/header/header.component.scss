@@ -1,0 +1,169 @@
+@import "src/assets/sass/abstracts/variables";
+
+.header {
+  height: 7.8rem;
+  box-shadow: 0 0 0.8rem rgba($color-black, 0.1);
+  background-color: $color-white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+  &__logo {
+    width: 29.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 7.9rem;
+    padding: 1rem 2rem;
+    a {
+      height: 100%;
+      width: 100%;
+      img {
+        min-height: 6rem;
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+  }
+  &__toggler {
+    margin-right: auto;
+    button {
+      background: transparent;
+      border: none;
+      outline: none;
+      img {
+        width: 2.8rem;
+      }
+    }
+  }
+  &__options {
+    display: flex;
+    align-items: center;
+    .user-details {
+      padding: 0rem 6rem 0rem 3rem;
+      display: flex;
+      align-items: center;
+      position: relative;
+      &::before {
+        border-style: solid;
+        border-width: 0.2rem 0.2rem 0 0;
+        content: "";
+        height: 0.9rem;
+        width: 0.9rem;
+        transform: rotate(135deg);
+        border-color: #707070;
+        position: absolute;
+        right: 5rem;
+        top: 0.8rem;
+      }
+      img {
+        width: 6rem;
+        height: 6rem;
+        border-radius: 2.8rem;
+        box-shadow: 0.097rem 0.1749rem 0.8rem rgba($color-black, 0.16);
+        border: 0.3rem solid $color-white;
+      }
+      .status {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 0.8rem;
+        background-color: $header-success;
+        border: 0.2rem solid $color-white;
+        display: flex;
+        align-self: flex-end;
+        margin-left: -1.5rem;
+      }
+      .text {
+        padding-left: 1.5rem;
+        span {
+          display: block;
+          &.name {
+            font-size: 1.6rem;
+            color: $color-black;
+            font-weight: 500;
+          }
+          &.designation {
+            font-size: 1.4rem;
+            letter-spacing: 0;
+            line-height: 2.8rem;
+            color: #616161;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+    .translate {
+      padding: 0.4rem 1.8rem;
+      border-right: 0.1rem solid #959595;
+      position: relative;
+      &::before {
+        content: "";
+        border-left: solid 0.4rem transparent;
+        border-right: solid 0.4rem transparent;
+        border-top: solid 0.8rem $color-black;
+        height: 0;
+        width: 0;
+        position: absolute;
+        right: 2.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      select {
+        border-color: transparent;
+        font-size: 1.6rem;
+        line-height: 2.8rem;
+        color: #303030;
+        font-family: inherit;
+        font-weight: 500;
+        padding-right: 2rem;
+        outline: none;
+        background-color: $color-white;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+    }
+    .topmessages {
+      position: relative;
+      padding: 1.8rem;
+      img {
+        width: 2rem;
+      }
+      span {
+        border-radius: 1.1rem;
+        background-image: linear-gradient(-3deg, $color-primary-dark 0%, $color-primary-light 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        bottom: 50%;
+        left: 50%;
+        font-size: 1.4rem;
+        color: $color-white;
+        font-family: "I TC Avant Garde Std", "Muli", sans-serif;
+        padding: 0.2rem 0.6rem;
+      }
+    }
+    .topnotification {
+      position: relative;
+      padding: 1.8rem;
+      img {
+        width: 1.4rem;
+      }
+      span {
+        border-radius: 1.1rem;
+        background-image: linear-gradient(-3deg, $color-primary-dark 0%, $color-primary-light 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        bottom: 50%;
+        left: 50%;
+        font-size: 1.4rem;
+        color: $color-white;
+        font-family: "I TC Avant Garde Std", "Muli", sans-serif;
+        padding: 0.2rem 0.6rem;
+      }
+    }
+  }
+}

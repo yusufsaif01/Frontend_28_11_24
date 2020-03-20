@@ -1,0 +1,49 @@
+<app-header></app-header>
+<div class="login-container">
+  <div class="loginbox">
+    <h3>Login To Learn</h3>
+
+    <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
+      <ul>
+        <li>
+          <input
+            type="text"
+            placeholder="Enter Username"
+            matInput
+            formControlName="username"
+            autocomplete="username"
+            [placeholder]="'Username' | translate"
+            required
+            [ngStyle]="{
+              'border-bottom':
+                loginForm.controls.username.invalid && loginForm.controls.username.touched ? '0.1rem solid #de5454' : ''
+            }"
+          />
+          <mat-error *ngIf="loginForm.controls.username.invalid && loginForm.controls.username.touched">
+            <span translate>Username is required</span>
+          </mat-error>
+        </li>
+        <li>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            matInput
+            formControlName="password"
+            autocomplete="current-password"
+            [placeholder]="'Password' | translate"
+            required
+          />
+          <mat-error *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched">
+            <span translate>Password is required</span>
+          </mat-error>
+        </li>
+        <li>
+          <button type="submit" class="btn" [disabled]="loginForm.invalid || isLoading">Log in</button>
+        </li>
+        <mat-error class="login-error" [hidden]="!error || isLoading" translate>
+          Username or password incorrect.
+        </mat-error>
+      </ul>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="profile" fxLayout="row wrap" fxLayoutAlign="none start">
+  <div class="page-heading" fxFlex="100%">
+    <h2>Profile</h2>
+  </div>
+  <div class="profile-card card" fxFlex="27.47%" style="margin-right: 2.4rem;">
+    <div class="card-body">
+      <div class="details" fxFlex>
+        <h3 class="name">Ravi Parkash</h3>
+        <h4 class="designation">Production Executive</h4>
+        <h4 class="department">Outword -FC</h4>
+      </div>
+      <div class="img-box" fxFlex="11.6rem">
+        <img src="assets/images/avatar.png" />
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn upload">Upload</button>
+      <button class="btn remove">Remove</button>
+    </div>
+  </div>
+  <div class="profile-form card" fxFlex>
+    <form [formGroup]="userProfileFormGroup" (ngSubmit)="updateUserProfile(userProfileFormGroup.value)">
+      <div class="card-header">
+        <h3>Basic Profile <span>The Information can be edited from your profile page</span></h3>
+      </div>
+      <div class="card-body">
+        <div fxLayout="row">
+          <mat-form-field fxFlex>
+            <input type="text" matInput placeholder="Name" formControlName="name" />
+            <mat-hint>Please Specify the Name</mat-hint>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row">
+          <mat-form-field style="margin-right:2.4rem" fxFlex>
+            <input type="text" matInput placeholder="Email Address" formControlName="email" />
+          </mat-form-field>
+          <mat-form-field fxFlex>
+            <input type="text" matInput placeholder="Mobile Number" formControlName="phone" />
+          </mat-form-field>
+        </div>
+        <div fxLayout="row">
+          <mat-form-field style="margin-right:2.4rem" fxFlex>
+            <input type="text" matInput placeholder="City" formControlName="location" />
+          </mat-form-field>
+          <mat-form-field fxFlex>
+            <input type="text" matInput placeholder="Country" formControlName="country" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="action-block">
+          <button class="btn btn-primary">SAVE SETTINGS</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

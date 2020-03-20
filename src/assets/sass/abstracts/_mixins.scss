@@ -1,0 +1,6 @@
+// MEDIA QUERY MANAGER
+@mixin respond-media-query($media-width-type, $breakpoint) {
+  @media only screen and (#{$media-width-type}: $breakpoint) {
+    @content;
+  }
+}

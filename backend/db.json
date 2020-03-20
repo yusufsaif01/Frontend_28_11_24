@@ -1,0 +1,12 @@
+{
+  "Content_DATA": [
+    { "position": "01", "content": "Lorem Ipsum is simply dummy text", "department": "Outward" },
+    { "position": "02", "content": "Lorem Ipsum is simply dummy text", "department": "Outward" },
+    { "position": "03", "content": "Lorem Ipsum is simply dummy text", "department": "Outward" },
+    { "position": "04", "content": "Lorem Ipsum is simply dummy text", "department": "Outward" },
+    { "position": "05", "content": "Lorem Ipsum is simply dummy text", "department": "Outward" },
+    { "position": "06", "content": "Lorem Ipsum is simply dummy text", "department": "Outward" },
+    { "position": "07", "content": "Lorem Ipsum is simply dummy text", "department": "Outward" },
+    { "position": "08", "content": "Lorem Ipsum is simply dummy text", "department": "Outward" }
+  ]
+}

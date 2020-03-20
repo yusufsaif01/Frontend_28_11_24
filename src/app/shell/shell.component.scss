@@ -1,0 +1,16 @@
+@import "src/assets/sass/abstracts/variables";
+main {
+  display: flex;
+  app-sidebar {
+    flex: 1 1 100%;
+    max-width: 15.57%;
+  }
+  app-container {
+    flex: 1 1 0%;
+    background-image: radial-gradient(
+      circle at center,
+      rgba(lighten($color-primary, 15), 0.2) 0%,
+      rgba(lighten($color-primary, 16), 0.2) 100%
+    );
+  }
+}

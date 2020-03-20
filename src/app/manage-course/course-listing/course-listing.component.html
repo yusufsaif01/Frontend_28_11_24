@@ -1,0 +1,50 @@
+<div class="manage-user-and-roles card">
+  <div class="card__header">
+    <div class="heading">
+      <h2>Manage Course Module</h2>
+    </div>
+    <div class="table-search">
+      <mat-form-field>
+        <img src="assets/images/icons/search.png" alt="Search" class="search-icon" />
+        <input type="text" placeholder="Search" matInput (keyup)="applyFilter($event.target.value)" />
+      </mat-form-field>
+    </div>
+    <div class="page-navigator">
+      <button (click)="onCreateCourse()">Create Module</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let i = index"> {{ i + 1 }} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Module Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="department">
+        <mat-header-cell *matHeaderCellDef> Department </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.department }} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="assigned_chapter">
+        <mat-header-cell *matHeaderCellDef> Assigned Chapter </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span class="badge">{{ element.assigned_chapter }}</span>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div class="action-buttons">
+            <button class="select-chapter"><img src="assets/images/icons/chapter.png" alt="Edit" /></button>
+            <button class="edit"><img src="assets/images/icons/edit.png" alt="Edit" /></button>
+            <button class="delete"><img src="assets/images/icons/delete.png" alt="Delete" /></button>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </div>
+</div>

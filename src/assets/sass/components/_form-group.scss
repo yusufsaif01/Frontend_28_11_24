@@ -1,0 +1,71 @@
+@import "../abstracts/variables";
+
+.form-group {
+  margin-bottom: 5rem;
+  label {
+    font-size: 2rem;
+    line-height: 1;
+    color: #222223;
+    font-weight: 700;
+    margin-bottom: 1.3rem;
+    display: block;
+  }
+  .input__text {
+    border-radius: 0.7rem;
+    border: 0.1rem solid #cccccc;
+    height: 5.9rem;
+    width: 100%;
+    font-size: 1.5rem;
+    color: #a7a7a7;
+    font-weight: 400;
+    padding-right: 2.7rem;
+    padding-left: 2.7rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    outline: none;
+  }
+  .input__group {
+    position: relative;
+    &.date {
+      .input__text {
+        background-image: url("./assets/images/icons/calender.png");
+        background-repeat: no-repeat;
+        background-size: 1.8rem;
+        background-position: calc(100% - 2.1rem);
+      }
+      .mat-datepicker-toggle-default-icon {
+        visibility: hidden;
+      }
+    }
+    .input__text {
+      padding-right: 5.7rem;
+    }
+    &--addon {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  select {
+    background-color: #ffffff;
+    border-radius: 0.7rem;
+    border: 0.1rem solid #cccccc;
+    height: 5.9rem;
+    width: 100%;
+    font-size: 1.5rem;
+    color: #a7a7a7;
+    font-weight: 400;
+    padding-right: 5.7rem;
+    padding-left: 2.7rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("./assets/images/icons/drowdown-caret.png");
+    background-repeat: no-repeat;
+    background-size: 1.5rem;
+    background-position: calc(100% - 2.1rem);
+  }
+}

@@ -1,0 +1,8 @@
+@import "src/assets/sass/abstracts/variables";
+
+.question-content {
+  margin-bottom: 3.7rem;
+  .mat-table .mat-column-action {
+    flex: 0 1 40rem;
+  }
+}

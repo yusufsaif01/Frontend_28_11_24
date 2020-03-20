@@ -1,0 +1,104 @@
+@import "src/assets/sass/abstracts/variables";
+.sidebar {
+  position: relative;
+  box-shadow: 0.097rem 0.1749rem 1.6rem rgba($color-black, 0.05);
+  min-height: calc(100vh - 7.9rem);
+  height: 100%;
+  &__avatar {
+    text-align: center;
+    padding: 2.4rem 0rem 1.1rem 0rem;
+    margin: 0 1.6rem;
+    img {
+      height: 10rem;
+      width: 10rem;
+      border-radius: 5rem;
+      background-color: $color-white;
+      border: 0.4rem solid $color-white;
+    }
+    .name {
+      font-size: 1.6rem;
+      color: #3a3b3f;
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: 0.6rem;
+      margin-top: 1.6rem;
+    }
+    .designation {
+      font-size: 1.2rem;
+      color: #848484;
+      font-weight: 500;
+      line-height: 1;
+      margin-bottom: 0.6rem;
+    }
+    .department {
+      font-size: 1.2rem;
+      color: #848484;
+      font-weight: 500;
+      line-height: 1;
+    }
+  }
+  &__menu {
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+    ul {
+      padding: 2.4rem 0;
+      border-top: 0.1rem solid #ececec;
+      &.support {
+        li {
+          label {
+            font-family: "Roboto", "Muli", sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 1.3rem;
+            padding-left: 3.3rem;
+            margin-bottom: 0.8rem;
+            display: block;
+          }
+        }
+      }
+      li {
+        margin-left: -1.6rem;
+        margin-right: -1.6rem;
+        a {
+          img {
+            width: 2rem;
+            position: absolute;
+            left: 3.3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+          }
+          font-size: 1.4rem;
+          color: #66788a;
+          font-weight: 600;
+          line-height: 4.6rem;
+          padding-left: 6.4rem;
+          padding-right: 0.5rem;
+          position: relative;
+          display: inline-block;
+          width: 100%;
+          border-left: 0.4rem solid $color-white;
+          text-decoration: none;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          transition: all 0.5s;
+        }
+        &.active,
+        &:hover {
+          a {
+            color: #212529;
+            background: rgba($color-primary, 0.1);
+            border-left: 0.4rem solid $color-primary;
+            transition: all 0.5s;
+            img {
+              -webkit-filter: grayscale(0);
+              filter: grayscale(0);
+            }
+          }
+        }
+      }
+    }
+  }
+}
