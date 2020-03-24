@@ -10,16 +10,16 @@ import { Angulartics2Module } from 'angulartics2';
 import { environment } from '@env/environment';
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
-import { HomeModule } from './home/home.module';
-import { ShellModule } from './shell/shell.module';
+// import { HomeModule } from './home/home.module';
+// import { ShellModule } from './shell/shell.module';
 import { LoginModule } from './login/login.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HomeComponent } from './pages/home/home.component';
+// import { HomeComponent } from './pages/home/home.component';
 import { LoginFrontendModule } from './login-frontend/login-frontend.module';
 import { LoaderInterceptor } from './core/http/loader.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { FrontendModule } from './frontend/frontend.module';
+// import { FrontendModule } from './frontend/frontend.module';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -33,11 +33,11 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule,
     CoreModule,
     SharedModule,
-    ShellModule,
-    HomeModule,
+    // ShellModule,
+    // HomeModule,
     LoginModule,
     LoginFrontendModule,
-    FrontendModule,
+    // FrontendModule,
     Angulartics2Module.forRoot(),
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
     NgxSpinnerModule,
@@ -48,7 +48,9 @@ import { ToastrModule } from 'ngx-toastr';
       closeButton: true
     })
   ],
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent
+    // , HomeComponent
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
