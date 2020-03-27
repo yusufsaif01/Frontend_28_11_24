@@ -1,9 +1,21 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Routes, RouterModule
+  // , PreloadAllModules
+ } from '@angular/router';
+import { LoginComponent } from './login/login.component';
 // import { Shell } from '@app/shell/shell.service';
 // import { HomeComponent } from './pages/home/home.component';
+// import {} from './login/login.component'
 
 const routes: Routes = [
+  {
+    path:'',redirectTo:'login',pathMatch:'full'
+  },
+  {
+    path:'login',component:LoginComponent
+  },
+  // Shell.childRoutes([{ path: 'test', loadChildren: './about/about.module#AboutModule' }]),
+  
   // Shell.childRoutes([{ path: 'about', loadChildren: './about/about.module#AboutModule' }]),
   // Shell.childRoutes([
   //   { path: 'users', loadChildren: './manage-user-and-roles/manage-user-and-roles.module#ManageUserAndRolesModule' }
@@ -38,7 +50,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  imports: [RouterModule.forRoot(routes
+    // , { preloadingStrategy: PreloadAllModules }
+    )],
   exports: [RouterModule],
   providers: []
 })
