@@ -4,7 +4,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { Logger, I18nService, AuthenticationService, untilDestroyed, CredentialsService } from '@app/core';
+import {
+  Logger,
+  I18nService,
+  AuthenticationService,
+  untilDestroyed,
+  CredentialsService
+} from '@app/core';
 
 const log = new Logger('Login');
 
@@ -49,8 +55,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         (credentials: any) => {
           console.log(credentials, 'LOGIN SUCCESS');
           log.debug(`${credentials.username} successfully logged in`);
-          this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
-          this.credentialsService.setCredentials(credentials, this.loginForm.value.remember);
+          this.router.navigate(
+            [this.route.snapshot.queryParams.redirect || '/'],
+            { replaceUrl: true }
+          );
+          this.credentialsService.setCredentials(
+            credentials,
+            this.loginForm.value.remember
+          );
         },
         error => {
           log.debug(`Login error: ${error}`);
