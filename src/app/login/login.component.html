@@ -15,27 +15,18 @@
           <img src="assets/icons/user.svg" alt="" />
           <input
             type="email"
-            placeholder="Enter Username"
+            placeholder="Enter Email"
             matInput
-            formControlName="username"
-            autocomplete="username"
+            formControlName="email"
+            autocomplete="email"
             [placeholder]="'' | translate"
             required
-            [ngStyle]="{
-              'border-bottom':
-                loginForm.controls.username.invalid &&
-                loginForm.controls.username.touched
-                  ? '0.1rem solid #de5454'
-                  : ''
+            [ngClass]="{
+              'error-border': email.invalid && email.touched
             }"
           />
-          <mat-error
-            *ngIf="
-              loginForm.controls.username.invalid &&
-              loginForm.controls.username.touched
-            "
-          >
-            <span translate>Username is required</span>
+          <mat-error *ngIf="email.invalid && email.touched">
+            <span translate>Email is required</span>
           </mat-error>
         </li>
         <li>
@@ -50,12 +41,7 @@
             [placeholder]="'' | translate"
             required
           />
-          <mat-error
-            *ngIf="
-              loginForm.controls.password.invalid &&
-              loginForm.controls.password.touched
-            "
-          >
+          <mat-error *ngIf="password.invalid && password.touched">
             <span translate>Password is required</span>
           </mat-error>
         </li>
@@ -74,7 +60,7 @@
           </button>
         </li>
         <mat-error class="login-error" [hidden]="!error || isLoading" translate>
-          Username or password incorrect.
+          Email or password incorrect.
         </mat-error>
       </ul>
       <div class="login-footer">

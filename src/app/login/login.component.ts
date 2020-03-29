@@ -1,6 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl
+} from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
@@ -54,7 +59,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(
         (credentials: any) => {
           console.log(credentials, 'LOGIN SUCCESS');
-          log.debug(`${credentials.username} successfully logged in`);
+          log.debug(`${credentials.email} successfully logged in`);
           this.router.navigate(
             [this.route.snapshot.queryParams.redirect || '/'],
             { replaceUrl: true }
@@ -85,9 +90,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private createForm() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required],
       remember: true
     });
+  }
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+  get password() {
+    return this.loginForm.get('password');
   }
 }
