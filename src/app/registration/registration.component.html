@@ -33,19 +33,35 @@
       </div>
       <div class="Player" *ngIf="activeForm === 'player'">
         <!-- Player Form -->
-        <form class="form" id="player">
+        <form (ngSubmit)="playerRegister()" [formGroup]="playerRegisterationForm" class="form" id="player">
           <!-- firstName LastName  -->
           <div class="form-row">
             <div class="input-wrapper">
               <img src="assets/icons/user.svg" alt="" />
               <label>First Name</label>
-              <input type="text" matInput />
+              <input 
+              formControlName="first_name"
+              type="text" 
+              matInput
+              required
+            />
+            <ng-container *ngIf="playerRegisterationForm.controls.first_name.invalid && playerRegisterationForm.controls.first_name.touched">
+              <span class="error-text" *ngIf="playerRegisterationForm.controls.first_name.errors.required" >Required Field</span>
+            </ng-container>
             </div>
 
             <div class="input-wrapper">
               <img src="assets/icons/user.svg" alt="" />
               <label>Last Name</label>
-              <input type="text" matInput />
+              <input
+              formControlName="last_name" 
+              type="text" 
+              matInput 
+              required
+            />
+            <ng-container *ngIf="playerRegisterationForm.controls.last_name.invalid && playerRegisterationForm.controls.last_name.touched">
+              <span class="error-text" *ngIf="playerRegisterationForm.controls.last_name.errors.required" >Required Field</span>
+            </ng-container>
             </div>
           </div>
 
@@ -54,13 +70,34 @@
             <div class="input-wrapper">
               <img src="assets/icons/at-sign.svg" alt="" />
               <label>Email</label>
-              <input type="text" matInput />
+              <input 
+              formControlName="email"
+              type="text" 
+              matInput 
+              />
+              <ng-container *ngIf="playerRegisterationForm.controls.email.invalid && playerRegisterationForm.controls.email.touched">
+                <span class="error-text"  *ngIf="playerRegisterationForm.controls.email.errors.required" >Required Field</span>
+                <span class="error-text"  *ngIf="playerRegisterationForm.controls.email.errors.email">Invalid Email Format</span>
+              </ng-container>
             </div>
 
             <div class="input-wrapper">
               <img src="assets/icons/phone-call.svg" alt="" />
               <label>Contact Number</label>
-              <input type="text" matInput />
+              <input 
+              formControlName="phone"
+              type="text" 
+              matInput 
+            />
+            <ng-container *ngIf="playerRegisterationForm.controls.phone.invalid && playerRegisterationForm.controls.phone.touched">
+              <span class="error-text"  *ngIf="playerRegisterationForm.controls.phone.errors.required" >Required Field</span>
+              <span class="error-text"  *ngIf="playerRegisterationForm.controls.phone.errors.minlength" >
+                Please provide number upto {{ playerRegisterationForm.controls.phone.errors.minlength.requiredLength}} digits
+              </span>
+              <span class="error-text"  *ngIf="playerRegisterationForm.controls.phone.errors.maxlength" >
+                Please provide number under {{ playerRegisterationForm.controls.phone.errors.maxlength.requiredLength}} digits
+              </span>
+            </ng-container>
             </div>
           </div>
 
@@ -68,23 +105,37 @@
           <div class="form-row">
             <div class="input-wrapper">
               <label>Country</label>
-              <select matNativeControl required>
-                <option value="India">India</option>
-                <option value="uk">UK</option>
-                <option value="usa">USA</option>
-                <option value="australia">Australia</option>
+              <select 
+              formControlName="country"
+              matNativeControl 
+              required
+              >
+              <option value="India">India</option>
+              <option value="uk">UK</option>
+              <option value="usa">USA</option>
+              <option value="australia">Australia</option>
               </select>
+              <ng-container *ngIf="playerRegisterationForm.controls.country.invalid && playerRegisterationForm.controls.country.touched">
+                <span class="error-text"  *ngIf="playerRegisterationForm.controls.country.errors.required" >Required Field</span>
+              </ng-container>
             </div>
 
             <div class="input-wrapper">
               <label>State</label>
-              <select matNativeControl required>
-                <option value="delhi">Delhi</option>
-                <option value="mumbai">Mumbai</option>
-                <option value="up">U.P</option>
-                <option value="mp">M.P</option>
+              <select 
+              formControlName="state"
+              matNativeControl 
+              required
+              >
+              <option value="delhi">Delhi</option>
+              <option value="mumbai">Mumbai</option>
+              <option value="up">U.P</option>
+              <option value="mp">M.P</option>
               </select>
-            </div>
+              <ng-container *ngIf="playerRegisterationForm.controls.state.invalid && playerRegisterationForm.controls.state.touched">
+                <span class="error-text"  *ngIf="playerRegisterationForm.controls.state.errors.required" >Required Field</span>
+              </ng-container>
+          </div>
           </div>
 
           <!-- captcha -->
@@ -118,13 +169,18 @@
 
       <!-- club Form -->
       <div class="clubs" *ngIf="activeForm === 'club'">
-        <form class="form" id="player">
+        <form (ngSubmit)="clubRegister()" [formGroup]="clubRegisterationForm" class="form" id="player">
           <!-- firstName LastName  -->
           <div class="form-row">
             <div class="input-wrapper-full">
               <img src="assets/icons/user.svg" alt="" />
               <label>Club Name</label>
-              <input type="text" matInput />
+              <input 
+              formControlName = "club"
+              type="text" matInput />
+              <ng-container *ngIf="clubRegisterationForm.controls.club.invalid && clubRegisterationForm.controls.club.touched">
+                <span class="error-text"  *ngIf="clubRegisterationForm.controls.club.errors.required" >Required Field</span>
+              </ng-container>
             </div>
           </div>
 
@@ -133,13 +189,26 @@
             <div class="input-wrapper">
               <img src="assets/icons/at-sign.svg" alt="" />
               <label>Email</label>
-              <input type="text" matInput />
+              <input formControlName="email"  type="text" matInput />
+              <ng-container *ngIf="clubRegisterationForm.controls.email.invalid && clubRegisterationForm.controls.email.touched">
+                <span class="error-text"  *ngIf="clubRegisterationForm.controls.email.errors.required" >Required Field</span>
+                <span class="error-text"  *ngIf="clubRegisterationForm.controls.email.errors.email">Invalid Email Format</span>             >
+              </ng-container>
             </div>
 
             <div class="input-wrapper">
               <img src="assets/icons/phone-call.svg" alt="" />
               <label>Contact Number</label>
-              <input type="text" matInput />
+              <input formControlName="phone" type="text" matInput />
+              <ng-container *ngIf="clubRegisterationForm.controls.phone.invalid && clubRegisterationForm.controls.phone.touched">
+                <span class="error-text"  *ngIf="clubRegisterationForm.controls.phone.errors.required" >Required Field</span>
+                <span class="error-text"  *ngIf="clubRegisterationForm.controls.phone.errors.minlength" >
+                  Please provide number upto {{ clubRegisterationForm.controls.phone.errors.minlength.requiredLength}} digits
+                </span>
+                <span class="error-text"  *ngIf="clubRegisterationForm.controls.phone.errors.maxlength" >
+                  Please provide number under {{ clubRegisterationForm.controls.phone.errors.maxlength.requiredLength}} digits
+                </span>
+              </ng-container>
             </div>
           </div>
 
@@ -147,22 +216,28 @@
           <div class="form-row">
             <div class="input-wrapper">
               <label>Country</label>
-              <select matNativeControl required>
+              <select formControlName="country" matNativeControl required>
                 <option value="India">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
                 <option value="australia">Australia</option>
               </select>
+              <ng-container *ngIf="clubRegisterationForm.controls.country.invalid && clubRegisterationForm.controls.country.touched">
+                <span class="error-text"  *ngIf="clubRegisterationForm.controls.country.errors.required" >Required Field</span>
+              </ng-container>
             </div>
 
             <div class="input-wrapper">
               <label>State</label>
-              <select matNativeControl required>
+              <select formControlName="state" matNativeControl required>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>
                 <option value="mp">M.P</option>
               </select>
+              <ng-container *ngIf="clubRegisterationForm.controls.state.invalid && clubRegisterationForm.controls.state.touched">
+                <span class="error-text"  *ngIf="clubRegisterationForm.controls.state.errors.required" >Required Field</span>
+              </ng-container>
             </div>
           </div>
 
@@ -196,13 +271,16 @@
       </div>
       <!-- academy Form -->
       <div class="academy" *ngIf="activeForm === 'academy'">
-        <form class="form" id="player">
+        <form (ngSubmit)="academyRegister()" [formGroup]="academyRegisterationForm"  class="form" id="player">
           <!-- firstName LastName  -->
           <div class="form-row">
             <div class="input-wrapper-full">
               <img src="assets/icons/user.svg" alt="" />
               <label>Academy</label>
-              <input type="text" matInput />
+              <input formControlName="academy" type="text" matInput required />
+              <ng-container *ngIf="academyRegisterationForm.controls.academy.invalid && academyRegisterationForm.controls.academy.touched">
+                <span class="error-text"  *ngIf="academyRegisterationForm.controls.academy.errors.required" >Required Field</span>
+              </ng-container>
             </div>
           </div>
 
@@ -211,13 +289,26 @@
             <div class="input-wrapper">
               <img src="assets/icons/at-sign.svg" alt="" />
               <label>Email</label>
-              <input type="text" matInput />
+              <input formControlName="email" type="text" matInput />
+              <ng-container *ngIf="academyRegisterationForm.controls.email.invalid && academyRegisterationForm.controls.email.touched">
+                <span class="error-text"  *ngIf="academyRegisterationForm.controls.email.errors.required" >Required Field</span>
+                <span class="error-text"  *ngIf="academyRegisterationForm.controls.email.errors.email">Invalid Email Format</span>
+              </ng-container>
             </div>
 
             <div class="input-wrapper">
               <img src="assets/icons/phone-call.svg" alt="" />
               <label>Contact Number</label>
-              <input type="text" matInput />
+              <input formControlName="phone" type="text" matInput />
+              <ng-container *ngIf="academyRegisterationForm.controls.phone.invalid && academyRegisterationForm.controls.phone.touched">
+                <span class="error-text"  *ngIf="academyRegisterationForm.controls.phone.errors.required" >Required Field</span>
+                <span class="error-text"  *ngIf="academyRegisterationForm.controls.phone.errors.minlength" >
+                  Please provide number upto {{ academyRegisterationForm.controls.phone.errors.minlength.requiredLength}} digits
+                </span>
+                <span class="error-text"  *ngIf="academyRegisterationForm.controls.phone.errors.maxlength" >
+                  Please provide number upto {{ academyRegisterationForm.controls.phone.errors.maxlength.requiredLength}} digits
+                </span>
+              </ng-container>
             </div>
           </div>
 
@@ -225,22 +316,28 @@
           <div class="form-row">
             <div class="input-wrapper">
               <label>Country</label>
-              <select matNativeControl required>
+              <select formControlName="country" matNativeControl required>
                 <option value="India">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
                 <option value="australia">Australia</option>
               </select>
+              <ng-container *ngIf="academyRegisterationForm.controls.country.invalid && academyRegisterationForm.controls.country.touched">
+                <span class="error-text"  *ngIf="academyRegisterationForm.controls.country.errors.required" >Required Field</span>
+              </ng-container>
             </div>
 
             <div class="input-wrapper">
               <label>State</label>
-              <select matNativeControl required>
+              <select formControlName="state" matNativeControl required>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>
                 <option value="mp">M.P</option>
               </select>
+              <ng-container *ngIf="academyRegisterationForm.controls.state.invalid && academyRegisterationForm.controls.state.touched">
+                <span class="error-text"  *ngIf="academyRegisterationForm.controls.state.errors.required" >Required Field</span>
+              </ng-container>
             </div>
           </div>
 
