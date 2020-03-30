@@ -45,8 +45,8 @@
               matInput
               required
             />
-            <ng-container *ngIf="playerRegisterationForm.controls.first_name.invalid && playerRegisterationForm.controls.first_name.touched">
-              <span class="error-text" *ngIf="playerRegisterationForm.controls.first_name.errors.required" >Required Field</span>
+            <ng-container *ngIf="isFocused(playerRegisterationForm,'first_name')">
+              <span class="error-text" *ngIf="isRequired(playerRegisterationForm,'first_name')" >Required Field</span>
             </ng-container>
             </div>
 
@@ -59,8 +59,8 @@
               matInput 
               required
             />
-            <ng-container *ngIf="playerRegisterationForm.controls.last_name.invalid && playerRegisterationForm.controls.last_name.touched">
-              <span class="error-text" *ngIf="playerRegisterationForm.controls.last_name.errors.required" >Required Field</span>
+            <ng-container *ngIf="isFocused(playerRegisterationForm,'last_name')">
+              <span class="error-text" *ngIf="isRequired(playerRegisterationForm,'last_name')" >Required Field</span>
             </ng-container>
             </div>
           </div>
@@ -75,8 +75,8 @@
               type="text" 
               matInput 
               />
-              <ng-container *ngIf="playerRegisterationForm.controls.email.invalid && playerRegisterationForm.controls.email.touched">
-                <span class="error-text"  *ngIf="playerRegisterationForm.controls.email.errors.required" >Required Field</span>
+              <ng-container *ngIf="isFocused(playerRegisterationForm,'email')">
+                <span class="error-text"  *ngIf="isRequired(playerRegisterationForm,'email')" >Required Field</span>
                 <span class="error-text"  *ngIf="playerRegisterationForm.controls.email.errors.email">Invalid Email Format</span>
               </ng-container>
             </div>
@@ -89,8 +89,8 @@
               type="text" 
               matInput 
             />
-            <ng-container *ngIf="playerRegisterationForm.controls.phone.invalid && playerRegisterationForm.controls.phone.touched">
-              <span class="error-text"  *ngIf="playerRegisterationForm.controls.phone.errors.required" >Required Field</span>
+            <ng-container *ngIf="isFocused(playerRegisterationForm,'phone')">
+              <span class="error-text"  *ngIf="isRequired(playerRegisterationForm,'phone')" >Required Field</span>
               <span class="error-text"  *ngIf="playerRegisterationForm.controls.phone.errors.minlength" >
                 Please provide number upto {{ playerRegisterationForm.controls.phone.errors.minlength.requiredLength}} digits
               </span>
@@ -113,10 +113,10 @@
               <option value="India">India</option>
               <option value="uk">UK</option>
               <option value="usa">USA</option>
-              <option value="australia">Australia</option>
+              <option value="australia">Australia</option>country
               </select>
-              <ng-container *ngIf="playerRegisterationForm.controls.country.invalid && playerRegisterationForm.controls.country.touched">
-                <span class="error-text"  *ngIf="playerRegisterationForm.controls.country.errors.required" >Required Field</span>
+              <ng-container *ngIf="isFocused(playerRegisterationForm,'country')">
+                <span class="error-text"  *ngIf="isRequired(playerRegisterationForm,'country')" >Required Field</span>
               </ng-container>
             </div>
 
@@ -132,8 +132,8 @@
               <option value="up">U.P</option>
               <option value="mp">M.P</option>
               </select>
-              <ng-container *ngIf="playerRegisterationForm.controls.state.invalid && playerRegisterationForm.controls.state.touched">
-                <span class="error-text"  *ngIf="playerRegisterationForm.controls.state.errors.required" >Required Field</span>
+              <ng-container *ngIf="isFocused(playerRegisterationForm,'state')">
+                <span class="error-text"  *ngIf="isRequired(playerRegisterationForm,'state')" >Required Field</span>
               </ng-container>
           </div>
           </div>
@@ -178,8 +178,8 @@
               <input 
               formControlName = "club"
               type="text" matInput />
-              <ng-container *ngIf="clubRegisterationForm.controls.club.invalid && clubRegisterationForm.controls.club.touched">
-                <span class="error-text"  *ngIf="clubRegisterationForm.controls.club.errors.required" >Required Field</span>
+              <ng-container *ngIf="isFocused(clubRegisterationForm,'club')">
+                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'club')" >Required Field</span>
               </ng-container>
             </div>
           </div>
@@ -190,8 +190,8 @@
               <img src="assets/icons/at-sign.svg" alt="" />
               <label>Email</label>
               <input formControlName="email"  type="text" matInput />
-              <ng-container *ngIf="clubRegisterationForm.controls.email.invalid && clubRegisterationForm.controls.email.touched">
-                <span class="error-text"  *ngIf="clubRegisterationForm.controls.email.errors.required" >Required Field</span>
+              <ng-container *ngIf="isFocused(clubRegisterationForm,'email')">
+                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'email')" >Required Field</span>
                 <span class="error-text"  *ngIf="clubRegisterationForm.controls.email.errors.email">Invalid Email Format</span>             >
               </ng-container>
             </div>
@@ -200,8 +200,8 @@
               <img src="assets/icons/phone-call.svg" alt="" />
               <label>Contact Number</label>
               <input formControlName="phone" type="text" matInput />
-              <ng-container *ngIf="clubRegisterationForm.controls.phone.invalid && clubRegisterationForm.controls.phone.touched">
-                <span class="error-text"  *ngIf="clubRegisterationForm.controls.phone.errors.required" >Required Field</span>
+              <ng-container *ngIf="isFocused(clubRegisterationForm,'phone')">
+                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'phone')" >Required Field</span>
                 <span class="error-text"  *ngIf="clubRegisterationForm.controls.phone.errors.minlength" >
                   Please provide number upto {{ clubRegisterationForm.controls.phone.errors.minlength.requiredLength}} digits
                 </span>
@@ -222,8 +222,8 @@
                 <option value="usa">USA</option>
                 <option value="australia">Australia</option>
               </select>
-              <ng-container *ngIf="clubRegisterationForm.controls.country.invalid && clubRegisterationForm.controls.country.touched">
-                <span class="error-text"  *ngIf="clubRegisterationForm.controls.country.errors.required" >Required Field</span>
+              <ng-container *ngIf="isFocused(clubRegisterationForm,'country')">
+                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'country')" >Required Field</span>
               </ng-container>
             </div>
 
@@ -235,8 +235,8 @@
                 <option value="up">U.P</option>
                 <option value="mp">M.P</option>
               </select>
-              <ng-container *ngIf="clubRegisterationForm.controls.state.invalid && clubRegisterationForm.controls.state.touched">
-                <span class="error-text"  *ngIf="clubRegisterationForm.controls.state.errors.required" >Required Field</span>
+              <ng-container *ngIf="isFocused(clubRegisterationForm,'state')">
+                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'state')" >Required Field</span>
               </ng-container>
             </div>
           </div>
@@ -278,8 +278,8 @@
               <img src="assets/icons/user.svg" alt="" />
               <label>Academy</label>
               <input formControlName="academy" type="text" matInput required />
-              <ng-container *ngIf="academyRegisterationForm.controls.academy.invalid && academyRegisterationForm.controls.academy.touched">
-                <span class="error-text"  *ngIf="academyRegisterationForm.controls.academy.errors.required" >Required Field</span>
+              <ng-container *ngIf="isFocused(academyRegisterationForm,'academy')">
+                <span class="error-text" *ngIf="isRequired(academyRegisterationForm,'academy')">Required Field</span>
               </ng-container>
             </div>
           </div>
@@ -290,9 +290,9 @@
               <img src="assets/icons/at-sign.svg" alt="" />
               <label>Email</label>
               <input formControlName="email" type="text" matInput />
-              <ng-container *ngIf="academyRegisterationForm.controls.email.invalid && academyRegisterationForm.controls.email.touched">
+              <ng-container *ngIf="isFocused(academyRegisterationForm,'email')">
                 <span class="error-text"  *ngIf="academyRegisterationForm.controls.email.errors.required" >Required Field</span>
-                <span class="error-text"  *ngIf="academyRegisterationForm.controls.email.errors.email">Invalid Email Format</span>
+                <span class="error-text"  *ngIf="isRequired(academyRegisterationForm,'email')">Invalid Email Format</span>
               </ng-container>
             </div>
 
@@ -300,8 +300,8 @@
               <img src="assets/icons/phone-call.svg" alt="" />
               <label>Contact Number</label>
               <input formControlName="phone" type="text" matInput />
-              <ng-container *ngIf="academyRegisterationForm.controls.phone.invalid && academyRegisterationForm.controls.phone.touched">
-                <span class="error-text"  *ngIf="academyRegisterationForm.controls.phone.errors.required" >Required Field</span>
+              <ng-container *ngIf="isFocused(academyRegisterationForm,'phone')">
+                <span class="error-text"  *ngIf="isRequired(academyRegisterationForm,'phone')" >Required Field</span>
                 <span class="error-text"  *ngIf="academyRegisterationForm.controls.phone.errors.minlength" >
                   Please provide number upto {{ academyRegisterationForm.controls.phone.errors.minlength.requiredLength}} digits
                 </span>
@@ -322,8 +322,8 @@
                 <option value="usa">USA</option>
                 <option value="australia">Australia</option>
               </select>
-              <ng-container *ngIf="academyRegisterationForm.controls.country.invalid && academyRegisterationForm.controls.country.touched">
-                <span class="error-text"  *ngIf="academyRegisterationForm.controls.country.errors.required" >Required Field</span>
+              <ng-container *ngIf="isFocused(academyRegisterationForm,'country')">
+                <span class="error-text" *ngIf="isRequired(academyRegisterationForm,'country')" >Required Field</span>
               </ng-container>
             </div>
 
@@ -335,8 +335,8 @@
                 <option value="up">U.P</option>
                 <option value="mp">M.P</option>
               </select>
-              <ng-container *ngIf="academyRegisterationForm.controls.state.invalid && academyRegisterationForm.controls.state.touched">
-                <span class="error-text"  *ngIf="academyRegisterationForm.controls.state.errors.required" >Required Field</span>
+              <ng-container *ngIf="isFocused(academyRegisterationForm,'state')">
+                <span class="error-text"  *ngIf="isRequired(academyRegisterationForm,'state')" >Required Field</span>
               </ng-container>
             </div>
           </div>

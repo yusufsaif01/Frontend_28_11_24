@@ -27,9 +27,9 @@ export class RegistrationComponent implements OnInit {
     this.activeForm = formName;
   }
   playerRegister(){
-    console.log("player form data",this.playerRegisterationForm.value)
     let form_data = this.playerRegisterationForm.value;
     form_data.member_type = this.activeForm;
+    console.log("player form_data",form_data);
     const register = this._authenticationService.register(form_data);
     register
       .subscribe(
@@ -42,10 +42,11 @@ export class RegistrationComponent implements OnInit {
       );
   }
   clubRegister(){
-    console.log("club form data",this.playerRegisterationForm.value)
+    // console.log("club form data",this.playerRegisterationForm.value)
     let form_data = this.clubRegisterationForm.value;
-    form_data.member_type = this.activeForm;
-    const register = this._authenticationService.register(this.playerRegisterationForm.value);
+    form_data['member_type']= this.activeForm;
+    console.log("club form_data",form_data);
+    const register = this._authenticationService.register(form_data);
     register
       .subscribe(
         (credentials)=>{
@@ -57,10 +58,10 @@ export class RegistrationComponent implements OnInit {
       );
   }
   academyRegister(){
-    console.log("academy form data",this.playerRegisterationForm.value);
     let form_data = this.academyRegisterationForm.value;
     form_data.member_type = this.activeForm;
-    const register = this._authenticationService.register(this.playerRegisterationForm.value);
+    console.log("academy form_data",form_data);
+    const register = this._authenticationService.register(form_data);
     register
       .subscribe(
         (credentials)=>{
@@ -70,6 +71,16 @@ export class RegistrationComponent implements OnInit {
           console.log('ERror',error)
         }
       );
+  }
+
+  isFocused(form:FormGroup, field:string){
+    const {invalid, touched} = form.get(field);
+    return invalid && touched;
+  }
+
+  isRequired(form:FormGroup, field:string){
+    const { required } =  form.get(field).errors
+    return required;
   }
 
   private createForm() {
