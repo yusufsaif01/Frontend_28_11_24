@@ -11,242 +11,252 @@
     </div>
     <!-- Registration forms -->
     <div class="registration-wrapper-forms">
-      <mat-tab-group>
-        <mat-tab label="Player">
-          <!-- Player Form -->
-          <form class="form" id="player">
-            <!-- firstName LastName  -->
-            <div class="form-row">
-              <div class="input-wrapper">
-                <img src="assets/icons/user.svg" alt="" />
-                <label>First Name</label>
-                <input type="text" matInput />
-              </div>
-
-              <div class="input-wrapper">
-                <img src="assets/icons/user.svg" alt="" />
-                <label>Last Name</label>
-                <input type="text" matInput />
-              </div>
+      <div class="register-type">
+        <button class="active">Player</button>
+        <button>Club</button>
+        <button>Academy</button>
+      </div>
+      <div class="Player">
+        <!-- Player Form -->
+        <form class="form" id="player">
+          <!-- firstName LastName  -->
+          <div class="form-row">
+            <div class="input-wrapper">
+              <img src="assets/icons/user.svg" alt="" />
+              <label>First Name</label>
+              <input type="text" matInput />
             </div>
 
-            <!-- Email / Contact Number -->
-            <div class="form-row">
-              <div class="input-wrapper">
-                <img src="assets/icons/at-sign.svg" alt="" />
-                <label>Email</label>
-                <input type="text" matInput />
-              </div>
+            <div class="input-wrapper">
+              <img src="assets/icons/user.svg" alt="" />
+              <label>Last Name</label>
+              <input type="text" matInput />
+            </div>
+          </div>
 
-              <div class="input-wrapper">
-                <img src="assets/icons/phone-call.svg" alt="" />
-                <label>Contact Number</label>
-                <input type="text" matInput />
-              </div>
+          <!-- Email / Contact Number -->
+          <div class="form-row">
+            <div class="input-wrapper">
+              <img src="assets/icons/at-sign.svg" alt="" />
+              <label>Email</label>
+              <input type="text" matInput />
             </div>
 
-            <!-- Country and City -->
-            <div class="form-row">
-              <div class="input-wrapper">
-                <label>Country</label>
-                <select matNativeControl required>
-                  <option value="India">India</option>
-                  <option value="uk">UK</option>
-                  <option value="usa">USA</option>
-                  <option value="australia">Australia</option>
-                </select>
-              </div>
+            <div class="input-wrapper">
+              <img src="assets/icons/phone-call.svg" alt="" />
+              <label>Contact Number</label>
+              <input type="text" matInput />
+            </div>
+          </div>
 
-              <div class="input-wrapper">
-                <label>State</label>
-                <select matNativeControl required>
-                  <option value="delhi">Delhi</option>
-                  <option value="mumbai">Mumbai</option>
-                  <option value="up">U.P</option>
-                  <option value="mp">M.P</option>
-                </select>
-              </div>
+          <!-- Country and City -->
+          <div class="form-row">
+            <div class="input-wrapper">
+              <label>Country</label>
+              <select matNativeControl required>
+                <option value="India">India</option>
+                <option value="uk">UK</option>
+                <option value="usa">USA</option>
+                <option value="australia">Australia</option>
+              </select>
             </div>
 
-            <!-- captcha -->
-            <div class="form-row">
+            <div class="input-wrapper">
+              <label>State</label>
+              <select matNativeControl required>
+                <option value="delhi">Delhi</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="up">U.P</option>
+                <option value="mp">M.P</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- captcha -->
+          <div class="form-row">
+            <div class="img-wrapper">
               <img src="assets/images/capcha.png" alt="" />
             </div>
+          </div>
 
-            <div class="form-row">
-              <div class="input-wrapper-full">
-                <p>
-                  You agree to the YFT chain <a>User Agreement</a> and
-                  <a>Privacy Policy</a>
-                </p>
-              </div>
+          <div class="form-row">
+            <div class="input-wrapper-full">
+              <p>
+                You agree to the YFT chain <a>User Agreement</a> and
+                <a>Privacy Policy</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="input-wrapper-full">
+              <button type="submit" class="btn">Agree & Join</button>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <p><a>Forgot password?</a></p>
+            <p>Already on YFT chain? <a>Sign in</a></p>
+          </div>
+        </form>
+      </div>
+
+      <!-- club Form -->
+      <div class="clubs">
+        <form class="form" id="player">
+          <!-- firstName LastName  -->
+          <div class="form-row">
+            <div class="input-wrapper-full">
+              <img src="assets/icons/user.svg" alt="" />
+              <label>Club Name</label>
+              <input type="text" matInput />
+            </div>
+          </div>
+
+          <!-- Email / Contact Number -->
+          <div class="form-row">
+            <div class="input-wrapper">
+              <img src="assets/icons/at-sign.svg" alt="" />
+              <label>Email</label>
+              <input type="text" matInput />
             </div>
 
-            <div class="form-row">
-              <div class="input-wrapper-full">
-                <button type="submit" class="btn">Agree & Join</button>
-              </div>
+            <div class="input-wrapper">
+              <img src="assets/icons/phone-call.svg" alt="" />
+              <label>Contact Number</label>
+              <input type="text" matInput />
+            </div>
+          </div>
+
+          <!-- Country and City -->
+          <div class="form-row">
+            <div class="input-wrapper">
+              <label>Country</label>
+              <select matNativeControl required>
+                <option value="India">India</option>
+                <option value="uk">UK</option>
+                <option value="usa">USA</option>
+                <option value="australia">Australia</option>
+              </select>
             </div>
 
-            <div class="form-row">
-              <p><a>Forgot password?</a></p>
-              <p>Already on YFT chain? <a>Sign in</a></p>
+            <div class="input-wrapper">
+              <label>State</label>
+              <select matNativeControl required>
+                <option value="delhi">Delhi</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="up">U.P</option>
+                <option value="mp">M.P</option>
+              </select>
             </div>
-          </form>
-        </mat-tab>
-        <mat-tab label="Club">
-          <!-- club Form -->
-          <form class="form" id="player">
-            <!-- firstName LastName  -->
-            <div class="form-row">
-              <div class="input-wrapper-full">
-                <img src="assets/icons/user.svg" alt="" />
-                <label>Club Name</label>
-                <input type="text" matInput />
-              </div>
-            </div>
+          </div>
 
-            <!-- Email / Contact Number -->
-            <div class="form-row">
-              <div class="input-wrapper">
-                <img src="assets/icons/at-sign.svg" alt="" />
-                <label>Email</label>
-                <input type="text" matInput />
-              </div>
-
-              <div class="input-wrapper">
-                <img src="assets/icons/phone-call.svg" alt="" />
-                <label>Contact Number</label>
-                <input type="text" matInput />
-              </div>
-            </div>
-
-            <!-- Country and City -->
-            <div class="form-row">
-              <div class="input-wrapper">
-                <label>Country</label>
-                <select matNativeControl required>
-                  <option value="India">India</option>
-                  <option value="uk">UK</option>
-                  <option value="usa">USA</option>
-                  <option value="australia">Australia</option>
-                </select>
-              </div>
-
-              <div class="input-wrapper">
-                <label>State</label>
-                <select matNativeControl required>
-                  <option value="delhi">Delhi</option>
-                  <option value="mumbai">Mumbai</option>
-                  <option value="up">U.P</option>
-                  <option value="mp">M.P</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- captcha -->
-            <div class="form-row">
+          <!-- captcha -->
+          <div class="form-row">
+            <div class="img-wrapper">
               <img src="assets/images/capcha.png" alt="" />
             </div>
+          </div>
 
-            <div class="form-row">
-              <div class="input-wrapper-full">
-                <p>
-                  You agree to the YFT chain <a>User Agreement</a> and
-                  <a>Privacy Policy</a>
-                </p>
-              </div>
+          <div class="form-row">
+            <div class="input-wrapper-full">
+              <p>
+                You agree to the YFT chain <a>User Agreement</a> and
+                <a>Privacy Policy</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="input-wrapper-full">
+              <button type="submit" class="btn">Agree & Join</button>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <p><a>Forgot password?</a></p>
+            <p>Already on YFT chain? <a>Sign in</a></p>
+          </div>
+        </form>
+      </div>
+      <!-- academy Form -->
+      <div class="academy">
+        <form class="form" id="player">
+          <!-- firstName LastName  -->
+          <div class="form-row">
+            <div class="input-wrapper-full">
+              <img src="assets/icons/user.svg" alt="" />
+              <label>Academy</label>
+              <input type="text" matInput />
+            </div>
+          </div>
+
+          <!-- Email / Contact Number -->
+          <div class="form-row">
+            <div class="input-wrapper">
+              <img src="assets/icons/at-sign.svg" alt="" />
+              <label>Email</label>
+              <input type="text" matInput />
             </div>
 
-            <div class="form-row">
-              <div class="input-wrapper-full">
-                <button type="submit" class="btn">Agree & Join</button>
-              </div>
+            <div class="input-wrapper">
+              <img src="assets/icons/phone-call.svg" alt="" />
+              <label>Contact Number</label>
+              <input type="text" matInput />
+            </div>
+          </div>
+
+          <!-- Country and City -->
+          <div class="form-row">
+            <div class="input-wrapper">
+              <label>Country</label>
+              <select matNativeControl required>
+                <option value="India">India</option>
+                <option value="uk">UK</option>
+                <option value="usa">USA</option>
+                <option value="australia">Australia</option>
+              </select>
             </div>
 
-            <div class="form-row">
-              <p><a>Forgot password?</a></p>
-              <p>Already on YFT chain? <a>Sign in</a></p>
+            <div class="input-wrapper">
+              <label>State</label>
+              <select matNativeControl required>
+                <option value="delhi">Delhi</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="up">U.P</option>
+                <option value="mp">M.P</option>
+              </select>
             </div>
-          </form>
-        </mat-tab>
-        <mat-tab label="Academy">
-          <!-- Player Form -->
-          <form class="form" id="player">
-            <!-- firstName LastName  -->
-            <div class="form-row">
-              <div class="input-wrapper-full">
-                <img src="assets/icons/user.svg" alt="" />
-                <label>Academy</label>
-                <input type="text" matInput />
-              </div>
-            </div>
+          </div>
 
-            <!-- Email / Contact Number -->
-            <div class="form-row">
-              <div class="input-wrapper">
-                <img src="assets/icons/at-sign.svg" alt="" />
-                <label>Email</label>
-                <input type="text" matInput />
-              </div>
-
-              <div class="input-wrapper">
-                <img src="assets/icons/phone-call.svg" alt="" />
-                <label>Contact Number</label>
-                <input type="text" matInput />
-              </div>
-            </div>
-
-            <!-- Country and City -->
-            <div class="form-row">
-              <div class="input-wrapper">
-                <label>Country</label>
-                <select matNativeControl required>
-                  <option value="India">India</option>
-                  <option value="uk">UK</option>
-                  <option value="usa">USA</option>
-                  <option value="australia">Australia</option>
-                </select>
-              </div>
-
-              <div class="input-wrapper">
-                <label>State</label>
-                <select matNativeControl required>
-                  <option value="delhi">Delhi</option>
-                  <option value="mumbai">Mumbai</option>
-                  <option value="up">U.P</option>
-                  <option value="mp">M.P</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- captcha -->
-            <div class="form-row">
+          <!-- captcha -->
+          <div class="form-row">
+            <div class="img-wrapper">
               <img src="assets/images/capcha.png" alt="" />
             </div>
+          </div>
 
-            <div class="form-row">
-              <div class="input-wrapper-full">
-                <p>
-                  You agree to the YFT chain <a>User Agreement</a> and
-                  <a>Privacy Policy</a>
-                </p>
-              </div>
+          <div class="form-row">
+            <div class="input-wrapper-full">
+              <p>
+                You agree to the YFT chain <a>User Agreement</a> and
+                <a>Privacy Policy</a>
+              </p>
             </div>
+          </div>
 
-            <div class="form-row">
-              <div class="input-wrapper-full">
-                <button type="submit" class="btn">Agree & Join</button>
-              </div>
+          <div class="form-row">
+            <div class="input-wrapper-full">
+              <button type="submit" class="btn">Agree & Join</button>
             </div>
+          </div>
 
-            <div class="form-row">
-              <p><a>Forgot password?</a></p>
-              <p>Already on YFT chain? <a>Sign in</a></p>
-            </div>
-          </form>
-        </mat-tab>
-      </mat-tab-group>
+          <div class="form-row">
+            <p><a>Forgot password?</a></p>
+            <p>Already on YFT chain? <a>Sign in</a></p>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

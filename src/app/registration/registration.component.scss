@@ -36,17 +36,26 @@
       }
     }
     &-forms {
+      .register-type {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin: 2rem auto;
+        button {
+          max-width: 19rem;
+          width: 100%;
+          height: 5rem;
+          cursor: pointer;
+          border: none;
+          background: $color-white;
+        }
+      }
       .form-row {
         display: flex;
         justify-content: space-between;
 
-        img {
-          max-width: 48%;
-        }
-
         p {
           font-size: 1.8rem;
-          margin-top: 2rem;
           a {
             color: $blue;
             font-weight: 500;
@@ -59,12 +68,9 @@
           position: relative;
           img {
             position: absolute;
-            top: 4rem;
+            top: 4.5rem;
             width: 2.4rem;
             left: 1rem;
-          }
-          img.img-full {
-            width: 100%;
           }
           label {
             font-size: 1.8rem;
@@ -95,10 +101,17 @@
           }
         }
 
+        .img-wrapper {
+          width: 48%;
+          margin-bottom: 2rem;
+          img {
+            width: 100%;
+          }
+        }
         .input-wrapper-full {
           width: 100%;
+          margin-bottom: 2rem;
           .btn {
-            margin-top: 2.4rem;
             color: $color-white;
             font-weight: 600;
             @include btn-primary;
@@ -117,4 +130,8 @@
       }
     }
   }
+}
+.active {
+  background: $blue !important;
+  color: $color-white;
 }
