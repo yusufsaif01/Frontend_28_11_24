@@ -21,11 +21,14 @@ import { LoaderInterceptor } from './core/http/loader.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 // import { FrontendModule } from './frontend/frontend.module';
 import { ToastrModule } from 'ngx-toastr';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   imports: [
     BrowserModule,
-    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('./ngsw-worker.js', {
+      enabled: environment.production
+    }),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -48,7 +51,9 @@ import { ToastrModule } from 'ngx-toastr';
       closeButton: true
     })
   ],
-  declarations: [AppComponent
+  declarations: [
+    AppComponent,
+    RegistrationComponent
     // , HomeComponent
   ],
   providers: [
