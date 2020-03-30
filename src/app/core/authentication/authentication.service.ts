@@ -11,7 +11,7 @@ const routes = {
 };
 
 export interface LoginContext {
-  username: string;
+  email: string;
   password: string;
   remember?: boolean;
 }
@@ -24,7 +24,10 @@ export interface LoginContext {
   providedIn: 'root'
 })
 export class AuthenticationService {
-  constructor(private credentialsService: CredentialsService, private httpClient: HttpClient) {}
+  constructor(
+    private credentialsService: CredentialsService,
+    private httpClient: HttpClient
+  ) {}
 
   /**
    * Authenticates the user.

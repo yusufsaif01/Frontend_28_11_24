@@ -21,6 +21,7 @@ import { LoaderInterceptor } from './core/http/loader.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 // import { FrontendModule } from './frontend/frontend.module';
 import { ToastrModule } from 'ngx-toastr';
+import { MatTabsModule } from '@angular/material/tabs';
 import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
@@ -38,6 +39,7 @@ import { RegistrationComponent } from './registration/registration.component';
     SharedModule,
     // ShellModule,
     // HomeModule,
+    MatTabsModule,
     LoginModule,
     LoginFrontendModule,
     // FrontendModule,
