@@ -49,7 +49,9 @@
         <li>
           <mat-checkbox formControlName="remember" class=" remember-me"> Remember password </mat-checkbox>
         </li>
-
+        <mat-error class="login-error" [hidden]="!error || isLoading" translate>
+          Incorrect email or password
+        </mat-error>
         <li>
           <button
             type="submit"
@@ -59,9 +61,6 @@
             Sign In
           </button>
         </li>
-        <mat-error class="login-error" [hidden]="!error || isLoading" translate>
-          Email or password incorrect.
-        </mat-error>
       </ul>
       <div class="login-footer">
         <a href="#">
