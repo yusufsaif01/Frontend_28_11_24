@@ -12,11 +12,26 @@
     <!-- Registration forms -->
     <div class="registration-wrapper-forms">
       <div class="register-type">
-        <button class="active">Player</button>
-        <button>Club</button>
-        <button>Academy</button>
+        <button
+          (click)="toggleForm('player')"
+          [ngClass]="{ active: activeForm == 'player' }"
+        >
+          Player
+        </button>
+        <button
+          (click)="toggleForm('club')"
+          [ngClass]="{ active: activeForm == 'club' }"
+        >
+          Club
+        </button>
+        <button
+          (click)="toggleForm('academy')"
+          [ngClass]="{ active: activeForm == 'academy' }"
+        >
+          Academy
+        </button>
       </div>
-      <div class="Player">
+      <div class="Player" *ngIf="activeForm === 'player'">
         <!-- Player Form -->
         <form class="form" id="player">
           <!-- firstName LastName  -->
@@ -102,7 +117,7 @@
       </div>
 
       <!-- club Form -->
-      <div class="clubs">
+      <div class="clubs" *ngIf="activeForm === 'club'">
         <form class="form" id="player">
           <!-- firstName LastName  -->
           <div class="form-row">
@@ -180,7 +195,7 @@
         </form>
       </div>
       <!-- academy Form -->
-      <div class="academy">
+      <div class="academy" *ngIf="activeForm === 'academy'">
         <form class="form" id="player">
           <!-- firstName LastName  -->
           <div class="form-row">
