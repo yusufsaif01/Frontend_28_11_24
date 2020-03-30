@@ -21,12 +21,12 @@
             autocomplete="email"
             [placeholder]="'' | translate"
             required
-            [ngClass]="{
-              'error-border': email.invalid && email.touched
+            [ngClass]="{'error-border': email.invalid && email.touched && (email.errors.required || email.errors.email )
             }"
           />
           <mat-error *ngIf="email.invalid && email.touched">
-            <span translate>Email is required</span>
+            <span *ngIf="email.errors.required" translate>Email is required</span>
+            <span *ngIf="email.errors.email" translate>Invalid Email Format</span>
           </mat-error>
         </li>
         <li>
@@ -47,9 +47,11 @@
         </li>
 
         <li>
-          <mat-checkbox class=" remember-me"> Remember password </mat-checkbox>
+          <mat-checkbox formControlName="remember" class=" remember-me"> Remember password </mat-checkbox>
         </li>
-
+        <mat-error class="login-error" [hidden]="!error || isLoading" translate>
+          Incorrect email or password
+        </mat-error>
         <li>
           <button
             type="submit"
@@ -59,9 +61,6 @@
             Sign In
           </button>
         </li>
-        <mat-error class="login-error" [hidden]="!error || isLoading" translate>
-          Email or password incorrect.
-        </mat-error>
       </ul>
       <div class="login-footer">
         <a href="#">
