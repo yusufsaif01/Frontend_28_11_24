@@ -11,7 +11,7 @@ const routes = {
 };
 
 export interface LoginContext {
-  username: string;
+  email: string;
   password: string;
   remember?: boolean;
 }
