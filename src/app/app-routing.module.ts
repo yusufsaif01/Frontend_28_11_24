@@ -5,6 +5,7 @@ import {
   // , PreloadAllModules
 } from '@angular/router';
 import { RegistrationComponent } from './registration/registration.component';
+import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
     path: 'login',
     loadChildren: './login/login.module#LoginModule'
   },
+  { path: 'forget-password', component: ForgetpasswordComponent },
   { path: 'register', component: RegistrationComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

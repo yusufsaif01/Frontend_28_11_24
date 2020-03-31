@@ -23,6 +23,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 // import { FrontendModule } from './frontend/frontend.module';
 import { ToastrModule } from 'ngx-toastr';
 import { RegistrationComponent } from './registration/registration.component';
+import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import { RegistrationComponent } from './registration/registration.component';
   ],
   declarations: [
     AppComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ForgetpasswordComponent
     // , HomeComponent
   ],
   providers: [
