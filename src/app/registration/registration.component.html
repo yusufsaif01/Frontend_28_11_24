@@ -11,7 +11,7 @@
     <div class="registration-wrapper-forms">
       <div class="register-type">
         <button
-          (click)="toggleForm('player');clubRegisterationForm.reset();academyRegisterationForm()"
+          (click)="toggleForm('player');clubRegisterationForm.reset();academyRegisterationForm.reset()"
           [ngClass]="{ active: activeForm == 'player' }"
         >
           Player
