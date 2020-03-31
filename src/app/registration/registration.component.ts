@@ -42,9 +42,10 @@ export class RegistrationComponent implements OnInit {
       );
   }
   clubRegister(){
-    // console.log("club form data",this.playerRegisterationForm.value)
     let form_data = this.clubRegisterationForm.value;
-    form_data['member_type']= this.activeForm;
+    form_data.member_type = this.activeForm;
+    form_data.name = form_data.club;
+    delete form_data.club;
     console.log("club form_data",form_data);
     const register = this._authenticationService.register(form_data);
     register
@@ -60,6 +61,8 @@ export class RegistrationComponent implements OnInit {
   academyRegister(){
     let form_data = this.academyRegisterationForm.value;
     form_data.member_type = this.activeForm;
+    form_data.name = form_data.academy;
+    delete form_data.academy;
     console.log("academy form_data",form_data);
     const register = this._authenticationService.register(form_data);
     register
