@@ -9,7 +9,8 @@ const routes = {
   login: (c: LoginContext) => `/login`,
   logout: () => `/logout`,
   register: (c: RegisterContext) => '/register',
-  resetPassword: (c:ResetPasswordContext) => '/create-password'
+  resetPassword: (c:ResetPasswordContext) => '/create-password',
+  changePasssword:(c:ChangePasswordContext) => '/change-password'
 };
 
 export interface LoginContext {
@@ -29,6 +30,12 @@ export interface RegisterContext {
 }
 
 export interface ResetPasswordContext{
+  password:string,
+  confirmPassword:string
+}
+
+export interface  ChangePasswordContext{
+  old_password:string,
   new_password:string,
   confirm_password:string
 }
@@ -83,5 +90,9 @@ export class AuthenticationService {
 
   resetPassword(context:ResetPasswordContext):Observable<any>{
     return this.httpClient.post(routes.resetPassword(context), context);
+  }
+
+  changePassword(context:ChangePasswordContext):Observable<any>{
+    return this.httpClient.post(routes.changePasssword(context),context)
   }
 }
