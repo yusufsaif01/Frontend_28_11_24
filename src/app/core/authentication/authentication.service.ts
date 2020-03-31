@@ -9,6 +9,8 @@ const routes = {
   login: (c: LoginContext) => `/login`,
   logout: () => `/logout`,
   register: (c: RegisterContext) => '/register',
+  resetPassword: (c:ResetPasswordContext) => '/create-password',
+  changePasssword:(c:ChangePasswordContext) => '/change-password',
   forgetPassword: (c: ForgotPasswordContext) =>'/forgot-password'
 };
 
@@ -31,6 +33,17 @@ export interface ForgotPasswordContext{
     email: string;
 }
   
+
+export interface ResetPasswordContext{
+  password:string,
+  confirmPassword:string
+}
+
+export interface  ChangePasswordContext{
+  old_password:string,
+  new_password:string,
+  confirm_password:string
+}
 
 /**
  * Provides a base for authentication workflow.
@@ -79,7 +92,15 @@ export class AuthenticationService {
     this.credentialsService.setCredentials();
     return of(true);
   }
-  
+
+  resetPassword(context:ResetPasswordContext):Observable<any>{
+    return this.httpClient.post(routes.resetPassword(context), context);
+  }
+
+  changePassword(context:ChangePasswordContext):Observable<any>{
+    return this.httpClient.post(routes.changePasssword(context),context)
+  }
+
   forgetPassword(context: ForgotPasswordContext):Observable<any>{
     return this.httpClient.post(routes.forgetPassword(context),context);
   }
