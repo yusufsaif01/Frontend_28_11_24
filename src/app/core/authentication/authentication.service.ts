@@ -8,7 +8,9 @@ import { map, catchError } from 'rxjs/operators';
 const routes = {
   login: (c: LoginContext) => `/login`,
   logout: () => `/logout`,
-  register: (c: RegisterContext) => '/register'
+  register: (c: RegisterContext) => '/register',
+  resetPassword: (c:ResetPasswordContext) => '/create-password',
+  changePasssword:(c:ChangePasswordContext) => '/change-password'
 };
 
 export interface LoginContext {
@@ -25,6 +27,17 @@ export interface RegisterContext {
   last_name?: string;
   name?: string;
   member_type?: string;
+}
+
+export interface ResetPasswordContext{
+  password:string,
+  confirmPassword:string
+}
+
+export interface  ChangePasswordContext{
+  old_password:string,
+  new_password:string,
+  confirm_password:string
 }
 
 /**
@@ -73,5 +86,13 @@ export class AuthenticationService {
     this.httpClient.post(routes.logout(), credentials.data.token);
     this.credentialsService.setCredentials();
     return of(true);
+  }
+
+  resetPassword(context:ResetPasswordContext):Observable<any>{
+    return this.httpClient.post(routes.resetPassword(context), context);
+  }
+
+  changePassword(context:ChangePasswordContext):Observable<any>{
+    return this.httpClient.post(routes.changePasssword(context),context)
   }
 }

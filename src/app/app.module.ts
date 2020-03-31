@@ -25,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { RegistrationComponent } from './registration/registration.component';
 import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   imports: [
@@ -59,7 +60,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     AppComponent,
     RegistrationComponent,
     ForgetpasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ChangePasswordComponent
     // , HomeComponent
   ],
   providers: [
