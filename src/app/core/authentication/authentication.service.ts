@@ -9,9 +9,10 @@ const routes = {
   login: (c: LoginContext) => `/login`,
   logout: () => `/logout`,
   register: (c: RegisterContext) => '/register',
-  resetPassword: (c:ResetPasswordContext) => '/create-password',
+  resetPassword: (c:ResetPasswordContext) => '/reset-password',
   changePasssword:(c:ChangePasswordContext) => '/change-password',
-  forgetPassword: (c: ForgotPasswordContext) =>'/forgot-password'
+  forgetPassword: (c: ForgotPasswordContext) =>'/forgot-password',
+  createPassword:(c:ResetPasswordContext) => '/create-password'
 };
 
 export interface LoginContext {
@@ -103,6 +104,18 @@ export class AuthenticationService {
       )
     };
     return this.httpClient.post(routes.resetPassword(context), context,httpOptions);
+  }
+
+  createPassword(context:ResetPasswordContext,token:string):Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders(
+        {
+          'Content-Type': 'application/json',
+          "Authorization":"Bearer "+token
+        }
+      )
+    };
+    return this.httpClient.post(routes.createPassword(context), context,httpOptions);
   }
 
   

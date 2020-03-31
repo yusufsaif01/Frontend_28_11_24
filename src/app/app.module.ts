@@ -26,6 +26,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { CreatePasswordComponent } from './create-password/create-password.component';
 
 @NgModule({
   imports: [
@@ -61,7 +62,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     RegistrationComponent,
     ForgetpasswordComponent,
     ResetPasswordComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    CreatePasswordComponent
     // , HomeComponent
   ],
   providers: [
