@@ -35,6 +35,14 @@
     }
 
     form {
+      p {
+        font-size: 1.8rem;
+        a {
+          color: $blue;
+          font-weight: 500;
+          text-decoration: none;
+        }
+      }
       ul {
         list-style: none;
         li {
