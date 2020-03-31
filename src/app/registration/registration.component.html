@@ -158,6 +158,7 @@
             <div class="input-wrapper">
               <label>Country</label>
               <select formControlName="country" matNativeControl required>
+                <option value="">Select Country</option>
                 <option value="India">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
@@ -178,6 +179,7 @@
             <div class="input-wrapper">
               <label>State</label>
               <select formControlName="state" matNativeControl required>
+                <option value="">Select State</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>
@@ -222,8 +224,10 @@
           </div>
 
           <div class="form-row">
-            <p><a>Forgot password?</a></p>
-            <p>Already on YFT chain? <a>Sign in</a></p>
+            <p><a [routerLink]="['/forget-password']">Forgot password?</a></p>
+            <p>
+              Already on YFT chain? <a [routerLink]="['/login']">Sign in</a>
+            </p>
           </div>
         </form>
       </div>
@@ -313,6 +317,7 @@
             <div class="input-wrapper">
               <label>Country</label>
               <select formControlName="country" matNativeControl required>
+                <option value="">Select Country</option>
                 <option value="India">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
@@ -330,6 +335,7 @@
             <div class="input-wrapper">
               <label>State</label>
               <select formControlName="state" matNativeControl required>
+                <option value="">Select State</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>
@@ -474,6 +480,7 @@
             <div class="input-wrapper">
               <label>Country</label>
               <select formControlName="country" matNativeControl required>
+                <option value="">Select Country</option>
                 <option value="India">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
@@ -499,6 +506,7 @@
                 matNativeControl
                 required
               >
+                <option value="">Select State</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>

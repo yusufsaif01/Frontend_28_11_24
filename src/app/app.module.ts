@@ -24,6 +24,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { RegistrationComponent } from './registration/registration.component';
 import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   imports: [
@@ -49,7 +51,7 @@ import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.compone
     NgxSpinnerModule,
     ToastrModule.forRoot({
       timeOut: 10000,
-      positionClass: 'toast-bottom-right',
+      positionClass: 'toast-top-right',
       preventDuplicates: true,
       closeButton: true
     })
@@ -57,7 +59,9 @@ import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.compone
   declarations: [
     AppComponent,
     RegistrationComponent,
-    ForgetpasswordComponent
+    ForgetpasswordComponent,
+    ResetPasswordComponent,
+    ChangePasswordComponent
     // , HomeComponent
   ],
   providers: [
