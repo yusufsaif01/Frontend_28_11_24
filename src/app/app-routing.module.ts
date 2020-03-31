@@ -16,7 +16,7 @@ const routes: Routes = [
     path: 'login',
     loadChildren: './login/login.module#LoginModule'
   },
-  { path: 'registration', component: RegistrationComponent },
+  { path: 'register', component: RegistrationComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

@@ -156,7 +156,13 @@
 
           <div class="form-row">
             <div class="input-wrapper-full">
-              <button type="submit" class="btn">Agree & Join</button>
+              <button 
+                type="submit" 
+                class="btn"
+                [disabled]="playerRegisterationForm.invalid"
+              >
+                Agree & Join
+              </button>
             </div>
           </div>
 
@@ -259,7 +265,13 @@
 
           <div class="form-row">
             <div class="input-wrapper-full">
-              <button type="submit" class="btn">Agree & Join</button>
+              <button 
+                type="submit" 
+                class="btn"
+                [disabled]="clubRegisterationForm.invalid"
+                >
+                Agree & Join
+              </button>
             </div>
           </div>
 
@@ -359,7 +371,13 @@
 
           <div class="form-row">
             <div class="input-wrapper-full">
-              <button type="submit" class="btn">Agree & Join</button>
+              <button 
+                type="submit"
+                class="btn"
+                [disabled]="academyRegisterationForm.invalid"
+              >
+                Agree & Join
+              </button>
             </div>
           </div>
 

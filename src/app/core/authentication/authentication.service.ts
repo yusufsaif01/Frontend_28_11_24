@@ -23,9 +23,8 @@ export interface RegisterContext{
   state:string,
   first_name?:string,
   last_name?:string,
-  club?:string,
-  academy?:string,
-  // member_type?:string
+  name?:string
+  member_type?:string
 }
 
 /**
