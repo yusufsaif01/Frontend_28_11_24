@@ -8,7 +8,14 @@ import { RouterModule } from '@angular/router';
 import { FrontendHeaderComponent } from './frontend-header/frontend-header.component';
 import { FrontendSidebarComponent } from './frontend-sidebar/frontend-sidebar.component';
 import { MaterialModule } from '../material/material.module';
-import { FeatherIconModule } from '@app/feather-icon/feather-icon.module';
+import { FeatherModule } from 'angular-feather';
+import { Camera, Heart, Github } from 'angular-feather/icons';
+
+const icons = {
+  Camera,
+  Heart,
+  Github
+};
 
 @NgModule({
   declarations: [
@@ -19,7 +26,12 @@ import { FeatherIconModule } from '@app/feather-icon/feather-icon.module';
     FrontendHeaderComponent,
     FrontendSidebarComponent
   ],
-  imports: [CommonModule, RouterModule, MaterialModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MaterialModule,
+    FeatherModule.pick(icons)
+  ],
   exports: [
     SidebarComponent,
     HeaderComponent,
@@ -27,7 +39,7 @@ import { FeatherIconModule } from '@app/feather-icon/feather-icon.module';
     ContainerComponent,
     FrontendHeaderComponent,
     FrontendSidebarComponent,
-    FeatherIconModule
+    FeatherModule
   ]
 })
 export class PageComponentsModule {}
