@@ -23,7 +23,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 // import { FrontendModule } from './frontend/frontend.module';
 import { ToastrModule } from 'ngx-toastr';
 import { RegistrationComponent } from './registration/registration.component';
-import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { CreatePasswordComponent } from './create-password/create-password.component';
@@ -60,7 +60,7 @@ import { CreatePasswordComponent } from './create-password/create-password.compo
   declarations: [
     AppComponent,
     RegistrationComponent,
-    ForgetpasswordComponent,
+    ForgotPasswordComponent,
     ResetPasswordComponent,
     ChangePasswordComponent,
     CreatePasswordComponent
