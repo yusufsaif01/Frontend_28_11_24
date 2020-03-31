@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 
 import { Credentials, CredentialsService } from './credentials.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 
 const routes = {
@@ -93,10 +93,19 @@ export class AuthenticationService {
     return of(true);
   }
 
-  resetPassword(context:ResetPasswordContext):Observable<any>{
-    return this.httpClient.post(routes.resetPassword(context), context);
+  resetPassword(context:ResetPasswordContext,token:string):Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders(
+        {
+          'Content-Type': 'application/json',
+          "Authorization":"Bearer "+token
+        }
+      )
+    };
+    return this.httpClient.post(routes.resetPassword(context), context,httpOptions);
   }
 
+  
   changePassword(context:ChangePasswordContext):Observable<any>{
     return this.httpClient.post(routes.changePasssword(context),context)
   }

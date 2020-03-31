@@ -545,7 +545,7 @@
               <button
                 type="submit"
                 class="btn"
-                [disabled]="false && academyRegisterationForm.invalid"
+                [disabled]="academyRegisterationForm.invalid"
               >
                 Agree & Join
               </button>
@@ -554,7 +554,7 @@
 
           <div class="form-row">
             <p><a>Forgot password?</a></p>
-            <p>Already on YFT chain? <a>Sign in</a></p>
+            <p>Already on YFT chain?<a [routerLink]="['/login']">Sign in</a></p>
           </div>
         </form>
       </div>

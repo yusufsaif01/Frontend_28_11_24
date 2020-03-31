@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '@app/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -10,12 +11,17 @@ import { AuthenticationService } from '@app/core';
 export class ResetPasswordComponent implements OnInit {
 
   resetPasswordForm:FormGroup;
+  token:string
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _authenticationService: AuthenticationService
+    private _authenticationService: AuthenticationService,
+    private _route: ActivatedRoute
   ) {
     this.createForm();
+    this._route.queryParams.subscribe(params => {
+      this.token = params['token']
+  });
   }
 
   ngOnInit() {}
@@ -31,7 +37,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   resetPassword(){
-    this._authenticationService.resetPassword(this.resetPasswordForm.value)
+    this._authenticationService.resetPassword(this.resetPasswordForm.value, this.token)
     .subscribe(
       (response)=>{
         console.log('data',response)
