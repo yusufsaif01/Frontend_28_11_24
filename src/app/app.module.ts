@@ -51,7 +51,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     NgxSpinnerModule,
     ToastrModule.forRoot({
       timeOut: 10000,
-      positionClass: 'toast-bottom-right',
+      positionClass: 'toast-top-right',
       preventDuplicates: true,
       closeButton: true
     })

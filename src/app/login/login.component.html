@@ -4,8 +4,8 @@
       <img src="assets/images/logo.png" alt="brand-logo" />
       <h3>Welcome Back</h3>
       <p>
-        Don't Miss your next Opportunity Sign in to updated on your professional
-        world
+        Don't miss your next opportunity. Sign in to stay updated on your
+        professional world.
       </p>
     </div>
     <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
@@ -73,11 +73,11 @@
         </li>
       </ul>
       <div class="login-footer">
-        <a href="#">
+        <a [routerLink]="['/forget-password']">
           Forgot password?
         </a>
         <p>
-          New to YFT chain? <b><a href="#">Join now</a></b>
+          New to YFT chain? <b><a [routerLink]="['/register']">Join now</a></b>
         </p>
       </div>
     </form>
