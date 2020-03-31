@@ -3,29 +3,27 @@
     <!-- header section -->
     <div class="registration-wrapper-header">
       <img src="assets/images/logo.png" alt="brand-logo" />
-      <h3>Welcome Back</h3>
       <p>
-        Don't Miss your next Opportunity Sign up to updated on your professional
-        world
+        Make the most of your professional life
       </p>
     </div>
     <!-- Registration forms -->
     <div class="registration-wrapper-forms">
       <div class="register-type">
         <button
-          (click)="toggleForm('player')"
+          (click)="toggleForm('player');clubRegisterationForm.reset();academyRegisterationForm()"
           [ngClass]="{ active: activeForm == 'player' }"
         >
           Player
         </button>
         <button
-          (click)="toggleForm('club')"
+          (click)="toggleForm('club');academyRegisterationForm.reset();playerRegisterationForm.reset()"
           [ngClass]="{ active: activeForm == 'club' }"
         >
           Club
         </button>
         <button
-          (click)="toggleForm('academy')"
+          (click)="toggleForm('academy');playerRegisterationForm.reset();clubRegisterationForm.reset()"
           [ngClass]="{ active: activeForm == 'academy' }"
         >
           Academy
@@ -46,7 +44,7 @@
               required
             />
             <ng-container *ngIf="isFocused(playerRegisterationForm,'first_name')">
-              <span class="error-text" *ngIf="isRequired(playerRegisterationForm,'first_name')" >Required Field</span>
+              <span class="error-text" *ngIf="isRequired(playerRegisterationForm,'first_name')" > First Name is required</span>
             </ng-container>
             </div>
 
@@ -60,7 +58,7 @@
               required
             />
             <ng-container *ngIf="isFocused(playerRegisterationForm,'last_name')">
-              <span class="error-text" *ngIf="isRequired(playerRegisterationForm,'last_name')" >Required Field</span>
+              <span class="error-text" *ngIf="isRequired(playerRegisterationForm,'last_name')" >Last Name is required</span>
             </ng-container>
             </div>
           </div>
@@ -76,8 +74,8 @@
               matInput 
               />
               <ng-container *ngIf="isFocused(playerRegisterationForm,'email')">
-                <span class="error-text"  *ngIf="isRequired(playerRegisterationForm,'email')" >Required Field</span>
-                <span class="error-text"  *ngIf="playerRegisterationForm.controls.email.errors.email">Invalid Email Format</span>
+                <span class="error-text"  *ngIf="isRequired(playerRegisterationForm,'email')" >Email is required</span>
+                <span class="error-text"  *ngIf="playerRegisterationForm.controls.email.errors.email">Email format is Invalid</span>
               </ng-container>
             </div>
 
@@ -90,7 +88,7 @@
               matInput 
             />
             <ng-container *ngIf="isFocused(playerRegisterationForm,'phone')">
-              <span class="error-text"  *ngIf="isRequired(playerRegisterationForm,'phone')" >Required Field</span>
+              <span class="error-text"  *ngIf="isRequired(playerRegisterationForm,'phone')" >Contact Number is required</span>
               <span class="error-text"  *ngIf="playerRegisterationForm.controls.phone.errors.minlength" >
                 Please provide number upto {{ playerRegisterationForm.controls.phone.errors.minlength.requiredLength}} digits
               </span>
@@ -116,7 +114,7 @@
               <option value="australia">Australia</option>country
               </select>
               <ng-container *ngIf="isFocused(playerRegisterationForm,'country')">
-                <span class="error-text"  *ngIf="isRequired(playerRegisterationForm,'country')" >Required Field</span>
+                <span class="error-text"  *ngIf="isRequired(playerRegisterationForm,'country')" >Country is required</span>
               </ng-container>
             </div>
 
@@ -133,7 +131,7 @@
               <option value="mp">M.P</option>
               </select>
               <ng-container *ngIf="isFocused(playerRegisterationForm,'state')">
-                <span class="error-text"  *ngIf="isRequired(playerRegisterationForm,'state')" >Required Field</span>
+                <span class="error-text"  *ngIf="isRequired(playerRegisterationForm,'state')" >State is required</span>
               </ng-container>
           </div>
           </div>
@@ -185,7 +183,7 @@
               formControlName = "club"
               type="text" matInput />
               <ng-container *ngIf="isFocused(clubRegisterationForm,'club')">
-                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'club')" >Required Field</span>
+                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'club')" >Club Name is required</span>
               </ng-container>
             </div>
           </div>
@@ -197,8 +195,8 @@
               <label>Email</label>
               <input formControlName="email"  type="text" matInput />
               <ng-container *ngIf="isFocused(clubRegisterationForm,'email')">
-                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'email')" >Required Field</span>
-                <span class="error-text"  *ngIf="clubRegisterationForm.controls.email.errors.email">Invalid Email Format</span>             >
+                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'email')" >Email is required</span>
+                <span class="error-text"  *ngIf="clubRegisterationForm.controls.email.errors.email">Email format is Invalid</span>
               </ng-container>
             </div>
 
@@ -207,7 +205,8 @@
               <label>Contact Number</label>
               <input formControlName="phone" type="text" matInput />
               <ng-container *ngIf="isFocused(clubRegisterationForm,'phone')">
-                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'phone')" >Required Field</span>
+                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'phone')" >Contact Number
+                  is required</span>
                 <span class="error-text"  *ngIf="clubRegisterationForm.controls.phone.errors.minlength" >
                   Please provide number upto {{ clubRegisterationForm.controls.phone.errors.minlength.requiredLength}} digits
                 </span>
@@ -229,7 +228,7 @@
                 <option value="australia">Australia</option>
               </select>
               <ng-container *ngIf="isFocused(clubRegisterationForm,'country')">
-                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'country')" >Required Field</span>
+                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'country')" >Country is required</span>
               </ng-container>
             </div>
 
@@ -242,7 +241,7 @@
                 <option value="mp">M.P</option>
               </select>
               <ng-container *ngIf="isFocused(clubRegisterationForm,'state')">
-                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'state')" >Required Field</span>
+                <span class="error-text"  *ngIf="isRequired(clubRegisterationForm,'state')" >State is required</span>
               </ng-container>
             </div>
           </div>
@@ -288,10 +287,10 @@
           <div class="form-row">
             <div class="input-wrapper-full">
               <img src="assets/icons/user.svg" alt="" />
-              <label>Academy</label>
+              <label>Academy Name</label>
               <input formControlName="academy" type="text" matInput required />
               <ng-container *ngIf="isFocused(academyRegisterationForm,'academy')">
-                <span class="error-text" *ngIf="isRequired(academyRegisterationForm,'academy')">Required Field</span>
+                <span class="error-text" *ngIf="isRequired(academyRegisterationForm,'academy')">Academy Name is required</span>
               </ng-container>
             </div>
           </div>
@@ -303,8 +302,8 @@
               <label>Email</label>
               <input formControlName="email" type="text" matInput />
               <ng-container *ngIf="isFocused(academyRegisterationForm,'email')">
-                <span class="error-text"  *ngIf="academyRegisterationForm.controls.email.errors.required" >Required Field</span>
-                <span class="error-text"  *ngIf="isRequired(academyRegisterationForm,'email')">Invalid Email Format</span>
+                <span class="error-text"  *ngIf="isRequired(academyRegisterationForm,'email')" >Email is required</span>
+                <span class="error-text"  *ngIf="academyRegisterationForm.controls.email.errors.email">Email format is Invalid</span>
               </ng-container>
             </div>
 
@@ -313,7 +312,7 @@
               <label>Contact Number</label>
               <input formControlName="phone" type="text" matInput />
               <ng-container *ngIf="isFocused(academyRegisterationForm,'phone')">
-                <span class="error-text"  *ngIf="isRequired(academyRegisterationForm,'phone')" >Required Field</span>
+                <span class="error-text"  *ngIf="isRequired(academyRegisterationForm,'phone')" >Contact Number is required</span>
                 <span class="error-text"  *ngIf="academyRegisterationForm.controls.phone.errors.minlength" >
                   Please provide number upto {{ academyRegisterationForm.controls.phone.errors.minlength.requiredLength}} digits
                 </span>
@@ -328,27 +327,27 @@
           <div class="form-row">
             <div class="input-wrapper">
               <label>Country</label>
-              <select formControlName="country" matNativeControl required>
+              <select  formControlName="country" matNativeControl required>
                 <option value="India">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
                 <option value="australia">Australia</option>
               </select>
               <ng-container *ngIf="isFocused(academyRegisterationForm,'country')">
-                <span class="error-text" *ngIf="isRequired(academyRegisterationForm,'country')" >Required Field</span>
+                <span class="error-text" *ngIf="isRequired(academyRegisterationForm,'country')" >Country is required</span>
               </ng-container>
             </div>
 
             <div class="input-wrapper">
               <label>State</label>
-              <select formControlName="state" matNativeControl required>
+              <select name="State" value="state" formControlName="state" matNativeControl required>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>
                 <option value="mp">M.P</option>
               </select>
               <ng-container *ngIf="isFocused(academyRegisterationForm,'state')">
-                <span class="error-text"  *ngIf="isRequired(academyRegisterationForm,'state')" >Required Field</span>
+                <span class="error-text"  *ngIf="isRequired(academyRegisterationForm,'state')" >State is required</span>
               </ng-container>
             </div>
           </div>
@@ -362,7 +361,7 @@
 
           <div class="form-row">
             <div class="input-wrapper-full">
-              <p>
+              <p >
                 You agree to the YFT chain <a>User Agreement</a> and
                 <a>Privacy Policy</a>
               </p>
@@ -374,8 +373,8 @@
               <button 
                 type="submit"
                 class="btn"
-                [disabled]="academyRegisterationForm.invalid"
-              >
+                [disabled]="false && academyRegisterationForm.invalid"
+                >
                 Agree & Join
               </button>
             </div>
