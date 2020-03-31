@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 
 import { Credentials, CredentialsService } from './credentials.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 
 const routes = {
   login: (c: LoginContext) => `/login`,
   logout: () => `/logout`,
   register: (c: RegisterContext) => '/register',
-  resetPassword: (c:ResetPasswordContext) => '/create-password',
-  changePasssword:(c:ChangePasswordContext) => '/change-password'
+  resetPassword: (c:ResetPasswordContext) => '/reset-password',
+  changePasssword:(c:ChangePasswordContext) => '/change-password',
+  forgetPassword: (c: ForgotPasswordContext) =>'/forgot-password',
+  createPassword:(c:ResetPasswordContext) => '/create-password'
 };
 
 export interface LoginContext {
@@ -28,6 +30,10 @@ export interface RegisterContext {
   name?: string;
   member_type?: string;
 }
+export interface ForgotPasswordContext{
+    email: string;
+}
+  
 
 export interface ResetPasswordContext{
   password:string,
@@ -88,11 +94,36 @@ export class AuthenticationService {
     return of(true);
   }
 
-  resetPassword(context:ResetPasswordContext):Observable<any>{
-    return this.httpClient.post(routes.resetPassword(context), context);
+  resetPassword(context:ResetPasswordContext,token:string):Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders(
+        {
+          'Content-Type': 'application/json',
+          "Authorization":"Bearer "+token
+        }
+      )
+    };
+    return this.httpClient.post(routes.resetPassword(context), context,httpOptions);
   }
 
+  createPassword(context:ResetPasswordContext,token:string):Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders(
+        {
+          'Content-Type': 'application/json',
+          "Authorization":"Bearer "+token
+        }
+      )
+    };
+    return this.httpClient.post(routes.createPassword(context), context,httpOptions);
+  }
+
+  
   changePassword(context:ChangePasswordContext):Observable<any>{
     return this.httpClient.post(routes.changePasssword(context),context)
+  }
+
+  forgetPassword(context: ForgotPasswordContext):Observable<any>{
+    return this.httpClient.post(routes.forgetPassword(context),context);
   }
 }

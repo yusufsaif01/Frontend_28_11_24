@@ -5,12 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss']
+  templateUrl: './create-password.component.html',
+  styleUrls: ['./create-password.component.scss']
 })
-export class ResetPasswordComponent implements OnInit {
+export class CreatePasswordComponent implements OnInit {
 
-  resetPasswordForm:FormGroup;
+  createPasswordForm:FormGroup;
   token:string
 
   constructor(
@@ -37,8 +37,8 @@ export class ResetPasswordComponent implements OnInit {
     return required;
   }
 
-  resetPassword(){
-    this._authenticationService.resetPassword(this.resetPasswordForm.value, this.token)
+  createPassword(){
+    this._authenticationService.createPassword(this.createPasswordForm.value, this.token)
     .subscribe(
       (response)=>{
         console.log('data',response)
@@ -52,7 +52,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   createForm(){
-    this.resetPasswordForm = this._formBuilder.group({
+    this.createPasswordForm = this._formBuilder.group({
       password        : ['', Validators.required ],
       confirmPassword : ['', Validators.required ]
     })

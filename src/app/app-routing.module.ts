@@ -8,6 +8,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { CreatePasswordComponent } from './create-password/create-password.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'change-password', component: ChangePasswordComponent },
+  { path: 'create-password', component: CreatePasswordComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
