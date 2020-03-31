@@ -8,6 +8,12 @@
 html {
   font-size: 10px;
 }
+@media (min-width: 320px) {
+  html {
+    font-size: 5.3px;
+  }
+}
+
 @media (min-width: 1024px) {
   html {
     font-size: 5.3px;
@@ -119,6 +125,13 @@ body {
 html {
   font-size: 10px;
 }
+
+@media (min-width: 320px) {
+  html {
+    font-size: 5.3px;
+  }
+}
+
 @media (min-width: 1024px) {
   html {
     font-size: 5.3px;

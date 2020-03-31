@@ -4,6 +4,7 @@ import {
   RouterModule
   // , PreloadAllModules
 } from '@angular/router';
+import { RegistrationComponent } from './registration/registration.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
     path: 'login',
     loadChildren: './login/login.module#LoginModule'
   },
+  { path: 'register', component: RegistrationComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

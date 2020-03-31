@@ -7,13 +7,24 @@ import { map, catchError } from 'rxjs/operators';
 
 const routes = {
   login: (c: LoginContext) => `/login`,
-  logout: () => `/logout`
+  logout: () => `/logout`,
+  register: (c:RegisterContext) => '/register'
 };
 
 export interface LoginContext {
   email: string;
   password: string;
   remember?: boolean;
+}
+export interface RegisterContext{
+  email:string,
+  phone:string,
+  country:string,
+  state:string,
+  first_name?:string,
+  last_name?:string,
+  name?:string
+  member_type?:string
 }
 
 /**
@@ -24,7 +35,14 @@ export interface LoginContext {
   providedIn: 'root'
 })
 export class AuthenticationService {
-  constructor(private credentialsService: CredentialsService, private httpClient: HttpClient) {}
+  constructor(
+    private credentialsService: CredentialsService,
+    private httpClient: HttpClient
+  ) {}
+
+  register(context:RegisterContext):Observable<any>{
+    return this.httpClient.post(routes.register(context),context)
+  }
 
   /**
    * Authenticates the user.
