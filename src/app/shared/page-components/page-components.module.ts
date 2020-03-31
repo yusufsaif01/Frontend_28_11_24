@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { FrontendHeaderComponent } from './frontend-header/frontend-header.component';
 import { FrontendSidebarComponent } from './frontend-sidebar/frontend-sidebar.component';
 import { MaterialModule } from '../material/material.module';
+import { FeatherIconModule } from '@app/feather-icon/feather-icon.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MaterialModule } from '../material/material.module';
     FooterComponent,
     ContainerComponent,
     FrontendHeaderComponent,
-    FrontendSidebarComponent
+    FrontendSidebarComponent,
+    FeatherIconModule
   ]
 })
 export class PageComponentsModule {}

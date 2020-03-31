@@ -8,7 +8,10 @@ import { AuthenticationService } from '@app/core/authentication/authentication.s
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  constructor(private router: Router, private authService: AuthenticationService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthenticationService
+  ) {}
 
   ngOnInit(): void {}
 

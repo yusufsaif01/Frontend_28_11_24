@@ -1,43 +1,43 @@
-<header class="header">
-  <div class="header__logo">
-    <a>
-      <img src="assets/images/logo.png" alt="Logo" />
-    </a>
-  </div>
-  <div class="header__toggler">
-    <button><img src="assets/images/icons/header/toggle-sidebar.png" alt="sidebar-toggler" /></button>
-  </div>
-  <div class="header__options">
-    <div class="topmessages">
-      <img src="assets/images/icons/header/envelope.png" />
-      <span class="badge">5</span>
+<header>
+  <div class="header">
+    <!-- header logo -->
+    <div class="header-logo">
+      <img src="assets/images/logo.png" alt="" />
     </div>
-    <div class="topnotification">
-      <img src="assets/images/icons/header/bell.png" />
-      <span class="badge">9</span>
-    </div>
-    <div class="translate">
-      <select>
-        <option value="English">English</option>
-      </select>
-    </div>
-    <div class="user-details" mat-raised-button [matMenuTriggerFor]="menu">
-      <img src="assets/images/avatar.png" alt="Ravi Prakash" class="user-pic" />
-      <span class="status successs"></span>
-      <div class="text">
-        <span class="name">Ravi Parkash</span>
-        <span class="designation">Production Executive</span>
+    <!-- header right -->
+    <div class="header-menu">
+      <ul>
+        <li>
+          <a>
+            <span><img src="assets/icons/users.svg" alt=""/></span>
+            Connection</a
+          >
+        </li>
+        <li>
+          <a>
+            <span><img src="assets/icons/crosshair.svg" alt=""/></span>
+            Footmail</a
+          >
+        </li>
+        <li>
+          <a>
+            <img src="assets/icons/message-square.svg" alt="" /><span
+              class="count"
+              >4</span
+            >
+          </a>
+        </li>
+        <li>
+          <a>
+            <img src="assets/icons/bell.svg" alt="" />
+            <span class="count">6</span>
+          </a>
+        </li>
+      </ul>
+      <div class="profile">
+        <img src="assets/images/profile-icon.png " alt="" />
+        <i-feather name="camera"></i-feather>
       </div>
     </div>
-    <mat-menu #menu="matMenu" fxFlex="100%">
-      <button mat-menu-item color="primary" routerLink="/frontend/profile">
-        <mat-icon>person_outline</mat-icon>
-        <span>Profile</span>
-      </button>
-      <button mat-menu-item (click)="Logout()">
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
-      </button>
-    </mat-menu>
   </div>
 </header>
