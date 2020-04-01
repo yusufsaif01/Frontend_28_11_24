@@ -11,6 +11,7 @@ header {
     justify-content: space-between;
     min-height: 8rem;
     height: 100%;
+
     &-logo {
       width: 40%;
       display: flex;
@@ -60,10 +61,18 @@ header {
       .profile {
         padding: 1rem 0px;
         margin-left: 4rem;
+        border-radius: 10rem;
         img {
           max-width: 5rem;
+          border-radius: 10rem;
         }
       }
     }
   }
+}
+
+.icon-size {
+  width: 2rem;
+  height: 2rem;
+  margin-left: 1rem;
 }

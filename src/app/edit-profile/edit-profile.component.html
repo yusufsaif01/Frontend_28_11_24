@@ -1,1 +1,580 @@
 <app-header></app-header>
+<div class="wrapper">
+  <!-- Left section -->
+  <div class="left-section">
+    <!-- profile  -->
+    <div class="block-design">
+      <div class="profile-section">
+        <img src="assets/images/profile-icon.png" alt="profile-icon" />
+        <p>
+          <i-feather name="alert-circle" class="icon-size"></i-feather>
+          Not Verified
+        </p>
+        <div class="add-btn">
+          <label for="add-image" class="btn upload">
+            <span>
+              <i-feather name="Image" class="icon-size"></i-feather>
+            </span>
+            <input type="file" matinput name="add-image" id="add-image" />
+          </label>
+          <button class="btn delete">
+            <span>
+              <i-feather name="trash-2" class="icon-size"></i-feather>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!--About -->
+    <div class="block">
+      <div class="block-heading border-bottom">
+        <h4>About</h4>
+        <p>Tell about yourself in two sentences.</p>
+      </div>
+      <form>
+        <div class="block-middle border-bottom">
+          <label> BIO </label>
+          <textarea matInput rows="5" placeholder="Write Content"></textarea>
+        </div>
+        <div class="block-bottom">
+          <button>Save</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="block">
+      <div class="block-heading border-bottom">
+        <h4>Social profiles</h4>
+        <p>Add elsewhere links to your profile.</p>
+      </div>
+      <form>
+        <div class="block-middle border-bottom">
+          <!-- instagram -->
+          <div class="social-link">
+            <i-feather name="instagram" class="icon instagram"></i-feather>
+            <input type="text" matinput placeholder="Add Instagram Link" />
+          </div>
+          <!-- facebook -->
+          <div class="social-link">
+            <i-feather name="facebook" class="icon facebook"></i-feather>
+            <input type="text" matinput placeholder="Add Facebook Link" />
+          </div>
+          <!-- twitter -->
+          <div class="social-link">
+            <i-feather name="twitter" class="icon twitter"></i-feather>
+            <input type="text" matinput placeholder="Add Twitter Link" />
+          </div>
+          <!-- Youtube -->
+          <div class="social-link">
+            <i-feather name="Youtube" class="icon youtube"></i-feather>
+            <input type="text" matinput placeholder="Add Youtube Link" />
+          </div>
+        </div>
+        <div class="block-bottom">
+          <button>Update Social Profiles</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Right seciton -->
+  <div class="right-section">
+    <form action="">
+      <!-- players -->
+      <div class="player-details d-none">
+        <!-- player type -->
+        <div class="block">
+          <div class="block-header border-bottom">
+            <h4>Player Type</h4>
+            <p>Lorem ipsum dolor sit amet, consecteturs.</p>
+          </div>
+          <div class="block-middle">
+            <div class="radio">
+              <label><input type="radio" name="player" /> Grassroot </label>
+              <label><input type="radio" name="player" /> Ameture </label>
+              <label><input type="radio" name="player" /> Professional</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- personal detials -->
+        <div class="block">
+          <div class="block-header border-bottom">
+            <h4>Personal Detials</h4>
+            <p>Lorem ipsum dolor sit amet, consecteturs.</p>
+          </div>
+          <div class="block-middle">
+            <!-- first name -->
+            <div class="from-block">
+              <label>First Name <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- last name -->
+            <div class="from-block">
+              <label>Last Name <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- DOB -->
+            <div class="from-block">
+              <label>Date of Birth <span>*</span></label>
+              <div class="datepicker">
+                <input matInput [matDatepicker]="myDatepicker" />
+                <mat-datepicker-toggle
+                  [for]="myDatepicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #myDatepicker></mat-datepicker>
+              </div>
+            </div>
+
+            <!-- height -->
+            <div class="from-block">
+              <label>Height <span>*</span></label>
+              <div class="double-input">
+                <select matNativeControl required>
+                  <option value="">Select Foots</option>
+                  <option value="Height01" selected="">4</option>
+                  <option value="Height02">5</option>
+                  <option value="Height03">6</option>
+                  <option value="Height04">7</option>
+                </select>
+                <select matNativeControl required>
+                  <option value="">Select Inch</option>
+                  <option value="Height01" selected="">4</option>
+                  <option value="Height02">5</option>
+                  <option value="Height03">6</option>
+                  <option value="Height04">7</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- weight -->
+            <div class="from-block">
+              <label>Weight <span>*</span></label>
+              <select matNativeControl required>
+                <option value="">Select Weight</option>
+                <option value="WeightSelect1" selected="">50</option>
+                <option value="WeightSelect2">60</option>
+                <option value="WeightSelect3">70</option>
+                <option value="WeightSelect4">80</option>
+              </select>
+            </div>
+
+            <!-- nationality -->
+            <div class="from-block">
+              <label>Nationality <span>*</span></label>
+              <select matNativeControl required>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+            </div>
+
+            <!-- state -->
+            <div class="from-block">
+              <label>State <span>*</span></label>
+              <select matNativeControl required>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+            </div>
+
+            <!-- city -->
+            <div class="from-block">
+              <label>Current City <span>*</span></label>
+              <select matNativeControl required>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+            </div>
+
+            <!-- email -->
+            <div class="from-block">
+              <label>Email Address <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- Phone -->
+            <div class="from-block">
+              <label>Phone Number <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- current School -->
+            <div class="from-block">
+              <label>Current School Name <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- University School -->
+            <div class="from-block">
+              <label>Current University Name <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- college School -->
+            <div class="from-block">
+              <label>Current College Name <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- Upload   -->
+            <div class="from-block">
+              <label>Upload Adhaar <span>*</span></label>
+              <input type="file" matinput />
+            </div>
+
+            <!-- employee  -->
+            <div class="from-block">
+              <label>Employment Contract <span>*</span></label>
+              <input type="file" matinput />
+            </div>
+          </div>
+        </div>
+
+        <!-- Professional -->
+        <div class="block">
+          <div class="block-header border-bottom">
+            <h4>Professional Detials</h4>
+            <p>Lorem ipsum dolor sit amet, consecteturs.</p>
+          </div>
+          <div class="block-middle">
+            <!-- Position ( Priority First ) -->
+            <div class="from-block">
+              <label>Position ( Priority First ) <span>*</span></label>
+              <select matNativeControl required>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+            </div>
+
+            <!-- Position ( Priority second ) -->
+            <div class="from-block">
+              <label>Position ( Priority Second ) <span>*</span></label>
+              <select matNativeControl required>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+            </div>
+
+            <!-- Position ( Priority third ) -->
+            <div class="from-block">
+              <label>Position ( Priority Thirds ) <span>*</span></label>
+              <select matNativeControl required>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+            </div>
+
+            <!-- Strong foot -->
+            <div class="from-block">
+              <label>Strong foot <span>*</span></label>
+              <select matNativeControl required>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+            </div>
+
+            <!-- Current associated club / academy  -->
+            <div class="from-block">
+              <label>Current associated club / academy <span>*</span></label>
+              <div class="radio">
+                <label
+                  ><input type="radio" name="associated" /> <span>Yes</span>
+                </label>
+                <label
+                  ><input type="radio" name="associated" /> <span>No</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Weak foot -->
+            <div class="from-block">
+              <label>Weak foot <span>*</span></label>
+              <div class="star-rating">
+                <input type="radio" id="5-stars" name="rating" value="5" />
+                <label for="5-stars" class="star">&#9733;</label>
+                <input type="radio" id="4-stars" name="rating" value="4" />
+                <label for="4-stars" class="star">&#9733;</label>
+                <input type="radio" id="3-stars" name="rating" value="3" />
+                <label for="3-stars" class="star">&#9733;</label>
+                <input type="radio" id="2-stars" name="rating" value="2" />
+                <label for="2-stars" class="star">&#9733;</label>
+                <input type="radio" id="1-star" name="rating" value="1" />
+                <label for="1-star" class="star">&#9733;</label>
+              </div>
+            </div>
+
+            <!-- Head coach phone number * -->
+            <div class="from-block">
+              <label>Head coach phone number <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- Head coach email number -->
+            <div class="from-block">
+              <label>Head coach email number <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- former Club -->
+            <div class="from-block">
+              <label>Formal Club (optional, if any) <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- clubs and acadmey -->
+      <div class="academy-club">
+        <!-- personal detials -->
+        <div class="block">
+          <div class="block-header border-bottom">
+            <h4>Personal Detials</h4>
+            <p>Lorem ipsum dolor sit amet, consecteturs.</p>
+          </div>
+          <div class="block-middle">
+            <!-- club name -->
+            <div class="from-block">
+              <label>Club Name <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- Short Club name -->
+            <div class="from-block">
+              <label>Short Club Name <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- founded In -->
+            <div class="from-block">
+              <label>Founded ( years ) <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- country -->
+            <div class="from-block">
+              <label>Country <span>*</span></label>
+              <select matNativeControl required>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+            </div>
+
+            <!-- city -->
+            <div class="from-block">
+              <label>City <span>*</span></label>
+              <select matNativeControl required>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+            </div>
+
+            <!-- Address -->
+            <div class="from-block">
+              <label>Office Address <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- Zipcode / pincode -->
+            <div class="from-block">
+              <label>Zipcode / Pincode <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- email -->
+            <div class="from-block">
+              <label>Email Address <span>*</span></label>
+              <input type="email" matinput />
+            </div>
+
+            <!-- Phone -->
+            <div class="from-block">
+              <label>Phone Number <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- Stadium Name -->
+            <div class="from-block">
+              <label>Stadium Name <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- Club owner -->
+            <div class="from-block">
+              <label>Club owner <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- Manager -->
+            <div class="from-block">
+              <label>Manager <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+
+            <!-- Manager -->
+            <div class="from-block w-60">
+              <label>Document <span>*</span></label>
+              <div class="radio">
+                <label
+                  ><input type="radio" name="document" />
+                  <span>AIFF Satus</span>
+                </label>
+                <label
+                  ><input type="radio" name="document" />
+                  <span>Pan Number</span>
+                </label>
+                <label
+                  ><input type="radio" name="document" />
+                  <span>Tin Number</span>
+                </label>
+                <label
+                  ><input type="radio" name="document" />
+                  <span>COI Number</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Upload   -->
+            <div class="from-block w-40">
+              <label>Upload AIFF accreditation status <span>*</span></label>
+              <input type="file" matinput />
+            </div>
+          </div>
+        </div>
+
+        <!-- Professional -->
+        <div class="block">
+          <div class="block-header border-bottom">
+            <h4>Professional Detials</h4>
+            <p>Lorem ipsum dolor sit amet, consecteturs.</p>
+          </div>
+          <div class="block-middle">
+            <!-- major trophies -->
+            <div class="form-block-clubs">
+              <label>Contact Person <span>*</span></label>
+              <div class="input-wrapper">
+                <label>Designation <span>*</span></label>
+                <select matNativeControl required>
+                  <option value="volvo">Volvo</option>
+                  <option value="saab">Saab</option>
+                  <option value="mercedes">Mercedes</option>
+                  <option value="audi">Audi</option>
+                </select>
+              </div>
+
+              <div class="input-wrapper">
+                <label>Name <span>*</span></label>
+                <input type="text" matinput />
+              </div>
+
+              <div class="input-wrapper">
+                <label>Email <span>*</span></label>
+                <input type="text" matinput />
+              </div>
+
+              <div class="input-wrapper">
+                <label>Phone Number <span>*</span></label>
+                <input type="text" matinput />
+              </div>
+              <div class="input-wrapper">
+                <button>Add</button>
+              </div>
+            </div>
+
+            <!-- major trophies -->
+            <div class="form-block-clubs">
+              <label>Major trophy Wins <span>*</span></label>
+              <div class="input-wrapper">
+                <label>Trophy Name <span>*</span></label>
+                <input type="text" matinput />
+              </div>
+
+              <div class="input-wrapper">
+                <label>Years <span>*</span></label>
+                <input type="text" matinput />
+              </div>
+
+              <div class="input-wrapper">
+                <label>Position Secured <span>*</span></label>
+                <input type="text" matinput />
+              </div>
+              <div class="input-wrapper">
+                <button>Add</button>
+              </div>
+            </div>
+
+            <!-- leagues -->
+            <div class="form-block-clubs">
+              <label>League <span>*</span></label>
+              <div class="input-wrapper-second">
+                <label>League Name <span>*</span></label>
+                <select matNativeControl required>
+                  <option value="volvo">Volvo</option>
+                  <option value="saab">Saab</option>
+                  <option value="mercedes">Mercedes</option>
+                  <option value="audi">Audi</option>
+                </select>
+              </div>
+
+              <div class="input-wrapper-second">
+                <label>Other <span>*</span></label>
+                <input type="text" matinput />
+              </div>
+
+              <div class="input-wrapper">
+                <button>Add</button>
+              </div>
+            </div>
+
+            <!-- Top sign in -->
+            <div class="form-block-clubs">
+              <label>Top signings <span>*</span></label>
+              <div class="input-wrapper-second">
+                <input type="text" matinput placeholder="first player" />
+              </div>
+
+              <div class="input-wrapper-second">
+                <input type="text" matinput placeholder="second player" />
+              </div>
+
+              <div class="input-wrapper-second">
+                <button>Add</button>
+              </div>
+            </div>
+
+            <!-- Manager -->
+            <div class="from-block">
+              <label>Number of associated players <span>*</span></label>
+              <input type="text" matinput />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- bottom -->
+      <div class="block-bottom">
+        <a>Cancel</a>
+        <button class="btn">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>
