@@ -4,8 +4,8 @@
       <img src="assets/images/logo.png" alt="brand-logo" />
       <h3>Welcome Back</h3>
       <p>
-        Don't Miss your next Opportunity Sign in to updated on your professional
-        world
+        Don't miss your next opportunity. Sign in to stay updated on your
+        professional world.
       </p>
     </div>
     <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
@@ -59,9 +59,9 @@
             Remember password
           </mat-checkbox>
         </li>
-        <mat-error class="login-error" [hidden]="!error || isLoading" translate>
+        <!-- <mat-error class="login-error" [hidden]="!error || isLoading" translate>
           Incorrect email or password
-        </mat-error>
+        </mat-error> -->
         <li>
           <button
             type="submit"
@@ -73,11 +73,9 @@
         </li>
       </ul>
       <div class="login-footer">
-        <a href="#">
-          Forgot password?
-        </a>
+        <p><a [routerLink]="['/forgot-password']">Forgot password?</a></p>
         <p>
-          New to YFT chain? <b><a href="#">Join now</a></b>
+          New to YFT chain? <b><a [routerLink]="['/register']">Join now</a></b>
         </p>
       </div>
     </form>
