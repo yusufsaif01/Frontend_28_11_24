@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  activeForm: string = 'academy';
+  activeForm: string = 'player';
 
   playerRegisterationForm: FormGroup;
   clubRegisterationForm: FormGroup;
@@ -37,6 +37,7 @@ export class RegistrationComponent implements OnInit {
       credentials => {
         console.log('CRedentials', credentials);
         this._toastrService.success('Successful', 'Registered');
+        this.playerRegisterationForm.reset()
       },
       error => {
         console.log('ERror', error);
@@ -53,6 +54,7 @@ export class RegistrationComponent implements OnInit {
       credentials => {
         console.log('CRedentials', credentials);
         this._toastrService.success('Successful', 'Registered');
+        this.clubRegisterationForm.reset()
       },
       error => {
         console.log('ERror', error);
@@ -69,6 +71,7 @@ export class RegistrationComponent implements OnInit {
       credentials => {
         console.log('CRedentials', credentials);
         this._toastrService.success('Successful', 'Registered');
+        this.academyRegisterationForm.reset()
       },
       error => {
         console.log('ERror', error);

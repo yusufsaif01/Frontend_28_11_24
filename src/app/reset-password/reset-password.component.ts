@@ -44,12 +44,12 @@ export class ResetPasswordComponent implements OnInit {
       .subscribe(
         response => {
           console.log('data', response);
-          this._toastrService.success('Successful', 'Password Creation');
+          this._toastrService.success('Successful', 'Password Reset');
           this._router.navigate(['/login']);
         },
         error => {
           console.log('error', error);
-          this._toastrService.error('Failed', 'Password Creation');
+          this._toastrService.error(`${error.error.message}`, 'Password Reset Failed');
         }
       );
   }
