@@ -25,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { RegistrationComponent } from './registration/registration.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { CreatePasswordComponent } from './create-password/create-password.component';
 
@@ -60,6 +61,7 @@ import { CreatePasswordComponent } from './create-password/create-password.compo
   declarations: [
     AppComponent,
     RegistrationComponent,
+    EditProfileComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
     ChangePasswordComponent,

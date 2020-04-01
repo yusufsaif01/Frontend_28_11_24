@@ -49,7 +49,10 @@ export class ResetPasswordComponent implements OnInit {
         },
         error => {
           console.log('error', error);
-          this._toastrService.error(`${error.error.message}`, 'Password Reset Failed');
+          this._toastrService.error(
+            `${error.error.message}`,
+            'Password Reset Failed'
+          );
         }
       );
   }

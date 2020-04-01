@@ -37,7 +37,7 @@ export class RegistrationComponent implements OnInit {
       credentials => {
         console.log('CRedentials', credentials);
         this._toastrService.success('Successful', 'Registered');
-        this.playerRegisterationForm.reset()
+        this.playerRegisterationForm.reset();
       },
       error => {
         console.log('ERror', error);
@@ -54,7 +54,7 @@ export class RegistrationComponent implements OnInit {
       credentials => {
         console.log('CRedentials', credentials);
         this._toastrService.success('Successful', 'Registered');
-        this.clubRegisterationForm.reset()
+        this.clubRegisterationForm.reset();
       },
       error => {
         console.log('ERror', error);
@@ -71,7 +71,7 @@ export class RegistrationComponent implements OnInit {
       credentials => {
         console.log('CRedentials', credentials);
         this._toastrService.success('Successful', 'Registered');
-        this.academyRegisterationForm.reset()
+        this.academyRegisterationForm.reset();
       },
       error => {
         console.log('ERror', error);
