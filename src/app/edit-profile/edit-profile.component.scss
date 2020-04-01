@@ -1,0 +1,419 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+@import url("https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&display=swap");
+body {
+  background: red !important;
+}
+.wrapper {
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  border-radius: 2rem;
+
+  .left-section {
+    width: 30%;
+    .block-design {
+      margin-top: 3rem;
+      padding: 2rem;
+      border: 1px solid $border-color;
+      background-color: $color-white;
+      border-radius: 0.8rem;
+      .profile-section {
+        max-width: 23rem;
+        width: 100%;
+        display: block;
+        margin: 0rem auto;
+        padding: 1rem;
+        p {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 1.8rem;
+          color: $error;
+          margin: 2rem 0;
+        }
+        img {
+          width: 100%;
+          border-radius: 30rem;
+        }
+        .add-btn {
+          display: flex;
+          justify-content: center;
+          margin: 3rem auto 0;
+          max-width: 15rem;
+          .btn {
+            max-width: 3rem;
+            margin: 0 auto;
+            color: #fff;
+            position: relative;
+            min-height: 5rem;
+            span {
+              position: absolute;
+              top: 1.3rem;
+              left: 2rem;
+            }
+          }
+          .upload {
+            background-color: #117a8b;
+            border-color: #10707f;
+          }
+          .delete {
+            background-color: $error;
+            border-color: $error;
+          }
+          input {
+            display: none;
+          }
+        }
+      }
+    }
+    .block {
+      margin-top: 3rem;
+      background: $color-white;
+      border-radius: 0.5rem;
+      .block-heading {
+        padding: 2rem;
+        h4 {
+          font-size: 2.4rem;
+          margin-bottom: 0.5rem;
+        }
+        p {
+          margin-bottom: 0px;
+          font-size: 1.8rem;
+          color: $text-muted;
+        }
+      }
+      .block-middle {
+        padding: 2rem;
+        label {
+          width: 100%;
+          display: block;
+          color: $color-black;
+          font-size: 1.8rem;
+          font-weight: 700;
+          margin-bottom: 0.8rem;
+        }
+        textarea {
+          width: 100%;
+          display: block;
+          border: 1px solid $border-color;
+          border-radius: 0.5rem;
+          padding: 1rem;
+        }
+        .social-link {
+          margin-bottom: 1rem;
+          width: 100%;
+          position: relative;
+          input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 5rem;
+            border: 1px solid $border-color;
+            border-radius: 0.5rem;
+          }
+          .icon {
+            position: absolute;
+            top: 1.2rem;
+            left: 1.5rem;
+          }
+        }
+      }
+      .block-bottom {
+        padding: 2rem;
+        button {
+          width: 100%;
+          color: $blue;
+          background-color: #ebf2ff;
+          border-color: #ebf2ff;
+          padding: 2rem 0;
+          border: none;
+          font-weight: 700;
+          font-size: 2rem;
+          border-radius: 0.8rem;
+          border: 2px solid transparent;
+          &:hover {
+            color: $blue;
+            background-color: $color-white;
+            border: 2px solid $blue;
+          }
+        }
+      }
+    }
+  }
+
+  .right-section {
+    width: 68%;
+    margin-left: 4rem;
+    .block {
+      background-color: $color-white;
+      border-radius: 0.8rem;
+      .block-header {
+        padding: 2rem;
+        margin-top: 3rem;
+        h4 {
+          font-size: 2.4rem;
+          margin-bottom: 0.5rem;
+        }
+        p {
+          font-size: 1.8rem;
+          color: $text-muted;
+        }
+      }
+      .block-middle {
+        padding: 2rem;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .radio {
+          display: flex;
+          // max-width:40rem;
+          width: 100%;
+          justify-content: space-between;
+
+          label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            input {
+              margin-right: 0.5rem;
+            }
+          }
+        }
+        .from-block,
+        .from-block-full {
+          width: 48%;
+          margin-bottom: 2rem;
+          label {
+            display: block;
+            margin-bottom: 1rem;
+            margin-left: 0.5rem;
+            font-size: 1.8rem;
+            font-weight: 500;
+            span {
+              color: $error;
+            }
+          }
+          input,
+          select {
+            width: 100%;
+            border: 1px solid $border-color;
+            border-radius: 0.8rem;
+            padding: 1.2rem 2rem;
+            outline: none;
+          }
+          select {
+            appearance: none;
+            background-image: url("../../assets/icons/sort.svg");
+            background-size: 1.5rem 1.5rem;
+            background-repeat: no-repeat;
+            background-position: calc(100% - 1rem) center;
+          }
+          input[type="file"] {
+            border: none;
+            padding: 1.2rem 0rem;
+          }
+          .double-input {
+            display: flex;
+            select {
+              width: 40%;
+              margin-right: 2rem;
+            }
+          }
+          .datepicker {
+            position: relative;
+            input {
+              background: url("../../assets/icons/calendar.svg");
+              background-size: 2rem 2rem;
+              background-repeat: no-repeat;
+              background-position: calc(100% - 1rem) center;
+            }
+            .mat-datepicker-toggle {
+              position: absolute;
+              top: -0.6rem;
+              right: 0.3rem;
+              opacity: 0;
+            }
+          }
+          .radio {
+            display: flex;
+            width: 100%;
+            justify-content: flex-start;
+            label {
+              input {
+                display: inline-block;
+                float: left;
+                width: 20px;
+                margin-top: 0.4rem;
+              }
+              span {
+                display: inline-block;
+                color: $color-black;
+                float: left;
+              }
+            }
+          }
+        }
+        .form-block-clubs {
+          display: flex;
+          width: 100%;
+          align-items: center;
+          flex-wrap: wrap;
+          margin-bottom: 1rem;
+
+          label {
+            display: block;
+            margin-bottom: 1rem;
+            margin-left: 0.5rem;
+            font-size: 1.8rem;
+            font-weight: 500;
+            width: 100%;
+            margin-top: 1rem;
+            span {
+              color: $error;
+            }
+          }
+          .input-wrapper,
+          .input-wrapper-second {
+            margin-right: 2rem;
+            input,
+            select {
+              width: 100%;
+              border: 1px solid $border-color;
+              border-radius: 0.8rem;
+              padding: 1.2rem 2rem;
+              outline: none;
+            }
+            select {
+              min-width: 30rem;
+              appearance: none;
+              background-image: url("../../assets/icons/sort.svg");
+              background-size: 1.5rem 1.5rem;
+              background-repeat: no-repeat;
+              background-position: calc(100% - 1rem) center;
+            }
+
+            button {
+              @include btn-primary;
+              color: $color-white;
+              margin-left: 2rem;
+              padding: 1.2rem 1.8rem;
+              font-size: 1.8rem;
+              font-weight: 700;
+              border-radius: 0.8rem;
+              border: none;
+              margin-top: 4rem;
+            }
+          }
+
+          .input-wrapper-second {
+            width: 40%;
+            &:last-child {
+              width: 10%;
+            }
+            button {
+              margin-top: 0px !important;
+            }
+          }
+        }
+      }
+    }
+    .block-bottom {
+      display: block;
+      text-align: right;
+      a {
+        color: $blue;
+        font-size: 1.8rem;
+        font-weight: 700;
+        display: inline-block;
+        margin: 4rem 0;
+        padding: 2rem 3rem;
+      }
+      button {
+        @include btn-primary;
+        color: $color-white;
+        margin-left: 2rem;
+        padding: 2rem 3rem;
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.icon-size {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+}
+
+.border-top {
+  border-top: 1px solid $border-color;
+}
+
+.border-bottom {
+  border-bottom: 1px solid $border-color;
+}
+.icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.facebook {
+  color: #007bff;
+}
+
+.instagram {
+  color: #ffc107;
+}
+
+.youtube {
+  color: #de4437;
+}
+
+.twitter {
+  color: #00dffc;
+}
+
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 5rem;
+  justify-content: space-around;
+  padding: 0 0.2rem;
+  text-align: center;
+  width: 16rem;
+}
+.star {
+  font-size: 3rem !important;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  color: #ccc;
+  cursor: pointer;
+  font-size: 1.8rem;
+}
+
+.star-rating :checked ~ label {
+  color: #17a2b8;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #fc0;
+}
+
+.d-none {
+  display: none;
+}
+
+.w-60 {
+  width: 60% !important;
+}
+.w-40 {
+  width: 40% !important;
+}

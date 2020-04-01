@@ -8,8 +8,7 @@ import { AuthenticationService } from '@app/core';
   styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent implements OnInit {
-
-  changePasswordForm:FormGroup;
+  changePasswordForm: FormGroup;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -30,31 +29,34 @@ export class ChangePasswordComponent implements OnInit {
     return required;
   }
 
-  changePassword(){
+  changePassword() {
     console.log(this.changePasswordForm.value);
-    const {old_password, new_password, confirm_password } = this.changePasswordForm.value
-    if(new_password=== confirm_password){
-      this._authenticationService.changePassword(this.changePasswordForm.value)
+    const {
+      old_password,
+      new_password,
+      confirm_password
+    } = this.changePasswordForm.value;
+    if (new_password === confirm_password) {
+      this._authenticationService
+        .changePassword(this.changePasswordForm.value)
         .subscribe(
-          (response)=>{
-            console.log('data',response);
-            
+          response => {
+            console.log('data', response);
           },
-          error =>{
-            console.log('error',error)
+          error => {
+            console.log('error', error);
           }
         );
-    }else{
+    } else {
       console.log('Password not match');
-      
     }
   }
 
-  createForm(){
+  createForm() {
     this.changePasswordForm = this._formBuilder.group({
-      old_password: ['',[Validators.required ]],
-      new_password: ['',[Validators.required ]],
-      confirm_password: ['',[Validators.required ]]
+      old_password: ['', [Validators.required]],
+      new_password: ['', [Validators.required]],
+      confirm_password: ['', [Validators.required]]
     });
   }
 }
