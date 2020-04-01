@@ -238,11 +238,11 @@
             <div class="input-wrapper-full">
               <img src="assets/icons/user.svg" alt="" />
               <label>Club Name</label>
-              <input formControlName="club" type="text" matInput />
-              <ng-container *ngIf="isFocused(clubRegisterationForm, 'club')">
+              <input formControlName="name" type="text" matInput />
+              <ng-container *ngIf="isFocused(clubRegisterationForm, 'name')">
                 <span
                   class="error-text"
-                  *ngIf="isRequired(clubRegisterationForm, 'club')"
+                  *ngIf="isRequired(clubRegisterationForm, 'name')"
                   >Club Name is required</span
                 >
               </ng-container>
@@ -386,13 +386,11 @@
             <div class="input-wrapper-full">
               <img src="assets/icons/user.svg" alt="" />
               <label>Academy Name</label>
-              <input formControlName="academy" type="text" matInput required />
-              <ng-container
-                *ngIf="isFocused(academyRegisterationForm, 'academy')"
-              >
+              <input formControlName="name" type="text" matInput required />
+              <ng-container *ngIf="isFocused(academyRegisterationForm, 'name')">
                 <span
                   class="error-text"
-                  *ngIf="isRequired(academyRegisterationForm, 'academy')"
+                  *ngIf="isRequired(academyRegisterationForm, 'name')"
                   >Academy Name is required</span
                 >
               </ng-container>
