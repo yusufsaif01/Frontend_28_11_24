@@ -12,7 +12,8 @@ const routes = {
   resetPassword: (c: ResetPasswordContext) => '/reset-password',
   changePasssword: (c: ChangePasswordContext) => '/change-password',
   forgetPassword: (c: ForgotPasswordContext) => '/forgot-password',
-  createPassword: (c: ResetPasswordContext) => '/create-password'
+  createPassword: (c: ResetPasswordContext) => '/create-password',
+  editProfile: (c: any) => '/update-details'
 };
 
 export interface LoginContext {
@@ -130,5 +131,15 @@ export class AuthenticationService {
 
   forgetPassword(context: ForgotPasswordContext): Observable<any> {
     return this.httpClient.post(routes.forgetPassword(context), context);
+  }
+
+  editProfile(context:any, token: string):Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    return this.httpClient.put(routes.editProfile(context),context,httpOptions)
   }
 }

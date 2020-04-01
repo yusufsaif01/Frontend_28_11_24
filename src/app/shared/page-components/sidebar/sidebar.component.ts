@@ -7,14 +7,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
   sidebarList: { link: string; name: string; imagePath: string }[] = [
-    { link: './dashboard', name: 'Dashboard', imagePath: 'assets/images/icons/sidebar/dashboard.png' },
+    {
+      link: './dashboard',
+      name: 'Dashboard',
+      imagePath: 'assets/images/icons/sidebar/dashboard.png'
+    },
     {
       link: '/users',
       name: 'Manage User and Roles',
       imagePath: 'assets/images/icons/sidebar/user.png'
     },
-    { link: '/courses', name: 'Manage Course Module', imagePath: 'assets/images/icons/sidebar/book.png' },
-    { link: '/manage-chapter', name: 'Manage Chapter', imagePath: 'assets/images/icons/sidebar/manage-chapter.png' },
+    {
+      link: '/courses',
+      name: 'Manage Course Module',
+      imagePath: 'assets/images/icons/sidebar/book.png'
+    },
+    {
+      link: '/manage-chapter',
+      name: 'Manage Chapter',
+      imagePath: 'assets/images/icons/sidebar/manage-chapter.png'
+    },
     {
       link: '/manage-quiz-content',
       name: 'Manage Quiz Content',
@@ -40,7 +52,11 @@ export class SidebarComponent implements OnInit {
       name: 'Manage Credentials',
       imagePath: 'assets/images/icons/sidebar/manage-credientials.png'
     },
-    { link: '/manage-reports', name: 'Manage Reports', imagePath: 'assets/images/icons/sidebar/manage-reports.png' }
+    {
+      link: '/manage-reports',
+      name: 'Manage Reports',
+      imagePath: 'assets/images/icons/sidebar/manage-reports.png'
+    }
   ];
   constructor() {}
 

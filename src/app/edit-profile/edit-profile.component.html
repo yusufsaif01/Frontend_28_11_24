@@ -78,20 +78,22 @@
   </div>
   <!-- Right seciton -->
   <div class="right-section">
-    <form action="">
+    <form (ngSubmit)="editProfile()" [formGroup]="editProfileForm">
       <!-- players -->
-      <div class="player-details d-none">
+      <div class="player-details" *ngIf="member_type==='player';else elseBlock">
         <!-- player type -->
         <div class="block">
           <div class="block-header border-bottom">
+            <!-- <ng-container> {{ editProfileForm.controls.player_type.value }}</ng-container> -->
+            <!-- <ng-container> {{ editProfileForm.value | json }}</ng-container> -->
             <h4>Player Type</h4>
             <p>Lorem ipsum dolor sit amet, consecteturs.</p>
           </div>
           <div class="block-middle">
             <div class="radio">
-              <label><input type="radio" name="player" /> Grassroot </label>
-              <label><input type="radio" name="player" /> Ameture </label>
-              <label><input type="radio" name="player" /> Professional</label>
+              <label><input (click)="player_type='grassroot'" type="radio" value="grassroot" formControlName = "player_type" /> Grassroot </label>
+              <label><input (click)="player_type='amateur'" type="radio" value="amateur" formControlName = "player_type" /> Amateur </label>
+              <label><input (click)="player_type='professional'" type="radio" value="professional" formControlName = "player_type" /> Professional</label>
             </div>
           </div>
         </div>
@@ -106,20 +108,23 @@
             <!-- first name -->
             <div class="from-block">
               <label>First Name <span>*</span></label>
-              <input type="text" matinput />
+              <input formControlName="player_first_name"
+              type="text" matinput />
             </div>
 
             <!-- last name -->
             <div class="from-block">
               <label>Last Name <span>*</span></label>
-              <input type="text" matinput />
+              <input formControlName="player_last_name"
+              type="text" matinput />
             </div>
 
             <!-- DOB -->
             <div class="from-block">
               <label>Date of Birth <span>*</span></label>
               <div class="datepicker">
-                <input matInput [matDatepicker]="myDatepicker" />
+                <input formControlName="player_dob"
+                 matInput [matDatepicker]="myDatepicker" />
                 <mat-datepicker-toggle
                   [for]="myDatepicker"
                 ></mat-datepicker-toggle>
@@ -131,19 +136,21 @@
             <div class="from-block">
               <label>Height <span>*</span></label>
               <div class="double-input">
-                <select matNativeControl required>
+                <select formControlName="player_height_foot"
+                matNativeControl required>
                   <option value="">Select Foots</option>
-                  <option value="Height01" selected="">4</option>
-                  <option value="Height02">5</option>
-                  <option value="Height03">6</option>
-                  <option value="Height04">7</option>
+                  <option value="4" selected="">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
                 </select>
-                <select matNativeControl required>
+                <select formControlName="player_height_inches"
+                matNativeControl required>
                   <option value="">Select Inch</option>
-                  <option value="Height01" selected="">4</option>
-                  <option value="Height02">5</option>
-                  <option value="Height03">6</option>
-                  <option value="Height04">7</option>
+                  <option value="4" selected="">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
                 </select>
               </div>
             </div>
@@ -151,22 +158,24 @@
             <!-- weight -->
             <div class="from-block">
               <label>Weight <span>*</span></label>
-              <select matNativeControl required>
+              <select formControlName="player_weight"
+              matNativeControl required>
                 <option value="">Select Weight</option>
-                <option value="WeightSelect1" selected="">50</option>
-                <option value="WeightSelect2">60</option>
-                <option value="WeightSelect3">70</option>
-                <option value="WeightSelect4">80</option>
+                <option value="50" selected="">50</option>
+                <option value="60">60</option>
+                <option value="70">70</option>
+                <option value="80">80</option>
               </select>
             </div>
 
             <!-- nationality -->
             <div class="from-block">
               <label>Nationality <span>*</span></label>
-              <select matNativeControl required>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
+              <select formControlName="player_nationality"
+               matNativeControl required>
+                <option value="indian">Indian</option>
+                <option value="american">American</option>
+                <option value="canadian">Canadian</option>
                 <option value="audi">Audi</option>
               </select>
             </div>
@@ -174,69 +183,80 @@
             <!-- state -->
             <div class="from-block">
               <label>State <span>*</span></label>
-              <select matNativeControl required>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+              <select formControlName="player_state"
+              matNativeControl required>
+                <option value="state1">state1</option>
+                <option value="state2">state2</option>
+                <option value="state3">state3</option>
+                <option value="state4">state4</option>
               </select>
             </div>
 
             <!-- city -->
             <div class="from-block">
               <label>Current City <span>*</span></label>
-              <select matNativeControl required>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+              <select formControlName="player_current_city"
+              matNativeControl required>
+                <option value="city1">city1</option>
+                <option value="city2">city2</option>
+                <option value="city3">city3</option>
+                <option value="city4">city4</option>
               </select>
             </div>
 
             <!-- email -->
             <div class="from-block">
               <label>Email Address <span>*</span></label>
-              <input type="text" matinput />
+              <input formControlName="player_email"
+              type="text" matinput />
             </div>
 
             <!-- Phone -->
             <div class="from-block">
               <label>Phone Number <span>*</span></label>
-              <input type="text" matinput />
+              <input formControlName="player_phone"
+              type="text" matinput />
             </div>
 
             <!-- current School -->
             <div class="from-block">
               <label>Current School Name <span>*</span></label>
-              <input type="text" matinput />
+              <input formControlName="player_current_school_name"
+              type="text" matinput />
             </div>
 
-            <!-- University School -->
-            <div class="from-block">
-              <label>Current University Name <span>*</span></label>
-              <input type="text" matinput />
-            </div>
+            <ng-container *ngIf="player_type==='amateur' || player_type==='professional' ">
+              <!-- University School -->
+              <div class="from-block">
+                <label>Current University Name <span>*</span></label>
+                <input formControlName="player_current_university_name"
+                type="text" matinput />
+              </div>
 
-            <!-- college School -->
-            <div class="from-block">
-              <label>Current College Name <span>*</span></label>
-              <input type="text" matinput />
-            </div>
+              <!-- college School -->
+              <div class="from-block">
+                <label>Current College Name <span>*</span></label>
+                <input formControlName="player_current_college_name"
+                type="text" matinput />
+              </div>
+            </ng-container>
 
             <!-- Upload   -->
             <div class="from-block">
               <label>Upload Adhaar <span>*</span></label>
-              <input type="file" matinput />
+              <input formControlName="player_upload_aadhar"
+              type="file" matinput />
             </div>
 
             <!-- employee  -->
-            <div class="from-block">
+            <div class="from-block" *ngIf="player_type ==='professional'">
               <label>Employment Contract <span>*</span></label>
-              <input type="file" matinput />
+              <input formControlName="player_employment_contract"
+              type="file" matinput />
             </div>
           </div>
         </div>
-
+        <!-- <ng-container> {{ editProfileForm.value | json }}</ng-container> -->
         <!-- Professional -->
         <div class="block">
           <div class="block-header border-bottom">
@@ -247,7 +267,8 @@
             <!-- Position ( Priority First ) -->
             <div class="from-block">
               <label>Position ( Priority First ) <span>*</span></label>
-              <select matNativeControl required>
+              <select formControlName="player_position1"
+              matNativeControl required>
                 <option value="volvo">Volvo</option>
                 <option value="saab">Saab</option>
                 <option value="mercedes">Mercedes</option>
@@ -258,7 +279,8 @@
             <!-- Position ( Priority second ) -->
             <div class="from-block">
               <label>Position ( Priority Second ) <span>*</span></label>
-              <select matNativeControl required>
+              <select formControlName="player_position2"
+              matNativeControl required>
                 <option value="volvo">Volvo</option>
                 <option value="saab">Saab</option>
                 <option value="mercedes">Mercedes</option>
@@ -269,7 +291,8 @@
             <!-- Position ( Priority third ) -->
             <div class="from-block">
               <label>Position ( Priority Thirds ) <span>*</span></label>
-              <select matNativeControl required>
+              <select formControlName="player_position3"
+              matNativeControl required>
                 <option value="volvo">Volvo</option>
                 <option value="saab">Saab</option>
                 <option value="mercedes">Mercedes</option>
@@ -280,7 +303,8 @@
             <!-- Strong foot -->
             <div class="from-block">
               <label>Strong foot <span>*</span></label>
-              <select matNativeControl required>
+              <select formControlName="player_strong_foot"
+              matNativeControl required>
                 <option value="volvo">Volvo</option>
                 <option value="saab">Saab</option>
                 <option value="mercedes">Mercedes</option>
@@ -293,10 +317,12 @@
               <label>Current associated club / academy <span>*</span></label>
               <div class="radio">
                 <label
-                  ><input type="radio" name="associated" /> <span>Yes</span>
+                  ><input 
+                  type="radio" formControlName="player_associated_club" value="yes" /> <span>Yes</span>
                 </label>
                 <label
-                  ><input type="radio" name="associated" /> <span>No</span>
+                  ><input 
+                  type="radio" formControlName="player_associated_club" value="no" /> <span>No</span>
                 </label>
               </div>
             </div>
@@ -321,158 +347,59 @@
             <!-- Head coach phone number * -->
             <div class="from-block">
               <label>Head coach phone number <span>*</span></label>
-              <input type="text" matinput />
+              <input formControlName="player_head_coach_phone_number"
+              type="text" matinput />
             </div>
 
             <!-- Head coach email number -->
             <div class="from-block">
               <label>Head coach email number <span>*</span></label>
-              <input type="text" matinput />
+              <input formControlName="player_head_coach_email_number"
+              type="text" matinput />
             </div>
 
             <!-- former Club -->
-            <div class="from-block">
-              <label>Formal Club (optional, if any) <span>*</span></label>
-              <input type="text" matinput />
-            </div>
+            <ng-container *ngIf="player_type !== 'grassroot'">
+              <div class="from-block">
+                <label>Formal Club (optional, if any) <span>*</span></label>
+                <input formControlName="player_former_club" type="text" matinput />
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>
 
       <!-- clubs and acadmey -->
-      <div class="academy-club">
-        <!-- personal detials -->
-        <div class="block">
-          <div class="block-header border-bottom">
-            <h4>Personal Detials</h4>
-            <p>Lorem ipsum dolor sit amet, consecteturs.</p>
-          </div>
-          <div class="block-middle">
-            <!-- club name -->
-            <div class="from-block">
-              <label>Club Name <span>*</span></label>
-              <input type="text" matinput />
+      <ng-template #elseBlock>
+        <div class="academy-club">
+          <!-- personal detials -->
+          <div class="block">
+            <div class="block-header border-bottom">
+              <h4>Personal Detials</h4>
+              <p>Lorem ipsum dolor sit amet, consecteturs.</p>
             </div>
-
-            <!-- Short Club name -->
-            <div class="from-block">
-              <label>Short Club Name <span>*</span></label>
-              <input type="text" matinput />
-            </div>
-
-            <!-- founded In -->
-            <div class="from-block">
-              <label>Founded ( years ) <span>*</span></label>
-              <input type="text" matinput />
-            </div>
-
-            <!-- country -->
-            <div class="from-block">
-              <label>Country <span>*</span></label>
-              <select matNativeControl required>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-              </select>
-            </div>
-
-            <!-- city -->
-            <div class="from-block">
-              <label>City <span>*</span></label>
-              <select matNativeControl required>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-              </select>
-            </div>
-
-            <!-- Address -->
-            <div class="from-block">
-              <label>Office Address <span>*</span></label>
-              <input type="text" matinput />
-            </div>
-
-            <!-- Zipcode / pincode -->
-            <div class="from-block">
-              <label>Zipcode / Pincode <span>*</span></label>
-              <input type="text" matinput />
-            </div>
-
-            <!-- email -->
-            <div class="from-block">
-              <label>Email Address <span>*</span></label>
-              <input type="email" matinput />
-            </div>
-
-            <!-- Phone -->
-            <div class="from-block">
-              <label>Phone Number <span>*</span></label>
-              <input type="text" matinput />
-            </div>
-
-            <!-- Stadium Name -->
-            <div class="from-block">
-              <label>Stadium Name <span>*</span></label>
-              <input type="text" matinput />
-            </div>
-
-            <!-- Club owner -->
-            <div class="from-block">
-              <label>Club owner <span>*</span></label>
-              <input type="text" matinput />
-            </div>
-
-            <!-- Manager -->
-            <div class="from-block">
-              <label>Manager <span>*</span></label>
-              <input type="text" matinput />
-            </div>
-
-            <!-- Manager -->
-            <div class="from-block w-60">
-              <label>Document <span>*</span></label>
-              <div class="radio">
-                <label
-                  ><input type="radio" name="document" />
-                  <span>AIFF Satus</span>
-                </label>
-                <label
-                  ><input type="radio" name="document" />
-                  <span>Pan Number</span>
-                </label>
-                <label
-                  ><input type="radio" name="document" />
-                  <span>Tin Number</span>
-                </label>
-                <label
-                  ><input type="radio" name="document" />
-                  <span>COI Number</span>
-                </label>
+            <div class="block-middle">
+              <!-- club name -->
+              <div class="from-block">
+                <label>Club Name <span>*</span></label>
+                <input type="text" matinput />
               </div>
-            </div>
-
-            <!-- Upload   -->
-            <div class="from-block w-40">
-              <label>Upload AIFF accreditation status <span>*</span></label>
-              <input type="file" matinput />
-            </div>
-          </div>
-        </div>
-
-        <!-- Professional -->
-        <div class="block">
-          <div class="block-header border-bottom">
-            <h4>Professional Detials</h4>
-            <p>Lorem ipsum dolor sit amet, consecteturs.</p>
-          </div>
-          <div class="block-middle">
-            <!-- major trophies -->
-            <div class="form-block-clubs">
-              <label>Contact Person <span>*</span></label>
-              <div class="input-wrapper">
-                <label>Designation <span>*</span></label>
+  
+              <!-- Short Club name -->
+              <div class="from-block">
+                <label>Short Club Name <span>*</span></label>
+                <input type="text" matinput />
+              </div>
+  
+              <!-- founded In -->
+              <div class="from-block">
+                <label>Founded ( years ) <span>*</span></label>
+                <input type="text" matinput />
+              </div>
+  
+              <!-- country -->
+              <div class="from-block">
+                <label>Country <span>*</span></label>
                 <select matNativeControl required>
                   <option value="volvo">Volvo</option>
                   <option value="saab">Saab</option>
@@ -480,95 +407,201 @@
                   <option value="audi">Audi</option>
                 </select>
               </div>
-
-              <div class="input-wrapper">
-                <label>Name <span>*</span></label>
+  
+              <!-- city -->
+              <div class="from-block">
+                <label>City <span>*</span></label>
+                <select matNativeControl required>
+                  <option value="volvo">Volvo</option>
+                  <option value="saab">Saab</option>
+                  <option value="mercedes">Mercedes</option>
+                  <option value="audi">Audi</option>
+                </select>
+              </div>
+  
+              <!-- Address -->
+              <div class="from-block">
+                <label>Office Address <span>*</span></label>
                 <input type="text" matinput />
               </div>
-
-              <div class="input-wrapper">
-                <label>Email <span>*</span></label>
+  
+              <!-- Zipcode / pincode -->
+              <div class="from-block">
+                <label>Zipcode / Pincode <span>*</span></label>
                 <input type="text" matinput />
               </div>
-
-              <div class="input-wrapper">
+  
+              <!-- email -->
+              <div class="from-block">
+                <label>Email Address <span>*</span></label>
+                <input type="email" matinput />
+              </div>
+  
+              <!-- Phone -->
+              <div class="from-block">
                 <label>Phone Number <span>*</span></label>
                 <input type="text" matinput />
               </div>
-              <div class="input-wrapper">
-                <button>Add</button>
-              </div>
-            </div>
-
-            <!-- major trophies -->
-            <div class="form-block-clubs">
-              <label>Major trophy Wins <span>*</span></label>
-              <div class="input-wrapper">
-                <label>Trophy Name <span>*</span></label>
+  
+              <!-- Stadium Name -->
+              <div class="from-block">
+                <label>Stadium Name <span>*</span></label>
                 <input type="text" matinput />
               </div>
-
-              <div class="input-wrapper">
-                <label>Years <span>*</span></label>
+  
+              <!-- Club owner -->
+              <div class="from-block">
+                <label>Club owner <span>*</span></label>
                 <input type="text" matinput />
               </div>
-
-              <div class="input-wrapper">
-                <label>Position Secured <span>*</span></label>
+  
+              <!-- Manager -->
+              <div class="from-block">
+                <label>Manager <span>*</span></label>
                 <input type="text" matinput />
               </div>
-              <div class="input-wrapper">
-                <button>Add</button>
+  
+              <!-- Manager -->
+              <div class="from-block w-60">
+                <label>Document <span>*</span></label>
+                <div class="radio">
+                  <label
+                    ><input type="radio" name="document" />
+                    <span>AIFF Satus</span>
+                  </label>
+                  <label
+                    ><input type="radio" name="document" />
+                    <span>Pan Number</span>
+                  </label>
+                  <label
+                    ><input type="radio" name="document" />
+                    <span>Tin Number</span>
+                  </label>
+                  <label
+                    ><input type="radio" name="document" />
+                    <span>COI Number</span>
+                  </label>
+                </div>
+              </div>
+  
+              <!-- Upload   -->
+              <div class="from-block w-40">
+                <label>Upload AIFF accreditation status <span>*</span></label>
+                <input type="file" matinput />
               </div>
             </div>
-
-            <!-- leagues -->
-            <div class="form-block-clubs">
-              <label>League <span>*</span></label>
-              <div class="input-wrapper-second">
-                <label>League Name <span>*</span></label>
-                <select matNativeControl required>
-                  <option value="volvo">Volvo</option>
-                  <option value="saab">Saab</option>
-                  <option value="mercedes">Mercedes</option>
-                  <option value="audi">Audi</option>
-                </select>
+          </div>
+  
+          <!-- Professional -->
+          <div class="block">
+            <div class="block-header border-bottom">
+              <h4>Professional Detials</h4>
+              <p>Lorem ipsum dolor sit amet, consecteturs.</p>
+            </div>
+            <div class="block-middle">
+              <!-- major trophies -->
+              <div class="form-block-clubs">
+                <label>Contact Person <span>*</span></label>
+                <div class="input-wrapper">
+                  <label>Designation <span>*</span></label>
+                  <select matNativeControl required>
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                  </select>
+                </div>
+  
+                <div class="input-wrapper">
+                  <label>Name <span>*</span></label>
+                  <input type="text" matinput />
+                </div>
+  
+                <div class="input-wrapper">
+                  <label>Email <span>*</span></label>
+                  <input type="text" matinput />
+                </div>
+  
+                <div class="input-wrapper">
+                  <label>Phone Number <span>*</span></label>
+                  <input type="text" matinput />
+                </div>
+                <div class="input-wrapper">
+                  <button>Add</button>
+                </div>
               </div>
-
-              <div class="input-wrapper-second">
-                <label>Other <span>*</span></label>
+  
+              <!-- major trophies -->
+              <div class="form-block-clubs">
+                <label>Major trophy Wins <span>*</span></label>
+                <div class="input-wrapper">
+                  <label>Trophy Name <span>*</span></label>
+                  <input type="text" matinput />
+                </div>
+  
+                <div class="input-wrapper">
+                  <label>Years <span>*</span></label>
+                  <input type="text" matinput />
+                </div>
+  
+                <div class="input-wrapper">
+                  <label>Position Secured <span>*</span></label>
+                  <input type="text" matinput />
+                </div>
+                <div class="input-wrapper">
+                  <button>Add</button>
+                </div>
+              </div>
+  
+              <!-- leagues -->
+              <div class="form-block-clubs">
+                <label>League <span>*</span></label>
+                <div class="input-wrapper-second">
+                  <label>League Name <span>*</span></label>
+                  <select matNativeControl required>
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                  </select>
+                </div>
+  
+                <div class="input-wrapper-second">
+                  <label>Other <span>*</span></label>
+                  <input type="text" matinput />
+                </div>
+  
+                <div class="input-wrapper">
+                  <button>Add</button>
+                </div>
+              </div>
+  
+              <!-- Top sign in -->
+              <div class="form-block-clubs">
+                <label>Top signings <span>*</span></label>
+                <div class="input-wrapper-second">
+                  <input type="text" matinput placeholder="first player" />
+                </div>
+  
+                <div class="input-wrapper-second">
+                  <input type="text" matinput placeholder="second player" />
+                </div>
+  
+                <div class="input-wrapper-second">
+                  <button>Add</button>
+                </div>
+              </div>
+  
+              <!-- Manager -->
+              <div class="from-block">
+                <label>Number of associated players <span>*</span></label>
                 <input type="text" matinput />
               </div>
-
-              <div class="input-wrapper">
-                <button>Add</button>
-              </div>
-            </div>
-
-            <!-- Top sign in -->
-            <div class="form-block-clubs">
-              <label>Top signings <span>*</span></label>
-              <div class="input-wrapper-second">
-                <input type="text" matinput placeholder="first player" />
-              </div>
-
-              <div class="input-wrapper-second">
-                <input type="text" matinput placeholder="second player" />
-              </div>
-
-              <div class="input-wrapper-second">
-                <button>Add</button>
-              </div>
-            </div>
-
-            <!-- Manager -->
-            <div class="from-block">
-              <label>Number of associated players <span>*</span></label>
-              <input type="text" matinput />
             </div>
           </div>
         </div>
-      </div>
+      </ng-template>
+
 
       <!-- bottom -->
       <div class="block-bottom">

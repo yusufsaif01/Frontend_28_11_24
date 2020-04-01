@@ -21,7 +21,11 @@
         color: $color-white;
         border: none;
         padding: 2rem 2rem;
-        background-image: linear-gradient(-3deg, $color-primary-dark 0%, $color-primary-light 100%);
+        background-image: linear-gradient(
+          -3deg,
+          $color-primary-dark 0%,
+          $color-primary-light 100%
+        );
       }
     }
   }
