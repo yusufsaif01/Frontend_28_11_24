@@ -10,21 +10,20 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
-
-  resetPasswordForm:FormGroup;
-  token:string
+  resetPasswordForm: FormGroup;
+  token: string;
 
   constructor(
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
     private _route: ActivatedRoute,
-    private _router:Router,
-    private _toastrService:ToastrService
+    private _router: Router,
+    private _toastrService: ToastrService
   ) {
     this.createForm();
     this._route.queryParams.subscribe(params => {
-      this.token = params['token']
-  });
+      this.token = params['token'];
+    });
   }
 
   ngOnInit() {}
@@ -39,27 +38,26 @@ export class ResetPasswordComponent implements OnInit {
     return required;
   }
 
-  resetPassword(){
-    this._authenticationService.resetPassword(this.resetPasswordForm.value, this.token)
-    .subscribe(
-      (response)=>{
-        console.log('data',response)
-        this._toastrService.success('Successful','Password Creation')
-        this._router.navigate(['/login'])
-      },
-      error =>{
-        console.log('error',error);
-        this._toastrService.error('Failed','Password Creation')
-
-        
-      }
-    );
+  resetPassword() {
+    this._authenticationService
+      .resetPassword(this.resetPasswordForm.value, this.token)
+      .subscribe(
+        response => {
+          console.log('data', response);
+          this._toastrService.success('Successful', 'Password Creation');
+          this._router.navigate(['/login']);
+        },
+        error => {
+          console.log('error', error);
+          this._toastrService.error('Failed', 'Password Creation');
+        }
+      );
   }
 
-  createForm(){
+  createForm() {
     this.resetPasswordForm = this._formBuilder.group({
-      password        : ['', Validators.required ],
-      confirmPassword : ['', Validators.required ]
-    })
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    });
   }
 }

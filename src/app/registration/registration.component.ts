@@ -18,7 +18,7 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
-    private _toastrService:ToastrService
+    private _toastrService: ToastrService
   ) {
     this.createForm();
   }
@@ -36,12 +36,11 @@ export class RegistrationComponent implements OnInit {
     register.subscribe(
       credentials => {
         console.log('CRedentials', credentials);
-        this._toastrService.success('Successful','Registered')
+        this._toastrService.success('Successful', 'Registered');
       },
       error => {
         console.log('ERror', error);
-        this._toastrService.error(`${error.error.message}`,'Failed')
-
+        this._toastrService.error(`${error.error.message}`, 'Failed');
       }
     );
   }
@@ -53,11 +52,11 @@ export class RegistrationComponent implements OnInit {
     register.subscribe(
       credentials => {
         console.log('CRedentials', credentials);
-        this._toastrService.success('Successful','Registered')
+        this._toastrService.success('Successful', 'Registered');
       },
       error => {
         console.log('ERror', error);
-        this._toastrService.error(`${error.error.message}`,'Failed')
+        this._toastrService.error(`${error.error.message}`, 'Failed');
       }
     );
   }
@@ -69,11 +68,11 @@ export class RegistrationComponent implements OnInit {
     register.subscribe(
       credentials => {
         console.log('CRedentials', credentials);
-        this._toastrService.success('Successful','Registered')
+        this._toastrService.success('Successful', 'Registered');
       },
       error => {
         console.log('ERror', error);
-        this._toastrService.error(`${error.error.message}`,'Failed')
+        this._toastrService.error(`${error.error.message}`, 'Failed');
       }
     );
   }

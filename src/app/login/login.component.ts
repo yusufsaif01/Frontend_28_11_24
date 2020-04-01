@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         (credentials: any) => {
           console.log(credentials, 'LOGIN SUCCESS');
           log.debug(`${credentials.email} successfully logged in`);
-          this.toastrService.success('Successful','Login')
+          this.toastrService.success('Successful', 'Login');
           // this.router.navigate(
           //   [this.route.snapshot.queryParams.redirect || '/xyz'],
           //   { replaceUrl: true }
@@ -70,8 +70,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         error => {
           // log.debug(`Login error: ${error}`);
-          console.log('error',error);          
-          this.toastrService.error(`${error.error.message}`,'Login')
+          console.log('error', error);
+          this.toastrService.error(`${error.error.message}`, 'Login');
           this.error = error;
         }
       );

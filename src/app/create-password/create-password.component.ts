@@ -10,21 +10,20 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./create-password.component.scss']
 })
 export class CreatePasswordComponent implements OnInit {
-
-  createPasswordForm:FormGroup;
-  token:string
+  createPasswordForm: FormGroup;
+  token: string;
 
   constructor(
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
     private _route: ActivatedRoute,
-    private _router:Router,
-    private _toastrService:ToastrService
+    private _router: Router,
+    private _toastrService: ToastrService
   ) {
     this.createForm();
     this._route.queryParams.subscribe(params => {
-      this.token = params['token']
-  });
+      this.token = params['token'];
+    });
   }
 
   ngOnInit() {}
@@ -39,26 +38,26 @@ export class CreatePasswordComponent implements OnInit {
     return required;
   }
 
-  createPassword(){
-    this._authenticationService.createPassword(this.createPasswordForm.value, this.token)
-    .subscribe(
-      (response)=>{
-        console.log('data',response)
-        this._toastrService.success('Successful','Password Creation')
-        this._router.navigate(['/login'])
-      },
-      error =>{
-        console.log('error',error);
-        this._toastrService.error('Failed','Password Creation')
-        
-      }
-    );
+  createPassword() {
+    this._authenticationService
+      .createPassword(this.createPasswordForm.value, this.token)
+      .subscribe(
+        response => {
+          console.log('data', response);
+          this._toastrService.success('Successful', 'Password Creation');
+          this._router.navigate(['/login']);
+        },
+        error => {
+          console.log('error', error);
+          this._toastrService.error('Failed', 'Password Creation');
+        }
+      );
   }
 
-  createForm(){
+  createForm() {
     this.createPasswordForm = this._formBuilder.group({
-      password        : ['', Validators.required ],
-      confirmPassword : ['', Validators.required ]
-    })
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    });
   }
 }

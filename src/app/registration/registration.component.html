@@ -222,13 +222,6 @@
               </button>
             </div>
           </div>
-
-          <div class="form-row">
-            <p><a [routerLink]="['/forget-password']">Forgot password?</a></p>
-            <p>
-              Already on YFT chain? <a [routerLink]="['/login']">Sign in</a>
-            </p>
-          </div>
         </form>
       </div>
 
@@ -378,11 +371,6 @@
               </button>
             </div>
           </div>
-
-          <div class="form-row">
-            <p><a>Forgot password?</a></p>
-            <p>Already on YFT chain? <a>Sign in</a></p>
-          </div>
         </form>
       </div>
       <!-- academy Form -->
@@ -399,9 +387,7 @@
               <img src="assets/icons/user.svg" alt="" />
               <label>Academy Name</label>
               <input formControlName="name" type="text" matInput required />
-              <ng-container
-                *ngIf="isFocused(academyRegisterationForm, 'name')"
-              >
+              <ng-container *ngIf="isFocused(academyRegisterationForm, 'name')">
                 <span
                   class="error-text"
                   *ngIf="isRequired(academyRegisterationForm, 'name')"
@@ -551,12 +537,11 @@
               </button>
             </div>
           </div>
-
-          <div class="form-row">
-            <p><a [routerLink]="['/forget-password']">Forgot password? </a></p>
-            <p>Already on YFT chain?<a [routerLink]="['/login']">Sign in</a></p>
-          </div>
         </form>
+      </div>
+      <div class="form-row">
+        <p><a [routerLink]="['/forgot-password']">Forgot password?</a></p>
+        <p>Already on YFT chain? <a [routerLink]="['/login']">Sign in</a></p>
       </div>
     </div>
   </div>
