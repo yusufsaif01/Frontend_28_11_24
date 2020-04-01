@@ -23,8 +23,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 // import { FrontendModule } from './frontend/frontend.module';
 import { ToastrModule } from 'ngx-toastr';
 import { RegistrationComponent } from './registration/registration.component';
-import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { CreatePasswordComponent } from './create-password/create-password.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
@@ -51,7 +53,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     NgxSpinnerModule,
     ToastrModule.forRoot({
       timeOut: 10000,
-      positionClass: 'toast-bottom-right',
+      positionClass: 'toast-top-right',
       preventDuplicates: true,
       closeButton: true
     })
@@ -59,9 +61,12 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
   declarations: [
     AppComponent,
     RegistrationComponent,
-    ForgetpasswordComponent,
+    ForgotPasswordComponent,
     ResetPasswordComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    ChangePasswordComponent,
+    CreatePasswordComponent,
+    ResetPasswordComponent
     // , HomeComponent
   ],
   providers: [

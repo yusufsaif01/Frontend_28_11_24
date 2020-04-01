@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '@app/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
@@ -8,7 +9,7 @@ import { AuthenticationService } from '@app/core';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  activeForm: string = 'academy';
+  activeForm: string = 'player';
 
   playerRegisterationForm: FormGroup;
   clubRegisterationForm: FormGroup;
@@ -16,7 +17,8 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _authenticationService: AuthenticationService
+    private _authenticationService: AuthenticationService,
+    private _toastrService: ToastrService
   ) {
     this.createForm();
   }
@@ -34,41 +36,46 @@ export class RegistrationComponent implements OnInit {
     register.subscribe(
       credentials => {
         console.log('CRedentials', credentials);
+        this._toastrService.success('Successful', 'Registered');
+        this.playerRegisterationForm.reset()
       },
       error => {
         console.log('ERror', error);
+        this._toastrService.error(`${error.error.message}`, 'Failed');
       }
     );
   }
   clubRegister() {
     let form_data = this.clubRegisterationForm.value;
     form_data.member_type = this.activeForm;
-    form_data.name = form_data.club;
-    delete form_data.club;
     console.log('club form_data', form_data);
     const register = this._authenticationService.register(form_data);
     register.subscribe(
       credentials => {
         console.log('CRedentials', credentials);
+        this._toastrService.success('Successful', 'Registered');
+        this.clubRegisterationForm.reset()
       },
       error => {
         console.log('ERror', error);
+        this._toastrService.error(`${error.error.message}`, 'Failed');
       }
     );
   }
   academyRegister() {
     let form_data = this.academyRegisterationForm.value;
     form_data.member_type = this.activeForm;
-    form_data.name = form_data.academy;
-    delete form_data.academy;
     console.log('academy form_data', form_data);
     const register = this._authenticationService.register(form_data);
     register.subscribe(
       credentials => {
         console.log('CRedentials', credentials);
+        this._toastrService.success('Successful', 'Registered');
+        this.academyRegisterationForm.reset()
       },
       error => {
         console.log('ERror', error);
+        this._toastrService.error(`${error.error.message}`, 'Failed');
       }
     );
   }
@@ -101,7 +108,7 @@ export class RegistrationComponent implements OnInit {
     });
 
     this.clubRegisterationForm = this._formBuilder.group({
-      club: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: [
         '',
@@ -115,7 +122,7 @@ export class RegistrationComponent implements OnInit {
       state: ['', [Validators.required]]
     });
     this.academyRegisterationForm = this._formBuilder.group({
-      academy: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: [
         '',
