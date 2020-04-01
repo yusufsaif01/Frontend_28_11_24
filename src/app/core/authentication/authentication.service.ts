@@ -12,7 +12,8 @@ const routes = {
   resetPassword: (c: ResetPasswordContext) => '/reset-password',
   changePasssword: (c: ChangePasswordContext) => '/change-password',
   forgetPassword: (c: ForgotPasswordContext) => '/forgot-password',
-  createPassword: (c: ResetPasswordContext) => '/create-password'
+  createPassword: (c: ResetPasswordContext) => '/create-password',
+  getProfileDetails: () => '/profile'
 };
 
 export interface LoginContext {
@@ -130,5 +131,17 @@ export class AuthenticationService {
 
   forgetPassword(context: ForgotPasswordContext): Observable<any> {
     return this.httpClient.post(routes.forgetPassword(context), context);
+  }
+
+  getProfileDetails(): Observable<any> {
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization:
+          'Bearer ' +
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE4YTFmMzk2LTI4MTgtNDNmNC04OGJhLTgwZWQxZjI2OWZhMSIsImVtYWlsIjoiY2x1YkBjbHViLmNvbSIsImlhdCI6MTU4NTc2NDYzNSwiZXhwIjoxNTg1NzY4MjM1fQ.W6aZuw9nC49_nj0nB1G1ZmtyKYh_PUPqLtIY2vYTwdI' // To be made dynamic
+      })
+    };
+    return this.httpClient.get(routes.getProfileDetails(), httpOptions);
   }
 }
