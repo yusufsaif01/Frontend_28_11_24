@@ -139,7 +139,7 @@
         <div class="block-middle border-bottom">
           <div class="half">
             <p>
-              <span>Positions (First)</span>
+              <span>Positions (First) :</span>
               {{
                 profile.position && profile.position[0]
                   ? profile.position[0].name
@@ -149,7 +149,7 @@
           </div>
           <div class="half">
             <p>
-              <span>Positions (Second)</span>
+              <span>Positions (Second) :</span>
               {{
                 profile.position && profile.position[0]
                   ? profile.position[1].name
@@ -162,7 +162,7 @@
         <div class="block-middle border-bottom">
           <div class="half">
             <p>
-              <span>Positions (Third)</span>
+              <span>Positions (Third) :</span>
               {{
                 profile.position && profile.position[0]
                   ? profile.position[2].name
@@ -292,10 +292,12 @@
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>ZIP/Pin code :</span> {{ profile?.address?.pincode }}</p>
+            <p>
+              <span>Zipcode/Pincode :</span> {{ profile?.address?.pincode }}
+            </p>
           </div>
           <div class="half">
-            <p><span>Email :</span> iamosahan@gmail.com</p>
+            <p><span>Email :</span> {{ profile.email }}</p>
           </div>
         </div>
 
@@ -304,13 +306,13 @@
             <p><span>Phone :</span> {{ profile.phone }}</p>
           </div>
           <div class="half">
-            <p><span>Club owner :</span> Peter Mark Johnson</p>
+            <p><span>Club owner :</span> {{ profile.club_owner }}</p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>Manager :</span> Johnshon</p>
+            <p><span>Manager :</span> {{ profile.manager }}</p>
           </div>
         </div>
 
