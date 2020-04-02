@@ -24,7 +24,11 @@ import {
   Facebook,
   Instagram,
   Youtube,
-  Twitter
+  Twitter,
+  User,
+  Lock,
+  AtSign,
+  PhoneCall
 } from 'angular-feather/icons';
 
 const icons = {
@@ -42,7 +46,11 @@ const icons = {
   Facebook,
   Instagram,
   Youtube,
-  Twitter
+  Twitter,
+  User,
+  Lock,
+  AtSign,
+  PhoneCall
 };
 
 @NgModule({

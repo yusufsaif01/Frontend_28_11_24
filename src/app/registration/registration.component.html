@@ -52,7 +52,8 @@
           <!-- firstName LastName  -->
           <div class="form-row">
             <div class="input-wrapper">
-              <img src="assets/icons/user.svg" alt="" />
+              <i-feather name="User" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/user.svg" alt="" /> -->
               <label>First Name</label>
               <input
                 formControlName="first_name"
@@ -73,7 +74,8 @@
             </div>
 
             <div class="input-wrapper">
-              <img src="assets/icons/user.svg" alt="" />
+              <i-feather name="User" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/user.svg" alt="" /> -->
               <label>Last Name</label>
               <input
                 formControlName="last_name"
@@ -96,7 +98,8 @@
           <!-- Email / Contact Number -->
           <div class="form-row">
             <div class="input-wrapper">
-              <img src="assets/icons/at-sign.svg" alt="" />
+              <i-feather name="at-sign" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
               <label>Email</label>
               <input formControlName="email" type="text" matInput />
               <ng-container *ngIf="isFocused(playerRegisterationForm, 'email')">
@@ -114,7 +117,8 @@
             </div>
 
             <div class="input-wrapper">
-              <img src="assets/icons/phone-call.svg" alt="" />
+              <i-feather name="phone-call" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/phone-call.svg" alt="" /> -->
               <label>Contact Number</label>
               <input formControlName="phone" type="text" matInput />
               <ng-container *ngIf="isFocused(playerRegisterationForm, 'phone')">
@@ -236,7 +240,8 @@
           <!-- firstName LastName  -->
           <div class="form-row">
             <div class="input-wrapper-full">
-              <img src="assets/icons/user.svg" alt="" />
+              <i-feather name="User" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/user.svg" alt="" /> -->
               <label>Club Name</label>
               <input formControlName="name" type="text" matInput />
               <ng-container *ngIf="isFocused(clubRegisterationForm, 'name')">
@@ -252,7 +257,8 @@
           <!-- Email / Contact Number -->
           <div class="form-row">
             <div class="input-wrapper">
-              <img src="assets/icons/at-sign.svg" alt="" />
+              <i-feather name="at-sign" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
               <label>Email</label>
               <input formControlName="email" type="text" matInput />
               <ng-container *ngIf="isFocused(clubRegisterationForm, 'email')">
@@ -270,7 +276,8 @@
             </div>
 
             <div class="input-wrapper">
-              <img src="assets/icons/phone-call.svg" alt="" />
+              <i-feather name="phone-call" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/phone-call.svg" alt="" /> -->
               <label>Contact Number</label>
               <input formControlName="phone" type="text" matInput />
               <ng-container *ngIf="isFocused(clubRegisterationForm, 'phone')">
@@ -384,7 +391,8 @@
           <!-- firstName LastName  -->
           <div class="form-row">
             <div class="input-wrapper-full">
-              <img src="assets/icons/user.svg" alt="" />
+              <i-feather name="User" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/user.svg" alt="" /> -->
               <label>Academy Name</label>
               <input formControlName="name" type="text" matInput required />
               <ng-container *ngIf="isFocused(academyRegisterationForm, 'name')">
@@ -400,7 +408,8 @@
           <!-- Email / Contact Number -->
           <div class="form-row">
             <div class="input-wrapper">
-              <img src="assets/icons/at-sign.svg" alt="" />
+              <i-feather name="at-sign" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
               <label>Email</label>
               <input formControlName="email" type="text" matInput />
               <ng-container
@@ -420,7 +429,8 @@
             </div>
 
             <div class="input-wrapper">
-              <img src="assets/icons/phone-call.svg" alt="" />
+              <i-feather name="phone-call" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/phone-call.svg" alt="" /> -->
               <label>Contact Number</label>
               <input formControlName="phone" type="text" matInput />
               <ng-container
@@ -490,6 +500,7 @@
                 value="state"
                 formControlName="state"
                 matNativeControl
+                placeholder="Select State"
                 required
               >
                 <option value="">Select State</option>

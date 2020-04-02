@@ -12,7 +12,8 @@
       <ul>
         <li>
           <label>Email Address </label>
-          <img src="assets/icons/mail.svg" alt="" />
+          <i-feather name="User" class="icon-size"></i-feather>
+          <!-- <img src="assets/icons/mail.svg" alt="" /> -->
           <input
             type="email"
             placeholder="Enter Email"
@@ -39,7 +40,8 @@
         </li>
         <li>
           <label>Password</label>
-          <img src="assets/icons/lock.svg" alt="" />
+          <i-feather name="lock" class="icon-size"></i-feather>
+          <!-- <img src="assets/icons/lock.svg" alt="" /> -->
           <input
             type="password"
             placeholder="Enter Password"
@@ -58,6 +60,10 @@
           <mat-checkbox formControlName="remember" class=" remember-me">
             Remember password
           </mat-checkbox>
+          <!-- <div class="custom-checkbox">
+            <label for="remember"> <input type="checkbox" checked formControlName="remember" id="remember">
+              <span>Remember Me</span></label>
+          </div> -->
         </li>
         <!-- <mat-error class="login-error" [hidden]="!error || isLoading" translate>
           Incorrect email or password
