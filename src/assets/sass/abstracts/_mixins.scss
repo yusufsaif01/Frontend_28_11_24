@@ -40,3 +40,11 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007bff', endColorstr='#00c9e4',GradientType=1 );
   border-color: #007bff;
 }
+
+@mixin disable {
+  opacity: 0.5;
+  background: #808080;
+  border-radius: 0.8rem;
+  cursor: not-allowed !important;
+  border: 1px solid #e0e0e0 !important;
+}

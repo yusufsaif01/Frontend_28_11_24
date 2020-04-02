@@ -39,8 +39,17 @@
         font-size: 1.8rem;
         a {
           color: $blue;
-          font-weight: 500;
+          font-weight: 700;
           text-decoration: none;
+          :link {
+            color: $blue;
+          }
+          :visited {
+            color: $blue;
+          }
+          :active {
+            color: $blue;
+          }
         }
       }
       ul {
@@ -55,11 +64,14 @@
             font-weight: 500;
             display: block;
           }
-          img {
+
+          .icon-size {
+            width: 2.2rem;
+            height: 2.2rem;
             position: absolute;
             top: 4rem;
             left: 1.5rem;
-            width: 2.8rem;
+            color: rgba($color-black, 0.8);
           }
           input {
             width: 100%;
@@ -77,8 +89,50 @@
               font-size: 1.8rem;
               border: 0.1rem solid $error;
             }
+            &:focus {
+              outline: 1px solid $blue;
+              border-radius: 0.8rem;
+            }
           }
-
+          .custom-checkbox {
+            label {
+              display: flex;
+              align-items: center;
+              position: relative;
+              + span::before {
+                position: absolute;
+                top: 0.25rem;
+                left: 0rem;
+                display: block;
+                width: 2rem;
+                height: 2rem;
+                pointer-events: none;
+                content: url(../../assets/icons/lock.svg);
+                // background-color: #fff;
+                // border: #adb5bd solid 1px;
+                // border-radius: 0.5rem;
+              }
+              &:checked + .custom-checkbox label::before {
+                position: absolute;
+                top: 0.25rem;
+                left: 0rem;
+                display: block;
+                width: 2rem;
+                height: 2rem;
+                content: url(../../assets/icons/at-sign.svg);
+                background: no-repeat 50%/50% 50%;
+                border-radius: 0.5rem;
+              }
+              input {
+                width: 3rem;
+                outline: none;
+                visibility: hidden;
+                &:focus {
+                  outline: none;
+                }
+              }
+            }
+          }
           .remember-me {
             font-size: 1.8rem;
           }
@@ -86,18 +140,23 @@
           .btn {
             margin-top: 2.4rem;
             color: $color-white;
-            font-weight: 600;
+            font-weight: 500;
             @include btn-primary;
             text-transform: uppercase;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             cursor: pointer;
             width: 100%;
+            letter-spacing: 1px;
             padding: 1.1rem;
-            border: 0;
+            border-color: $blue;
             box-sizing: border-box;
-            line-height: 2.7rem;
+            line-height: 2.8rem;
             outline: 0rem;
             border-radius: 0.35rem;
+            font-family: "Ubuntu";
+            &:disabled {
+              @include disable;
+            }
           }
         }
       }
@@ -118,3 +177,8 @@
 .mb-0 {
   margin-bottom: 0px !important;
 }
+
+// .custom-checkbox input:checked ~ .custom-checkbox label::before{
+//   background-color: #007bff;
+//   background-image: url('../../assets/icons/check.svg');
+// }

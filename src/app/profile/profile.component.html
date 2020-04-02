@@ -261,7 +261,8 @@
       <!-- personal details -->
       <div class="block">
         <div class="block-heading border-bottom">
-          <h2>Personal Details</h2>
+          <h2 *ngIf="profile.member_type === 'club'">Club Details</h2>
+          <h2 *ngIf="profile.member_type === 'academy'">Academy Details</h2>
         </div>
         <div class="block-middle border-bottom">
           <div class="half">

@@ -128,7 +128,21 @@ export class AuthenticationService {
   }
 
   changePassword(context: ChangePasswordContext): Observable<any> {
-    return this.httpClient.post(routes.changePasssword(context), context);
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return this.httpClient.post(
+      routes.changePasssword(context),
+      context,
+      httpOptions
+    );
   }
 
   forgetPassword(context: ForgotPasswordContext): Observable<any> {

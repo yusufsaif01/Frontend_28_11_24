@@ -11,31 +11,19 @@
     <div class="registration-wrapper-forms">
       <div class="register-type">
         <button
-          (click)="
-            toggleForm('player');
-            clubRegisterationForm.reset();
-            academyRegisterationForm.reset()
-          "
+          (click)="toggleForm('player')"
           [ngClass]="{ active: activeForm == 'player' }"
         >
           Player
         </button>
         <button
-          (click)="
-            toggleForm('club');
-            academyRegisterationForm.reset();
-            playerRegisterationForm.reset()
-          "
+          (click)="toggleForm('club')"
           [ngClass]="{ active: activeForm == 'club' }"
         >
           Club
         </button>
         <button
-          (click)="
-            toggleForm('academy');
-            playerRegisterationForm.reset();
-            clubRegisterationForm.reset()
-          "
+          (click)="toggleForm('academy')"
           [ngClass]="{ active: activeForm == 'academy' }"
         >
           Academy
@@ -52,7 +40,8 @@
           <!-- firstName LastName  -->
           <div class="form-row">
             <div class="input-wrapper">
-              <img src="assets/icons/user.svg" alt="" />
+              <i-feather name="User" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/user.svg" alt="" /> -->
               <label>First Name</label>
               <input
                 formControlName="first_name"
@@ -73,7 +62,8 @@
             </div>
 
             <div class="input-wrapper">
-              <img src="assets/icons/user.svg" alt="" />
+              <i-feather name="User" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/user.svg" alt="" /> -->
               <label>Last Name</label>
               <input
                 formControlName="last_name"
@@ -96,7 +86,8 @@
           <!-- Email / Contact Number -->
           <div class="form-row">
             <div class="input-wrapper">
-              <img src="assets/icons/at-sign.svg" alt="" />
+              <i-feather name="at-sign" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
               <label>Email</label>
               <input formControlName="email" type="text" matInput />
               <ng-container *ngIf="isFocused(playerRegisterationForm, 'email')">
@@ -114,7 +105,8 @@
             </div>
 
             <div class="input-wrapper">
-              <img src="assets/icons/phone-call.svg" alt="" />
+              <i-feather name="phone-call" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/phone-call.svg" alt="" /> -->
               <label>Contact Number</label>
               <input formControlName="phone" type="text" matInput />
               <ng-container *ngIf="isFocused(playerRegisterationForm, 'phone')">
@@ -158,8 +150,8 @@
             <div class="input-wrapper">
               <label>Country</label>
               <select formControlName="country" matNativeControl required>
-                <option value="">Select Country</option>
-                <option value="India">India</option>
+                <option value="null">Select Country</option>
+                <option value="india">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
                 <option value="australia">Australia</option
@@ -179,7 +171,7 @@
             <div class="input-wrapper">
               <label>State</label>
               <select formControlName="state" matNativeControl required>
-                <option value="">Select State</option>
+                <option value="null">Select State</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>
@@ -236,7 +228,8 @@
           <!-- firstName LastName  -->
           <div class="form-row">
             <div class="input-wrapper-full">
-              <img src="assets/icons/user.svg" alt="" />
+              <i-feather name="User" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/user.svg" alt="" /> -->
               <label>Club Name</label>
               <input formControlName="name" type="text" matInput />
               <ng-container *ngIf="isFocused(clubRegisterationForm, 'name')">
@@ -252,7 +245,8 @@
           <!-- Email / Contact Number -->
           <div class="form-row">
             <div class="input-wrapper">
-              <img src="assets/icons/at-sign.svg" alt="" />
+              <i-feather name="at-sign" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
               <label>Email</label>
               <input formControlName="email" type="text" matInput />
               <ng-container *ngIf="isFocused(clubRegisterationForm, 'email')">
@@ -270,7 +264,8 @@
             </div>
 
             <div class="input-wrapper">
-              <img src="assets/icons/phone-call.svg" alt="" />
+              <i-feather name="phone-call" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/phone-call.svg" alt="" /> -->
               <label>Contact Number</label>
               <input formControlName="phone" type="text" matInput />
               <ng-container *ngIf="isFocused(clubRegisterationForm, 'phone')">
@@ -310,8 +305,8 @@
             <div class="input-wrapper">
               <label>Country</label>
               <select formControlName="country" matNativeControl required>
-                <option value="">Select Country</option>
-                <option value="India">India</option>
+                <option value="null">Select Country</option>
+                <option value="india">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
                 <option value="australia">Australia</option>
@@ -328,7 +323,7 @@
             <div class="input-wrapper">
               <label>State</label>
               <select formControlName="state" matNativeControl required>
-                <option value="">Select State</option>
+                <option value="null">Select State</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>
@@ -384,7 +379,8 @@
           <!-- firstName LastName  -->
           <div class="form-row">
             <div class="input-wrapper-full">
-              <img src="assets/icons/user.svg" alt="" />
+              <i-feather name="User" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/user.svg" alt="" /> -->
               <label>Academy Name</label>
               <input formControlName="name" type="text" matInput required />
               <ng-container *ngIf="isFocused(academyRegisterationForm, 'name')">
@@ -400,7 +396,8 @@
           <!-- Email / Contact Number -->
           <div class="form-row">
             <div class="input-wrapper">
-              <img src="assets/icons/at-sign.svg" alt="" />
+              <i-feather name="at-sign" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
               <label>Email</label>
               <input formControlName="email" type="text" matInput />
               <ng-container
@@ -420,7 +417,8 @@
             </div>
 
             <div class="input-wrapper">
-              <img src="assets/icons/phone-call.svg" alt="" />
+              <i-feather name="phone-call" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/phone-call.svg" alt="" /> -->
               <label>Contact Number</label>
               <input formControlName="phone" type="text" matInput />
               <ng-container
@@ -466,8 +464,8 @@
             <div class="input-wrapper">
               <label>Country</label>
               <select formControlName="country" matNativeControl required>
-                <option value="">Select Country</option>
-                <option value="India">India</option>
+                <option value="null">Select Country</option>
+                <option value="india">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
                 <option value="australia">Australia</option>
@@ -490,9 +488,10 @@
                 value="state"
                 formControlName="state"
                 matNativeControl
+                placeholder="Select State"
                 required
               >
-                <option value="">Select State</option>
+                <option value="null">Select State</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>
@@ -540,7 +539,6 @@
         </form>
       </div>
       <div class="form-row">
-        <p><a [routerLink]="['/forgot-password']">Forgot password?</a></p>
         <p>Already on YFT chain? <a [routerLink]="['/login']">Sign in</a></p>
       </div>
     </div>

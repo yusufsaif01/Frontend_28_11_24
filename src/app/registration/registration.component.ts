@@ -27,7 +27,15 @@ export class RegistrationComponent implements OnInit {
 
   toggleForm(formName: string) {
     this.activeForm = formName;
+    this.resetFormFields();
   }
+
+  resetFormFields() {
+    this.clubRegisterationForm.reset();
+    this.playerRegisterationForm.reset();
+    this.academyRegisterationForm.reset();
+  }
+
   playerRegister() {
     let form_data = this.playerRegisterationForm.value;
     form_data.member_type = this.activeForm;
@@ -103,8 +111,8 @@ export class RegistrationComponent implements OnInit {
           Validators.maxLength(13)
         ]
       ],
-      country: ['', [Validators.required]],
-      state: ['', [Validators.required]]
+      country: [null, [Validators.required]],
+      state: [null, [Validators.required]]
     });
 
     this.clubRegisterationForm = this._formBuilder.group({
@@ -118,8 +126,8 @@ export class RegistrationComponent implements OnInit {
           Validators.maxLength(13)
         ]
       ],
-      country: ['', [Validators.required]],
-      state: ['', [Validators.required]]
+      country: [null, [Validators.required]],
+      state: [null, [Validators.required]]
     });
     this.academyRegisterationForm = this._formBuilder.group({
       name: ['', [Validators.required]],
@@ -132,8 +140,8 @@ export class RegistrationComponent implements OnInit {
           Validators.maxLength(13)
         ]
       ],
-      country: ['', [Validators.required]],
-      state: ['', [Validators.required]]
+      country: [null, [Validators.required]],
+      state: [null, [Validators.required]]
     });
   }
 }
