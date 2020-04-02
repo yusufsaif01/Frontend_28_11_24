@@ -53,19 +53,21 @@ export class EditProfileComponent implements OnInit {
   }
   setPlayerCategoryValidators() {
 
-    const univeristyNameControl  = this.editProfileForm.get('player_current_university_name');
-    const collegeNameControl = this.editProfileForm.get('player_current_college_name');
-    const employmentContract  = this.editProfileForm.get('player_employment_contract');
-    
-    this.editProfileForm.get('player_type').valueChanges
-      .subscribe(player_type => {
+    if(this.member_type==='player'){
 
+      const univeristyNameControl  = this.editProfileForm.get('player_current_university_name');
+      const collegeNameControl = this.editProfileForm.get('player_current_college_name');
+      const employmentContract  = this.editProfileForm.get('player_employment_contract');
+      
+      this.editProfileForm.get('player_type').valueChanges
+      .subscribe(player_type => {
+        
         if (player_type === 'professional') {
           univeristyNameControl.setValidators([Validators.required]);
           collegeNameControl.setValidators([Validators.required]);
           // employmentContract.setValidators([Validators.required]);
         }
-
+        
         if (player_type === 'amateur') {
           univeristyNameControl.setValidators(null);
           collegeNameControl.setValidators([Validators.required]);
@@ -81,10 +83,42 @@ export class EditProfileComponent implements OnInit {
         collegeNameControl.updateValueAndValidity();
         // employmentContract.updateValueAndValidity();
       });
+    }
+    // else if(this.member_type==='club' || this.member_type==='academy'){
+    //   const univeristyNameControl  = this.editProfileForm.get('player_current_university_name');
+      
+    //   this.editProfileForm.get('club_document').valueChanges
+    //   .subscribe(member_type => {
+        
+    //     if (member_type === 'club') {
+    //       univeristyNameControl.setValidators([Validators.required]);
+    //       collegeNameControl.setValidators([Validators.required]);
+    //       // employmentContract.setValidators([Validators.required]);
+    //     }
+        
+    //     if (member_type === 'academy') {
+    //       univeristyNameControl.setValidators(null);
+    //       collegeNameControl.setValidators([Validators.required]);
+    //       // employmentContract.setValidators(null);
+
+    //     univeristyNameControl.updateValueAndValidity();
+    //     collegeNameControl.updateValueAndValidity();
+    //     // employmentContract.updateValueAndValidity();
+    //   });
   }
 
   about(){
-
+    console.log('about form',this.aboutForm.value);    
+    let token = localStorage.getItem('token')
+    this._authenticationSerivce.updateBio(this.aboutForm.value,token)
+    .subscribe(
+      res=>{
+        console.log('response',res);
+      },
+      err => {
+        console.log('err',err);        
+      }
+    )
   }
 
   editProfile(){
@@ -92,30 +126,73 @@ export class EditProfileComponent implements OnInit {
   
 
     let form_data = {}
+    const formData = new FormData();
     if(this.member_type==="player"){
       //player
-      let {player_type, player_first_name,player_last_name,player_dob,player_height_foot,
-        player_height_inches,player_weight,player_nationality,
-        player_state,player_current_city,player_email,player_phone,
-        player_current_school_name,player_current_university_name,player_current_college_name,player_upload_aadhar,
-        player_employment_contract,player_position1,player_position2,player_position3,player_strong_foot,
-        player_associated_club,player_weak_foot,player_head_coach_phone_number,player_head_coach_email_number,player_former_club
+      let {player_type, 
+        player_first_name,
+        player_last_name,
+        player_dob,
+        player_height_foot,
+        player_height_inches,
+        player_weight,
+        player_nationality,
+        player_state,
+        player_current_city,
+        // player_email,
+        player_phone,
+        player_current_school_name,
+        player_current_university_name,
+        player_current_college_name,
+        player_upload_aadhar,
+        player_employment_contract,
+        player_position1,
+        player_position2,
+        player_position3,
+        player_strong_foot,
+        player_associated_club,
+        player_weak_foot,
+        player_head_coach_phone_number,
+        player_head_coach_email_number,
+        player_former_club
       } = this.editProfileForm.value
-      form_data['player_type']= player_type
-      form_data['first_name']= player_first_name
-      form_data['last_name'] = player_last_name
-      form_data['dob']=player_dob
-      form_data['height'] = player_height_foot
-      form_data['weight'] = player_weight
-      form_data['country'] = player_nationality
-      form_data['state'] = player_state
-      form_data['city'] = player_current_city
-      form_data['email'] = player_email
-      form_data['phone'] = player_phone
-      form_data['form_data'] = this.aadharformContent
+      // form_data['player_type']= player_type
+      // form_data['first_name']= player_first_name
+      // form_data['last_name'] = player_last_name
+      // form_data['dob']=player_dob
+      // form_data['height'] = player_height_foot
+      // form_data['weight'] = player_weight
+      // form_data['country'] = player_nationality
+      // form_data['state'] = player_state
+      // form_data['city'] = player_current_city
+      // form_data['phone'] = player_phone
+      // form_data['form_data'] = this.aadharformContent
+     
+
+      // if (form_data['form_data'] === null) {
+      //   return alert('Please upload correct file !!');
+      // }
+     
+      let inst:any = {"school":player_current_school_name}
+      formData.append('file',this.aadharformContent,this.aadharformContent.name);
+      formData.append('player_type', player_type);
+      formData.append('first_name',  player_first_name);
+      formData.append('last_name', player_last_name);
+      formData.append('dob', player_dob);
+      formData.append('height', player_height_foot);
+      formData.append('weight', player_weight);
+      formData.append('state', player_state);
+      formData.append('nationality', player_nationality);
+      formData.append('phone', player_phone);
+      formData.append('city',player_current_city);      
+      formData.append('player_current_university_name', player_current_university_name);
+      formData.append('college', player_current_college_name);
+      formData.append('institution', inst);
+      formData.append('weak_foot', player_weak_foot);
+      formData.append('former_club',player_former_club);      
 
     }
-    else if(this.member_type==="club"){
+    else if(this.member_type==="club" ||this.member_type==="academy"){
       let { 
         club_name ,
         club_short_name ,
@@ -124,7 +201,7 @@ export class EditProfileComponent implements OnInit {
         club_city ,
         club_address ,
         club_pincode ,
-        club_email ,
+        // club_email ,
         club_phone ,
         club_stadium_name ,
         club_owner,
@@ -141,18 +218,26 @@ export class EditProfileComponent implements OnInit {
         club_ass_player
       } = this.editProfileForm.value;
       // club
-      form_data['name']= club_name 
-      form_data['short_name']= club_short_name 
-      form_data['founded_in'] = club_founded_in 
-      form_data['country']=club_country 
-      form_data['city'] = club_city 
+      // form_data['name']= club_name 
+      // form_data['short_name']= club_short_name 
+      // form_data['founded_in'] = club_founded_in 
+      // form_data['country']=club_country 
+      // form_data['city'] = club_city 
       // form_dat``a[''] = club_address 
       // form_data[''] = club_pincode 
       // form_data[''] = club_email 
-      form_data['phone'] = club_phone 
-      form_data['stadium'] = club_stadium_name 
+      // form_data['phone'] = club_phone 
+      // form_data['stadium'] = club_stadium_name 
       // form_data[''] = club_owner
+      formData.append('player_type', form_data['player_type']);
+      formData.append('name',  club_name);
+      formData.append('short_name',  club_short_name);
+      formData.append('founded_in', club_founded_in);
+      formData.append('country', club_country);
+      formData.append('phone', club_phone);
+      formData.append('city',club_city);    
 
+ 
     }
     // else if(this.member_type==="academy"){
       
@@ -161,9 +246,9 @@ export class EditProfileComponent implements OnInit {
 
 
 
-    console.log(form_data);
+    console.log(formData);
     let token = localStorage.getItem('token')
-    this._authenticationSerivce.editProfile(form_data,token)
+    this._authenticationSerivce.editProfile(formData,token)
     .subscribe(
       res=>{
         console.log('response',res);
@@ -173,7 +258,7 @@ export class EditProfileComponent implements OnInit {
       }
     )
   }
-
+ 
   uploadAadhar(event:any){
     console.log('##################',event.target.files);
     const formData  = new FormData();
@@ -183,15 +268,15 @@ export class EditProfileComponent implements OnInit {
 
   createForm(){
     this.aboutForm = this._formBuilder.group({
-      about: [],
-      bio  : []
+      about: [''],
+      bio  : ['']
     });
 
     this.socialProfileForm = this._formBuilder.group({
-      insta: [],
-      fb: [],
-      twitter:[],
-      youtube:[]
+      insta: [''],
+      fb: [''],
+      twitter:[''],
+      youtube:['']
     });
 
     if(this.member_type==='player'){
@@ -228,23 +313,23 @@ export class EditProfileComponent implements OnInit {
 
     }
 
-    else if(this.member_type==='club'){
+    else if(this.member_type==='club' || this.member_type==='academy'){
       this.editProfileForm = this._formBuilder.group({
         // personal_details
-        club_name : ['club_name1', []],
-        club_short_name : ['short_club1', []],
-        club_founded_in : ['1900', []],
-        club_country : ['India', []],
-        club_city : ['Bhopal', []],
-        club_address : ['club_address1', []],
-        club_pincode : ['111111', []],
-        club_email : ['', []],
-        club_phone : ['9989898989', []],
-        club_stadium_name : ['club_stadium_name1', []],
-        club_owner:['club_owner1', []],
-        club_manager : ['club_manger1', []],
-        club_document: ['tin', []],
-        club_aiff: ['', []],
+        club_name : ['', [ Validators.required ]],
+        club_short_name : ['', [ Validators.required ]],
+        club_founded_in : ['', [ Validators.required ]],
+        club_country : ['', [ Validators.required ]],
+        club_city : ['', [ Validators.required ]],
+        club_address : ['', [ Validators.required ]],
+        club_pincode : ['', [ Validators.required ]],
+        // club_email : ['',],
+        club_phone : ['', [ Validators.required ]],
+        club_stadium_name : ['', [ Validators.required ]],
+        club_owner:['', [ Validators.required ]],
+        club_manager : ['', [ Validators.required ]],
+        club_document: ['', [ Validators.required ]],
+        club_aiff: ['', [ Validators.required ]],
     
         // professional_details
         club_contact_designation : ['', []],

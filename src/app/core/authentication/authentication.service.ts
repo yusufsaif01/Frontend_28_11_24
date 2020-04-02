@@ -13,7 +13,8 @@ const routes = {
   changePasssword: (c: ChangePasswordContext) => '/change-password',
   forgetPassword: (c: ForgotPasswordContext) => '/forgot-password',
   createPassword: (c: ResetPasswordContext) => '/create-password',
-  editProfile: (c: any) => '/update-details'
+  editProfile: (c: any) => '/update-details',
+  updateBio:(a:any) => '/update-bio'
 };
 
 export interface LoginContext {
@@ -141,5 +142,15 @@ export class AuthenticationService {
       })
     };
     return this.httpClient.put(routes.editProfile(context),context,httpOptions)
+  }
+
+  updateBio(context:any, token: string):Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    return this.httpClient.put(routes.updateBio(context),context,httpOptions)
   }
 }
