@@ -25,6 +25,10 @@ import {
   Instagram,
   Youtube,
   Twitter,
+  User,
+  Lock,
+  AtSign,
+  PhoneCall,
   MapPin,
   Clock,
   Star
@@ -46,6 +50,10 @@ const icons = {
   Instagram,
   Youtube,
   Twitter,
+  User,
+  Lock,
+  AtSign,
+  PhoneCall,
   MapPin,
   Clock,
   Star
