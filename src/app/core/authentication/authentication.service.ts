@@ -139,7 +139,7 @@ export class AuthenticationService {
         'Content-Type': 'application/json',
         Authorization:
           'Bearer ' +
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE4YTFmMzk2LTI4MTgtNDNmNC04OGJhLTgwZWQxZjI2OWZhMSIsImVtYWlsIjoiY2x1YkBjbHViLmNvbSIsImlhdCI6MTU4NTc2NDYzNSwiZXhwIjoxNTg1NzY4MjM1fQ.W6aZuw9nC49_nj0nB1G1ZmtyKYh_PUPqLtIY2vYTwdI' // To be made dynamic
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE4YTFmMzk2LTI4MTgtNDNmNC04OGJhLTgwZWQxZjI2OWZhMSIsImVtYWlsIjoiY2x1YkBjbHViLmNvbSIsImlhdCI6MTU4NTgxMTMyNywiZXhwIjoxNTg1ODE0OTI3fQ.P0g7IrqQDKIsBXfK85pitiBVWG9eEU7TCp0etMfL0T8' // To be made dynamic
       })
     };
     return this.httpClient.get(routes.getProfileDetails(), httpOptions);

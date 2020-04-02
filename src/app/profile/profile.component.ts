@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
     this._authenticationService.getProfileDetails().subscribe(
       response => {
         console.log('data', response);
-        this.profile = response;
+        this.profile = response.data;
         this._toastrService.success(
           'Successful',
           'Data retrieved successfully'

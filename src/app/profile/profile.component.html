@@ -1,12 +1,12 @@
 <app-header></app-header>
-<div class="wrapper">
+<div class="wrapper" *ngIf="profile">
   <!-- Left section -->
   <div class="left-section">
     <!-- profile  -->
     <div class="block-design">
       <div class="profile-section border-bottom">
         <img src="assets/images/profile-icon.png" alt="profile-icon" />
-        <h3>Gurdeep Osahan</h3>
+        <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
         <h6>Goalkeeper</h6>
         <p>
           <i-feather name="alert-circle" class="icon-size"></i-feather>
@@ -15,7 +15,7 @@
       </div>
       <div class="block-middle border-bottom">
         <div class="part">
-          <h4>358</h4>
+          <h4>348</h4>
           <p>Achievements</p>
         </div>
         <div class="part border-left">
@@ -37,29 +37,13 @@
       <div class="block-middle">
         <div class="content">
           <p>
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default
-            model text, and a search for 'lorem ipsum' will uncover many web
-            sites still in their infancy. Various versions have evolved over the
-            years, sometimes by accident, sometimes on purpose (injected humour
-            and the like)
-          </p>
-
-          <p>
-            Find the most qualified people in the most unexpected places.
-            Information for applicants to consider when applying for local
-            positions. The largest community on the web to find and list Clubs
-            that aren't restricted by commutes or a specific location.
+            {{ profile.about }}
           </p>
         </div>
       </div>
     </div>
     <!-- player section -->
-    <div class="players">
+    <div class="players d-none">
       <!-- personal details -->
       <div class="block">
         <div class="block-heading border-bottom">
@@ -67,58 +51,64 @@
         </div>
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Date of Birth :</span> March 28 1999</p>
+            <p><span>Date of Birth :</span> {{ profile.dob }}</p>
           </div>
           <div class="half">
-            <p><span>Height :</span> 5.9 ft</p>
-          </div>
-        </div>
-
-        <div class="block-middle border-bottom">
-          <div class="half">
-            <p><span>Weight :</span> 65 kg</p>
-          </div>
-          <div class="half">
-            <p><span>Nationality :</span> India</p>
+            <p><span>Height :</span> {{ profile.height }}</p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>State :</span> Delhi</p>
+            <p><span>Weight :</span> {{ profile.weight }}</p>
           </div>
           <div class="half">
-            <p><span>Current City :</span> Delhi</p>
+            <p><span>Nationality :</span> {{ profile.country }}</p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Email :</span> iamosahan@gmail.com</p>
+            <p><span>State :</span> {{ profile.state }}</p>
           </div>
           <div class="half">
-            <p><span>Phone :</span> 1212121212</p>
+            <p><span>Current City :</span> {{ profile.city }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p><span>Email :</span> {{ profile.email }}</p>
+          </div>
+          <div class="half">
+            <p><span>Phone :</span> {{ profile.phone }}</p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="full">
             <p>
-              <span>Current School Name :</span> Divdi Private School Divdi
-              Private School
+              <span>Current School Name :</span>
+              {{ profile?.institute?.school }}
             </p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>Current University Name :</span> University</p>
+            <p>
+              <span>Current University Name :</span>
+              {{ profile?.institute?.university }}
+            </p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>Current College Name :</span> College Name</p>
+            <p>
+              <span>Current College Name :</span>
+              {{ profile?.institute?.college }}
+            </p>
           </div>
         </div>
 
@@ -138,23 +128,44 @@
       <!-- perfessional details -->
       <div class="block">
         <div class="block-heading border-bottom">
-          <h2>Perfessional Details</h2>
+          <h2>Professional Details</h2>
         </div>
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Positions (First)</span> Goalkeeper Gk</p>
+            <p>
+              <span>Positions (First)</span>
+              {{
+                profile.position && profile.position[0]
+                  ? profile.position[0].name
+                  : ''
+              }}
+            </p>
           </div>
           <div class="half">
-            <p><span>Positions (Second)</span> Goalkeeper Gk</p>
+            <p>
+              <span>Positions (Second)</span>
+              {{
+                profile.position && profile.position[0]
+                  ? profile.position[1].name
+                  : ''
+              }}
+            </p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Positions (Third)</span> Goalkeeper Gk</p>
+            <p>
+              <span>Positions (Third)</span>
+              {{
+                profile.position && profile.position[0]
+                  ? profile.position[2].name
+                  : ''
+              }}
+            </p>
           </div>
           <div class="half">
-            <p><span>Strong Foot :</span> Left</p>
+            <p><span>Strong Foot :</span> {{ profile.strong_foot }}</p>
           </div>
         </div>
 
@@ -170,7 +181,7 @@
             </p>
           </div>
           <div class="half">
-            <p><span>Formal Clubs :</span> Chelsea</p>
+            <p><span>Former Clubs :</span> Chelsea</p>
           </div>
         </div>
 
@@ -188,30 +199,34 @@
       </div>
     </div>
 
-    <!-- clubs and acadmey -->
+    <!-- clubs and academy -->
     <div class="clubs ">
       <!-- contact details -->
       <div class="block">
-        <div class="block-heading border-bottom">
-          <h2>Contact Details</h2>
-        </div>
-        <div class="block-middle border-bottom">
-          <div class="half">
-            <p><span>Designation :</span> Mangage</p>
-          </div>
-          <div class="half">
-            <p><span> Name :</span> MIKE</p>
-          </div>
-        </div>
+        <ng-container *ngIf="profile.contact_person">
+          <ng-container *ngFor="let person of profile.contact_person">
+            <div class="block-heading border-bottom">
+              <h2>Contact Details</h2>
+            </div>
+            <div class="block-middle border-bottom">
+              <div class="half">
+                <p><span>Designation :</span> {{ person.designation }}</p>
+              </div>
+              <div class="half">
+                <p><span> Name :</span> {{ person.name }}</p>
+              </div>
+            </div>
 
-        <div class="block-middle border-bottom">
-          <div class="half">
-            <p><span>Email :</span> Someone@gmail.com</p>
-          </div>
-          <div class="half">
-            <p><span> Phone Number :</span> 98765432345</p>
-          </div>
-        </div>
+            <div class="block-middle border-bottom">
+              <div class="half">
+                <p><span>Email :</span> {{ person.email }}</p>
+              </div>
+              <div class="half">
+                <p><span> Phone Number :</span> {{ person.phone }}</p>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
       </div>
       <!-- personal details -->
       <div class="block">
@@ -220,34 +235,34 @@
         </div>
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Founded :</span> 1990</p>
+            <p><span>Founded :</span> {{ profile.founded_in }}</p>
           </div>
           <div class="half">
-            <p><span>Short Club Name :</span> MIKE</p>
+            <p><span>Short Club Name :</span> {{ profile.short_name }}</p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Country :</span> India</p>
+            <p><span>Country :</span> {{ profile.country }}</p>
           </div>
           <div class="half">
-            <p><span>City :</span> Delhi</p>
+            <p><span>City :</span> {{ profile.city }}</p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="full">
             <p>
-              <span>Office address :</span> address : ZX Building 2nd Floor
-              Office No 234
+              <span>Office address :</span> address :
+              {{ profile?.address?.full_address }}
             </p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>ZIP/Pin code :</span> 847923479</p>
+            <p><span>ZIP/Pin code :</span> {{ profile?.address?.pincode }}</p>
           </div>
           <div class="half">
             <p><span>Email :</span> iamosahan@gmail.com</p>
@@ -256,7 +271,7 @@
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Phone :</span> 1212121212</p>
+            <p><span>Phone :</span> {{ profile.phone }}</p>
           </div>
           <div class="half">
             <p><span>Club owner :</span> Peter Mark Johnson</p>
@@ -271,7 +286,7 @@
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>View AIIF Status : </span> <a>Document</a></p>
+            <p><span>View AIFF Status : </span> <a>Document</a></p>
           </div>
         </div>
       </div>
@@ -279,24 +294,32 @@
       <!-- perfessional details -->
       <div class="block">
         <div class="block-heading border-bottom">
-          <h2>Perfessional Details</h2>
+          <h2>Professional Details</h2>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>Major trophies won : </span> JOE Trophy, 1998, Second</p>
+            <p>
+              <span>Major trophies won : </span>
+              <ng-container *ngIf="profile.trophies">
+                <ng-container *ngFor="let trophies of profile.trophies">
+                  {{ trophies.name }} {{ trophies.year }}
+                  {{ trophies.position }}
+                </ng-container>
+              </ng-container>
+            </p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>League : </span> Barcelona League</p>
+            <p><span>League : </span>{{ profile.leagues }}</p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>Top Signing : </span> Mike Reki</p>
+            <p><span>Top Signing : </span>{{ profile.top_signings }}</p>
           </div>
         </div>
       </div>
@@ -478,3 +501,4 @@
     </div>
   </div>
 </div>
+<ng-template #loading> Loading </ng-template>

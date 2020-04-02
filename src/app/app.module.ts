@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -44,6 +45,7 @@ import { ProfileComponent } from './profile/profile.component';
     CoreModule,
     SharedModule,
     MaterialModule,
+    CommonModule,
     // ShellModule,
     // HomeModule,
     LoginModule,
