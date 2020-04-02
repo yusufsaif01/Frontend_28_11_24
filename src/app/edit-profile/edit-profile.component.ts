@@ -23,6 +23,7 @@ export class EditProfileComponent implements OnInit {
   academyProfileForm: FormGroup;
   aadharformContent: any;
   documentContent: any;
+  Avatar:any;
 
   constructor(
     private _formBuilder           : FormBuilder,
@@ -204,6 +205,7 @@ export class EditProfileComponent implements OnInit {
     }
     else if(this.member_type==="club"){
       formData1 = this.toFormData(this.editProfileForm.value);
+      formData1.append('aiff',this.documentContent,this.documentContent.name);   
       // let { 
       //   name ,
       //   short_name ,
@@ -235,6 +237,7 @@ export class EditProfileComponent implements OnInit {
     
     else if(this.member_type==="academy"){
       formData1 = this.toFormData(this.editProfileForm.value);
+      formData1.append('document',this.documentContent,this.documentContent.name);
       // let { 
       //   name ,
       //   short_name ,
@@ -284,14 +287,17 @@ export class EditProfileComponent implements OnInit {
  
   uploadAadhar(event:any){
     console.log('##################',event.target.files);
-    const formData  = new FormData();
     this.aadharformContent =  event.target.files[0]
   }
 
   uploadDocument(event:any){
     console.log('##################',event.target.files);
-    const formData  = new FormData();
     this.documentContent =  event.target.files[0]
+  }
+
+  uploadAvatar(event:any){
+    console.log('##################',event.target.files);
+    this.Avatar =  event.target.files[0]
   }
 
 
@@ -307,11 +313,14 @@ export class EditProfileComponent implements OnInit {
       }
     )
   }
-
   about(){
-    console.log('about form',this.aboutForm.value);    
+    let formData1:any = this.toFormData(this.aboutForm.value);
+    formData1.append('document',this.Avatar,this.Avatar.name);
+    for (let pair of formData1.entries()) {
+      console.log(pair[0]+ ', ' + pair[1]); 
+    }
     let token = localStorage.getItem('token')
-    this._authenticationSerivce.updateBio(this.aboutForm.value,token)
+    this._authenticationSerivce.updateBio(formData1/*  */,token)
     .subscribe(
       res=>{
         console.log('response',res);

@@ -3,6 +3,7 @@
   <!-- Left section -->
   <div class="left-section">
     <!-- profile  -->
+    <form (ngSubmit)="about()" [formGroup]="aboutForm" >
     <div class="block-design">
       <div class="profile-section">
         <img src="assets/images/profile-icon.png" alt="profile-icon" />
@@ -15,7 +16,9 @@
             <span>
               <i-feather name="Image" class="icon-size"></i-feather>
             </span>
-            <input type="file" matinput name="add-image" id="add-image" />
+            <input type="file" matinput name="add-image" id="add-image" 
+            (change)="uploadAvatar($event)"
+            />
           </label>
           <button class="btn delete">
             <span>
@@ -31,7 +34,7 @@
         <h4>About</h4>
         <p>Tell about yourself in two sentences.</p>
       </div>
-      <form (ngSubmit)="about()" [formGroup]="aboutForm" >
+      
         <div class="block-middle border-bottom">
           <label> BIO </label>
           <textarea formControlName = "bio"
@@ -40,8 +43,9 @@
         <div class="block-bottom">
           <button>Save</button>
         </div>
-      </form>
+      
     </div>
+    </form>
 
     <div class="block">
       <div class="block-heading border-bottom">
