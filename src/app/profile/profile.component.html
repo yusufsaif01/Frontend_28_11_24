@@ -7,7 +7,13 @@
       <div class="profile-section border-bottom">
         <img src="assets/images/profile-icon.png" alt="profile-icon" />
         <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
-        <h6>Goalkeeper</h6>
+        <h6>
+          {{
+            profile.position && profile.position[0]
+              ? profile.position[0].name
+              : ''
+          }}
+        </h6>
         <p>
           <i-feather name="alert-circle" class="icon-size"></i-feather>
           Not Verified
@@ -181,21 +187,37 @@
             </p>
           </div>
           <div class="half">
-            <p><span>Former Clubs :</span> Chelsea</p>
+            <p><span>Former Clubs :</span> {{ profile.former_club }}</p>
           </div>
         </div>
 
-        <div class="block-middle border-bottom">
-          <div class="full">
-            <p><span>Head Coach Phone Number : </span> 5678904567</p>
-          </div>
-        </div>
+        <ng-container *ngIf="profile.club_academy_details">
+          <ng-container *ngFor="let details of profile.club_academy_details">
+            <div class="block-middle border-bottom">
+              <div class="full">
+                <p><span>Head Coach Name : </span> {{ details.head_coach }}</p>
+              </div>
+            </div>
 
-        <div class="block-middle border-bottom">
-          <div class="full">
-            <p><span>Head Coach Email : </span> Some@gmail.com</p>
-          </div>
-        </div>
+            <div class="block-middle border-bottom">
+              <div class="full">
+                <p>
+                  <span>Head Coach Phone Number : </span>
+                  {{ details.head_coach_phone }}
+                </p>
+              </div>
+            </div>
+
+            <div class="block-middle border-bottom">
+              <div class="full">
+                <p>
+                  <span>Head Coach Email : </span>
+                  {{ details.head_coach_email }}
+                </p>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
       </div>
     </div>
 
