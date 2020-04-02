@@ -10,10 +10,11 @@ import { AuthenticationService } from '../core/authentication/authentication.ser
 export class EditProfileComponent implements OnInit {
 
   
-  // member_type = 'player';
+  // member_type = 'club';
   // player_type = "grassroot";
   member_type:string = localStorage.getItem('member_type') || 'player';
   player_type = localStorage.getItem('player_type') || "grassroot";
+  user_email = localStorage.getItem('email');
   aboutForm: FormGroup;
   socialProfileForm: FormGroup;
   editProfileForm : FormGroup;
@@ -173,23 +174,27 @@ export class EditProfileComponent implements OnInit {
       //   return alert('Please upload correct file !!');
       // }
      
-      let inst:any = {"school":player_current_school_name}
+      let institute:any = {
+        "school":player_current_school_name,
+        "college":player_current_college_name,
+        "university":player_current_university_name
+      }
+      let player_height = player_height_foot+'ft'+player_height_inches+'in'
       formData.append('file',this.aadharformContent,this.aadharformContent.name);
       formData.append('player_type', player_type);
       formData.append('first_name',  player_first_name);
       formData.append('last_name', player_last_name);
       formData.append('dob', player_dob);
-      formData.append('height', player_height_foot);
+      formData.append('height', player_height);
       formData.append('weight', player_weight);
       formData.append('state', player_state);
       formData.append('nationality', player_nationality);
       formData.append('phone', player_phone);
       formData.append('city',player_current_city);      
-      formData.append('player_current_university_name', player_current_university_name);
-      formData.append('college', player_current_college_name);
-      formData.append('institution', inst);
+      formData.append('institute', institute);
       formData.append('weak_foot', player_weak_foot);
-      formData.append('former_club',player_former_club);      
+      formData.append('former_club',player_former_club);
+      console.log('data',formData);           
 
     }
     else if(this.member_type==="club" ||this.member_type==="academy"){
@@ -229,22 +234,22 @@ export class EditProfileComponent implements OnInit {
       // form_data['phone'] = club_phone 
       // form_data['stadium'] = club_stadium_name 
       // form_data[''] = club_owner
-      formData.append('player_type', form_data['player_type']);
+      let contact_person:any={
+        name:club_contact_name,
+        email:club_contact_email,
+        phone_number:club_contact_phone_number,
+        designation:club_contact_designation
+      }
       formData.append('name',  club_name);
       formData.append('short_name',  club_short_name);
       formData.append('founded_in', club_founded_in);
       formData.append('country', club_country);
       formData.append('phone', club_phone);
-      formData.append('city',club_city);    
+      formData.append('city',club_city); 
+      formData.append('contact_person',contact_person)   
 
  
     }
-    // else if(this.member_type==="academy"){
-      
-    // } 
-
-
-
 
     console.log(formData);
     let token = localStorage.getItem('token')
@@ -262,7 +267,8 @@ export class EditProfileComponent implements OnInit {
   uploadAadhar(event:any){
     console.log('##################',event.target.files);
     const formData  = new FormData();
-    this.aadharformContent = formData.append("file", event.target.files[0]);
+    this.aadharformContent =  event.target.files[0] //formData.append("file",);
+
 
   }
 

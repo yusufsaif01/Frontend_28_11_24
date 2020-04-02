@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           if(credentials.data.player_type){
             localStorage.setItem('player_type',credentials.data.player_type)
           }
+          localStorage.setItem('email',credentials.data.email)
           // this.router.navigate(
           //   [this.route.snapshot.queryParams.redirect || '/xyz'],
           //   { replaceUrl: true }

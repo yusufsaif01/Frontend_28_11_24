@@ -242,7 +242,7 @@
             <!-- email -->
             <div class="from-block">
               <label>Email Address <span>*</span></label>
-              <input disabled
+              <input disabled [value]="user_email"
               type="text" matinput />
             </div>
 
@@ -385,15 +385,15 @@
             <div class="from-block">
               <label>Weak foot <span>*</span></label>
               <div class="star-rating">
-                <input type="radio" id="5-stars" name="rating" value="5" />
+                <input formControlName="player_weak_foot" (onclick)="editProfileForm.controls.player_weak_foot.value=5" type="radio" id="5-stars" value="5" />
                 <label for="5-stars" class="star">&#9733;</label>
-                <input type="radio" id="4-stars" name="rating" value="4" />
+                <input formControlName="player_weak_foot" (onclick)="editProfileForm.controls.player_weak_foot.value=4" type="radio" id="4-stars" value="4" />
                 <label for="4-stars" class="star">&#9733;</label>
-                <input type="radio" id="3-stars" name="rating" value="3" />
+                <input formControlName="player_weak_foot" (onclick)="editProfileForm.controls.player_weak_foot.value=3" type="radio" id="3-stars" value="3" />
                 <label for="3-stars" class="star">&#9733;</label>
-                <input type="radio" id="2-stars" name="rating" value="2" />
+                <input formControlName="player_weak_foot" (onclick)="editProfileForm.controls.player_weak_foot.value=2" type="radio" id="2-stars" value="2" />
                 <label for="2-stars" class="star">&#9733;</label>
-                <input type="radio" id="1-star" name="rating" value="1" />
+                <input formControlName="player_weak_foot" (onclick)="editProfileForm.controls.player_weak_foot.value=1" type="radio" id="1-star" value="1" />
                 <label for="1-star" class="star">&#9733;</label>
               </div>
             </div>

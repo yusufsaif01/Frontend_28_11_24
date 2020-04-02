@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -28,6 +29,49 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { CreatePasswordComponent } from './create-password/create-password.component';
+import { ProfileComponent } from './profile/profile.component';
+import { FeatherModule } from 'angular-feather';
+import {
+  Camera,
+  Heart,
+  Github,
+  Users,
+  Crosshair,
+  MessageSquare,
+  Bell,
+  AlertCircle,
+  Image,
+  Delete,
+  Trash2,
+  Facebook,
+  Instagram,
+  Youtube,
+  Twitter,
+  MapPin,
+  Clock,
+  Star
+} from 'angular-feather/icons';
+
+const icons = {
+  Camera,
+  Heart,
+  Github,
+  Users,
+  Crosshair,
+  MessageSquare,
+  Bell,
+  AlertCircle,
+  Image,
+  Delete,
+  Trash2,
+  Facebook,
+  Instagram,
+  Youtube,
+  Twitter,
+  MapPin,
+  Clock,
+  Star
+};
 
 @NgModule({
   imports: [
@@ -43,10 +87,12 @@ import { CreatePasswordComponent } from './create-password/create-password.compo
     CoreModule,
     SharedModule,
     MaterialModule,
+    CommonModule,
     // ShellModule,
     // HomeModule,
     LoginModule,
     LoginFrontendModule,
+    FeatherModule.pick(icons),
     // FrontendModule,
     Angulartics2Module.forRoot(),
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
@@ -66,7 +112,8 @@ import { CreatePasswordComponent } from './create-password/create-password.compo
     ResetPasswordComponent,
     EditProfileComponent,
     ChangePasswordComponent,
-    CreatePasswordComponent
+    CreatePasswordComponent,
+    ProfileComponent
     // , HomeComponent
   ],
   providers: [
