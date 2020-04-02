@@ -8,41 +8,38 @@ import { AuthenticationService } from '../core/authentication/authentication.ser
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit {
-
-  
   // member_type = 'academy';
   // player_type = "grassroot";
-  member_type:string = localStorage.getItem('member_type') || 'player';
-  player_type = localStorage.getItem('player_type') || "grassroot";
+  member_type: string = localStorage.getItem('member_type') || 'player';
+  player_type = localStorage.getItem('player_type') || 'grassroot';
   user_email = localStorage.getItem('email');
   aboutForm: FormGroup;
   socialProfileForm: FormGroup;
-  editProfileForm : FormGroup;
+  editProfileForm: FormGroup;
   playerProfileForm: FormGroup;
   clubProfileForm: FormGroup;
   academyProfileForm: FormGroup;
   aadharformContent: any;
   documentContent: any;
-  Avatar:any;
+  Avatar: any;
 
   constructor(
-    private _formBuilder           : FormBuilder,
-    private _authenticationSerivce : AuthenticationService,
+    private _formBuilder: FormBuilder,
+    private _authenticationSerivce: AuthenticationService
   ) {
-    this.createForm()
+    this.createForm();
     // this.setUserCategoryValidators()
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  selectTab(tabName:string){
+  selectTab(tabName: string) {
     this.editProfileForm.reset();
     // this.createForm()
-    this.player_type=tabName;
-    this.createForm()
-    this.setPlayerCategoryValidators()
-    console.log('player_type',this.player_type);
+    this.player_type = tabName;
+    this.createForm();
+    this.setPlayerCategoryValidators();
+    console.log('player_type', this.player_type);
   }
 
   isFocused(form: FormGroup, field: string) {
@@ -66,53 +63,56 @@ export class EditProfileComponent implements OnInit {
     }
     return formData;
   }
-  
 
   setPlayerCategoryValidators() {
+    if (this.member_type === 'player') {
+      const univeristyNameControl = this.editProfileForm.get(
+        'player_current_university_name'
+      );
+      const collegeNameControl = this.editProfileForm.get(
+        'player_current_college_name'
+      );
+      const employmentContract = this.editProfileForm.get(
+        'player_employment_contract'
+      );
 
-    if(this.member_type==='player'){
+      this.editProfileForm
+        .get('player_type')
+        .valueChanges.subscribe(player_type => {
+          if (player_type === 'professional') {
+            univeristyNameControl.setValidators([Validators.required]);
+            collegeNameControl.setValidators([Validators.required]);
+            // employmentContract.setValidators([Validators.required]);
+          }
 
-      const univeristyNameControl  = this.editProfileForm.get('player_current_university_name');
-      const collegeNameControl = this.editProfileForm.get('player_current_college_name');
-      const employmentContract  = this.editProfileForm.get('player_employment_contract');
-      
-      this.editProfileForm.get('player_type').valueChanges
-      .subscribe(player_type => {
-        
-        if (player_type === 'professional') {
-          univeristyNameControl.setValidators([Validators.required]);
-          collegeNameControl.setValidators([Validators.required]);
-          // employmentContract.setValidators([Validators.required]);
-        }
-        
-        if (player_type === 'amateur') {
-          univeristyNameControl.setValidators(null);
-          collegeNameControl.setValidators([Validators.required]);
-          // employmentContract.setValidators(null);
-        }
-        if (player_type === 'grassroot') {
-          univeristyNameControl.setValidators(null);
-          collegeNameControl.setValidators(null);
-          // employmentContract.setValidators(null);
-        }
+          if (player_type === 'amateur') {
+            univeristyNameControl.setValidators(null);
+            collegeNameControl.setValidators([Validators.required]);
+            // employmentContract.setValidators(null);
+          }
+          if (player_type === 'grassroot') {
+            univeristyNameControl.setValidators(null);
+            collegeNameControl.setValidators(null);
+            // employmentContract.setValidators(null);
+          }
 
-        univeristyNameControl.updateValueAndValidity();
-        collegeNameControl.updateValueAndValidity();
-        // employmentContract.updateValueAndValidity();
-      });
+          univeristyNameControl.updateValueAndValidity();
+          collegeNameControl.updateValueAndValidity();
+          // employmentContract.updateValueAndValidity();
+        });
     }
     // else if(this.member_type==='club' || this.member_type==='academy'){
     //   const univeristyNameControl  = this.editProfileForm.get('player_current_university_name');
-      
+
     //   this.editProfileForm.get('club_document').valueChanges
     //   .subscribe(member_type => {
-        
+
     //     if (member_type === 'club') {
     //       univeristyNameControl.setValidators([Validators.required]);
     //       collegeNameControl.setValidators([Validators.required]);
     //       // employmentContract.setValidators([Validators.required]);
     //     }
-        
+
     //     if (member_type === 'academy') {
     //       univeristyNameControl.setValidators(null);
     //       collegeNameControl.setValidators([Validators.required]);
@@ -124,15 +124,15 @@ export class EditProfileComponent implements OnInit {
     //   });
   }
 
-  editProfile(){
+  editProfile() {
     // console.log("form_data",this.editProfileForm.value)
-  
 
     const formData = new FormData();
-    let formData1:any
-    if(this.member_type==="player"){
+    let formData1: any;
+    if (this.member_type === 'player') {
       //player
-      let {player_type, 
+      let {
+        player_type,
         player_first_name,
         player_last_name,
         player_dob,
@@ -158,7 +158,7 @@ export class EditProfileComponent implements OnInit {
         player_head_coach_phone_number,
         player_head_coach_email_number,
         player_former_club
-      } = this.editProfileForm.value
+      } = this.editProfileForm.value;
       // form_data['player_type']= player_type
       // form_data['first_name']= player_first_name
       // form_data['last_name'] = player_last_name
@@ -170,25 +170,29 @@ export class EditProfileComponent implements OnInit {
       // form_data['city'] = player_current_city
       // form_data['phone'] = player_phone
       // form_data['form_data'] = this.aadharformContent
-     
 
       // if (form_data['form_data'] === null) {
       //   return alert('Please upload correct file !!');
       // }
-     
-      let institute:any = {
-        "school":player_current_school_name,
-        "college":player_current_college_name,
-        "university":player_current_university_name
-      }
-      let head_coach:any ={
-        "head_coach_email":player_head_coach_email_number,
-        "head_coach_phone":player_head_coach_phone_number
-      }
-      let player_height = player_height_foot+'ft'+player_height_inches+'in'
-      formData.append('aadhar',this.aadharformContent,this.aadharformContent.name);
+
+      let institute: any = {
+        school: player_current_school_name,
+        college: player_current_college_name,
+        university: player_current_university_name
+      };
+      let head_coach: any = {
+        head_coach_email: player_head_coach_email_number,
+        head_coach_phone: player_head_coach_phone_number
+      };
+      let player_height =
+        player_height_foot + 'ft' + player_height_inches + 'in';
+      formData.append(
+        'aadhar',
+        this.aadharformContent,
+        this.aadharformContent.name
+      );
       formData.append('player_type', player_type);
-      formData.append('first_name',  player_first_name);
+      formData.append('first_name', player_first_name);
       formData.append('last_name', player_last_name);
       formData.append('dob', player_dob);
       formData.append('height', player_height);
@@ -196,17 +200,15 @@ export class EditProfileComponent implements OnInit {
       formData.append('state', player_state);
       formData.append('nationality', player_nationality);
       formData.append('phone', player_phone);
-      formData.append('city',player_current_city);      
+      formData.append('city', player_current_city);
       formData.append('institute', institute);
       formData.append('weak_foot', player_weak_foot);
-      formData.append('former_club',player_former_club);
-      console.log('data',formData);           
-
-    }
-    else if(this.member_type==="club"){
+      formData.append('former_club', player_former_club);
+      console.log('data', formData);
+    } else if (this.member_type === 'club') {
       formData1 = this.toFormData(this.editProfileForm.value);
-      formData1.append('aiff',this.documentContent,this.documentContent.name);   
-      // let { 
+      formData1.append('aiff', this.documentContent, this.documentContent.name);
+      // let {
       //   name ,
       //   short_name ,
       //   founded_in ,
@@ -226,19 +228,20 @@ export class EditProfileComponent implements OnInit {
       // formData.append('country ', country );
       // formData.append('city ', city );
       // formData.append('address ', address );
-      // formData.append('pincode ',pincode ) 
+      // formData.append('pincode ',pincode )
       // formData.append('phone ',phone );
       // formData.append('stadium_name ',stadium_name );
       // formData.append('owner',owner);
       // formData.append('manager ',manager );
-      // formData.append('aiff',this.documentContent,this.documentContent.name);      
-
-    }
-    
-    else if(this.member_type==="academy"){
+      // formData.append('aiff',this.documentContent,this.documentContent.name);
+    } else if (this.member_type === 'academy') {
       formData1 = this.toFormData(this.editProfileForm.value);
-      formData1.append('document',this.documentContent,this.documentContent.name);
-      // let { 
+      formData1.append(
+        'document',
+        this.documentContent,
+        this.documentContent.name
+      );
+      // let {
       //   name ,
       //   short_name ,
       //   founded_in ,
@@ -259,159 +262,164 @@ export class EditProfileComponent implements OnInit {
       // formData.append('country ', country );
       // formData.append('city ', city );
       // formData.append('address ', address );
-      // formData.append('pincode ',pincode ) 
+      // formData.append('pincode ',pincode )
       // formData.append('phone ',phone );
       // formData.append('stadium_name ',stadium_name );
       // formData.append('owner',owner);
       // formData.append('manager ',manager );
       // formData.append('document_type',document_type);
       // formData.append('document',this.documentContent,this.documentContent.name);
-      
     }
-    console.log('################formdata1',formData1['manager']);
+    console.log('################formdata1', formData1['manager']);
     for (let pair of formData1.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]); 
+      console.log(pair[0] + ', ' + pair[1]);
     }
-    let token = localStorage.getItem('token')
-    this._authenticationSerivce.editProfile(formData,token)
-    .subscribe(
-      res=>{
-        console.log('response',res);
+    let token = localStorage.getItem('token');
+    this._authenticationSerivce.editProfile(formData1, token).subscribe(
+      res => {
+        console.log('response', res);
       },
       err => {
-        console.log('err',err);        
+        console.log('err', err);
       }
-    )
+    );
   }
 
- 
-  uploadAadhar(event:any){
-    console.log('##################',event.target.files);
-    this.aadharformContent =  event.target.files[0]
+  uploadAadhar(event: any) {
+    console.log('##################', event.target.files);
+    this.aadharformContent = event.target.files[0];
   }
 
-  uploadDocument(event:any){
-    console.log('##################',event.target.files);
-    this.documentContent =  event.target.files[0]
+  uploadDocument(event: any) {
+    console.log('##################', event.target.files);
+    this.documentContent = event.target.files[0];
   }
 
-  uploadAvatar(event:any){
-    console.log('##################',event.target.files);
-    this.Avatar =  event.target.files[0]
+  uploadAvatar(event: any) {
+    console.log('##################', event.target.files);
+    this.Avatar = event.target.files[0];
   }
 
-
-  socialProfile(){
-    let token = localStorage.getItem('token')
-    this._authenticationSerivce.updateBio(this.socialProfileForm.value,token)
-    .subscribe(
-      res=>{
-        console.log('response',res);
-      },
-      err => {
-        console.log('err',err);        
-      }
-    )
+  socialProfile() {
+    let token = localStorage.getItem('token');
+    this._authenticationSerivce
+      .updateBio(this.socialProfileForm.value, token)
+      .subscribe(
+        res => {
+          console.log('response', res);
+        },
+        err => {
+          console.log('err', err);
+        }
+      );
   }
-  about(){
-    let formData1:any = this.toFormData(this.aboutForm.value);
-    formData1.append('document',this.Avatar,this.Avatar.name);
+  about() {
+    let formData1: any = this.toFormData(this.aboutForm.value);
+    formData1.append('avatar', this.Avatar, this.Avatar.name);
     for (let pair of formData1.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]); 
+      console.log(pair[0] + ', ' + pair[1]);
     }
-    let token = localStorage.getItem('token')
-    this._authenticationSerivce.updateBio(formData1/*  */,token)
-    .subscribe(
-      res=>{
-        console.log('response',res);
+    let token = localStorage.getItem('token');
+    this._authenticationSerivce.updateBio(formData1, token).subscribe(
+      res => {
+        console.log('response', res);
       },
       err => {
-        console.log('err',err);        
+        console.log('err', err);
       }
-    )
+    );
   }
 
-  createForm(){
+  createForm() {
     this.aboutForm = this._formBuilder.group({
       about: [''],
-      bio  : ['']
+      bio: ['']
     });
 
     this.socialProfileForm = this._formBuilder.group({
       instagram: [''],
       facebook: [''],
-      twitter:[''],
-      youtube:['']
+      twitter: [''],
+      youtube: ['']
     });
 
-    if(this.member_type==='player'){
-      this.editProfileForm = this._formBuilder.group({
-      // personal_details
-        player_type : [this.player_type,[ Validators.required ]],
-        player_first_name : ['samyak',[ Validators.required ]],
-        player_last_name : ['jain',[ Validators.required ]],
-        player_dob : ['2020-04-14',[ Validators.required ]],//2020-04-14T18:30:00.000Z"
-      player_height_foot : ['5',[ Validators.required ]],//height
-      player_height_inches : ['5',[ Validators.required ]],
-        player_weight : ['50',[ Validators.required ]],
-      player_nationality : ['',[ Validators.required ]],//country
-        player_state : ['',[ Validators.required ]],
-      player_current_city : ['',[ Validators.required ]],//city
-        player_phone : ['',[ Validators.required ]],
-      player_current_school_name : ['',[ Validators.required ]],//institute.school
-      player_current_university_name : ['',],//institute.univeristy
-      player_current_college_name : ['',],//institute.college
-      // player_upload_aadhar : ['',[ ]],
-      player_employment_contract : ['',[ ]],
-      // // professional_details
-      player_position1 : ['',[]],
-      player_position2 : ['saab',[]],
-      player_position3 : ['',[]],
-      player_strong_foot : ['',[]],
-      player_associated_club : ['',[]],
-      player_weak_foot : ['',[]],
-      player_head_coach_phone_number : ['',[]],
-      player_head_coach_email_number : ['coach@gmail.com',[]],
-      player_former_club : ['',[]]
-      })
-
-    }
-
-    else if(this.member_type==='club'){
+    if (this.member_type === 'player') {
       this.editProfileForm = this._formBuilder.group({
         // personal_details
-        name : ['', [ Validators.required ]],
-        short_name : ['', [ Validators.required ]],
-        founded_in : ['', [ Validators.required ]],
-        country : ['', [ Validators.required ]],
-        city : ['', [ Validators.required ]],
-        address : ['', [ Validators.required ]],
-        pincode : ['', [ Validators.required ]],
-        phone : ['', [ Validators.required, Validators.minLength(10),Validators.maxLength(13)]],
-        stadium_name : ['', [ Validators.required ]],
-        owner:['', [ Validators.required ]],
-        manager : ['', [ Validators.required ]]
+        player_type: [this.player_type, [Validators.required]],
+        player_first_name: ['samyak', [Validators.required]],
+        player_last_name: ['jain', [Validators.required]],
+        player_dob: ['2020-04-14', [Validators.required]], //2020-04-14T18:30:00.000Z"
+        player_height_foot: ['5', [Validators.required]], //height
+        player_height_inches: ['5', [Validators.required]],
+        player_weight: ['50', [Validators.required]],
+        player_nationality: ['', [Validators.required]], //country
+        player_state: ['', [Validators.required]],
+        player_current_city: ['', [Validators.required]], //city
+        player_phone: ['', [Validators.required]],
+        player_current_school_name: ['', [Validators.required]], //institute.school
+        player_current_university_name: [''], //institute.univeristy
+        player_current_college_name: [''], //institute.college
+        // player_upload_aadhar : ['',[ ]],
+        player_employment_contract: ['', []],
+        // // professional_details
+        player_position1: ['', []],
+        player_position2: ['saab', []],
+        player_position3: ['', []],
+        player_strong_foot: ['', []],
+        player_associated_club: ['', []],
+        player_weak_foot: ['', []],
+        player_head_coach_phone_number: ['', []],
+        player_head_coach_email_number: ['coach@gmail.com', []],
+        player_former_club: ['', []]
+      });
+    } else if (this.member_type === 'club') {
+      this.editProfileForm = this._formBuilder.group({
+        // personal_details
+        name: ['', [Validators.required]],
+        short_name: ['', [Validators.required]],
+        founded_in: ['', [Validators.required]],
+        country: ['', [Validators.required]],
+        city: ['', [Validators.required]],
+        address: ['', [Validators.required]],
+        pincode: ['', [Validators.required]],
+        phone: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(13)
+          ]
+        ],
+        stadium_name: ['', [Validators.required]],
+        owner: ['', [Validators.required]],
+        manager: ['', [Validators.required]]
         // onclick upload document [aiff]
-        })    
-    }
-    else if(this.member_type==='academy'){
+      });
+    } else if (this.member_type === 'academy') {
       this.editProfileForm = this._formBuilder.group({
         // personal_details
-        name : ['', [ Validators.required ]],
-        short_name : ['', [ Validators.required ]],
-        founded_in : ['', [ Validators.required ]],
-        country : ['', [ Validators.required ]],
-        city : ['', [ Validators.required ]],
-        address : ['', [ Validators.required ]],
-        pincode : ['', [ Validators.required ]],
-        phone : ['', [ Validators.required, Validators.minLength(10),Validators.maxLength(13)]],
-        stadium_name : ['', [ Validators.required ]],
-        owner:['', [ Validators.required ]],
-        manager : ['', [ Validators.required ]],
-        document_type: ['aiff', [ Validators.required ]],
+        name: ['', [Validators.required]],
+        short_name: ['', [Validators.required]],
+        founded_in: ['', [Validators.required]],
+        country: ['', [Validators.required]],
+        city: ['', [Validators.required]],
+        address: ['', [Validators.required]],
+        pincode: ['', [Validators.required]],
+        phone: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(13)
+          ]
+        ],
+        stadium_name: ['', [Validators.required]],
+        owner: ['', [Validators.required]],
+        manager: ['', [Validators.required]],
+        document_type: ['aiff', [Validators.required]]
         //onclick upload documenet aiff / pan card/tin / coi
-        })    
-
+      });
     }
   }
 }

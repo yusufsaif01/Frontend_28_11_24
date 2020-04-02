@@ -14,7 +14,7 @@ const routes = {
   forgetPassword: (c: ForgotPasswordContext) => '/forgot-password',
   createPassword: (c: ResetPasswordContext) => '/create-password',
   editProfile: (c: any) => '/update-details',
-  updateBio:(a:any) => '/update-bio',
+  updateBio: (a: any) => '/update-bio',
   getProfileDetails: () => '/profile'
 };
 
@@ -149,14 +149,17 @@ export class AuthenticationService {
     return this.httpClient.post(routes.forgetPassword(context), context);
   }
 
-
-  editProfile(context:any, token: string):Observable<any>{
+  editProfile(context: any, token: string): Observable<any> {
     let httpOptions = {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token
       })
     };
-    return this.httpClient.put(routes.editProfile(context),context,httpOptions)
+    return this.httpClient.put(
+      routes.editProfile(context),
+      context,
+      httpOptions
+    );
   }
 
   getProfileDetails(): Observable<any> {
@@ -173,14 +176,12 @@ export class AuthenticationService {
     return this.httpClient.get(routes.getProfileDetails(), httpOptions);
   }
 
-  updateBio(context:any, token: string):Observable<any>{
+  updateBio(context: any, token: string): Observable<any> {
     let httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token
       })
     };
-    return this.httpClient.put(routes.updateBio(context),context,httpOptions)
-
+    return this.httpClient.put(routes.updateBio(context), context, httpOptions);
   }
 }
