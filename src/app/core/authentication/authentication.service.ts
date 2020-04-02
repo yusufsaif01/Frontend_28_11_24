@@ -133,12 +133,14 @@ export class AuthenticationService {
     return this.httpClient.post(routes.forgetPassword(context), context);
   }
 
-  getProfileDetails(token: string): Observable<any> {
+  getProfileDetails(): Observable<any> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
     let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization:
-          'Bearer ' + this.credentialsService.credentials.data.token
+        Authorization: 'Bearer ' + token
       })
     };
     return this.httpClient.get(routes.getProfileDetails(), httpOptions);
