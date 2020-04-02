@@ -48,27 +48,27 @@
         <h4>Social profiles</h4>
         <p>Add elsewhere links to your profile.</p>
       </div>
-      <form>
+      <form  (ngSubmit)="socialProfile()" [formGroup]="socialProfileForm" >
         <div class="block-middle border-bottom">
           <!-- instagram -->
           <div class="social-link">
             <i-feather name="instagram" class="icon instagram"></i-feather>
-            <input type="text" matinput placeholder="Add Instagram Link" />
+            <input formControlName="instagram" type="text" matinput placeholder="Add Instagram Link" />
           </div>
           <!-- facebook -->
           <div class="social-link">
             <i-feather name="facebook" class="icon facebook"></i-feather>
-            <input type="text" matinput placeholder="Add Facebook Link" />
+            <input formControlName="facebook" type="text" matinput placeholder="Add Facebook Link" />
           </div>
           <!-- twitter -->
           <div class="social-link">
             <i-feather name="twitter" class="icon twitter"></i-feather>
-            <input type="text" matinput placeholder="Add Twitter Link" />
+            <input formControlName="twitter" type="text" matinput placeholder="Add Twitter Link" />
           </div>
           <!-- Youtube -->
           <div class="social-link">
             <i-feather name="Youtube" class="icon youtube"></i-feather>
-            <input type="text" matinput placeholder="Add Youtube Link" />
+            <input formControlName="youtube" type="text" matinput placeholder="Add Youtube Link" />
           </div>
         </div>
         <div class="block-bottom">
@@ -314,7 +314,7 @@
         <!-- Professional -->
         <div class="block">
           <div class="block-header border-bottom">
-            <h4>Professional Detials</h4>
+            <h4>Professional Details</h4>
             <p>Lorem ipsum dolor sit amet, consecteturs.</p>
           </div>
           <div class="block-middle">
@@ -429,8 +429,8 @@
           <!-- personal detials -->
           <div class="block">
             <div class="block-header border-bottom">
-              <!-- {{ editProfileForm.valid }}
-              {{ member_type }} -->
+              {{ editProfileForm.valid }}
+              {{ member_type }}
               <h4>Personal Detials</h4>
               <p>Lorem ipsum dolor sit amet, consecteturs.</p>
             </div>
@@ -438,10 +438,10 @@
               <!-- club name -->
               <div class="from-block">
                 <label [innerText]="member_type==='academy'?'Academy Name':'Club Name '" >Club Name <span>*</span></label>
-                <input formControlName="club_name"
+                <input formControlName="name"
                 type="text" matinput />
-                <ng-container  *ngIf="isFocused(editProfileForm, 'club_name')">
-                  <span [innerText]="member_type==='academy'?'Academy Name is required':'Club Name is required'"  class="error-text" *ngIf="isRequired(editProfileForm, 'club_name')">Club Name is required</span>
+                <ng-container  *ngIf="isFocused(editProfileForm, 'name')">
+                  <span [innerText]="member_type==='academy'?'Academy Name is required':'Club Name is required'"  class="error-text" *ngIf="isRequired(editProfileForm, 'name')">Club Name is required</span>
                 </ng-container>
               </div>
   
@@ -450,98 +450,106 @@
                 <label
                 [innerText]="member_type==='academy'?'Short Academy Name':'Short Club Name'"
                 >Short Club Name <span>*</span></label>
-                <input formControlName="club_short_name"
+                <input formControlName="short_name"
                 type="text" matinput />
-                <ng-container  *ngIf="isFocused(editProfileForm, 'club_short_name')">
-                  <span [innerText]="member_type==='academy'?'Short Academy Name is required':'Short Club Name is required'" class="error-text" *ngIf="isRequired(editProfileForm, 'club_short_name')">Short Club Name is required</span>
+                <ng-container  *ngIf="isFocused(editProfileForm, 'short_name')">
+                  <span [innerText]="member_type==='academy'?'Short Academy Name is required':'Short Club Name is required'" class="error-text" *ngIf="isRequired(editProfileForm, 'short_name')">Short Club Name is required</span>
                 </ng-container>
               </div>
   
               <!-- founded In -->
               <div class="from-block">
                 <label>Founded ( years ) <span>*</span></label>
-                <input formControlName="club_founded_in"
+                <input formControlName="founded_in"
                 type="text" matinput />
-                <ng-container  *ngIf="isFocused(editProfileForm, 'club_founded_in')">
-                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'club_founded_in')">Founded is required</span>
+                <ng-container  *ngIf="isFocused(editProfileForm, 'founded_in')">
+                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'founded_in')">Founded is required</span>
                 </ng-container>
               </div>
   
               <!-- country -->
               <div class="from-block">
                 <label>Country <span>*</span></label>
-                <select formControlName="club_country"
+                <select formControlName="country"
                 matNativeControl required>
                   <option value="volvo">Volvo</option>
                   <option value="saab">Saab</option>
                   <option value="mercedes">Mercedes</option>
                   <option value="audi">Audi</option>
                 </select>
-                <ng-container  *ngIf="isFocused(editProfileForm, 'club_country')">
-                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'club_country')">Country is required</span>
+                <ng-container  *ngIf="isFocused(editProfileForm, 'country')">
+                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'country')">Country is required</span>
                 </ng-container>
               </div>
   
               <!-- city -->
               <div class="from-block">
                 <label>City <span>*</span></label>
-                <select formControlName="club_city"
+                <select formControlName="city"
                 matNativeControl required>
                   <option value="volvo">Volvo</option>
                   <option value="saab">Saab</option>
                   <option value="mercedes">Mercedes</option>
                   <option value="audi">Audi</option>
                 </select>
-                <ng-container  *ngIf="isFocused(editProfileForm, 'club_city')">
-                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'club_city')">City is required</span>
+                <ng-container  *ngIf="isFocused(editProfileForm, 'city')">
+                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'city')">City is required</span>
                 </ng-container>
               </div>
   
               <!-- Address -->
               <div class="from-block">
                 <label>Office Address <span>*</span></label>
-                <input formControlName="club_address"
+                <input formControlName="address"
                  type="text" matinput />
-                 <ng-container  *ngIf="isFocused(editProfileForm, 'club_address')">
-                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'club_address')">Office Address is required</span>
+                 <ng-container  *ngIf="isFocused(editProfileForm, 'address')">
+                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'address')">Office Address is required</span>
                 </ng-container>
               </div>
   
               <!-- Zipcode / pincode -->
               <div class="from-block">
                 <label>Zipcode / Pincode <span>*</span></label>
-                <input formControlName="club_pincode"
+                <input formControlName="pincode"
                  type="text" matinput />
-                 <ng-container  *ngIf="isFocused(editProfileForm, 'club_pincode')">
-                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'club_pincode')">Zipcode / Pincode is required</span>
+                 <ng-container  *ngIf="isFocused(editProfileForm, 'pincode')">
+                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'pincode')">Zipcode / Pincode is required</span>
                 </ng-container>
               </div>
   
               <!-- email -->
               <div class="from-block">
                 <label>Email Address <span>*</span></label>
-                <input disabled
+                <input disabled [value]="user_email"
                  type="email" matinput />
               </div>
   
               <!-- Phone -->
               <div class="from-block">
                 <label>Phone Number <span>*</span></label>
-                <input formControlName="club_phone"
+                <input formControlName="phone"
                  type="text" matinput />
-                 <ng-container  *ngIf="isFocused(editProfileForm, 'club_phone')">
-                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'club_phone')">Phone Numbere is required</span>
+                <ng-container *ngIf="isFocused(editProfileForm, 'phone')">
+                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'phone')">Phone Number is required</span>
+
+                  <span class="error-text" *ngIf="editProfileForm.controls.phone.errors.minlength">
+                    Please provide number upto {{editProfileForm.controls.phone.errors.minlength.requiredLength }} digits
+                  </span>
+                  <span class="error-text" *ngIf="editProfileForm.controls.phone.errors.maxlength">
+                    Please provide number under {{ editProfileForm.controls.phone.errors.maxlength.requiredLength }} digits
+                  </span>
                 </ng-container>
               </div>
   
               <!-- Stadium Name -->
               <div class="from-block">
                 <label>Stadium Name <span>*</span></label>
-                <input formControlName="club_stadium_name"
+                <input formControlName="stadium_name"
                  type="text" matinput />
-                 <ng-container  *ngIf="isFocused(editProfileForm, 'club_stadium_name')">
-                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'club_stadium_name')">Stadium Name is required</span>
+                 <ng-container  *ngIf="isFocused(editProfileForm, 'stadium_name')">
+                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'stadium_name')">Stadium Name is required</span>
                 </ng-container>
+                
               </div>
   
               <!-- Club owner -->
@@ -549,20 +557,20 @@
                 <label
                 [innerText]="member_type==='academy'?'Academy owner':'Club owner'"
                 >Club owner <span>*</span></label>
-                <input formControlName="club_owner"
+                <input formControlName="owner"
                  type="text" matinput />
-                 <ng-container  *ngIf="isFocused(editProfileForm, 'club_owner')">
-                  <span [innerText]="member_type==='academy'?'Academy owner is required':'Club owner is required'" class="error-text" *ngIf="isRequired(editProfileForm, 'club_owner')">Club owner is required</span>
+                 <ng-container  *ngIf="isFocused(editProfileForm, 'owner')">
+                  <span [innerText]="member_type==='academy'?'Academy owner is required':'Club owner is required'" class="error-text" *ngIf="isRequired(editProfileForm, 'owner')">Club owner is required</span>
                 </ng-container>
               </div>
   
               <!-- Manager -->
               <div class="from-block">
                 <label>Manager <span>*</span></label>
-                <input formControlName="club_manager"
+                <input formControlName="manager"
                  type="text" matinput />
-                 <ng-container  *ngIf="isFocused(editProfileForm, 'club_manager')">
-                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'club_manager')">Manager is required</span>
+                 <ng-container  *ngIf="isFocused(editProfileForm, 'manager')">
+                  <span class="error-text" *ngIf="isRequired(editProfileForm, 'manager')">Manager is required</span>
                 </ng-container>
               </div>
   
@@ -572,22 +580,22 @@
                   <label>Document Type<span>*</span></label>
                   <div class="radio">
                     <label
-                    ><input formControlName="club_document"
+                    ><input formControlName="document_type"
                      type="radio" value="aiff"/>
                     <span>AIFF Satus</span>
                   </label>
                   <label
-                    ><input formControlName="club_document"
+                    ><input formControlName="document_type"
                      type="radio" value="pan"/>
                      <span>Pan Number</span>
                     </label>
                     <label
-                    ><input formControlName="club_document"
+                    ><input formControlName="document_type"
                     type="radio" value="tin"/>
                     <span>Tin Number</span>
                   </label>
                   <label
-                  ><input formControlName="club_document"
+                  ><input formControlName="document_type"
                   type="radio" value="coi"/>
                   <span>COI Number</span>
                 </label>
@@ -599,8 +607,9 @@
   
               <!-- Upload   -->
               <div class="from-block w-40">
-                <label>Upload AIFF accreditation status <span>*</span></label>
-                <input type="file" matinput />
+                <label [innerHTML]="member_type==='academy'?'Upload Documnet':'Upload AIFF accreditation status <span>*</span>'">Upload AIFF accreditation status <span>*</span></label>
+                <input type="file" matinput (change)="uploadDocument($event)"
+                 accept="image/*,.pdf">
               </div>
             </div>
           </div>
@@ -617,7 +626,7 @@
                 <label>Contact Person <span>*</span></label>
                 <div class="input-wrapper">
                   <label>Designation <span>*</span></label>
-                  <select formControlName="club_contact_designation"
+                  <select 
                   matNativeControl required>
                     <option value="volvo">Volvo</option>
                     <option value="saab">Saab</option>
@@ -628,19 +637,19 @@
   
                 <div class="input-wrapper">
                   <label>Name <span>*</span></label>
-                  <input formControlName="club_contact_name"
+                  <input 
                   type="text" matinput />
                 </div>
   
                 <div class="input-wrapper">
                   <label>Email <span>*</span></label>
-                  <input formControlName="club_contact_email"
+                  <input 
                   type="email" matinput />
                 </div>
   
                 <div class="input-wrapper">
                   <label>Phone Number <span>*</span></label>
-                  <input formControlName="club_contact_phone_number"
+                  <input 
                   type="text" matinput />
                 </div>
                 <div class="input-wrapper">
