@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '@app/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-change-password',
@@ -12,7 +13,8 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _authenticationService: AuthenticationService
+    private _authenticationService: AuthenticationService,
+    private _toastrService: ToastrService
   ) {
     this.createForm();
   }
@@ -42,9 +44,17 @@ export class ChangePasswordComponent implements OnInit {
         .subscribe(
           response => {
             console.log('data', response);
+            this._toastrService.success(
+              'Successful',
+              'Password updated successfully'
+            );
           },
           error => {
             console.log('error', error);
+            this._toastrService.error(
+              `${error.error.message}`,
+              'An error occured while updating the password'
+            );
           }
         );
     } else {

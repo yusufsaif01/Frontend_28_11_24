@@ -11,31 +11,19 @@
     <div class="registration-wrapper-forms">
       <div class="register-type">
         <button
-          (click)="
-            toggleForm('player');
-            clubRegisterationForm.reset();
-            academyRegisterationForm.reset()
-          "
+          (click)="toggleForm('player')"
           [ngClass]="{ active: activeForm == 'player' }"
         >
           Player
         </button>
         <button
-          (click)="
-            toggleForm('club');
-            academyRegisterationForm.reset();
-            playerRegisterationForm.reset()
-          "
+          (click)="toggleForm('club')"
           [ngClass]="{ active: activeForm == 'club' }"
         >
           Club
         </button>
         <button
-          (click)="
-            toggleForm('academy');
-            playerRegisterationForm.reset();
-            clubRegisterationForm.reset()
-          "
+          (click)="toggleForm('academy')"
           [ngClass]="{ active: activeForm == 'academy' }"
         >
           Academy
@@ -158,8 +146,8 @@
             <div class="input-wrapper">
               <label>Country</label>
               <select formControlName="country" matNativeControl required>
-                <option value="">Select Country</option>
-                <option value="India">India</option>
+                <option value="null">Select Country</option>
+                <option value="india">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
                 <option value="australia">Australia</option
@@ -179,7 +167,7 @@
             <div class="input-wrapper">
               <label>State</label>
               <select formControlName="state" matNativeControl required>
-                <option value="">Select State</option>
+                <option value="null">Select State</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>
@@ -310,8 +298,8 @@
             <div class="input-wrapper">
               <label>Country</label>
               <select formControlName="country" matNativeControl required>
-                <option value="">Select Country</option>
-                <option value="India">India</option>
+                <option value="null">Select Country</option>
+                <option value="india">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
                 <option value="australia">Australia</option>
@@ -328,7 +316,7 @@
             <div class="input-wrapper">
               <label>State</label>
               <select formControlName="state" matNativeControl required>
-                <option value="">Select State</option>
+                <option value="null">Select State</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>
@@ -466,8 +454,8 @@
             <div class="input-wrapper">
               <label>Country</label>
               <select formControlName="country" matNativeControl required>
-                <option value="">Select Country</option>
-                <option value="India">India</option>
+                <option value="null">Select Country</option>
+                <option value="india">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
                 <option value="australia">Australia</option>
@@ -492,7 +480,7 @@
                 matNativeControl
                 required
               >
-                <option value="">Select State</option>
+                <option value="null">Select State</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>
@@ -540,7 +528,6 @@
         </form>
       </div>
       <div class="form-row">
-        <p><a [routerLink]="['/forgot-password']">Forgot password?</a></p>
         <p>Already on YFT chain? <a [routerLink]="['/login']">Sign in</a></p>
       </div>
     </div>
