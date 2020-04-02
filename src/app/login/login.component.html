@@ -57,12 +57,15 @@
         </li>
 
         <li class="mb-0">
-          <mat-checkbox formControlName="remember" class=" remember-me">
-            Remember Me
-          </mat-checkbox>
+          <div class="remember-me">
+            <mat-checkbox formControlName="remember" class="remember-me">
+              Remember Me
+            </mat-checkbox>
+          </div>
+
           <!-- <div class="custom-checkbox">
-            <label for="remember"> <input type="checkbox" checked formControlName="remember" id="remember">
-              <span>Remember Me</span></label>
+              <input type="checkbox" checked formControlName="remember" id="remember">
+            <label for="remember">Remember Me</label> 
           </div> -->
         </li>
         <!-- <mat-error class="login-error" [hidden]="!error || isLoading" translate>

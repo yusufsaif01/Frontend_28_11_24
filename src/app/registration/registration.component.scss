@@ -128,20 +128,8 @@
           width: 100%;
           margin-bottom: 2rem;
           .btn {
-            color: $color-white;
-            font-weight: 500;
-            letter-spacing: 1px;
             @include btn-primary;
-            text-transform: uppercase;
-            font-size: 1.7rem;
-            cursor: pointer;
-            width: 100%;
-            padding: 1.1rem;
-            border: 0;
-            box-sizing: border-box;
-            line-height: 2.7rem;
-            outline: 0rem;
-            border-radius: 0.35rem;
+            @include btn;
             &:disabled {
               @include disable;
             }
