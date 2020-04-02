@@ -49,7 +49,7 @@
       </div>
     </div>
     <!-- player section -->
-    <div class="players d-none">
+    <div class="players">
       <!-- personal details -->
       <div class="block">
         <div class="block-heading border-bottom">
@@ -179,11 +179,14 @@
           <div class="half">
             <p>
               <span>Weak Foot : </span>
-              <i-feather name="star" class="icon-size"></i-feather>
-              <i-feather name="star" class="icon-size"></i-feather>
-              <i-feather name="star" class="icon-size"></i-feather>
-              <i-feather name="star" class="icon-size"></i-feather>
-              <i-feather name="star" class="icon-size"></i-feather>
+              <ng-container *ngFor="let number of numbers">
+                <ng-container *ngIf="number <= profile.weak_foot">
+                  <i-feather name="star" class="icon-size active"></i-feather>
+                </ng-container>
+                <ng-container *ngIf="number > profile.weak_foot">
+                  <i-feather name="star" class="icon-size"></i-feather>
+                </ng-container>
+              </ng-container>
             </p>
           </div>
           <div class="half">

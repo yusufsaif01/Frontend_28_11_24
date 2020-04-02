@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProfileComponent implements OnInit {
   profile: any;
+  numbers: any;
   constructor(
     private _authenticationService: AuthenticationService,
     private _toastrService: ToastrService
@@ -16,6 +17,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.populateView();
+    this.numbers = [1, 2, 3, 4, 5];
   }
 
   populateView() {
