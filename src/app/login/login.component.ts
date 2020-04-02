@@ -60,6 +60,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.toastrService.success('Successful', 'Login');
           this.router.navigate(['/edit-profile'])
           localStorage.setItem('token',credentials.data.token)
+          localStorage.setItem('member_type',credentials.data.member_type)
+          if(credentials.data.player_type){
+            localStorage.setItem('player_type',credentials.data.player_type)
+          }
           // this.router.navigate(
           //   [this.route.snapshot.queryParams.redirect || '/xyz'],
           //   { replaceUrl: true }
