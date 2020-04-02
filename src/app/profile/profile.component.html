@@ -1,0 +1,536 @@
+<app-header></app-header>
+<div class="wrapper" *ngIf="profile">
+  <!-- Left section -->
+  <div class="left-section">
+    <!-- profile  -->
+    <div class="block-design">
+      <div class="profile-section border-bottom">
+        <img src="assets/images/profile-icon.png" alt="profile-icon" />
+        <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
+        <h6>
+          {{
+            profile.position && profile.position[0]
+              ? profile.position[0].name
+              : ''
+          }}
+        </h6>
+        <p>
+          <i-feather name="alert-circle" class="icon-size"></i-feather>
+          Not Verified
+        </p>
+      </div>
+      <div class="block-middle border-bottom">
+        <div class="part">
+          <h4>348</h4>
+          <p>Achievements</p>
+        </div>
+        <div class="part border-left">
+          <h4>85</h4>
+          <p>Tournaments</p>
+        </div>
+      </div>
+      <div class="block-bottom">
+        <a> Log Out</a>
+      </div>
+    </div>
+  </div>
+  <!-- middle -->
+  <div class="middle-section">
+    <div class="block">
+      <div class="block-heading border-bottom">
+        <h2>About</h2>
+      </div>
+      <div class="block-middle">
+        <div class="content">
+          <p>
+            {{ profile.about }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- player section -->
+    <div class="players" *ngIf="profile.member_type === 'player'">
+      <!-- personal details -->
+      <div class="block">
+        <div class="block-heading border-bottom">
+          <h2>Personal Details</h2>
+        </div>
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p><span>Date of Birth :</span> {{ profile.dob }}</p>
+          </div>
+          <div class="half">
+            <p><span>Height :</span> {{ profile.height }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p><span>Weight :</span> {{ profile.weight }}</p>
+          </div>
+          <div class="half">
+            <p><span>Nationality :</span> {{ profile.country }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p><span>State :</span> {{ profile.state }}</p>
+          </div>
+          <div class="half">
+            <p><span>Current City :</span> {{ profile.city }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p><span>Email :</span> {{ profile.email }}</p>
+          </div>
+          <div class="half">
+            <p><span>Phone :</span> {{ profile.phone }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Current School Name :</span>
+              {{ profile?.institute?.school }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Current University Name :</span>
+              {{ profile?.institute?.university }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Current College Name :</span>
+              {{ profile?.institute?.college }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p><span>View Adhaar : </span> <a>Document</a></p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p><span>View Employement : </span> <a>Document</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- perfessional details -->
+      <div class="block">
+        <div class="block-heading border-bottom">
+          <h2>Professional Details</h2>
+        </div>
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Positions (First) :</span>
+              {{
+                profile.position && profile.position[0]
+                  ? profile.position[0].name
+                  : ''
+              }}
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Positions (Second) :</span>
+              {{
+                profile.position && profile.position[0]
+                  ? profile.position[1].name
+                  : ''
+              }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Positions (Third) :</span>
+              {{
+                profile.position && profile.position[0]
+                  ? profile.position[2].name
+                  : ''
+              }}
+            </p>
+          </div>
+          <div class="half">
+            <p><span>Strong Foot :</span> {{ profile.strong_foot }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Weak Foot : </span>
+              <ng-container *ngFor="let number of numbers">
+                <ng-container *ngIf="number <= profile.weak_foot">
+                  <i-feather name="star" class="icon-size active"></i-feather>
+                </ng-container>
+                <ng-container *ngIf="number > profile.weak_foot">
+                  <i-feather name="star" class="icon-size"></i-feather>
+                </ng-container>
+              </ng-container>
+            </p>
+          </div>
+          <div class="half">
+            <p><span>Former Clubs :</span> {{ profile.former_club }}</p>
+          </div>
+        </div>
+
+        <ng-container *ngIf="profile.club_academy_details">
+          <ng-container *ngFor="let details of profile.club_academy_details">
+            <div class="block-middle border-bottom">
+              <div class="full">
+                <p><span>Head Coach Name : </span> {{ details.head_coach }}</p>
+              </div>
+            </div>
+
+            <div class="block-middle border-bottom">
+              <div class="full">
+                <p>
+                  <span>Head Coach Phone Number : </span>
+                  {{ details.head_coach_phone }}
+                </p>
+              </div>
+            </div>
+
+            <div class="block-middle border-bottom">
+              <div class="full">
+                <p>
+                  <span>Head Coach Email : </span>
+                  {{ details.head_coach_email }}
+                </p>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- clubs and academy -->
+    <div
+      class="clubs"
+      *ngIf="
+        profile.member_type === 'club' || profile.member_type === 'academy'
+      "
+    >
+      <!-- contact details -->
+      <div class="block">
+        <ng-container *ngIf="profile.contact_person">
+          <ng-container *ngFor="let person of profile.contact_person">
+            <div class="block-heading border-bottom">
+              <h2>Contact Details</h2>
+            </div>
+            <div class="block-middle border-bottom">
+              <div class="half">
+                <p><span>Designation :</span> {{ person.designation }}</p>
+              </div>
+              <div class="half">
+                <p><span> Name :</span> {{ person.name }}</p>
+              </div>
+            </div>
+
+            <div class="block-middle border-bottom">
+              <div class="half">
+                <p><span>Email :</span> {{ person.email }}</p>
+              </div>
+              <div class="half">
+                <p><span> Phone Number :</span> {{ person.phone }}</p>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+      <!-- personal details -->
+      <div class="block">
+        <div class="block-heading border-bottom">
+          <h2>Personal Details</h2>
+        </div>
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p><span>Founded :</span> {{ profile.founded_in }}</p>
+          </div>
+          <div class="half">
+            <p><span>Short Club Name :</span> {{ profile.short_name }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p><span>Country :</span> {{ profile.country }}</p>
+          </div>
+          <div class="half">
+            <p><span>City :</span> {{ profile.city }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Office address :</span> address :
+              {{ profile?.address?.full_address }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Zipcode/Pincode :</span> {{ profile?.address?.pincode }}
+            </p>
+          </div>
+          <div class="half">
+            <p><span>Email :</span> {{ profile.email }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p><span>Phone :</span> {{ profile.phone }}</p>
+          </div>
+          <div class="half">
+            <p><span>Club owner :</span> {{ profile.club_owner }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p><span>Manager :</span> {{ profile.manager }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p><span>View AIFF Status : </span> <a>Document</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- perfessional details -->
+      <div class="block">
+        <div class="block-heading border-bottom">
+          <h2>Professional Details</h2>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Major trophies won : </span>
+              <ng-container *ngIf="profile.trophies">
+                <ng-container *ngFor="let trophies of profile.trophies">
+                  {{ trophies.name }} {{ trophies.year }}
+                  {{ trophies.position }}
+                </ng-container>
+              </ng-container>
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p><span>League : </span>{{ profile.leagues }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p><span>Top Signing : </span>{{ profile.top_signings }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right seciton -->
+  <div class="right-section">
+    <div class="block">
+      <div class="block-heading border-bottom">
+        <h2>Who viewed your profile</h2>
+      </div>
+      <div class="block-middle">
+        <!-- one -->
+        <div class="profile-list">
+          <div class="profile-icon">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h5>Sophia Lee</h5>
+            <h6>Wide midfield</h6>
+          </div>
+          <div class="profile-btn">
+            <button>Connect</button>
+          </div>
+        </div>
+        <!-- two -->
+        <div class="profile-list">
+          <div class="profile-icon">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h5>Sophia Lee</h5>
+            <h6>Wide midfield</h6>
+          </div>
+          <div class="profile-btn">
+            <button>Connect</button>
+          </div>
+        </div>
+        <!-- three -->
+        <div class="profile-list">
+          <div class="profile-icon">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h5>Sophia Lee</h5>
+            <h6>Wide midfield</h6>
+          </div>
+          <div class="profile-btn">
+            <button>Connect</button>
+          </div>
+        </div>
+        <!-- four -->
+        <div class="profile-list">
+          <div class="profile-icon">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h5>Sophia Lee</h5>
+            <h6>Wide midfield</h6>
+          </div>
+          <div class="profile-btn">
+            <button>Connect</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- yft chain premium -->
+    <div class="block">
+      <div class="block-img">
+        <img src="assets/images/ads.png" alt="" />
+      </div>
+      <div class="block-middle border-bottom">
+        <div class="premium">
+          <h4>YFT chain Premium</h4>
+          <p>Grow & nurture your network</p>
+        </div>
+      </div>
+      <div class="block-bottom">
+        <button>Activate</button>
+      </div>
+    </div>
+
+    <!-- Some Player -->
+    <div class="block">
+      <div class="post">
+        <a>
+          <div class="block-heading border-bottom">
+            <div class="left-part">
+              <h4>Center back</h4>
+              <h6>Barcelona</h6>
+              <p>
+                <i-feather name="map-pin" class="icon-size"></i-feather> India,
+                Punjab
+              </p>
+            </div>
+
+            <div class="right-part">
+              <img src="assets/images/profile-icon.png" alt="" />
+            </div>
+          </div>
+
+          <div class="block-middle border-bottom">
+            <div class="middle">
+              <div class="left-part">
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+              </div>
+              <div class="right-part">
+                <h4>Connections</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="block-bottom">
+            <div class="post-date">
+              <p>
+                <i-feather name="clock" class="icon-size"></i-feather>
+                Post 3 days ago
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- two -->
+    <div class="block">
+      <div class="post">
+        <a>
+          <div class="block-heading border-bottom">
+            <div class="left-part">
+              <h4>Center back</h4>
+              <h6>Barcelona</h6>
+              <p>
+                <i-feather name="map-pin" class="icon-size"></i-feather> India,
+                Punjab
+              </p>
+            </div>
+
+            <div class="right-part">
+              <img src="assets/images/profile-icon.png" alt="" />
+            </div>
+          </div>
+
+          <div class="block-middle border-bottom">
+            <div class="middle">
+              <div class="left-part">
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+              </div>
+              <div class="right-part">
+                <h4>Connections</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="block-bottom">
+            <div class="post-date">
+              <p>
+                <i-feather name="clock" class="icon-size"></i-feather>
+                Post 3 days ago
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading> Loading </ng-template>

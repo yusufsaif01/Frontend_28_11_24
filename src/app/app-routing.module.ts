@@ -10,6 +10,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { CreatePasswordComponent } from './create-password/create-password.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'edit-profile', component: EditProfileComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'change-password', component: ChangePasswordComponent },
   { path: 'create-password', component: CreatePasswordComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }

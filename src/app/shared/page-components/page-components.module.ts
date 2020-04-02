@@ -28,7 +28,10 @@ import {
   User,
   Lock,
   AtSign,
-  PhoneCall
+  PhoneCall,
+  MapPin,
+  Clock,
+  Star
 } from 'angular-feather/icons';
 
 const icons = {
@@ -50,7 +53,10 @@ const icons = {
   User,
   Lock,
   AtSign,
-  PhoneCall
+  PhoneCall,
+  MapPin,
+  Clock,
+  Star
 };
 
 @NgModule({
