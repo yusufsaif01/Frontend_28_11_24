@@ -254,6 +254,49 @@ body {
             }
           }
         }
+        .input-wrapper {
+          margin-right: 2rem;
+          input,
+          select {
+            width: 100%;
+            border: 1px solid $border-color;
+            border-radius: 0.8rem;
+            padding: 1.2rem 2rem;
+            outline: none;
+          }
+          select {
+            min-width: 30rem;
+            appearance: none;
+            background-image: url("../../assets/icons/sort.svg");
+            background-size: 1.5rem 1.5rem;
+            background-repeat: no-repeat;
+            background-position: calc(100% - 1rem) center;
+          }
+
+          button {
+            @include btn-primary;
+            color: $color-white;
+            margin-left: 2rem;
+            padding: 1.2rem 1.8rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            border-radius: 0.8rem;
+            border: none;
+            margin-top: 4rem;
+          }
+
+          a {
+            @include btn-primary;
+            color: $color-white;
+            margin-left: 2rem;
+            padding: 1.2rem 1.8rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            border-radius: 0.8rem;
+            border: none;
+            margin-top: 4rem;
+          }
+        }
         .form-block-clubs {
           display: flex;
           width: 100%;
@@ -418,10 +461,10 @@ body {
   width: 40% !important;
 }
 
-.error-border{
+.error-border {
   border: 1px solid red;
 }
 
-.error-text{
+.error-text {
   color: red;
 }
