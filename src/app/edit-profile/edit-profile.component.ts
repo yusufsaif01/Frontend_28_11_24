@@ -169,7 +169,23 @@ export class EditProfileComponent implements OnInit {
           short_name: this.profile.short_name,
           founded_in: this.profile.founded_in,
           address: this.profile.address.full_address,
-          pincode: this.profile.address.pincode
+          pincode: this.profile.address.pincode,
+          player_first_name: this.profile.first_name,
+          player_last_name: this.profile.last_name,
+          player_height_foot: this.profile.height,
+          player_height_inches: this.profile.height,
+          player_weight: this.profile.weight,
+          player_dob: new Date(this.profile.dob),
+          player_phone: this.profile.phone,
+          // player_current_school_name: this.profile.institiute.school_name,
+          player_nationality: this.profile.country,
+          player_state: this.profile.state,
+          player_head_coach_phone_number: this.profile.club_academy_details[0]
+            .head_coach_phone,
+          player_head_coach_email_number: this.profile.club_academy_details[0]
+            .head_coach_email,
+          stadium_name: this.profile.stadium_name,
+          phone: this.profile.phone
         });
 
         this.socialProfileForm.patchValue({

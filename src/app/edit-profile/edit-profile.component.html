@@ -186,7 +186,6 @@
                 formControlName="player_first_name"
                 type="text"
                 matInput
-                value="{{ profile.first_name }}"
               />
               <ng-container
                 *ngIf="isFocused(editProfileForm, 'player_first_name')"
@@ -202,12 +201,7 @@
             <!-- last name -->
             <div class="from-block">
               <label>Last Name <span>*</span></label>
-              <input
-                formControlName="player_last_name"
-                type="text"
-                matInput
-                value="{{ profile.last_name }}"
-              />
+              <input formControlName="player_last_name" type="text" matInput />
               <ng-container
                 *ngIf="isFocused(editProfileForm, 'player_last_name')"
               >
@@ -251,13 +245,11 @@
                   formControlName="player_height_foot"
                   type="text"
                   matInput
-                  value="{{ profile.height }}"
                 />
                 <input
                   formControlName="player_height_inches"
                   type="text"
                   matInput
-                  value="{{ profile.weight }}"
                 />
               </div>
               <ng-container
@@ -283,12 +275,7 @@
             <!-- weight -->
             <div class="from-block">
               <label>Weight <span>*</span></label>
-              <input
-                formControlName="player_weight"
-                type="text"
-                matInput
-                value="{{ profile.weight }}"
-              />
+              <input formControlName="player_weight" type="text" matInput />
 
               <ng-container *ngIf="isFocused(editProfileForm, 'player_weight')">
                 <span
