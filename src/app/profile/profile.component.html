@@ -240,19 +240,19 @@
             </div>
             <div class="block-middle border-bottom">
               <div class="half">
-                <p><span>Designation :</span> {{ person.designation }}</p>
+                <p><span>Designation :</span> {{ person?.designation }}</p>
               </div>
               <div class="half">
-                <p><span> Name :</span> {{ person.name }}</p>
+                <p><span> Name :</span> {{ person?.name }}</p>
               </div>
             </div>
 
             <div class="block-middle border-bottom">
               <div class="half">
-                <p><span>Email :</span> {{ person.email }}</p>
+                <p><span>Email :</span> {{ person?.email }}</p>
               </div>
               <div class="half">
-                <p><span> Phone Number :</span> {{ person.phone }}</p>
+                <p><span> Phone Number :</span> {{ person?.phone }}</p>
               </div>
             </div>
           </ng-container>
@@ -285,7 +285,7 @@
         <div class="block-middle border-bottom">
           <div class="full">
             <p>
-              <span>Office address :</span> address :
+              <span>Office address :</span>
               {{ profile?.address?.full_address }}
             </p>
           </div>
@@ -305,15 +305,6 @@
         <div class="block-middle border-bottom">
           <div class="half">
             <p><span>Phone :</span> {{ profile.phone }}</p>
-          </div>
-          <div class="half">
-            <p><span>Club owner :</span> {{ profile.club_owner }}</p>
-          </div>
-        </div>
-
-        <div class="block-middle border-bottom">
-          <div class="full">
-            <p><span>Manager :</span> {{ profile.manager }}</p>
           </div>
         </div>
 

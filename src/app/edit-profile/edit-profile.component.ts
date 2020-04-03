@@ -95,6 +95,24 @@ export class EditProfileComponent implements OnInit {
       value: 'right'
     }
   ];
+  sampleCountryArray = [
+    {
+      name: 'India',
+      value: 'india'
+    },
+    {
+      name: 'UK',
+      value: 'uk'
+    },
+    {
+      name: 'USA',
+      value: 'usa'
+    },
+    {
+      name: 'Australia',
+      value: 'australia'
+    }
+  ];
 
   constructor(
     private _formBuilder: FormBuilder,

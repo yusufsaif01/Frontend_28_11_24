@@ -770,10 +770,13 @@
               <div class="from-block">
                 <label>Country <span>*</span></label>
                 <select formControlName="country" matNativeControl required>
-                  <option value="volvo">Volvo</option>
-                  <option value="saab">Saab</option>
-                  <option value="mercedes">Mercedes</option>
-                  <option value="audi">Audi</option>
+                  <ng-container *ngFor="let country of sampleCountryArray">
+                    <option
+                      value="{{ country.value }}"
+                      [selected]="profile.country"
+                      >{{ country.name }}</option
+                    >
+                  </ng-container>
                 </select>
                 <ng-container *ngIf="isFocused(editProfileForm, 'country')">
                   <span
