@@ -915,7 +915,7 @@
                 </ng-container>
               </div>
 
-              <!-- Club owner -->
+              <!-- Club owner
               <div class="from-block">
                 <label
                   [innerText]="
@@ -936,9 +936,9 @@
                     >Club owner is required</span
                   >
                 </ng-container>
-              </div>
+              </div> -->
 
-              <!-- Manager -->
+              <!-- Manager 
               <div class="from-block">
                 <label>Manager <span>*</span></label>
                 <input formControlName="manager" type="text" matinput />
@@ -949,9 +949,9 @@
                     >Manager is required</span
                   >
                 </ng-container>
-              </div>
+              </div> -->
 
-              <!-- Manager -->
+              <!-- Document -->
               <ng-container *ngIf="member_type === 'academy'">
                 <div class="from-block w-60">
                   <label>Document Type<span>*</span></label>
@@ -1020,36 +1020,143 @@
             </div>
             <div class="block-middle">
               <!-- Need to change CSS of this part (this was button) -->
-              <div class="input-wrapper">
-                <a (click)="addContactPerson()">Add Contact</a>
+
+              <!-- Need to change CSS of this part (this was button) -->
+
+              <!-- Need to change CSS of this part (this was button) -->
+
+              <!-- Need to change CSS of this part (this was button) -->
+              <div class="contact-details block-part">
+                <!-- Add contact Details btn -->
+                <div class="input-wrapper w-100 align-right">
+                  <a class="mt-0" (click)="addContactPerson()">Add Contact</a>
+                </div>
+
+                <!-- add contact fields -->
+                <div
+                  class="form-block-clubs"
+                  *ngFor="
+                    let contact of editProfileForm.get('club_contact_persons')
+                      .controls;
+                    let i = index
+                  "
+                  formArrayName="club_contact_persons"
+                >
+                  <ng-container [formGroupName]="i">
+                    <label>Contact Person <span>*</span></label>
+
+                    <div class="input-wrapper">
+                      <label>Designation <span>*</span></label>
+                      <select
+                        formControlName="club_contact_designation"
+                        matNativeControl
+                        required
+                      >
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                      </select>
+                    </div>
+
+                    <div class="input-wrapper">
+                      <label>Name <span>*</span></label>
+                      <input
+                        formControlName="club_contact_name"
+                        type="text"
+                        matInput
+                      />
+                    </div>
+
+                    <div class="input-wrapper">
+                      <label>Email <span>*</span></label>
+                      <input
+                        formControlName="club_contact_email"
+                        type="email"
+                        matInput
+                      />
+                    </div>
+
+                    <div class="input-wrapper">
+                      <label>Phone Number <span>*</span></label>
+                      <input
+                        formControlName="club_contact_phone_number"
+                        type="text"
+                        matInput
+                      />
+                    </div>
+
+                    <div class="input-wrapper">
+                      <button (click)="removeContactPerson(i)">Remove</button>
+                    </div>
+                  </ng-container>
+                </div>
               </div>
-              <!-- Need to change CSS of this part (this was button) -->
 
-              <!-- Need to change CSS of this part (this was button) -->
-              <div class="input-wrapper">
-                <a (click)="addTrophy()">Add Trophy</a>
+              <!-- major trophies -->
+              <div class="trophies block-part">
+                <!-- add trophes button -->
+                <div class="input-wrapper w-100 align-right">
+                  <a class="mt-0" (click)="addTrophy()">Add Trophy</a>
+                </div>
+
+                <!-- major tophies fields -->
+                <div
+                  class="form-block-clubs"
+                  *ngFor="
+                    let trophy of editProfileForm.get('club_trophies').controls;
+                    let i = index
+                  "
+                  formArrayName="club_trophies"
+                >
+                  <label>Major trophy Wins <span>*</span></label>
+
+                  <ng-container [formGroupName]="i">
+                    <div class="input-wrapper-full">
+                      <label>Trophy Name <span>*</span></label>
+                      <input
+                        type="text"
+                        matInput
+                        formControlName="trophy_name"
+                      />
+                    </div>
+
+                    <div class="input-wrapper-full">
+                      <label>Years <span>*</span></label>
+                      <input
+                        type="text"
+                        matInput
+                        formControlName="trophy_years"
+                      />
+                    </div>
+
+                    <div class="input-wrapper-full">
+                      <label>Position Secured <span>*</span></label>
+                      <input
+                        type="text"
+                        matInput
+                        formControlName="trophy_position"
+                      />
+                    </div>
+
+                    <div class="input-wrapper">
+                      <button (click)="removeTrophy(i)">Remove</button>
+                    </div>
+                  </ng-container>
+                </div>
               </div>
-              <!-- Need to change CSS of this part (this was button) -->
 
-              <div
-                class="form-block-clubs"
-                *ngFor="
-                  let contact of editProfileForm.get('club_contact_persons')
-                    .controls;
-                  let i = index
-                "
-                formArrayName="club_contact_persons"
-              >
-                <ng-container [formGroupName]="i">
-                  <label>Contact Person <span>*</span></label>
+              <!-- leagues -->
+              <div class="leagues w-100 block-part">
+                <div class="input-wrapper w-100 align-right">
+                  <a class="mt-0">Add League</a>
+                </div>
 
-                  <div class="input-wrapper">
-                    <label>Designation <span>*</span></label>
-                    <select
-                      formControlName="club_contact_designation"
-                      matNativeControl
-                      required
-                    >
+                <div class="form-block-clubs">
+                  <label>League <span>*</span></label>
+                  <div class="input-wrapper-second">
+                    <label>League Name <span>*</span></label>
+                    <select matNativeControl required>
                       <option value="volvo">Volvo</option>
                       <option value="saab">Saab</option>
                       <option value="mercedes">Mercedes</option>
@@ -1057,142 +1164,92 @@
                     </select>
                   </div>
 
-                  <div class="input-wrapper">
-                    <label>Name <span>*</span></label>
-                    <input
-                      formControlName="club_contact_name"
-                      type="text"
-                      matInput
-                    />
+                  <div class="input-wrapper-second">
+                    <label>Other <span>*</span></label>
+                    <input type="text" matinput />
                   </div>
 
                   <div class="input-wrapper">
-                    <label>Email <span>*</span></label>
-                    <input
-                      formControlName="club_contact_email"
-                      type="email"
-                      matInput
-                    />
+                    <button>Remove</button>
                   </div>
-
-                  <div class="input-wrapper">
-                    <label>Phone Number <span>*</span></label>
-                    <input
-                      formControlName="club_contact_phone_number"
-                      type="text"
-                      matInput
-                    />
-                  </div>
-
-                  <div class="input-wrapper">
-                    <button (click)="removeContactPerson(i)">Remove</button>
-                  </div>
-                </ng-container>
-              </div>
-
-              <!-- major trophies -->
-              <div
-                class="form-block-clubs"
-                *ngFor="
-                  let trophy of editProfileForm.get('club_trophies').controls;
-                  let i = index
-                "
-                formArrayName="club_trophies"
-              >
-                <label>Major trophy Wins <span>*</span></label>
-
-                <ng-container [formGroupName]="i">
-                  <div class="input-wrapper">
-                    <label>Trophy Name <span>*</span></label>
-                    <input type="text" matInput formControlName="trophy_name" />
-                  </div>
-
-                  <div class="input-wrapper">
-                    <label>Years <span>*</span></label>
-                    <input
-                      type="text"
-                      matInput
-                      formControlName="trophy_years"
-                    />
-                  </div>
-
-                  <div class="input-wrapper">
-                    <label>Position Secured <span>*</span></label>
-                    <input
-                      type="text"
-                      matInput
-                      formControlName="trophy_position"
-                    />
-                  </div>
-
-                  <div class="input-wrapper">
-                    <button (click)="removeTrophy(i)">Remove</button>
-                  </div>
-                </ng-container>
-              </div>
-
-              <!-- leagues -->
-              <div class="form-block-clubs">
-                <label>League <span>*</span></label>
-                <div class="input-wrapper-second">
-                  <label>League Name <span>*</span></label>
-                  <select matNativeControl required>
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                  </select>
                 </div>
+                <div class="form-block-clubs">
+                  <div class="input-wrapper-second">
+                    <label>League Name <span>*</span></label>
+                    <select matNativeControl required>
+                      <option value="volvo">Volvo</option>
+                      <option value="saab">Saab</option>
+                      <option value="mercedes">Mercedes</option>
+                      <option value="audi">Audi</option>
+                    </select>
+                  </div>
 
-                <div class="input-wrapper-second">
-                  <label>Other <span>*</span></label>
-                  <input type="text" matinput />
-                </div>
+                  <div class="input-wrapper-second">
+                    <label>Other <span>*</span></label>
+                    <input type="text" matinput />
+                  </div>
 
-                <div class="input-wrapper">
-                  <button>Add</button>
+                  <div class="input-wrapper">
+                    <button>Remove</button>
+                  </div>
                 </div>
               </div>
 
               <!-- Top sign in -->
-              <div
-                class="form-block-clubs"
-                *ngFor="
-                  let top_signing of editProfileForm.get('club_top_signings')
-                    .controls;
-                  let i = index
-                "
-                formArrayName="club_top_signings"
-              >
-                <label>Top signings <span>*</span></label>
+              <div class="top_signing-player w-100 block-part">
+                <div class="input-wrapper w-100 align-right">
+                  <button class="mt-0" (click)="addTopSigning()">
+                    Add Top Signings
+                  </button>
+                </div>
 
-                <ng-container [formGroupName]="i">
-                  <div class="input-wrapper-second">
-                    <input
-                      type="text"
-                      matInput
-                      formControlName="top_signings"
-                    />
-                  </div>
+                <!-- top sign in player -->
+                <div class="flex-wrapper wrap">
+                  <div
+                    class="form-block-clubs w-50 "
+                    *ngFor="
+                      let top_signing of editProfileForm.get(
+                        'club_top_signings'
+                      ).controls;
+                      let i = index
+                    "
+                    formArrayName="club_top_signings"
+                  >
+                    <div class="w-50">
+                      <label>Top signings <span>*</span></label>
 
-                  <div class="input-wrapper">
-                    <button (click)="removeTopSigning(i)">Remove</button>
+                      <ng-container [formGroupName]="i">
+                        <div class="flex-wrapper">
+                          <div class="input-wrapper">
+                            <input
+                              type="text"
+                              matInput
+                              formControlName="top_signings"
+                            />
+                          </div>
+
+                          <div class="input-wrapper">
+                            <button class="mt-0" (click)="removeTopSigning(i)">
+                              Remove
+                            </button>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
                   </div>
-                </ng-container>
+                </div>
               </div>
 
-              <div class="input-wrapper-second">
-                <button (click)="addTopSigning()">Add</button>
-              </div>
-
-              <!-- Manager -->
+              <!-- No of associated Player -->
               <div class="from-block">
-                <label>Number of associated players <span>*</span></label>
-                <input
-                  type="text"
-                  matInput
-                  formControlName="club_associated_players"
-                />
+                <div classd="input-wrapper-second">
+                  <label>Number of associated players <span>*</span></label>
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="club_associated_players"
+                  />
+                </div>
               </div>
             </div>
           </div>
