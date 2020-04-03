@@ -1,8 +1,14 @@
 @import "~@angular/material/theming";
 @import "../theme-generator";
 
-$custom-primary: mat-palette(generate-custom-color-theme($color-primary, $white), 50);
-$custom-accent: mat-palette(generate-custom-color-theme($color-primary, $white), 400);
+$custom-primary: mat-palette(
+  generate-custom-color-theme($color-primary, $white),
+  50
+);
+$custom-accent: mat-palette(
+  generate-custom-color-theme($color-primary, $white),
+  400
+);
 $custom-warn: mat-palette(generate-custom-color-theme($error, $white), 800);
 
 $custom-theme: mat-light-theme($custom-primary, $custom-accent, $custom-warn);

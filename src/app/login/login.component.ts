@@ -58,6 +58,13 @@ export class LoginComponent implements OnInit, OnDestroy {
           console.log(credentials, 'LOGIN SUCCESS');
           log.debug(`${credentials.email} successfully logged in`);
           this.toastrService.success('Successful', 'Login');
+          this.router.navigate(['/edit-profile'])
+          localStorage.setItem('token',credentials.data.token)
+          localStorage.setItem('member_type',credentials.data.member_type)
+          if(credentials.data.player_type){
+            localStorage.setItem('player_type',credentials.data.player_type)
+          }
+          localStorage.setItem('email',credentials.data.email)
           // this.router.navigate(
           //   [this.route.snapshot.queryParams.redirect || '/xyz'],
           //   { replaceUrl: true }

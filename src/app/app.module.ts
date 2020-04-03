@@ -110,6 +110,7 @@ const icons = {
     EditProfileComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    EditProfileComponent,
     ChangePasswordComponent,
     CreatePasswordComponent,
     ProfileComponent

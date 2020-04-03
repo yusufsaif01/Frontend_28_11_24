@@ -82,6 +82,13 @@ body {
           font-size: 1.8rem;
           color: $text-muted;
         }
+        textarea {
+          width: 100%;
+          display: block;
+          border: 1px solid $border-color;
+          border-radius: 0.5rem;
+          padding: 1rem;
+        }
       }
       .block-middle {
         padding: 2rem;
@@ -242,16 +249,60 @@ body {
             label {
               input {
                 display: inline-block;
-                float: left;
+                // float: left;
                 width: 20px;
                 margin-top: 0.4rem;
               }
               span {
                 display: inline-block;
                 color: $color-black;
-                float: left;
+                // float: left;
               }
             }
+          }
+        }
+        .input-wrapper {
+          margin-right: 2rem;
+          input,
+          select {
+            width: 100%;
+            border: 1px solid $border-color;
+            border-radius: 0.8rem;
+            padding: 1.2rem 2rem;
+            outline: none;
+          }
+          select {
+            min-width: 30rem;
+            appearance: none;
+            background-image: url("../../assets/icons/sort.svg");
+            background-size: 1.5rem 1.5rem;
+            background-repeat: no-repeat;
+            background-position: calc(100% - 1rem) center;
+          }
+
+          button {
+            @include btn-primary;
+            color: $color-white;
+            margin-left: 2rem;
+            padding: 1.2rem 1.8rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            border-radius: 0.8rem;
+            border: none;
+            margin-top: 4rem;
+          }
+
+          a {
+            @include btn-primary;
+            color: $color-white;
+            margin-left: 2rem;
+            padding: 1.2rem 1.8rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            border-radius: 0.8rem;
+            border: none;
+            display: inline-block;
+            margin-top: 4rem;
           }
         }
         .form-block-clubs {
@@ -274,10 +325,12 @@ body {
             }
           }
           .input-wrapper,
-          .input-wrapper-second {
+          .input-wrapper-second,
+          .input-wrapper-full {
             margin-right: 2rem;
             input,
             select {
+              min-width: 32rem;
               width: 100%;
               border: 1px solid $border-color;
               border-radius: 0.8rem;
@@ -285,7 +338,7 @@ body {
               outline: none;
             }
             select {
-              min-width: 30rem;
+              min-width: 32rem;
               appearance: none;
               background-image: url("../../assets/icons/sort.svg");
               background-size: 1.5rem 1.5rem;
@@ -303,6 +356,15 @@ body {
               border-radius: 0.8rem;
               border: none;
               margin-top: 4rem;
+            }
+          }
+          .input-wrapper-full {
+            width: 24%;
+            margin-right: 1rem;
+            input {
+              width: 100%;
+              min-width: 20rem;
+              margin-left: 1rem;
             }
           }
 
@@ -416,4 +478,39 @@ body {
 }
 .w-40 {
   width: 40% !important;
+}
+.w-50 {
+  width: 48% !important;
+}
+.w-100 {
+  width: 100% !important;
+}
+
+.mt-0 {
+  margin-top: 0px !important;
+}
+
+.align-right {
+  display: block;
+  text-align: right;
+}
+.error-border {
+  border: 1px solid red;
+}
+
+.error-text {
+  color: red;
+}
+.block-part {
+  display: block;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.flex-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.wrap {
+  flex-wrap: wrap;
 }
