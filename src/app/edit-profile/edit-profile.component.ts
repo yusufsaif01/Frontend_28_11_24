@@ -271,7 +271,8 @@ export class EditProfileComponent implements OnInit {
     // console.log("form_data",this.editProfileForm.value)
 
     const formData = new FormData();
-    var formData1 = this.toFormData(this.editProfileForm.value);
+    let formData1 = new FormData();
+    // var formData1 = this.toFormData(this.editProfileForm.value);
     if (this.member_type === 'player') {
       //player
       let {
@@ -344,10 +345,18 @@ export class EditProfileComponent implements OnInit {
       formData1.append('nationality', player_nationality);
       formData1.append('phone', player_phone);
       formData1.append('city', player_current_city);
-      formData1.append('institute', institute);
+      if (player_current_school_name)
+        formData1.append('school', player_current_school_name);
+      if (player_current_college_name)
+        formData1.append('college', player_current_college_name);
+      if (player_current_university_name)
+        formData1.append('university', player_current_university_name);
       formData1.append('weak_foot', player_weak_foot);
       formData1.append('former_club', player_former_club);
       console.log('data', formData1);
+      // for (let pair of formData1.entries()) {
+      //   console.log(pair[0] + ', ' + pair[1]);
+      // }
     } else if (this.member_type === 'club') {
       console.log(this.editProfileForm.value);
       formData1 = this.toFormData(this.editProfileForm.value);
