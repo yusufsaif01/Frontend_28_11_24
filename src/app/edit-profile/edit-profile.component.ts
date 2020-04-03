@@ -1,6 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { AuthenticationService } from '../core/authentication/authentication.service';
+import { ToastrService } from 'ngx-toastr';
+
+interface trophyObject {
+  name: string;
+  years: string;
+  position: string;
+}
+
+interface contactPersonObject {
+  designation: string;
+  name: string;
+  email: string;
+  phone: string;
+}
+
+interface topSigningObject {
+  top_signings: string;
+}
 
 @Component({
   selector: 'app-edit-profile',
@@ -10,6 +28,7 @@ import { AuthenticationService } from '../core/authentication/authentication.ser
 export class EditProfileComponent implements OnInit {
   // member_type = 'academy';
   // player_type = "grassroot";
+  profile: any;
   member_type: string = localStorage.getItem('member_type') || 'player';
   player_type = localStorage.getItem('player_type') || 'grassroot';
   user_email = localStorage.getItem('email');
@@ -23,15 +42,72 @@ export class EditProfileComponent implements OnInit {
   documentContent: any;
   Avatar: any;
 
+  club_contact_persons: FormArray;
+  club_trophies: FormArray;
+  club_top_signings: FormArray;
+  sampleContactArray = [
+    {
+      designation: 'Saab',
+      name: 'pushpam',
+      email: 'p@p.com',
+      phone: '12819793719791'
+    },
+    {
+      designation: 'Saab',
+      name: 'pushpam1',
+      email: 'p@p.com1',
+      phone: '128119791'
+    }
+  ];
+  sampleTrophyArray = [
+    {
+      name: 'T1',
+      years: '2018',
+      position: 'First'
+    },
+    {
+      name: 'T2',
+      years: '2019',
+      position: 'First'
+    }
+  ];
+  samplePositionArray = [
+    {
+      name: 'Volvo',
+      value: 'volvo'
+    },
+    {
+      name: 'Audi',
+      value: 'audi'
+    },
+    {
+      name: 'Mercedes',
+      value: 'mercedes'
+    }
+  ];
+  strongFootArray = [
+    {
+      name: 'Left',
+      value: 'left'
+    },
+    {
+      name: 'Right',
+      value: 'right'
+    }
+  ];
+
   constructor(
     private _formBuilder: FormBuilder,
-    private _authenticationSerivce: AuthenticationService
+    private _authenticationService: AuthenticationService,
+    private _toastrService: ToastrService
   ) {
     this.createForm();
     // this.setUserCategoryValidators()
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.populateView();
+  }
 
   selectTab(tabName: string) {
     this.editProfileForm.reset();
@@ -62,6 +138,43 @@ export class EditProfileComponent implements OnInit {
       formData.append(key, value);
     }
     return formData;
+  }
+
+  populateView() {
+    this._authenticationService.getProfileDetails().subscribe(
+      response => {
+        console.log('data', response);
+        this.profile = response.data;
+        this.editProfileForm.patchValue({
+          name: this.profile.name,
+          short_name: this.profile.short_name,
+          founded_in: this.profile.founded_in,
+          address: this.profile.address.full_address,
+          pincode: this.profile.address.pincode
+        });
+
+        if (
+          this.profile.member_type === 'club' ||
+          this.profile.member_type === 'academy'
+        ) {
+          this.populateDynamicContact();
+          this.populateDynamicTrophy();
+          this.populateDynamicTopSigning();
+        }
+
+        this._toastrService.success(
+          'Successful',
+          'Data retrieved successfully'
+        );
+      },
+      error => {
+        console.log('error', error);
+        this._toastrService.error(
+          `${error.error.message}`,
+          'Failed to load data'
+        );
+      }
+    );
   }
 
   setPlayerCategoryValidators() {
@@ -128,7 +241,7 @@ export class EditProfileComponent implements OnInit {
     // console.log("form_data",this.editProfileForm.value)
 
     const formData = new FormData();
-    let formData1: any;
+    var formData1 = this.toFormData(this.editProfileForm.value);
     if (this.member_type === 'player') {
       //player
       let {
@@ -191,21 +304,22 @@ export class EditProfileComponent implements OnInit {
         this.aadharformContent,
         this.aadharformContent.name
       );
-      formData.append('player_type', player_type);
-      formData.append('first_name', player_first_name);
-      formData.append('last_name', player_last_name);
-      formData.append('dob', player_dob);
-      formData.append('height', player_height);
-      formData.append('weight', player_weight);
-      formData.append('state', player_state);
-      formData.append('nationality', player_nationality);
-      formData.append('phone', player_phone);
-      formData.append('city', player_current_city);
-      formData.append('institute', institute);
-      formData.append('weak_foot', player_weak_foot);
-      formData.append('former_club', player_former_club);
-      console.log('data', formData);
+      formData1.append('player_type', player_type);
+      formData1.append('first_name', player_first_name);
+      formData1.append('last_name', player_last_name);
+      formData1.append('dob', player_dob);
+      formData1.append('height', player_height);
+      formData1.append('weight', player_weight);
+      formData1.append('state', player_state);
+      formData1.append('nationality', player_nationality);
+      formData1.append('phone', player_phone);
+      formData1.append('city', player_current_city);
+      formData1.append('institute', institute);
+      formData1.append('weak_foot', player_weak_foot);
+      formData1.append('former_club', player_former_club);
+      console.log('data', formData1);
     } else if (this.member_type === 'club') {
+      console.log(this.editProfileForm.value);
       formData1 = this.toFormData(this.editProfileForm.value);
       formData1.append('aiff', this.documentContent, this.documentContent.name);
       // let {
@@ -222,18 +336,21 @@ export class EditProfileComponent implements OnInit {
       //   manager ,
       // } = this.editProfileForm.value;
 
-      // formData.append('name ',name );
-      // formData.append('short_name ',  short_name );
-      // formData.append('founded_in ',  founded_in );
-      // formData.append('country ', country );
-      // formData.append('city ', city );
-      // formData.append('address ', address );
-      // formData.append('pincode ',pincode )
-      // formData.append('phone ',phone );
-      // formData.append('stadium_name ',stadium_name );
-      // formData.append('owner',owner);
-      // formData.append('manager ',manager );
-      // formData.append('aiff',this.documentContent,this.documentContent.name);
+      // console.log("This is the clubs name", this.editProfileForm.value);
+
+      // formData1.append('name ',name );
+      // formData1.append('short_name ',  short_name );
+      // formData1.append('founded_in ',  founded_in );
+      // formData1.append('country ', country );
+      // formData1.append('city ', city );
+      // formData1.append('address ', address );
+      // formData1.append('pincode ',pincode )
+      // formData1.append('phone ',phone );
+      // formData1.append('stadium_name ',stadium_name );
+      // formData1.append('owner',owner);
+      // formData1.append('manager ',manager );
+      // formData1.append('aiff',this.documentContent,this.documentContent.name);
+      // console.log('data club', formData1);
     } else if (this.member_type === 'academy') {
       formData1 = this.toFormData(this.editProfileForm.value);
       formData1.append(
@@ -256,26 +373,26 @@ export class EditProfileComponent implements OnInit {
       //   document_type
       // } = this.editProfileForm.value;
 
-      // formData.append('name ',name );
-      // formData.append('short_name ',  short_name );
-      // formData.append('founded_in ',  founded_in );
-      // formData.append('country ', country );
-      // formData.append('city ', city );
-      // formData.append('address ', address );
-      // formData.append('pincode ',pincode )
-      // formData.append('phone ',phone );
-      // formData.append('stadium_name ',stadium_name );
-      // formData.append('owner',owner);
-      // formData.append('manager ',manager );
-      // formData.append('document_type',document_type);
-      // formData.append('document',this.documentContent,this.documentContent.name);
+      // formData1.append('name ',name );
+      // formData1.append('short_name ',  short_name );
+      // formData1.append('founded_in ',  founded_in );
+      // formData1.append('country ', country );
+      // formData1.append('city ', city );
+      // formData1.append('address ', address );
+      // formData1.append('pincode ',pincode )
+      // formData1.append('phone ',phone );
+      // formData1.append('stadium_name ',stadium_name );
+      // formData1.append('owner',owner);
+      // formData1.append('manager ',manager );
+      // formData1.append('document_type',document_type);
+      // formData1.append('document',this.documentContent,this.documentContent.name);
     }
-    console.log('################formdata1', formData1['manager']);
-    for (let pair of formData1.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
+    // console.log('################formdata1', formData1['manager']);
+    // for (let pair of formData1.entries()) {
+    //   console.log(pair[0] + ', ' + pair[1]);
+    // }
     let token = localStorage.getItem('token');
-    this._authenticationSerivce.editProfile(formData1, token).subscribe(
+    this._authenticationService.editProfile(formData1, token).subscribe(
       res => {
         console.log('response', res);
       },
@@ -302,7 +419,7 @@ export class EditProfileComponent implements OnInit {
 
   socialProfile() {
     let token = localStorage.getItem('token');
-    this._authenticationSerivce
+    this._authenticationService
       .updateBio(this.socialProfileForm.value, token)
       .subscribe(
         res => {
@@ -315,12 +432,12 @@ export class EditProfileComponent implements OnInit {
   }
   about() {
     let formData1: any = this.toFormData(this.aboutForm.value);
-    formData1.append('avatar', this.Avatar, this.Avatar.name);
+    // formData1.append('avatar', this.Avatar, this.Avatar.name);
     for (let pair of formData1.entries()) {
       console.log(pair[0] + ', ' + pair[1]);
     }
     let token = localStorage.getItem('token');
-    this._authenticationSerivce.updateBio(formData1, token).subscribe(
+    this._authenticationService.updateBio(formData1, token).subscribe(
       res => {
         console.log('response', res);
       },
@@ -347,12 +464,12 @@ export class EditProfileComponent implements OnInit {
       this.editProfileForm = this._formBuilder.group({
         // personal_details
         player_type: [this.player_type, [Validators.required]],
-        player_first_name: ['samyak', [Validators.required]],
-        player_last_name: ['jain', [Validators.required]],
-        player_dob: ['2020-04-14', [Validators.required]], //2020-04-14T18:30:00.000Z"
-        player_height_foot: ['5', [Validators.required]], //height
-        player_height_inches: ['5', [Validators.required]],
-        player_weight: ['50', [Validators.required]],
+        player_first_name: ['', [Validators.required]],
+        player_last_name: ['', [Validators.required]],
+        player_dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
+        player_height_foot: ['', [Validators.required]], //height
+        player_height_inches: ['', [Validators.required]],
+        player_weight: ['', [Validators.required]],
         player_nationality: ['', [Validators.required]], //country
         player_state: ['', [Validators.required]],
         player_current_city: ['', [Validators.required]], //city
@@ -364,13 +481,13 @@ export class EditProfileComponent implements OnInit {
         player_employment_contract: ['', []],
         // // professional_details
         player_position1: ['', []],
-        player_position2: ['saab', []],
+        player_position2: ['', []],
         player_position3: ['', []],
         player_strong_foot: ['', []],
         player_associated_club: ['', []],
         player_weak_foot: ['', []],
         player_head_coach_phone_number: ['', []],
-        player_head_coach_email_number: ['coach@gmail.com', []],
+        player_head_coach_email_number: ['', []],
         player_former_club: ['', []]
       });
     } else if (this.member_type === 'club') {
@@ -393,7 +510,10 @@ export class EditProfileComponent implements OnInit {
         ],
         stadium_name: ['', [Validators.required]],
         owner: ['', [Validators.required]],
-        manager: ['', [Validators.required]]
+        manager: ['', [Validators.required]],
+        club_contact_persons: this._formBuilder.array([]),
+        club_trophies: this._formBuilder.array([]),
+        club_top_signings: this._formBuilder.array([])
         // onclick upload document [aiff]
       });
     } else if (this.member_type === 'academy') {
@@ -417,9 +537,143 @@ export class EditProfileComponent implements OnInit {
         stadium_name: ['', [Validators.required]],
         owner: ['', [Validators.required]],
         manager: ['', [Validators.required]],
-        document_type: ['aiff', [Validators.required]]
+        document_type: ['aiff', [Validators.required]],
+        club_contact_persons: this._formBuilder.array([]),
+        club_trophies: this._formBuilder.array([]),
+        club_associated_player: ['', []]
         //onclick upload documenet aiff / pan card/tin / coi
       });
     }
+    // club_name : ['', [ Validators.required ]],
+    // club_short_name : ['', [ Validators.required ]],
+    // club_founded_in : ['', [ Validators.required ]],
+    // club_country : ['', [ Validators.required ]],
+    // club_city : ['', [ Validators.required ]],
+    // club_address : ['', [ Validators.required ]],
+    // club_pincode : ['', [ Validators.required ]],
+    // // club_email : ['',],
+    // club_phone : ['', [ Validators.required ]],
+    // club_stadium_name : ['', [ Validators.required ]],
+    // club_owner:['', [ Validators.required ]],
+    // club_manager : ['', [ Validators.required ]],
+    // club_document: ['', [ Validators.required ]],
+    // club_aiff: ['', [ Validators.required ]],
+
+    // professional_details
+    // club_contact_designation : ['', []],
+    // club_contact_name:['', []],
+    // club_contact_email:['', []],
+    // club_contact_phone_number:['', []],
+    // club_contact_persons : this._formBuilder.array([]),
+    // club_trophies : this._formBuilder.array([]),
+
+    // club_league:['', []],
+    // club_top_signings:['', []],
+    // club_ass_player :['', []]
+    // })
+  }
+
+  populateDynamicContact() {
+    if (this.sampleContactArray.length !== 0) {
+      for (let i = 0; i < this.sampleContactArray.length; i++) {
+        this.addContactPerson(this.sampleContactArray[i]);
+      }
+    }
+  }
+
+  populateDynamicTrophy() {
+    if (this.sampleTrophyArray.length !== 0) {
+      for (let i = 0; i < this.sampleTrophyArray.length; i++) {
+        this.addTrophy(this.sampleTrophyArray[i]);
+      }
+    }
+  }
+
+  populateDynamicTopSigning() {
+    if (this.sampleTrophyArray.length !== 0) {
+      for (let i = 0; i < this.sampleTrophyArray.length; i++) {
+        this.addTrophy(this.sampleTrophyArray[i]);
+      }
+    }
+  }
+
+  addContactPerson(data?: contactPersonObject) {
+    this.club_contact_persons = this.editProfileForm.get(
+      'club_contact_persons'
+    ) as FormArray;
+
+    if (data !== undefined) {
+      this.club_contact_persons.push(
+        this._formBuilder.group({
+          club_contact_designation: [data.designation, []],
+          club_contact_name: [data.name, []],
+          club_contact_email: [data.email, []],
+          club_contact_phone_number: [data.phone, []]
+        })
+      );
+    } else {
+      this.club_contact_persons.push(
+        this._formBuilder.group({
+          club_contact_designation: ['', []],
+          club_contact_name: ['', []],
+          club_contact_email: ['', []],
+          club_contact_phone_number: ['', []]
+        })
+      );
+    }
+  }
+
+  removeContactPerson(i: number) {
+    this.club_contact_persons.removeAt(i);
+  }
+
+  addTrophy(data?: trophyObject) {
+    this.club_trophies = this.editProfileForm.get('club_trophies') as FormArray;
+
+    if (data !== undefined) {
+      this.club_trophies.push(
+        this._formBuilder.group({
+          trophy_name: [data.name, []],
+          trophy_years: [data.years, []],
+          trophy_position: [data.position, []]
+        })
+      );
+    } else {
+      this.club_trophies.push(
+        this._formBuilder.group({
+          trophy_name: ['', []],
+          trophy_years: ['', []],
+          trophy_position: ['', []]
+        })
+      );
+    }
+  }
+
+  removeTrophy(i: number) {
+    this.club_trophies.removeAt(i);
+  }
+
+  addTopSigning(data?: topSigningObject) {
+    this.club_top_signings = this.editProfileForm.get(
+      'club_top_signings'
+    ) as FormArray;
+
+    if (data !== undefined) {
+      this.club_top_signings.push(
+        this._formBuilder.group({
+          top_signings: [data.top_signings, []]
+        })
+      );
+    } else {
+      this.club_top_signings.push(
+        this._formBuilder.group({
+          top_signings: ['', []]
+        })
+      );
+    }
+  }
+
+  removeTopSigning(i: number) {
+    this.club_top_signings.removeAt(i);
   }
 }
