@@ -71,6 +71,30 @@ export class EditProfileComponent implements OnInit {
       position: 'First'
     }
   ];
+  samplePositionArray = [
+    {
+      name: 'Volvo',
+      value: 'volvo'
+    },
+    {
+      name: 'Audi',
+      value: 'audi'
+    },
+    {
+      name: 'Mercedes',
+      value: 'mercedes'
+    }
+  ];
+  strongFootArray = [
+    {
+      name: 'Left',
+      value: 'left'
+    },
+    {
+      name: 'Right',
+      value: 'right'
+    }
+  ];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -121,8 +145,16 @@ export class EditProfileComponent implements OnInit {
       response => {
         console.log('data', response);
         this.profile = response.data;
-        this.populateDynamicContact();
-        this.populateDynamicTrophy();
+
+        if (
+          this.profile.member_type === 'club' ||
+          this.profile.member_type === 'academy'
+        ) {
+          this.populateDynamicContact();
+          this.populateDynamicTrophy();
+          this.populateDynamicTopSigning();
+        }
+
         this._toastrService.success(
           'Successful',
           'Data retrieved successfully'

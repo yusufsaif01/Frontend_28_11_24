@@ -36,7 +36,7 @@
       <div class="block">
         <div class="block-heading border-bottom">
           <h4>About</h4>
-          <p>{{ profile.bio | slice: 1:150 }}</p>
+          <p>{{ profile?.bio | slice: 0:150 }}</p>
         </div>
 
         <div class="block-middle border-bottom">
@@ -46,7 +46,7 @@
             matInput
             rows="5"
             placeholder="Write Content"
-            value="{{ profile.bio }}"
+            value="{{ profile?.bio }}"
           ></textarea>
         </div>
         <div class="block-bottom">
@@ -514,10 +514,13 @@
                 matNativeControl
                 required
               >
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+                <ng-container *ngFor="let position of samplePositionArray">
+                  <option
+                    value="{{ position.value }}"
+                    [selected]="profile.position && profile.position[0]"
+                    >{{ position.name }}</option
+                  >
+                </ng-container>
               </select>
             </div>
 
@@ -529,25 +532,31 @@
                 matNativeControl
                 required
               >
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+                <ng-container *ngFor="let position of samplePositionArray">
+                  <option
+                    value="{{ position.value }}"
+                    [selected]="profile.position && profile.position[1]"
+                    >{{ position.name }}</option
+                  >
+                </ng-container>
               </select>
             </div>
 
             <!-- Position ( Priority third ) -->
             <div class="from-block">
-              <label>Position ( Priority Thirds ) <span>*</span></label>
+              <label>Position ( Priority Third ) <span>*</span></label>
               <select
                 formControlName="player_position3"
                 matNativeControl
                 required
               >
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+                <ng-container *ngFor="let position of samplePositionArray">
+                  <option
+                    value="{{ position.value }}"
+                    [selected]="profile.position && profile.position[2]"
+                    >{{ position.name }}</option
+                  >
+                </ng-container>
               </select>
             </div>
 
@@ -559,10 +568,13 @@
                 matNativeControl
                 required
               >
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+                <ng-container *ngFor="let foot of strongFootArray">
+                  <option
+                    value="{{ foot.value }}"
+                    [selected]="profile.strong_foot"
+                    >{{ foot.name }}</option
+                  >
+                </ng-container>
               </select>
             </div>
 
@@ -652,7 +664,8 @@
               <input
                 formControlName="player_head_coach_phone_number"
                 type="text"
-                matinput
+                matInput
+                value="{{ profile.club_academy_details?.head_coach_phone }}"
               />
             </div>
 
@@ -662,14 +675,15 @@
               <input
                 formControlName="player_head_coach_email_number"
                 type="text"
-                matinput
+                matInput
+                value="{{ profile.club_academy_details?.head_coach_email }}"
               />
             </div>
 
             <!-- former Club -->
             <ng-container *ngIf="player_type !== 'grassroot'">
               <div class="from-block">
-                <label>Formal Club (optional, if any) <span>*</span></label>
+                <label>Former Club (optional, if any) <span>*</span></label>
                 <input
                   formControlName="player_former_club"
                   type="text"
