@@ -674,18 +674,16 @@
                 formControlName="player_head_coach_phone_number"
                 type="text"
                 matInput
-                value="{{ profile.club_academy_details?.head_coach_phone }}"
               />
             </div>
 
             <!-- Head coach email number -->
             <div class="from-block">
-              <label>Head coach email number <span>*</span></label>
+              <label>Head coach email <span>*</span></label>
               <input
                 formControlName="player_head_coach_email_number"
                 type="text"
                 matInput
-                value="{{ profile.club_academy_details?.head_coach_email }}"
               />
             </div>
 
@@ -1034,10 +1032,13 @@
                         matNativeControl
                         required
                       >
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
+                        <ng-container
+                          *ngFor="let designation of designationArray"
+                        >
+                          <option value="{{ designation.value }}">{{
+                            designation.name
+                          }}</option>
+                        </ng-container>
                       </select>
                     </div>
 
