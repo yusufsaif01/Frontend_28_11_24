@@ -41,6 +41,7 @@ export class EditProfileComponent implements OnInit {
   aadharformContent: any;
   documentContent: any;
   Avatar: any;
+  dateVal = new Date();
 
   club_contact_persons: FormArray;
   club_trophies: FormArray;
@@ -113,6 +114,24 @@ export class EditProfileComponent implements OnInit {
       value: 'australia'
     }
   ];
+  sampleStateArray = [
+    {
+      name: 'Delhi',
+      value: 'delhi'
+    },
+    {
+      name: 'Mumbai',
+      value: 'mumbai'
+    },
+    {
+      name: 'U.P',
+      value: 'up'
+    },
+    {
+      name: 'M.P',
+      value: 'mp'
+    }
+  ];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -169,7 +188,11 @@ export class EditProfileComponent implements OnInit {
           short_name: this.profile.short_name,
           founded_in: this.profile.founded_in,
           address: this.profile.address.full_address,
-          pincode: this.profile.address.pincode
+          pincode: this.profile.address.pincode,
+          player_dob: new Date(this.profile.dob),
+          player_nationality: this.profile.country,
+          player_state: this.profile.state,
+          player_current_school_name: this.profile.institiute.school
         });
 
         this.socialProfileForm.patchValue({
@@ -359,72 +382,78 @@ export class EditProfileComponent implements OnInit {
       // }
     } else if (this.member_type === 'club') {
       console.log(this.editProfileForm.value);
-      formData1 = this.toFormData(this.editProfileForm.value);
+      // formData1 = this.toFormData(this.editProfileForm.value);
+      let formData1 = new FormData();
       formData1.append('aiff', this.documentContent, this.documentContent.name);
-      // let {
-      //   name ,
-      //   short_name ,
-      //   founded_in ,
-      //   country ,
-      //   city ,
-      //   address ,
-      //   pincode ,
-      //   phone ,
-      //   stadium_name ,
-      //   owner,
-      //   manager ,
-      // } = this.editProfileForm.value;
+      let {
+        name,
+        short_name,
+        founded_in,
+        country,
+        city,
+        address,
+        pincode,
+        phone,
+        stadium_name,
+        owner,
+        manager
+      } = this.editProfileForm.value;
 
-      // console.log("This is the clubs name", this.editProfileForm.value);
+      console.log('This is the clubs name', this.editProfileForm.value);
 
-      // formData1.append('name ',name );
-      // formData1.append('short_name ',  short_name );
-      // formData1.append('founded_in ',  founded_in );
-      // formData1.append('country ', country );
-      // formData1.append('city ', city );
-      // formData1.append('address ', address );
-      // formData1.append('pincode ',pincode )
-      // formData1.append('phone ',phone );
-      // formData1.append('stadium_name ',stadium_name );
-      // formData1.append('owner',owner);
-      // formData1.append('manager ',manager );
-      // formData1.append('aiff',this.documentContent,this.documentContent.name);
-      // console.log('data club', formData1);
+      formData1.append('name ', name);
+      formData1.append('short_name ', short_name);
+      formData1.append('founded_in ', founded_in);
+      formData1.append('country ', country);
+      formData1.append('city ', city);
+      formData1.append('address ', address);
+      formData1.append('pincode ', pincode);
+      formData1.append('phone ', phone);
+      formData1.append('stadium_name ', stadium_name);
+      formData1.append('owner', owner);
+      formData1.append('manager ', manager);
+      formData1.append('aiff', this.documentContent, this.documentContent.name);
+      console.log('data club', formData1);
     } else if (this.member_type === 'academy') {
-      formData1 = this.toFormData(this.editProfileForm.value);
+      // formData1 = this.toFormData(this.editProfileForm.value);
+      let formData1 = new FormData();
       formData1.append(
         'document',
         this.documentContent,
         this.documentContent.name
       );
-      // let {
-      //   name ,
-      //   short_name ,
-      //   founded_in ,
-      //   country ,
-      //   city ,
-      //   address ,
-      //   pincode ,
-      //   phone ,
-      //   stadium_name ,
-      //   owner,
-      //   manager ,
-      //   document_type
-      // } = this.editProfileForm.value;
+      let {
+        name,
+        short_name,
+        founded_in,
+        country,
+        city,
+        address,
+        pincode,
+        phone,
+        stadium_name,
+        owner,
+        manager,
+        document_type
+      } = this.editProfileForm.value;
 
-      // formData1.append('name ',name );
-      // formData1.append('short_name ',  short_name );
-      // formData1.append('founded_in ',  founded_in );
-      // formData1.append('country ', country );
-      // formData1.append('city ', city );
-      // formData1.append('address ', address );
-      // formData1.append('pincode ',pincode )
-      // formData1.append('phone ',phone );
-      // formData1.append('stadium_name ',stadium_name );
-      // formData1.append('owner',owner);
-      // formData1.append('manager ',manager );
-      // formData1.append('document_type',document_type);
-      // formData1.append('document',this.documentContent,this.documentContent.name);
+      formData1.append('name ', name);
+      formData1.append('short_name ', short_name);
+      formData1.append('founded_in ', founded_in);
+      formData1.append('country ', country);
+      formData1.append('city ', city);
+      formData1.append('address ', address);
+      formData1.append('pincode ', pincode);
+      formData1.append('phone ', phone);
+      formData1.append('stadium_name ', stadium_name);
+      formData1.append('owner', owner);
+      formData1.append('manager ', manager);
+      formData1.append('document_type', document_type);
+      formData1.append(
+        'document',
+        this.documentContent,
+        this.documentContent.name
+      );
     }
     // console.log('################formdata1', formData1['manager']);
     // for (let pair of formData1.entries()) {
