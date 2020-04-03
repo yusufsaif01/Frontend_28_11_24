@@ -70,7 +70,7 @@
               type="text"
               matinput
               placeholder="Add Instagram Link"
-              value="{{ profile.social_profiles?.instagram }}"
+              value="{{ profile?.social_profiles?.instagram }}"
             />
           </div>
           <!-- facebook -->
@@ -81,7 +81,7 @@
               type="text"
               matinput
               placeholder="Add Facebook Link"
-              value="{{ profile.social_profiles?.facebook }}"
+              value="{{ profile?.social_profiles?.facebook }}"
             />
           </div>
           <!-- twitter -->
@@ -92,7 +92,7 @@
               type="text"
               matinput
               placeholder="Add Twitter Link"
-              value="{{ profile.social_profiles?.twitter }}"
+              value="{{ profile?.social_profiles?.twitter }}"
             />
           </div>
           <!-- Youtube -->
@@ -103,7 +103,7 @@
               type="text"
               matinput
               placeholder="Add Youtube Link"
-              value="{{ profile.social_profiles?.youtube }}"
+              value="{{ profile?.social_profiles?.youtube }}"
             />
           </div>
         </div>
@@ -221,7 +221,7 @@
                   formControlName="player_dob"
                   matInput
                   [matDatepicker]="myDatepicker"
-                  value="{{ profile.dob }}"
+                  [value]="4 / 4 / 2020"
                 />
                 <mat-datepicker-toggle
                   [for]="myDatepicker"
@@ -713,12 +713,7 @@
                   "
                   >Club Name <span>*</span></label
                 >
-                <input
-                  formControlName="name"
-                  type="text"
-                  matInput
-                  value="{{ profile.name }}"
-                />
+                <input formControlName="name" type="text" matInput />
                 <ng-container *ngIf="isFocused(editProfileForm, 'name')">
                   <span
                     [innerText]="
@@ -743,12 +738,7 @@
                   "
                   >Short Club Name <span>*</span></label
                 >
-                <input
-                  formControlName="short_name"
-                  type="text"
-                  matInput
-                  value="{{ profile.short_name }}"
-                />
+                <input formControlName="short_name" type="text" matInput />
                 <ng-container *ngIf="isFocused(editProfileForm, 'short_name')">
                   <span
                     [innerText]="
@@ -766,12 +756,7 @@
               <!-- founded In -->
               <div class="from-block">
                 <label>Founded ( years ) <span>*</span></label>
-                <input
-                  formControlName="founded_in"
-                  type="text"
-                  matInput
-                  value="{{ profile.founded_in }}"
-                />
+                <input formControlName="founded_in" type="text" matInput />
                 <ng-container *ngIf="isFocused(editProfileForm, 'founded_in')">
                   <span
                     class="error-text"
@@ -820,12 +805,7 @@
               <!-- Address -->
               <div class="from-block">
                 <label>Office Address <span>*</span></label>
-                <input
-                  formControlName="address"
-                  type="text"
-                  matInput
-                  value="{{ profile.address?.full_address }}"
-                />
+                <input formControlName="address" type="text" matInput />
                 <ng-container *ngIf="isFocused(editProfileForm, 'address')">
                   <span
                     class="error-text"
@@ -838,12 +818,7 @@
               <!-- Zipcode / pincode -->
               <div class="from-block">
                 <label>Zipcode / Pincode <span>*</span></label>
-                <input
-                  formControlName="pincode"
-                  type="text"
-                  matInput
-                  value="{{ profile.address?.pincode }}"
-                />
+                <input formControlName="pincode" type="text" matInput />
                 <ng-container *ngIf="isFocused(editProfileForm, 'pincode')">
                   <span
                     class="error-text"
@@ -898,12 +873,7 @@
               <!-- Stadium Name -->
               <div class="from-block">
                 <label>Stadium Name <span>*</span></label>
-                <input
-                  formControlName="stadium_name"
-                  type="text"
-                  matInput
-                  value="{{ profile.stadium }}"
-                />
+                <input formControlName="stadium_name" type="text" matInput />
                 <ng-container
                   *ngIf="isFocused(editProfileForm, 'stadium_name')"
                 >
@@ -1148,9 +1118,9 @@
 
               <!-- leagues -->
               <div class="leagues w-100 block-part">
-                <div class="input-wrapper w-100 align-right">
+                <!-- <div class="input-wrapper w-100 align-right">
                   <a class="mt-0">Add League</a>
-                </div>
+                </div> -->
 
                 <div class="form-block-clubs">
                   <label>League <span>*</span></label>
@@ -1169,29 +1139,9 @@
                     <input type="text" matinput />
                   </div>
 
-                  <div class="input-wrapper">
+                  <!--  <div class="input-wrapper">
                     <button>Remove</button>
-                  </div>
-                </div>
-                <div class="form-block-clubs">
-                  <div class="input-wrapper-second">
-                    <label>League Name <span>*</span></label>
-                    <select matNativeControl required>
-                      <option value="volvo">Volvo</option>
-                      <option value="saab">Saab</option>
-                      <option value="mercedes">Mercedes</option>
-                      <option value="audi">Audi</option>
-                    </select>
-                  </div>
-
-                  <div class="input-wrapper-second">
-                    <label>Other <span>*</span></label>
-                    <input type="text" matinput />
-                  </div>
-
-                  <div class="input-wrapper">
-                    <button>Remove</button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
@@ -1251,6 +1201,15 @@
                   />
                 </div>
               </div>
+              <!-- Manager -->
+              <!-- <div class="from-block">
+                <label>Number of associated players <span>*</span></label>
+                <input
+                  type="text"
+                  matInput
+                  formControlName="club_associated_players"
+                />
+              </div> -->
             </div>
           </div>
         </div>

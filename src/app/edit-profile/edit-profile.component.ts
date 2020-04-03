@@ -145,6 +145,13 @@ export class EditProfileComponent implements OnInit {
       response => {
         console.log('data', response);
         this.profile = response.data;
+        this.editProfileForm.patchValue({
+          name: this.profile.name,
+          short_name: this.profile.short_name,
+          founded_in: this.profile.founded_in,
+          address: this.profile.address.full_address,
+          pincode: this.profile.address.pincode
+        });
 
         if (
           this.profile.member_type === 'club' ||
@@ -234,7 +241,7 @@ export class EditProfileComponent implements OnInit {
     // console.log("form_data",this.editProfileForm.value)
 
     const formData = new FormData();
-    let formData1: any;
+    var formData1 = this.toFormData(this.editProfileForm.value);
     if (this.member_type === 'player') {
       //player
       let {
@@ -297,21 +304,22 @@ export class EditProfileComponent implements OnInit {
         this.aadharformContent,
         this.aadharformContent.name
       );
-      formData.append('player_type', player_type);
-      formData.append('first_name', player_first_name);
-      formData.append('last_name', player_last_name);
-      formData.append('dob', player_dob);
-      formData.append('height', player_height);
-      formData.append('weight', player_weight);
-      formData.append('state', player_state);
-      formData.append('nationality', player_nationality);
-      formData.append('phone', player_phone);
-      formData.append('city', player_current_city);
-      formData.append('institute', institute);
-      formData.append('weak_foot', player_weak_foot);
-      formData.append('former_club', player_former_club);
-      console.log('data', formData);
+      formData1.append('player_type', player_type);
+      formData1.append('first_name', player_first_name);
+      formData1.append('last_name', player_last_name);
+      formData1.append('dob', player_dob);
+      formData1.append('height', player_height);
+      formData1.append('weight', player_weight);
+      formData1.append('state', player_state);
+      formData1.append('nationality', player_nationality);
+      formData1.append('phone', player_phone);
+      formData1.append('city', player_current_city);
+      formData1.append('institute', institute);
+      formData1.append('weak_foot', player_weak_foot);
+      formData1.append('former_club', player_former_club);
+      console.log('data', formData1);
     } else if (this.member_type === 'club') {
+      console.log(this.editProfileForm.value);
       formData1 = this.toFormData(this.editProfileForm.value);
       formData1.append('aiff', this.documentContent, this.documentContent.name);
       // let {
@@ -328,18 +336,21 @@ export class EditProfileComponent implements OnInit {
       //   manager ,
       // } = this.editProfileForm.value;
 
-      // formData.append('name ',name );
-      // formData.append('short_name ',  short_name );
-      // formData.append('founded_in ',  founded_in );
-      // formData.append('country ', country );
-      // formData.append('city ', city );
-      // formData.append('address ', address );
-      // formData.append('pincode ',pincode )
-      // formData.append('phone ',phone );
-      // formData.append('stadium_name ',stadium_name );
-      // formData.append('owner',owner);
-      // formData.append('manager ',manager );
-      // formData.append('aiff',this.documentContent,this.documentContent.name);
+      // console.log("This is the clubs name", this.editProfileForm.value);
+
+      // formData1.append('name ',name );
+      // formData1.append('short_name ',  short_name );
+      // formData1.append('founded_in ',  founded_in );
+      // formData1.append('country ', country );
+      // formData1.append('city ', city );
+      // formData1.append('address ', address );
+      // formData1.append('pincode ',pincode )
+      // formData1.append('phone ',phone );
+      // formData1.append('stadium_name ',stadium_name );
+      // formData1.append('owner',owner);
+      // formData1.append('manager ',manager );
+      // formData1.append('aiff',this.documentContent,this.documentContent.name);
+      // console.log('data club', formData1);
     } else if (this.member_type === 'academy') {
       formData1 = this.toFormData(this.editProfileForm.value);
       formData1.append(
@@ -362,24 +373,24 @@ export class EditProfileComponent implements OnInit {
       //   document_type
       // } = this.editProfileForm.value;
 
-      // formData.append('name ',name );
-      // formData.append('short_name ',  short_name );
-      // formData.append('founded_in ',  founded_in );
-      // formData.append('country ', country );
-      // formData.append('city ', city );
-      // formData.append('address ', address );
-      // formData.append('pincode ',pincode )
-      // formData.append('phone ',phone );
-      // formData.append('stadium_name ',stadium_name );
-      // formData.append('owner',owner);
-      // formData.append('manager ',manager );
-      // formData.append('document_type',document_type);
-      // formData.append('document',this.documentContent,this.documentContent.name);
+      // formData1.append('name ',name );
+      // formData1.append('short_name ',  short_name );
+      // formData1.append('founded_in ',  founded_in );
+      // formData1.append('country ', country );
+      // formData1.append('city ', city );
+      // formData1.append('address ', address );
+      // formData1.append('pincode ',pincode )
+      // formData1.append('phone ',phone );
+      // formData1.append('stadium_name ',stadium_name );
+      // formData1.append('owner',owner);
+      // formData1.append('manager ',manager );
+      // formData1.append('document_type',document_type);
+      // formData1.append('document',this.documentContent,this.documentContent.name);
     }
-    console.log('################formdata1', formData1['manager']);
-    for (let pair of formData1.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
+    // console.log('################formdata1', formData1['manager']);
+    // for (let pair of formData1.entries()) {
+    //   console.log(pair[0] + ', ' + pair[1]);
+    // }
     let token = localStorage.getItem('token');
     this._authenticationService.editProfile(formData1, token).subscribe(
       res => {
