@@ -7,6 +7,17 @@
       <div class="block-design">
         <div class="profile-section">
           <img src="assets/images/profile-icon.png" alt="profile-icon" />
+          <h3 *ngIf="profile.member_type === 'player'">
+            {{ profile?.first_name }} {{ profile?.last_name }}
+          </h3>
+          <h3
+            *ngIf="
+              profile.member_type === 'club' ||
+              profile.member_type === 'academy'
+            "
+          >
+            {{ profile?.name }}
+          </h3>
           <p>
             <i-feather name="alert-circle" class="icon-size"></i-feather>
             Not Verified
@@ -46,7 +57,6 @@
             matInput
             rows="5"
             placeholder="Write Content"
-            value="{{ profile?.bio }}"
           ></textarea>
         </div>
         <div class="block-bottom">
@@ -68,9 +78,8 @@
             <input
               formControlName="instagram"
               type="text"
-              matinput
+              matInput
               placeholder="Add Instagram Link"
-              value="{{ profile?.social_profiles?.instagram }}"
             />
           </div>
           <!-- facebook -->
@@ -79,9 +88,8 @@
             <input
               formControlName="facebook"
               type="text"
-              matinput
+              matInput
               placeholder="Add Facebook Link"
-              value="{{ profile?.social_profiles?.facebook }}"
             />
           </div>
           <!-- twitter -->
@@ -90,9 +98,8 @@
             <input
               formControlName="twitter"
               type="text"
-              matinput
+              matInput
               placeholder="Add Twitter Link"
-              value="{{ profile?.social_profiles?.twitter }}"
             />
           </div>
           <!-- Youtube -->
@@ -101,9 +108,8 @@
             <input
               formControlName="youtube"
               type="text"
-              matinput
+              matInput
               placeholder="Add Youtube Link"
-              value="{{ profile?.social_profiles?.youtube }}"
             />
           </div>
         </div>
