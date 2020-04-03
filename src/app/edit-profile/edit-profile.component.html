@@ -36,7 +36,13 @@
       <div class="block">
         <div class="block-heading border-bottom">
           <h4>About</h4>
-          <p>Tell about yourself in two sentences.</p>
+          <textarea
+            formControlName="about"
+            matInput
+            rows="5"
+            placeholder="Write Content"
+            value="{{ profile.about }}"
+          ></textarea>
         </div>
 
         <div class="block-middle border-bottom">
@@ -46,6 +52,7 @@
             matInput
             rows="5"
             placeholder="Write Content"
+            value="{{ profile.bio }}"
           ></textarea>
         </div>
         <div class="block-bottom">
@@ -69,6 +76,7 @@
               type="text"
               matinput
               placeholder="Add Instagram Link"
+              value="{{ profile.social_profiles?.instagram }}"
             />
           </div>
           <!-- facebook -->
@@ -79,6 +87,7 @@
               type="text"
               matinput
               placeholder="Add Facebook Link"
+              value="{{ profile.social_profiles?.facebook }}"
             />
           </div>
           <!-- twitter -->
@@ -89,6 +98,7 @@
               type="text"
               matinput
               placeholder="Add Twitter Link"
+              value="{{ profile.social_profiles?.twitter }}"
             />
           </div>
           <!-- Youtube -->
@@ -99,6 +109,7 @@
               type="text"
               matinput
               placeholder="Add Youtube Link"
+              value="{{ profile.social_profiles?.youtube }}"
             />
           </div>
         </div>

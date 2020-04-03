@@ -82,6 +82,13 @@ body {
           font-size: 1.8rem;
           color: $text-muted;
         }
+        textarea {
+          width: 100%;
+          display: block;
+          border: 1px solid $border-color;
+          border-radius: 0.5rem;
+          padding: 1rem;
+        }
       }
       .block-middle {
         padding: 2rem;
