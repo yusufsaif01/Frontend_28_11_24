@@ -36,13 +36,7 @@
       <div class="block">
         <div class="block-heading border-bottom">
           <h4>About</h4>
-          <textarea
-            formControlName="about"
-            matInput
-            rows="5"
-            placeholder="Write Content"
-            value="{{ profile.about }}"
-          ></textarea>
+          <p>{{ profile.bio | slice: 1:150 }}</p>
         </div>
 
         <div class="block-middle border-bottom">
@@ -133,7 +127,7 @@
             <!-- <ng-container> {{ editProfileForm.controls.player_type.value }}</ng-container> -->
             <!-- <ng-container> {{ editProfileForm.value | json }}</ng-container> -->
             <h4>Player Type</h4>
-            <p>Lorem ipsum dolor sit amet, consecteturs.</p>
+            <!-- <p>Lorem ipsum dolor sit amet, consecteturs.</p> -->
           </div>
           <div class="block-middle">
             <div class="radio">
@@ -175,7 +169,7 @@
         <div class="block">
           <div class="block-header border-bottom">
             <h4>Personal Details</h4>
-            <p>Lorem ipsum dolor sit amet, consecteturs.</p>
+            <!-- <p>Lorem ipsum dolor sit amet, consecteturs.</p> -->
           </div>
           <div class="block-middle">
             <!-- first name -->
@@ -227,6 +221,7 @@
                   formControlName="player_dob"
                   matInput
                   [matDatepicker]="myDatepicker"
+                  value="{{ profile.dob }}"
                 />
                 <mat-datepicker-toggle
                   [for]="myDatepicker"
@@ -246,29 +241,18 @@
             <div class="from-block">
               <label>Height <span>*</span></label>
               <div class="double-input">
-                <select
+                <input
                   formControlName="player_height_foot"
-                  matNativeControl
-                  required
-                >
-                  <option value="">Select Foots</option>
-                  <option value="4" selected="">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                </select>
-
-                <select
+                  type="text"
+                  matInput
+                  value="{{ profile.height }}"
+                />
+                <input
                   formControlName="player_height_inches"
-                  matNativeControl
-                  required
-                >
-                  <option value="">Select Inch</option>
-                  <option value="4" selected="">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                </select>
+                  type="text"
+                  matInput
+                  value="{{ profile.weight }}"
+                />
               </div>
               <ng-container
                 *ngIf="isFocused(editProfileForm, 'player_height_foot')"
@@ -276,7 +260,7 @@
                 <span
                   class="error-text"
                   *ngIf="isRequired(editProfileForm, 'player_height_foot')"
-                  >Height is required</span
+                  >Feet is required</span
                 >
               </ng-container>
               <ng-container
@@ -285,7 +269,7 @@
                 <span
                   class="error-text"
                   *ngIf="isRequired(editProfileForm, 'player_height_inches')"
-                  >Select Inch is required</span
+                  >Inches is required</span
                 >
               </ng-container>
             </div>
@@ -293,13 +277,12 @@
             <!-- weight -->
             <div class="from-block">
               <label>Weight <span>*</span></label>
-              <select formControlName="player_weight" matNativeControl required>
-                <option value="">Select Weight</option>
-                <option value="50" selected="">50</option>
-                <option value="60">60</option>
-                <option value="70">70</option>
-                <option value="80">80</option>
-              </select>
+              <input
+                formControlName="player_weight"
+                type="text"
+                matInput
+                value="{{ profile.weight }}"
+              />
 
               <ng-container *ngIf="isFocused(editProfileForm, 'player_weight')">
                 <span
@@ -382,13 +365,24 @@
             <!-- email -->
             <div class="from-block">
               <label>Email Address <span>*</span></label>
-              <input disabled [value]="user_email" type="text" matinput />
+              <input
+                disabled
+                [value]="user_email"
+                type="text"
+                matInput
+                value="{{ profile.email }}"
+              />
             </div>
 
             <!-- Phone -->
             <div class="from-block">
               <label>Phone Number <span>*</span></label>
-              <input formControlName="player_phone" type="text" matinput />
+              <input
+                formControlName="player_phone"
+                type="text"
+                matInput
+                value="{{ profile.phone }}"
+              />
 
               <ng-container *ngIf="isFocused(editProfileForm, 'player_phone')">
                 <span
@@ -405,7 +399,8 @@
               <input
                 formControlName="player_current_school_name"
                 type="text"
-                matinput
+                matInput
+                value="{{ profile.institiute?.school }}"
               />
 
               <ng-container
@@ -508,7 +503,7 @@
         <div class="block">
           <div class="block-header border-bottom">
             <h4>Professional Details</h4>
-            <p>Lorem ipsum dolor sit amet, consecteturs.</p>
+            <!-- <p>Lorem ipsum dolor sit amet, consecteturs.</p> -->
           </div>
           <div class="block-middle">
             <!-- Position ( Priority First ) -->
@@ -692,8 +687,6 @@
           <!-- personal detials -->
           <div class="block">
             <div class="block-header border-bottom">
-              {{ editProfileForm.valid }}
-              {{ member_type }}
               <h4>Personal Details</h4>
               <!-- <p>Lorem ipsum dolor sit amet, consecteturs.</p> -->
             </div>

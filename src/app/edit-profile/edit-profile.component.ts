@@ -389,7 +389,7 @@ export class EditProfileComponent implements OnInit {
   }
   about() {
     let formData1: any = this.toFormData(this.aboutForm.value);
-    formData1.append('avatar', this.Avatar, this.Avatar.name);
+    // formData1.append('avatar', this.Avatar, this.Avatar.name);
     for (let pair of formData1.entries()) {
       console.log(pair[0] + ', ' + pair[1]);
     }
