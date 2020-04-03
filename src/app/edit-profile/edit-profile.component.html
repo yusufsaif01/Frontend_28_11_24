@@ -185,7 +185,8 @@
                 class="error-border"
                 formControlName="player_first_name"
                 type="text"
-                matinput
+                matInput
+                value="{{ profile.first_name }}"
               />
               <ng-container
                 *ngIf="isFocused(editProfileForm, 'player_first_name')"
@@ -201,7 +202,12 @@
             <!-- last name -->
             <div class="from-block">
               <label>Last Name <span>*</span></label>
-              <input formControlName="player_last_name" type="text" matinput />
+              <input
+                formControlName="player_last_name"
+                type="text"
+                matInput
+                value="{{ profile.last_name }}"
+              />
               <ng-container
                 *ngIf="isFocused(editProfileForm, 'player_last_name')"
               >
