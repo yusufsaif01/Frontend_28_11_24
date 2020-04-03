@@ -6,7 +6,16 @@
     <div class="block-design">
       <div class="profile-section border-bottom">
         <img src="assets/images/profile-icon.png" alt="profile-icon" />
-        <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
+        <h3 *ngIf="profile.member_type === 'player'">
+          {{ profile?.first_name }} {{ profile?.last_name }}
+        </h3>
+        <h3
+          *ngIf="
+            profile.member_type === 'club' || profile.member_type === 'academy'
+          "
+        >
+          {{ profile?.name }}
+        </h3>
         <h6>
           {{
             profile.position && profile.position[0]
@@ -151,7 +160,7 @@
             <p>
               <span>Positions (Second) :</span>
               {{
-                profile.position && profile.position[0]
+                profile.position && profile.position[1]
                   ? profile.position[1].name
                   : ''
               }}
@@ -164,7 +173,7 @@
             <p>
               <span>Positions (Third) :</span>
               {{
-                profile.position && profile.position[0]
+                profile.position && profile.position[2]
                   ? profile.position[2].name
                   : ''
               }}
@@ -240,19 +249,19 @@
             </div>
             <div class="block-middle border-bottom">
               <div class="half">
-                <p><span>Designation :</span> {{ person.designation }}</p>
+                <p><span>Designation :</span> {{ person?.designation }}</p>
               </div>
               <div class="half">
-                <p><span> Name :</span> {{ person.name }}</p>
+                <p><span> Name :</span> {{ person?.name }}</p>
               </div>
             </div>
 
             <div class="block-middle border-bottom">
               <div class="half">
-                <p><span>Email :</span> {{ person.email }}</p>
+                <p><span>Email :</span> {{ person?.email }}</p>
               </div>
               <div class="half">
-                <p><span> Phone Number :</span> {{ person.phone }}</p>
+                <p><span> Phone Number :</span> {{ person?.phone }}</p>
               </div>
             </div>
           </ng-container>
@@ -285,7 +294,7 @@
         <div class="block-middle border-bottom">
           <div class="full">
             <p>
-              <span>Office address :</span> address :
+              <span>Office address :</span>
               {{ profile?.address?.full_address }}
             </p>
           </div>
@@ -305,15 +314,6 @@
         <div class="block-middle border-bottom">
           <div class="half">
             <p><span>Phone :</span> {{ profile.phone }}</p>
-          </div>
-          <div class="half">
-            <p><span>Club owner :</span> {{ profile.club_owner }}</p>
-          </div>
-        </div>
-
-        <div class="block-middle border-bottom">
-          <div class="full">
-            <p><span>Manager :</span> {{ profile.manager }}</p>
           </div>
         </div>
 

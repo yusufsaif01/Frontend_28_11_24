@@ -4,6 +4,7 @@ import {
   RouterModule
   // , PreloadAllModules
 } from '@angular/router';
+import { extract } from '@app/core';
 import { RegistrationComponent } from './registration/registration.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -22,13 +23,41 @@ const routes: Routes = [
     path: 'login',
     loadChildren: './login/login.module#LoginModule'
   },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'register', component: RegistrationComponent },
-  { path: 'edit-profile', component: EditProfileComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'change-password', component: ChangePasswordComponent },
-  { path: 'create-password', component: CreatePasswordComponent },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
+    data: { title: extract('Forgot Password') }
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
+    data: { title: extract('Reset Password') }
+  },
+  {
+    path: 'register',
+    component: RegistrationComponent,
+    data: { title: extract('Registration') }
+  },
+  {
+    path: 'edit-profile',
+    component: EditProfileComponent,
+    data: { title: extract('Edit Profile') }
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    data: { title: extract('View Profile') }
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent,
+    data: { title: extract('Change Password') }
+  },
+  {
+    path: 'create-password',
+    component: CreatePasswordComponent,
+    data: { title: extract('Create Password') }
+  },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

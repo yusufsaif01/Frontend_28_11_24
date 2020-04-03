@@ -95,6 +95,24 @@ export class EditProfileComponent implements OnInit {
       value: 'right'
     }
   ];
+  sampleCountryArray = [
+    {
+      name: 'India',
+      value: 'india'
+    },
+    {
+      name: 'UK',
+      value: 'uk'
+    },
+    {
+      name: 'USA',
+      value: 'usa'
+    },
+    {
+      name: 'Australia',
+      value: 'australia'
+    }
+  ];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -145,12 +163,24 @@ export class EditProfileComponent implements OnInit {
       response => {
         console.log('data', response);
         this.profile = response.data;
+
         this.editProfileForm.patchValue({
           name: this.profile.name,
           short_name: this.profile.short_name,
           founded_in: this.profile.founded_in,
           address: this.profile.address.full_address,
           pincode: this.profile.address.pincode
+        });
+
+        this.socialProfileForm.patchValue({
+          instagram: this.profile.social_profiles.instagram,
+          facebook: this.profile.social_profiles.facebook,
+          twitter: this.profile.social_profiles.twitter,
+          youtube: this.profile.social_profiles.youtube
+        });
+
+        this.aboutForm.patchValue({
+          bio: this.profile.bio
         });
 
         if (
@@ -424,9 +454,17 @@ export class EditProfileComponent implements OnInit {
       .subscribe(
         res => {
           console.log('response', res);
+          this._toastrService.success(
+            'Successful',
+            'Social profiles updated successfully'
+          );
         },
         err => {
           console.log('err', err);
+          this._toastrService.error(
+            'Error',
+            'An error occured while updating social profiles'
+          );
         }
       );
   }
@@ -440,9 +478,14 @@ export class EditProfileComponent implements OnInit {
     this._authenticationService.updateBio(formData1, token).subscribe(
       res => {
         console.log('response', res);
+        this._toastrService.success('Successful', 'Bio updated successfully');
       },
       err => {
         console.log('err', err);
+        this._toastrService.error(
+          'Error',
+          'An error occured while updating bio'
+        );
       }
     );
   }
