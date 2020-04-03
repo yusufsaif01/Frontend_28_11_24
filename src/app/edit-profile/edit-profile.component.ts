@@ -191,8 +191,7 @@ export class EditProfileComponent implements OnInit {
           pincode: this.profile.address.pincode,
           player_dob: new Date(this.profile.dob),
           player_nationality: this.profile.country,
-          player_state: this.profile.state,
-          player_current_school_name: this.profile.institiute.school
+          player_state: this.profile.state
         });
 
         this.socialProfileForm.patchValue({
