@@ -16,10 +16,6 @@ interface contactPersonObject {
   club_contact_phone_number: string;
 }
 
-interface topSigningObject {
-  top_signings: string;
-}
-
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -582,6 +578,7 @@ export class EditProfileComponent implements OnInit {
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([]),
+        associated_players: ['', []],
         document: ['']
         // onclick upload document [aiff]
       });
@@ -604,12 +601,12 @@ export class EditProfileComponent implements OnInit {
           ]
         ],
         stadium_name: ['', [Validators.required]],
-        owner: ['', [Validators.required]],
-        manager: ['', [Validators.required]],
-        document_type: ['aiff', [Validators.required]],
-        club_contact_persons: this._formBuilder.array([]),
-        club_trophies: this._formBuilder.array([]),
-        club_associated_player: ['', []]
+        document_type: ['', [Validators.required]],
+        contact_person: this._formBuilder.array([]),
+        trophies: this._formBuilder.array([]),
+        top_signings: this._formBuilder.array([]),
+        associated_players: ['', []],
+        document: ['']
         //onclick upload documenet aiff / pan card/tin / coi
       });
     }
@@ -667,8 +664,9 @@ export class EditProfileComponent implements OnInit {
       head_coach_phone: this.profile.club_academy_details[0].head_coach_phone,
       head_coach_email: this.profile.club_academy_details[0].head_coach_email,
       contact_person: this.profile.contact_person,
-      trophies: this.profile.trophies
-      // associated_club: this.profile.associated_club
+      trophies: this.profile.trophies,
+      associated_players: this.profile.associated_players,
+      document_type: this.profile.documents[0].type
     });
 
     this.socialProfileForm.patchValue({
@@ -763,13 +761,13 @@ export class EditProfileComponent implements OnInit {
     this.trophies.removeAt(i);
   }
 
-  addTopSigning(data?: topSigningObject) {
+  addTopSigning(data: any) {
     this.top_signings = this.editProfileForm.get('top_signings') as FormArray;
 
     if (data !== undefined) {
       this.top_signings.push(
         this._formBuilder.group({
-          top_signings: [data.top_signings, []]
+          top_signings: [data, []]
         })
       );
     } else {
