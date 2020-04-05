@@ -424,79 +424,37 @@
           </div>
           <div class="block-middle">
             <!-- Position ( Priority First ) -->
-            <div class="from-block">
-              <label>Position ( Priority First ) <span>*</span></label>
-              <select formControlName="position1" matNativeControl required>
-                <option value="">Select Position</option>
-                <ng-container *ngFor="let position of samplePositionArray">
-                  <option value="{{ position.value }}">{{
-                    position.name
-                  }}</option>
-                </ng-container>
-              </select>
-              <mat-error
-                *ngIf="
-                  editProfileForm.controls.position1.invalid &&
-                  editProfileForm.controls.position1.touched
-                "
-              >
-                <span
-                  *ngIf="editProfileForm.controls.position1.errors.required"
-                  translate
-                  >Position with first priority is required</span
+            <ng-container
+              formArrayName="position"
+              *ngFor="
+                let data of editProfileForm.get('position').controls;
+                let i = index
+              "
+            >
+              <div class="from-block" [formGroupName]="i">
+                <label>Position ( Priority {{ i }} ) <span>*</span></label>
+                <select formControlName="name" matNativeControl required>
+                  <option value="">Select Position</option>
+                  <ng-container *ngFor="let position of samplePositionArray">
+                    <option value="{{ position.value }}">{{
+                      position.name
+                    }}</option>
+                  </ng-container>
+                </select>
+                <!-- <mat-error
+                  *ngIf="
+                    editProfileForm.controls.position1.invalid &&
+                    editProfileForm.controls.position1.touched
+                  "
                 >
-              </mat-error>
-            </div>
-
-            <!-- Position ( Priority second ) -->
-            <div class="from-block">
-              <label>Position ( Priority Second ) <span>*</span></label>
-              <select formControlName="position2" matNativeControl required>
-                <option value="">Select Position</option>
-                <ng-container *ngFor="let position of samplePositionArray">
-                  <option value="{{ position.value }}">{{
-                    position.name
-                  }}</option>
-                </ng-container>
-              </select>
-              <mat-error
-                *ngIf="
-                  editProfileForm.controls.position2.invalid &&
-                  editProfileForm.controls.position2.touched
-                "
-              >
-                <span
-                  *ngIf="editProfileForm.controls.position2.errors.required"
-                  translate
-                  >Position with second priority is required</span
-                >
-              </mat-error>
-            </div>
-
-            <!-- Position ( Priority third ) -->
-            <div class="from-block">
-              <label>Position ( Priority Third ) <span>*</span></label>
-              <select formControlName="position3" matNativeControl required>
-                <option value="">Select Position</option>
-                <ng-container *ngFor="let position of samplePositionArray">
-                  <option value="{{ position.value }}">{{
-                    position.name
-                  }}</option>
-                </ng-container>
-              </select>
-              <mat-error
-                *ngIf="
-                  editProfileForm.controls.position3.invalid &&
-                  editProfileForm.controls.position3.touched
-                "
-              >
-                <span
-                  *ngIf="editProfileForm.controls.position3.errors.required"
-                  translate
-                  >Position with third priority is required</span
-                >
-              </mat-error>
-            </div>
+                  <span
+                    *ngIf="editProfileForm.controls.position1.errors.required"
+                    translate
+                    >Position with first priority is required</span
+                  >
+                </mat-error> -->
+              </div>
+            </ng-container>
 
             <!-- Strong foot -->
             <div class="from-block">
@@ -960,11 +918,7 @@
 
                     <div class="input-wrapper">
                       <label>Phone Number <span>*</span></label>
-                      <input
-                        formControlName="phone_number"
-                        type="text"
-                        matInput
-                      />
+                      <input formControlName="phone" type="text" matInput />
                     </div>
 
                     <div class="input-wrapper">
@@ -1026,16 +980,22 @@
                   <div class="input-wrapper-second">
                     <label>League Name <span>*</span></label>
                     <select matNativeControl required>
-                      <option value="volvo">Volvo</option>
-                      <option value="saab">Saab</option>
-                      <option value="mercedes">Mercedes</option>
-                      <option value="audi">Audi</option>
+                      <option value="">Select League</option>
+                      <ng-container *ngFor="let league of leagueArray">
+                        <option value="{{ league.value }}">{{
+                          league.name
+                        }}</option>
+                      </ng-container>
                     </select>
                   </div>
 
                   <div class="input-wrapper-second">
                     <label>Other <span>*</span></label>
-                    <input type="text" matinput />
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="league_other"
+                    />
                   </div>
 
                   <!--  <div class="input-wrapper">

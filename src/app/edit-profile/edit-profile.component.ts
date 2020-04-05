@@ -21,6 +21,10 @@ interface topSigningObject {
   name: string;
 }
 
+interface positionObject {
+  name: string;
+}
+
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -47,6 +51,7 @@ export class EditProfileComponent implements OnInit {
   contact_person: FormArray;
   trophies: FormArray;
   top_signings: FormArray;
+  position: FormArray;
   // sampleContactArray = [
   //   {
   //     club_contact_designation: 'saab',
@@ -151,6 +156,24 @@ export class EditProfileComponent implements OnInit {
       value: 'audi'
     }
   ];
+  leagueArray = [
+    {
+      name: 'Volvo',
+      value: 'volvo'
+    },
+    {
+      name: 'Saab',
+      value: 'saab'
+    },
+    {
+      name: 'Mercedes',
+      value: 'mercedes'
+    },
+    {
+      name: 'Audi',
+      value: 'audi'
+    }
+  ];
   sampleCityArray = [
     {
       name: 'City1',
@@ -228,6 +251,10 @@ export class EditProfileComponent implements OnInit {
           this.populateDynamicContact();
           this.populateDynamicTrophy();
           this.populateDynamicTopSigning();
+        }
+
+        if (this.profile.member_type === 'player') {
+          this.populateDynamicPosition();
         }
 
         this._toastrService.success(
@@ -414,9 +441,7 @@ export class EditProfileComponent implements OnInit {
         // player_upload_aadhar : ['',[ ]],
         player_employment_contract: ['', []],
         // // professional_details
-        position1: ['', []],
-        position2: ['', []],
-        position3: ['', []],
+        position: this._formBuilder.array([]),
         strong_foot: ['', []],
         associated_club: ['', []],
         weak_foot: ['', []],
@@ -443,6 +468,8 @@ export class EditProfileComponent implements OnInit {
           ]
         ],
         stadium_name: ['', [Validators.required]],
+        league: ['', [Validators.required]],
+        league_other: ['', [Validators.required]],
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([]),
@@ -469,6 +496,8 @@ export class EditProfileComponent implements OnInit {
           ]
         ],
         stadium_name: ['', [Validators.required]],
+        league: ['', [Validators.required]],
+        league_other: ['', [Validators.required]],
         document_type: ['', [Validators.required]],
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
@@ -505,22 +534,23 @@ export class EditProfileComponent implements OnInit {
       weight: this.profile.weight ? this.profile.weight : '',
       dob: this.profile.dob ? new Date(this.profile.dob) : '',
       phone: this.profile.phone ? this.profile.phone : '',
-      // player_current_school_name: this.profile.institiute ? this.profile.institiute.school_name : '',
       country: this.profile.country,
       state: this.profile.state ? this.profile.state : '',
       stadium_name: this.profile.stadium_name,
-      position1:
-        this.profile.position && this.profile.position[0]
-          ? this.profile.position[0].name
-          : '',
-      position2:
-        this.profile.position && this.profile.position[1]
-          ? this.profile.position[1].name
-          : '',
-      position3:
-        this.profile.position && this.profile.position[2]
-          ? this.profile.position[2].name
-          : '',
+      league: this.profile.league,
+      league_other: this.profile.league_other,
+      // position1:
+      //   this.profile.position && this.profile.position[0]
+      //     ? this.profile.position[0].name
+      //     : '',
+      // position2:
+      //   this.profile.position && this.profile.position[1]
+      //     ? this.profile.position[1].name
+      //     : '',
+      // position3:
+      //   this.profile.position && this.profile.position[2]
+      //     ? this.profile.position[2].name
+      //     : '',
       strong_foot: this.profile.strong_foot,
       weak_foot: this.profile.weak_foot,
       head_coach_phone: this.profile.club_academy_details
@@ -532,6 +562,7 @@ export class EditProfileComponent implements OnInit {
       contact_person: this.profile.contact_person,
       trophies: this.profile.trophies,
       associated_players: this.profile.associated_players,
+      former_club: this.profile.former_club,
       school:
         this.profile.institute && this.profile.institute.school
           ? this.profile.institute.school
@@ -587,6 +618,12 @@ export class EditProfileComponent implements OnInit {
       for (let i = 0; i < this.profile.top_signings.length; i++) {
         this.addTopSigning(this.profile.top_signings[i]);
       }
+    }
+  }
+
+  populateDynamicPosition() {
+    for (let i = 0; i < 3; i++) {
+      this.preparePosition(this.profile.position[i], i);
     }
   }
 
@@ -666,5 +703,26 @@ export class EditProfileComponent implements OnInit {
 
   removeTopSigning(i: number) {
     this.top_signings.removeAt(i);
+  }
+
+  preparePosition(data?: positionObject, index?: number) {
+    console.log(index);
+    this.position = this.editProfileForm.get('position') as FormArray;
+
+    if (data !== undefined) {
+      this.position.push(
+        this._formBuilder.group({
+          priority: index + 1,
+          name: [data.name, []]
+        })
+      );
+    } else {
+      this.position.push(
+        this._formBuilder.group({
+          priority: index + 1,
+          name: ['', []]
+        })
+      );
+    }
   }
 }
