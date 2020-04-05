@@ -456,33 +456,6 @@ export class EditProfileComponent implements OnInit {
         //onclick upload documenet aiff / pan card/tin / coi
       });
     }
-    // club_name : ['', [ Validators.required ]],
-    // club_short_name : ['', [ Validators.required ]],
-    // club_founded_in : ['', [ Validators.required ]],
-    // club_country : ['', [ Validators.required ]],
-    // club_city : ['', [ Validators.required ]],
-    // club_address : ['', [ Validators.required ]],
-    // club_pincode : ['', [ Validators.required ]],
-    // // club_email : ['',],
-    // club_phone : ['', [ Validators.required ]],
-    // club_stadium_name : ['', [ Validators.required ]],
-    // club_owner:['', [ Validators.required ]],
-    // club_manager : ['', [ Validators.required ]],
-    // club_document: ['', [ Validators.required ]],
-    // club_aiff: ['', [ Validators.required ]],
-
-    // professional_details
-    // club_contact_designation : ['', []],
-    // club_contact_name:['', []],
-    // club_contact_email:['', []],
-    // club_contact_phone_number:['', []],
-    // club_contact_persons : this._formBuilder.array([]),
-    // club_trophies : this._formBuilder.array([]),
-
-    // club_league:['', []],
-    // club_top_signings:['', []],
-    // club_ass_player :['', []]
-    // })
   }
 
   populateFormFields() {

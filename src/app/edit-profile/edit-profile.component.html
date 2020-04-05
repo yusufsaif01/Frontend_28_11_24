@@ -177,26 +177,36 @@
                 type="text"
                 matInput
               />
-              <ng-container *ngIf="isFocused(editProfileForm, 'first_name')">
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.first_name.invalid &&
+                  editProfileForm.controls.first_name.touched
+                "
+              >
                 <span
-                  class="error-text"
-                  *ngIf="isRequired(editProfileForm, 'first_name')"
+                  *ngIf="editProfileForm.controls.first_name.errors.required"
+                  translate
                   >First Name is required</span
                 >
-              </ng-container>
+              </mat-error>
             </div>
 
             <!-- last name -->
             <div class="from-block">
               <label>Last Name <span>*</span></label>
               <input formControlName="last_name" type="text" matInput />
-              <ng-container *ngIf="isFocused(editProfileForm, 'last_name')">
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.last_name.invalid &&
+                  editProfileForm.controls.last_name.touched
+                "
+              >
                 <span
-                  class="error-text"
-                  *ngIf="isRequired(editProfileForm, 'last_name')"
+                  *ngIf="editProfileForm.controls.last_name.errors.required"
+                  translate
                   >Last Name is required</span
                 >
-              </ng-container>
+              </mat-error>
             </div>
 
             <!-- DOB -->
@@ -212,57 +222,41 @@
                   [for]="myDatepicker"
                 ></mat-datepicker-toggle>
                 <mat-datepicker #myDatepicker></mat-datepicker>
-                <ng-container *ngIf="isFocused(editProfileForm, 'dob')">
+                <mat-error
+                  *ngIf="
+                    editProfileForm.controls.dob.invalid &&
+                    editProfileForm.controls.dob.touched
+                  "
+                >
                   <span
-                    class="error-text"
-                    *ngIf="isRequired(editProfileForm, 'dob')"
+                    *ngIf="editProfileForm.controls.dob.errors.required"
+                    translate
                     >Date of Birth is required</span
                   >
-                </ng-container>
+                </mat-error>
               </div>
             </div>
 
             <!-- height -->
             <div class="from-block">
-              <label>Height <span>*</span></label>
+              <label>Height</label>
               <div class="double-input">
                 <input formControlName="height_feet" type="text" matInput />
                 <input formControlName="height_inches" type="text" matInput />
               </div>
-              <ng-container *ngIf="isFocused(editProfileForm, 'height_feet')">
-                <span
-                  class="error-text"
-                  *ngIf="isRequired(editProfileForm, 'height_feet')"
-                  >Feet is required</span
-                >
-              </ng-container>
-              <ng-container *ngIf="isFocused(editProfileForm, 'height_inches')">
-                <span
-                  class="error-text"
-                  *ngIf="isRequired(editProfileForm, 'height_inches')"
-                  >Inches is required</span
-                >
-              </ng-container>
             </div>
 
             <!-- weight -->
             <div class="from-block">
-              <label>Weight <span>*</span></label>
+              <label>Weight</label>
               <input formControlName="weight" type="text" matInput />
-
-              <ng-container *ngIf="isFocused(editProfileForm, 'weight')">
-                <span
-                  class="error-text"
-                  *ngIf="isRequired(editProfileForm, 'weight')"
-                  >Weight is required</span
-                >
-              </ng-container>
             </div>
 
             <!-- nationality -->
             <div class="from-block">
               <label>Nationality <span>*</span></label>
               <select formControlName="country" matNativeControl required>
+                <option value="">Select Nationality</option>
                 <ng-container *ngFor="let country of sampleCountryArray">
                   <option
                     value="{{ country.value }}"
@@ -271,19 +265,25 @@
                   >
                 </ng-container>
               </select>
-              <ng-container *ngIf="isFocused(editProfileForm, 'country')">
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.country.invalid &&
+                  editProfileForm.controls.country.touched
+                "
+              >
                 <span
-                  class="error-text"
-                  *ngIf="isRequired(editProfileForm, 'country')"
+                  *ngIf="editProfileForm.controls.country.errors.required"
+                  translate
                   >Nationality is required</span
                 >
-              </ng-container>
+              </mat-error>
             </div>
 
             <!-- state -->
             <div class="from-block">
               <label>State <span>*</span></label>
               <select formControlName="state" matNativeControl required>
+                <option value="">Select State</option>
                 <ng-container *ngFor="let state of sampleStateArray">
                   <option
                     value="{{ state.value }}"
@@ -293,32 +293,43 @@
                 </ng-container>
               </select>
 
-              <ng-container *ngIf="isFocused(editProfileForm, 'state')">
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.state.invalid &&
+                  editProfileForm.controls.state.touched
+                "
+              >
                 <span
-                  class="error-text"
-                  *ngIf="isRequired(editProfileForm, 'state')"
+                  *ngIf="editProfileForm.controls.state.errors.required"
+                  translate
                   >State is required</span
                 >
-              </ng-container>
+              </mat-error>
             </div>
 
             <!-- city -->
             <div class="from-block">
               <label>Current City <span>*</span></label>
               <select formControlName="city" matNativeControl required>
+                <option value="">Select City</option>
                 <option value="city1">city1</option>
                 <option value="city2">city2</option>
                 <option value="city3">city3</option>
                 <option value="city4">city4</option>
               </select>
 
-              <ng-container *ngIf="isFocused(editProfileForm, 'city')">
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.city.invalid &&
+                  editProfileForm.controls.city.touched
+                "
+              >
                 <span
-                  class="error-text"
-                  *ngIf="isRequired(editProfileForm, 'city')"
+                  *ngIf="editProfileForm.controls.city.errors.required"
+                  translate
                   >Current City is required</span
                 >
-              </ng-container>
+              </mat-error>
             </div>
 
             <!-- email -->
@@ -338,27 +349,24 @@
               <label>Phone Number <span>*</span></label>
               <input formControlName="phone" type="text" matInput />
 
-              <ng-container *ngIf="isFocused(editProfileForm, 'phone')">
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.phone.invalid &&
+                  editProfileForm.controls.phone.touched
+                "
+              >
                 <span
-                  class="error-text"
-                  *ngIf="isRequired(editProfileForm, 'phone')"
+                  *ngIf="editProfileForm.controls.phone.errors.required"
+                  translate
                   >Phone Number is required</span
                 >
-              </ng-container>
+              </mat-error>
             </div>
 
             <!-- current School -->
             <div class="from-block">
-              <label>Current School Name <span>*</span></label>
+              <label>Current School Name</label>
               <input formControlName="school" type="text" matInput />
-
-              <ng-container *ngIf="isFocused(editProfileForm, 'school')">
-                <span
-                  class="error-text"
-                  *ngIf="isRequired(editProfileForm, 'school')"
-                  >Current School Name is required</span
-                >
-              </ng-container>
             </div>
 
             <ng-container
@@ -368,30 +376,14 @@
             >
               <!-- University School -->
               <div class="from-block">
-                <label>Current University Name <span>*</span></label>
+                <label>Current University Name</label>
                 <input formControlName="university" type="text" matinput />
-
-                <ng-container *ngIf="isFocused(editProfileForm, 'university')">
-                  <span
-                    class="error-text"
-                    *ngIf="isRequired(editProfileForm, 'university')"
-                    >Current University Name is required</span
-                  >
-                </ng-container>
               </div>
 
               <!-- college School -->
               <div class="from-block" *ngIf="player_type === 'amateur'">
-                <label>Current College Name <span>*</span></label>
+                <label>Current College Name</label>
                 <input formControlName="college" type="text" matinput />
-
-                <ng-container *ngIf="isFocused(editProfileForm, 'college')">
-                  <span
-                    class="error-text"
-                    *ngIf="isRequired(editProfileForm, 'college')"
-                    >Current College Name is required</span
-                  >
-                </ng-container>
               </div>
             </ng-container>
 
@@ -432,42 +424,82 @@
             <div class="from-block">
               <label>Position ( Priority First ) <span>*</span></label>
               <select formControlName="position1" matNativeControl required>
+                <option value="">Select Position</option>
                 <ng-container *ngFor="let position of samplePositionArray">
                   <option value="{{ position.value }}">{{
                     position.name
                   }}</option>
                 </ng-container>
               </select>
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.position1.invalid &&
+                  editProfileForm.controls.position1.touched
+                "
+              >
+                <span
+                  *ngIf="editProfileForm.controls.position1.errors.required"
+                  translate
+                  >Position with first priority is required</span
+                >
+              </mat-error>
             </div>
 
             <!-- Position ( Priority second ) -->
             <div class="from-block">
               <label>Position ( Priority Second ) <span>*</span></label>
               <select formControlName="position2" matNativeControl required>
+                <option value="">Select Position</option>
                 <ng-container *ngFor="let position of samplePositionArray">
                   <option value="{{ position.value }}">{{
                     position.name
                   }}</option>
                 </ng-container>
               </select>
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.position2.invalid &&
+                  editProfileForm.controls.position2.touched
+                "
+              >
+                <span
+                  *ngIf="editProfileForm.controls.position2.errors.required"
+                  translate
+                  >Position with second priority is required</span
+                >
+              </mat-error>
             </div>
 
             <!-- Position ( Priority third ) -->
             <div class="from-block">
               <label>Position ( Priority Third ) <span>*</span></label>
               <select formControlName="position3" matNativeControl required>
+                <option value="">Select Position</option>
                 <ng-container *ngFor="let position of samplePositionArray">
                   <option value="{{ position.value }}">{{
                     position.name
                   }}</option>
                 </ng-container>
               </select>
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.position3.invalid &&
+                  editProfileForm.controls.position3.touched
+                "
+              >
+                <span
+                  *ngIf="editProfileForm.controls.position3.errors.required"
+                  translate
+                  >Position with third priority is required</span
+                >
+              </mat-error>
             </div>
 
             <!-- Strong foot -->
             <div class="from-block">
               <label>Strong foot <span>*</span></label>
               <select formControlName="strong_foot" matNativeControl required>
+                <option value="">Select Strong Foot</option>
                 <ng-container *ngFor="let foot of strongFootArray">
                   <option
                     value="{{ foot.value }}"
@@ -476,6 +508,18 @@
                   >
                 </ng-container>
               </select>
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.strong_foot.invalid &&
+                  editProfileForm.controls.strong_foot.touched
+                "
+              >
+                <span
+                  *ngIf="editProfileForm.controls.strong_foot.errors.required"
+                  translate
+                  >Strong Foot is required</span
+                >
+              </mat-error>
             </div>
 
             <!-- Current associated club / academy  -->
@@ -594,18 +638,22 @@
                   >Club Name <span>*</span></label
                 >
                 <input formControlName="name" type="text" matInput />
-                <ng-container *ngIf="isFocused(editProfileForm, 'name')">
+                <mat-error
+                  *ngIf="
+                    editProfileForm.controls.name.invalid &&
+                    editProfileForm.controls.name.touched
+                  "
+                >
                   <span
                     [innerText]="
                       member_type === 'academy'
                         ? 'Academy Name is required'
                         : 'Club Name is required'
                     "
-                    class="error-text"
-                    *ngIf="isRequired(editProfileForm, 'name')"
-                    >Club Name is required</span
-                  >
-                </ng-container>
+                    *ngIf="editProfileForm.controls.name.errors.required"
+                    translate
+                  ></span>
+                </mat-error>
               </div>
 
               <!-- Short Club name -->
@@ -616,97 +664,89 @@
                       ? 'Short Academy Name'
                       : 'Short Club Name'
                   "
-                  >Short Club Name <span>*</span></label
+                  >Short Club Name</label
                 >
                 <input formControlName="short_name" type="text" matInput />
-                <ng-container *ngIf="isFocused(editProfileForm, 'short_name')">
-                  <span
-                    [innerText]="
-                      member_type === 'academy'
-                        ? 'Short Academy Name is required'
-                        : 'Short Club Name is required'
-                    "
-                    class="error-text"
-                    *ngIf="isRequired(editProfileForm, 'short_name')"
-                    >Short Club Name is required</span
-                  >
-                </ng-container>
               </div>
 
               <!-- founded In -->
               <div class="from-block">
                 <label>Founded ( years ) <span>*</span></label>
                 <input formControlName="founded_in" type="text" matInput />
-                <ng-container *ngIf="isFocused(editProfileForm, 'founded_in')">
+
+                <mat-error
+                  *ngIf="
+                    editProfileForm.controls.founded_in.invalid &&
+                    editProfileForm.controls.founded_in.touched
+                  "
+                >
                   <span
-                    class="error-text"
-                    *ngIf="isRequired(editProfileForm, 'founded_in')"
+                    *ngIf="editProfileForm.controls.founded_in.errors.required"
+                    translate
                     >Founded is required</span
                   >
-                </ng-container>
+                </mat-error>
               </div>
 
               <!-- country -->
               <div class="from-block">
                 <label>Country <span>*</span></label>
                 <select formControlName="country" matNativeControl required>
+                  <option value="">Select Country</option>
                   <ng-container *ngFor="let country of sampleCountryArray">
                     <option value="{{ country.value }}">{{
                       country.name
                     }}</option>
                   </ng-container>
                 </select>
-                <ng-container *ngIf="isFocused(editProfileForm, 'country')">
+                <mat-error
+                  *ngIf="
+                    editProfileForm.controls.country.invalid &&
+                    editProfileForm.controls.country.touched
+                  "
+                >
                   <span
-                    class="error-text"
-                    *ngIf="isRequired(editProfileForm, 'country')"
+                    *ngIf="editProfileForm.controls.country.errors.required"
+                    translate
                     >Country is required</span
                   >
-                </ng-container>
+                </mat-error>
               </div>
 
               <!-- city -->
               <div class="from-block">
                 <label>City <span>*</span></label>
                 <select formControlName="city" matNativeControl required>
+                  <option value="">Select City</option>
                   <option value="volvo">Volvo</option>
                   <option value="saab">Saab</option>
                   <option value="mercedes">Mercedes</option>
                   <option value="audi">Audi</option>
                 </select>
-                <ng-container *ngIf="isFocused(editProfileForm, 'city')">
+                <mat-error
+                  *ngIf="
+                    editProfileForm.controls.city.invalid &&
+                    editProfileForm.controls.city.touched
+                  "
+                >
                   <span
-                    class="error-text"
-                    *ngIf="isRequired(editProfileForm, 'city')"
+                    *ngIf="editProfileForm.controls.city.errors.required"
+                    translate
                     >City is required</span
                   >
-                </ng-container>
+                </mat-error>
               </div>
 
               <!-- Address -->
               <div class="from-block">
-                <label>Office Address <span>*</span></label>
+                <label>Office Address</label>
                 <input formControlName="address" type="text" matInput />
-                <ng-container *ngIf="isFocused(editProfileForm, 'address')">
-                  <span
-                    class="error-text"
-                    *ngIf="isRequired(editProfileForm, 'address')"
-                    >Office Address is required</span
-                  >
-                </ng-container>
               </div>
 
               <!-- Zipcode / pincode -->
               <div class="from-block">
-                <label>Zipcode / Pincode <span>*</span></label>
+                <label>Zipcode / Pincode</label>
                 <input formControlName="pincode" type="text" matInput />
-                <ng-container *ngIf="isFocused(editProfileForm, 'pincode')">
-                  <span
-                    class="error-text"
-                    *ngIf="isRequired(editProfileForm, 'pincode')"
-                    >Zipcode / Pincode is required</span
-                  >
-                </ng-container>
               </div>
 
               <!-- email -->
@@ -719,17 +759,18 @@
               <div class="from-block">
                 <label>Phone Number <span>*</span></label>
                 <input formControlName="phone" type="text" matinput />
-                <ng-container *ngIf="isFocused(editProfileForm, 'phone')">
+                <mat-error
+                  *ngIf="
+                    editProfileForm.controls.phone.invalid &&
+                    editProfileForm.controls.phone.touched
+                  "
+                >
                   <span
-                    class="error-text"
-                    *ngIf="isRequired(editProfileForm, 'phone')"
-                    >Phone Number is required</span
+                    *ngIf="editProfileForm.controls.phone.errors.required"
+                    translate
+                    >Phone number is required</span
                   >
-
-                  <span
-                    class="error-text"
-                    *ngIf="editProfileForm.controls.phone.errors.minlength"
-                  >
+                  <span *ngIf="editProfileForm.controls.phone.errors.minlength">
                     Please provide number upto
                     {{
                       editProfileForm.controls.phone.errors.minlength
@@ -737,10 +778,7 @@
                     }}
                     digits
                   </span>
-                  <span
-                    class="error-text"
-                    *ngIf="editProfileForm.controls.phone.errors.maxlength"
-                  >
+                  <span *ngIf="editProfileForm.controls.phone.errors.maxlength">
                     Please provide number under
                     {{
                       editProfileForm.controls.phone.errors.maxlength
@@ -748,22 +786,13 @@
                     }}
                     digits
                   </span>
-                </ng-container>
+                </mat-error>
               </div>
 
               <!-- Stadium Name -->
               <div class="from-block">
-                <label>Stadium Name <span>*</span></label>
+                <label>Stadium Name</label>
                 <input formControlName="stadium_name" type="text" matInput />
-                <ng-container
-                  *ngIf="isFocused(editProfileForm, 'stadium_name')"
-                >
-                  <span
-                    class="error-text"
-                    *ngIf="isRequired(editProfileForm, 'stadium_name')"
-                    >Stadium Name is required</span
-                  >
-                </ng-container>
               </div>
 
               <!-- Club owner
@@ -813,7 +842,7 @@
                         type="radio"
                         value="aiff"
                       />
-                      <span>AIFF Satus</span>
+                      <span>AIFF Status</span>
                     </label>
                     <label
                       ><input
@@ -829,7 +858,7 @@
                         type="radio"
                         value="tin"
                       />
-                      <span>Tin Number</span>
+                      <span>TIN Number</span>
                     </label>
                     <label
                       ><input
@@ -848,10 +877,10 @@
                 <label
                   [innerHTML]="
                     member_type === 'academy'
-                      ? 'Upload Documnet'
-                      : 'Upload AIFF accreditation status <span>*</span>'
+                      ? 'Upload Document'
+                      : 'Upload AIFF accreditation status'
                   "
-                  >Upload AIFF accreditation status <span>*</span></label
+                  >Upload AIFF accreditation status</label
                 >
                 <input
                   type="file"
@@ -964,7 +993,7 @@
                   "
                   formArrayName="trophies"
                 >
-                  <label>Major trophy Wins <span>*</span></label>
+                  <label>Major trophy Wins</label>
 
                   <ng-container [formGroupName]="i">
                     <div class="input-wrapper-full">
@@ -1050,7 +1079,7 @@
                     formArrayName="top_signings"
                   >
                     <div class="w-50">
-                      <label>Top signings <span>*</span></label>
+                      <label>Top signings</label>
 
                       <ng-container [formGroupName]="i">
                         <div class="flex-wrapper">
@@ -1101,7 +1130,7 @@
 
       <!-- bottom -->
       <div class="block-bottom">
-        <a>Cancel</a>
+        <!-- <a>Cancel</a> -->
         <button class="btn">Save Changes</button>
       </div>
     </form>
