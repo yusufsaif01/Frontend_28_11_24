@@ -531,9 +531,8 @@ export class EditProfileComponent implements OnInit {
   }
 
   socialProfile() {
-    let token = localStorage.getItem('token');
     this._authenticationService
-      .updateBio(this.socialProfileForm.value, token)
+      .updateBio(this.socialProfileForm.value)
       .subscribe(
         res => {
           console.log('response', res);
@@ -552,13 +551,7 @@ export class EditProfileComponent implements OnInit {
       );
   }
   about() {
-    let formData1: any = this.toFormData(this.aboutForm.value);
-    // formData1.append('avatar', this.Avatar, this.Avatar.name);
-    for (let pair of formData1.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
-    let token = localStorage.getItem('token');
-    this._authenticationService.updateBio(formData1, token).subscribe(
+    this._authenticationService.updateBio(this.aboutForm.value).subscribe(
       res => {
         console.log('response', res);
         this._toastrService.success('Successful', 'Bio updated successfully');
@@ -575,7 +568,6 @@ export class EditProfileComponent implements OnInit {
 
   createForm() {
     this.aboutForm = this._formBuilder.group({
-      about: [''],
       bio: ['']
     });
 

@@ -176,7 +176,10 @@ export class AuthenticationService {
     return this.httpClient.get(routes.getProfileDetails(), httpOptions);
   }
 
-  updateBio(context: any, token: string): Observable<any> {
+  updateBio(context: any): Observable<any> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
     let httpOptions = {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token
