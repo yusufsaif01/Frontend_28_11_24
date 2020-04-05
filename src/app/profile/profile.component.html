@@ -355,7 +355,14 @@
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>Top Signing : </span>{{ profile.top_signings }}</p>
+            <p>
+              <span>Top Signing : </span>
+              <ng-container *ngIf="profile.top_signings">
+                <ng-container *ngFor="let signings of profile.top_signings">
+                  {{ signings.name }}
+                </ng-container>
+              </ng-container>
+            </p>
           </div>
         </div>
       </div>

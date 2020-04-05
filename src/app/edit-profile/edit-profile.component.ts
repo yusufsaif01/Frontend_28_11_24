@@ -505,16 +505,12 @@ export class EditProfileComponent implements OnInit {
           : '',
       strong_foot: this.profile.strong_foot,
       weak_foot: this.profile.weak_foot,
-      head_coach_phone:
-        this.profile.club_academy_details &&
-        this.profile.club_academy_details[0].head_coach_phone
-          ? this.profile.club_academy_details[0].head_coach_phone
-          : '',
-      head_coach_email:
-        this.profile.club_academy_details &&
-        this.profile.club_academy_details[0]
-          ? this.profile.club_academy_details[0].head_coach_email
-          : '',
+      head_coach_phone: this.profile.club_academy_details
+        ? this.profile.club_academy_details.head_coach_phone
+        : '',
+      head_coach_email: this.profile.club_academy_details
+        ? this.profile.club_academy_details.head_coach_email
+        : '',
       contact_person: this.profile.contact_person,
       trophies: this.profile.trophies,
       associated_players: this.profile.associated_players,
