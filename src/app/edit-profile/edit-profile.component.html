@@ -312,10 +312,13 @@
               <label>Current City <span>*</span></label>
               <select formControlName="city" matNativeControl required>
                 <option value="">Select City</option>
-                <option value="city1">city1</option>
-                <option value="city2">city2</option>
-                <option value="city3">city3</option>
-                <option value="city4">city4</option>
+                <ng-container *ngFor="let city of sampleCityArray">
+                  <option
+                    value="{{ city.value }}"
+                    [selected]="city.value === profile.city"
+                    >{{ city.name }}</option
+                  >
+                </ng-container>
               </select>
 
               <mat-error
@@ -593,13 +596,19 @@
             </div>
 
             <!-- Head coach phone number * -->
-            <div class="from-block">
+            <div
+              class="from-block"
+              *ngIf="editProfileForm.controls.associated_club.value === 'yes'"
+            >
               <label>Head coach phone number <span>*</span></label>
               <input formControlName="head_coach_phone" type="text" matInput />
             </div>
 
             <!-- Head coach email number -->
-            <div class="from-block">
+            <div
+              class="from-block"
+              *ngIf="editProfileForm.controls.associated_club.value === 'yes'"
+            >
               <label>Head coach email <span>*</span></label>
               <input formControlName="head_coach_email" type="text" matInput />
             </div>
@@ -607,12 +616,8 @@
             <!-- former Club -->
             <ng-container *ngIf="player_type !== 'grassroot'">
               <div class="from-block">
-                <label>Former Club (optional, if any) <span>*</span></label>
-                <input
-                  formControlName="player_former_club"
-                  type="text"
-                  matinput
-                />
+                <label>Former Club (optional, if any)</label>
+                <input formControlName="former_club" type="text" matinput />
               </div>
             </ng-container>
           </div>

@@ -151,6 +151,24 @@ export class EditProfileComponent implements OnInit {
       value: 'audi'
     }
   ];
+  sampleCityArray = [
+    {
+      name: 'City1',
+      value: 'city1'
+    },
+    {
+      name: 'City2',
+      value: 'city2'
+    },
+    {
+      name: 'City3',
+      value: 'city3'
+    },
+    {
+      name: 'City4',
+      value: 'city4'
+    }
+  ];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -404,7 +422,7 @@ export class EditProfileComponent implements OnInit {
         weak_foot: ['', []],
         head_coach_phone: ['', []],
         head_coach_email: ['', []],
-        player_former_club: ['', []]
+        former_club: ['', []]
       });
     } else if (this.member_type === 'club') {
       this.editProfileForm = this._formBuilder.group({
