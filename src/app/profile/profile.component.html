@@ -66,16 +66,19 @@
         </div>
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Date of Birth :</span> {{ profile.dob }}</p>
+            <p><span>Date of Birth :</span> {{ profile.dob | date }}</p>
           </div>
           <div class="half">
-            <p><span>Height :</span> {{ profile.height }}</p>
+            <p>
+              <span>Height :</span> {{ profile.height?.feet }}
+              {{ profile.height?.inches }}
+            </p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Weight :</span> {{ profile.weight }}</p>
+            <p><span>Weight :</span> {{ profile?.weight }}</p>
           </div>
           <div class="half">
             <p><span>Nationality :</span> {{ profile.country }}</p>

@@ -5,16 +5,20 @@ import { ToastrService } from 'ngx-toastr';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 interface trophyObject {
-  trophy_name: string;
-  trophy_year: string;
-  trophy_position: string;
+  name: string;
+  year: string;
+  position: string;
 }
 
 interface contactPersonObject {
-  club_contact_designation: string;
-  club_contact_name: string;
-  club_contact_email: string;
-  club_contact_phone_number: string;
+  designation: string;
+  name: string;
+  email: string;
+  phone_number: string;
+}
+
+interface topSigningObject {
+  name: string;
 }
 
 @Component({
@@ -580,19 +584,19 @@ export class EditProfileComponent implements OnInit {
     if (data !== undefined) {
       this.contact_person.push(
         this._formBuilder.group({
-          club_contact_designation: [data.club_contact_designation, []],
-          club_contact_name: [data.club_contact_name, []],
-          club_contact_email: [data.club_contact_email, []],
-          club_contact_phone_number: [data.club_contact_phone_number, []]
+          designation: [data.designation, []],
+          name: [data.name, []],
+          email: [data.email, []],
+          phone_number: [data.phone_number, []]
         })
       );
     } else {
       this.contact_person.push(
         this._formBuilder.group({
-          club_contact_designation: ['', []],
-          club_contact_name: ['', []],
-          club_contact_email: ['', []],
-          club_contact_phone_number: ['', []]
+          designation: ['', []],
+          name: ['', []],
+          email: ['', []],
+          phone_number: ['', []]
         })
       );
     }
@@ -608,17 +612,17 @@ export class EditProfileComponent implements OnInit {
     if (data !== undefined) {
       this.trophies.push(
         this._formBuilder.group({
-          trophy_name: [data.trophy_name, []],
-          trophy_year: [data.trophy_year, []],
-          trophy_position: [data.trophy_position, []]
+          name: [data.name, []],
+          year: [data.year, []],
+          position: [data.position, []]
         })
       );
     } else {
       this.trophies.push(
         this._formBuilder.group({
-          trophy_name: ['', []],
-          trophy_year: ['', []],
-          trophy_position: ['', []]
+          name: ['', []],
+          year: ['', []],
+          position: ['', []]
         })
       );
     }
@@ -628,19 +632,19 @@ export class EditProfileComponent implements OnInit {
     this.trophies.removeAt(i);
   }
 
-  addTopSigning(data: any) {
+  addTopSigning(data?: topSigningObject) {
     this.top_signings = this.editProfileForm.get('top_signings') as FormArray;
 
     if (data !== undefined) {
       this.top_signings.push(
         this._formBuilder.group({
-          top_signings: [data, []]
+          name: [data.name, []]
         })
       );
     } else {
       this.top_signings.push(
         this._formBuilder.group({
-          top_signings: ['', []]
+          name: ['', []]
         })
       );
     }

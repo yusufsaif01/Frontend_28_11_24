@@ -929,7 +929,7 @@
                     <div class="input-wrapper">
                       <label>Designation <span>*</span></label>
                       <select
-                        formControlName="club_contact_designation"
+                        formControlName="designation"
                         matNativeControl
                         required
                       >
@@ -945,26 +945,18 @@
 
                     <div class="input-wrapper">
                       <label>Name <span>*</span></label>
-                      <input
-                        formControlName="club_contact_name"
-                        type="text"
-                        matInput
-                      />
+                      <input formControlName="name" type="text" matInput />
                     </div>
 
                     <div class="input-wrapper">
                       <label>Email <span>*</span></label>
-                      <input
-                        formControlName="club_contact_email"
-                        type="email"
-                        matInput
-                      />
+                      <input formControlName="email" type="email" matInput />
                     </div>
 
                     <div class="input-wrapper">
                       <label>Phone Number <span>*</span></label>
                       <input
-                        formControlName="club_contact_phone_number"
+                        formControlName="phone_number"
                         type="text"
                         matInput
                       />
@@ -998,29 +990,17 @@
                   <ng-container [formGroupName]="i">
                     <div class="input-wrapper-full">
                       <label>Trophy Name <span>*</span></label>
-                      <input
-                        type="text"
-                        matInput
-                        formControlName="trophy_name"
-                      />
+                      <input type="text" matInput formControlName="name" />
                     </div>
 
                     <div class="input-wrapper-full">
                       <label>Years <span>*</span></label>
-                      <input
-                        type="text"
-                        matInput
-                        formControlName="trophy_year"
-                      />
+                      <input type="text" matInput formControlName="year" />
                     </div>
 
                     <div class="input-wrapper-full">
                       <label>Position Secured <span>*</span></label>
-                      <input
-                        type="text"
-                        matInput
-                        formControlName="trophy_position"
-                      />
+                      <input type="text" matInput formControlName="position" />
                     </div>
 
                     <div class="input-wrapper">
@@ -1087,7 +1067,7 @@
                             <input
                               type="text"
                               matInput
-                              formControlName="top_signings"
+                              formControlName="name"
                             />
                           </div>
 
