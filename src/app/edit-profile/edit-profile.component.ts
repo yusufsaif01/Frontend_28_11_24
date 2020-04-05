@@ -162,10 +162,10 @@ export class EditProfileComponent implements OnInit {
   }
 
   selectTab(tabName: string) {
-    this.editProfileForm.reset();
+    // this.editProfileForm.reset();
     // this.createForm()
     this.player_type = tabName;
-    this.createForm();
+    // this.createForm();
     this.setPlayerCategoryValidators();
     console.log('player_type', this.player_type);
   }
@@ -535,7 +535,8 @@ export class EditProfileComponent implements OnInit {
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
         dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
-        height: ['', [Validators.required]], //height
+        height_feet: ['', [Validators.required]],
+        height_inches: ['', [Validators.required]], //height
         weight: ['', [Validators.required]],
         country: ['', [Validators.required]], //country
         state: ['', [Validators.required]],
@@ -649,12 +650,19 @@ export class EditProfileComponent implements OnInit {
       pincode: this.profile.address ? this.profile.address.pincode : '',
       first_name: this.profile.first_name ? this.profile.first_name : '',
       last_name: this.profile.last_name ? this.profile.last_name : '',
-      height: this.profile.height ? this.profile.height : '',
+      height_feet:
+        this.profile.height && this.profile.height.feet
+          ? this.profile.height.feet
+          : '',
+      height_inches:
+        this.profile.height && this.profile.height.inches
+          ? this.profile.height.inches
+          : '',
       weight: this.profile.weight ? this.profile.weight : '',
-      dob: new Date(this.profile.dob) ? new Date(this.profile.dob) : '',
+      dob: this.profile.dob ? new Date(this.profile.dob) : '',
       phone: this.profile.phone ? this.profile.phone : '',
       // player_current_school_name: this.profile.institiute ? this.profile.institiute.school_name : '',
-      country: this.profile.country ? this.profile.country : '',
+      country: this.profile.country,
       state: this.profile.state ? this.profile.state : '',
       stadium_name: this.profile.stadium_name,
       position1:

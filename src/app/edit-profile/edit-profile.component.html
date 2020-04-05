@@ -7,15 +7,10 @@
       <div class="block-design">
         <div class="profile-section">
           <img src="assets/images/profile-icon.png" alt="profile-icon" />
-          <h3 *ngIf="profile.member_type === 'player'">
+          <h3 *ngIf="member_type === 'player'">
             {{ profile?.first_name }} {{ profile?.last_name }}
           </h3>
-          <h3
-            *ngIf="
-              profile.member_type === 'club' ||
-              profile.member_type === 'academy'
-            "
-          >
+          <h3 *ngIf="member_type === 'club' || member_type === 'academy'">
             {{ profile?.name }}
           </h3>
           <p>
@@ -236,20 +231,20 @@
             <div class="from-block">
               <label>Height <span>*</span></label>
               <div class="double-input">
-                <input formControlName="height" type="text" matInput />
-                <input formControlName="height" type="text" matInput />
+                <input formControlName="height_feet" type="text" matInput />
+                <input formControlName="height_inches" type="text" matInput />
               </div>
-              <ng-container *ngIf="isFocused(editProfileForm, 'height')">
+              <ng-container *ngIf="isFocused(editProfileForm, 'height_feet')">
                 <span
                   class="error-text"
-                  *ngIf="isRequired(editProfileForm, 'height')"
+                  *ngIf="isRequired(editProfileForm, 'height_feet')"
                   >Feet is required</span
                 >
               </ng-container>
-              <ng-container *ngIf="isFocused(editProfileForm, 'height')">
+              <ng-container *ngIf="isFocused(editProfileForm, 'height_inches')">
                 <span
                   class="error-text"
-                  *ngIf="isRequired(editProfileForm, 'height')"
+                  *ngIf="isRequired(editProfileForm, 'height_inches')"
                   >Inches is required</span
                 >
               </ng-container>
@@ -346,12 +341,7 @@
             <!-- Phone -->
             <div class="from-block">
               <label>Phone Number <span>*</span></label>
-              <input
-                formControlName="phone"
-                type="text"
-                matInput
-                value="{{ profile.phone }}"
-              />
+              <input formControlName="phone" type="text" matInput />
 
               <ng-container *ngIf="isFocused(editProfileForm, 'phone')">
                 <span
@@ -479,11 +469,9 @@
               <label>Position ( Priority First ) <span>*</span></label>
               <select formControlName="position1" matNativeControl required>
                 <ng-container *ngFor="let position of samplePositionArray">
-                  <option
-                    value="{{ position.value }}"
-                    [selected]="position.value === profile.position[0].name"
-                    >{{ position.name }}</option
-                  >
+                  <option value="{{ position.value }}">{{
+                    position.name
+                  }}</option>
                 </ng-container>
               </select>
             </div>
@@ -493,11 +481,9 @@
               <label>Position ( Priority Second ) <span>*</span></label>
               <select formControlName="position2" matNativeControl required>
                 <ng-container *ngFor="let position of samplePositionArray">
-                  <option
-                    value="{{ position.value }}"
-                    [selected]="position.value === profile.position[1].name"
-                    >{{ position.name }}</option
-                  >
+                  <option value="{{ position.value }}">{{
+                    position.name
+                  }}</option>
                 </ng-container>
               </select>
             </div>
@@ -507,11 +493,9 @@
               <label>Position ( Priority Third ) <span>*</span></label>
               <select formControlName="position3" matNativeControl required>
                 <ng-container *ngFor="let position of samplePositionArray">
-                  <option
-                    value="{{ position.value }}"
-                    [selected]="position.value === profile.position[2].name"
-                    >{{ position.name }}</option
-                  >
+                  <option value="{{ position.value }}">{{
+                    position.name
+                  }}</option>
                 </ng-container>
               </select>
             </div>
@@ -703,11 +687,9 @@
                 <label>Country <span>*</span></label>
                 <select formControlName="country" matNativeControl required>
                   <ng-container *ngFor="let country of sampleCountryArray">
-                    <option
-                      value="{{ country.value }}"
-                      [selected]="profile.country"
-                      >{{ country.name }}</option
-                    >
+                    <option value="{{ country.value }}">{{
+                      country.name
+                    }}</option>
                   </ng-container>
                 </select>
                 <ng-container *ngIf="isFocused(editProfileForm, 'country')">
