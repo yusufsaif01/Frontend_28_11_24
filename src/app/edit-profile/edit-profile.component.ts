@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 
 interface trophyObject {
   trophy_name: string;
-  trophy_years: string;
+  trophy_year: string;
   trophy_position: string;
 }
 
@@ -411,46 +411,44 @@ export class EditProfileComponent implements OnInit {
       console.log('data club', formData1);
     } else if (this.member_type === 'academy') {
       // formData1 = this.toFormData(this.editProfileForm.value);
-      formData1.append(
-        'document',
-        this.documentContent,
-        this.documentContent.name
-      );
-      let {
-        name,
-        short_name,
-        founded_in,
-        country,
-        city,
-        address,
-        pincode,
-        phone,
-        stadium_name,
-        owner,
-        manager,
-        document_type
-      } = this.editProfileForm.value;
-
-      formData1.append('name', name);
-      formData1.append('short_name', short_name);
-      formData1.append('founded_in', founded_in);
-      formData1.append('country', country);
-      formData1.append('city', city);
-      formData1.append('address', address);
-      formData1.append('pincode', pincode);
-      formData1.append('phone', phone);
-      formData1.append('stadium_name', stadium_name);
+      // formData1.append(
+      //   'document',
+      //   this.documentContent,
+      //   this.documentContent.name
+      // );
+      // let {
+      //   name,
+      //   short_name,
+      //   founded_in,
+      //   country,
+      //   city,
+      //   address,
+      //   pincode,
+      //   phone,
+      //   stadium_name,
+      //   owner,
+      //   manager,
+      //   document_type
+      // } = this.editProfileForm.value;
+      // formData1.append('name', name);
+      // formData1.append('short_name', short_name);
+      // formData1.append('founded_in', founded_in);
+      // formData1.append('country', country);
+      // formData1.append('city', city);
+      // formData1.append('address', address);
+      // formData1.append('pincode', pincode);
+      // formData1.append('phone', phone);
+      // formData1.append('stadium_name', stadium_name);
       // formData1.append('owner', owner);
       // formData1.append('manager', manager);
-      formData1.append('document_type', document_type);
+      // formData1.append('document_type', document_type);
     }
     // console.log('################formdata1', formData1['manager']);
     // for (let pair of formData1.entries()) {
     //   console.log(pair[0] + ', ' + pair[1]);
     // }
-    let token = localStorage.getItem('token');
     this._authenticationService
-      .editProfile(this.editProfileForm.value, token)
+      .editProfile(this.editProfileForm.value)
       .subscribe(
         res => {
           console.log('response', res);
@@ -476,7 +474,8 @@ export class EditProfileComponent implements OnInit {
 
   uploadDocument(event: any) {
     console.log('##################', event.target.files);
-    this.documentContent = event.target.files[0];
+    let file = event.target.files[0];
+    this.editProfileForm.get('document').setValue(file);
   }
 
   uploadAvatar(event: any) {
@@ -582,7 +581,8 @@ export class EditProfileComponent implements OnInit {
         stadium_name: ['', [Validators.required]],
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
-        top_signings: this._formBuilder.array([])
+        top_signings: this._formBuilder.array([]),
+        document: ['']
         // onclick upload document [aiff]
       });
     } else if (this.member_type === 'academy') {
@@ -744,7 +744,7 @@ export class EditProfileComponent implements OnInit {
       this.trophies.push(
         this._formBuilder.group({
           trophy_name: [data.trophy_name, []],
-          trophy_years: [data.trophy_years, []],
+          trophy_year: [data.trophy_year, []],
           trophy_position: [data.trophy_position, []]
         })
       );
@@ -752,7 +752,7 @@ export class EditProfileComponent implements OnInit {
       this.trophies.push(
         this._formBuilder.group({
           trophy_name: ['', []],
-          trophy_years: ['', []],
+          trophy_year: ['', []],
           trophy_position: ['', []]
         })
       );

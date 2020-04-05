@@ -149,7 +149,10 @@ export class AuthenticationService {
     return this.httpClient.post(routes.forgetPassword(context), context);
   }
 
-  editProfile(context: any, token: string): Observable<any> {
+  editProfile(context: any): Observable<any> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
     let httpOptions = {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token
