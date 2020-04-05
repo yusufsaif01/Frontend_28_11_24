@@ -655,18 +655,38 @@ export class EditProfileComponent implements OnInit {
       // player_current_school_name: this.profile.institiute ? this.profile.institiute.school_name : '',
       country: this.profile.country ? this.profile.country : '',
       state: this.profile.state ? this.profile.state : '',
-      stadium_name: this.profile.stadium_name ? this.profile.stadium_name : '',
-      position1: this.profile.position[0].name,
-      position2: this.profile.position[1].name,
-      position3: this.profile.position[2].name,
+      stadium_name: this.profile.stadium_name,
+      position1:
+        this.profile.position && this.profile.position[0]
+          ? this.profile.position[0].name
+          : '',
+      position2:
+        this.profile.position && this.profile.position[1]
+          ? this.profile.position[1].name
+          : '',
+      position3:
+        this.profile.position && this.profile.position[2]
+          ? this.profile.position[2].name
+          : '',
       strong_foot: this.profile.strong_foot,
       weak_foot: this.profile.weak_foot,
-      head_coach_phone: this.profile.club_academy_details[0].head_coach_phone,
-      head_coach_email: this.profile.club_academy_details[0].head_coach_email,
+      head_coach_phone:
+        this.profile.club_academy_details &&
+        this.profile.club_academy_details[0].head_coach_phone
+          ? this.profile.club_academy_details[0].head_coach_phone
+          : '',
+      head_coach_email:
+        this.profile.club_academy_details &&
+        this.profile.club_academy_details[0]
+          ? this.profile.club_academy_details[0].head_coach_email
+          : '',
       contact_person: this.profile.contact_person,
       trophies: this.profile.trophies,
       associated_players: this.profile.associated_players,
-      document_type: this.profile.documents[0].type
+      document_type:
+        this.profile.documents && this.profile.documents[0]
+          ? this.profile.documents[0].type
+          : ''
     });
 
     this.socialProfileForm.patchValue({
