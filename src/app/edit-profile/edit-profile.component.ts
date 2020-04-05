@@ -27,7 +27,7 @@ export class EditProfileComponent implements OnInit {
   // player_type = "grassroot";
   profile: any;
   member_type: string = localStorage.getItem('member_type') || 'player';
-  player_type = localStorage.getItem('player_type') || 'grassroot';
+  player_type: string = 'grassroot';
   user_email = localStorage.getItem('email');
   aboutForm: FormGroup;
   socialProfileForm: FormGroup;
@@ -180,17 +180,17 @@ export class EditProfileComponent implements OnInit {
     return required;
   }
 
-  toFormData<T>(formValue: T) {
-    const formData = new FormData();
-    for (const key of Object.keys(formValue)) {
-      const value = formValue[key];
-      if (!value.length) {
-        continue;
-      }
-      formData.append(key, value);
-    }
-    return formData;
-  }
+  // toFormData<T>(formValue: T) {
+  //   const formData = new FormData();
+  //   for (const key of Object.keys(formValue)) {
+  //     const value = formValue[key];
+  //     if (!value.length) {
+  //       continue;
+  //     }
+  //     formData.append(key, value);
+  //   }
+  //   return formData;
+  // }
 
   populateView() {
     this._authenticationService.getProfileDetails().subscribe(
@@ -281,169 +281,13 @@ export class EditProfileComponent implements OnInit {
   }
 
   editProfile() {
-    // console.log("form_data",this.editProfileForm.value)
-
-    const formData = new FormData();
-    let formData1 = new FormData();
-    // var formData1 = this.toFormData(this.editProfileForm.value);
     if (this.member_type === 'player') {
-      //player
-      // let {
-      //   player_type,
-      //   player_first_name,
-      //   player_last_name,
-      //   player_dob,
-      //   player_height_foot,
-      //   player_height_inches,
-      //   player_weight,
-      //   player_nationality,
-      //   player_state,
-      //   player_current_city,
-      //   // player_email,
-      //   player_phone,
-      //   player_current_school_name,
-      //   player_current_university_name,
-      //   player_current_college_name,
-      //   // player_upload_aadhar,
-      //   player_employment_contract,
-      //   player_position1,
-      //   player_position2,
-      //   player_position3,
-      //   player_strong_foot,
-      //   player_associated_club,
-      //   player_weak_foot,
-      //   player_head_coach_phone_number,
-      //   player_head_coach_email_number,
-      //   player_former_club
-      // } = this.editProfileForm.value;
-      console.log(this.editProfileForm.value);
-      // form_data['player_type']= player_type
-      // form_data['first_name']= player_first_name
-      // form_data['last_name'] = player_last_name
-      // form_data['dob']=player_dob
-      // form_data['height'] = player_height_foot
-      // form_data['weight'] = player_weight
-      // form_data['country'] = player_nationality
-      // form_data['state'] = player_state
-      // form_data['city'] = player_current_city
-      // form_data['phone'] = player_phone
-      // form_data['form_data'] = this.aadharformContent
-
-      // if (form_data['form_data'] === null) {
-      //   return alert('Please upload correct file !!');
-      // }
-
-      // let institute: any = {
-      //   school: player_current_school_name,
-      //   college: player_current_college_name,
-      //   university: player_current_university_name
-      // };
-      // let head_coach: any = {
-      //   head_coach_email: player_head_coach_email_number,
-      //   head_coach_phone: player_head_coach_phone_number
-      // };
-      // let player_height =
-      //   player_height_foot + 'ft' + player_height_inches + 'in';
-      // formData.append(
-      //   'aadhar',
-      //   this.aadharformContent,
-      //   this.aadharformContent.name
-      // );
-      // formData1.append('player_type', player_type);
-      // formData1.append('first_name', player_first_name);
-      // formData1.append('last_name', player_last_name);
-      // formData1.append('dob', player_dob);
-      // formData1.append('height', player_height);
-      // formData1.append('weight', player_weight);
-      // formData1.append('state', player_state);
-      // formData1.append('nationality', player_nationality);
-      // formData1.append('country', player_nationality);
-      // formData1.append('phone', player_phone);
-      // formData1.append('city', player_current_city);
-      // if (player_current_school_name)
-      //   formData1.append('school', player_current_school_name);
-      // if (player_current_college_name)
-      //   formData1.append('college', player_current_college_name);
-      // if (player_current_university_name)
-      //   formData1.append('university', player_current_university_name);
-      // formData1.append('weak_foot', player_weak_foot);
-      // formData1.append('former_club', player_former_club);
-      // console.log('data', formData1);
-      // for (let pair of formData1.entries()) {
-      //   console.log(pair[0] + ', ' + pair[1]);
-      // }
+      // console.log('data player', formData1);
     } else if (this.member_type === 'club') {
-      console.log(this.editProfileForm.value);
-      // formData1 = this.toFormData(this.editProfileForm.value);
-      // formData1.append('aiff', this.documentContent, this.documentContent.name);
-      // let {
-      //   name,
-      //   short_name,
-      //   founded_in,
-      //   country,
-      //   city,
-      //   address,
-      //   pincode,
-      //   phone,
-      //   stadium_name,
-      //   owner,
-      //   manager,
-      //   club_contact_persons,
-      //   club_trophies
-      // } = this.editProfileForm.value;
-
-      // formData1.append('name', name);
-      // formData1.append('short_name', short_name);
-      // formData1.append('founded_in', founded_in);
-      // formData1.append('country', country);
-      // formData1.append('city', city);
-      // formData1.append('address', address);
-      // formData1.append('pincode', pincode);
-      // formData1.append('phone', phone);
-      // formData1.append('stadium_name', stadium_name);
-      // formData1.append('contact_person', JSON.stringify(club_contact_persons));
-      // formData1.append('trophies', JSON.stringify(club_trophies));
-      // formData1.append('owner', owner);
-      // formData1.append('manager', manager);
-      console.log('data club', formData1);
+      // console.log('data club', formData1);
     } else if (this.member_type === 'academy') {
-      // formData1 = this.toFormData(this.editProfileForm.value);
-      // formData1.append(
-      //   'document',
-      //   this.documentContent,
-      //   this.documentContent.name
-      // );
-      // let {
-      //   name,
-      //   short_name,
-      //   founded_in,
-      //   country,
-      //   city,
-      //   address,
-      //   pincode,
-      //   phone,
-      //   stadium_name,
-      //   owner,
-      //   manager,
-      //   document_type
-      // } = this.editProfileForm.value;
-      // formData1.append('name', name);
-      // formData1.append('short_name', short_name);
-      // formData1.append('founded_in', founded_in);
-      // formData1.append('country', country);
-      // formData1.append('city', city);
-      // formData1.append('address', address);
-      // formData1.append('pincode', pincode);
-      // formData1.append('phone', phone);
-      // formData1.append('stadium_name', stadium_name);
-      // formData1.append('owner', owner);
-      // formData1.append('manager', manager);
       // formData1.append('document_type', document_type);
     }
-    // console.log('################formdata1', formData1['manager']);
-    // for (let pair of formData1.entries()) {
-    //   console.log(pair[0] + ', ' + pair[1]);
-    // }
     this._authenticationService
       .editProfile(this.editProfileForm.value)
       .subscribe(
@@ -451,7 +295,7 @@ export class EditProfileComponent implements OnInit {
           console.log('response', res);
           this._toastrService.success(
             'Successful',
-            'Profile update successfully'
+            'Profile updated successfully'
           );
         },
         err => {
@@ -542,9 +386,9 @@ export class EditProfileComponent implements OnInit {
         state: ['', [Validators.required]],
         city: ['', [Validators.required]], //city
         phone: ['', [Validators.required]],
-        player_current_school_name: ['', [Validators.required]], //institute.school
-        player_current_university_name: [''], //institute.univeristy
-        player_current_college_name: [''], //institute.college
+        school: ['', [Validators.required]], //institute.school
+        university: [''], //institute.univeristy
+        college: [''], //institute.college
         // player_upload_aadhar : ['',[ ]],
         player_employment_contract: ['', []],
         // // professional_details
@@ -642,7 +486,12 @@ export class EditProfileComponent implements OnInit {
   }
 
   populateFormFields() {
+    this.editProfileForm.valueChanges.subscribe(val => {
+      this.player_type = val.player_type;
+    });
+
     this.editProfileForm.patchValue({
+      player_type: this.profile.player_type,
       name: this.profile.name,
       short_name: this.profile.short_name,
       founded_in: this.profile.founded_in,
@@ -692,6 +541,18 @@ export class EditProfileComponent implements OnInit {
       contact_person: this.profile.contact_person,
       trophies: this.profile.trophies,
       associated_players: this.profile.associated_players,
+      school:
+        this.profile.institute && this.profile.institute.school
+          ? this.profile.institute.school
+          : '',
+      university:
+        this.profile.institute && this.profile.institute.university
+          ? this.profile.institute.university
+          : '',
+      college:
+        this.profile.institute && this.profile.institute.college
+          ? this.profile.institute.college
+          : '',
       document_type:
         this.profile.documents && this.profile.documents[0]
           ? this.profile.documents[0].type

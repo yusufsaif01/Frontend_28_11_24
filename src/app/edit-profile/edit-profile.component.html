@@ -134,7 +134,6 @@
             <div class="radio">
               <label
                 ><input
-                  (click)="player_type = 'grassroot'; selectTab('grassroot')"
                   type="radio"
                   value="grassroot"
                   formControlName="player_type"
@@ -143,7 +142,6 @@
               </label>
               <label
                 ><input
-                  (click)="player_type = 'amateur'; selectTab('amateur')"
                   type="radio"
                   value="amateur"
                   formControlName="player_type"
@@ -152,9 +150,6 @@
               </label>
               <label
                 ><input
-                  (click)="
-                    player_type = 'professional'; selectTab('professional')
-                  "
                   type="radio"
                   value="professional"
                   formControlName="player_type"
@@ -355,20 +350,12 @@
             <!-- current School -->
             <div class="from-block">
               <label>Current School Name <span>*</span></label>
-              <input
-                formControlName="player_current_school_name"
-                type="text"
-                matInput
-              />
+              <input formControlName="school" type="text" matInput />
 
-              <ng-container
-                *ngIf="isFocused(editProfileForm, 'player_current_school_name')"
-              >
+              <ng-container *ngIf="isFocused(editProfileForm, 'school')">
                 <span
                   class="error-text"
-                  *ngIf="
-                    isRequired(editProfileForm, 'player_current_school_name')
-                  "
+                  *ngIf="isRequired(editProfileForm, 'school')"
                   >Current School Name is required</span
                 >
               </ng-container>
@@ -382,49 +369,26 @@
               <!-- University School -->
               <div class="from-block">
                 <label>Current University Name <span>*</span></label>
-                <input
-                  formControlName="player_current_university_name"
-                  type="text"
-                  matinput
-                />
+                <input formControlName="university" type="text" matinput />
 
-                <ng-container
-                  *ngIf="
-                    isFocused(editProfileForm, 'player_current_university_name')
-                  "
-                >
+                <ng-container *ngIf="isFocused(editProfileForm, 'university')">
                   <span
                     class="error-text"
-                    *ngIf="
-                      isRequired(
-                        editProfileForm,
-                        'player_current_university_name'
-                      )
-                    "
+                    *ngIf="isRequired(editProfileForm, 'university')"
                     >Current University Name is required</span
                   >
                 </ng-container>
               </div>
 
               <!-- college School -->
-              <div class="from-block">
+              <div class="from-block" *ngIf="player_type === 'amateur'">
                 <label>Current College Name <span>*</span></label>
-                <input
-                  formControlName="player_current_college_name"
-                  type="text"
-                  matinput
-                />
+                <input formControlName="college" type="text" matinput />
 
-                <ng-container
-                  *ngIf="
-                    isFocused(editProfileForm, 'player_current_college_name')
-                  "
-                >
+                <ng-container *ngIf="isFocused(editProfileForm, 'college')">
                   <span
                     class="error-text"
-                    *ngIf="
-                      isRequired(editProfileForm, 'player_current_college_name')
-                    "
+                    *ngIf="isRequired(editProfileForm, 'college')"
                     >Current College Name is required</span
                   >
                 </ng-container>
