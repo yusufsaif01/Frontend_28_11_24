@@ -349,7 +349,13 @@
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>League : </span>{{ profile.leagues }}</p>
+            <p><span>League : </span>{{ profile?.league }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p><span>League (Other) : </span>{{ profile?.league_other }}</p>
           </div>
         </div>
 
