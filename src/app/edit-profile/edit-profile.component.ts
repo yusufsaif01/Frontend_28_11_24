@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { AuthenticationService } from '../core/authentication/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 interface trophyObject {
   trophy_name: string;
@@ -689,16 +690,20 @@ export class EditProfileComponent implements OnInit {
           : ''
     });
 
-    this.socialProfileForm.patchValue({
-      instagram: this.profile.social_profiles.instagram,
-      facebook: this.profile.social_profiles.facebook,
-      twitter: this.profile.social_profiles.twitter,
-      youtube: this.profile.social_profiles.youtube
-    });
+    if (this.profile.social_profiles) {
+      this.socialProfileForm.patchValue({
+        instagram: this.profile.social_profiles.instagram,
+        facebook: this.profile.social_profiles.facebook,
+        twitter: this.profile.social_profiles.twitter,
+        youtube: this.profile.social_profiles.youtube
+      });
+    }
 
-    this.aboutForm.patchValue({
-      bio: this.profile.bio
-    });
+    if (this.profile.bio) {
+      this.aboutForm.patchValue({
+        bio: this.profile.bio
+      });
+    }
   }
 
   populateDynamicContact() {
