@@ -536,6 +536,7 @@ export class EditProfileComponent implements OnInit {
       phone: this.profile.phone ? this.profile.phone : '',
       country: this.profile.country,
       state: this.profile.state ? this.profile.state : '',
+      city: this.profile.city ? this.profile.city : '',
       stadium_name: this.profile.stadium_name,
       league: this.profile.league,
       league_other: this.profile.league_other,
