@@ -132,13 +132,33 @@
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>View Adhaar : </span> <a>Document</a></p>
+            <p>
+              <span>View Adhaar : </span>
+              <a
+                href="{{
+                  profile.documents?.type === 'aadhar'
+                    ? environment.mediaUrl + '' + profile.documents?.link
+                    : ''
+                }}"
+                >Document</a
+              >
+            </p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>View Employement : </span> <a>Document</a></p>
+            <p>
+              <span>View Employement : </span>
+              <a
+                href="{{
+                  profile.documents?.type === 'employment_contract'
+                    ? environment.mediaUrl + '' + profile.documents?.link
+                    : ''
+                }}"
+                >Document</a
+              >
+            </p>
           </div>
         </div>
       </div>

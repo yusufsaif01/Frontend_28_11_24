@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -8,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  environment = environment;
   profile: any;
   numbers: any;
   constructor(

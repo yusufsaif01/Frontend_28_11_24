@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { AuthenticationService } from '../core/authentication/authentication.service';
 import { ToastrService } from 'ngx-toastr';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { environment } from '../../environments/environment';
 
 interface trophyObject {
   name: string;
@@ -33,6 +33,12 @@ interface positionObject {
 export class EditProfileComponent implements OnInit {
   // member_type = 'academy';
   // player_type = "grassroot";
+  environment = environment;
+  avatar: File;
+  document: File;
+  aadhar: File;
+  employment_contract: File;
+
   profile: any;
   member_type: string = localStorage.getItem('member_type') || 'player';
   player_type: string = 'grassroot';
@@ -43,41 +49,12 @@ export class EditProfileComponent implements OnInit {
   playerProfileForm: FormGroup;
   clubProfileForm: FormGroup;
   academyProfileForm: FormGroup;
-  aadharformContent: any;
-  documentContent: any;
-  Avatar: any;
-  dateVal = new Date();
 
   contact_person: FormArray;
   trophies: FormArray;
   top_signings: FormArray;
   position: FormArray;
-  // sampleContactArray = [
-  //   {
-  //     club_contact_designation: 'saab',
-  //     club_contact_name: 'pushpam',
-  //     club_contact_email: 'p@p.com',
-  //     club_contact_phone: '12819793719791'
-  //   },
-  //   {
-  //     club_contact_designation: 'saab',
-  //     club_contact_name: 'pushpam1',
-  //     club_contact_email: 'p@p.com1',
-  //     club_contact_phone: '128119791'
-  //   }
-  // ];
-  // sampleTrophyArray = [
-  //   {
-  //     trophy_name: 'T1',
-  //     trophy_years: '2018',
-  //     trophy_position: 'First'
-  //   },
-  //   {
-  //     trophy_name: 'T2',
-  //     trophy_years: '2019',
-  //     trophy_position: 'First'
-  //   }
-  // ];
+
   samplePositionArray = [
     {
       name: 'Volvo',
@@ -225,17 +202,18 @@ export class EditProfileComponent implements OnInit {
     return required;
   }
 
-  // toFormData<T>(formValue: T) {
-  //   const formData = new FormData();
-  //   for (const key of Object.keys(formValue)) {
-  //     const value = formValue[key];
-  //     if (!value.length) {
-  //       continue;
-  //     }
-  //     formData.append(key, value);
-  //   }
-  //   return formData;
-  // }
+  toFormData<T>(formValue: T) {
+    const formData = new FormData();
+    for (const key of Object.keys(formValue)) {
+      const value = formValue[key];
+      console.log(key, value);
+      if (!value.length) {
+        continue;
+      }
+      formData.append(key, value);
+    }
+    return formData;
+  }
 
   populateView() {
     this._authenticationService.getProfileDetails().subscribe(
@@ -330,47 +308,68 @@ export class EditProfileComponent implements OnInit {
   }
 
   editProfile() {
+    let requestData = this.toFormData(this.editProfileForm.value);
+    requestData.set('dob', this.editProfileForm.get('dob').value);
+    console.log(this.editProfileForm.get('position').value);
+
     if (this.member_type === 'player') {
-      // console.log('data player', formData1);
-    } else if (this.member_type === 'club') {
-      // console.log('data club', formData1);
-    } else if (this.member_type === 'academy') {
-      // formData1.append('document_type', document_type);
-    }
-    this._authenticationService
-      .editProfile(this.editProfileForm.value)
-      .subscribe(
-        res => {
-          console.log('response', res);
-          this._toastrService.success(
-            'Successful',
-            'Profile updated successfully'
-          );
-        },
-        err => {
-          console.log('err', err);
-          this._toastrService.error(
-            'Error',
-            'An error occured while trying to update profile'
-          );
-        }
+      if (this.player_type === 'grassroot' || this.player_type === 'amateur') {
+        requestData.set('aadhar', this.aadhar);
+      } else if (this.player_type === 'professional') {
+        requestData.set('employment_contract', this.employment_contract);
+      }
+      requestData.set(
+        'position',
+        JSON.stringify(this.editProfileForm.get('position').value)
       );
+    } else if (this.member_type === 'club' || this.member_type === 'academy') {
+      requestData.set('document', this.document);
+      requestData.set(
+        'contact_person',
+        JSON.stringify(this.editProfileForm.get('contact_person').value)
+      );
+      requestData.set(
+        'trophies',
+        JSON.stringify(this.editProfileForm.get('trophies').value)
+      );
+      requestData.set(
+        'top_signings',
+        JSON.stringify(this.editProfileForm.get('top_signings').value)
+      );
+    }
+
+    this._authenticationService.editProfile(requestData).subscribe(
+      res => {
+        console.log('response', res);
+        this._toastrService.success(
+          'Successful',
+          'Profile updated successfully'
+        );
+      },
+      err => {
+        console.log('err', err);
+        this._toastrService.error(
+          'Error',
+          'An error occured while trying to update profile'
+        );
+      }
+    );
   }
 
-  uploadAadhar(event: any) {
-    console.log('##################', event.target.files);
-    this.aadharformContent = event.target.files[0];
+  uploadAadhar(files: FileList) {
+    this.aadhar = files[0];
   }
 
-  uploadDocument(event: any) {
-    console.log('##################', event.target.files);
-    let file = event.target.files[0];
-    this.editProfileForm.get('document').setValue(file);
+  uploadDocument(files: FileList) {
+    this.document = files[0];
   }
 
-  uploadAvatar(event: any) {
-    console.log('##################', event.target.files);
-    this.Avatar = event.target.files[0];
+  uploadAvatar(files: FileList) {
+    this.avatar = files[0];
+  }
+
+  uploadEmploymentContract(files: FileList) {
+    this.employment_contract = files[0];
   }
 
   socialProfile() {
@@ -394,7 +393,10 @@ export class EditProfileComponent implements OnInit {
       );
   }
   about() {
-    this._authenticationService.updateBio(this.aboutForm.value).subscribe(
+    let requestData = this.toFormData(this.aboutForm.value);
+    requestData.set('avatar', this.avatar);
+
+    this._authenticationService.updateBio(requestData).subscribe(
       res => {
         console.log('response', res);
         this._toastrService.success('Successful', 'Bio updated successfully');
@@ -411,6 +413,7 @@ export class EditProfileComponent implements OnInit {
 
   createForm() {
     this.aboutForm = this._formBuilder.group({
+      avatar: [''],
       bio: ['']
     });
 
@@ -438,8 +441,8 @@ export class EditProfileComponent implements OnInit {
         school: ['', [Validators.required]], //institute.school
         university: [''], //institute.univeristy
         college: [''], //institute.college
-        // player_upload_aadhar : ['',[ ]],
-        player_employment_contract: ['', []],
+        aadhar: ['', []],
+        employment_contract: ['', []],
         // // professional_details
         position: this._formBuilder.array([]),
         strong_foot: ['', []],
@@ -474,7 +477,7 @@ export class EditProfileComponent implements OnInit {
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([]),
         associated_players: ['', []],
-        document: ['']
+        document: ['', []]
         // onclick upload document [aiff]
       });
     } else if (this.member_type === 'academy') {
@@ -503,7 +506,7 @@ export class EditProfileComponent implements OnInit {
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([]),
         associated_players: ['', []],
-        document: ['']
+        document: ['', []]
         //onclick upload documenet aiff / pan card/tin / coi
       });
     }
@@ -540,18 +543,6 @@ export class EditProfileComponent implements OnInit {
       stadium_name: this.profile.stadium_name,
       league: this.profile.league,
       league_other: this.profile.league_other,
-      // position1:
-      //   this.profile.position && this.profile.position[0]
-      //     ? this.profile.position[0].name
-      //     : '',
-      // position2:
-      //   this.profile.position && this.profile.position[1]
-      //     ? this.profile.position[1].name
-      //     : '',
-      // position3:
-      //   this.profile.position && this.profile.position[2]
-      //     ? this.profile.position[2].name
-      //     : '',
       strong_foot: this.profile.strong_foot,
       weak_foot: this.profile.weak_foot,
       head_coach_phone: this.profile.club_academy_details
@@ -563,7 +554,7 @@ export class EditProfileComponent implements OnInit {
       contact_person: this.profile.contact_person,
       trophies: this.profile.trophies,
       associated_players: this.profile.associated_players,
-      former_club: this.profile.former_club,
+      former_club: this.profile.former_club ? this.profile.former_club : '',
       school:
         this.profile.institute && this.profile.institute.school
           ? this.profile.institute.school
@@ -707,7 +698,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   preparePosition(data?: positionObject, index?: number) {
-    console.log(index);
     this.position = this.editProfileForm.get('position') as FormArray;
 
     if (data !== undefined) {
