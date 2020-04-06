@@ -372,6 +372,25 @@ export class EditProfileComponent implements OnInit {
     this.employment_contract = files[0];
   }
 
+  removeAvatar() {
+    this._authenticationService.removeAvatar().subscribe(
+      res => {
+        console.log('response', res);
+        this._toastrService.success(
+          'Successful',
+          'Avatar removed successfully'
+        );
+      },
+      err => {
+        console.log('err', err);
+        this._toastrService.error(
+          'Error',
+          'An error occured while removing avatar'
+        );
+      }
+    );
+  }
+
   socialProfile() {
     this._authenticationService
       .updateBio(this.socialProfileForm.value)

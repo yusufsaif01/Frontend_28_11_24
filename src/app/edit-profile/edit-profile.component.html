@@ -33,7 +33,7 @@
                 (change)="uploadAvatar($event.target.files)"
               />
             </label>
-            <button class="btn delete">
+            <button class="btn delete" (click)="removeAvatar()">
               <span>
                 <i-feather name="trash-2" class="icon-size"></i-feather>
               </span>

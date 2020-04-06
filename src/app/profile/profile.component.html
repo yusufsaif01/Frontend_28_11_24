@@ -70,15 +70,15 @@
           </div>
           <div class="half">
             <p>
-              <span>Height :</span> {{ profile.height?.feet }}
-              {{ profile.height?.inches }}
+              <span>Height :</span> {{ profile.height?.feet }} ft
+              {{ profile.height?.inches }} inches
             </p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Weight :</span> {{ profile?.weight }}</p>
+            <p><span>Weight :</span> {{ profile?.weight }} kg</p>
           </div>
           <div class="half">
             <p><span>Nationality :</span> {{ profile.country }}</p>
@@ -359,8 +359,8 @@
               <span>Major trophies won : </span>
               <ng-container *ngIf="profile.trophies">
                 <ng-container *ngFor="let trophies of profile.trophies">
-                  {{ trophies.name }} {{ trophies.year }}
-                  {{ trophies.position }}
+                  Name : {{ trophies.name }} Year : {{ trophies.year }} Position
+                  Secured : {{ trophies.position }}
                 </ng-container>
               </ng-container>
             </p>
