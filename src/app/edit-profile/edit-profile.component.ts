@@ -411,6 +411,10 @@ export class EditProfileComponent implements OnInit {
     );
   }
 
+  onCancel(){
+    this.editProfileForm.reset();
+  }
+
   createForm() {
     this.aboutForm = this._formBuilder.group({
       avatar: [''],
