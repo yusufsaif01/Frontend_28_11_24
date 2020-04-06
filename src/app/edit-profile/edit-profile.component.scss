@@ -397,6 +397,8 @@ body {
         display: inline-block;
         margin: 4rem 0;
         padding: 2rem 3rem;
+        text-decoration: none;
+        cursor: pointer;
       }
       button {
         @include btn-primary;

@@ -12,6 +12,8 @@ export class ProfileComponent implements OnInit {
   environment = environment;
   profile: any;
   numbers: any;
+  aadhar: string;
+  employment_contract: string;
   constructor(
     private _authenticationService: AuthenticationService,
     private _toastrService: ToastrService
@@ -27,6 +29,30 @@ export class ProfileComponent implements OnInit {
       response => {
         console.log('data', response);
         this.profile = response.data;
+
+        if (this.profile.avatar_url) {
+          this.profile.avatar_url =
+            this.environment.mediaUrl + this.profile.avatar_url;
+        } else {
+          this.profile.avatar_url =
+            this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
+        }
+
+        if (
+          this.profile.documents &&
+          this.profile.documents.type === 'aadhar'
+        ) {
+          this.aadhar = this.environment.mediaUrl + this.profile.documents.link;
+        }
+
+        if (
+          this.profile.documents &&
+          this.profile.documents.type === 'employment_contract'
+        ) {
+          this.employment_contract =
+            this.environment.mediaUrl + this.profile.documents.link;
+        }
+
         this._toastrService.success(
           'Successful',
           'Data retrieved successfully'

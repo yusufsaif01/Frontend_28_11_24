@@ -258,6 +258,10 @@ export class EditProfileComponent implements OnInit {
     );
   }
 
+  resetForm() {
+    this.editProfileForm.reset();
+  }
+
   setPlayerCategoryValidators() {
     if (this.member_type === 'player') {
       // const univeristyNameControl = this.editProfileForm.get(
