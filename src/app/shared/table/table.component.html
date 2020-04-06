@@ -1,27 +1,32 @@
-<mat-table [dataSource]="dataSource">
+<mat-table [dataSource]="rows">
   <!-- Checkbox Column -->
-  <ng-container [matColumnDef]="col.Value" *ngFor="let col of columnsToDisplay">
-    <mat-header-cell *matHeaderCellDef>{{ col.Name }}</mat-header-cell>
+  <ng-container
+    [matColumnDef]="tableConfig.columns[col].code"
+    *ngFor="let col of tableConfig.allowedColumns"
+  >
+    <mat-header-cell *matHeaderCellDef>{{
+      tableConfig.columns[col].text
+    }}</mat-header-cell>
     <mat-cell *matCellDef="let element; let i = index">
-      <div *ngIf="col.Value === 'action'">
-        <ng-container
-          *ngTemplateOutlet="action; context: element"
-        ></ng-container>
-      </div>
-      <div *ngIf="col.Value !== 'action'">{{ element[col.Value] }}</div>
-      <div *ngIf="col.Value === 'position'">{{ i + 1 }}</div>
+      <div>{{ tableConfig.columns[col].getValue(element) }}</div>
     </mat-cell>
   </ng-container>
-  <ng-template #action let-user_id="id">
-    <div class="action-buttons">
-      <button (click)="edit(user_id)" class="edit">
-        <img src="assets/images/icons/edit.png" alt="Edit" />
-      </button>
-      <button (click)="delete(user_id)" class="delete">
-        <img src="assets/images/icons/delete.png" alt="Delete" />
-      </button>
-    </div>
-  </ng-template>
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+  <ng-container matColumnDef="sno">
+    <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index">
+      <div>{{ i > 8 ? '' : 0 }}{{ i + 1 }}</div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index">
+      <ng-container
+        *ngTemplateOutlet="TableActions; context: element"
+      ></ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>

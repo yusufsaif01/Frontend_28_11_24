@@ -7,5 +7,9 @@
     <app-pagination></app-pagination>
   </div>
 </div>
-
+<app-table
+  [tableConfig]="tableConfig"
+  [NumberColumn]="'true'"
+  [rows]="dataSource"
+></app-table>
 <app-footer></app-footer>

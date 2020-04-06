@@ -23,6 +23,7 @@ import { LoaderInterceptor } from './core/http/loader.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 // import { FrontendModule } from './frontend/frontend.module';
 import { ToastrModule } from 'ngx-toastr';
+import { FilterDialogComponent } from './admin/filter-dialog/filter-dialog.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ForgotPasswordComponent } from './core/authentication/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './core/authentication/reset-password/reset-password.component';
@@ -116,7 +117,8 @@ const icons = {
     ChangePasswordComponent,
     CreatePasswordComponent,
     ProfileComponent,
-    AdminViewComponent
+    AdminViewComponent,
+    FilterDialogComponent
     // , HomeComponent
   ],
   providers: [
@@ -127,6 +129,7 @@ const icons = {
     }
   ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [FilterDialogComponent]
 })
 export class AppModule {}
