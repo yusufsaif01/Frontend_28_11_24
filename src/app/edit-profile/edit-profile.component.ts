@@ -235,6 +235,14 @@ export class EditProfileComponent implements OnInit {
           this.populateDynamicPosition();
         }
 
+        if (this.profile.avatar_url) {
+          this.profile.avatar_url =
+            this.environment.mediaUrl + this.profile.avatar_url;
+        } else {
+          this.profile.avatar_url =
+            this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
+        }
+
         this._toastrService.success(
           'Successful',
           'Data retrieved successfully'
@@ -248,6 +256,10 @@ export class EditProfileComponent implements OnInit {
         );
       }
     );
+  }
+
+  resetForm() {
+    this.editProfileForm.reset();
   }
 
   setPlayerCategoryValidators() {
@@ -314,9 +326,10 @@ export class EditProfileComponent implements OnInit {
 
     if (this.member_type === 'player') {
       if (this.player_type === 'grassroot' || this.player_type === 'amateur') {
-        requestData.set('aadhar', this.aadhar);
+        if (this.aadhar) requestData.set('aadhar', this.aadhar);
       } else if (this.player_type === 'professional') {
-        requestData.set('employment_contract', this.employment_contract);
+        if (this.employment_contract)
+          requestData.set('employment_contract', this.employment_contract);
       }
       requestData.set(
         'position',
@@ -372,6 +385,25 @@ export class EditProfileComponent implements OnInit {
     this.employment_contract = files[0];
   }
 
+  removeAvatar() {
+    this._authenticationService.removeAvatar().subscribe(
+      res => {
+        console.log('response', res);
+        this._toastrService.success(
+          'Successful',
+          'Avatar removed successfully'
+        );
+      },
+      err => {
+        console.log('err', err);
+        this._toastrService.error(
+          'Error',
+          'An error occured while removing avatar'
+        );
+      }
+    );
+  }
+
   socialProfile() {
     this._authenticationService
       .updateBio(this.socialProfileForm.value)
@@ -411,10 +443,6 @@ export class EditProfileComponent implements OnInit {
     );
   }
 
-  onCancel(){
-    this.editProfileForm.reset();
-  }
-
   createForm() {
     this.aboutForm = this._formBuilder.group({
       avatar: [''],
@@ -441,7 +469,15 @@ export class EditProfileComponent implements OnInit {
         country: ['', [Validators.required]], //country
         state: ['', [Validators.required]],
         city: ['', [Validators.required]], //city
-        phone: ['', [Validators.required]],
+        phone: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^[0-9]+$/)
+          ]
+        ],
         school: ['', [Validators.required]], //institute.school
         university: [''], //institute.univeristy
         college: [''], //institute.college
@@ -471,7 +507,8 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.required,
             Validators.minLength(10),
-            Validators.maxLength(13)
+            Validators.maxLength(10),
+            Validators.pattern(/^[0-9]+$/)
           ]
         ],
         stadium_name: ['', [Validators.required]],
@@ -499,7 +536,9 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.required,
             Validators.minLength(10),
-            Validators.maxLength(13)
+            Validators.maxLength(10),
+            Validators.pattern(/^[0-9]+$/)
+
           ]
         ],
         stadium_name: ['', [Validators.required]],

@@ -15,7 +15,8 @@ const routes = {
   createPassword: (c: ResetPasswordContext) => '/create-password',
   editProfile: (c: any) => '/update-details',
   updateBio: (a: any) => '/update-bio',
-  getProfileDetails: () => '/profile'
+  getProfileDetails: () => '/profile',
+  removeAvatar: () => '/avatar'
 };
 
 export interface LoginContext {
@@ -189,5 +190,17 @@ export class AuthenticationService {
       })
     };
     return this.httpClient.put(routes.updateBio(context), context, httpOptions);
+  }
+
+  removeAvatar(): Observable<any> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + token
+      })
+    };
+    return this.httpClient.delete(routes.removeAvatar(), httpOptions);
   }
 }

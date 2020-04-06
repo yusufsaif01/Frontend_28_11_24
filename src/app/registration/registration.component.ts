@@ -108,7 +108,8 @@ export class RegistrationComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(10),
-          Validators.maxLength(13)
+          Validators.maxLength(10),
+          Validators.pattern(/^[0-9]+$/)
         ]
       ],
       country: [null, [Validators.required]],
@@ -123,7 +124,8 @@ export class RegistrationComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(10),
-          Validators.maxLength(13)
+          Validators.maxLength(10),
+          Validators.pattern(/^[0-9]+$/)
         ]
       ],
       country: [null, [Validators.required]],
@@ -137,7 +139,8 @@ export class RegistrationComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(10),
-          Validators.maxLength(13)
+          Validators.maxLength(10),
+          Validators.pattern(/^[0-9]+$/)
         ]
       ],
       country: [null, [Validators.required]],

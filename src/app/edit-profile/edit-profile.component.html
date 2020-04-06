@@ -3,13 +3,10 @@
   <!-- Left section -->
   <div class="left-section">
     <!-- profile  -->
-    <form (ngSubmit)="about()" [formGroup]="aboutForm">
+    <form [formGroup]="aboutForm">
       <div class="block-design">
         <div class="profile-section">
-          <img
-            src="{{ environment.mediaUrl }}{{ profile?.avatar_url }}"
-            alt="profile-icon"
-          />
+          <img src="{{ profile?.avatar_url }}" alt="profile-icon" />
           <h3 *ngIf="member_type === 'player'">
             {{ profile?.first_name }} {{ profile?.last_name }}
           </h3>
@@ -33,7 +30,7 @@
                 (change)="uploadAvatar($event.target.files)"
               />
             </label>
-            <button class="btn delete">
+            <button class="btn delete" (click)="removeAvatar()">
               <span>
                 <i-feather name="trash-2" class="icon-size"></i-feather>
               </span>
@@ -58,7 +55,7 @@
           ></textarea>
         </div>
         <div class="block-bottom">
-          <button>Save</button>
+          <button (click)="about()">Save</button>
         </div>
       </div>
     </form>
@@ -356,6 +353,40 @@
                   translate
                   >Phone Number is required</span
                 >
+              </mat-error>
+              <ng-template #lengthBlock >
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    editProfileForm.controls.phone.errors.minlength
+                  "
+                >
+                  Please provide number upto
+                  {{
+                    editProfileForm.controls.phone.errors.minlength
+                      .requiredLength
+                  }}
+                  digits
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    editProfileForm.controls.phone.errors.maxlength
+                  "
+                >
+                  Please provide number upto
+                  {{
+                    editProfileForm.controls.phone.errors.maxlength
+                      .requiredLength
+                  }}
+                  digits
+                </mat-error>
+              </ng-template>
+              <mat-error
+                class="error-text"
+                *ngIf="editProfileForm.controls.phone.errors.pattern; else lengthBlock" 
+              >
+              Phone Number format is invalid
               </mat-error>
             </div>
 
@@ -749,22 +780,30 @@
                     translate
                     >Phone number is required</span
                   >
-                  <span *ngIf="editProfileForm.controls.phone.errors.minlength">
-                    Please provide number upto
-                    {{
-                      editProfileForm.controls.phone.errors.minlength
-                        .requiredLength
-                    }}
-                    digits
-                  </span>
-                  <span *ngIf="editProfileForm.controls.phone.errors.maxlength">
-                    Please provide number under
-                    {{
-                      editProfileForm.controls.phone.errors.maxlength
-                        .requiredLength
-                    }}
-                    digits
-                  </span>
+                  <ng-template #lengthBlock >
+                    <span *ngIf="editProfileForm.controls.phone.errors.minlength">
+                      Please provide number upto
+                      {{
+                        editProfileForm.controls.phone.errors.minlength
+                          .requiredLength
+                      }}
+                      digits
+                    </span>
+                    <span *ngIf="editProfileForm.controls.phone.errors.maxlength">
+                      Please provide number upto
+                      {{
+                        editProfileForm.controls.phone.errors.maxlength
+                          .requiredLength
+                      }}
+                      digits
+                    </span>
+                  </ng-template>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="editProfileForm.controls.phone.errors.pattern; else lengthBlock"
+                  >
+                    Phone Number format is invalid
+                  </mat-error>
                 </mat-error>
               </div>
 
@@ -1094,7 +1133,7 @@
 
       <!-- bottom -->
       <div class="block-bottom">
-        <a (click)="onCancel()" >Cancel</a>
+        <a (click)="resetForm()">Cancel</a>
         <button class="btn">Save Changes</button>
       </div>
     </form>
