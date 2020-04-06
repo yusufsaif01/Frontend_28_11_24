@@ -9,8 +9,9 @@
     <ul>
       <li *ngFor="let item of sidebarList" routerLinkActive="active">
         <a [routerLink]="item.link">
-          <!-- <img [src]="item.imagePath" [alt]="item.name" /> -->
-          <mat-icon svgIcon="dashboard"></mat-icon>
+          <span class="custom-icons">
+            <mat-icon [svgIcon]="item.imagePath"></mat-icon>
+          </span>
           {{ item.name }}
         </a>
       </li>

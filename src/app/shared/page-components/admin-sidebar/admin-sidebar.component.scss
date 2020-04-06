@@ -68,14 +68,23 @@
             left: 3.3rem;
             top: 50%;
             transform: translateY(-50%);
-            -webkit-filter: grayscale(100%);
-            filter: grayscale(100%);
+          }
+          span::ng-deep {
+            .mat-icon {
+              width: 2.5rem;
+              position: absolute;
+              left: 3.3rem;
+              top: 43%;
+              transform: translateY(-50%);
+              fill: $blue;
+              stroke: $blue;
+            }
           }
           font-size: 2rem;
           color: #66788a;
           font-weight: 600;
           line-height: 6rem;
-          padding-left: 4rem;
+          padding-left: 7rem;
           padding-right: 0.5rem;
           position: relative;
           display: inline-block;

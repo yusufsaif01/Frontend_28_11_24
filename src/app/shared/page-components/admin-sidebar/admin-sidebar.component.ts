@@ -13,56 +13,56 @@ export class AdminSidebarComponent implements OnInit {
     {
       link: './dashboard',
       name: 'Dashboard',
-      imagePath: 'assets/images/icons/sidebar/dashboard.svg'
+      imagePath: 'dashboard'
     },
     {
       link: './courses',
       name: 'Member Management',
-      imagePath: 'assets/images/icons/sidebar/member.svg'
+      imagePath: 'member'
     },
 
     {
       link: './courses',
       name: 'Manage Player',
-      imagePath: 'assets/images/icons/sidebar/player.svg'
+      imagePath: 'manage-player'
     },
 
     {
       link: './courses',
       name: 'Manage Clubs',
-      imagePath: 'assets/images/icons/sidebar/club.svg'
+      imagePath: 'manage-club'
     },
 
     {
       link: './courses',
       name: 'Manage Academy',
-      imagePath: 'assets/images/icons/sidebar/academy.svg'
+      imagePath: 'manage-academy'
     },
 
     {
       link: './courses',
       name: 'Manage User',
-      imagePath: 'assets/images/icons/sidebar/manage-user.svg'
+      imagePath: 'manage-user'
     },
     {
       link: './courses',
       name: 'Master Data',
-      imagePath: 'assets/images/icons/sidebar/master-data.svg'
+      imagePath: 'master-data'
     },
     {
       link: './courses',
       name: 'Manage Contracts',
-      imagePath: 'assets/images/icons/sidebar/manage-contract.svg'
+      imagePath: 'manage-contracts'
     },
     {
       link: './events',
       name: 'Manage Subscription',
-      imagePath: 'assets/images/icons/sidebar/manage-subscription.svg'
+      imagePath: 'manage-subscription'
     },
     {
       link: './reports',
       name: 'Manage Reports',
-      imagePath: 'assets/images/icons/sidebar/manage-reports.svg'
+      imagePath: 'manage-report'
     }
   ];
 
@@ -78,60 +78,66 @@ export class AdminSidebarComponent implements OnInit {
         this.environment.mediaUrl + '/assets/images/icons/sidebar/dashboard.svg'
       )
     );
-    // this.matIconRegistry.addSvgIcon(
-    //   'member',
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl(
-    //     '/assets/images/icons/sidebar/member.svg'
-    //   )
-    // );
-    // this.matIconRegistry.addSvgIcon(
-    //   'manage-player',
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl(
-    //     '/assets/images/icons/sidebar/player.svg'
-    //   )
-    // );
-    // this.matIconRegistry.addSvgIcon(
-    //   'manage-club',
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl(
-    //     '/assets/images/icons/sidebar/club.svg'
-    //   )
-    // );
-    // this.matIconRegistry.addSvgIcon(
-    //   'manage-academy',
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl(
-    //     '/assets/images/icons/sidebar/academy.svg'
-    //   )
-    // );
-    // this.matIconRegistry.addSvgIcon(
-    //   'manage-user',
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl(
-    //     '/assets/images/icons/sidebar/manage-user.svg'
-    //   )
-    // );
-    // this.matIconRegistry.addSvgIcon(
-    //   'master-data',
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl(
-    //     '/assets/images/icons/sidebar/master-data.svg'
-    //   )
-    // );
-    // this.matIconRegistry.addSvgIcon(
-    //   'manage-contracts',
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl(
-    //     '/assets/images/icons/sidebar/manage-contract.svg'
-    //   )
-    // );
-    // this.matIconRegistry.addSvgIcon(
-    //   'manage-subscription',
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl(
-    //     '/assets/images/icons/sidebar/manage-subscription.svg'
-    //   )
-    // );
-    // this.matIconRegistry.addSvgIcon(
-    //   'manage-reports',
-    //   this.domSanitizer.bypassSecurityTrustResourceUrl(
-    //     'assets/images/icons/sidebar/manage-reports.svg'
-    //   )
-    // );
+    this.matIconRegistry.addSvgIcon(
+      'member',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.environment.mediaUrl + '/assets/images/icons/sidebar/member.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'manage-player',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.environment.mediaUrl + '/assets/images/icons/sidebar/player.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'manage-club',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.environment.mediaUrl + '/assets/images/icons/sidebar/club.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'manage-academy',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.environment.mediaUrl + '/assets/images/icons/sidebar/academy.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'manage-user',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.environment.mediaUrl +
+          '/assets/images/icons/sidebar/manage-user.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'master-data',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.environment.mediaUrl +
+          '/assets/images/icons/sidebar/master-data.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'manage-contracts',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.environment.mediaUrl +
+          '/assets/images/icons/sidebar/manage-contract.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'manage-subscription',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.environment.mediaUrl +
+          '/assets/images/icons/sidebar/manage-subscription.svg'
+      )
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'manage-report',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.environment.mediaUrl +
+          'assets/images/icons/sidebar/manage-reports.svg'
+      )
+    );
   }
 
   ngOnInit() {}

@@ -16,5 +16,8 @@ footer {
   a {
     color: $color-primary;
     text-decoration: none;
+    .mat-icon {
+      fill: $blue !important;
+    }
   }
 }
