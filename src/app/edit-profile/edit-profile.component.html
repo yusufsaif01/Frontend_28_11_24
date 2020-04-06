@@ -3,7 +3,7 @@
   <!-- Left section -->
   <div class="left-section">
     <!-- profile  -->
-    <form (ngSubmit)="about()" [formGroup]="aboutForm">
+    <form [formGroup]="aboutForm">
       <div class="block-design">
         <div class="profile-section">
           <img src="{{ profile?.avatar_url }}" alt="profile-icon" />
@@ -55,7 +55,7 @@
           ></textarea>
         </div>
         <div class="block-bottom">
-          <button>Save</button>
+          <button (click)="about()">Save</button>
         </div>
       </div>
     </form>

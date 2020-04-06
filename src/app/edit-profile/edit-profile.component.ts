@@ -322,9 +322,10 @@ export class EditProfileComponent implements OnInit {
 
     if (this.member_type === 'player') {
       if (this.player_type === 'grassroot' || this.player_type === 'amateur') {
-        requestData.set('aadhar', this.aadhar);
+        if (this.aadhar) requestData.set('aadhar', this.aadhar);
       } else if (this.player_type === 'professional') {
-        requestData.set('employment_contract', this.employment_contract);
+        if (this.employment_contract)
+          requestData.set('employment_contract', this.employment_contract);
       }
       requestData.set(
         'position',
