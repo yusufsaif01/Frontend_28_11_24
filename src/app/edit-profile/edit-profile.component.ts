@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { AuthenticationService } from '../core/authentication/authentication.service';
 import { ToastrService } from 'ngx-toastr';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { environment } from '../../environments/environment';
 
 interface trophyObject {
   name: string;
@@ -33,6 +33,7 @@ interface positionObject {
 export class EditProfileComponent implements OnInit {
   // member_type = 'academy';
   // player_type = "grassroot";
+  environment = environment;
   avatar: File;
   document: File;
   aadhar: File;
@@ -308,21 +309,21 @@ export class EditProfileComponent implements OnInit {
 
   editProfile() {
     let requestData = this.toFormData(this.editProfileForm.value);
-    requestData.append('dob', this.editProfileForm.get('dob').value);
+    requestData.set('dob', this.editProfileForm.get('dob').value);
     console.log(this.editProfileForm.get('position').value);
 
     if (this.member_type === 'player') {
       if (this.player_type === 'grassroot' || this.player_type === 'amateur') {
-        requestData.append('aadhar', this.aadhar);
+        requestData.set('aadhar', this.aadhar);
       } else if (this.player_type === 'professional') {
-        requestData.append('employment_contract', this.employment_contract);
+        requestData.set('employment_contract', this.employment_contract);
       }
       requestData.set(
         'position',
         JSON.stringify(this.editProfileForm.get('position').value)
       );
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
-      requestData.append('document', this.document);
+      requestData.set('document', this.document);
       requestData.set(
         'contact_person',
         JSON.stringify(this.editProfileForm.get('contact_person').value)
@@ -393,7 +394,7 @@ export class EditProfileComponent implements OnInit {
   }
   about() {
     let requestData = this.toFormData(this.aboutForm.value);
-    requestData.append('avatar', this.avatar);
+    requestData.set('avatar', this.avatar);
 
     this._authenticationService.updateBio(requestData).subscribe(
       res => {
@@ -553,7 +554,7 @@ export class EditProfileComponent implements OnInit {
       contact_person: this.profile.contact_person,
       trophies: this.profile.trophies,
       associated_players: this.profile.associated_players,
-      former_club: this.profile.former_club,
+      former_club: this.profile.former_club ? this.profile.former_club : '',
       school:
         this.profile.institute && this.profile.institute.school
           ? this.profile.institute.school
