@@ -3,10 +3,10 @@
   <!-- Left section -->
   <div class="left-section">
     <!-- profile  -->
-    <form (ngSubmit)="about()" [formGroup]="aboutForm">
+    <form [formGroup]="aboutForm">
       <div class="block-design">
         <div class="profile-section">
-          <img src="assets/images/profile-icon.png" alt="profile-icon" />
+          <img src="{{ profile?.avatar_url }}" alt="profile-icon" />
           <h3 *ngIf="member_type === 'player'">
             {{ profile?.first_name }} {{ profile?.last_name }}
           </h3>
@@ -24,13 +24,13 @@
               </span>
               <input
                 type="file"
-                matinput
                 name="add-image"
                 id="add-image"
-                (change)="uploadAvatar($event)"
+                formControlName="avatar"
+                (change)="uploadAvatar($event.target.files)"
               />
             </label>
-            <button class="btn delete">
+            <button class="btn delete" (click)="removeAvatar()">
               <span>
                 <i-feather name="trash-2" class="icon-size"></i-feather>
               </span>
@@ -55,7 +55,7 @@
           ></textarea>
         </div>
         <div class="block-bottom">
-          <button>Save</button>
+          <button (click)="about()">Save</button>
         </div>
       </div>
     </form>
@@ -258,12 +258,9 @@
               <select formControlName="country" matNativeControl required>
                 <option value="">Select Nationality</option>
                 <ng-container *ngFor="let country of sampleCountryArray">
-                  <option
-                    value="{{ country.value }}"
-                    [selected]="country.value === profile.nationality"
-                  >
-                    {{ country.name }}</option
-                  >
+                  <option value="{{ country.value }}">{{
+                    country.name
+                  }}</option>
                 </ng-container>
               </select>
               <mat-error
@@ -286,11 +283,7 @@
               <select formControlName="state" matNativeControl required>
                 <option value="">Select State</option>
                 <ng-container *ngFor="let state of sampleStateArray">
-                  <option
-                    value="{{ state.value }}"
-                    [selected]="state.value === profile.state"
-                    >{{ state.name }}</option
-                  >
+                  <option value="{{ state.value }}">{{ state.name }}</option>
                 </ng-container>
               </select>
 
@@ -314,11 +307,7 @@
               <select formControlName="city" matNativeControl required>
                 <option value="">Select City</option>
                 <ng-container *ngFor="let city of sampleCityArray">
-                  <option
-                    value="{{ city.value }}"
-                    [selected]="city.value === profile.city"
-                    >{{ city.name }}</option
-                  >
+                  <option value="{{ city.value }}">{{ city.name }}</option>
                 </ng-container>
               </select>
 
@@ -395,10 +384,9 @@
             <div class="from-block">
               <label>Upload Adhaar <span>*</span></label>
               <input
-                formControlName="player_upload_aadhar"
-                (change)="uploadAadhar($event)"
+                formControlName="aadhar"
+                (change)="uploadAadhar($event.target.files)"
                 type="file"
-                matinput
                 accept="image/*,.pdf"
               />
             </div>
@@ -407,9 +395,9 @@
             <div class="from-block" *ngIf="player_type === 'professional'">
               <label>Employment Contract <span>*</span></label>
               <input
-                formControlName="player_employment_contract"
+                formControlName="employment_contract"
+                (change)="uploadEmploymentContract($event.target.files)"
                 type="file"
-                matinput
               />
             </div>
           </div>
@@ -463,11 +451,7 @@
               <select formControlName="strong_foot" matNativeControl required>
                 <option value="">Select Strong Foot</option>
                 <ng-container *ngFor="let foot of strongFootArray">
-                  <option
-                    value="{{ foot.value }}"
-                    [selected]="profile.strong_foot"
-                    >{{ foot.name }}</option
-                  >
+                  <option value="{{ foot.value }}">{{ foot.name }}</option>
                 </ng-container>
               </select>
               <mat-error
@@ -561,6 +545,20 @@
             >
               <label>Head coach phone number <span>*</span></label>
               <input formControlName="head_coach_phone" type="text" matInput />
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.head_coach_phonenvalid &&
+                  editProfileForm.controls.head_coach_phone.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    editProfileForm.controls.head_coach_phone.errors.required
+                  "
+                  translate
+                  >Head Coach Phone is required</span
+                >
+              </mat-error>
             </div>
 
             <!-- Head coach email number -->
@@ -570,13 +568,27 @@
             >
               <label>Head coach email <span>*</span></label>
               <input formControlName="head_coach_email" type="text" matInput />
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.head_coach_emailnvalid &&
+                  editProfileForm.controls.head_coach_email.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    editProfileForm.controls.head_coach_email.errors.required
+                  "
+                  translate
+                  >Head Coach Email is required</span
+                >
+              </mat-error>
             </div>
 
             <!-- former Club -->
             <ng-container *ngIf="player_type !== 'grassroot'">
               <div class="from-block">
                 <label>Former Club (optional, if any)</label>
-                <input formControlName="former_club" type="text" matinput />
+                <input formControlName="former_club" type="text" matInput />
               </div>
             </ng-container>
           </div>
@@ -848,9 +860,8 @@
                 >
                 <input
                   type="file"
-                  matinput
                   formControlName="document"
-                  (change)="uploadDocument($event)"
+                  (change)="uploadDocument($event.target.files)"
                   accept="image/*,.pdf"
                 />
               </div>
@@ -1080,7 +1091,7 @@
 
       <!-- bottom -->
       <div class="block-bottom">
-        <!-- <a>Cancel</a> -->
+        <a (click)="resetForm()">Cancel</a>
         <button class="btn">Save Changes</button>
       </div>
     </form>
