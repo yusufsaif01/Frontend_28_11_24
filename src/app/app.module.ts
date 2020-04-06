@@ -51,6 +51,7 @@ import {
   Clock,
   Star
 } from 'angular-feather/icons';
+import { AdminViewComponent } from './admin/admin-view/admin-view.component';
 
 const icons = {
   Camera,
@@ -113,7 +114,8 @@ const icons = {
     EditProfileComponent,
     ChangePasswordComponent,
     CreatePasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    AdminViewComponent
     // , HomeComponent
   ],
   providers: [
