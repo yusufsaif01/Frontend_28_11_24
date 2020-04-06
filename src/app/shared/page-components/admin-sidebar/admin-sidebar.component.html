@@ -7,12 +7,84 @@
   </div>
   <div class="sidebar__menu">
     <ul>
-      <li *ngFor="let item of sidebarList" routerLinkActive="active">
-        <a [routerLink]="item.link">
+      <li routerLinkActive="active">
+        <a>
           <span class="custom-icons">
-            <mat-icon [svgIcon]="item.imagePath"></mat-icon>
+            <mat-icon svgIcon="dashboard"></mat-icon> </span
+          >Dashboard
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a (click)="changeDropdown()" class="arrow">
+          <img src="asset/images/icons/sidebar/down-arrow.svg" alt="" />
+          <span class=" custom-icons">
+            <mat-icon svgIcon="member"></mat-icon>
           </span>
-          {{ item.name }}
+          Member Management
+        </a>
+        <div class="dropdown" [hidden]="this.isActive">
+          <ul>
+            <li>
+              <a href="#">
+                <span class="custom-icons">
+                  <mat-icon svgIcon="manage-player"></mat-icon>
+                </span>
+                Manage Player
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="custom-icons">
+                  <mat-icon svgIcon="manage-club"></mat-icon>
+                </span>
+                Manage Club</a
+              >
+            </li>
+            <li>
+              <a href="#">
+                <span class="custom-icons">
+                  <mat-icon svgIcon="manage-academy"></mat-icon>
+                </span>
+                Manage Acadmey</a
+              >
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li routerLinkActive="active">
+        <a>
+          <span class="custom-icons">
+            <mat-icon svgIcon="manage-user"></mat-icon> </span
+          >Manage User
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a>
+          <span class="custom-icons">
+            <mat-icon svgIcon="master-data"></mat-icon> </span
+          >Master Data
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a>
+          <span class="custom-icons">
+            <mat-icon svgIcon="manage-contracts"></mat-icon>
+          </span>
+          Manage Contracts
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a>
+          <span class="custom-icons">
+            <mat-icon svgIcon="manage-subscription"></mat-icon> </span
+          >Manage Subscription
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a>
+          <span class="custom-icons">
+            <mat-icon svgIcon="manage-report"></mat-icon> </span
+          >Manage Reports
         </a>
       </li>
     </ul>

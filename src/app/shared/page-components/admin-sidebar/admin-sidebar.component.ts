@@ -9,6 +9,8 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./admin-sidebar.component.scss']
 })
 export class AdminSidebarComponent implements OnInit {
+  public isActive: boolean = true;
+
   sidebarList: { link: string; name: string; imagePath: string }[] = [
     {
       link: './dashboard',
@@ -141,4 +143,12 @@ export class AdminSidebarComponent implements OnInit {
   }
 
   ngOnInit() {}
+  changeDropdown() {
+    console.log('fgd');
+    if (this.isActive) {
+      this.isActive = false;
+    } else {
+      this.isActive = true;
+    }
+  }
 }
