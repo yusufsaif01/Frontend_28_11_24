@@ -93,6 +93,7 @@ body {
           border: 1px solid $border-color;
           border-radius: 0.5rem;
           padding: 1rem;
+          resize: none;
         }
       }
       .block-middle {
@@ -111,6 +112,7 @@ body {
           border: 1px solid $border-color;
           border-radius: 0.5rem;
           padding: 1rem;
+          resize: none;
         }
         .social-link {
           margin-bottom: 1rem;
@@ -395,6 +397,8 @@ body {
         display: inline-block;
         margin: 4rem 0;
         padding: 2rem 3rem;
+        text-decoration: none;
+        cursor: pointer;
       }
       button {
         @include btn-primary;

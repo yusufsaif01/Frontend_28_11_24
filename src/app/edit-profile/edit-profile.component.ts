@@ -258,6 +258,10 @@ export class EditProfileComponent implements OnInit {
     );
   }
 
+  resetForm() {
+    this.editProfileForm.reset();
+  }
+
   setPlayerCategoryValidators() {
     if (this.member_type === 'player') {
       // const univeristyNameControl = this.editProfileForm.get(
@@ -322,9 +326,10 @@ export class EditProfileComponent implements OnInit {
 
     if (this.member_type === 'player') {
       if (this.player_type === 'grassroot' || this.player_type === 'amateur') {
-        requestData.set('aadhar', this.aadhar);
+        if (this.aadhar) requestData.set('aadhar', this.aadhar);
       } else if (this.player_type === 'professional') {
-        requestData.set('employment_contract', this.employment_contract);
+        if (this.employment_contract)
+          requestData.set('employment_contract', this.employment_contract);
       }
       requestData.set(
         'position',
@@ -378,6 +383,25 @@ export class EditProfileComponent implements OnInit {
 
   uploadEmploymentContract(files: FileList) {
     this.employment_contract = files[0];
+  }
+
+  removeAvatar() {
+    this._authenticationService.removeAvatar().subscribe(
+      res => {
+        console.log('response', res);
+        this._toastrService.success(
+          'Successful',
+          'Avatar removed successfully'
+        );
+      },
+      err => {
+        console.log('err', err);
+        this._toastrService.error(
+          'Error',
+          'An error occured while removing avatar'
+        );
+      }
+    );
   }
 
   socialProfile() {

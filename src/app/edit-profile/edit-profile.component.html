@@ -3,7 +3,7 @@
   <!-- Left section -->
   <div class="left-section">
     <!-- profile  -->
-    <form (ngSubmit)="about()" [formGroup]="aboutForm">
+    <form [formGroup]="aboutForm">
       <div class="block-design">
         <div class="profile-section">
           <img src="{{ profile?.avatar_url }}" alt="profile-icon" />
@@ -30,7 +30,7 @@
                 (change)="uploadAvatar($event.target.files)"
               />
             </label>
-            <button class="btn delete">
+            <button class="btn delete" (click)="removeAvatar()">
               <span>
                 <i-feather name="trash-2" class="icon-size"></i-feather>
               </span>
@@ -55,7 +55,7 @@
           ></textarea>
         </div>
         <div class="block-bottom">
-          <button>Save</button>
+          <button (click)="about()">Save</button>
         </div>
       </div>
     </form>
@@ -1091,7 +1091,7 @@
 
       <!-- bottom -->
       <div class="block-bottom">
-        <!-- <a>Cancel</a> -->
+        <a (click)="resetForm()">Cancel</a>
         <button class="btn">Save Changes</button>
       </div>
     </form>
