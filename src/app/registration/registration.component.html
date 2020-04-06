@@ -49,15 +49,13 @@
                 matInput
                 required
               />
-              <ng-container
-                *ngIf="isFocused(playerRegisterationForm, 'first_name')"
-              >
-                <span
+              <ng-container *ngIf="isFocused(playerRegisterationForm, 'first_name')">
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(playerRegisterationForm, 'first_name')"
                 >
-                  First Name is required</span
-                >
+                  First Name is required
+                </mat-error>
               </ng-container>
             </div>
 
@@ -71,14 +69,13 @@
                 matInput
                 required
               />
-              <ng-container
-                *ngIf="isFocused(playerRegisterationForm, 'last_name')"
-              >
-                <span
+              <ng-container *ngIf="isFocused(playerRegisterationForm, 'last_name')">
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(playerRegisterationForm, 'last_name')"
-                  >Last Name is required</span
                 >
+                  Last Name is required
+                </mat-error>
               </ng-container>
             </div>
           </div>
@@ -91,16 +88,18 @@
               <label>Email</label>
               <input formControlName="email" type="text" matInput />
               <ng-container *ngIf="isFocused(playerRegisterationForm, 'email')">
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(playerRegisterationForm, 'email')"
-                  >Email is required</span
                 >
-                <span
+                  Email is required
+                </mat-error>
+                <mat-error
                   class="error-text"
                   *ngIf="playerRegisterationForm.controls.email.errors.email"
-                  >Email format is Invalid</span
                 >
+                  Email format is Invalid
+                </mat-error>
               </ng-container>
             </div>
 
@@ -110,12 +109,13 @@
               <label>Contact Number</label>
               <input formControlName="phone" type="text" matInput />
               <ng-container *ngIf="isFocused(playerRegisterationForm, 'phone')">
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(playerRegisterationForm, 'phone')"
-                  >Contact Number is required</span
                 >
-                <span
+                  Contact Number is required
+                </mat-error>
+                <mat-error
                   class="error-text"
                   *ngIf="
                     playerRegisterationForm.controls.phone.errors.minlength
@@ -127,8 +127,8 @@
                       .requiredLength
                   }}
                   digits
-                </span>
-                <span
+                </mat-error>
+                <mat-error
                   class="error-text"
                   *ngIf="
                     playerRegisterationForm.controls.phone.errors.maxlength
@@ -140,7 +140,7 @@
                       .requiredLength
                   }}
                   digits
-                </span>
+                </mat-error>
               </ng-container>
             </div>
           </div>
@@ -160,11 +160,12 @@
               <ng-container
                 *ngIf="isFocused(playerRegisterationForm, 'country')"
               >
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(playerRegisterationForm, 'country')"
-                  >Country is required</span
                 >
+                  Country is required
+                </mat-error>
               </ng-container>
             </div>
 
@@ -178,11 +179,12 @@
                 <option value="mp">M.P</option>
               </select>
               <ng-container *ngIf="isFocused(playerRegisterationForm, 'state')">
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(playerRegisterationForm, 'state')"
-                  >State is required</span
                 >
+                  State is required
+                </mat-error>
               </ng-container>
             </div>
           </div>
@@ -233,11 +235,12 @@
               <label>Club Name</label>
               <input formControlName="name" type="text" matInput />
               <ng-container *ngIf="isFocused(clubRegisterationForm, 'name')">
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(clubRegisterationForm, 'name')"
-                  >Club Name is required</span
                 >
+                  Club Name is required
+                </mat-error>
               </ng-container>
             </div>
           </div>
@@ -250,16 +253,18 @@
               <label>Email</label>
               <input formControlName="email" type="text" matInput />
               <ng-container *ngIf="isFocused(clubRegisterationForm, 'email')">
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(clubRegisterationForm, 'email')"
-                  >Email is required</span
                 >
-                <span
+                  Email is required
+                </mat-error>
+                <mat-error
                   class="error-text"
                   *ngIf="clubRegisterationForm.controls.email.errors.email"
-                  >Email format is Invalid</span
                 >
+                  Email format is Invalid
+                </mat-error>
               </ng-container>
             </div>
 
@@ -269,12 +274,13 @@
               <label>Contact Number</label>
               <input formControlName="phone" type="text" matInput />
               <ng-container *ngIf="isFocused(clubRegisterationForm, 'phone')">
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(clubRegisterationForm, 'phone')"
-                  >Contact Number is required</span
                 >
-                <span
+                  Contact Number is required
+                </mat-error>
+                <mat-error
                   class="error-text"
                   *ngIf="clubRegisterationForm.controls.phone.errors.minlength"
                 >
@@ -284,8 +290,8 @@
                       .requiredLength
                   }}
                   digits
-                </span>
-                <span
+                </mat-error>
+                <mat-error
                   class="error-text"
                   *ngIf="clubRegisterationForm.controls.phone.errors.maxlength"
                 >
@@ -295,7 +301,7 @@
                       .requiredLength
                   }}
                   digits
-                </span>
+                </mat-error>
               </ng-container>
             </div>
           </div>
@@ -312,11 +318,12 @@
                 <option value="australia">Australia</option>
               </select>
               <ng-container *ngIf="isFocused(clubRegisterationForm, 'country')">
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(clubRegisterationForm, 'country')"
-                  >Country is required</span
                 >
+                  Country is required
+                </mat-error>
               </ng-container>
             </div>
 
@@ -330,11 +337,12 @@
                 <option value="mp">M.P</option>
               </select>
               <ng-container *ngIf="isFocused(clubRegisterationForm, 'state')">
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(clubRegisterationForm, 'state')"
-                  >State is required</span
                 >
+                  State is required
+                </mat-error>
               </ng-container>
             </div>
           </div>
@@ -384,11 +392,12 @@
               <label>Academy Name</label>
               <input formControlName="name" type="text" matInput required />
               <ng-container *ngIf="isFocused(academyRegisterationForm, 'name')">
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(academyRegisterationForm, 'name')"
-                  >Academy Name is required</span
                 >
+                  Academy Name is required
+                </mat-error >
               </ng-container>
             </div>
           </div>
@@ -403,15 +412,15 @@
               <ng-container
                 *ngIf="isFocused(academyRegisterationForm, 'email')"
               >
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(academyRegisterationForm, 'email')"
-                  >Email is required</span
+                  >Email is required</mat-error
                 >
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="academyRegisterationForm.controls.email.errors.email"
-                  >Email format is Invalid</span
+                  >Email format is Invalid</mat-error
                 >
               </ng-container>
             </div>
@@ -424,12 +433,12 @@
               <ng-container
                 *ngIf="isFocused(academyRegisterationForm, 'phone')"
               >
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(academyRegisterationForm, 'phone')"
-                  >Contact Number is required</span
+                  >Contact Number is required</mat-error
                 >
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="
                     academyRegisterationForm.controls.phone.errors.minlength
@@ -441,8 +450,8 @@
                       .requiredLength
                   }}
                   digits
-                </span>
-                <span
+                </mat-error>
+                <mat-error
                   class="error-text"
                   *ngIf="
                     academyRegisterationForm.controls.phone.errors.maxlength
@@ -454,7 +463,7 @@
                       .requiredLength
                   }}
                   digits
-                </span>
+                </mat-error>
               </ng-container>
             </div>
           </div>
@@ -473,10 +482,10 @@
               <ng-container
                 *ngIf="isFocused(academyRegisterationForm, 'country')"
               >
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(academyRegisterationForm, 'country')"
-                  >Country is required</span
+                  >Country is required</mat-error
                 >
               </ng-container>
             </div>
@@ -500,10 +509,10 @@
               <ng-container
                 *ngIf="isFocused(academyRegisterationForm, 'state')"
               >
-                <span
+                <mat-error
                   class="error-text"
                   *ngIf="isRequired(academyRegisterationForm, 'state')"
-                  >State is required</span
+                  >State is required</mat-error
                 >
               </ng-container>
             </div>
