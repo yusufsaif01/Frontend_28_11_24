@@ -13,7 +13,7 @@ import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 // import { HomeModule } from './home/home.module';
 // import { ShellModule } from './shell/shell.module';
-import { LoginModule } from './login/login.module';
+import { LoginModule } from './core/authentication/login/login.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
@@ -24,13 +24,15 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 // import { FrontendModule } from './frontend/frontend.module';
 import { ToastrModule } from 'ngx-toastr';
 import { RegistrationComponent } from './registration/registration.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './core/authentication/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './core/authentication/reset-password/reset-password.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { CreatePasswordComponent } from './create-password/create-password.component';
+import { CreatePasswordComponent } from './core/authentication/create-password/create-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FeatherModule } from 'angular-feather';
+import { AdminViewComponent } from './admin/admin-view/admin-view.component';
+
 import {
   Camera,
   Heart,
@@ -51,8 +53,7 @@ import {
   Clock,
   Star
 } from 'angular-feather/icons';
-import { AdminViewComponent } from './admin/admin-view/admin-view.component';
-
+import { from } from 'rxjs';
 const icons = {
   Camera,
   Heart,

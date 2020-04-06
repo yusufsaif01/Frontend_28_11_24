@@ -7,24 +7,25 @@
   &__avatar {
     text-align: center;
     padding: 2.4rem 0rem 1.1rem 0rem;
-    margin: 0 1.6rem;
+    margin: 0rem 1.6rem;
+    margin-bottom: 2rem;
     img {
-      height: 10rem;
-      width: 10rem;
+      height: 13rem;
+      width: 13rem;
       border-radius: 5rem;
       background-color: $color-white;
       border: 0.4rem solid $color-white;
     }
     .name {
-      font-size: 1.6rem;
+      font-size: 3rem;
       color: #3a3b3f;
       font-weight: 600;
       line-height: 1;
-      margin-bottom: 0.6rem;
+      margin-bottom: 1rem;
       margin-top: 1.6rem;
     }
     .designation {
-      font-size: 1.2rem;
+      font-size: 2rem;
       color: #848484;
       font-weight: 500;
       line-height: 1;
@@ -50,7 +51,7 @@
             font-style: normal;
             font-weight: 500;
             font-size: 1.3rem;
-            padding-left: 3.3rem;
+            padding-left: 4.5rem;
             margin-bottom: 0.8rem;
             display: block;
           }
@@ -61,7 +62,7 @@
         margin-right: -1.6rem;
         a {
           img {
-            width: 2rem;
+            width: 3rem;
             position: absolute;
             left: 3.3rem;
             top: 50%;
@@ -69,16 +70,15 @@
             -webkit-filter: grayscale(100%);
             filter: grayscale(100%);
           }
-          font-size: 1.4rem;
+          font-size: 2rem;
           color: #66788a;
           font-weight: 600;
-          line-height: 4.6rem;
-          padding-left: 6.4rem;
+          line-height: 6rem;
+          padding-left: 8rem;
           padding-right: 0.5rem;
           position: relative;
           display: inline-block;
           width: 100%;
-          border-left: 0.4rem solid $color-white;
           text-decoration: none;
           white-space: nowrap;
           overflow: hidden;
@@ -88,9 +88,8 @@
         &.active,
         &:hover {
           a {
-            color: #212529;
-            background: rgba($color-primary, 0.1);
-            border-left: 0.4rem solid $color-primary;
+            color: $color-white;
+            background: rgba($blue, 1);
             transition: all 0.5s;
             img {
               -webkit-filter: grayscale(0);

@@ -52,7 +52,7 @@
       <div class="block-middle">
         <div class="content">
           <p>
-            {{ profile.about }}
+            {{ profile.bio }}
           </p>
         </div>
       </div>
@@ -66,16 +66,19 @@
         </div>
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Date of Birth :</span> {{ profile.dob }}</p>
+            <p><span>Date of Birth :</span> {{ profile.dob | date }}</p>
           </div>
           <div class="half">
-            <p><span>Height :</span> {{ profile.height }}</p>
+            <p>
+              <span>Height :</span> {{ profile.height?.feet }}
+              {{ profile.height?.inches }}
+            </p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Weight :</span> {{ profile.weight }}</p>
+            <p><span>Weight :</span> {{ profile?.weight }}</p>
           </div>
           <div class="half">
             <p><span>Nationality :</span> {{ profile.country }}</p>
@@ -346,13 +349,26 @@
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>League : </span>{{ profile.leagues }}</p>
+            <p><span>League : </span>{{ profile?.league }}</p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>Top Signing : </span>{{ profile.top_signings }}</p>
+            <p><span>League (Other) : </span>{{ profile?.league_other }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Top Signing : </span>
+              <ng-container *ngIf="profile.top_signings">
+                <ng-container *ngFor="let signings of profile.top_signings">
+                  {{ signings.name }}
+                </ng-container>
+              </ng-container>
+            </p>
           </div>
         </div>
       </div>

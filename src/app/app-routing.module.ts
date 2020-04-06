@@ -6,11 +6,11 @@ import {
 } from '@angular/router';
 import { extract } from '@app/core';
 import { RegistrationComponent } from './registration/registration.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './core/authentication/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './core/authentication/reset-password/reset-password.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { CreatePasswordComponent } from './create-password/create-password.component';
+import { CreatePasswordComponent } from './core/authentication/create-password/create-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminViewComponent } from './admin/admin-view/admin-view.component';
 const routes: Routes = [
@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: './login/login.module#LoginModule'
+    loadChildren: './core/authentication/login/login.module#LoginModule'
   },
   {
     path: 'forgot-password',
