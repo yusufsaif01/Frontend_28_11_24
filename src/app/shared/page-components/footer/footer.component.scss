@@ -1,16 +1,18 @@
 @import "src/assets/sass/abstracts/variables";
 footer {
-  font-size: 1.5rem;
-  line-height: 10.6rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: block;
+  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 1.8rem;
+  line-height: 5rem;
   color: #66788a;
   font-family: "Muli";
-  font-weight: 500;
-  background-image: radial-gradient(
-    circle at center,
-    rgba(lighten($color-primary, 15), 0.2) 0%,
-    rgba(lighten($color-primary, 16), 0.2) 100%
-  );
-  padding: 0 1rem 0 34.1rem;
+  font-weight: 700;
+  padding: 1rem 0;
+  background: $color-white;
   a {
     color: $color-primary;
     text-decoration: none;
