@@ -379,6 +379,22 @@ export class EditProfileComponent implements OnInit {
 
   uploadAvatar(files: FileList) {
     this.avatar = files[0];
+    const requestData = new FormData();
+    requestData.set('avatar',this.avatar);
+
+    this._authenticationService.updateBio(requestData).subscribe(
+      res => {
+        console.log('response', res);
+        this._toastrService.success('Successful', 'Profile pic updated successfully');
+      },
+      err => {
+        console.log('err', err);
+        this._toastrService.error(
+          'Error',
+          'An error occured while updating profile pic'
+        );
+      }
+    );
   }
 
   uploadEmploymentContract(files: FileList) {

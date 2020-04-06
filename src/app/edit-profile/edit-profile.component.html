@@ -353,40 +353,40 @@
                   translate
                   >Phone Number is required</span
                 >
-              </mat-error>
-              <ng-template #lengthBlock >
+                <ng-template #lengthBlock >
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      editProfileForm.controls.phone.errors.minlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      editProfileForm.controls.phone.errors.minlength
+                        .requiredLength
+                    }}
+                    digits
+                  </mat-error>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      editProfileForm.controls.phone.errors.maxlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      editProfileForm.controls.phone.errors.maxlength
+                        .requiredLength
+                    }}
+                    digits
+                  </mat-error>
+                </ng-template>
                 <mat-error
                   class="error-text"
-                  *ngIf="
-                    editProfileForm.controls.phone.errors.minlength
-                  "
+                  *ngIf="editProfileForm.controls.phone.errors.pattern; else lengthBlock" 
                 >
-                  Please provide number upto
-                  {{
-                    editProfileForm.controls.phone.errors.minlength
-                      .requiredLength
-                  }}
-                  digits
+                Phone Number format is invalid
                 </mat-error>
-                <mat-error
-                  class="error-text"
-                  *ngIf="
-                    editProfileForm.controls.phone.errors.maxlength
-                  "
-                >
-                  Please provide number upto
-                  {{
-                    editProfileForm.controls.phone.errors.maxlength
-                      .requiredLength
-                  }}
-                  digits
-                </mat-error>
-              </ng-template>
-              <mat-error
-                class="error-text"
-                *ngIf="editProfileForm.controls.phone.errors.pattern; else lengthBlock" 
-              >
-              Phone Number format is invalid
               </mat-error>
             </div>
 
