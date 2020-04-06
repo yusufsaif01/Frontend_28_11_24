@@ -6,10 +6,7 @@
     <form (ngSubmit)="about()" [formGroup]="aboutForm">
       <div class="block-design">
         <div class="profile-section">
-          <img
-            src="{{ environment.mediaUrl }}{{ profile?.avatar_url }}"
-            alt="profile-icon"
-          />
+          <img src="{{ profile?.avatar_url }}" alt="profile-icon" />
           <h3 *ngIf="member_type === 'player'">
             {{ profile?.first_name }} {{ profile?.last_name }}
           </h3>
