@@ -235,6 +235,14 @@ export class EditProfileComponent implements OnInit {
           this.populateDynamicPosition();
         }
 
+        if (this.profile.avatar_url) {
+          this.profile.avatar_url =
+            this.environment.mediaUrl + this.profile.avatar_url;
+        } else {
+          this.profile.avatar_url =
+            this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
+        }
+
         this._toastrService.success(
           'Successful',
           'Data retrieved successfully'
