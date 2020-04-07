@@ -1,0 +1,178 @@
+@import "src/assets/sass/abstracts/variables";
+.sidebar {
+  position: relative;
+  box-shadow: 0.097rem 0.1749rem 1.6rem rgba($color-black, 0.05);
+  min-height: calc(100vh - 7.9rem);
+  height: 100%;
+  &__avatar {
+    text-align: center;
+    padding: 2.4rem 0rem 1.1rem 0rem;
+    margin: 0rem 1.6rem;
+    margin-bottom: 2rem;
+    img {
+      height: 13rem;
+      width: 13rem;
+      border-radius: 5rem;
+      background-color: $color-white;
+      border: 0.4rem solid $color-white;
+    }
+    .name {
+      font-size: 3rem;
+      color: #3a3b3f;
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: 1rem;
+      margin-top: 1.6rem;
+    }
+    .designation {
+      font-size: 2rem;
+      color: #848484;
+      font-weight: 500;
+      line-height: 1;
+      margin-bottom: 0.6rem;
+    }
+    .department {
+      font-size: 1.2rem;
+      color: #848484;
+      font-weight: 500;
+      line-height: 1;
+    }
+  }
+  &__menu {
+    ul {
+      padding: 2.4rem 0;
+      padding-bottom: 8rem;
+      overflow: hidden;
+      &.support {
+        li {
+          label {
+            font-family: "Roboto", "Muli", sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 1.3rem;
+            padding-left: 4.5rem;
+            margin-bottom: 0.8rem;
+            display: block;
+          }
+        }
+      }
+      li {
+        margin-left: -1.6rem;
+        margin-right: -1.6rem;
+        a {
+          span::ng-deep {
+            .mat-icon {
+              width: 2.5rem;
+              position: absolute;
+              left: 3.3rem;
+              top: 43%;
+              transform: translateY(-50%);
+              fill: $blue;
+              stroke: $blue;
+            }
+          }
+
+          font-size: 2rem;
+          color: #66788a;
+          font-weight: 600;
+          line-height: 6rem;
+          padding-left: 7rem;
+          padding-right: 0.5rem;
+          position: relative;
+          display: inline-block;
+          width: 100%;
+          text-decoration: none;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          transition: all 0.5s;
+        }
+
+        &.active,
+        &:hover {
+          a {
+            color: $color-white;
+            background: rgba($blue, 1);
+            transition: all 0.5s;
+            span::ng-deep {
+              .mat-icon {
+                fill: $color-white;
+                stroke: $color-white;
+              }
+            }
+          }
+          .dropdown {
+            ul {
+              li {
+                background: transparent !important;
+              }
+            }
+          }
+        }
+      }
+      .dropdown {
+        width: 100%;
+        overflow: hidden;
+
+        ul {
+          list-style: none;
+          padding: 0rem !important;
+          li {
+            margin-left: -1.6rem;
+            margin-right: -1.6rem;
+            background-color: $color-white !important;
+            a {
+              img {
+                width: 2.5rem;
+                position: absolute;
+                right: 3rem;
+                top: 43%;
+                transform: translateY(-50%);
+              }
+              span::ng-deep {
+                .mat-icon {
+                  width: 2.5rem;
+                  position: absolute;
+                  left: 6rem;
+                  top: 43%;
+                  transform: translateY(-50%);
+                  fill: $blue;
+                  stroke: $blue;
+                }
+              }
+              padding-left: 10rem;
+              font-size: 2rem;
+              color: #66788a;
+              font-weight: 600;
+              line-height: 6rem;
+              padding-right: 0.5rem;
+              position: relative;
+              display: inline-block;
+              width: 100%;
+              text-decoration: none;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              transition: all 0.5s;
+            }
+
+            &.active,
+            &:hover {
+              a {
+                color: $color-white;
+                background: rgba($blue, 1);
+                transition: all 0.5s;
+                span::ng-deep {
+                  .mat-icon {
+                    fill: $color-white;
+                    stroke: $color-white;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
