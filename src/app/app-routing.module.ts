@@ -12,8 +12,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { CreatePasswordComponent } from './core/authentication/create-password/create-password.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AdminViewComponent } from './admin/admin-view/admin-view.component';
-import { AdminManagePlayerComponent } from './admin/admin-manage-player/admin-manage-player.component';
+import { ManagePlayerComponent } from './admin/manage-player/manage-player.component';
 import { ManageClubComponent } from './admin/manage-club/manage-club.component';
 import { ManageAcademyComponent } from './admin/manage-academy/manage-academy.component';
 const routes: Routes = [
@@ -62,13 +61,8 @@ const routes: Routes = [
     data: { title: extract('Create Password') }
   },
   {
-    path: 'admin',
-    component: AdminViewComponent,
-    data: { title: extract('admin') }
-  },
-  {
     path: 'manage-player',
-    component: AdminManagePlayerComponent,
+    component: ManagePlayerComponent,
     data: { title: extract('admin') }
   },
 

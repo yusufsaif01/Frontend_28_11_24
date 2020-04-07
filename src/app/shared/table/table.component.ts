@@ -33,9 +33,9 @@ export class TableComponent implements OnInit {
     if (this.TableActions) {
       this.columns = this.columns.concat('action');
     }
-    if (this.NumberColumn) {
-      this.columns = ['sno'].concat(this.columns);
-    }
+    // if (this.NumberColumn) {
+    //   this.columns = ['sno'].concat(this.columns);
+    // }
     // this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator;
   }

@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { ManageClubTableConfig } from './manage-club-table-conf';
-import { FilterDialogClubComponent } from '../filter-dialog-club/filter-dialog-club.component';
+import { ManagePlayerTableConfig } from './manage-player-table-conf';
+import { FilterDialogPlayerComponent } from '../filter-dialog-player/filter-dialog-player.component';
 import { AdminService } from '../service/admin.service';
 
 @Component({
-  selector: 'app-manage-club',
-  templateUrl: './manage-club.component.html',
-  styleUrls: ['./manage-club.component.scss']
+  selector: 'app-manage-player',
+  templateUrl: './manage-player.component.html',
+  styleUrls: ['./manage-player.component.scss']
 })
-export class ManageClubComponent implements OnInit {
+export class ManagePlayerComponent implements OnInit {
   list: any;
-  public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
+  public tableConfig: ManagePlayerTableConfig = new ManagePlayerTableConfig();
   dataSource = new MatTableDataSource([]);
 
   constructor(public dialog: MatDialog, public adminService: AdminService) {}
@@ -20,7 +20,7 @@ export class ManageClubComponent implements OnInit {
   ngOnInit() {
     // this.sampleModel();
     this.adminService
-      .getClubList({
+      .getPlayerList({
         page_no: 1,
         page_size: 20
       })
@@ -30,7 +30,7 @@ export class ManageClubComponent implements OnInit {
   }
 
   sampleModel() {
-    const dialogRef = this.dialog.open(FilterDialogClubComponent, {
+    const dialogRef = this.dialog.open(FilterDialogPlayerComponent, {
       width: '50% ',
       panelClass: 'filterDialog'
     });
@@ -46,6 +46,6 @@ export class ManageClubComponent implements OnInit {
         quiz_mapped: 'Yes'
       }
     ];
-    this.dataSource = new MatTableDataSource(this.list);
+    // this.dataSource = new MatTableDataSource(this.list);
   }
 }

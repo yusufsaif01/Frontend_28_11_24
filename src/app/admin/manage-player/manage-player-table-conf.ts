@@ -1,23 +1,30 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
 
-export class ManageClubTableConfig extends TableConfig {
+export class ManagePlayerTableConfig extends TableConfig {
   constructor() {
     super();
-    this.allowedColumns = ['name', 'no_of_players', 'email', 'status'];
+    this.allowedColumns = ['name', 'position', 'type', 'email', 'status'];
 
     this.columns = {
       name: {
         code: 'name',
-        text: 'Club Name',
+        text: 'Player Name',
         getValue: (ele: any) => {
           return ele[this.columns.name.code];
         }
       },
-      no_of_players: {
-        code: 'no_of_players',
-        text: 'No. of Players',
+      position: {
+        code: 'position',
+        text: 'Position',
         getValue: (ele: any) => {
-          return ele[this.columns.no_of_players.code];
+          return ele[this.columns.position.code];
+        }
+      },
+      type: {
+        code: 'type',
+        text: 'Player Type',
+        getValue: (ele: any) => {
+          return ele[this.columns.type.code];
         }
       },
       email: {
@@ -32,13 +39,6 @@ export class ManageClubTableConfig extends TableConfig {
         text: 'Status',
         getValue: (ele: any) => {
           return ele[this.columns.status.code];
-        }
-      },
-      action: {
-        code: 'action',
-        text: 'Action',
-        getValue: (ele: any) => {
-          return ele[this.columns.action.code];
         }
       }
     };
