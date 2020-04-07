@@ -37,6 +37,17 @@
             </button>
           </div>
         </div>
+        <mat-error
+          *ngIf="
+            aboutForm.controls.avatar.errors && aboutForm.controls.avatar.dirty
+          "
+        >
+          <span
+            *ngIf="aboutForm.controls.avatar.errors.requiredFileAvatar"
+            translate
+            >Image must be of type JPEG / JPG / PNG</span
+          >
+        </mat-error>
       </div>
       <!--About -->
       <div class="block">
@@ -272,7 +283,10 @@
                 "
               >
                 <span
-                  *ngIf="editProfileForm.controls.height_feet.errors.required"
+                  *ngIf="
+                    editProfileForm.controls.height_feet.errors &&
+                    editProfileForm.controls.height_feet.errors.required
+                  "
                   translate
                   >Height in Feet is required</span
                 >
@@ -286,7 +300,10 @@
                 "
               >
                 <span
-                  *ngIf="editProfileForm.controls.height_inches.errors.required"
+                  *ngIf="
+                    editProfileForm.controls.height_inches.errors &&
+                    editProfileForm.controls.height_inches.errors.required
+                  "
                   translate
                   >Height in Inches is required</span
                 >
@@ -467,8 +484,21 @@
                 formControlName="aadhar"
                 (change)="uploadAadhar($event.target.files)"
                 type="file"
-                accept="image/*,.pdf"
               />
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.aadhar.errors &&
+                  editProfileForm.controls.aadhar.dirty
+                "
+              >
+                <span
+                  *ngIf="
+                    editProfileForm.controls.aadhar.errors.requiredFileType
+                  "
+                  translate
+                  >Aadhar must be of type PDF / PNG</span
+                >
+              </mat-error>
             </div>
 
             <!-- employee  -->
@@ -479,6 +509,21 @@
                 (change)="uploadEmploymentContract($event.target.files)"
                 type="file"
               />
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.employment_contract.errors &&
+                  editProfileForm.controls.employment_contract.dirty
+                "
+              >
+                <span
+                  *ngIf="
+                    editProfileForm.controls.employment_contract.errors
+                      .requiredFileType
+                  "
+                  translate
+                  >Employment Contract must be of type PDF / PNG</span
+                >
+              </mat-error>
             </div>
           </div>
         </div>
@@ -994,8 +1039,21 @@
                   type="file"
                   formControlName="document"
                   (change)="uploadDocument($event.target.files)"
-                  accept="image/*,.pdf"
                 />
+                <mat-error
+                  *ngIf="
+                    editProfileForm.controls.document.errors &&
+                    editProfileForm.controls.document.dirty
+                  "
+                >
+                  <span
+                    *ngIf="
+                      editProfileForm.controls.document.errors.requiredFileType
+                    "
+                    translate
+                    >Document must be of type PDF / PNG</span
+                  >
+                </mat-error>
               </div>
             </div>
           </div>

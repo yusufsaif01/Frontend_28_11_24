@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { AuthenticationService } from '../core/authentication/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
+import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
+import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 
 interface trophyObject {
   name: string;
@@ -323,9 +325,8 @@ export class EditProfileComponent implements OnInit {
     let requestData = this.toFormData(this.editProfileForm.value);
 
     if (this.member_type === 'player') {
-      if (this.player_type === 'grassroot' || this.player_type === 'amateur') {
-        if (this.aadhar) requestData.set('aadhar', this.aadhar);
-      } else if (this.player_type === 'professional') {
+      if (this.aadhar) requestData.set('aadhar', this.aadhar);
+      if (this.player_type === 'professional') {
         if (this.employment_contract)
           requestData.set('employment_contract', this.employment_contract);
       }
@@ -383,22 +384,25 @@ export class EditProfileComponent implements OnInit {
     const requestData = new FormData();
     requestData.set('avatar', this.avatar);
 
-    this._authenticationService.updateBio(requestData).subscribe(
-      res => {
-        console.log('response', res);
-        this._toastrService.success(
-          'Successful',
-          'Profile pic updated successfully'
-        );
-      },
-      err => {
-        console.log('err', err);
-        this._toastrService.error(
-          'Error',
-          'An error occured while updating profile pic'
-        );
-      }
-    );
+    console.log(this.aboutForm.valid);
+    if (this.aboutForm.valid) {
+      this._authenticationService.updateBio(requestData).subscribe(
+        res => {
+          console.log('response', res);
+          this._toastrService.success(
+            'Successful',
+            'Profile pic updated successfully'
+          );
+        },
+        err => {
+          console.log('err', err);
+          this._toastrService.error(
+            'Error',
+            'An error occured while updating profile pic'
+          );
+        }
+      );
+    }
   }
 
   uploadEmploymentContract(files: FileList) {
@@ -465,7 +469,7 @@ export class EditProfileComponent implements OnInit {
 
   createForm() {
     this.aboutForm = this._formBuilder.group({
-      avatar: [''],
+      avatar: ['', [requiredFileAvatar]],
       bio: ['']
     });
 
@@ -498,11 +502,11 @@ export class EditProfileComponent implements OnInit {
             Validators.pattern(/^[0-9]+$/)
           ]
         ],
-        school: ['', [Validators.required]], //institute.school
+        school: ['', []], //institute.school
         university: [''], //institute.univeristy
         college: [''], //institute.college
-        aadhar: ['', []],
-        employment_contract: ['', []],
+        aadhar: ['', [Validators.required, requiredFileDocument]],
+        employment_contract: ['', [Validators.required, requiredFileDocument]],
         // // professional_details
         position: this._formBuilder.array([]),
         strong_foot: ['', []],
@@ -538,7 +542,7 @@ export class EditProfileComponent implements OnInit {
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], [Validators.required]),
         associated_players: ['', []],
-        document: ['', []]
+        document: ['', [requiredFileDocument]]
         // onclick upload document [aiff]
       });
     } else if (this.member_type === 'academy') {
