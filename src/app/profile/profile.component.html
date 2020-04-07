@@ -134,9 +134,7 @@
           <div class="full">
             <p>
               <span>View Adhaar : </span>
-              <a href="{{ profile.documents?.type === 'aadhar' ? aadhar : '' }}"
-                >Document</a
-              >
+              <a href="{{ aadhar ? aadhar : '' }}" target="_blank">Document</a>
             </p>
           </div>
         </div>
@@ -146,11 +144,8 @@
             <p>
               <span>View Employement : </span>
               <a
-                href="{{
-                  profile.documents?.type === 'employment_contract'
-                    ? employment_contract
-                    : ''
-                }}"
+                href="{{ employment_contract ? employment_contract : '' }}"
+                target="_blank"
                 >Document</a
               >
             </p>
@@ -337,7 +332,12 @@
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>View AIFF Status : </span> <a>Document</a></p>
+            <p>
+              <span>View Document Status : </span>
+              <a href="{{ document ? document : '' }}" target="_blank"
+                >Document</a
+              >
+            </p>
           </div>
         </div>
       </div>
