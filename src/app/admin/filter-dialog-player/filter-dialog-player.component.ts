@@ -3,14 +3,14 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-filter-dialog',
-  templateUrl: './filter-dialog.component.html',
-  styleUrls: ['./filter-dialog.component.scss']
+  selector: 'app-filter-dialog-player',
+  templateUrl: './filter-dialog-player.component.html',
+  styleUrls: ['./filter-dialog-player.component.scss']
 })
-export class FilterDialogComponent implements OnInit {
+export class FilterDialogPlayerComponent implements OnInit {
   filterForm: FormGroup;
   constructor(
-    public dialogRef: MatDialogRef<FilterDialogComponent>,
+    public dialogRef: MatDialogRef<FilterDialogPlayerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder
   ) {

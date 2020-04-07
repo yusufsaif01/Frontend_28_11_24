@@ -23,7 +23,6 @@ import { LoaderInterceptor } from './core/http/loader.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 // import { FrontendModule } from './frontend/frontend.module';
 import { ToastrModule } from 'ngx-toastr';
-import { FilterDialogComponent } from './admin/filter-dialog/filter-dialog.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ForgotPasswordComponent } from './core/authentication/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './core/authentication/reset-password/reset-password.component';
@@ -32,7 +31,6 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { CreatePasswordComponent } from './core/authentication/create-password/create-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FeatherModule } from 'angular-feather';
-import { AdminViewComponent } from './admin/admin-view/admin-view.component';
 
 import {
   Camera,
@@ -55,6 +53,12 @@ import {
   Star
 } from 'angular-feather/icons';
 import { from } from 'rxjs';
+import { ManagePlayerComponent } from './admin/manage-player/manage-player.component';
+import { FilterDialogPlayerComponent } from './admin/filter-dialog-player/filter-dialog-player.component';
+import { ManageClubComponent } from './admin/manage-club/manage-club.component';
+import { FilterDialogClubComponent } from './admin/filter-dialog-club/filter-dialog-club.component';
+import { ManageAcademyComponent } from './admin/manage-academy/manage-academy.component';
+import { FilterDialogAcademyComponent } from './admin/filter-dialog-academy/filter-dialog-academy.component';
 const icons = {
   Camera,
   Heart,
@@ -117,8 +121,12 @@ const icons = {
     ChangePasswordComponent,
     CreatePasswordComponent,
     ProfileComponent,
-    AdminViewComponent,
-    FilterDialogComponent
+    ManagePlayerComponent,
+    FilterDialogPlayerComponent,
+    ManageClubComponent,
+    FilterDialogClubComponent,
+    ManageAcademyComponent,
+    FilterDialogAcademyComponent
     // , HomeComponent
   ],
   providers: [
@@ -130,6 +138,10 @@ const icons = {
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [FilterDialogComponent]
+  entryComponents: [
+    FilterDialogPlayerComponent,
+    FilterDialogClubComponent,
+    FilterDialogAcademyComponent
+  ]
 })
 export class AppModule {}

@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FilterDialogComponent } from './filter-dialog.component';
+import { ManageAcademyComponent } from './manage-academy.component';
 
-describe('FilterDialogComponent', () => {
-  let component: FilterDialogComponent;
-  let fixture: ComponentFixture<FilterDialogComponent>;
+describe('ManageAcademyComponent', () => {
+  let component: ManageAcademyComponent;
+  let fixture: ComponentFixture<ManageAcademyComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FilterDialogComponent]
+      declarations: [ManageAcademyComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FilterDialogComponent);
+    fixture = TestBed.createComponent(ManageAcademyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
