@@ -427,7 +427,7 @@ export class EditProfileComponent implements OnInit {
   }
   about() {
     let requestData = this.toFormData(this.aboutForm.value);
-    requestData.set('avatar', this.avatar);
+    if (this.avatar) requestData.set('avatar', this.avatar);
 
     this._authenticationService.updateBio(requestData).subscribe(
       res => {
@@ -464,8 +464,8 @@ export class EditProfileComponent implements OnInit {
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
         dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
-        height_feet: ['', [Validators.required]],
-        height_inches: ['', [Validators.required]],
+        height_feet: ['', []],
+        height_inches: ['', []],
         weight: ['', []],
         country: ['', [Validators.required]], // country or nationality
         state: ['', [Validators.required]],
