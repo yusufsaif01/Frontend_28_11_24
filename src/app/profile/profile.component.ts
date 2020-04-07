@@ -14,6 +14,7 @@ export class ProfileComponent implements OnInit {
   numbers: any;
   aadhar: string;
   employment_contract: string;
+  document: string;
   constructor(
     private _authenticationService: AuthenticationService,
     private _toastrService: ToastrService
@@ -38,19 +39,22 @@ export class ProfileComponent implements OnInit {
             this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
         }
 
-        if (
-          this.profile.documents &&
-          this.profile.documents.type === 'aadhar'
-        ) {
-          this.aadhar = this.environment.mediaUrl + this.profile.documents.link;
-        }
-
-        if (
-          this.profile.documents &&
-          this.profile.documents.type === 'employment_contract'
-        ) {
-          this.employment_contract =
-            this.environment.mediaUrl + this.profile.documents.link;
+        if (this.profile.documents.length !== 0) {
+          this.profile.documents.forEach((element: any) => {
+            let fileLink = this.environment.mediaUrl + element.link;
+            if (element.type === 'aadhar') {
+              this.aadhar = fileLink;
+            }
+            if (element.type === 'employment_contract') {
+              this.employment_contract = fileLink;
+            }
+            if (
+              element.type !== 'employment_contract' &&
+              element.type !== 'aadhar'
+            ) {
+              this.document = fileLink;
+            }
+          });
         }
 
         this._toastrService.success(

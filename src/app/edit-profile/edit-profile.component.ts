@@ -321,8 +321,6 @@ export class EditProfileComponent implements OnInit {
 
   editProfile() {
     let requestData = this.toFormData(this.editProfileForm.value);
-    requestData.set('dob', this.editProfileForm.get('dob').value);
-    console.log(this.editProfileForm.get('position').value);
 
     if (this.member_type === 'player') {
       if (this.player_type === 'grassroot' || this.player_type === 'amateur') {
@@ -335,6 +333,7 @@ export class EditProfileComponent implements OnInit {
         'position',
         JSON.stringify(this.editProfileForm.get('position').value)
       );
+      requestData.set('dob', this.editProfileForm.get('dob').value);
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
       requestData.set('document', this.document);
       requestData.set(
@@ -345,10 +344,12 @@ export class EditProfileComponent implements OnInit {
         'trophies',
         JSON.stringify(this.editProfileForm.get('trophies').value)
       );
-      requestData.set(
-        'top_signings',
-        JSON.stringify(this.editProfileForm.get('top_signings').value)
-      );
+      if (this.member_type === 'club') {
+        requestData.set(
+          'top_signings',
+          JSON.stringify(this.editProfileForm.get('top_signings').value)
+        );
+      }
     }
 
     this._authenticationService.editProfile(requestData).subscribe(
@@ -380,12 +381,15 @@ export class EditProfileComponent implements OnInit {
   uploadAvatar(files: FileList) {
     this.avatar = files[0];
     const requestData = new FormData();
-    requestData.set('avatar',this.avatar);
+    requestData.set('avatar', this.avatar);
 
     this._authenticationService.updateBio(requestData).subscribe(
       res => {
         console.log('response', res);
-        this._toastrService.success('Successful', 'Profile pic updated successfully');
+        this._toastrService.success(
+          'Successful',
+          'Profile pic updated successfully'
+        );
       },
       err => {
         console.log('err', err);
@@ -442,7 +446,7 @@ export class EditProfileComponent implements OnInit {
   }
   about() {
     let requestData = this.toFormData(this.aboutForm.value);
-    requestData.set('avatar', this.avatar);
+    if (this.avatar) requestData.set('avatar', this.avatar);
 
     this._authenticationService.updateBio(requestData).subscribe(
       res => {
@@ -475,14 +479,14 @@ export class EditProfileComponent implements OnInit {
     if (this.member_type === 'player') {
       this.editProfileForm = this._formBuilder.group({
         // personal_details
-        player_type: [this.player_type, [Validators.required]],
+        player_type: ['', [Validators.required]],
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
         dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
-        height_feet: ['', [Validators.required]],
-        height_inches: ['', [Validators.required]], //height
-        weight: ['', [Validators.required]],
-        country: ['', [Validators.required]], //country
+        height_feet: ['', []],
+        height_inches: ['', []],
+        weight: ['', []],
+        country: ['', [Validators.required]], // country or nationality
         state: ['', [Validators.required]],
         city: ['', [Validators.required]], //city
         phone: [
@@ -512,8 +516,8 @@ export class EditProfileComponent implements OnInit {
       this.editProfileForm = this._formBuilder.group({
         // personal_details
         name: ['', [Validators.required]],
-        short_name: ['', [Validators.required]],
-        founded_in: ['', [Validators.required]],
+        short_name: ['', []],
+        founded_in: ['', [Validators.required, Validators.maxLength(4)]],
         country: ['', [Validators.required]],
         city: ['', [Validators.required]],
         address: ['', [Validators.required]],
@@ -532,7 +536,7 @@ export class EditProfileComponent implements OnInit {
         league_other: ['', [Validators.required]],
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
-        top_signings: this._formBuilder.array([]),
+        top_signings: this._formBuilder.array([], [Validators.required]),
         associated_players: ['', []],
         document: ['', []]
         // onclick upload document [aiff]
@@ -541,8 +545,8 @@ export class EditProfileComponent implements OnInit {
       this.editProfileForm = this._formBuilder.group({
         // personal_details
         name: ['', [Validators.required]],
-        short_name: ['', [Validators.required]],
-        founded_in: ['', [Validators.required]],
+        short_name: ['', []],
+        founded_in: ['', [Validators.required, Validators.maxLength(4)]],
         country: ['', [Validators.required]],
         city: ['', [Validators.required]],
         address: ['', [Validators.required]],
@@ -554,16 +558,14 @@ export class EditProfileComponent implements OnInit {
             Validators.minLength(10),
             Validators.maxLength(10),
             Validators.pattern(/^[0-9]+$/)
-
           ]
         ],
         stadium_name: ['', [Validators.required]],
         league: ['', [Validators.required]],
         league_other: ['', [Validators.required]],
         document_type: ['', [Validators.required]],
-        contact_person: this._formBuilder.array([]),
-        trophies: this._formBuilder.array([]),
-        top_signings: this._formBuilder.array([]),
+        contact_person: this._formBuilder.array([], [Validators.required]),
+        trophies: this._formBuilder.array([], [Validators.required]),
         associated_players: ['', []],
         document: ['', []]
         //onclick upload documenet aiff / pan card/tin / coi
@@ -577,7 +579,7 @@ export class EditProfileComponent implements OnInit {
     });
 
     this.editProfileForm.patchValue({
-      player_type: this.profile.player_type,
+      player_type: this.profile.player_type ? this.profile.player_type : '',
       name: this.profile.name,
       short_name: this.profile.short_name,
       founded_in: this.profile.founded_in,
@@ -596,14 +598,14 @@ export class EditProfileComponent implements OnInit {
       weight: this.profile.weight ? this.profile.weight : '',
       dob: this.profile.dob ? new Date(this.profile.dob) : '',
       phone: this.profile.phone ? this.profile.phone : '',
-      country: this.profile.country,
+      country: this.profile.country ? this.profile.country : '',
       state: this.profile.state ? this.profile.state : '',
       city: this.profile.city ? this.profile.city : '',
       stadium_name: this.profile.stadium_name,
-      league: this.profile.league,
+      league: this.profile.league ? this.profile.league : '',
       league_other: this.profile.league_other,
-      strong_foot: this.profile.strong_foot,
-      weak_foot: this.profile.weak_foot,
+      strong_foot: this.profile.strong_foot ? this.profile.strong_foot : '',
+      weak_foot: this.profile.weak_foot ? this.profile.weak_foot : '',
       head_coach_phone: this.profile.club_academy_details
         ? this.profile.club_academy_details.head_coach_phone
         : '',
