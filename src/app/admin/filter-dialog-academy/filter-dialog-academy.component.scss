@@ -37,7 +37,6 @@
 form {
   margin: 0 -24px;
 }
-
 .form-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -45,6 +44,7 @@ form {
   justify-content: space-between;
   padding: 4rem 4rem 2rem 4rem;
   border-top: 2px solid rgba($color-black, 0.1);
+  padding: 0px -24px;
   .input__group {
     width: 48%;
     margin-bottom: 2rem;

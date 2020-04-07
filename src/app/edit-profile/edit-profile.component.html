@@ -157,6 +157,18 @@
                 Professional</label
               >
             </div>
+            <mat-error
+              *ngIf="
+                editProfileForm.controls.player_type.invalid &&
+                editProfileForm.controls.player_type.touched
+              "
+            >
+              <span
+                *ngIf="editProfileForm.controls.player_type.errors.required"
+                translate
+                >Player Type is required</span
+              >
+            </mat-error>
           </div>
         </div>
 
@@ -239,11 +251,46 @@
 
             <!-- height -->
             <div class="from-block">
-              <label>Height</label>
+              <label
+                >Height
+                <span
+                  *ngIf="
+                    player_type === 'amateur' || player_type === 'professional'
+                  "
+                  >*</span
+                ></label
+              >
               <div class="double-input">
                 <input formControlName="height_feet" type="text" matInput />
                 <input formControlName="height_inches" type="text" matInput />
               </div>
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.height_feet.invalid &&
+                  editProfileForm.controls.height_feet.touched &&
+                  (player_type === 'amateur' || player_type === 'professional')
+                "
+              >
+                <span
+                  *ngIf="editProfileForm.controls.height_feet.errors.required"
+                  translate
+                  >Height in Feet is required</span
+                >
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  (editProfileForm.controls.height_inches.invalid &&
+                    editProfileForm.controls.height_inches.touched &&
+                    player_type === 'amateur') ||
+                  player_type === 'professional'
+                "
+              >
+                <span
+                  *ngIf="editProfileForm.controls.height_inches.errors.required"
+                  translate
+                  >Height in Inches is required</span
+                >
+              </mat-error>
             </div>
 
             <!-- weight -->
@@ -421,7 +468,7 @@
               "
             >
               <div class="from-block" [formGroupName]="i">
-                <label>Position ( Priority {{ i }} ) <span>*</span></label>
+                <label>Position ( Priority {{ i + 1 }} ) <span>*</span></label>
                 <select formControlName="name" matNativeControl required>
                   <option value="">Select Position</option>
                   <ng-container *ngFor="let position of samplePositionArray">
@@ -608,10 +655,10 @@
               <!-- club name -->
               <div class="from-block">
                 <label
-                  [innerText]="
-                    member_type === 'academy' ? 'Academy Name' : 'Club Name '
-                  "
-                  >Club Name <span>*</span></label
+                  >{{
+                    member_type === 'academy' ? 'Academy Name' : 'Club Name'
+                  }}
+                  <span>*</span></label
                 >
                 <input formControlName="name" type="text" matInput />
                 <mat-error
@@ -647,7 +694,7 @@
 
               <!-- founded In -->
               <div class="from-block">
-                <label>Founded ( years ) <span>*</span></label>
+                <label>Founded ( Year ) <span>*</span></label>
                 <input formControlName="founded_in" type="text" matInput />
 
                 <mat-error
@@ -660,6 +707,11 @@
                     *ngIf="editProfileForm.controls.founded_in.errors.required"
                     translate
                     >Founded is required</span
+                  >
+                  <span
+                    *ngIf="editProfileForm.controls.founded_in.errors.maxlength"
+                    translate
+                    >Founded must not exceed 4 character length</span
                   >
                 </mat-error>
               </div>
@@ -715,14 +767,46 @@
 
               <!-- Address -->
               <div class="from-block">
-                <label>Office Address</label>
+                <label
+                  >Office Address
+                  <span *ngIf="member_type === 'academy'">*</span></label
+                >
                 <input formControlName="address" type="text" matInput />
+                <mat-error
+                  *ngIf="
+                    editProfileForm.controls.address.invalid &&
+                    editProfileForm.controls.address.touched &&
+                    member_type === 'academy'
+                  "
+                >
+                  <span
+                    *ngIf="editProfileForm.controls.address.errors.required"
+                    translate
+                    >Office Address is required</span
+                  >
+                </mat-error>
               </div>
 
               <!-- Zipcode / pincode -->
               <div class="from-block">
-                <label>Zipcode / Pincode</label>
+                <label
+                  >Zipcode / Pincode
+                  <span *ngIf="member_type === 'academy'">*</span></label
+                >
                 <input formControlName="pincode" type="text" matInput />
+                <mat-error
+                  *ngIf="
+                    editProfileForm.controls.pincode.invalid &&
+                    editProfileForm.controls.pincode.touched &&
+                    member_type === 'academy'
+                  "
+                >
+                  <span
+                    *ngIf="editProfileForm.controls.pincode.errors.required"
+                    translate
+                    >Zipcode / Pincode is required</span
+                  >
+                </mat-error>
               </div>
 
               <!-- email -->
@@ -766,7 +850,7 @@
               </div>
 
               <!-- Stadium Name -->
-              <div class="from-block">
+              <div class="from-block" *ngIf="member_type === 'club'">
                 <label>Stadium Name</label>
                 <input formControlName="stadium_name" type="text" matInput />
               </div>
@@ -960,7 +1044,10 @@
                   "
                   formArrayName="trophies"
                 >
-                  <label>Major trophy Wins</label>
+                  <label
+                    >Major trophy Wins
+                    <span *ngIf="member_type === 'academy'">*</span></label
+                  >
 
                   <ng-container [formGroupName]="i">
                     <div class="input-wrapper-full">
@@ -1021,7 +1108,10 @@
               </div>
 
               <!-- Top sign in -->
-              <div class="top_signing-player w-100 block-part">
+              <div
+                class="top_signing-player w-100 block-part"
+                *ngIf="member_type === 'club'"
+              >
                 <div class="input-wrapper w-100 align-right">
                   <button class="mt-0" (click)="addTopSigning()">
                     Add Top Signings
@@ -1075,15 +1165,6 @@
                   />
                 </div>
               </div>
-              <!-- Manager -->
-              <!-- <div class="from-block">
-                <label>Number of associated players <span>*</span></label>
-                <input
-                  type="text"
-                  matInput
-                  formControlName="club_associated_players"
-                />
-              </div> -->
             </div>
           </div>
         </div>
@@ -1092,7 +1173,9 @@
       <!-- bottom -->
       <div class="block-bottom">
         <a (click)="resetForm()">Cancel</a>
-        <button class="btn">Save Changes</button>
+        <button class="btn" [disabled]="!editProfileForm.valid">
+          Save Changes
+        </button>
       </div>
     </form>
   </div>

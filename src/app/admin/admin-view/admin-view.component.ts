@@ -34,7 +34,7 @@ export class AdminViewComponent implements OnInit {
 
   sampleModel() {
     const dialogRef = this.dialog.open(FilterDialogComponent, {
-      width: '72.75%',
+      width: '50% ',
       panelClass: 'filterDialog'
     });
     dialogRef.afterClosed().subscribe(result => {
