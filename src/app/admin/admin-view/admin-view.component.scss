@@ -1,7 +1,203 @@
+@import "src/assets/sass/abstracts/variables";
+
 .admin-wrapper {
+  display: flex;
   background-color: #fbfbfb;
   .admin-sidebar {
-    background-color: #fff;
+    background-color: $color-white;
     width: 20%;
+  }
+  .admin-main {
+    background-color: $color-white;
+    width: 80%;
+  }
+}
+
+// title wrapper
+.title-wrapper {
+  width: 95%;
+  margin: 3rem auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  background-color: $color-white;
+  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+  .title {
+    h3 {
+      font-size: 2.4rem;
+      color: $text-color;
+    }
+  }
+  .breadcrumb {
+    ul {
+      list-style: none;
+      li {
+        display: inline-block;
+        color: $text-color;
+        padding: 0rem 2rem;
+        font-size: 1.8rem;
+        border-right: 2px solid $text-color;
+        &:last-child {
+          border-right: 0px solid transparent;
+        }
+      }
+    }
+  }
+}
+
+// blocks
+.counter-wrapper {
+  width: 95%;
+  margin: 3rem auto;
+  display: flex;
+  justify-content: space-between;
+  .count-block {
+    width: 23%;
+    background-color: $color-white;
+    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    .count-img {
+      width: 40%;
+      padding: 1rem;
+      img {
+        width: 100%;
+      }
+    }
+    .count-details {
+      width: 60%;
+      padding: 1rem;
+      h3 {
+        color: $text-color;
+        font-size: 2.8rem;
+      }
+      h5 {
+        color: $blue;
+        font-size: 4rem;
+      }
+    }
+  }
+}
+
+// table content
+.middle-part {
+  width: 95%;
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: $color-white;
+  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+}
+
+// filter
+.filter-wrapper {
+  display: flex;
+  width: 100%;
+  padding: 2rem;
+  justify-content: space-between;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  .filter {
+    width: 40%;
+    ul {
+      list-style: none;
+      margin-bottom: 0rem;
+      li {
+        margin-right: 1rem;
+        display: inline-block;
+        a {
+          font-size: 1rem;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          background: $blue;
+          width: 5rem;
+          height: 5rem;
+          border-radius: 4rem;
+          img {
+            width: 2.5rem;
+            height: 2.5rem;
+          }
+        }
+      }
+    }
+  }
+  .search {
+    width: 60%;
+    display: flex;
+    justify-content: flex-end;
+    .search-box {
+      margin-left: 2rem;
+      position: relative;
+      select,
+      input {
+        padding: 1rem;
+        border: 1px solid $text-color;
+        color: $text-color;
+      }
+    }
+  }
+}
+
+.change-icon {
+  width: 10rem;
+  left: calc(100% - 3rem);
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("../../../assets/images/icons/drowdown-caret.png");
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  background-position: calc(100% - 1rem);
+}
+.search-icon {
+  left: calc(100% - 3rem);
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("../../../assets/images/icons/search.png");
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  background-position: calc(100% - 1rem);
+}
+
+// table container
+.table-container {
+  width: 95%;
+  margin: 2rem auto;
+}
+
+// paginations
+.pagination-wrapper {
+  width: 95%;
+  margin: 3rem auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  background-color: $color-white;
+  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+  .showing-data {
+    p {
+      font-size: 1.8rem;
+      color: $text-color;
+    }
+  }
+  .pagination {
+    ul {
+      list-style: none;
+      li {
+        display: inline-block;
+        margin: 0 1rem;
+        a {
+          color: $text-color;
+          font-weight: 700;
+          padding: 0.75rem 1.2rem;
+          display: inline-block;
+          font-size: 1.4rem;
+          border-radius: 3rem;
+          box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
   }
 }

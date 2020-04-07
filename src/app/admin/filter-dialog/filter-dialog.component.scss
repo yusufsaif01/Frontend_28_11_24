@@ -1,43 +1,85 @@
+@import "src/assets/sass/abstracts/variables";
+
 .form-group {
   margin-bottom: 3.4rem;
 }
 .action-block {
+  width: 100%;
+  display: block;
+  text-align: center;
   .btn {
     border: none;
     padding: 1.7rem 7.3rem;
   }
 }
-.input-group {
-  position: relative;
-  &__input {
-    border-radius: 0.7rem;
-    border: 0.1rem solid #cccccc;
-    height: 5.9rem;
-    width: 100%;
-    font-size: 1.5rem;
-    color: #a7a7a7;
-    font-weight: 400;
-    padding-right: 2.7rem;
-    padding-left: 2.7rem;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-    outline: none;
-  }
-  &__addon {
-    position: absolute;
-    height: 100%;
-    padding: 0 2.65rem;
-    background: #ebebeb;
-    right: -0.1rem;
-    bottom: 0;
-    top: 0;
-    border-radius: 1rem;
-    border: 0.1rem solid #d7d7d7;
-    cursor: pointer;
-    outline: none;
-    padding-top: 1.5rem;
+
+.modal-header {
+  padding: 0 1rem;
+  padding-bottom: 2rem;
+  .heading {
+    display: flex;
     img {
-      width: 2.7rem;
+      width: 3rem;
+      height: 3rem;
+      margin: 0.5rem 1rem 0 0;
+    }
+    h4 {
+      font-size: 3rem;
+      font-weight: 500;
+    }
+  }
+  .close {
+    img {
+      max-width: 2rem;
+    }
+  }
+}
+
+.form-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 2px solid rgba($color-black, 0.1);
+  padding: 0px -24px;
+  .input__group {
+    width: 48%;
+    margin-bottom: 2rem;
+    label {
+      display: block;
+      color: $text-color;
+    }
+    input,
+    select {
+      width: 100%;
+      padding: 1rem;
+      color: $text-color;
+      &:focus {
+        border: 1px solid $blue;
+      }
+    }
+  }
+  .date {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    label {
+      width: 100%;
+    }
+    .date_pick {
+      width: 48%;
+      position: relative;
+      .mat-datepicker-toggle {
+        position: absolute;
+        left: calc(100% - 5rem);
+        -webkit-appearance: none;
+        appearance: none;
+        background-image: url("../../../assets/images/icons/calendar.png");
+        background-repeat: no-repeat;
+        background-size: 2.5rem;
+        background-position: calc(100% - 2rem) calc(100% - 60%);
+      }
     }
   }
 }
