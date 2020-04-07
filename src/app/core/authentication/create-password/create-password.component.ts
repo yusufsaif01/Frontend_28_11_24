@@ -27,17 +27,7 @@ export class CreatePasswordComponent implements OnInit {
   }
 
   ngOnInit() {}
-
-  isFocused(form: FormGroup, field: string) {
-    const { invalid, touched } = form.get(field);
-    return invalid && touched;
-  }
-
-  isRequired(form: FormGroup, field: string) {
-    const { required } = form.get(field).errors;
-    return required;
-  }
-
+  
   createPassword() {
     this._authenticationService
       .createPassword(this.createPasswordForm.value, this.token)

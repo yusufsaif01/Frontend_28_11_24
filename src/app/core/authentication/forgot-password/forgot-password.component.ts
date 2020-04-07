@@ -20,16 +20,6 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit() {}
 
-  isFocused(form: FormGroup, field: string) {
-    const { invalid, touched } = form.get(field);
-    return invalid && touched;
-  }
-
-  isRequired(form: FormGroup, field: string) {
-    const { required } = form.get(field).errors;
-    return required;
-  }
-
   forgetPassword() {
     console.log('form data', this.forgetPasswordForm.value);
     this._authenticationService
