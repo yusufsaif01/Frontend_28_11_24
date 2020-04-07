@@ -1,23 +1,28 @@
 <mat-table [dataSource]="rows">
   <!-- Checkbox Column -->
   <ng-container
-    [matColumnDef]="tableConfig.columns[col].code"
-    *ngFor="let col of tableConfig.allowedColumns"
-  >
-    <mat-header-cell *matHeaderCellDef>{{
-      tableConfig.columns[col].text
-    }}</mat-header-cell>
+    [matColumnDef]="tableConfig.columns[col].code" *ngFor="let col of tableConfig.allowedColumns">
+    <mat-header-cell *matHeaderCellDef>{{ tableConfig.columns[col].text }}</mat-header-cell>
     <mat-cell *matCellDef="let element; let i = index">
-      <div>{{ tableConfig.columns[col].getValue(element) }}</div>
+      <div>
+        <p [ngClass]=
+        "{
+          'pending':(element.status === 'pending' && 
+                (col === 'email' || col === 'status')),
+          'active':element.status === 'active' && col === 'status'
+        }">
+          {{ tableConfig.columns[col].getValue(element) }}
+        </p>
+      </div>
     </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="sno">
+  <!-- <ng-container matColumnDef="sno">
     <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
     <mat-cell *matCellDef="let element; let i = index">
       <div>{{ i > 8 ? '' : 0 }}{{ i + 1 }}</div>
     </mat-cell>
-  </ng-container>
+  </ng-container> -->
   <ng-container matColumnDef="action">
     <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
     <mat-cell *matCellDef="let element; let i = index">

@@ -3,35 +3,42 @@ import { TableConfig } from '@app/shared/table/TableConfig';
 export class AdminViewTableConfig extends TableConfig {
   constructor() {
     super();
-    this.allowedColumns = ['title', 'type', 'quiz_mapped'];
+    this.allowedColumns = ['name','position','type','email','status'];
 
     this.columns = {
-      title: {
-        code: 'title',
-        text: 'Chapter Name',
+      name: {
+        code: 'name',
+        text: 'Player Name',
         getValue: (ele: any) => {
-          return ele[this.columns.title.code];
+          return ele[this.columns.name.code];
+        }
+      },
+      position: {
+        code: 'position',
+        text: 'Position',
+        getValue: (ele: any) => {
+          return ele[this.columns.position.code];
         }
       },
       type: {
         code: 'type',
-        text: 'Course Type',
+        text: 'Player Type',
         getValue: (ele: any) => {
           return ele[this.columns.type.code];
         }
       },
-      quiz_mapped: {
-        code: 'quiz_mapped',
-        text: 'Assigned Quiz',
+      email: {
+        code: 'email',
+        text: 'E-Mail ID',
         getValue: (ele: any) => {
-          return ele[this.columns.quiz_mapped.code];
+          return ele[this.columns.email.code];
         }
       },
-      action: {
-        code: 'action',
-        text: 'Action',
+      status: {
+        code: 'status',
+        text: 'Status',
         getValue: (ele: any) => {
-          return ele[this.columns.action.code];
+          return ele[this.columns.status.code];
         }
       }
     };

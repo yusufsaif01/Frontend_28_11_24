@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminViewTableConfig } from './admin-view-table-conf';
 import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
+import { AdminService } from '../service/admin.service';
 
 @Component({
   selector: 'app-admin-view',
@@ -14,10 +15,21 @@ export class AdminViewComponent implements OnInit {
   public tableConfig: AdminViewTableConfig = new AdminViewTableConfig();
   dataSource = new MatTableDataSource([]);
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog     : MatDialog,
+    public adminService: AdminService
+  ) {}
 
   ngOnInit() {
-    this.sampleModel();
+    // this.sampleModel();
+    this.adminService.getPlayerList({
+      page_no:1,
+      page_size:20
+    }).subscribe(
+      response => {
+        this.dataSource = new MatTableDataSource(response.data.records);
+      }
+    )
   }
 
   sampleModel() {
@@ -37,6 +49,6 @@ export class AdminViewComponent implements OnInit {
         quiz_mapped: 'Yes'
       }
     ];
-    this.dataSource = new MatTableDataSource(this.list);
+    // this.dataSource = new MatTableDataSource(this.list);
   }
 }
