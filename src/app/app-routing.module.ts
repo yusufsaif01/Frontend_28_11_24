@@ -15,6 +15,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AdminViewComponent } from './admin/admin-view/admin-view.component';
 import { AdminManagePlayerComponent } from './admin/admin-manage-player/admin-manage-player.component';
 import { ManageClubComponent } from './admin/manage-club/manage-club.component';
+import { ManageAcademyComponent } from './admin/manage-academy/manage-academy.component';
 const routes: Routes = [
   {
     path: '',
@@ -75,6 +76,12 @@ const routes: Routes = [
     path: 'manage-club',
     component: ManageClubComponent,
     data: { title: extract('manage club') }
+  },
+
+  {
+    path: 'manage-academy',
+    component: ManageAcademyComponent,
+    data: { title: extract('Manage Academy') }
   },
 
   { path: '**', redirectTo: '', pathMatch: 'full' }
