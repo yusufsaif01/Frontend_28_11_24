@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
         }
 
         if (this.profile.documents.length !== 0) {
-          this.profile.documents.forEach(element => {
+          this.profile.documents.forEach((element: any) => {
             let fileLink = this.environment.mediaUrl + element.link;
             if (element.type === 'aadhar') {
               this.aadhar = fileLink;

@@ -407,6 +407,9 @@ body {
         padding: 2rem 3rem;
         font-size: 1.8rem;
         font-weight: 700;
+        &:disabled {
+          @include disable;
+        }
       }
     }
   }
