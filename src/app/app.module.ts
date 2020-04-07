@@ -136,6 +136,6 @@ const icons = {
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [FilterDialogComponent]
+  entryComponents: [FilterDialogComponent, FilterDialogClubComponent]
 })
 export class AppModule {}
