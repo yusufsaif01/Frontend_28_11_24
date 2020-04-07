@@ -12,7 +12,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { CreatePasswordComponent } from './core/authentication/create-password/create-password.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { AdminViewComponent } from './admin/admin-view/admin-view.component';
 const routes: Routes = [
   {
     path: '',
@@ -58,6 +58,12 @@ const routes: Routes = [
     component: CreatePasswordComponent,
     data: { title: extract('Create Password') }
   },
+  {
+    path: 'admin',
+    component: AdminViewComponent,
+    data: { title: extract('admin') }
+  },
+
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

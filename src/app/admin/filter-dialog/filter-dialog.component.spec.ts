@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FrontendHeaderComponent } from './frontend-header.component';
+import { FilterDialogComponent } from './filter-dialog.component';
 
-describe('FrontendHeaderComponent', () => {
-  let component: FrontendHeaderComponent;
-  let fixture: ComponentFixture<FrontendHeaderComponent>;
+describe('FilterDialogComponent', () => {
+  let component: FilterDialogComponent;
+  let fixture: ComponentFixture<FilterDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FrontendHeaderComponent]
+      declarations: [FilterDialogComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FrontendHeaderComponent);
+    fixture = TestBed.createComponent(FilterDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

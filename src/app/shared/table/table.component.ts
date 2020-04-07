@@ -4,8 +4,7 @@ import {
   Input,
   ViewChild,
   ElementRef,
-  Output,
-  EventEmitter
+  TemplateRef
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -17,11 +16,11 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-  @Input() displayedColumns: string[] = [];
-  @Input() columnsToDisplay: any[] = [];
-  @Input() dataSource = new MatTableDataSource([]);
-  @Output() idEdit = new EventEmitter<any>();
-  @Output() idDelete = new EventEmitter<any>();
+  @Input() tableConfig: any = {};
+  @Input() TableActions: TemplateRef<any>;
+  @Input() NumberColumn: boolean = false;
+  @Input() rows = new MatTableDataSource([]);
+  public columns: string[] = [];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -30,25 +29,24 @@ export class TableComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    this.columns = this.tableConfig.allowedColumns;
+    if (this.TableActions) {
+      this.columns = this.columns.concat('action');
+    }
+    if (this.NumberColumn) {
+      this.columns = ['sno'].concat(this.columns);
+    }
     // this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator;
   }
 
   applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   ngOnchanges() {}
 
   ngAfterContentInit() {
     // this.ElementnameRef.nativeElement.focus();
-  }
-
-  edit(id: any) {
-    this.idEdit.emit(id);
-  }
-
-  delete(id: string) {
-    this.idDelete.emit(id);
   }
 }

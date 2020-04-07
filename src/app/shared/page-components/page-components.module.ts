@@ -5,8 +5,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContainerComponent } from './container/container.component';
 import { RouterModule } from '@angular/router';
-import { FrontendHeaderComponent } from './frontend-header/frontend-header.component';
-import { FrontendSidebarComponent } from './frontend-sidebar/frontend-sidebar.component';
+import { AdminHeaderComponent } from './admin-header/admin-header.component';
+import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
 import { MaterialModule } from '../material/material.module';
 import { FeatherModule } from 'angular-feather';
 import {
@@ -65,8 +65,8 @@ const icons = {
     HeaderComponent,
     FooterComponent,
     ContainerComponent,
-    FrontendHeaderComponent,
-    FrontendSidebarComponent
+    AdminHeaderComponent,
+    AdminSidebarComponent
   ],
   imports: [
     CommonModule,
@@ -79,8 +79,8 @@ const icons = {
     HeaderComponent,
     FooterComponent,
     ContainerComponent,
-    FrontendHeaderComponent,
-    FrontendSidebarComponent,
+    AdminHeaderComponent,
+    AdminSidebarComponent,
     FeatherModule
   ]
 })
