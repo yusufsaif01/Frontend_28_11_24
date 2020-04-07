@@ -55,6 +55,7 @@ import {
   Star
 } from 'angular-feather/icons';
 import { from } from 'rxjs';
+import { AdminManagePlayerComponent } from './admin/admin-manage-player/admin-manage-player.component';
 const icons = {
   Camera,
   Heart,
@@ -118,7 +119,8 @@ const icons = {
     CreatePasswordComponent,
     ProfileComponent,
     AdminViewComponent,
-    FilterDialogComponent
+    FilterDialogComponent,
+    AdminManagePlayerComponent
     // , HomeComponent
   ],
   providers: [
