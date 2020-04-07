@@ -178,7 +178,7 @@ export class EditProfileComponent implements OnInit {
     private _toastrService: ToastrService
   ) {
     this.createForm();
-    // this.setUserCategoryValidators()
+    this.setPlayerCategoryValidators();
   }
 
   ngOnInit() {
@@ -186,8 +186,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   selectTab(tabName: string) {
-    // this.editProfileForm.reset();
-    // this.createForm()
     this.player_type = tabName;
     // this.createForm();
     this.setPlayerCategoryValidators();
@@ -266,37 +264,29 @@ export class EditProfileComponent implements OnInit {
 
   setPlayerCategoryValidators() {
     if (this.member_type === 'player') {
-      // const univeristyNameControl = this.editProfileForm.get(
-      //   'player_current_university_name'
-      // );
-      // const collegeNameControl = this.editProfileForm.get(
-      //   'player_current_college_name'
-      // );
-      // const employmentContract = this.editProfileForm.get(
-      //   'player_employment_contract'
-      // );
-      // this.editProfileForm
-      //   .get('player_type')
-      //   .valueChanges.subscribe(player_type => {
-      //     if (player_type === 'professional') {
-      //       univeristyNameControl.setValidators([Validators.required]);
-      //       collegeNameControl.setValidators([Validators.required]);
-      //       // employmentContract.setValidators([Validators.required]);
-      //     }
-      //     if (player_type === 'amateur') {
-      //       univeristyNameControl.setValidators(null);
-      //       collegeNameControl.setValidators([Validators.required]);
-      //       // employmentContract.setValidators(null);
-      //     }
-      //     if (player_type === 'grassroot') {
-      //       univeristyNameControl.setValidators(null);
-      //       collegeNameControl.setValidators(null);
-      //       // employmentContract.setValidators(null);
-      //     }
-      //     univeristyNameControl.updateValueAndValidity();
-      //     collegeNameControl.updateValueAndValidity();
-      //     // employmentContract.updateValueAndValidity();
-      //   });
+      const employmentContract = this.editProfileForm.get(
+        'employment_contract'
+      );
+      const aadhar = this.editProfileForm.get('aadhar');
+
+      this.editProfileForm
+        .get('player_type')
+        .valueChanges.subscribe(player_type => {
+          aadhar.setValidators([Validators.required, requiredFileDocument]);
+
+          if (player_type === 'professional') {
+            employmentContract.setValidators([
+              Validators.required,
+              requiredFileDocument
+            ]);
+          }
+          if (player_type === 'amateur' || player_type === 'grassroot') {
+            employmentContract.setValidators(null);
+          }
+
+          aadhar.updateValueAndValidity();
+          employmentContract.updateValueAndValidity();
+        });
     }
     // else if(this.member_type==='club' || this.member_type==='academy'){
     //   const univeristyNameControl  = this.editProfileForm.get('player_current_university_name');
@@ -384,21 +374,20 @@ export class EditProfileComponent implements OnInit {
     const requestData = new FormData();
     requestData.set('avatar', this.avatar);
 
-    console.log(this.aboutForm.valid);
     if (this.aboutForm.valid) {
       this._authenticationService.updateBio(requestData).subscribe(
         res => {
           console.log('response', res);
           this._toastrService.success(
             'Successful',
-            'Profile pic updated successfully'
+            'Avatar updated successfully'
           );
         },
         err => {
           console.log('err', err);
           this._toastrService.error(
             'Error',
-            'An error occured while updating profile pic'
+            'An error occured while updating avatar'
           );
         }
       );
@@ -505,8 +494,8 @@ export class EditProfileComponent implements OnInit {
         school: ['', []], //institute.school
         university: [''], //institute.univeristy
         college: [''], //institute.college
-        aadhar: ['', [Validators.required, requiredFileDocument]],
-        employment_contract: ['', [Validators.required, requiredFileDocument]],
+        aadhar: ['', []],
+        employment_contract: ['', []],
         // // professional_details
         position: this._formBuilder.array([]),
         strong_foot: ['', []],
