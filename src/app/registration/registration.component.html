@@ -49,14 +49,18 @@
                 matInput
                 required
               />
-              <ng-container *ngIf="
-                playerRegistrationForm.controls.first_name.invalid &&
-                playerRegistrationForm.controls.first_name.touched
-              ">
+              <ng-container
+                *ngIf="
+                  playerRegistrationForm.controls.first_name.invalid &&
+                  playerRegistrationForm.controls.first_name.touched
+                "
+              >
                 <mat-error
                   class="error-text"
-                  *ngIf="playerRegistrationForm.controls.first_name.errors.required"
-                > 
+                  *ngIf="
+                    playerRegistrationForm.controls.first_name.errors.required
+                  "
+                >
                   First Name is required
                 </mat-error>
               </ng-container>
@@ -72,13 +76,17 @@
                 matInput
                 required
               />
-              <ng-container *ngIf="
-                playerRegistrationForm.controls.last_name.invalid &&
-                playerRegistrationForm.controls.last_name.touched
-              ">
+              <ng-container
+                *ngIf="
+                  playerRegistrationForm.controls.last_name.invalid &&
+                  playerRegistrationForm.controls.last_name.touched
+                "
+              >
                 <mat-error
                   class="error-text"
-                  *ngIf="playerRegistrationForm.controls.last_name.errors.required"
+                  *ngIf="
+                    playerRegistrationForm.controls.last_name.errors.required
+                  "
                 >
                   Last Name is required
                 </mat-error>
@@ -93,10 +101,12 @@
               <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
               <label>Email</label>
               <input formControlName="email" type="text" matInput />
-              <ng-container *ngIf="
-                playerRegistrationForm.controls.email.invalid &&
-                playerRegistrationForm.controls.email.touched
-              ">
+              <ng-container
+                *ngIf="
+                  playerRegistrationForm.controls.email.invalid &&
+                  playerRegistrationForm.controls.email.touched
+                "
+              >
                 <mat-error
                   class="error-text"
                   *ngIf="playerRegistrationForm.controls.email.errors.required"
@@ -117,17 +127,19 @@
               <!-- <img src="assets/icons/phone-call.svg" alt="" /> -->
               <label>Contact Number</label>
               <input formControlName="phone" type="text" matInput />
-              <ng-container *ngIf="
-                playerRegistrationForm.controls.phone.invalid &&
-                playerRegistrationForm.controls.phone.touched
-              ">
+              <ng-container
+                *ngIf="
+                  playerRegistrationForm.controls.phone.invalid &&
+                  playerRegistrationForm.controls.phone.touched
+                "
+              >
                 <mat-error
                   class="error-text"
                   *ngIf="playerRegistrationForm.controls.phone.errors.required"
                 >
                   Contact Number is required
                 </mat-error>
-                <ng-template #lengthBlock >
+                <ng-template #lengthBlock>
                   <mat-error
                     class="error-text"
                     *ngIf="
@@ -157,7 +169,10 @@
                 </ng-template>
                 <mat-error
                   class="error-text"
-                  *ngIf="playerRegistrationForm.controls.phone.errors.pattern; else lengthBlock" 
+                  *ngIf="
+                    playerRegistrationForm.controls.phone.errors.pattern;
+                    else lengthBlock
+                  "
                 >
                   Contact Number format is invalid
                 </mat-error>
@@ -170,7 +185,7 @@
             <div class="input-wrapper">
               <label>Country</label>
               <select formControlName="country" matNativeControl required>
-                <option value="null">Select Country</option>
+                <option value="">Select Country</option>
                 <option value="india">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
@@ -185,7 +200,9 @@
               >
                 <mat-error
                   class="error-text"
-                  *ngIf="playerRegistrationForm.controls.country.errors.required"
+                  *ngIf="
+                    playerRegistrationForm.controls.country.errors.required
+                  "
                 >
                   Country is required
                 </mat-error>
@@ -195,16 +212,18 @@
             <div class="input-wrapper">
               <label>State</label>
               <select formControlName="state" matNativeControl required>
-                <option value="null">Select State</option>
+                <option value="">Select State</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>
                 <option value="mp">M.P</option>
               </select>
-              <ng-container *ngIf="
-                playerRegistrationForm.controls.state.invalid &&
-                playerRegistrationForm.controls.state.touched
-              ">
+              <ng-container
+                *ngIf="
+                  playerRegistrationForm.controls.state.invalid &&
+                  playerRegistrationForm.controls.state.touched
+                "
+              >
                 <mat-error
                   class="error-text"
                   *ngIf="playerRegistrationForm.controls.state.errors.required"
@@ -260,10 +279,12 @@
               <!-- <img src="assets/icons/user.svg" alt="" /> -->
               <label>Club Name</label>
               <input formControlName="name" type="text" matInput />
-              <ng-container *ngIf="
-                clubRegistrationForm.controls.name.invalid &&
-                clubRegistrationForm.controls.name.touched
-              ">
+              <ng-container
+                *ngIf="
+                  clubRegistrationForm.controls.name.invalid &&
+                  clubRegistrationForm.controls.name.touched
+                "
+              >
                 <mat-error
                   class="error-text"
                   *ngIf="clubRegistrationForm.controls.name.errors.required"
@@ -281,10 +302,12 @@
               <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
               <label>Email</label>
               <input formControlName="email" type="text" matInput />
-              <ng-container *ngIf="
-                clubRegistrationForm.controls.email.invalid &&
-                clubRegistrationForm.controls.email.touched
-              ">
+              <ng-container
+                *ngIf="
+                  clubRegistrationForm.controls.email.invalid &&
+                  clubRegistrationForm.controls.email.touched
+                "
+              >
                 <mat-error
                   class="error-text"
                   *ngIf="clubRegistrationForm.controls.email.errors.required"
@@ -305,10 +328,12 @@
               <!-- <img src="assets/icons/phone-call.svg" alt="" /> -->
               <label>Contact Number</label>
               <input formControlName="phone" type="text" matInput />
-              <ng-container *ngIf="
-                clubRegistrationForm.controls.phone.invalid &&
-                clubRegistrationForm.controls.phone.touched
-              ">
+              <ng-container
+                *ngIf="
+                  clubRegistrationForm.controls.phone.invalid &&
+                  clubRegistrationForm.controls.phone.touched
+                "
+              >
                 <mat-error
                   class="error-text"
                   *ngIf="clubRegistrationForm.controls.phone.errors.required"
@@ -341,7 +366,10 @@
                 </ng-template>
                 <mat-error
                   class="error-text"
-                  *ngIf="clubRegistrationForm.controls.phone.errors.pattern; else lengthBlock" 
+                  *ngIf="
+                    clubRegistrationForm.controls.phone.errors.pattern;
+                    else lengthBlock
+                  "
                 >
                   Contact Number format is invalid
                 </mat-error>
@@ -354,16 +382,18 @@
             <div class="input-wrapper">
               <label>Country</label>
               <select formControlName="country" matNativeControl required>
-                <option value="null">Select Country</option>
+                <option value="">Select Country</option>
                 <option value="india">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
                 <option value="australia">Australia</option>
               </select>
-              <ng-container *ngIf="
-                clubRegistrationForm.controls.country.invalid &&
-                clubRegistrationForm.controls.country.touched
-              ">
+              <ng-container
+                *ngIf="
+                  clubRegistrationForm.controls.country.invalid &&
+                  clubRegistrationForm.controls.country.touched
+                "
+              >
                 <mat-error
                   class="error-text"
                   *ngIf="clubRegistrationForm.controls.country.errors.required"
@@ -376,16 +406,18 @@
             <div class="input-wrapper">
               <label>State</label>
               <select formControlName="state" matNativeControl required>
-                <option value="null">Select State</option>
+                <option value="">Select State</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>
                 <option value="mp">M.P</option>
               </select>
-              <ng-container *ngIf="
-                clubRegistrationForm.controls.state.invalid &&
-                clubRegistrationForm.controls.state.touched
-              ">
+              <ng-container
+                *ngIf="
+                  clubRegistrationForm.controls.state.invalid &&
+                  clubRegistrationForm.controls.state.touched
+                "
+              >
                 <mat-error
                   class="error-text"
                   *ngIf="clubRegistrationForm.controls.state.errors.required"
@@ -440,16 +472,18 @@
               <!-- <img src="assets/icons/user.svg" alt="" /> -->
               <label>Academy Name</label>
               <input formControlName="name" type="text" matInput required />
-              <ng-container *ngIf="
-                academyRegistrationForm.controls.name.invalid &&
-                academyRegistrationForm.controls.name.touched
-              ">
+              <ng-container
+                *ngIf="
+                  academyRegistrationForm.controls.name.invalid &&
+                  academyRegistrationForm.controls.name.touched
+                "
+              >
                 <mat-error
                   class="error-text"
                   *ngIf="academyRegistrationForm.controls.name.errors.required"
                 >
                   Academy Name is required
-                </mat-error >
+                </mat-error>
               </ng-container>
             </div>
           </div>
@@ -526,7 +560,10 @@
                 </ng-template>
                 <mat-error
                   class="error-text"
-                  *ngIf="academyRegistrationForm.controls.phone.errors.pattern; else lengthBlock" 
+                  *ngIf="
+                    academyRegistrationForm.controls.phone.errors.pattern;
+                    else lengthBlock
+                  "
                 >
                   Contact Number format is invalid
                 </mat-error>
@@ -539,7 +576,7 @@
             <div class="input-wrapper">
               <label>Country</label>
               <select formControlName="country" matNativeControl required>
-                <option value="null">Select Country</option>
+                <option value="">Select Country</option>
                 <option value="india">India</option>
                 <option value="uk">UK</option>
                 <option value="usa">USA</option>
@@ -553,7 +590,9 @@
               >
                 <mat-error
                   class="error-text"
-                  *ngIf="academyRegistrationForm.controls.country.errors.required"
+                  *ngIf="
+                    academyRegistrationForm.controls.country.errors.required
+                  "
                   >Country is required</mat-error
                 >
               </ng-container>
@@ -569,7 +608,7 @@
                 placeholder="Select State"
                 required
               >
-                <option value="null">Select State</option>
+                <option value="">Select State</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
                 <option value="up">U.P</option>

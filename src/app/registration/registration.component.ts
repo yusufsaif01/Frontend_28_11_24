@@ -34,6 +34,7 @@ export class RegistrationComponent implements OnInit {
     this.clubRegistrationForm.reset();
     this.playerRegistrationForm.reset();
     this.academyRegistrationForm.reset();
+    this.createForm();
   }
 
   playerRegister() {
@@ -88,7 +89,6 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
-
   private createForm() {
     this.playerRegistrationForm = this._formBuilder.group({
       first_name: ['', [Validators.required]],
@@ -103,8 +103,8 @@ export class RegistrationComponent implements OnInit {
           Validators.pattern(/^[0-9]+$/)
         ]
       ],
-      country: [null, [Validators.required]],
-      state: [null, [Validators.required]]
+      country: ['', [Validators.required]],
+      state: ['', [Validators.required]]
     });
 
     this.clubRegistrationForm = this._formBuilder.group({
@@ -119,8 +119,8 @@ export class RegistrationComponent implements OnInit {
           Validators.pattern(/^[0-9]+$/)
         ]
       ],
-      country: [null, [Validators.required]],
-      state: [null, [Validators.required]]
+      country: ['', [Validators.required]],
+      state: ['', [Validators.required]]
     });
     this.academyRegistrationForm = this._formBuilder.group({
       name: ['', [Validators.required]],
@@ -134,8 +134,8 @@ export class RegistrationComponent implements OnInit {
           Validators.pattern(/^[0-9]+$/)
         ]
       ],
-      country: [null, [Validators.required]],
-      state: [null, [Validators.required]]
+      country: ['', [Validators.required]],
+      state: ['', [Validators.required]]
     });
   }
 }
