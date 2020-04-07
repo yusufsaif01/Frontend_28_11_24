@@ -1,12 +1,11 @@
 @import "src/assets/sass/abstracts/variables";
 .btn {
   border: 0.1em solid $color-black;
-  background: $color-white;
-  color: $color-black;
+  background: $blue;
+  color: $color-white;
   padding: 1rem 3rem;
-  border-radius: 0.8rem;
   line-height: 1;
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   outline: none;
   cursor: pointer;
   &-block {
@@ -16,11 +15,7 @@
   &-gredient {
     color: $color-white;
     border-color: $color-primary;
-    background-image: linear-gradient(
-      -3deg,
-      $color-primary-dark 0%,
-      $color-primary-light 100%
-    );
+    background-color: $blue;
   }
   &-primary {
     color: $color-white;

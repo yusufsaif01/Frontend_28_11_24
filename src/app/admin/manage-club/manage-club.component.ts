@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { AdminViewTableConfig } from './admin-view-table-conf';
-import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
+import { ManageClubTableConfig } from './manage-club-table-conf';
+import { FilterDialogClubComponent } from '../filter-dialog-club/filter-dialog-club.component';
 
 @Component({
-  selector: 'app-admin-view',
-  templateUrl: './admin-view.component.html',
-  styleUrls: ['./admin-view.component.scss']
+  selector: 'app-manage-club',
+  templateUrl: './manage-club.component.html',
+  styleUrls: ['./manage-club.component.scss']
 })
-export class AdminViewComponent implements OnInit {
+export class ManageClubComponent implements OnInit {
   list: any;
-  public tableConfig: AdminViewTableConfig = new AdminViewTableConfig();
+  public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
   dataSource = new MatTableDataSource([]);
 
   constructor(public dialog: MatDialog) {}
@@ -21,7 +21,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   sampleModel() {
-    const dialogRef = this.dialog.open(FilterDialogComponent, {
+    const dialogRef = this.dialog.open(FilterDialogClubComponent, {
       width: '50% ',
       panelClass: 'filterDialog'
     });

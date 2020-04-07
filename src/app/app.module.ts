@@ -55,6 +55,9 @@ import {
   Star
 } from 'angular-feather/icons';
 import { from } from 'rxjs';
+import { AdminManagePlayerComponent } from './admin/admin-manage-player/admin-manage-player.component';
+import { ManageClubComponent } from './admin/manage-club/manage-club.component';
+import { FilterDialogClubComponent } from './admin/filter-dialog-club/filter-dialog-club.component';
 const icons = {
   Camera,
   Heart,
@@ -118,7 +121,10 @@ const icons = {
     CreatePasswordComponent,
     ProfileComponent,
     AdminViewComponent,
-    FilterDialogComponent
+    FilterDialogComponent,
+    AdminManagePlayerComponent,
+    ManageClubComponent,
+    FilterDialogClubComponent
     // , HomeComponent
   ],
   providers: [
@@ -130,6 +136,6 @@ const icons = {
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [FilterDialogComponent]
+  entryComponents: [FilterDialogComponent, FilterDialogClubComponent]
 })
 export class AppModule {}
