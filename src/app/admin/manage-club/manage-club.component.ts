@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageClubTableConfig } from './manage-club-table-conf';
 import { FilterDialogClubComponent } from '../filter-dialog-club/filter-dialog-club.component';
+import { AdminService } from '../service/admin.service';
 
 @Component({
   selector: 'app-manage-club',
@@ -14,10 +15,18 @@ export class ManageClubComponent implements OnInit {
   public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
   dataSource = new MatTableDataSource([]);
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public adminService: AdminService) {}
 
   ngOnInit() {
-    this.sampleModel();
+    // this.sampleModel();
+    this.adminService
+      .getClubList({
+        page_no: 1,
+        page_size: 20
+      })
+      .subscribe(response => {
+        this.dataSource = new MatTableDataSource(response.data.records);
+      });
   }
 
   sampleModel() {

@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageAcademyTableConfig } from './manage-academy-table-conf';
 import { FilterDialogAcademyComponent } from '../filter-dialog-academy/filter-dialog-academy.component';
+import { AdminService } from '../service/admin.service';
 
 @Component({
   selector: 'app-manage-academy',
@@ -14,10 +15,18 @@ export class ManageAcademyComponent implements OnInit {
   public tableConfig: ManageAcademyTableConfig = new ManageAcademyTableConfig();
   dataSource = new MatTableDataSource([]);
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public adminService: AdminService) {}
 
   ngOnInit() {
-    this.sampleModel();
+    // this.sampleModel();
+    this.adminService
+      .getAcademyList({
+        page_no: 1,
+        page_size: 20
+      })
+      .subscribe(response => {
+        this.dataSource = new MatTableDataSource(response.data.records);
+      });
   }
 
   sampleModel() {

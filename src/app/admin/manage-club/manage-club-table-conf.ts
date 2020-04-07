@@ -3,28 +3,35 @@ import { TableConfig } from '@app/shared/table/TableConfig';
 export class ManageClubTableConfig extends TableConfig {
   constructor() {
     super();
-    this.allowedColumns = ['title', 'type', 'quiz_mapped'];
+    this.allowedColumns = ['name', 'no_of_players', 'email', 'status'];
 
     this.columns = {
-      title: {
-        code: 'title',
-        text: 'Chapter Name',
+      name: {
+        code: 'name',
+        text: 'Club Name',
         getValue: (ele: any) => {
-          return ele[this.columns.title.code];
+          return ele[this.columns.name.code];
         }
       },
-      type: {
-        code: 'type',
-        text: 'Course Type',
+      no_of_players: {
+        code: 'no_of_players',
+        text: 'No. of Players',
         getValue: (ele: any) => {
-          return ele[this.columns.type.code];
+          return ele[this.columns.no_of_players.code];
         }
       },
-      quiz_mapped: {
-        code: 'quiz_mapped',
-        text: 'Assigned Quiz',
+      email: {
+        code: 'email',
+        text: 'E-Mail ID',
         getValue: (ele: any) => {
-          return ele[this.columns.quiz_mapped.code];
+          return ele[this.columns.email.code];
+        }
+      },
+      status: {
+        code: 'status',
+        text: 'Status',
+        getValue: (ele: any) => {
+          return ele[this.columns.status.code];
         }
       },
       action: {

@@ -1,9 +1,9 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
 
-export class AdminViewTableConfig extends TableConfig {
+export class ManagePlayerTableConfig extends TableConfig {
   constructor() {
     super();
-    this.allowedColumns = ['name','position','type','email','status'];
+    this.allowedColumns = ['name', 'position', 'type', 'email', 'status'];
 
     this.columns = {
       name: {
