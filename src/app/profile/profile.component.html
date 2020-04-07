@@ -279,7 +279,7 @@
                 <p><span>Email :</span> {{ person?.email }}</p>
               </div>
               <div class="half">
-                <p><span> Phone Number :</span> {{ person?.phone }}</p>
+                <p><span> Phone Number :</span> {{ person?.phone_number }}</p>
               </div>
             </div>
           </ng-container>
@@ -293,7 +293,7 @@
         </div>
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Founded :</span> {{ profile.founded_in }}</p>
+            <p><span>Founded (Year) :</span> {{ profile.founded_in }}</p>
           </div>
           <div class="half">
             <p><span>Short Club Name :</span> {{ profile.short_name }}</p>
@@ -374,7 +374,7 @@
           </div>
         </div>
 
-        <div class="block-middle border-bottom">
+        <div class="block-middle border-bottom" *ngIf="member_type === 'club'">
           <div class="full">
             <p>
               <span>Top Signing : </span>
