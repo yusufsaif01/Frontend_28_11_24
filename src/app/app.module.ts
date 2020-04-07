@@ -56,6 +56,8 @@ import {
 } from 'angular-feather/icons';
 import { from } from 'rxjs';
 import { AdminManagePlayerComponent } from './admin/admin-manage-player/admin-manage-player.component';
+import { ManageClubComponent } from './admin/manage-club/manage-club.component';
+import { FilterDialogClubComponent } from './admin/filter-dialog-club/filter-dialog-club.component';
 const icons = {
   Camera,
   Heart,
@@ -120,7 +122,9 @@ const icons = {
     ProfileComponent,
     AdminViewComponent,
     FilterDialogComponent,
-    AdminManagePlayerComponent
+    AdminManagePlayerComponent,
+    ManageClubComponent,
+    FilterDialogClubComponent
     // , HomeComponent
   ],
   providers: [
