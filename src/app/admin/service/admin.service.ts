@@ -199,6 +199,24 @@ export class AdminService {
     if (context['sort_order']) {
       query += '&sort_order=' + context['sort_order'];
     }
+    if (context['from']) {
+      query += '&from=' + context['from'];
+    }
+    if (context['to']) {
+      query += '&to=' + context['to'];
+    }
+    if (context['email']) {
+      query += '&email=' + context['email'];
+    }
+    if (context['name']) {
+      query += '&name=' + context['name'];
+    }
+    if (context['email_verified']) {
+      query += '&email_verified=' + context['email_verified'];
+    }
+    if (context['']) {
+      query += '&profile_status=' + context['profile_status'];
+    }
     console.log(query);
     return this.httpClient.get<ClubListResponseContext>(
       routes.getClubList(context) + query,
@@ -234,6 +252,25 @@ export class AdminService {
     if (context['sort_order']) {
       query += '&sort_order=' + context['sort_order'];
     }
+    if (context['from']) {
+      query += '&from=' + context['from'];
+    }
+    if (context['to']) {
+      query += '&to=' + context['to'];
+    }
+    if (context['email']) {
+      query += '&email=' + context['email'];
+    }
+    if (context['name']) {
+      query += '&name=' + context['name'];
+    }
+    if (context['profile_status']) {
+      query += '&profile_status=' + context['profile_status'];
+    }
+    if (context['email_verified']) {
+      query += '&email_verified=' + context['email_verified'];
+    }
+    
     console.log(query);
     return this.httpClient.get<AcademyListResponseContext>(
       routes.getAcademyList(context) + query,
