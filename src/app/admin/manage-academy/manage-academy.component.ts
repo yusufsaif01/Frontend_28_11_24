@@ -11,6 +11,8 @@ import { AdminService } from '../service/admin.service';
   styleUrls: ['./manage-academy.component.scss']
 })
 export class ManageAcademyComponent implements OnInit {
+  sideBarToogle: boolean = false;
+  showFiller = false;
   list: any;
   public tableConfig: ManageAcademyTableConfig = new ManageAcademyTableConfig();
   dataSource = new MatTableDataSource([]);
@@ -35,22 +37,20 @@ export class ManageAcademyComponent implements OnInit {
       panelClass: 'filterDialog'
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('original',result);
-      if(result){
-        if(result['from']){
-          result['from']  = new Date(result['from']).toISOString()
+      console.log('original', result);
+      if (result) {
+        if (result['from']) {
+          result['from'] = new Date(result['from']).toISOString();
         }
-        if(result['to']){
-          result['to']    = new Date(result['to']).toISOString()
+        if (result['to']) {
+          result['to'] = new Date(result['to']).toISOString();
         }
         console.log('The dialog was closed');
-        this.adminService
-        .getAcademyList(result)
-        .subscribe(response => {
+        this.adminService.getAcademyList(result).subscribe(response => {
           this.dataSource = new MatTableDataSource(response.data.records);
         });
-      }else{
-        console.log('filter data not provided');        
+      } else {
+        console.log('filter data not provided');
       }
     });
 

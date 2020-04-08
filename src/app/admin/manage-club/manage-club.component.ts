@@ -11,6 +11,8 @@ import { AdminService } from '../service/admin.service';
   styleUrls: ['./manage-club.component.scss']
 })
 export class ManageClubComponent implements OnInit {
+  sideBarToogle: boolean = false;
+  showFiller = false;
   list: any;
   public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
   dataSource = new MatTableDataSource([]);
@@ -36,20 +38,18 @@ export class ManageClubComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      if(result){
-        if(result['from']){
-          result['from']  = new Date(result['from']).toISOString()
+      if (result) {
+        if (result['from']) {
+          result['from'] = new Date(result['from']).toISOString();
         }
-        if(result['to']){
-          result['to']    = new Date(result['to']).toISOString()
+        if (result['to']) {
+          result['to'] = new Date(result['to']).toISOString();
         }
         console.log('The dialog was closed');
-        this.adminService
-        .getClubList(result)
-        .subscribe(response => {
+        this.adminService.getClubList(result).subscribe(response => {
           this.dataSource = new MatTableDataSource(response.data.records);
         });
-      }else{
+      } else {
         console.log('filter data not provided');
       }
     });

@@ -1,102 +1,107 @@
-<app-admin-header></app-admin-header>
-<div class="admin-wrapper">
-  <div class="admin-sidebar">
+<app-admin-header (click)="sideBarToogle = !sideBarToogle"></app-admin-header>
+<mat-drawer-container class="admin-wrapper" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side" [opened]="sideBarToogle">
     <app-admin-sidebar></app-admin-sidebar>
-  </div>
-  <div class="admin-main">
-    <!-- title breadcrum -->
-    <div class="title-wrapper">
-      <div class="title">
-        <h3>Manage Academy</h3>
-      </div>
-      <div class="breadcrumb">
-        <ul>
-          <li>Member Management</li>
-          <li>Manage Academy</li>
-        </ul>
-      </div>
-    </div>
-    <!-- end of the breadcrum -->
-
-    <!-- blocks -->
-    <div class="counter-wrapper">
-      <div class="count-block">
-        <div class="count-img">
-          <img src="assets/images/icons/academy.png" alt="" />
+  </mat-drawer>
+  <div class="sidenav-content" [ngClass]="{ sidenavToogle: !sideBarToogle }">
+    <!-- <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button> -->
+    <div class="admin-main">
+      <!-- title breadcrum -->
+      <div class="title-wrapper">
+        <div class="title">
+          <h3>Manage Academy</h3>
         </div>
-        <div class="count-details">
-          <h3>Total Academy</h3>
-          <h5>300</h5>
+        <div class="breadcrumb">
+          <ul>
+            <li>Member Management</li>
+            <li>Manage Academy</li>
+          </ul>
         </div>
       </div>
-    </div>
-    <!-- blocks ends-->
+      <!-- end of the breadcrum -->
 
-    <!-- table -->
-    <div class="middle-part">
-      <!-- filter-section -->
-      <div class="filter-wrapper">
-        <div class="filter">
+      <!-- blocks -->
+      <div class="counter-wrapper">
+        <div class="count-block">
+          <div class="count-img">
+            <img src="assets/images/icons/academy.png" alt="" />
+          </div>
+          <div class="count-details">
+            <h3>Total Academy</h3>
+            <h5>300</h5>
+          </div>
+        </div>
+      </div>
+      <!-- blocks ends-->
+
+      <!-- table -->
+      <div class="middle-part">
+        <!-- filter-section -->
+        <div class="filter-wrapper">
+          <div class="filter">
+            <ul>
+              <li>
+                <a><img src="assets/images/icons/filter.png"/></a>
+              </li>
+              <li>
+                <a><img src="assets/images/icons/refresh.png"/></a>
+              </li>
+            </ul>
+          </div>
+          <!-- search form -->
+          <div class="search">
+            <div class="search-box">
+              <select matNativeControl required class="change-icon">
+                <option value="20" selected>20</option>
+                <option value="25">25</option>
+                <option value="30">30</option>
+                <option value="35">35</option>
+              </select>
+            </div>
+            <div class="search-box">
+              <input
+                matinput
+                placeholder="Search your academy"
+                class="search-icon"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- filter-seciton -->
+
+        <!-- table -->
+        <div class="table-container">
+          <app-table
+            [tableConfig]="tableConfig"
+            [NumberColumn]="'true'"
+            [rows]="dataSource"
+          ></app-table>
+        </div>
+      </div>
+
+      <!-- pagination -->
+      <div class="pagination-wrapper">
+        <div class="showing-data">
+          <p><strong>Showing</strong> 20 / 500 Data</p>
+        </div>
+        <div class="pagination">
           <ul>
             <li>
-              <a (click)="sampleModel()" ><img src="assets/images/icons/filter.png"/></a>
+              <a><span> &#8592; </span></a>
             </li>
+            <li><a>1</a></li>
+            <li><a>2</a></li>
+            <li><a>3</a></li>
             <li>
-              <a><img src="assets/images/icons/refresh.png"/></a>
+              <a> <span>&#8594;</span> </a>
             </li>
           </ul>
         </div>
-        <!-- search form -->
-        <div class="search">
-          <div class="search-box">
-            <select matNativeControl required class="change-icon">
-              <option value="20" selected>20</option>
-              <option value="25">25</option>
-              <option value="30">30</option>
-              <option value="35">35</option>
-            </select>
-          </div>
-          <div class="search-box">
-            <input
-              matinput
-              placeholder="Search your academy"
-              class="search-icon"
-            />
-          </div>
-        </div>
       </div>
-      <!-- filter-seciton -->
-
-      <!-- table -->
-      <div class="table-container">
-        <app-table
-          [tableConfig]="tableConfig"
-          [NumberColumn]="'true'"
-          [rows]="dataSource"
-        ></app-table>
-      </div>
+      <!-- pagination end here -->
     </div>
-
-    <!-- pagination -->
-    <div class="pagination-wrapper">
-      <div class="showing-data">
-        <p><strong>Showing</strong> 20 / 500 Data</p>
-      </div>
-      <div class="pagination">
-        <ul>
-          <li>
-            <a><span> &#8592; </span></a>
-          </li>
-          <li><a>1</a></li>
-          <li><a>2</a></li>
-          <li><a>3</a></li>
-          <li>
-            <a> <span>&#8594;</span> </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <!-- pagination end here -->
   </div>
-</div>
+</mat-drawer-container>
 <app-footer></app-footer>
