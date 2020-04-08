@@ -37,13 +37,18 @@
       <!-- email type -->
       <div class="input__group">
         <label>Email</label>
-        <input formControlName="email" type="email" matinput placeholder="Enter Your Mail" />
+        <input
+          formControlName="email"
+          type="email"
+          matinput
+          placeholder="Enter Your Mail"
+        />
       </div>
 
       <!-- Player Type -->
       <div class="input__group">
         <label>Player Type</label>
-        <select  matNativeControl required>
+        <select matNativeControl required>
           <option value="">Select Player Type</option>
           <option value="goalKeeper">GoalKeeper</option>
           <option value="center">Center</option>
@@ -63,7 +68,7 @@
       <div class="input__group">
         <label>Profile Status</label>
         <select formControlName="profile_status" matNativeControl required>
-          <option value="" selected>Select your Status</option>
+          <option value="" selected>Select Status</option>
           <option value="verified">Verified</option>
           <option value="unverified">Unverified</option>
         </select>
