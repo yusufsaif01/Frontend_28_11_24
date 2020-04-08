@@ -526,7 +526,7 @@ export class EditProfileComponent implements OnInit {
         stadium_name: ['', []],
         league: ['', [Validators.required]],
         league_other: ['', [Validators.required]],
-        contact_person: this._formBuilder.array([Validators.required]),
+        contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
         associated_players: ['', [Validators.required]],
@@ -556,8 +556,8 @@ export class EditProfileComponent implements OnInit {
         league: ['', [Validators.required]],
         league_other: ['', [Validators.required]],
         document_type: ['', []],
-        contact_person: this._formBuilder.array([], [Validators.required]),
-        trophies: this._formBuilder.array([], [Validators.required]),
+        contact_person: this._formBuilder.array([], []),
+        trophies: this._formBuilder.array([], []),
         associated_players: ['', [Validators.required]],
         document: ['', [requiredFileDocument]]
         //onclick upload documenet aiff / pan card/tin / coi
