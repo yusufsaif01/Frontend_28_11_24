@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output,
+  ViewChild
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManagePlayerTableConfig } from './manage-player-table-conf';
@@ -11,6 +17,7 @@ import { AdminService } from '../service/admin.service';
   styleUrls: ['./manage-player.component.scss']
 })
 export class ManagePlayerComponent implements OnInit {
+  showFiller = false;
   list: any;
   public tableConfig: ManagePlayerTableConfig = new ManagePlayerTableConfig();
   dataSource = new MatTableDataSource([]);

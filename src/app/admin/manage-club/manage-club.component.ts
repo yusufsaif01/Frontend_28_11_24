@@ -11,6 +11,7 @@ import { AdminService } from '../service/admin.service';
   styleUrls: ['./manage-club.component.scss']
 })
 export class ManageClubComponent implements OnInit {
+  showFiller = false;
   list: any;
   public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
   dataSource = new MatTableDataSource([]);

@@ -11,6 +11,7 @@ import { AdminService } from '../service/admin.service';
   styleUrls: ['./manage-academy.component.scss']
 })
 export class ManageAcademyComponent implements OnInit {
+  showFiller = false;
   list: any;
   public tableConfig: ManageAcademyTableConfig = new ManageAcademyTableConfig();
   dataSource = new MatTableDataSource([]);
