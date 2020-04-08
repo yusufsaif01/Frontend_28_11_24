@@ -54,7 +54,7 @@ export class TableComponent implements OnInit {
   }
 
   applyFilter(filterValue: string) {
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.rows.filter = filterValue.trim().toLowerCase();
   }
 
   ngOnChanges(changes: SimpleChanges) {

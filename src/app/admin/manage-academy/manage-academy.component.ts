@@ -73,4 +73,9 @@ export class ManageAcademyComponent implements OnInit {
     ];
     // this.dataSource = new MatTableDataSource(this.list);
   }
+
+  applyFilter(event: any) {
+    let filterValue = event.target.value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

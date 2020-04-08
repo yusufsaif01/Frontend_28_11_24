@@ -97,9 +97,10 @@
             </div>
             <div class="search-box">
               <input
-                matinput
+                matInput
                 placeholder="Search your player"
                 class="search-icon"
+                (keyup)="applyFilter($event)"
               />
             </div>
           </div>

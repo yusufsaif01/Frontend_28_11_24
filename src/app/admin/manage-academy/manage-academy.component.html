@@ -69,9 +69,10 @@
             </div>
             <div class="search-box">
               <input
-                matinput
+                matInput
                 placeholder="Search your academy"
                 class="search-icon"
+                (keyup)="applyFilter($event)"
               />
             </div>
           </div>
