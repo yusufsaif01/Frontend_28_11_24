@@ -602,6 +602,11 @@
                     type="radio"
                     formControlName="associated_club"
                     value="yes"
+                    [checked]="
+                      profile?.club_academy_details &&
+                      profile.club_academy_details?.head_coach_phone &&
+                      profile.club_academy_details?.head_coach_email
+                    "
                   />
                   <span>Yes</span>
                 </label>
@@ -610,6 +615,13 @@
                     type="radio"
                     formControlName="associated_club"
                     value="no"
+                    [checked]="
+                      !(
+                        profile?.club_academy_details &&
+                        profile.club_academy_details?.head_coach_phone &&
+                        profile.club_academy_details?.head_coach_email
+                      )
+                    "
                   />
                   <span>No</span>
                 </label>
@@ -664,50 +676,72 @@
             </div>
 
             <!-- Head coach phone number * -->
-            <div
-              class="from-block"
-              *ngIf="editProfileForm.controls.associated_club.value === 'yes'"
+            <ng-container
+              *ngIf="
+                editProfileForm.controls.associated_club.value === 'yes' ||
+                (profile?.club_academy_details &&
+                  profile.club_academy_details?.head_coach_phone)
+              "
             >
-              <label>Head coach phone number <span>*</span></label>
-              <input formControlName="head_coach_phone" type="text" matInput />
-              <mat-error
+              <div
+                class="from-block"
                 *ngIf="
-                  editProfileForm.controls.head_coach_phonenvalid &&
-                  editProfileForm.controls.head_coach_phone.touched
+                  profile?.club_academy_details &&
+                  profile.club_academy_details?.head_coach_phone
                 "
               >
-                <span
+                <label>Head coach phone number <span>*</span></label>
+                <input
+                  formControlName="head_coach_phone"
+                  type="text"
+                  matInput
+                />
+                <mat-error
                   *ngIf="
-                    editProfileForm.controls.head_coach_phone.errors.required
+                    editProfileForm.controls.head_coach_phone.invalid &&
+                    editProfileForm.controls.head_coach_phone.touched
                   "
-                  translate
-                  >Head Coach Phone is required</span
                 >
-              </mat-error>
-            </div>
+                  <span
+                    *ngIf="
+                      editProfileForm.controls.head_coach_phone.errors.required
+                    "
+                    translate
+                    >Head Coach Phone is required</span
+                  >
+                </mat-error>
+              </div>
 
-            <!-- Head coach email number -->
-            <div
-              class="from-block"
-              *ngIf="editProfileForm.controls.associated_club.value === 'yes'"
-            >
-              <label>Head coach email <span>*</span></label>
-              <input formControlName="head_coach_email" type="text" matInput />
-              <mat-error
+              <!-- Head coach email number -->
+              <div
+                class="from-block"
                 *ngIf="
-                  editProfileForm.controls.head_coach_emailnvalid &&
-                  editProfileForm.controls.head_coach_email.touched
+                  profile?.club_academy_details &&
+                  profile.club_academy_details?.head_coach_email
                 "
               >
-                <span
+                <label>Head coach email <span>*</span></label>
+                <input
+                  formControlName="head_coach_email"
+                  type="text"
+                  matInput
+                />
+                <mat-error
                   *ngIf="
-                    editProfileForm.controls.head_coach_email.errors.required
+                    editProfileForm.controls.head_coach_email.invalid &&
+                    editProfileForm.controls.head_coach_email.touched
                   "
-                  translate
-                  >Head Coach Email is required</span
                 >
-              </mat-error>
-            </div>
+                  <span
+                    *ngIf="
+                      editProfileForm.controls.head_coach_email.errors.required
+                    "
+                    translate
+                    >Head Coach Email is required</span
+                  >
+                </mat-error>
+              </div>
+            </ng-container>
 
             <!-- former Club -->
             <ng-container *ngIf="player_type !== 'grassroot'">

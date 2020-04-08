@@ -178,7 +178,7 @@ export class EditProfileComponent implements OnInit {
     private _toastrService: ToastrService
   ) {
     this.createForm();
-    this.setPlayerCategoryValidators();
+    this.setCategoryValidators();
   }
 
   ngOnInit() {
@@ -187,8 +187,7 @@ export class EditProfileComponent implements OnInit {
 
   selectTab(tabName: string) {
     this.player_type = tabName;
-    // this.createForm();
-    this.setPlayerCategoryValidators();
+    this.setCategoryValidators();
     console.log('player_type', this.player_type);
   }
 
@@ -256,13 +255,15 @@ export class EditProfileComponent implements OnInit {
         );
       }
     );
+
+    this.setCategoryValidators();
   }
 
   resetForm() {
     this.editProfileForm.reset();
   }
 
-  setPlayerCategoryValidators() {
+  setCategoryValidators() {
     if (this.member_type === 'player') {
       const employmentContract = this.editProfileForm.get(
         'employment_contract'
@@ -272,6 +273,7 @@ export class EditProfileComponent implements OnInit {
       this.editProfileForm
         .get('player_type')
         .valueChanges.subscribe(player_type => {
+          // if(!this.profile.documents && this.profile.documents[0])
           aadhar.setValidators([Validators.required, requiredFileDocument]);
 
           if (player_type === 'professional') {

@@ -70,8 +70,11 @@
           </div>
           <div class="half">
             <p>
-              <span>Height :</span> {{ profile.height?.feet }} ft
-              {{ profile.height?.inches }} inches
+              <span>Height :</span>
+              {{ profile.height.feet ? profile.height.feet + 'ft' : '' }}
+              {{
+                profile.height.inches ? profile.height.inches + 'inches' : ''
+              }}
             </p>
           </div>
         </div>
@@ -139,7 +142,10 @@
           </div>
         </div>
 
-        <div class="block-middle border-bottom">
+        <div
+          class="block-middle border-bottom"
+          *ngIf="profile.player_type === 'professional'"
+        >
           <div class="full">
             <p>
               <span>View Employement : </span>
@@ -216,32 +222,31 @@
           </div>
         </div>
 
-        <ng-container *ngIf="profile.club_academy_details">
-          <ng-container *ngFor="let details of profile.club_academy_details">
-            <div class="block-middle border-bottom">
-              <div class="full">
-                <p><span>Head Coach Name : </span> {{ details.head_coach }}</p>
-              </div>
+        <ng-container
+          *ngIf="
+            profile.club_academy_details &&
+            profile.club_academy_details.head_coach_phone
+          "
+        >
+          <!-- <ng-container *ngFor="let details of profile.club_academy_details"> -->
+          <div class="block-middle border-bottom">
+            <div class="full">
+              <p>
+                <span>Head Coach Phone Number : </span>
+                {{ profile.club_academy_details?.head_coach_phone }}
+              </p>
             </div>
+          </div>
 
-            <div class="block-middle border-bottom">
-              <div class="full">
-                <p>
-                  <span>Head Coach Phone Number : </span>
-                  {{ details.head_coach_phone }}
-                </p>
-              </div>
+          <div class="block-middle border-bottom">
+            <div class="full">
+              <p>
+                <span>Head Coach Email : </span>
+                {{ profile.club_academy_details?.head_coach_email }}
+              </p>
             </div>
-
-            <div class="block-middle border-bottom">
-              <div class="full">
-                <p>
-                  <span>Head Coach Email : </span>
-                  {{ details.head_coach_email }}
-                </p>
-              </div>
-            </div>
-          </ng-container>
+          </div>
+          <!-- </ng-container> -->
         </ng-container>
       </div>
     </div>
