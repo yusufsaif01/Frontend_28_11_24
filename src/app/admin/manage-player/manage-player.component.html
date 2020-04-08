@@ -1,10 +1,10 @@
-<app-admin-header (click)="sideBarToogle = !sideBarToogle" ></app-admin-header>
+<app-admin-header (click)="sideBarToogle = !sideBarToogle"></app-admin-header>
 <mat-drawer-container class="admin-wrapper" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="sideBarToogle">
     <app-admin-sidebar></app-admin-sidebar>
   </mat-drawer>
 
-  <div class="sidenav-content" [ngClass]="{'sidenavToogle':!sideBarToogle}">
+  <div class="sidenav-content" [ngClass]="{ sidenavToogle: !sideBarToogle }">
     <!-- <button type="button" mat-button (click)="drawer.toggle()">
       Toggle sidenav
     </button> -->
@@ -12,7 +12,7 @@
       <!-- title breadcrum -->
       <div class="title-wrapper">
         <div class="title">
-          <h3>Manage player</h3>
+          <h3>Manage Player</h3>
         </div>
         <div class="breadcrumb">
           <ul>
@@ -45,10 +45,10 @@
         </div>
         <div class="count-block">
           <div class="count-img">
-            <img src="assets/images/icons/ameture.png" alt="" />
+            <img src="assets/images/icons/ameteur.png" alt="" />
           </div>
           <div class="count-details">
-            <h3>Ameture</h3>
+            <h3>Ameteur</h3>
             <h5>280</h5>
           </div>
         </div>
@@ -71,7 +71,9 @@
           <div class="filter">
             <ul>
               <li>
-                <a><img src="assets/images/icons/filter.png"/></a>
+                <a (click)="sampleModel()"
+                  ><img src="assets/images/icons/filter.png"
+                /></a>
               </li>
               <li>
                 <a><img src="assets/images/icons/refresh.png"/></a>
@@ -81,7 +83,12 @@
           <!-- search form -->
           <div class="search">
             <div class="search-box">
-              <select matNativeControl required class="change-icon">
+              <select
+                matNativeControl
+                required
+                class="change-icon"
+                (change)="recordsPerPage($event)"
+              >
                 <option value="20" selected>20</option>
                 <option value="25">25</option>
                 <option value="30">30</option>
@@ -90,9 +97,10 @@
             </div>
             <div class="search-box">
               <input
-                matinput
+                matInput
                 placeholder="Search your player"
                 class="search-icon"
+                (keyup)="applyFilter($event)"
               />
             </div>
           </div>

@@ -1,9 +1,9 @@
-<app-admin-header (click)="sideBarToogle = !sideBarToogle" ></app-admin-header>
+<app-admin-header (click)="sideBarToogle = !sideBarToogle"></app-admin-header>
 <mat-drawer-container class="admin-wrapper" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="sideBarToogle">
     <app-admin-sidebar></app-admin-sidebar>
   </mat-drawer>
-  <div class="sidenav-content" [ngClass]="{'sidenavToogle':!sideBarToogle}" >
+  <div class="sidenav-content" [ngClass]="{ sidenavToogle: !sideBarToogle }">
     <!-- <button type="button" mat-button (click)="drawer.toggle()">
       Toggle sidenav
     </button> -->
@@ -43,7 +43,9 @@
           <div class="filter">
             <ul>
               <li>
-                <a><img src="assets/images/icons/filter.png"/></a>
+                <a (click)="sampleModel()"
+                  ><img src="assets/images/icons/filter.png"
+                /></a>
               </li>
               <li>
                 <a><img src="assets/images/icons/refresh.png"/></a>
@@ -53,7 +55,12 @@
           <!-- search form -->
           <div class="search">
             <div class="search-box">
-              <select matNativeControl required class="change-icon">
+              <select
+                matNativeControl
+                required
+                class="change-icon"
+                (change)="recordsPerPage($event)"
+              >
                 <option value="20" selected>20</option>
                 <option value="25">25</option>
                 <option value="30">30</option>
@@ -62,9 +69,10 @@
             </div>
             <div class="search-box">
               <input
-                matinput
+                matInput
                 placeholder="Search your Club"
                 class="search-icon"
+                (keyup)="applyFilter($event)"
               />
             </div>
           </div>

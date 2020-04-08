@@ -30,6 +30,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { CreatePasswordComponent } from './core/authentication/create-password/create-password.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MatSortModule } from '@angular/material/sort';
 import { FeatherModule } from 'angular-feather';
 
 import {
@@ -86,6 +87,7 @@ const icons = {
     ServiceWorkerModule.register('./ngsw-worker.js', {
       enabled: environment.production
     }),
+    MatSortModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

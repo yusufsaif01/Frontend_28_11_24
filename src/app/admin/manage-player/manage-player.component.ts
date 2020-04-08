@@ -17,24 +17,34 @@ import { AdminService } from '../service/admin.service';
   styleUrls: ['./manage-player.component.scss']
 })
 export class ManagePlayerComponent implements OnInit {
-  sideBarToogle:boolean =false;
+  sideBarToogle: boolean = true;
   showFiller = false;
   list: any;
+  pageSize: number;
+
   public tableConfig: ManagePlayerTableConfig = new ManagePlayerTableConfig();
-  dataSource = new MatTableDataSource([]);
+  public dataSource = new MatTableDataSource([]);
 
   constructor(public dialog: MatDialog, public adminService: AdminService) {}
 
   ngOnInit() {
-    // this.sampleModel();
+    this.getPlayerList(this.pageSize);
+  }
+
+  getPlayerList(page_size: number) {
     this.adminService
       .getPlayerList({
         page_no: 1,
-        page_size: 20
+        page_size: page_size
       })
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
       });
+  }
+
+  recordsPerPage(event: any) {
+    this.pageSize = event.target.value;
+    this.getPlayerList(this.pageSize);
   }
 
   sampleModel() {
@@ -43,8 +53,22 @@ export class ManagePlayerComponent implements OnInit {
       panelClass: 'filterDialog'
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      console.log('The dialog was closed');
+      console.log('original', result);
+      if (result) {
+        if (result['from']) {
+          result['from'] = new Date(result['from']).toISOString();
+        }
+        if (result['to']) {
+          result['to'] = new Date(result['to']).toISOString();
+        }
+        console.log('treated result', result);
+        console.log('The dialog was closed');
+        this.adminService.getPlayerList(result).subscribe(response => {
+          this.dataSource = new MatTableDataSource(response.data.records);
+        });
+      } else {
+        console.log('filter data not provided');
+      }
     });
 
     this.list = [
@@ -55,5 +79,10 @@ export class ManagePlayerComponent implements OnInit {
       }
     ];
     // this.dataSource = new MatTableDataSource(this.list);
+  }
+
+  applyFilter(event: any) {
+    let filterValue = event.target.value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
