@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { AuthenticationService } from '../core/authentication/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
+import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
+import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 
 interface trophyObject {
   name: string;
@@ -176,7 +178,7 @@ export class EditProfileComponent implements OnInit {
     private _toastrService: ToastrService
   ) {
     this.createForm();
-    // this.setUserCategoryValidators()
+    this.setPlayerCategoryValidators();
   }
 
   ngOnInit() {
@@ -184,8 +186,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   selectTab(tabName: string) {
-    // this.editProfileForm.reset();
-    // this.createForm()
     this.player_type = tabName;
     // this.createForm();
     this.setPlayerCategoryValidators();
@@ -264,37 +264,29 @@ export class EditProfileComponent implements OnInit {
 
   setPlayerCategoryValidators() {
     if (this.member_type === 'player') {
-      // const univeristyNameControl = this.editProfileForm.get(
-      //   'player_current_university_name'
-      // );
-      // const collegeNameControl = this.editProfileForm.get(
-      //   'player_current_college_name'
-      // );
-      // const employmentContract = this.editProfileForm.get(
-      //   'player_employment_contract'
-      // );
-      // this.editProfileForm
-      //   .get('player_type')
-      //   .valueChanges.subscribe(player_type => {
-      //     if (player_type === 'professional') {
-      //       univeristyNameControl.setValidators([Validators.required]);
-      //       collegeNameControl.setValidators([Validators.required]);
-      //       // employmentContract.setValidators([Validators.required]);
-      //     }
-      //     if (player_type === 'amateur') {
-      //       univeristyNameControl.setValidators(null);
-      //       collegeNameControl.setValidators([Validators.required]);
-      //       // employmentContract.setValidators(null);
-      //     }
-      //     if (player_type === 'grassroot') {
-      //       univeristyNameControl.setValidators(null);
-      //       collegeNameControl.setValidators(null);
-      //       // employmentContract.setValidators(null);
-      //     }
-      //     univeristyNameControl.updateValueAndValidity();
-      //     collegeNameControl.updateValueAndValidity();
-      //     // employmentContract.updateValueAndValidity();
-      //   });
+      const employmentContract = this.editProfileForm.get(
+        'employment_contract'
+      );
+      const aadhar = this.editProfileForm.get('aadhar');
+
+      this.editProfileForm
+        .get('player_type')
+        .valueChanges.subscribe(player_type => {
+          aadhar.setValidators([Validators.required, requiredFileDocument]);
+
+          if (player_type === 'professional') {
+            employmentContract.setValidators([
+              Validators.required,
+              requiredFileDocument
+            ]);
+          }
+          if (player_type === 'amateur' || player_type === 'grassroot') {
+            employmentContract.setValidators(null);
+          }
+
+          aadhar.updateValueAndValidity();
+          employmentContract.updateValueAndValidity();
+        });
     }
     // else if(this.member_type==='club' || this.member_type==='academy'){
     //   const univeristyNameControl  = this.editProfileForm.get('player_current_university_name');
@@ -323,9 +315,8 @@ export class EditProfileComponent implements OnInit {
     let requestData = this.toFormData(this.editProfileForm.value);
 
     if (this.member_type === 'player') {
-      if (this.player_type === 'grassroot' || this.player_type === 'amateur') {
-        if (this.aadhar) requestData.set('aadhar', this.aadhar);
-      } else if (this.player_type === 'professional') {
+      if (this.aadhar) requestData.set('aadhar', this.aadhar);
+      if (this.player_type === 'professional') {
         if (this.employment_contract)
           requestData.set('employment_contract', this.employment_contract);
       }
@@ -380,6 +371,27 @@ export class EditProfileComponent implements OnInit {
 
   uploadAvatar(files: FileList) {
     this.avatar = files[0];
+    const requestData = new FormData();
+    requestData.set('avatar', this.avatar);
+
+    if (this.aboutForm.valid) {
+      this._authenticationService.updateBio(requestData).subscribe(
+        res => {
+          console.log('response', res);
+          this._toastrService.success(
+            'Successful',
+            'Avatar updated successfully'
+          );
+        },
+        err => {
+          console.log('err', err);
+          this._toastrService.error(
+            'Error',
+            'An error occured while updating avatar'
+          );
+        }
+      );
+    }
   }
 
   uploadEmploymentContract(files: FileList) {
@@ -446,7 +458,7 @@ export class EditProfileComponent implements OnInit {
 
   createForm() {
     this.aboutForm = this._formBuilder.group({
-      avatar: [''],
+      avatar: ['', [requiredFileAvatar]],
       bio: ['']
     });
 
@@ -469,11 +481,19 @@ export class EditProfileComponent implements OnInit {
         weight: ['', []],
         country: ['', [Validators.required]], // country or nationality
         state: ['', [Validators.required]],
-        city: ['', [Validators.required]],
-        phone: ['', [Validators.required, Validators.maxLength(10)]],
-        school: ['', [Validators.required]],
-        university: [''],
-        college: [''],
+        city: ['', [Validators.required]], //city
+        phone: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^[0-9]+$/)
+          ]
+        ],
+        school: ['', []], //institute.school
+        university: [''], //institute.univeristy
+        college: [''], //institute.college
         aadhar: ['', []],
         employment_contract: ['', []],
         // // professional_details
@@ -493,17 +513,25 @@ export class EditProfileComponent implements OnInit {
         founded_in: ['', [Validators.required, Validators.maxLength(4)]],
         country: ['', [Validators.required]],
         city: ['', [Validators.required]],
-        address: ['', []],
-        pincode: ['', []],
-        phone: ['', [Validators.required, Validators.maxLength(10)]],
+        address: ['', [Validators.required]],
+        pincode: ['', [Validators.required]],
+        phone: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^[0-9]+$/)
+          ]
+        ],
         stadium_name: ['', [Validators.required]],
         league: ['', [Validators.required]],
         league_other: ['', [Validators.required]],
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], [Validators.required]),
-        associated_players: ['', []],
-        document: ['', []]
+        associated_players: ['', [Validators.required]],
+        document: ['', [requiredFileDocument]]
         // onclick upload document [aiff]
       });
     } else if (this.member_type === 'academy') {
@@ -516,13 +544,22 @@ export class EditProfileComponent implements OnInit {
         city: ['', [Validators.required]],
         address: ['', [Validators.required]],
         pincode: ['', [Validators.required]],
-        phone: ['', [Validators.required, Validators.maxLength(10)]],
+        phone: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^[0-9]+$/)
+          ]
+        ],
+        stadium_name: ['', [Validators.required]],
         league: ['', [Validators.required]],
         league_other: ['', [Validators.required]],
         document_type: ['', [Validators.required]],
         contact_person: this._formBuilder.array([], [Validators.required]),
         trophies: this._formBuilder.array([], [Validators.required]),
-        associated_players: ['', []],
+        associated_players: ['', [Validators.required]],
         document: ['', []]
         //onclick upload documenet aiff / pan card/tin / coi
       });
@@ -644,19 +681,19 @@ export class EditProfileComponent implements OnInit {
     if (data !== undefined) {
       this.contact_person.push(
         this._formBuilder.group({
-          designation: [data.designation, []],
-          name: [data.name, []],
-          email: [data.email, []],
-          phone_number: [data.phone_number, []]
+          designation: [data.designation, [Validators.required]],
+          name: [data.name, [Validators.required]],
+          email: [data.email, [Validators.required]],
+          phone_number: [data.phone_number, [Validators.required]]
         })
       );
     } else {
       this.contact_person.push(
         this._formBuilder.group({
-          designation: ['', []],
-          name: ['', []],
-          email: ['', []],
-          phone_number: ['', []]
+          designation: ['', [Validators.required]],
+          name: ['', [Validators.required]],
+          email: ['', [Validators.required]],
+          phone_number: ['', [Validators.required]]
         })
       );
     }
@@ -672,17 +709,17 @@ export class EditProfileComponent implements OnInit {
     if (data !== undefined) {
       this.trophies.push(
         this._formBuilder.group({
-          name: [data.name, []],
-          year: [data.year, []],
-          position: [data.position, []]
+          name: [data.name, [Validators.required]],
+          year: [data.year, [Validators.required]],
+          position: [data.position, [Validators.required]]
         })
       );
     } else {
       this.trophies.push(
         this._formBuilder.group({
-          name: ['', []],
-          year: ['', []],
-          position: ['', []]
+          name: ['', [Validators.required]],
+          year: ['', [Validators.required]],
+          position: ['', [Validators.required]]
         })
       );
     }

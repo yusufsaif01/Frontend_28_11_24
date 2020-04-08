@@ -11,9 +11,9 @@ import { ToastrService } from 'ngx-toastr';
 export class RegistrationComponent implements OnInit {
   activeForm: string = 'player';
 
-  playerRegisterationForm: FormGroup;
-  clubRegisterationForm: FormGroup;
-  academyRegisterationForm: FormGroup;
+  playerRegistrationForm: FormGroup;
+  clubRegistrationForm: FormGroup;
+  academyRegistrationForm: FormGroup;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -31,13 +31,14 @@ export class RegistrationComponent implements OnInit {
   }
 
   resetFormFields() {
-    this.clubRegisterationForm.reset();
-    this.playerRegisterationForm.reset();
-    this.academyRegisterationForm.reset();
+    this.clubRegistrationForm.reset();
+    this.playerRegistrationForm.reset();
+    this.academyRegistrationForm.reset();
+    this.createForm();
   }
 
   playerRegister() {
-    let form_data = this.playerRegisterationForm.value;
+    let form_data = this.playerRegistrationForm.value;
     form_data.member_type = this.activeForm;
     console.log('player form_data', form_data);
     const register = this._authenticationService.register(form_data);
@@ -45,7 +46,7 @@ export class RegistrationComponent implements OnInit {
       credentials => {
         console.log('CRedentials', credentials);
         this._toastrService.success('Successful', 'Registered');
-        this.playerRegisterationForm.reset();
+        this.playerRegistrationForm.reset();
       },
       error => {
         console.log('ERror', error);
@@ -54,7 +55,7 @@ export class RegistrationComponent implements OnInit {
     );
   }
   clubRegister() {
-    let form_data = this.clubRegisterationForm.value;
+    let form_data = this.clubRegistrationForm.value;
     form_data.member_type = this.activeForm;
     console.log('club form_data', form_data);
     const register = this._authenticationService.register(form_data);
@@ -62,7 +63,7 @@ export class RegistrationComponent implements OnInit {
       credentials => {
         console.log('CRedentials', credentials);
         this._toastrService.success('Successful', 'Registered');
-        this.clubRegisterationForm.reset();
+        this.clubRegistrationForm.reset();
       },
       error => {
         console.log('ERror', error);
@@ -71,7 +72,7 @@ export class RegistrationComponent implements OnInit {
     );
   }
   academyRegister() {
-    let form_data = this.academyRegisterationForm.value;
+    let form_data = this.academyRegistrationForm.value;
     form_data.member_type = this.activeForm;
     console.log('academy form_data', form_data);
     const register = this._authenticationService.register(form_data);
@@ -79,7 +80,7 @@ export class RegistrationComponent implements OnInit {
       credentials => {
         console.log('CRedentials', credentials);
         this._toastrService.success('Successful', 'Registered');
-        this.academyRegisterationForm.reset();
+        this.academyRegistrationForm.reset();
       },
       error => {
         console.log('ERror', error);
@@ -88,18 +89,8 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
-  isFocused(form: FormGroup, field: string) {
-    const { invalid, touched } = form.get(field);
-    return invalid && touched;
-  }
-
-  isRequired(form: FormGroup, field: string) {
-    const { required } = form.get(field).errors;
-    return required;
-  }
-
   private createForm() {
-    this.playerRegisterationForm = this._formBuilder.group({
+    this.playerRegistrationForm = this._formBuilder.group({
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -108,14 +99,15 @@ export class RegistrationComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(10),
-          Validators.maxLength(13)
+          Validators.maxLength(10),
+          Validators.pattern(/^[0-9]+$/)
         ]
       ],
-      country: [null, [Validators.required]],
-      state: [null, [Validators.required]]
+      country: ['', [Validators.required]],
+      state: ['', [Validators.required]]
     });
 
-    this.clubRegisterationForm = this._formBuilder.group({
+    this.clubRegistrationForm = this._formBuilder.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: [
@@ -123,13 +115,14 @@ export class RegistrationComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(10),
-          Validators.maxLength(13)
+          Validators.maxLength(10),
+          Validators.pattern(/^[0-9]+$/)
         ]
       ],
-      country: [null, [Validators.required]],
-      state: [null, [Validators.required]]
+      country: ['', [Validators.required]],
+      state: ['', [Validators.required]]
     });
-    this.academyRegisterationForm = this._formBuilder.group({
+    this.academyRegistrationForm = this._formBuilder.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: [
@@ -137,11 +130,12 @@ export class RegistrationComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(10),
-          Validators.maxLength(13)
+          Validators.maxLength(10),
+          Validators.pattern(/^[0-9]+$/)
         ]
       ],
-      country: [null, [Validators.required]],
-      state: [null, [Validators.required]]
+      country: ['', [Validators.required]],
+      state: ['', [Validators.required]]
     });
   }
 }
