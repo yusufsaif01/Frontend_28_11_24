@@ -11,7 +11,7 @@ import { AdminService } from '../service/admin.service';
   styleUrls: ['./manage-academy.component.scss']
 })
 export class ManageAcademyComponent implements OnInit {
-  sideBarToogle: boolean = false;
+  sideBarToogle: boolean = true;
   showFiller = false;
   list: any;
   pageSize: number;

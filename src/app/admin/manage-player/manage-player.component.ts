@@ -17,7 +17,7 @@ import { AdminService } from '../service/admin.service';
   styleUrls: ['./manage-player.component.scss']
 })
 export class ManagePlayerComponent implements OnInit {
-  sideBarToogle: boolean = false;
+  sideBarToogle: boolean = true;
   showFiller = false;
   list: any;
   pageSize: number;

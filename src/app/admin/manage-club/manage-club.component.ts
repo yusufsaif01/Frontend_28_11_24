@@ -11,7 +11,7 @@ import { AdminService } from '../service/admin.service';
   styleUrls: ['./manage-club.component.scss']
 })
 export class ManageClubComponent implements OnInit {
-  sideBarToogle: boolean = false;
+  sideBarToogle: boolean = true;
   showFiller = false;
   list: any;
   pageSize: number;
