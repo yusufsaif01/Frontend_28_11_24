@@ -29,15 +29,18 @@ export class TableComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.columns = this.tableConfig.allowedColumns;
-    if (this.TableActions) {
-      this.columns = this.columns.concat('action');
-    }
-    // if (this.NumberColumn) {
-    //   this.columns = ['sno'].concat(this.columns);
-    // }
-    // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
+    setTimeout(()=>{
+      console.log('row',this.rows)
+      this.columns = this.tableConfig.allowedColumns;
+      if (this.TableActions) {
+        this.columns = this.columns.concat('action');
+      }
+      // if (this.NumberColumn) {
+      //   this.columns = ['sno'].concat(this.columns);
+      // }
+      this.rows.sort = this.sort;
+      // this.dataSource.paginator = this.paginator;
+    },1)
   }
 
   applyFilter(filterValue: string) {
