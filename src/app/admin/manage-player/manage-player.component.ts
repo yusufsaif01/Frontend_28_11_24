@@ -17,6 +17,7 @@ import { AdminService } from '../service/admin.service';
   styleUrls: ['./manage-player.component.scss']
 })
 export class ManagePlayerComponent implements OnInit {
+  sideBarToogle:boolean =false;
   showFiller = false;
   list: any;
   public tableConfig: ManagePlayerTableConfig = new ManagePlayerTableConfig();
