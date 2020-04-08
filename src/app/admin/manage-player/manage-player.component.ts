@@ -13,7 +13,7 @@ import { AdminService } from '../service/admin.service';
 export class ManagePlayerComponent implements OnInit {
   list: any;
   public tableConfig: ManagePlayerTableConfig = new ManagePlayerTableConfig();
-  dataSource = new MatTableDataSource([]);
+  public dataSource = new MatTableDataSource([]);
 
   constructor(public dialog: MatDialog, public adminService: AdminService) {}
 
@@ -35,22 +35,20 @@ export class ManagePlayerComponent implements OnInit {
       panelClass: 'filterDialog'
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log("original",result);
-      if(result){
-        if(result['from']){
-          result['from']  = new Date(result['from']).toISOString()
+      console.log('original', result);
+      if (result) {
+        if (result['from']) {
+          result['from'] = new Date(result['from']).toISOString();
         }
-        if(result['to']){
-          result['to']    = new Date(result['to']).toISOString()
+        if (result['to']) {
+          result['to'] = new Date(result['to']).toISOString();
         }
-        console.log("treated result",result);
+        console.log('treated result', result);
         console.log('The dialog was closed');
-        this.adminService
-        .getPlayerList(result)
-        .subscribe(response => {
+        this.adminService.getPlayerList(result).subscribe(response => {
           this.dataSource = new MatTableDataSource(response.data.records);
         });
-      }else{
+      } else {
         console.log('filter data not provided');
       }
     });
