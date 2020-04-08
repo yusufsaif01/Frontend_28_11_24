@@ -559,7 +559,7 @@ export class EditProfileComponent implements OnInit {
         document_type: ['', [Validators.required]],
         contact_person: this._formBuilder.array([], [Validators.required]),
         trophies: this._formBuilder.array([], [Validators.required]),
-        associated_players: ['', []],
+        associated_players: ['', [Validators.required]],
         document: ['', []]
         //onclick upload documenet aiff / pan card/tin / coi
       });

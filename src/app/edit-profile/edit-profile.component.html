@@ -1337,6 +1337,18 @@
                         }}</option>
                       </ng-container>
                     </select>
+                    <mat-error
+                      *ngIf="
+                        editProfileForm.controls.league.invalid &&
+                        editProfileForm.controls.league.touched
+                      "
+                    >
+                      <span
+                        *ngIf="editProfileForm.controls.league.errors.required"
+                        translate
+                        >League is required</span
+                      >
+                    </mat-error>
                   </div>
 
                   <div class="input-wrapper-second">
@@ -1346,6 +1358,20 @@
                       matInput
                       formControlName="league_other"
                     />
+                    <mat-error
+                      *ngIf="
+                        editProfileForm.controls.other_league.invalid &&
+                        editProfileForm.controls.other_league.touched
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          editProfileForm.controls.other_league.errors.required
+                        "
+                        translate
+                        >Other League is required</span
+                      >
+                    </mat-error>
                   </div>
 
                   <!--  <div class="input-wrapper">
