@@ -530,7 +530,7 @@ export class EditProfileComponent implements OnInit {
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], [Validators.required]),
-        associated_players: ['', []],
+        associated_players: ['', [Validators.required]],
         document: ['', [requiredFileDocument]]
         // onclick upload document [aiff]
       });
@@ -681,19 +681,19 @@ export class EditProfileComponent implements OnInit {
     if (data !== undefined) {
       this.contact_person.push(
         this._formBuilder.group({
-          designation: [data.designation, []],
-          name: [data.name, []],
-          email: [data.email, []],
-          phone_number: [data.phone_number, []]
+          designation: [data.designation, [Validators.required]],
+          name: [data.name, [Validators.required]],
+          email: [data.email, [Validators.required]],
+          phone_number: [data.phone_number, [Validators.required]]
         })
       );
     } else {
       this.contact_person.push(
         this._formBuilder.group({
-          designation: ['', []],
-          name: ['', []],
-          email: ['', []],
-          phone_number: ['', []]
+          designation: ['', [Validators.required]],
+          name: ['', [Validators.required]],
+          email: ['', [Validators.required]],
+          phone_number: ['', [Validators.required]]
         })
       );
     }
@@ -709,17 +709,17 @@ export class EditProfileComponent implements OnInit {
     if (data !== undefined) {
       this.trophies.push(
         this._formBuilder.group({
-          name: [data.name, []],
-          year: [data.year, []],
-          position: [data.position, []]
+          name: [data.name, [Validators.required]],
+          year: [data.year, [Validators.required]],
+          position: [data.position, [Validators.required]]
         })
       );
     } else {
       this.trophies.push(
         this._formBuilder.group({
-          name: ['', []],
-          year: ['', []],
-          position: ['', []]
+          name: ['', [Validators.required]],
+          year: ['', [Validators.required]],
+          position: ['', [Validators.required]]
         })
       );
     }

@@ -618,7 +618,7 @@
 
             <!-- Weak foot -->
             <div class="from-block">
-              <label>Weak foot <span>*</span></label>
+              <label>Weak foot</label>
               <div class="star-rating">
                 <input
                   formControlName="weak_foot"
@@ -1107,16 +1107,76 @@
                           }}</option>
                         </ng-container>
                       </select>
+                      <mat-error
+                        *ngIf="
+                          editProfileForm.controls.contact_person.controls[
+                            i
+                          ].get('designation').invalid &&
+                          editProfileForm.controls.contact_person.controls[
+                            i
+                          ].get('designation').touched
+                        "
+                      >
+                        <span
+                          *ngIf="
+                            editProfileForm.controls.contact_person.controls[i]
+                              .get('designation')
+                              .hasError('required')
+                          "
+                          translate
+                          >Designation is required</span
+                        >
+                      </mat-error>
                     </div>
 
                     <div class="input-wrapper">
                       <label>Name <span>*</span></label>
                       <input formControlName="name" type="text" matInput />
+                      <mat-error
+                        *ngIf="
+                          editProfileForm.controls.contact_person.controls[
+                            i
+                          ].get('name').invalid &&
+                          editProfileForm.controls.contact_person.controls[
+                            i
+                          ].get('name').touched
+                        "
+                      >
+                        <span
+                          *ngIf="
+                            editProfileForm.controls.contact_person.controls[i]
+                              .get('name')
+                              .hasError('required')
+                          "
+                          translate
+                          >Name is required</span
+                        >
+                      </mat-error>
                     </div>
 
                     <div class="input-wrapper">
                       <label>Email <span>*</span></label>
                       <input formControlName="email" type="email" matInput />
+                      <mat-error
+                        *ngIf="
+                          editProfileForm.controls.contact_person.controls[
+                            i
+                          ].get('email').invalid &&
+                          editProfileForm.controls.contact_person.controls[
+                            i
+                          ].get('email').touched
+                        "
+                      >
+                        <span
+                          *ngIf="
+                            editProfileForm.controls.contact_person.controls[i]
+                              .get('email')
+                              .hasError('required')
+                          "
+                          translate
+                          >Email is required</span
+                        >
+                      </mat-error>
                     </div>
 
                     <div class="input-wrapper">
@@ -1126,6 +1186,26 @@
                         type="text"
                         matInput
                       />
+                      <mat-error
+                        *ngIf="
+                          editProfileForm.controls.contact_person.controls[
+                            i
+                          ].get('phone_number').invalid &&
+                          editProfileForm.controls.contact_person.controls[
+                            i
+                          ].get('phone_number').touched
+                        "
+                      >
+                        <span
+                          *ngIf="
+                            editProfileForm.controls.contact_person.controls[i]
+                              .get('phone_number')
+                              .hasError('required')
+                          "
+                          translate
+                          >Phone Number is required</span
+                        >
+                      </mat-error>
                     </div>
 
                     <div class="input-wrapper">
@@ -1160,16 +1240,76 @@
                     <div class="input-wrapper-full">
                       <label>Trophy Name <span>*</span></label>
                       <input type="text" matInput formControlName="name" />
+                      <mat-error
+                        *ngIf="
+                          editProfileForm.controls.trophies.controls[i].get(
+                            'name'
+                          ).invalid &&
+                          editProfileForm.controls.trophies.controls[i].get(
+                            'name'
+                          ).touched
+                        "
+                      >
+                        <span
+                          *ngIf="
+                            editProfileForm.controls.trophies.controls[i]
+                              .get('name')
+                              .hasError('required')
+                          "
+                          translate
+                          >Name is required</span
+                        >
+                      </mat-error>
                     </div>
 
                     <div class="input-wrapper-full">
                       <label>Years <span>*</span></label>
                       <input type="text" matInput formControlName="year" />
+                      <mat-error
+                        *ngIf="
+                          editProfileForm.controls.trophies.controls[i].get(
+                            'year'
+                          ).invalid &&
+                          editProfileForm.controls.trophies.controls[i].get(
+                            'year'
+                          ).touched
+                        "
+                      >
+                        <span
+                          *ngIf="
+                            editProfileForm.controls.trophies.controls[i]
+                              .get('year')
+                              .hasError('required')
+                          "
+                          translate
+                          >Year is required</span
+                        >
+                      </mat-error>
                     </div>
 
                     <div class="input-wrapper-full">
                       <label>Position Secured <span>*</span></label>
                       <input type="text" matInput formControlName="position" />
+                      <mat-error
+                        *ngIf="
+                          editProfileForm.controls.trophies.controls[i].get(
+                            'position'
+                          ).invalid &&
+                          editProfileForm.controls.trophies.controls[i].get(
+                            'position'
+                          ).touched
+                        "
+                      >
+                        <span
+                          *ngIf="
+                            editProfileForm.controls.trophies.controls[i]
+                              .get('position')
+                              .hasError('required')
+                          "
+                          translate
+                          >Position is required</span
+                        >
+                      </mat-error>
                     </div>
 
                     <div class="input-wrapper">
@@ -1247,6 +1387,28 @@
                               matInput
                               formControlName="name"
                             />
+                            <mat-error
+                              *ngIf="
+                                editProfileForm.controls.top_signings.controls[
+                                  i
+                                ].get('name').invalid &&
+                                editProfileForm.controls.top_signings.controls[
+                                  i
+                                ].get('name').touched
+                              "
+                            >
+                              <span
+                                *ngIf="
+                                  editProfileForm.controls.top_signings.controls[
+                                    i
+                                  ]
+                                    .get('name')
+                                    .hasError('required')
+                                "
+                                translate
+                                >Name is required</span
+                              >
+                            </mat-error>
                           </div>
 
                           <div class="input-wrapper">
