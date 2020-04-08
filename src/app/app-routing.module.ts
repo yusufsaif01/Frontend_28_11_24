@@ -15,6 +15,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ManagePlayerComponent } from './admin/manage-player/manage-player.component';
 import { ManageClubComponent } from './admin/manage-club/manage-club.component';
 import { ManageAcademyComponent } from './admin/manage-academy/manage-academy.component';
+import { TimelineComponent } from './timeline/timeline.component';
 const routes: Routes = [
   {
     path: '',
@@ -49,6 +50,11 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     data: { title: extract('View Profile') }
+  },
+  {
+    path: 'timeline',
+    component: TimelineComponent,
+    data: { title: extract('Timeline') }
   },
   {
     path: 'change-password',

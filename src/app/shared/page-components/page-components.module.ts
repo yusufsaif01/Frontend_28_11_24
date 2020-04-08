@@ -31,7 +31,9 @@ import {
   PhoneCall,
   MapPin,
   Clock,
-  Star
+  Star,
+  UserPlus,
+  Share2
 } from 'angular-feather/icons';
 
 const icons = {
@@ -56,7 +58,9 @@ const icons = {
   PhoneCall,
   MapPin,
   Clock,
-  Star
+  Star,
+  UserPlus,
+  Share2
 };
 
 @NgModule({
