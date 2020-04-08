@@ -987,7 +987,7 @@
               <!-- Document -->
               <ng-container *ngIf="member_type === 'academy'">
                 <div class="from-block w-60">
-                  <label>Document Type<span>*</span></label>
+                  <label>Document Type</label>
                   <div class="radio">
                     <label
                       ><input
@@ -1209,7 +1209,9 @@
                     </div>
 
                     <div class="input-wrapper">
-                      <button (click)="removeContactPerson(i)">Remove</button>
+                      <a class="mt-0" (click)="removeContactPerson(i)"
+                        >Remove</a
+                      >
                     </div>
                   </ng-container>
                 </div>
@@ -1313,7 +1315,7 @@
                     </div>
 
                     <div class="input-wrapper">
-                      <button (click)="removeTrophy(i)">Remove</button>
+                      <a class="mt-0" (click)="removeTrophy(i)">Remove</a>
                     </div>
                   </ng-container>
                 </div>
@@ -1386,9 +1388,9 @@
                 *ngIf="member_type === 'club'"
               >
                 <div class="input-wrapper w-100 align-right">
-                  <button class="mt-0" (click)="addTopSigning()">
+                  <a class="mt-0" (click)="addTopSigning()">
                     Add Top Signings
-                  </button>
+                  </a>
                 </div>
 
                 <!-- top sign in player -->
@@ -1438,9 +1440,9 @@
                           </div>
 
                           <div class="input-wrapper">
-                            <button class="mt-0" (click)="removeTopSigning(i)">
+                            <a class="mt-0" (click)="removeTopSigning(i)">
                               Remove
-                            </button>
+                            </a>
                           </div>
                         </div>
                       </ng-container>

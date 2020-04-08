@@ -287,28 +287,27 @@ export class EditProfileComponent implements OnInit {
           aadhar.updateValueAndValidity();
           employmentContract.updateValueAndValidity();
         });
+    } else if (this.member_type === 'club' || this.member_type === 'academy') {
+      const address = this.editProfileForm.get('address');
+      const pincode = this.editProfileForm.get('pincode');
+      const trophies = this.editProfileForm.get('trophies');
+
+      if (this.member_type === 'club') {
+        trophies.setValidators(null);
+        address.setValidators(null);
+        pincode.setValidators(null);
+      }
+
+      if (this.member_type === 'academy') {
+        trophies.setValidators([Validators.required]);
+        address.setValidators([Validators.required]);
+        pincode.setValidators([Validators.required]);
+      }
+
+      trophies.updateValueAndValidity();
+      address.updateValueAndValidity();
+      pincode.updateValueAndValidity();
     }
-    // else if(this.member_type==='club' || this.member_type==='academy'){
-    //   const univeristyNameControl  = this.editProfileForm.get('player_current_university_name');
-
-    //   this.editProfileForm.get('club_document').valueChanges
-    //   .subscribe(member_type => {
-
-    //     if (member_type === 'club') {
-    //       univeristyNameControl.setValidators([Validators.required]);
-    //       collegeNameControl.setValidators([Validators.required]);
-    //       // employmentContract.setValidators([Validators.required]);
-    //     }
-
-    //     if (member_type === 'academy') {
-    //       univeristyNameControl.setValidators(null);
-    //       collegeNameControl.setValidators([Validators.required]);
-    //       // employmentContract.setValidators(null);
-
-    //     univeristyNameControl.updateValueAndValidity();
-    //     collegeNameControl.updateValueAndValidity();
-    //     // employmentContract.updateValueAndValidity();
-    //   });
   }
 
   editProfile() {
@@ -513,8 +512,8 @@ export class EditProfileComponent implements OnInit {
         founded_in: ['', [Validators.required, Validators.maxLength(4)]],
         country: ['', [Validators.required]],
         city: ['', [Validators.required]],
-        address: ['', [Validators.required]],
-        pincode: ['', [Validators.required]],
+        address: ['', []],
+        pincode: ['', []],
         phone: [
           '',
           [
@@ -524,12 +523,12 @@ export class EditProfileComponent implements OnInit {
             Validators.pattern(/^[0-9]+$/)
           ]
         ],
-        stadium_name: ['', [Validators.required]],
+        stadium_name: ['', []],
         league: ['', [Validators.required]],
         league_other: ['', [Validators.required]],
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
-        top_signings: this._formBuilder.array([], [Validators.required]),
+        top_signings: this._formBuilder.array([], []),
         associated_players: ['', [Validators.required]],
         document: ['', [requiredFileDocument]]
         // onclick upload document [aiff]
@@ -553,14 +552,14 @@ export class EditProfileComponent implements OnInit {
             Validators.pattern(/^[0-9]+$/)
           ]
         ],
-        stadium_name: ['', [Validators.required]],
+        stadium_name: ['', []],
         league: ['', [Validators.required]],
         league_other: ['', [Validators.required]],
-        document_type: ['', [Validators.required]],
-        contact_person: this._formBuilder.array([], [Validators.required]),
-        trophies: this._formBuilder.array([], [Validators.required]),
+        document_type: ['', []],
+        contact_person: this._formBuilder.array([], []),
+        trophies: this._formBuilder.array([], []),
         associated_players: ['', [Validators.required]],
-        document: ['', []]
+        document: ['', [requiredFileDocument]]
         //onclick upload documenet aiff / pan card/tin / coi
       });
     }
@@ -574,7 +573,7 @@ export class EditProfileComponent implements OnInit {
     this.editProfileForm.patchValue({
       player_type: this.profile.player_type ? this.profile.player_type : '',
       name: this.profile.name,
-      short_name: this.profile.short_name,
+      short_name: this.profile.short_name ? this.profile.short_name : '',
       founded_in: this.profile.founded_in,
       address: this.profile.address ? this.profile.address.full_address : '',
       pincode: this.profile.address ? this.profile.address.pincode : '',
@@ -594,7 +593,7 @@ export class EditProfileComponent implements OnInit {
       country: this.profile.country ? this.profile.country : '',
       state: this.profile.state ? this.profile.state : '',
       city: this.profile.city ? this.profile.city : '',
-      stadium_name: this.profile.stadium_name,
+      stadium_name: this.profile.stadium_name ? this.profile.stadium_name : '',
       league: this.profile.league ? this.profile.league : '',
       league_other: this.profile.league_other,
       strong_foot: this.profile.strong_foot ? this.profile.strong_foot : '',
