@@ -8,12 +8,20 @@ const routes = {
   getAcademyList: (c: CommonContext) => '/member/academy/list'
 };
 
-interface CommonContext {
-  page_no?: number;
-  page_size?: number;
-  sort_by?: string;
-  sort_order?: number;
-  search?: string;
+export interface CommonContext {
+  page_no         ?: number;
+  page_size       ?: number;
+  sort_by         ?: string;
+  sort_order      ?: number;
+  search          ?: string;
+  from            ?: string;
+  to              ?: string;
+  name            ?: string;
+  type            ?: string;
+  email           ?: string;
+  position        ?: string;
+  email_verified  ?: string;
+  profile_status  ?: string;
 }
 
 interface PlayerListResponseContext {
@@ -132,6 +140,32 @@ export class AdminService {
     if (context['sort_order']) {
       query += '&sort_order=' + context['sort_order'];
     }
+
+    if(context['from']){
+      query += '&from=' + context['from'];
+    }
+    if(context['to']){
+      query += '&to=' + context['to'];
+    }
+    if(context['name']){
+      query += '&name=' + context['name'];
+    }
+    if(context['type']){
+      query += '&type=' + context['type'];
+    }
+    if(context['email']){
+      query += '&email=' + context['email'];
+    }
+    if(context['position']){
+      query += '&position=' + context['position'];
+    }
+    if(context['email_verified']){
+      query += '&email_verified=' + context['email_verified'];
+    }
+    if(context['profile_status']){
+      query += '&profile_status=' + context['profile_status'];
+    }  
+
     console.log(query);
     return this.httpClient.get<PlayerListResponseContext>(
       routes.getPlayerList(context) + query,

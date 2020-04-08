@@ -18,54 +18,55 @@
       <div class=" input__group date">
         <label>Registration Date Range</label>
         <div class="date_pick">
-          <input [matDatepicker]="to" />
-          <mat-datepicker-toggle [for]="to"></mat-datepicker-toggle>
-          <mat-datepicker #to></mat-datepicker>
-        </div>
-        <div class="date_pick">
-          <input [matDatepicker]="form" />
+          <input formControlName="from" [matDatepicker]="form" />
           <mat-datepicker-toggle [for]="form"></mat-datepicker-toggle>
           <mat-datepicker #form></mat-datepicker>
+        </div>
+        <div class="date_pick">
+          <input formControlName="to" [matDatepicker]="to" />
+          <mat-datepicker-toggle [for]="to"></mat-datepicker-toggle>
+          <mat-datepicker #to></mat-datepicker>
         </div>
       </div>
       <!-- player -->
       <div class="input__group">
         <label>Player Name</label>
-        <input type="text" placeholder="Player Name" />
+        <input formControlName="name" type="text" placeholder="Player Name" />
       </div>
 
       <!-- Member Sub Catergories -->
       <div class="input__group">
         <label>Member Sub Catergories</label>
         <select matNativeControl required>
-          <option value="grassroot">Grassroot</option>
-          <option value="ameture">Ameture</option>
-          <option value="professional">Professional</option>
-        </select>
-      </div>
-
-      <!-- Player Type -->
-      <div class="input__group">
-        <label>Player Type</label>
-        <select matNativeControl required>
-          <option value="">Select Player Type</option>
+          <option value="">Select Member Sub Catergories</option>
           <option value="goalKeeper">GoalKeeper</option>
           <option value="center">Center</option>
           <option value="mid-Fielder">Mid Fielder</option>
         </select>
       </div>
 
+      <!-- Player Type -->
+      <div class="input__group">
+        <label>Player Type</label>
+        <select formControlName="type" matNativeControl required>
+          <option value="grassroot">Grassroot</option>
+          <option value="ameture">Ameture</option>
+          <option value="professional">Professional</option>
+        </select>
+      </div>
+
+
       <!-- email type -->
       <div class="input__group">
         <label>Email</label>
-        <input type="email" matinput />
+        <input formControlName="email" type="email" matinput />
       </div>
 
       <!-- positon-->
       <div class="input__group">
         <label>Position</label>
-        <select matNativeControl required>
-          <option value="">Volvo</option>
+        <select formControlName="position" matNativeControl required>
+          <option value="Volvo">Volvo</option>
           <option value="saab">Saab</option>
           <option value="mercedes">Mercedes</option>
           <option value="audi">Audi</option>
@@ -74,7 +75,7 @@
 
       <div class="input__group">
         <label>Email Verified</label>
-        <select matNativeControl required>
+        <select formControlName="email_verified" matNativeControl required>
           <option value="" selected>Select Email Verified Status</option>
           <option value="Verified">Verified</option>
           <option value="Not Verified">Not Verified</option>
@@ -83,10 +84,10 @@
 
       <div class="input__group">
         <label>Profile Status</label>
-        <select matNativeControl required>
+        <select formControlName="profile_status" matNativeControl required>
           <option value="" selected>Select your Status</option>
-          <option value="Verified">Verified</option>
-          <option value="Not Verified">Not Verified</option>
+          <option value="verified">Verified</option>
+          <option value="unverified">Not Verified</option>
         </select>
       </div>
     </div>
