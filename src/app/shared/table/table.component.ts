@@ -4,7 +4,8 @@ import {
   Input,
   ViewChild,
   ElementRef,
-  TemplateRef
+  TemplateRef,
+  SimpleChanges
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -20,6 +21,18 @@ export class TableComponent implements OnInit {
   @Input() TableActions: TemplateRef<any>;
   @Input() NumberColumn: boolean = false;
   @Input() rows = new MatTableDataSource([]);
+  // dataSource = new MatTableDataSource<any>();
+  // rows = new MatTableDataSource([
+  //   {
+  //     'name' : 'Pushpam'
+  //   },
+  //   {
+  //     'name' : 'Dushpam'
+  //   },
+  //   {
+  //     'name' : 'Aushpam'
+  //   }
+  // ]);
   public columns: string[] = [];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -47,7 +60,13 @@ export class TableComponent implements OnInit {
     // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  ngOnchanges() {}
+  ngOnchanges(changes: SimpleChanges) {
+    console.log('data changed', this.rows);
+  }
+
+  ngAfterViewInit() {
+    console.log('data after', this.rows);
+  }
 
   ngAfterContentInit() {
     // this.ElementnameRef.nativeElement.focus();
