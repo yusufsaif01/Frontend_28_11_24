@@ -36,19 +36,23 @@ export class ManagePlayerComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log("original",result);
-      if(result['from']){
-        result['from']  = new Date(result['from']).toISOString()
+      if(result){
+        if(result['from']){
+          result['from']  = new Date(result['from']).toISOString()
+        }
+        if(result['to']){
+          result['to']    = new Date(result['to']).toISOString()
+        }
+        console.log("treated result",result);
+        console.log('The dialog was closed');
+        this.adminService
+        .getPlayerList(result)
+        .subscribe(response => {
+          this.dataSource = new MatTableDataSource(response.data.records);
+        });
+      }else{
+        console.log('filter data not provided');
       }
-      if(result['to']){
-        result['to']    = new Date(result['to']).toISOString()
-      }
-      console.log("treated result",result);
-      console.log('The dialog was closed');
-      this.adminService
-      .getPlayerList(result)
-      .subscribe(response => {
-        this.dataSource = new MatTableDataSource(response.data.records);
-      });
     });
 
     this.list = [

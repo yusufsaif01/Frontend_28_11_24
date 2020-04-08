@@ -36,7 +36,22 @@ export class ManageClubComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      console.log('The dialog was closed');
+      if(result){
+        if(result['from']){
+          result['from']  = new Date(result['from']).toISOString()
+        }
+        if(result['to']){
+          result['to']    = new Date(result['to']).toISOString()
+        }
+        console.log('The dialog was closed');
+        this.adminService
+        .getClubList(result)
+        .subscribe(response => {
+          this.dataSource = new MatTableDataSource(response.data.records);
+        });
+      }else{
+        console.log('filter data not provided');
+      }
     });
 
     this.list = [
@@ -46,6 +61,6 @@ export class ManageClubComponent implements OnInit {
         quiz_mapped: 'Yes'
       }
     ];
-    this.dataSource = new MatTableDataSource(this.list);
+    // this.dataSource = new MatTableDataSource(this.list);
   }
 }
