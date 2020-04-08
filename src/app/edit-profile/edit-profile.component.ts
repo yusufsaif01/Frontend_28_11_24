@@ -526,7 +526,7 @@ export class EditProfileComponent implements OnInit {
         stadium_name: ['', []],
         league: ['', [Validators.required]],
         league_other: ['', [Validators.required]],
-        contact_person: this._formBuilder.array([]),
+        contact_person: this._formBuilder.array([Validators.required]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
         associated_players: ['', [Validators.required]],
@@ -552,14 +552,14 @@ export class EditProfileComponent implements OnInit {
             Validators.pattern(/^[0-9]+$/)
           ]
         ],
-        stadium_name: ['', [Validators.required]],
+        stadium_name: ['', []],
         league: ['', [Validators.required]],
         league_other: ['', [Validators.required]],
-        document_type: ['', [Validators.required]],
+        document_type: ['', []],
         contact_person: this._formBuilder.array([], [Validators.required]),
         trophies: this._formBuilder.array([], [Validators.required]),
         associated_players: ['', [Validators.required]],
-        document: ['', []]
+        document: ['', [requiredFileDocument]]
         //onclick upload documenet aiff / pan card/tin / coi
       });
     }
@@ -573,7 +573,7 @@ export class EditProfileComponent implements OnInit {
     this.editProfileForm.patchValue({
       player_type: this.profile.player_type ? this.profile.player_type : '',
       name: this.profile.name,
-      short_name: this.profile.short_name,
+      short_name: this.profile.short_name ? this.profile.short_name : '',
       founded_in: this.profile.founded_in,
       address: this.profile.address ? this.profile.address.full_address : '',
       pincode: this.profile.address ? this.profile.address.pincode : '',
@@ -593,7 +593,7 @@ export class EditProfileComponent implements OnInit {
       country: this.profile.country ? this.profile.country : '',
       state: this.profile.state ? this.profile.state : '',
       city: this.profile.city ? this.profile.city : '',
-      stadium_name: this.profile.stadium_name,
+      stadium_name: this.profile.stadium_name ? this.profile.stadium_name : '',
       league: this.profile.league ? this.profile.league : '',
       league_other: this.profile.league_other,
       strong_foot: this.profile.strong_foot ? this.profile.strong_foot : '',
