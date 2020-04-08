@@ -16,11 +16,13 @@
       </li>
       <li routerLinkActive="active">
         <a (click)="changeDropdown()" class="arrow">
-          <img src="asset/images/icons/sidebar/down-arrow.svg" alt="" />
-          <span class=" custom-icons">
+          <span class="custom-icons">
             <mat-icon svgIcon="member"></mat-icon>
           </span>
           Member Management
+          <span class="down-icons">
+            <mat-icon svgIcon="down-arrow"></mat-icon>
+          </span>
         </a>
         <div class="dropdown" [hidden]="this.isActive">
           <ul>
@@ -83,7 +85,7 @@
       <li routerLinkActive="active">
         <a>
           <span class="custom-icons">
-            <mat-icon svgIcon="manage-report"></mat-icon> </span
+            <mat-icon svgIcon="report"></mat-icon> </span
           >Manage Reports
         </a>
       </li>

@@ -5,11 +5,11 @@
   background-color: #fbfbfb;
   .admin-sidebar {
     background-color: $color-white;
-    width: 20%;
+    width: calc(18%);
   }
   .admin-main {
     background-color: $color-white;
-    width: 80%;
+    width: calc(100% - 18%);
   }
 }
 
