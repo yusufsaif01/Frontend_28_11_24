@@ -12,7 +12,7 @@
       <!-- title breadcrum -->
       <div class="title-wrapper">
         <div class="title">
-          <h3>Manage player</h3>
+          <h3>Manage Player</h3>
         </div>
         <div class="breadcrumb">
           <ul>
@@ -45,10 +45,10 @@
         </div>
         <div class="count-block">
           <div class="count-img">
-            <img src="assets/images/icons/ameture.png" alt="" />
+            <img src="assets/images/icons/ameteur.png" alt="" />
           </div>
           <div class="count-details">
-            <h3>Ameture</h3>
+            <h3>Ameteur</h3>
             <h5>280</h5>
           </div>
         </div>
@@ -81,7 +81,12 @@
           <!-- search form -->
           <div class="search">
             <div class="search-box">
-              <select matNativeControl required class="change-icon">
+              <select
+                matNativeControl
+                required
+                class="change-icon"
+                (change)="recordsPerPage($event)"
+              >
                 <option value="20" selected>20</option>
                 <option value="25">25</option>
                 <option value="30">30</option>

@@ -14,21 +14,31 @@ export class ManageAcademyComponent implements OnInit {
   sideBarToogle: boolean = false;
   showFiller = false;
   list: any;
+  pageSize: number;
+
   public tableConfig: ManageAcademyTableConfig = new ManageAcademyTableConfig();
-  dataSource = new MatTableDataSource([]);
+  public dataSource = new MatTableDataSource([]);
 
   constructor(public dialog: MatDialog, public adminService: AdminService) {}
 
   ngOnInit() {
-    // this.sampleModel();
+    this.getAcademyList(this.pageSize);
+  }
+
+  getAcademyList(page_size: number) {
     this.adminService
       .getAcademyList({
         page_no: 1,
-        page_size: 20
+        page_size: page_size
       })
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
       });
+  }
+
+  recordsPerPage(event: any) {
+    this.pageSize = event.target.value;
+    this.getAcademyList(this.pageSize);
   }
 
   sampleModel() {

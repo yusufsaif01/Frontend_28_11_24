@@ -20,21 +20,31 @@ export class ManagePlayerComponent implements OnInit {
   sideBarToogle: boolean = false;
   showFiller = false;
   list: any;
+  pageSize: number;
+
   public tableConfig: ManagePlayerTableConfig = new ManagePlayerTableConfig();
   public dataSource = new MatTableDataSource([]);
 
   constructor(public dialog: MatDialog, public adminService: AdminService) {}
 
   ngOnInit() {
-    // this.sampleModel();
+    this.getPlayerList(this.pageSize);
+  }
+
+  getPlayerList(page_size: number) {
     this.adminService
       .getPlayerList({
         page_no: 1,
-        page_size: 20
+        page_size: page_size
       })
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
       });
+  }
+
+  recordsPerPage(event: any) {
+    this.pageSize = event.target.value;
+    this.getPlayerList(this.pageSize);
   }
 
   sampleModel() {

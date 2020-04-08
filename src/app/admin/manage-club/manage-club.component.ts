@@ -14,21 +14,31 @@ export class ManageClubComponent implements OnInit {
   sideBarToogle: boolean = false;
   showFiller = false;
   list: any;
+  pageSize: number;
+
   public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
-  dataSource = new MatTableDataSource([]);
+  public dataSource = new MatTableDataSource([]);
 
   constructor(public dialog: MatDialog, public adminService: AdminService) {}
 
   ngOnInit() {
-    // this.sampleModel();
+    this.getClubList(this.pageSize);
+  }
+
+  getClubList(page_size: number) {
     this.adminService
       .getClubList({
         page_no: 1,
-        page_size: 20
+        page_size: page_size
       })
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
       });
+  }
+
+  recordsPerPage(event: any) {
+    this.pageSize = event.target.value;
+    this.getClubList(this.pageSize);
   }
 
   sampleModel() {
