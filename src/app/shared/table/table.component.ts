@@ -42,33 +42,22 @@ export class TableComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    setTimeout(()=>{
-      console.log('row',this.rows)
-      this.columns = this.tableConfig.allowedColumns;
-      if (this.TableActions) {
-        this.columns = this.columns.concat('action');
-      }
-      // if (this.NumberColumn) {
-      //   this.columns = ['sno'].concat(this.columns);
-      // }
-      this.rows.sort = this.sort;
-      // this.dataSource.paginator = this.paginator;
-    },1)
+    this.columns = this.tableConfig.allowedColumns;
+    if (this.TableActions) {
+      this.columns = this.columns.concat('action');
+    }
+    // if (this.NumberColumn) {
+    //   this.columns = ['sno'].concat(this.columns);
+    // }
+
+    // this.dataSource.paginator = this.paginator;
   }
 
   applyFilter(filterValue: string) {
     // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  ngOnchanges(changes: SimpleChanges) {
-    console.log('data changed', this.rows);
-  }
-
-  ngAfterViewInit() {
-    console.log('data after', this.rows);
-  }
-
-  ngAfterContentInit() {
-    // this.ElementnameRef.nativeElement.focus();
+  ngOnChanges(changes: SimpleChanges) {
+    this.rows.sort = this.sort;
   }
 }
