@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ManageAcademyTableConfig } from './manage-academy-table-conf';
 import { FilterDialogAcademyComponent } from '../filter-dialog-academy/filter-dialog-academy.component';
 import { AdminService } from '../service/admin.service';
+import { DeleteConfirmationComponent } from '../../shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { StatusConfirmationComponent } from '../../shared/dialog-box/status-confirmation/status-confirmation.component';
 
 @Component({
   selector: 'app-manage-academy',
@@ -14,8 +16,9 @@ export class ManageAcademyComponent implements OnInit {
   sideBarToogle: boolean = true;
   showFiller = false;
   list: any;
-  pageSize: number;
+  pageSize: number = 20;
   totalRecords = 10;
+  acad_count: number;
 
   public tableConfig: ManageAcademyTableConfig = new ManageAcademyTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -23,27 +26,29 @@ export class ManageAcademyComponent implements OnInit {
   constructor(public dialog: MatDialog, public adminService: AdminService) {}
 
   ngOnInit() {
-    this.getAcademyList(this.pageSize);
+    this.getAcademyList(this.pageSize,1);
   }
 
   updatePage(event: any) {
-    console.log(event.target.value);
+    // console.log(event.target.value);
+    this.getAcademyList(this.pageSize,event.selectedPage)
   }
 
-  getAcademyList(page_size: number) {
+  getAcademyList(page_size: number,page_no:number) {
     this.adminService
       .getAcademyList({
-        page_no: 1,
+        page_no: page_no,
         page_size: page_size
       })
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
+        this.acad_count = response.data.total
       });
   }
 
   recordsPerPage(event: any) {
     this.pageSize = event.target.value;
-    this.getAcademyList(this.pageSize);
+    this.getAcademyList(this.pageSize,1);
   }
 
   sampleModel() {
@@ -77,6 +82,45 @@ export class ManageAcademyComponent implements OnInit {
       }
     ];
     // this.dataSource = new MatTableDataSource(this.list);
+  }
+
+
+  deletePopup() {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '50% ',
+      panelClass: 'filterDialog',
+      data :{}
+    });
+    dialogRef.afterClosed().subscribe((result)=>{
+      console.log('popup closed');  
+      console.log('result',result);
+      if(result=== true){
+        this.adminService.deleteUser({user_id:'123'})
+          .subscribe((response)=>{
+            console.log(response);
+          })
+      }
+    })
+  }
+
+
+  statusPopup() {
+    const dialogRef = this.dialog.open(StatusConfirmationComponent, {
+      width: '50% ',
+      panelClass: 'filterDialog',
+      data :{}
+    });
+    dialogRef.afterClosed().subscribe((result)=>{
+      console.log('popup closed');  
+      console.log('result',result);
+      // deactive user not implemented
+      if(result === true){
+        this.adminService.activeUser({user_id:'123'})
+          .subscribe((response)=>{
+            console.log(response);
+          })
+      }
+    })
   }
 
   applyFilter(event: any) {

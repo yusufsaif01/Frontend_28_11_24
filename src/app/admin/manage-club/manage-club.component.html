@@ -30,7 +30,7 @@
           </div>
           <div class="count-details">
             <h3>Total Clubs</h3>
-            <h5>300</h5>
+            <h5>{{ clubs_count }}</h5>
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@
                 /></a>
               </li>
               <li>
-                <a><img src="assets/images/icons/refresh.png"/></a>
+                <a (click)="ngOnInit()" ><img src="assets/images/icons/refresh.png"/></a>
               </li>
             </ul>
           </div>
@@ -93,10 +93,10 @@
               <button>
                 <img src="assets/images/icons/eyes.png" alt="Edit" />
               </button>
-              <button>
+              <button (click)="statusPopup()" >
                 <img src="assets/images/icons/change.png" alt="Edit" />
               </button>
-              <button>
+              <button (click)="deletePopup()" >
                 <img src="assets/images/icons/bin.png" alt="Delete" />
               </button>
             </div>
@@ -107,10 +107,13 @@
       <!-- pagination -->
       <div class="pagination-wrapper">
         <div class="showing-data">
-          <p><strong>Showing</strong> 20 / 500 Data</p>
+          <p><strong>Showing</strong>
+            {{ (pageSize > clubs_count)  ? clubs_count: pageSize }}
+            / {{ clubs_count }} Data</p>
         </div>
         <app-pagination
-          [totalRows]="totalRecords"
+          [totalRows]="clubs_count"
+          [rowsPerPage]="pageSize"
           (onChange)="updatePage($event)"
         ></app-pagination>
       </div>

@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ManageClubTableConfig } from './manage-club-table-conf';
 import { FilterDialogClubComponent } from '../filter-dialog-club/filter-dialog-club.component';
 import { AdminService } from '../service/admin.service';
+import { DeleteConfirmationComponent } from '../../shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { StatusConfirmationComponent } from '../../shared/dialog-box/status-confirmation/status-confirmation.component';
 
 @Component({
   selector: 'app-manage-club',
@@ -14,8 +16,9 @@ export class ManageClubComponent implements OnInit {
   sideBarToogle: boolean = true;
   showFiller = false;
   list: any;
-  pageSize: number;
+  pageSize: number = 20;
   totalRecords = 10;
+  clubs_count:number;
 
   public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -23,27 +26,29 @@ export class ManageClubComponent implements OnInit {
   constructor(public dialog: MatDialog, public adminService: AdminService) {}
 
   ngOnInit() {
-    this.getClubList(this.pageSize);
+    this.getClubList(this.pageSize,1);
   }
 
-  getClubList(page_size: number) {
+  getClubList(page_size: number,page_no:number) {
     this.adminService
       .getClubList({
-        page_no: 1,
+        page_no: page_no,
         page_size: page_size
       })
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
+        this.clubs_count = response.data.total
       });
   }
 
   recordsPerPage(event: any) {
     this.pageSize = event.target.value;
-    this.getClubList(this.pageSize);
+    this.getClubList(this.pageSize,1);
   }
 
   updatePage(event: any) {
-    console.log(event.target.value);
+    // console.log(event.target.value);
+    this.getClubList(this.pageSize,event.selectedPage);
   }
 
   sampleModel() {
@@ -77,6 +82,44 @@ export class ManageClubComponent implements OnInit {
       }
     ];
     // this.dataSource = new MatTableDataSource(this.list);
+  }
+
+
+  deletePopup() {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '50% ',
+      panelClass: 'filterDialog',
+      data :{}
+    });
+    dialogRef.afterClosed().subscribe((result)=>{
+      console.log('popup closed');  
+      console.log('result',result);
+      if(result=== true){
+        this.adminService.deleteUser({user_id:'123'})
+          .subscribe((response)=>{
+            console.log(response);
+          })
+      }
+    })
+  }
+
+  statusPopup() {
+    const dialogRef = this.dialog.open(StatusConfirmationComponent, {
+      width: '50% ',
+      panelClass: 'filterDialog',
+      data :{}
+    });
+    dialogRef.afterClosed().subscribe((result)=>{
+      console.log('popup closed');  
+      console.log('result',result);
+      // deactive user not implemented
+      if(result === true){
+        this.adminService.activeUser({user_id:'123'})
+          .subscribe((response)=>{
+            console.log(response);
+          })
+      }
+    })
   }
 
   applyFilter(event: any) {
