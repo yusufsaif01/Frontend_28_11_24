@@ -136,19 +136,10 @@
         <div class="showing-data">
           <p><strong>Showing</strong> 20 / 500 Data</p>
         </div>
-        <div class="pagination">
-          <ul>
-            <li>
-              <a><span> &#8592; </span></a>
-            </li>
-            <li><a>1</a></li>
-            <li><a>2</a></li>
-            <li><a>3</a></li>
-            <li>
-              <a> <span>&#8594;</span> </a>
-            </li>
-          </ul>
-        </div>
+        <app-pagination
+          [totalRows]="totalRecords"
+          (onChange)="updatePage($event)"
+        ></app-pagination>
       </div>
       <!-- pagination end here -->
     </div>
