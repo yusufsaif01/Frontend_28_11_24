@@ -6,7 +6,7 @@ import { FilterDialogClubComponent } from '../filter-dialog-club/filter-dialog-c
 import { AdminService } from '../service/admin.service';
 import { DeleteConfirmationComponent } from '../../shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from '../../shared/dialog-box/status-confirmation/status-confirmation.component';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-manage-club',
   templateUrl: './manage-club.component.html',
@@ -18,18 +18,22 @@ export class ManageClubComponent implements OnInit {
   list: any;
   pageSize: number = 20;
   totalRecords = 10;
-  clubs_count:number;
+  clubs_count: number;
 
   public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
   public dataSource = new MatTableDataSource([]);
 
-  constructor(public dialog: MatDialog, public adminService: AdminService) {}
+  constructor(
+    public dialog: MatDialog,
+    public adminService: AdminService,
+    public toastrService: ToastrService
+  ) {}
 
   ngOnInit() {
-    this.getClubList(this.pageSize,1);
+    this.getClubList(this.pageSize, 1);
   }
 
-  getClubList(page_size: number,page_no:number) {
+  getClubList(page_size: number, page_no: number) {
     this.adminService
       .getClubList({
         page_no: page_no,
@@ -37,18 +41,18 @@ export class ManageClubComponent implements OnInit {
       })
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
-        this.clubs_count = response.data.total
+        this.clubs_count = response.data.total;
       });
   }
 
   recordsPerPage(event: any) {
     this.pageSize = event.target.value;
-    this.getClubList(this.pageSize,1);
+    this.getClubList(this.pageSize, 1);
   }
 
   updatePage(event: any) {
     // console.log(event.target.value);
-    this.getClubList(this.pageSize,event.selectedPage);
+    this.getClubList(this.pageSize, event.selectedPage);
   }
 
   sampleModel() {
@@ -84,42 +88,78 @@ export class ManageClubComponent implements OnInit {
     // this.dataSource = new MatTableDataSource(this.list);
   }
 
-
-  deletePopup() {
+  deletePopup(user_id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
       width: '50% ',
       panelClass: 'filterDialog',
-      data :{}
+      data: {}
     });
-    dialogRef.afterClosed().subscribe((result)=>{
-      console.log('popup closed');  
-      console.log('result',result);
-      if(result=== true){
-        this.adminService.deleteUser({user_id:'123'})
-          .subscribe((response)=>{
-            console.log(response);
-          })
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('popup closed');
+      console.log('result', result);
+      if (result === true) {
+        this.adminService.deleteUser({ user_id: user_id }).subscribe(
+          response => {
+            this.toastrService.success(`Success`, 'User deleted successfully');
+          },
+          error => {
+            // log.debug(`Login error: ${error}`);
+            console.log('error', error);
+            this.toastrService.error(`${error.error.message}`, 'Delete User');
+          }
+        );
       }
-    })
+    });
   }
 
-  statusPopup() {
+  statusPopup(user_id: string, status: string) {
     const dialogRef = this.dialog.open(StatusConfirmationComponent, {
       width: '50% ',
       panelClass: 'filterDialog',
-      data :{}
+      data: {}
     });
-    dialogRef.afterClosed().subscribe((result)=>{
-      console.log('popup closed');  
-      console.log('result',result);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('popup closed');
+      console.log('result', result);
       // deactive user not implemented
-      if(result === true){
-        this.adminService.activeUser({user_id:'123'})
-          .subscribe((response)=>{
-            console.log(response);
-          })
+      if (result === true) {
+        if (status === 'active') {
+          this.adminService.deactivateUser({ user_id: user_id }).subscribe(
+            response => {
+              this.toastrService.success(
+                `Success`,
+                'Status updated successfully'
+              );
+            },
+            error => {
+              // log.debug(`Login error: ${error}`);
+              console.log('error', error);
+              this.toastrService.error(
+                `${error.error.message}`,
+                'Status update'
+              );
+            }
+          );
+        } else if (status === 'blocked') {
+          this.adminService.activeUser({ user_id: user_id }).subscribe(
+            response => {
+              this.toastrService.success(
+                `Success`,
+                'Status updated successfully'
+              );
+            },
+            error => {
+              // log.debug(`Login error: ${error}`);
+              console.log('error', error);
+              this.toastrService.error(
+                `${error.error.message}`,
+                'Status update'
+              );
+            }
+          );
+        }
       }
-    })
+    });
   }
 
   applyFilter(event: any) {
