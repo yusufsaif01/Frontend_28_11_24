@@ -16,7 +16,8 @@ export class ManageAcademyComponent implements OnInit {
   sideBarToogle: boolean = true;
   showFiller = false;
   list: any;
-  pageSize: number;
+  pageSize: number = 20;
+  totalRecords = 10;
   acad_count: number;
 
   public tableConfig: ManageAcademyTableConfig = new ManageAcademyTableConfig();
@@ -29,13 +30,18 @@ export class ManageAcademyComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getAcademyList(this.pageSize);
+    this.getAcademyList(this.pageSize, 1);
   }
 
-  getAcademyList(page_size: number) {
+  updatePage(event: any) {
+    // console.log(event.target.value);
+    this.getAcademyList(this.pageSize, event.selectedPage);
+  }
+
+  getAcademyList(page_size: number, page_no: number) {
     this.adminService
       .getAcademyList({
-        page_no: 1,
+        page_no: page_no,
         page_size: page_size
       })
       .subscribe(response => {
@@ -46,7 +52,7 @@ export class ManageAcademyComponent implements OnInit {
 
   recordsPerPage(event: any) {
     this.pageSize = event.target.value;
-    this.getAcademyList(this.pageSize);
+    this.getAcademyList(this.pageSize, 1);
   }
 
   sampleModel() {

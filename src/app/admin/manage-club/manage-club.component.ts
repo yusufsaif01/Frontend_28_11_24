@@ -16,7 +16,8 @@ export class ManageClubComponent implements OnInit {
   sideBarToogle: boolean = true;
   showFiller = false;
   list: any;
-  pageSize: number;
+  pageSize: number = 20;
+  totalRecords = 10;
   clubs_count: number;
 
   public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
@@ -29,13 +30,13 @@ export class ManageClubComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getClubList(this.pageSize);
+    this.getClubList(this.pageSize, 1);
   }
 
-  getClubList(page_size: number) {
+  getClubList(page_size: number, page_no: number) {
     this.adminService
       .getClubList({
-        page_no: 1,
+        page_no: page_no,
         page_size: page_size
       })
       .subscribe(response => {
@@ -46,7 +47,12 @@ export class ManageClubComponent implements OnInit {
 
   recordsPerPage(event: any) {
     this.pageSize = event.target.value;
-    this.getClubList(this.pageSize);
+    this.getClubList(this.pageSize, 1);
+  }
+
+  updatePage(event: any) {
+    // console.log(event.target.value);
+    this.getClubList(this.pageSize, event.selectedPage);
   }
 
   sampleModel() {
