@@ -5,23 +5,26 @@ import { CredentialsService } from '@app/core';
 const routes = {
   getPlayerList: (c: CommonContext) => '/member/player/list',
   getClubList: (c: CommonContext) => '/member/club/list',
-  getAcademyList: (c: CommonContext) => '/member/academy/list'
+  getAcademyList: (c: CommonContext) => '/member/academy/list',
+  deleteUser: (c: DeleteUserContext) => '/member/delete',
+  activeUser: (c: StatusUserContext) => '/member/status-activate',
+  deactivateUser: (c: StatusUserContext) => '/member/status-deactivate'
 };
 
-export interface CommonContext {
-  page_no         ?: number;
-  page_size       ?: number;
-  sort_by         ?: string;
-  sort_order      ?: number;
-  search          ?: string;
-  from            ?: string;
-  to              ?: string;
-  name            ?: string;
-  type            ?: string;
-  email           ?: string;
-  position        ?: string;
-  email_verified  ?: string;
-  profile_status  ?: string;
+interface CommonContext {
+  page_no?: number;
+  page_size?: number;
+  sort_by?: string;
+  sort_order?: number;
+  search?: string;
+  from?: string;
+  to?: string;
+  name?: string;
+  type?: string;
+  email?: string;
+  position?: string;
+  email_verified?: string;
+  profile_status?: string;
 }
 
 interface PlayerListResponseContext {
@@ -34,7 +37,7 @@ interface PlayerListResponseContext {
       email: string;
       status: string;
     }[];
-    player_count: {
+    players_count: {
       grassroot: number;
       professional: number;
       amateur: number;
@@ -105,6 +108,23 @@ let academyResponse = {
   }
 };
 
+interface DeleteUserResponseContext {
+  status: string;
+  message: string;
+}
+
+interface DeleteUserContext {
+  user_id: string;
+}
+interface StatusUserContext {
+  user_id: string;
+}
+
+interface StatusUserResponseContext {
+  status: string;
+  message: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -141,30 +161,30 @@ export class AdminService {
       query += '&sort_order=' + context['sort_order'];
     }
 
-    if(context['from']){
+    if (context['from']) {
       query += '&from=' + context['from'];
     }
-    if(context['to']){
+    if (context['to']) {
       query += '&to=' + context['to'];
     }
-    if(context['name']){
+    if (context['name']) {
       query += '&name=' + context['name'];
     }
-    if(context['type']){
+    if (context['type']) {
       query += '&type=' + context['type'];
     }
-    if(context['email']){
+    if (context['email']) {
       query += '&email=' + context['email'];
     }
-    if(context['position']){
+    if (context['position']) {
       query += '&position=' + context['position'];
     }
-    if(context['email_verified']){
+    if (context['email_verified']) {
       query += '&email_verified=' + context['email_verified'];
     }
-    if(context['profile_status']){
+    if (context['profile_status']) {
       query += '&profile_status=' + context['profile_status'];
-    }  
+    }
 
     console.log(query);
     return this.httpClient.get<PlayerListResponseContext>(
@@ -270,10 +290,83 @@ export class AdminService {
     if (context['email_verified']) {
       query += '&email_verified=' + context['email_verified'];
     }
-    
+
     console.log(query);
     return this.httpClient.get<AcademyListResponseContext>(
       routes.getAcademyList(context) + query,
+      httpOptions
+    );
+  }
+
+  deleteUser(
+    context: DeleteUserContext
+  ): Observable<DeleteUserResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    let params = '/';
+    if (context['user_id']) {
+      params += `${context['user_id']}`;
+    }
+    console.log(params);
+
+    return this.httpClient.delete<DeleteUserResponseContext>(
+      routes.deleteUser(context) + params,
+      httpOptions
+    );
+  }
+
+  activeUser(
+    context: StatusUserContext
+  ): Observable<StatusUserResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    let params = '/';
+    if (context['user_id']) {
+      params += `${context['user_id']}`;
+    }
+    console.log(params);
+
+    return this.httpClient.put<StatusUserResponseContext>(
+      routes.activeUser(context) + params,
+      context,
+      httpOptions
+    );
+  }
+  deactivateUser(
+    context: StatusUserContext
+  ): Observable<StatusUserResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    let params = '/';
+    if (context['user_id']) {
+      params += `${context['user_id']}`;
+    }
+    console.log(params);
+
+    return this.httpClient.put<StatusUserResponseContext>(
+      routes.deactivateUser(context) + params,
+      context,
       httpOptions
     );
   }

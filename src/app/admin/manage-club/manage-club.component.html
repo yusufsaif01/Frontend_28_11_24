@@ -30,7 +30,7 @@
           </div>
           <div class="count-details">
             <h3>Total Clubs</h3>
-            <h5>300</h5>
+            <h5>{{ clubs_count }}</h5>
           </div>
         </div>
       </div>
@@ -48,7 +48,9 @@
                 /></a>
               </li>
               <li>
-                <a><img src="assets/images/icons/refresh.png"/></a>
+                <a (click)="ngOnInit()"
+                  ><img src="assets/images/icons/refresh.png"
+                /></a>
               </li>
             </ul>
           </div>
@@ -88,15 +90,15 @@
             [TableActions]="ListAction"
           >
           </app-table>
-          <ng-template #ListAction>
+          <ng-template #ListAction let-user_id="user_id" let-status="status">
             <div class="action-buttons">
               <button>
                 <img src="assets/images/icons/eyes.png" alt="Edit" />
               </button>
-              <button>
+              <button (click)="statusPopup(user_id, status)">
                 <img src="assets/images/icons/change.png" alt="Edit" />
               </button>
-              <button>
+              <button (click)="deletePopup(user_id, status)">
                 <img src="assets/images/icons/bin.png" alt="Delete" />
               </button>
             </div>
