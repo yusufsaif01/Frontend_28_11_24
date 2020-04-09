@@ -60,6 +60,9 @@ import { ManageClubComponent } from './admin/manage-club/manage-club.component';
 import { FilterDialogClubComponent } from './admin/filter-dialog-club/filter-dialog-club.component';
 import { ManageAcademyComponent } from './admin/manage-academy/manage-academy.component';
 import { FilterDialogAcademyComponent } from './admin/filter-dialog-academy/filter-dialog-academy.component';
+import { TimelineComponent } from './timeline/timeline.component';
+import { PostPopupComponent } from './post-popup/post-popup.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 import { DeleteConfirmationComponent } from './shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from './shared/dialog-box/status-confirmation/status-confirmation.component';
 const icons = {
@@ -95,6 +98,7 @@ const icons = {
     HttpClientModule,
     TranslateModule.forRoot(),
     BrowserAnimationsModule,
+    CarouselModule,
     CoreModule,
     SharedModule,
     MaterialModule,
@@ -131,6 +135,8 @@ const icons = {
     FilterDialogClubComponent,
     ManageAcademyComponent,
     FilterDialogAcademyComponent,
+    TimelineComponent,
+    PostPopupComponent,
     DeleteConfirmationComponent,
     StatusConfirmationComponent
     // , HomeComponent
@@ -148,6 +154,7 @@ const icons = {
     FilterDialogPlayerComponent,
     FilterDialogClubComponent,
     FilterDialogAcademyComponent,
+    PostPopupComponent,
     DeleteConfirmationComponent,
     StatusConfirmationComponent
   ]

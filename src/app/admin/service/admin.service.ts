@@ -11,7 +11,7 @@ const routes = {
   deactivateUser: (c: StatusUserContext) => '/member/status-deactivate'
 };
 
-interface CommonContext {
+export interface CommonContext {
   page_no?: number;
   page_size?: number;
   sort_by?: string;
