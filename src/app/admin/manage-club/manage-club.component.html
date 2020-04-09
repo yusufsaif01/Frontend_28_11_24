@@ -48,7 +48,9 @@
                 /></a>
               </li>
               <li>
-                <a (click)="ngOnInit()" ><img src="assets/images/icons/refresh.png"/></a>
+                <a (click)="ngOnInit()"
+                  ><img src="assets/images/icons/refresh.png"
+                /></a>
               </li>
             </ul>
           </div>
@@ -88,15 +90,15 @@
             [TableActions]="ListAction"
           >
           </app-table>
-          <ng-template #ListAction>
+          <ng-template #ListAction let-user_id="user_id" let-status="status">
             <div class="action-buttons">
               <button>
                 <img src="assets/images/icons/eyes.png" alt="Edit" />
               </button>
-              <button (click)="statusPopup()" >
+              <button (click)="statusPopup(user_id, status)">
                 <img src="assets/images/icons/change.png" alt="Edit" />
               </button>
-              <button (click)="deletePopup()" >
+              <button (click)="deletePopup(user_id, status)">
                 <img src="assets/images/icons/bin.png" alt="Delete" />
               </button>
             </div>

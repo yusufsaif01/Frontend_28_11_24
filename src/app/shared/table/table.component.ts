@@ -20,26 +20,26 @@ export class TableComponent implements OnInit {
   @Input() tableConfig: any = {};
   @Input() TableActions: TemplateRef<any>;
   @Input() NumberColumn: boolean = false;
-  // @Input() rows = new MatTableDataSource([]);
-  dataSource = new MatTableDataSource<any>();
-  rows = new MatTableDataSource([
-    {
-      name: 'Pushpam',
-      position: 'Sample',
-      type: 'Sample',
-      email: 'email',
-      status: 'pending',
-      actions: ''
-    },
-    {
-      name: 'Pushpam',
-      position: 'Sample',
-      type: 'Sample',
-      email: 'email',
-      status: 'pending',
-      actions: ''
-    }
-  ]);
+  @Input() rows = new MatTableDataSource([]);
+  // dataSource = new MatTableDataSource<any>();
+  // rows = new MatTableDataSource([
+  //   {
+  //     name: 'Pushpam',
+  //     position: 'Sample',
+  //     type: 'Sample',
+  //     email: 'email',
+  //     status: 'pending',
+  //     actions: ''
+  //   },
+  //   {
+  //     name: 'Pushpam',
+  //     position: 'Sample',
+  //     type: 'Sample',
+  //     email: 'email',
+  //     status: 'pending',
+  //     actions: ''
+  //   }
+  // ]);
   public columns: string[] = [];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;

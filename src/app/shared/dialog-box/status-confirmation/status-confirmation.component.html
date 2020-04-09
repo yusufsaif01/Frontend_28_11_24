@@ -1,9 +1,25 @@
+<div fxLayout fxLayoutAlign="space-between center" class="modal-header">
+  <div class="heading">
+    <img src="assets/images/icons/filter-black.png" alt="" />
+    <h4>Status Confirmation</h4>
+  </div>
+  <div class="close">
+    <img
+      src="assets/images/icons/close.png"
+      alt=""
+      [mat-dialog-close]="false"
+    />
+  </div>
+</div>
+
 <div class="popup-content">
   <h3>{{ message }}</h3>
   <div class="action-block">
     <button class="btn btn-gredient" [mat-dialog-close]="true">
       {{ acceptText }}
     </button>
-    <button class="btn btn-outline" [mat-dialog-close]="false">{{ rejectText }}</button>
+    <button class="btn btn-outline" [mat-dialog-close]="false">
+      {{ rejectText }}
+    </button>
   </div>
 </div>
