@@ -18,26 +18,31 @@
       <div class=" input__group date">
         <label>Registration Date Range</label>
         <div class="date_pick">
-          <input [matDatepicker]="academyto" />
-          <mat-datepicker-toggle [for]="academyto"></mat-datepicker-toggle>
-          <mat-datepicker #to></mat-datepicker>
-        </div>
-        <div class="date_pick">
-          <input [matDatepicker]="academyform" />
+          <input formControlName="from" [matDatepicker]="academyform" />
           <mat-datepicker-toggle [for]="academyform"></mat-datepicker-toggle>
           <mat-datepicker #academyform></mat-datepicker>
+        </div>
+        <div class="date_pick">
+          <input formControlName="to" [matDatepicker]="academyto" />
+          <mat-datepicker-toggle [for]="academyto"></mat-datepicker-toggle>
+          <mat-datepicker #academyto></mat-datepicker>
         </div>
       </div>
       <!-- player -->
       <div class="input__group">
         <label>Academy Name</label>
-        <input type="text" placeholder="Player Name" />
+        <input formControlName="name" type="text" placeholder="Academy Name" />
       </div>
 
       <!-- email type -->
       <div class="input__group">
         <label>Email</label>
-        <input type="email" matinput placeholder="Enter Your Mail" />
+        <input
+          formControlName="email"
+          type="email"
+          matinput
+          placeholder="Enter Your Mail"
+        />
       </div>
 
       <!-- Player Type -->
@@ -53,19 +58,19 @@
 
       <div class="input__group">
         <label>Email Verified</label>
-        <select matNativeControl required>
+        <select formControlName="email_verified" matNativeControl required>
           <option value="" selected>Select Email Verified Status</option>
-          <option value="Verified">Verified</option>
-          <option value="Not Verified">Not Verified</option>
+          <option value="true">Verified</option>
+          <option value="false">Not Verified</option>
         </select>
       </div>
 
       <div class="input__group">
         <label>Profile Status</label>
-        <select matNativeControl required>
-          <option value="" selected>Select your Status</option>
+        <select formControlName="profile_status" matNativeControl required>
+          <option value="" selected>Select Status</option>
           <option value="Verified">Verified</option>
-          <option value="Not Verified">Not Verified</option>
+          <option value="unverified">Unverified</option>
         </select>
       </div>
     </div>

@@ -132,12 +132,18 @@ export class AdminSidebarComponent implements OnInit {
           '/assets/images/icons/sidebar/manage-subscription.svg'
       )
     );
-
     this.matIconRegistry.addSvgIcon(
-      'manage-report',
+      'down-arrow',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         this.environment.mediaUrl +
-          'assets/images/icons/sidebar/manage-reports.svg'
+          '/assets/images/icons/sidebar/down-arrow.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'report',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.environment.mediaUrl +
+          '/assets/images/icons/sidebar/manage-reports.svg'
       )
     );
   }

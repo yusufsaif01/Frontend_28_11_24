@@ -58,7 +58,11 @@ export class LoginComponent implements OnInit, OnDestroy {
           console.log(credentials, 'LOGIN SUCCESS');
           log.debug(`${credentials.email} successfully logged in`);
           this.toastrService.success('Successful', 'Login');
-          this.router.navigate(['/edit-profile']);
+
+          if (credentials.data.role === 'admin')
+            this.router.navigate(['/manage-player']);
+          else this.router.navigate(['/edit-profile']);
+
           localStorage.setItem('token', credentials.data.token);
           localStorage.setItem('member_type', credentials.data.member_type);
           if (credentials.data.player_type) {
