@@ -85,7 +85,22 @@
             [tableConfig]="tableConfig"
             [NumberColumn]="'true'"
             [rows]="dataSource"
-          ></app-table>
+            [TableActions]="ListAction"
+          >
+          </app-table>
+          <ng-template #ListAction>
+            <div class="action-buttons">
+              <button>
+                <img src="assets/images/icons/eyes.png" alt="Edit" />
+              </button>
+              <button>
+                <img src="assets/images/icons/change.png" alt="Edit" />
+              </button>
+              <button>
+                <img src="assets/images/icons/bin.png" alt="Delete" />
+              </button>
+            </div>
+          </ng-template>
         </div>
       </div>
 
