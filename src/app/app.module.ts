@@ -63,6 +63,8 @@ import { FilterDialogAcademyComponent } from './admin/filter-dialog-academy/filt
 import { TimelineComponent } from './timeline/timeline.component';
 import { PostPopupComponent } from './post-popup/post-popup.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { DeleteConfirmationComponent } from './shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { StatusConfirmationComponent } from './shared/dialog-box/status-confirmation/status-confirmation.component';
 const icons = {
   Camera,
   Heart,
@@ -134,7 +136,9 @@ const icons = {
     ManageAcademyComponent,
     FilterDialogAcademyComponent,
     TimelineComponent,
-    PostPopupComponent
+    PostPopupComponent,
+    DeleteConfirmationComponent,
+    StatusConfirmationComponent
     // , HomeComponent
   ],
   providers: [
@@ -150,7 +154,9 @@ const icons = {
     FilterDialogPlayerComponent,
     FilterDialogClubComponent,
     FilterDialogAcademyComponent,
-    PostPopupComponent
+    PostPopupComponent,
+    DeleteConfirmationComponent,
+    StatusConfirmationComponent
   ]
 })
 export class AppModule {}

@@ -18,12 +18,22 @@
       <div class=" input__group date">
         <label>Registration Date Range</label>
         <div class="date_pick">
-          <input formControlName="from" [matDatepicker]="form" />
+          <input
+            formControlName="from"
+            [matDatepicker]="form"
+            readonly
+            placeholder="From Date"
+          />
           <mat-datepicker-toggle [for]="form"></mat-datepicker-toggle>
           <mat-datepicker #form></mat-datepicker>
         </div>
         <div class="date_pick">
-          <input formControlName="to" [matDatepicker]="to" />
+          <input
+            formControlName="to"
+            [matDatepicker]="to"
+            placeholder="To Date"
+            readonly
+          />
           <mat-datepicker-toggle [for]="to"></mat-datepicker-toggle>
           <mat-datepicker #to></mat-datepicker>
         </div>
@@ -45,11 +55,11 @@
         />
       </div>
 
-      <!-- Player Type -->
+      <!--Member Sub Catergories -->
       <div class="input__group">
-        <label>Player Type</label>
+        <label>Member Sub Catergories</label>
         <select matNativeControl required>
-          <option value="">Select Player Type</option>
+          <option value="">Select Member Sub Catergories</option>
           <option value="goalKeeper">GoalKeeper</option>
           <option value="center">Center</option>
           <option value="mid-Fielder">Mid Fielder</option>

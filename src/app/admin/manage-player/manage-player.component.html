@@ -31,7 +31,7 @@
           </div>
           <div class="count-details">
             <h3>Total Player</h3>
-            <h5>340</h5>
+            <h5>{{ players_count }}</h5>
           </div>
         </div>
         <div class="count-block">
@@ -40,7 +40,7 @@
           </div>
           <div class="count-details">
             <h3>Grassroot</h3>
-            <h5>30</h5>
+            <h5>{{ grassroot_count }}</h5>
           </div>
         </div>
         <div class="count-block">
@@ -48,8 +48,8 @@
             <img src="assets/images/icons/ameteur.png" alt="" />
           </div>
           <div class="count-details">
-            <h3>Ameteur</h3>
-            <h5>280</h5>
+            <h3>Amateur</h3>
+            <h5>{{ amateur_count }}</h5>
           </div>
         </div>
         <div class="count-block">
@@ -58,7 +58,7 @@
           </div>
           <div class="count-details">
             <h3>Professional</h3>
-            <h5>30</h5>
+            <h5>{{ proff_count }}</h5>
           </div>
         </div>
       </div>
@@ -76,7 +76,9 @@
                 /></a>
               </li>
               <li>
-                <a><img src="assets/images/icons/refresh.png"/></a>
+                <a (click)="ngOnInit()"
+                  ><img src="assets/images/icons/refresh.png"
+                /></a>
               </li>
             </ul>
           </div>
@@ -113,28 +115,38 @@
             [tableConfig]="tableConfig"
             [NumberColumn]="'true'"
             [rows]="dataSource"
+            [TableActions]="ListAction"
           ></app-table>
+          <ng-template #ListAction let-user_id="user_id" let-status="status">
+            <div class="action-buttons">
+              <button>
+                <img src="assets/images/icons/eyes.png" alt="Edit" />
+              </button>
+              <button (click)="statusPopup(user_id, status)">
+                <img src="assets/images/icons/change.png" alt="Edit" />
+              </button>
+              <button (click)="deletePopup(user_id, status)">
+                <img src="assets/images/icons/bin.png" alt="Delete" />
+              </button>
+            </div>
+          </ng-template>
         </div>
       </div>
 
       <!-- pagination -->
       <div class="pagination-wrapper">
         <div class="showing-data">
-          <p><strong>Showing</strong> 20 / 500 Data</p>
+          <p>
+            <strong>Showing</strong>
+            {{ pageSize > players_count ? players_count : pageSize }}
+            / {{ players_count }} Data
+          </p>
         </div>
-        <div class="pagination">
-          <ul>
-            <li>
-              <a><span> &#8592; </span></a>
-            </li>
-            <li><a>1</a></li>
-            <li><a>2</a></li>
-            <li><a>3</a></li>
-            <li>
-              <a> <span>&#8594;</span> </a>
-            </li>
-          </ul>
-        </div>
+        <app-pagination
+          [totalRows]="players_count"
+          [rowsPerPage]="pageSize"
+          (onChange)="updatePage($event)"
+        ></app-pagination>
       </div>
       <!-- pagination end here -->
     </div>
