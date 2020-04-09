@@ -15,6 +15,7 @@ export class ManageClubComponent implements OnInit {
   showFiller = false;
   list: any;
   pageSize: number;
+  clubs_count:number;
 
   public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -33,6 +34,7 @@ export class ManageClubComponent implements OnInit {
       })
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
+        this.clubs_count = response.data.total
       });
   }
 

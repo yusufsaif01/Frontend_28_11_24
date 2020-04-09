@@ -30,7 +30,7 @@
           </div>
           <div class="count-details">
             <h3>Total Clubs</h3>
-            <h5>300</h5>
+            <h5>{{ clubs_count }}</h5>
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@
                 /></a>
               </li>
               <li>
-                <a><img src="assets/images/icons/refresh.png"/></a>
+                <a (click)="ngOnInit()" ><img src="assets/images/icons/refresh.png"/></a>
               </li>
             </ul>
           </div>

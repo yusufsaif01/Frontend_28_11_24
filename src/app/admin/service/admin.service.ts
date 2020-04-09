@@ -34,7 +34,7 @@ interface PlayerListResponseContext {
       email: string;
       status: string;
     }[];
-    player_count: {
+    players_count: {
       grassroot: number;
       professional: number;
       amateur: number;

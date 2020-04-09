@@ -15,6 +15,7 @@ export class ManageAcademyComponent implements OnInit {
   showFiller = false;
   list: any;
   pageSize: number;
+  acad_count: number;
 
   public tableConfig: ManageAcademyTableConfig = new ManageAcademyTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -33,6 +34,7 @@ export class ManageAcademyComponent implements OnInit {
       })
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
+        this.acad_count = response.data.total
       });
   }
 

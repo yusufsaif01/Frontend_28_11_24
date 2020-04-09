@@ -21,6 +21,10 @@ export class ManagePlayerComponent implements OnInit {
   showFiller = false;
   list: any;
   pageSize: number;
+  players_count: number;
+  grassroot_count :number;
+  amateur_count :number;
+  proff_count: number;
 
   public tableConfig: ManagePlayerTableConfig = new ManagePlayerTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -39,6 +43,10 @@ export class ManagePlayerComponent implements OnInit {
       })
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
+        this.players_count = response.data.total;
+        this.amateur_count =  response.data.players_count.amateur;
+        this.grassroot_count = response.data.players_count.grassroot;
+        this.proff_count = response.data.players_count.professional;
       });
   }
 
