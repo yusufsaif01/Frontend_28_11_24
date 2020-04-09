@@ -15,6 +15,7 @@ export class ManageAcademyComponent implements OnInit {
   showFiller = false;
   list: any;
   pageSize: number;
+  totalRecords = 10;
 
   public tableConfig: ManageAcademyTableConfig = new ManageAcademyTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -23,6 +24,10 @@ export class ManageAcademyComponent implements OnInit {
 
   ngOnInit() {
     this.getAcademyList(this.pageSize);
+  }
+
+  updatePage(event: any) {
+    console.log(event.target.value);
   }
 
   getAcademyList(page_size: number) {

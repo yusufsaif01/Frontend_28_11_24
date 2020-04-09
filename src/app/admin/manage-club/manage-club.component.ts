@@ -15,6 +15,7 @@ export class ManageClubComponent implements OnInit {
   showFiller = false;
   list: any;
   pageSize: number;
+  totalRecords = 10;
 
   public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -39,6 +40,10 @@ export class ManageClubComponent implements OnInit {
   recordsPerPage(event: any) {
     this.pageSize = event.target.value;
     this.getClubList(this.pageSize);
+  }
+
+  updatePage(event: any) {
+    console.log(event.target.value);
   }
 
   sampleModel() {
