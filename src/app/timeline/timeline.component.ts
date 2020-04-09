@@ -14,7 +14,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 export class TimelineComponent implements OnInit {
   customOptions: OwlOptions = {
     loop: true,
-    mouseDrag: false,
+    mouseDrag: true,
     touchDrag: false,
     pullDrag: false,
     dots: false,
@@ -24,13 +24,13 @@ export class TimelineComponent implements OnInit {
         items: 1
       },
       400: {
-        items: 1
+        items: 2
       },
       740: {
-        items: 2
+        items: 3
       },
       940: {
-        items: 2
+        items: 3
       }
     }
   };
