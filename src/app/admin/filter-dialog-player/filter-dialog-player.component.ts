@@ -14,7 +14,6 @@ export class FilterDialogPlayerComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder
   ) {
-
     this.createForm();
     // this.filterForm = this.formBuilder.group({
     //   sample: ['']
@@ -24,18 +23,17 @@ export class FilterDialogPlayerComponent implements OnInit {
     // // });
   }
 
-  createForm(){
+  createForm() {
     this.filterForm = this.formBuilder.group({
-      from            :[''],
-      to              :[''],
-      name            :[''],
-      type            :[''],
-      email           :[''],
-      position        :[''],
-      email_verified  :[''],
-      profile_status  :[''],
+      from: [''],
+      to: [''],
+      name: [''],
+      type: [''],
+      email: [''],
+      position: [''],
+      email_verified: [''],
+      profile_status: ['']
     });
-
   }
   // fromDate = new Date(fromDate).toISOString()
   ngOnInit() {}

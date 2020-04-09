@@ -233,7 +233,9 @@ body {
   box-sizing: border-box;
   font-size: 1.4rem;
 }
-
+a {
+  cursor: pointer;
+}
 /* width */
 ::-webkit-scrollbar {
   width: 0px;

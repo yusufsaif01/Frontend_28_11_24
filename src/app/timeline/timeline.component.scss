@@ -2,7 +2,7 @@
 @import "src/assets/sass/abstracts/mixins";
 @import url("https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&display=swap");
 
-.wrapper {
+.site-wrapper {
   width: 85%;
   margin: 0 auto;
   display: flex;
@@ -102,6 +102,150 @@
   .middle-section {
     width: 48%;
     margin: 0rem 2rem;
+    // share post
+    .share-post {
+      display: flex;
+      width: 100%;
+      padding: 2rem;
+      justify-content: space-between;
+      margin-top: 3rem;
+      border-radius: 0.8rem;
+      background-color: $color-white;
+      .share-left {
+        h4 {
+          a {
+            font-size: 2.4rem;
+            color: $text-muted;
+            display: flex;
+            i-feather {
+              width: 2.5rem;
+              margin-right: 1rem;
+            }
+            &:hover {
+              color: $blue;
+              i-feather {
+                color: $blue;
+              }
+            }
+          }
+        }
+      }
+      .share-right {
+        ul {
+          list-style: none;
+          li {
+            display: inline;
+            margin-left: 2rem;
+            a {
+              color: $text-muted;
+              i-feather {
+                width: 2.5rem;
+              }
+              &:hover {
+                color: $blue;
+              }
+            }
+          }
+        }
+      }
+    }
+    // slider
+    .slider {
+      width: 100%;
+      padding: 2rem;
+      margin-top: 3rem;
+      border-radius: 0.8rem;
+      background-color: $color-white;
+      overflow: hidden;
+      .block {
+        border: 1px solid $border-color;
+        background-color: $color-white;
+        border-radius: 0.8rem;
+        max-width: 40rem;
+        margin-right: 2rem;
+        box-shadow: rgba(0, 0, 0, 0.08);
+        width: 100%;
+        float: left;
+        .block-heading {
+          padding: 2rem;
+          display: flex;
+          .left-part {
+            width: 70%;
+            h4 {
+              font-size: 2.4rem;
+              margin-bottom: 0.3rem;
+            }
+            h6 {
+              font-size: 1.8rem;
+              color: $blue;
+              margin-bottom: 0.5rem;
+            }
+            p {
+              display: flex;
+              font-size: 1.8rem;
+              color: $text-muted;
+              align-items: center;
+            }
+          }
+          .right-part {
+            width: 30%;
+            text-align: right;
+            img {
+              max-width: 8rem;
+              width: 100%;
+            }
+          }
+        }
+        .block-middle {
+          padding: 2rem;
+          .content {
+            p {
+              font-size: 1.8rem;
+              color: $text-muted;
+              line-height: 2.4rem;
+              margin-bottom: 2rem;
+            }
+          }
+          .middle {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            .left-part {
+              img {
+                width: 4rem;
+                height: 4rem;
+                border: 2px solid #fff;
+                margin: 0 0 0 -1.2rem;
+                box-shadow: 0 1rem 3rem 0 rgba(0, 0, 0, 0.08);
+                border-radius: 50%;
+              }
+            }
+            .right-part {
+              margin-left: 1rem;
+              h4 {
+                color: $text-muted;
+                font-size: 1.8rem;
+                font-weight: 700;
+              }
+            }
+          }
+        }
+        .block-bottom {
+          padding: 2rem;
+          display: block;
+          text-align: center;
+          .post-date {
+            p {
+              color: $text-muted;
+              font-size: 1.8rem;
+              display: flex;
+              align-items: center;
+              font-weight: 700;
+            }
+          }
+        }
+      }
+    }
     .post {
       background-color: $color-white;
       border-radius: 0.8rem;
@@ -236,6 +380,24 @@
           padding: 1rem;
           border: none;
           outline: none;
+        }
+        .button-text {
+          display: flex;
+          flex-wrap: wrap;
+          button {
+            border: 1px solid $text-muted;
+            background: transparent;
+            color: $text-muted;
+            padding: 1rem 2rem;
+            margin-right: 2rem;
+            border-radius: 0.8rem;
+            outline: none;
+            &:hover {
+              border: 1px solid $blue;
+              color: $blue;
+              background-color: rgba($blue, 0.1);
+            }
+          }
         }
       }
     }

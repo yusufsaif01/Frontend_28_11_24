@@ -1,8 +1,12 @@
 <mat-table matSort [dataSource]="rows">
   <!-- Checkbox Column -->
   <ng-container
-    [matColumnDef]="tableConfig.columns[col].code" *ngFor="let col of tableConfig.allowedColumns">
-    <mat-header-cell *matHeaderCellDef mat-sort-header >{{ tableConfig.columns[col].text }}</mat-header-cell>
+    [matColumnDef]="tableConfig.columns[col].code"
+    *ngFor="let col of tableConfig.allowedColumns"
+  >
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{
+      tableConfig.columns[col].text
+    }}</mat-header-cell>
     <mat-cell *matCellDef="let element; let i = index">
       <div>
         <p

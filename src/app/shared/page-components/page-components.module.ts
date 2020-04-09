@@ -33,7 +33,11 @@ import {
   Clock,
   Star,
   UserPlus,
-  Share2
+  Share2,
+  Video,
+  File,
+  Edit,
+  Plus
 } from 'angular-feather/icons';
 
 const icons = {
@@ -60,7 +64,11 @@ const icons = {
   Clock,
   Star,
   UserPlus,
-  Share2
+  Share2,
+  Video,
+  File,
+  Edit,
+  Plus
 };
 
 @NgModule({
