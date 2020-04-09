@@ -18,12 +18,22 @@
       <div class=" input__group date">
         <label>Registration Date Range</label>
         <div class="date_pick">
-          <input formControlName="from" [matDatepicker]="academyform" />
+          <input
+            formControlName="from"
+            [matDatepicker]="academyform"
+            readonly
+            placeholder="From Date"
+          />
           <mat-datepicker-toggle [for]="academyform"></mat-datepicker-toggle>
           <mat-datepicker #academyform></mat-datepicker>
         </div>
         <div class="date_pick">
-          <input formControlName="to" [matDatepicker]="academyto" />
+          <input
+            formControlName="to"
+            [matDatepicker]="academyto"
+            readonly
+            placeholder="To Date"
+          />
           <mat-datepicker-toggle [for]="academyto"></mat-datepicker-toggle>
           <mat-datepicker #academyto></mat-datepicker>
         </div>

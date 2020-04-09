@@ -18,12 +18,22 @@
       <div class=" input__group date">
         <label>Registration Date Range</label>
         <div class="date_pick">
-          <input formControlName="from" [matDatepicker]="form" />
+          <input
+            formControlName="from"
+            [matDatepicker]="form"
+            placeholder="From Date"
+            readonly
+          />
           <mat-datepicker-toggle [for]="form"></mat-datepicker-toggle>
           <mat-datepicker #form></mat-datepicker>
         </div>
         <div class="date_pick">
-          <input formControlName="to" [matDatepicker]="to" />
+          <input
+            formControlName="to"
+            [matDatepicker]="to"
+            placeholder="To Date"
+            readonly
+          />
           <mat-datepicker-toggle [for]="to"></mat-datepicker-toggle>
           <mat-datepicker #to></mat-datepicker>
         </div>
@@ -33,7 +43,6 @@
         <label>Player Name</label>
         <input formControlName="name" type="text" placeholder="Player Name" />
       </div>
-
       <!-- Member Sub Catergories -->
       <!-- <div class="input__group">
         <label>Member Sub Catergories</label>
@@ -59,7 +68,12 @@
       <!-- email type -->
       <div class="input__group">
         <label>Email</label>
-        <input formControlName="email" type="email" matinput />
+        <input
+          formControlName="email"
+          type="email"
+          matinput
+          placeholder="Enter your Email"
+        />
       </div>
 
       <!-- positon-->

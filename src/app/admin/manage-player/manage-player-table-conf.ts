@@ -40,6 +40,13 @@ export class ManagePlayerTableConfig extends TableConfig {
         getValue: (ele: any) => {
           return ele[this.columns.status.code];
         }
+      },
+      action: {
+        code: 'action',
+        text: 'Action',
+        getValue: (ele: any) => {
+          return ele[this.columns.action.code];
+        }
       }
     };
   }
