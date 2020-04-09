@@ -10,6 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ManagePlayerTableConfig } from './manage-player-table-conf';
 import { FilterDialogPlayerComponent } from '../filter-dialog-player/filter-dialog-player.component';
 import { AdminService } from '../service/admin.service';
+import { DeleteConfirmationComponent } from '../../shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { StatusConfirmationComponent } from '../../shared/dialog-box/status-confirmation/status-confirmation.component';
 
 @Component({
   selector: 'app-manage-player',
@@ -87,6 +89,45 @@ export class ManagePlayerComponent implements OnInit {
       }
     ];
     // this.dataSource = new MatTableDataSource(this.list);
+  }
+
+  deletePopup() {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '50% ',
+      panelClass: 'filterDialog',
+      data :{}
+    });
+    dialogRef.afterClosed().subscribe((result)=>{
+      console.log('popup closed');  
+      console.log('result',result);
+      if(result){
+        this.adminService.deleteUser({user_id:'123'})
+          .subscribe((response)=>{
+            console.log(response);
+          })
+      }else{
+        console.log('not true')
+      }
+    })
+  }
+
+  statusPopup() {
+    const dialogRef = this.dialog.open(StatusConfirmationComponent, {
+      width: '50% ',
+      panelClass: 'filterDialog',
+      data :{}
+    });
+    dialogRef.afterClosed().subscribe((result)=>{
+      console.log('popup closed');  
+      console.log('result',result);
+      // deactive user not implemented
+      if(result === true){
+        this.adminService.activeUser({user_id:'123'})
+          .subscribe((response)=>{
+            console.log(response);
+          })
+      }
+    })
   }
 
   applyFilter(event: any) {

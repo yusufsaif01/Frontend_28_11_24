@@ -60,6 +60,8 @@ import { ManageClubComponent } from './admin/manage-club/manage-club.component';
 import { FilterDialogClubComponent } from './admin/filter-dialog-club/filter-dialog-club.component';
 import { ManageAcademyComponent } from './admin/manage-academy/manage-academy.component';
 import { FilterDialogAcademyComponent } from './admin/filter-dialog-academy/filter-dialog-academy.component';
+import { DeleteConfirmationComponent } from './shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { StatusConfirmationComponent } from './shared/dialog-box/status-confirmation/status-confirmation.component';
 const icons = {
   Camera,
   Heart,
@@ -128,7 +130,9 @@ const icons = {
     ManageClubComponent,
     FilterDialogClubComponent,
     ManageAcademyComponent,
-    FilterDialogAcademyComponent
+    FilterDialogAcademyComponent,
+    DeleteConfirmationComponent,
+    StatusConfirmationComponent
     // , HomeComponent
   ],
   providers: [
@@ -143,7 +147,9 @@ const icons = {
   entryComponents: [
     FilterDialogPlayerComponent,
     FilterDialogClubComponent,
-    FilterDialogAcademyComponent
+    FilterDialogAcademyComponent,
+    DeleteConfirmationComponent,
+    StatusConfirmationComponent
   ]
 })
 export class AppModule {}

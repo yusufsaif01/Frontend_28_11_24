@@ -4,6 +4,6 @@
     <button class="btn btn-gredient" [mat-dialog-close]="true">
       {{ acceptText }}
     </button>
-    <button class="btn btn-outline" mat-dialog-close>{{ rejectText }}</button>
+    <button class="btn btn-outline" [mat-dialog-close]="false">{{ rejectText }}</button>
   </div>
 </div>
