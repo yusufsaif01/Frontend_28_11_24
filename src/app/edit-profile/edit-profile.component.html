@@ -240,6 +240,7 @@
                   formControlName="dob"
                   matInput
                   [matDatepicker]="myDatepicker"
+                  readonly
                 />
                 <mat-datepicker-toggle
                   [for]="myDatepicker"
@@ -272,8 +273,18 @@
                 ></label
               >
               <div class="double-input">
-                <input formControlName="height_feet" type="text" matInput />
-                <input formControlName="height_inches" type="text" matInput />
+                <input
+                  formControlName="height_feet"
+                  type="text"
+                  matInput
+                  autocomplete="off"
+                />
+                <input
+                  formControlName="height_inches"
+                  type="text"
+                  matInput
+                  autocomplete="off"
+                />
               </div>
               <mat-error
                 *ngIf="
@@ -313,7 +324,12 @@
             <!-- weight -->
             <div class="from-block">
               <label>Weight (kg)</label>
-              <input formControlName="weight" type="text" matInput />
+              <input
+                formControlName="weight"
+                type="text"
+                matInput
+                autocomplete="off"
+              />
             </div>
 
             <!-- nationality -->
