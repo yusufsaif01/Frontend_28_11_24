@@ -69,13 +69,13 @@ const routes: Routes = [
   {
     path: 'manage-player',
     component: ManagePlayerComponent,
-    data: { title: extract('admin') }
+    data: { title: extract('Manage Player') }
   },
 
   {
     path: 'manage-club',
     component: ManageClubComponent,
-    data: { title: extract('manage club') }
+    data: { title: extract('Manage Club') }
   },
 
   {

@@ -8,7 +8,7 @@ export class ManageAcademyTableConfig extends TableConfig {
     this.columns = {
       name: {
         code: 'name',
-        text: 'Club Name',
+        text: 'Academy Name',
         getValue: (ele: any) => {
           return ele[this.columns.name.code];
         }

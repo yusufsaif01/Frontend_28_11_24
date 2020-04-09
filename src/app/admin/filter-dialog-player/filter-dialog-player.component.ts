@@ -14,13 +14,29 @@ export class FilterDialogPlayerComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder
   ) {
-    this.filterForm = this.formBuilder.group({
-      sample: ['']
-    });
-    // this.filterForm.patchValue({
-    //   sample: data.formControlName
+
+    this.createForm();
+    // this.filterForm = this.formBuilder.group({
+    //   sample: ['']
     // });
+    // // this.filterForm.patchValue({
+    // //   sample: data.formControlName
+    // // });
   }
 
+  createForm(){
+    this.filterForm = this.formBuilder.group({
+      from            :[''],
+      to              :[''],
+      name            :[''],
+      type            :[''],
+      email           :[''],
+      position        :[''],
+      email_verified  :[''],
+      profile_status  :[''],
+    });
+
+  }
+  // fromDate = new Date(fromDate).toISOString()
   ngOnInit() {}
 }
