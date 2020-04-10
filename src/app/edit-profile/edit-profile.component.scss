@@ -230,10 +230,13 @@ body {
           }
           .double-input {
             display: flex;
-            select,
-            input {
+            .height-input {
               width: 40%;
               margin-right: 2rem;
+              select,
+              input {
+                width: 100%;
+              }
             }
           }
           .datepicker {
