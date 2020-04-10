@@ -292,6 +292,15 @@
                       translate
                       >Height in Feet is required</span
                     >
+                    <span
+                      class="error-text"
+                      *ngIf="
+                        editProfileForm.controls.height_feet.errors &&
+                        editProfileForm.controls.height_feet.errors.pattern
+                      "
+                    >
+                      Height in Feet format is invalid
+                    </span>
                   </mat-error>
                 </div>
                 <div class="height-input">
@@ -312,6 +321,15 @@
                       translate
                       >Height in Inches is required</span
                     >
+                    <span
+                      class="error-text"
+                      *ngIf="
+                        editProfileForm.controls.height_inches.errors &&
+                        editProfileForm.controls.height_inches.errors.pattern
+                      "
+                    >
+                      Height in Inches format is invalid
+                    </span>
                   </mat-error>
                 </div>
               </div>
@@ -326,6 +344,32 @@
                 matInput
                 autocomplete="off"
               />
+              <mat-error
+                *ngIf="
+                  (editProfileForm.controls.weight.invalid &&
+                    editProfileForm.controls.weight.touched &&
+                    player_type === 'amateur') ||
+                  player_type === 'professional'
+                "
+              >
+                <span
+                  *ngIf="
+                    editProfileForm.controls.weight.errors &&
+                    editProfileForm.controls.weight.errors.required
+                  "
+                  translate
+                  >Weight in Kg is required</span
+                >
+                <span
+                  class="error-text"
+                  *ngIf="
+                    editProfileForm.controls.weight.errors &&
+                    editProfileForm.controls.weight.errors.pattern
+                  "
+                >
+                  Weight in Kg format is invalid
+                </span>
+              </mat-error>
             </div>
 
             <!-- nationality -->
