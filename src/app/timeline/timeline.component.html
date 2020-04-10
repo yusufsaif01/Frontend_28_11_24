@@ -5,12 +5,23 @@
     <!-- profile  -->
     <div class="block-design">
       <div class="profile-section border-bottom">
-        <img src="assets/images/profile-icon.png" alt="profile-icon" />
-        <h3>
-          Manoj Kumar
+        <img src="{{ profile?.avatar_url }}" alt="profile-icon" />
+        <h3 *ngIf="profile.member_type === 'player'">
+          {{ profile?.first_name }} {{ profile?.last_name }}
+        </h3>
+        <h3
+          *ngIf="
+            profile.member_type === 'club' || profile.member_type === 'academy'
+          "
+        >
+          {{ profile?.name }}
         </h3>
         <h6>
-          Goalkeeper
+          {{
+            profile.position && profile.position[0]
+              ? profile.position[0].name
+              : ''
+          }}
         </h6>
         <p>
           <i-feather name="alert-circle" class="icon-size"></i-feather>
@@ -28,7 +39,7 @@
         </div>
       </div>
       <div class="block-bottom">
-        <a> View my profile</a>
+        <a [routerLink]="['/profile']"> View my profile</a>
       </div>
     </div>
 

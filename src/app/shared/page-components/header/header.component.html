@@ -42,24 +42,29 @@
         <div class="dropdown" [hidden]="this.isActive">
           <ul>
             <li>
-              <a>
+              <a [routerLink]="['/timeline']">
+                <i-feather name="user" class="icon-size"></i-feather> Home
+              </a>
+            </li>
+            <li>
+              <a [routerLink]="['/profile']">
                 <i-feather name="user" class="icon-size"></i-feather> My Profile
               </a>
             </li>
             <li>
-              <a>
+              <a [routerLink]="['/edit-profile']">
                 <i-feather name="edit" class="icon-size"></i-feather> Edit
                 Profile
               </a>
             </li>
             <li>
-              <a>
+              <a [routerLink]="['/change-password']">
                 <i-feather name="lock" class="icon-size"></i-feather> Change
                 Password
               </a>
             </li>
             <li>
-              <a>
+              <a [routerLink]="['/logout']">
                 <i-feather name="log-out" class="icon-size"></i-feather> Logout
               </a>
             </li>
