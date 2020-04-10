@@ -55,6 +55,7 @@ export class EditProfileComponent implements OnInit {
   contact_person: FormArray;
   trophies: FormArray;
   top_signings: FormArray;
+  top_players: FormArray;
   position: FormArray;
 
   samplePositionArray = [
@@ -137,20 +138,72 @@ export class EditProfileComponent implements OnInit {
   ];
   leagueArray = [
     {
-      name: 'Volvo',
-      value: 'volvo'
+      name: 'Hero Indian Super League',
+      value: 'Hero Indian Super League'
     },
     {
-      name: 'Saab',
-      value: 'saab'
+      name: 'Hero Indian women’s League',
+      value: 'Hero Indian women’s League'
     },
     {
-      name: 'Mercedes',
-      value: 'mercedes'
+      name: 'Hero I-League',
+      value: 'Hero I-League'
     },
     {
-      name: 'Audi',
-      value: 'audi'
+      name: 'Hero 2nd Division',
+      value: 'Hero 2nd Division'
+    },
+    {
+      name: 'Hero Elite League',
+      value: 'Hero Elite League'
+    },
+    {
+      name: 'Hero Junior League',
+      value: 'Hero Junior League'
+    },
+    {
+      name: 'Hero Sub - Junior League',
+      value: 'Hero Sub - Junior League'
+    },
+    {
+      name: 'Hero Super Cup',
+      value: 'Hero Super Cup'
+    },
+    {
+      name: 'Hero Gold Cup',
+      value: 'Hero Gold Cup'
+    },
+    {
+      name: 'Second Division League',
+      value: 'Second Division League'
+    },
+    {
+      name: 'Golden Baby Leagues',
+      value: 'Golden Baby Leagues'
+    },
+    {
+      name: 'Hero Senior NFC',
+      value: 'Hero Senior NFC'
+    },
+    {
+      name: 'Hero Senior Women NFC',
+      value: 'Hero Senior Women NFC'
+    },
+    {
+      name: 'Hero Junior NFC',
+      value: 'Hero Junior NFC'
+    },
+    {
+      name: 'Hero Junior Girl NFC',
+      value: 'Hero Junior Girl NFC'
+    },
+    {
+      name: 'Hero Sub-Junior NFC',
+      value: 'Hero Sub-Junior NFC'
+    },
+    {
+      name: 'Hero Sub-Junior Girl’s NFC',
+      value: 'Hero Sub-Junior Girl’s NFC'
     }
   ];
   sampleCityArray = [
@@ -339,6 +392,12 @@ export class EditProfileComponent implements OnInit {
           'top_signings',
           JSON.stringify(this.editProfileForm.get('top_signings').value)
         );
+      }
+      if(this.member_type === 'academy'){
+        requestData.set(
+          'top_players',
+          JSON.stringify(this.editProfileForm.get('top_players').value)
+        ); 
       }
     }
 
@@ -558,6 +617,7 @@ export class EditProfileComponent implements OnInit {
         document_type: ['', []],
         contact_person: this._formBuilder.array([], []),
         trophies: this._formBuilder.array([], []),
+        top_players: this._formBuilder.array([], []),
         associated_players: ['', [Validators.required]],
         document: ['', [requiredFileDocument]]
         //onclick upload documenet aiff / pan card/tin / coi
@@ -748,6 +808,28 @@ export class EditProfileComponent implements OnInit {
 
   removeTopSigning(i: number) {
     this.top_signings.removeAt(i);
+  }
+
+  addTopAcademyPlayer(data?: {name:string}) {
+    this.top_players = this.editProfileForm.get('top_players') as FormArray;
+
+    if (data !== undefined) {
+      this.top_players.push(
+        this._formBuilder.group({
+          name: [data.name, []]
+        })
+      );
+    } else {
+      this.top_players.push(
+        this._formBuilder.group({
+          name: ['', []]
+        })
+      );
+    }
+  }
+
+  removeTopAcademyPlayer(i: number) {
+    this.top_players.removeAt(i);
   }
 
   preparePosition(data?: positionObject, index?: number) {
