@@ -268,6 +268,8 @@ export class EditProfileComponent implements OnInit {
         'employment_contract'
       );
       const aadhar = this.editProfileForm.get('aadhar');
+      const height_feet = this.editProfileForm.get('height_feet');
+      const height_inches = this.editProfileForm.get('height_inches');
 
       this.editProfileForm
         .get('player_type')
@@ -284,6 +286,16 @@ export class EditProfileComponent implements OnInit {
             employmentContract.setValidators(null);
           }
 
+          if (player_type === 'amateur' || player_type === 'professional') {
+            height_feet.setValidators(Validators.required);
+            height_inches.setValidators(Validators.required);
+          } else {
+            height_feet.setValidators(null);
+            height_inches.setValidators(null);
+          }
+
+          height_feet.updateValueAndValidity();
+          height_inches.updateValueAndValidity();
           aadhar.updateValueAndValidity();
           employmentContract.updateValueAndValidity();
         });
