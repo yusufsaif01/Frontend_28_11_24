@@ -3,34 +3,42 @@
     <!-- header logo -->
     <div class="header-logo">
       <img src="assets/images/logo.png" alt="" />
+      <div class="search">
+        <input
+          type="text"
+          matinput
+          placeholder="Search people, club and more"
+        />
+        <button>
+          <i-feather name="search" class="icon-size"></i-feather>
+        </button>
+      </div>
     </div>
     <!-- header right -->
     <div class="header-menu">
       <ul>
         <li>
-          <a>
+          <a matTooltip="Connection">
             <span>
               <i-feather name="Users" class="icon-size"></i-feather>
             </span>
-            Connection</a
-          >
+          </a>
         </li>
         <li>
-          <a>
+          <a matTooltip="Footmail">
             <span>
-              <i-feather name="Crosshair" class="icon-size"></i-feather>
+              <i-feather name="Mail" class="icon-size"></i-feather>
             </span>
-            Footmail</a
-          >
+          </a>
         </li>
         <li>
-          <a>
+          <a matTooltip="Chat">
             <i-feather name="message-square" class="icon-size"></i-feather
             ><span class="count">4</span>
           </a>
         </li>
         <li>
-          <a>
+          <a matTooltip="Notification">
             <i-feather name="Bell" class="icon-size"></i-feather>
             <span class="count">6</span>
           </a>
