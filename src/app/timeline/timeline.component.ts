@@ -15,9 +15,11 @@ export class TimelineComponent implements OnInit {
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
-    touchDrag: false,
+    touchDrag: true,
     pullDrag: false,
+    autoplay: true,
     dots: false,
+    margin: 10,
     navSpeed: 700,
     responsive: {
       0: {

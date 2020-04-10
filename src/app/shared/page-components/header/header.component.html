@@ -36,8 +36,35 @@
           </a>
         </li>
       </ul>
-      <div class="profile">
+      <div class="profile" (click)="changeDropdown()">
         <img src="assets/images/profile-icon.png " alt="" />
+        <i-feather name="chevron-down" class="icon-size down"></i-feather>
+        <div class="dropdown" [hidden]="this.isActive">
+          <ul>
+            <li>
+              <a>
+                <i-feather name="user" class="icon-size"></i-feather> My Profile
+              </a>
+            </li>
+            <li>
+              <a>
+                <i-feather name="edit" class="icon-size"></i-feather> Edit
+                Profile
+              </a>
+            </li>
+            <li>
+              <a>
+                <i-feather name="lock" class="icon-size"></i-feather> Change
+                Password
+              </a>
+            </li>
+            <li>
+              <a>
+                <i-feather name="log-out" class="icon-size"></i-feather> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

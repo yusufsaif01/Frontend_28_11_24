@@ -37,7 +37,9 @@ import {
   Video,
   File,
   Edit,
-  Plus
+  Plus,
+  LogOut,
+  ChevronDown
 } from 'angular-feather/icons';
 
 const icons = {
@@ -68,7 +70,9 @@ const icons = {
   Video,
   File,
   Edit,
-  Plus
+  Plus,
+  LogOut,
+  ChevronDown
 };
 
 @NgModule({
