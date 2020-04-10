@@ -57,7 +57,7 @@ export class ManageClubComponent implements OnInit {
 
   sampleModel() {
     const dialogRef = this.dialog.open(FilterDialogClubComponent, {
-      // width: '50% ',
+      width: '50% ',
       panelClass: 'filterDialog'
     });
     dialogRef.afterClosed().subscribe(result => {
