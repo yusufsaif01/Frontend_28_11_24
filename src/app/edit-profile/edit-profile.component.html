@@ -699,13 +699,7 @@
                   profile.club_academy_details?.head_coach_phone)
               "
             >
-              <div
-                class="from-block"
-                *ngIf="
-                  profile?.club_academy_details &&
-                  profile.club_academy_details?.head_coach_phone
-                "
-              >
+              <div class="from-block">
                 <label>Head coach phone number <span>*</span></label>
                 <input
                   formControlName="head_coach_phone"
@@ -729,13 +723,7 @@
               </div>
 
               <!-- Head coach email number -->
-              <div
-                class="from-block"
-                *ngIf="
-                  profile?.club_academy_details &&
-                  profile.club_academy_details?.head_coach_email
-                "
-              >
+              <div class="from-block">
                 <label>Head coach email <span>*</span></label>
                 <input
                   formControlName="head_coach_email"
