@@ -43,6 +43,7 @@
           "
         >
           <span
+            class="align-center"
             *ngIf="aboutForm.controls.avatar.errors.requiredFileAvatar"
             translate
             >Image must be of type JPEG / JPG / PNG</span
@@ -142,7 +143,7 @@
             <!-- <p>Lorem ipsum dolor sit amet, consecteturs.</p> -->
           </div>
           <div class="block-middle">
-            <div class="radio">
+            <div class="radio w-50">
               <label
                 ><input
                   type="radio"
@@ -273,68 +274,47 @@
                 ></label
               >
               <div class="double-input">
-                <input
-                  formControlName="height_feet"
-                  type="text"
-                  matInput
-                  autocomplete="off"
-                />
-                <input
-                  formControlName="height_inches"
-                  type="text"
-                  matInput
-                  autocomplete="off"
-                />
+                <div class="height-input">
+                  <input formControlName="height_feet" type="text" matInput />
+                  <mat-error
+                    *ngIf="
+                      editProfileForm.controls.height_feet.invalid &&
+                      editProfileForm.controls.height_feet.touched &&
+                      (player_type === 'amateur' ||
+                        player_type === 'professional')
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.height_feet.errors &&
+                        editProfileForm.controls.height_feet.errors.required
+                      "
+                      translate
+                      >Height in Feet is required</span
+                    >
+                  </mat-error>
+                </div>
+                <div class="height-input">
+                  <input formControlName="height_inches" type="text" matInput />
+                  <mat-error
+                    *ngIf="
+                      (editProfileForm.controls.height_inches.invalid &&
+                        editProfileForm.controls.height_inches.touched &&
+                        player_type === 'amateur') ||
+                      player_type === 'professional'
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.height_inches.errors &&
+                        editProfileForm.controls.height_inches.errors.required
+                      "
+                      translate
+                      >Height in Inches is required</span
+                    >
+                  </mat-error>
+                </div>
               </div>
-              <mat-error
-                *ngIf="
-                  editProfileForm.controls.height_feet.invalid &&
-                  editProfileForm.controls.height_feet.touched &&
-                  (player_type === 'amateur' || player_type === 'professional')
-                "
-              >
-                <span
-                  *ngIf="
-                    editProfileForm.controls.height_feet.errors &&
-                    editProfileForm.controls.height_feet.errors.required
-                  "
-                  translate
-                  >Height in Feet is required</span
-                >
-                <mat-error
-                class="error-text"
-                *ngIf="
-                  editProfileForm.controls.height_feet.errors.pattern;
-                "
-              >
-                Height in Feet format is invalid
-              </mat-error>
-              </mat-error>
-              <mat-error
-                *ngIf="
-                  (editProfileForm.controls.height_inches.invalid &&
-                    editProfileForm.controls.height_inches.touched &&
-                    player_type === 'amateur') ||
-                  player_type === 'professional'
-                "
-              >
-                <span
-                  *ngIf="
-                    editProfileForm.controls.height_inches.errors &&
-                    editProfileForm.controls.height_inches.errors.required
-                  "
-                  translate
-                  >Height in Inches is required</span
-                >
-                <mat-error
-                class="error-text"
-                *ngIf="
-                  editProfileForm.controls.height_inches.errors.pattern;
-                "
-              >
-                Height in Inches format is invalid
-              </mat-error>
-              </mat-error>
             </div>
 
             <!-- weight -->
@@ -346,31 +326,6 @@
                 matInput
                 autocomplete="off"
               />
-              <mat-error
-              *ngIf="
-                (editProfileForm.controls.weight.invalid &&
-                  editProfileForm.controls.weight.touched &&
-                  player_type === 'amateur') ||
-                player_type === 'professional'
-              "
-            >
-              <span
-                *ngIf="
-                  editProfileForm.controls.weight.errors &&
-                  editProfileForm.controls.weight.errors.required
-                "
-                translate
-                >Weight in Kg is required</span
-              >
-              <mat-error
-              class="error-text"
-              *ngIf="
-                editProfileForm.controls.weight.errors.pattern;
-              "
-            >
-              Weight in Kg format is invalid
-            </mat-error>
-            </mat-error>
             </div>
 
             <!-- nationality -->

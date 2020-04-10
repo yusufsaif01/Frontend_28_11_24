@@ -1,5 +1,4 @@
-<!-- (click)="sideBarToogle = !sideBarToogle" -->
-<app-admin-header></app-admin-header>
+<app-admin-header (click)="sideBarToogle = !sideBarToogle"></app-admin-header>
 <mat-drawer-container class="admin-wrapper" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="sideBarToogle">
     <app-admin-sidebar></app-admin-sidebar>
