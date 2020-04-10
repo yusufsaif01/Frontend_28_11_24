@@ -10,11 +10,25 @@
     /></span>
   </div>
   <div class="header__options">
-    <div class="user-details">
-      <img src="assets/images/avatar.png" alt="Ravi Prakash" class="user-pic" />
+    <div class="user-details" (click)="changeDropdown()">
+      <img
+        src=" assets/images/avatar.png"
+        alt="Ravi Prakash"
+        class="user-pic"
+      />
       <div class="text">
         <span class="name">Ravi Parkash</span>
         <span class="designation">Production Exective</span>
+      </div>
+      <div class="dropdown" [hidden]="this.isActive">
+        <ul>
+          <li>
+            <a> <i-feather name="lock"></i-feather> Change Password </a>
+          </li>
+          <li>
+            <a> <i-feather name="log-out"></i-feather> Logout </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

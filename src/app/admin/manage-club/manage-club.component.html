@@ -1,4 +1,5 @@
-<app-admin-header (click)="sideBarToogle = !sideBarToogle"></app-admin-header>
+<!-- (click)="sideBarToogle = !sideBarToogle" -->
+<app-admin-header></app-admin-header>
 <mat-drawer-container class="admin-wrapper" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="sideBarToogle">
     <app-admin-sidebar></app-admin-sidebar>
@@ -119,7 +120,8 @@
           [totalRows]="clubs_count"
           [rowsPerPage]="pageSize"
           (onChange)="updatePage($event)"
-        ></app-pagination>
+        >
+        </app-pagination>
       </div>
       <!-- pagination end here -->
     </div>

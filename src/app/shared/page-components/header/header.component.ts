@@ -8,6 +8,8 @@ import { AuthenticationService } from '@app/core/authentication/authentication.s
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  public isActive: boolean = true;
+
   constructor(
     private router: Router,
     private authService: AuthenticationService
@@ -18,5 +20,13 @@ export class HeaderComponent implements OnInit {
   Logout() {
     this.authService.logout();
     this.router.navigateByUrl('/login');
+  }
+  changeDropdown() {
+    console.log('fgd');
+    if (this.isActive) {
+      this.isActive = false;
+    } else {
+      this.isActive = true;
+    }
   }
 }
