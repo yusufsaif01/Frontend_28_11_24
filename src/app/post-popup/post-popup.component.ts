@@ -11,9 +11,8 @@ import {
 })
 export class PostPopupComponent implements OnInit {
   constructor(
-    public dialogRef: MatDialogRef<PostPopupComponent>
-  ) // @Inject(MAT_DIALOG_DATA) public data: DialogData
-  {}
+    public dialogRef: MatDialogRef<PostPopupComponent> // @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
