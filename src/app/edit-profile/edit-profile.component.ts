@@ -178,7 +178,7 @@ export class EditProfileComponent implements OnInit {
     private _toastrService: ToastrService
   ) {
     this.createForm();
-    this.setPlayerCategoryValidators();
+    this.setCategoryValidators();
   }
 
   ngOnInit() {
@@ -187,8 +187,7 @@ export class EditProfileComponent implements OnInit {
 
   selectTab(tabName: string) {
     this.player_type = tabName;
-    // this.createForm();
-    this.setPlayerCategoryValidators();
+    this.setCategoryValidators();
     console.log('player_type', this.player_type);
   }
 
@@ -256,13 +255,16 @@ export class EditProfileComponent implements OnInit {
         );
       }
     );
+
+    this.setCategoryValidators();
   }
 
   resetForm() {
     this.editProfileForm.reset();
+    this.createForm();
   }
 
-  setPlayerCategoryValidators() {
+  setCategoryValidators() {
     if (this.member_type === 'player') {
       const employmentContract = this.editProfileForm.get(
         'employment_contract'
@@ -274,6 +276,7 @@ export class EditProfileComponent implements OnInit {
       this.editProfileForm
         .get('player_type')
         .valueChanges.subscribe(player_type => {
+          // if(!this.profile.documents && this.profile.documents[0])
           aadhar.setValidators([Validators.required, requiredFileDocument]);
 
           if (player_type === 'professional') {
@@ -487,9 +490,18 @@ export class EditProfileComponent implements OnInit {
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
         dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
-        height_feet: ['', []],
-        height_inches: ['', []],
-        weight: ['', []],
+        height_feet: [
+          '',
+          [Validators.required, Validators.pattern(/^\d{1,2}$/)]
+        ],
+        height_inches: [
+          '',
+          [Validators.required, Validators.pattern(/^\d{2}$/)]
+        ],
+        weight: [
+          '',
+          [Validators.required, Validators.pattern(/^\d{2,3}.\d{1}$/)]
+        ],
         country: ['', [Validators.required]], // country or nationality
         state: ['', [Validators.required]],
         city: ['', [Validators.required]], //city
