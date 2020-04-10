@@ -1,0 +1,512 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <!-- Left section -->
+  <div class="left-section">
+    <!-- profile  -->
+    <div class="block-design">
+      <div class="profile-section border-bottom">
+        <img src="{{ profile?.avatar_url }}" alt="profile-icon" />
+        <h3 *ngIf="profile?.member_type === 'player'">
+          {{ profile?.first_name }} {{ profile?.last_name }}
+        </h3>
+        <h3
+          *ngIf="
+            profile?.member_type === 'club' ||
+            profile?.member_type === 'academy'
+          "
+        >
+          {{ profile?.name }}
+        </h3>
+        <h6>
+          {{
+            profile.position && profile.position[0]
+              ? profile.position[0].name
+              : ''
+          }}
+        </h6>
+        <p>
+          <i-feather name="alert-circle" class="icon-size"></i-feather>
+          Not Verified
+        </p>
+      </div>
+      <div class="block-middle border-bottom">
+        <div class="part text-center">
+          <h4>348</h4>
+          <p>Achievements</p>
+        </div>
+        <div class="part border-left text-center">
+          <h4>85</h4>
+          <p>Tournaments</p>
+        </div>
+      </div>
+      <div class="block-bottom">
+        <a [routerLink]="['/profile']"> View my profile</a>
+      </div>
+    </div>
+
+    <!-- player type -->
+    <div class="block-design">
+      <div class="block-middle">
+        <div class="part">
+          <h4>Player Type</h4>
+        </div>
+        <div class="part">
+          <h5>{{ profile?.player_type }}</h5>
+        </div>
+      </div>
+    </div>
+
+    <!-- player bio -->
+    <div class="block-design">
+      <div class="boi">
+        <div class="heading border-bottom">
+          <h3>Player Bio</h3>
+        </div>
+        <div class="player-boi">
+          <p>
+            {{ profile?.bio }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- middle -->
+  <div class="middle-section">
+    <!-- share-post -->
+    <div class="share-post">
+      <div class="share-left">
+        <h4>
+          <a (click)="openDialog()">
+            <i-feather name="edit"></i-feather>
+            <span>Share a Post</span>
+          </a>
+        </h4>
+      </div>
+
+      <div class="share-right">
+        <ul>
+          <li>
+            <a>
+              <i-feather name="camera"></i-feather>
+            </a>
+          </li>
+          <li>
+            <a>
+              <i-feather name="video"></i-feather>
+            </a>
+          </li>
+          <li>
+            <a>
+              <i-feather name="edit"></i-feather>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- small post -->
+    <div class="post">
+      <div class="post-header border-bottom">
+        <div class="post-header-left">
+          <div class="profile-img">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h2>Collin Wender</h2>
+            <h5>Wing Back</h5>
+          </div>
+        </div>
+
+        <div class="post-header-right">
+          <p>3 hours</p>
+        </div>
+      </div>
+      <div class="post-middle border-bottom">
+        <div class="post-content">
+          <p>
+            It is a long established fact that a reader will be distracted by
+            the readable content of a page when looking at its layout. The point
+            of using Lorem Ipsum is that it has a more-or-less normal
+            distribution of letters, as opposed to using 'Content here, content
+            here.
+          </p>
+        </div>
+      </div>
+      <div class="post-icons border-bottom">
+        <ul>
+          <li>
+            <i-feather name="heart" class="icon-size"></i-feather>
+            <span>8</span>
+          </li>
+          <li>
+            <i-feather name="message-square" class="icon-size"></i-feather>
+            <span>8</span>
+          </li>
+          <li>
+            <i-feather name="share-2" class="icon-size"></i-feather>
+            <span>8</span>
+          </li>
+        </ul>
+      </div>
+      <div class="comment-box">
+        <!-- <textarea matInput placeholder="Write Your Comment"></textarea> -->
+        <div class="button-text">
+          <button>Awesome</button>
+          <button>What is about ?</button>
+          <button>Great</button>
+          <button>what</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- carsouels div -->
+    <div class="slider">
+      <owl-carousel-o [options]="customOptions">
+        <ng-template carouselSlide>
+          <div class="block">
+            <div class="player-list">
+              <a>
+                <div class="block-heading border-bottom">
+                  <div class="left-part">
+                    <h4>Center back</h4>
+                    <h6>Barcelona</h6>
+                    <p>
+                      <i-feather name="map-pin" class="icon-size"></i-feather>
+                      India, Punjab
+                    </p>
+                  </div>
+
+                  <div class="right-part">
+                    <img src="assets/images/profile-icon.png" alt="" />
+                  </div>
+                </div>
+
+                <div class="block-middle border-bottom">
+                  <div class="middle">
+                    <div class="left-part">
+                      <img src="assets/images/profile-icon.png" alt="" />
+                      <img src="assets/images/profile-icon.png" alt="" />
+                      <img src="assets/images/profile-icon.png" alt="" />
+                      <img src="assets/images/profile-icon.png" alt="" />
+                      <img src="assets/images/profile-icon.png" alt="" />
+                    </div>
+                    <div class="right-part">
+                      <h4>Connections</h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="block-bottom">
+                  <div class="post-date">
+                    <p>
+                      <i-feather name="clock" class="icon-size"></i-feather>
+                      Post 3 days ago
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template carouselSlide>
+          <div class="block">
+            <div class="player-list">
+              <a>
+                <div class="block-heading border-bottom">
+                  <div class="left-part">
+                    <h4>Center back</h4>
+                    <h6>Barcelona</h6>
+                    <p>
+                      <i-feather name="map-pin" class="icon-size"></i-feather>
+                      India, Punjab
+                    </p>
+                  </div>
+
+                  <div class="right-part">
+                    <img src="assets/images/profile-icon.png" alt="" />
+                  </div>
+                </div>
+
+                <div class="block-middle border-bottom">
+                  <div class="middle">
+                    <div class="left-part">
+                      <img src="assets/images/profile-icon.png" alt="" />
+                      <img src="assets/images/profile-icon.png" alt="" />
+                      <img src="assets/images/profile-icon.png" alt="" />
+                      <img src="assets/images/profile-icon.png" alt="" />
+                      <img src="assets/images/profile-icon.png" alt="" />
+                    </div>
+                    <div class="right-part">
+                      <h4>Connections</h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="block-bottom">
+                  <div class="post-date">
+                    <p>
+                      <i-feather name="clock" class="icon-size"></i-feather>
+                      Post 3 days ago
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template carouselSlide>
+          <div class="block">
+            <div class="player-list">
+              <a>
+                <div class="block-heading border-bottom">
+                  <div class="left-part">
+                    <h4>Center back</h4>
+                    <h6>Barcelona</h6>
+                    <p>
+                      <i-feather name="map-pin" class="icon-size"></i-feather>
+                      India, Punjab
+                    </p>
+                  </div>
+
+                  <div class="right-part">
+                    <img src="assets/images/profile-icon.png" alt="" />
+                  </div>
+                </div>
+
+                <div class="block-middle border-bottom">
+                  <div class="middle">
+                    <div class="left-part">
+                      <img src="assets/images/profile-icon.png" alt="" />
+                      <img src="assets/images/profile-icon.png" alt="" />
+                      <img src="assets/images/profile-icon.png" alt="" />
+                      <img src="assets/images/profile-icon.png" alt="" />
+                      <img src="assets/images/profile-icon.png" alt="" />
+                    </div>
+                    <div class="right-part">
+                      <h4>Connections</h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="block-bottom">
+                  <div class="post-date">
+                    <p>
+                      <i-feather name="clock" class="icon-size"></i-feather>
+                      Post 3 days ago
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+    </div>
+    <!-- corsuels end -->
+
+    <!-- post header -->
+    <div class="post">
+      <div class="post-header border-bottom">
+        <div class="post-header-left">
+          <div class="profile-img">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h2>Collin Wender</h2>
+            <h5>Wing Back</h5>
+          </div>
+        </div>
+
+        <div class="post-header-right">
+          <p>3 hours</p>
+        </div>
+      </div>
+      <div class="post-middle border-bottom">
+        <div class="post-content">
+          <p>
+            It is a long established fact that a reader will be distracted by
+            the readable content of a page when looking at its layout. The point
+            of using Lorem Ipsum is that it has a more-or-less normal
+            distribution of letters, as opposed to using 'Content here, content
+            here', making it look like readable English. Many desktop publishing
+            packages and web page editors now use Lorem Ipsum as their default
+            model text, and a search for 'lorem ipsum' will uncover many web
+            sites still in their infancy. Various versions have evolved over the
+            years, sometimes by accident, sometimes on purpose (injected humour
+            and the like).
+          </p>
+        </div>
+        <div class="post-media">
+          <img src="assets/images/ads.png" alt="" />
+        </div>
+      </div>
+      <div class="post-icons border-bottom">
+        <ul>
+          <li>
+            <i-feather name="heart" class="icon-size"></i-feather>
+            <span>8</span>
+          </li>
+          <li>
+            <i-feather name="message-square" class="icon-size"></i-feather>
+            <span>8</span>
+          </li>
+          <li>
+            <i-feather name="share-2" class="icon-size"></i-feather>
+            <span>8</span>
+          </li>
+        </ul>
+      </div>
+      <div class="comment border-bottom">
+        <div class="img-commnet">
+          <div class="profile-img">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+        </div>
+        <div class="profile-details">
+          <div class="details">
+            <div class="name-time">
+              <h3>Sanjay</h3>
+              <p>3 min</p>
+            </div>
+            <p>
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when looking at its layout. The
+              point of using Lorem Ipsum is that it has a more-or-less normal
+              distribution
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="comment-box">
+        <textarea matInput placeholder="Write Your Comment"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right seciton -->
+  <div class="right-section">
+    <div class="block">
+      <div class="block-heading border-bottom">
+        <h2>People you might know</h2>
+      </div>
+      <div class="block-middle">
+        <!-- one -->
+        <div class="profile-list">
+          <div class="profile-icon">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h5>Sophia Lee</h5>
+            <h6>Wide midfield</h6>
+          </div>
+          <div class="profile-btn">
+            <button>
+              <i-feather name="user-plus" class="icon-size"></i-feather>
+            </button>
+          </div>
+        </div>
+        <!-- two -->
+        <div class="profile-list">
+          <div class="profile-icon">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h5>Sophia Lee</h5>
+            <h6>Wide midfield</h6>
+          </div>
+          <div class="profile-btn">
+            <button>
+              <i-feather name="user-plus" class="icon-size"></i-feather>
+            </button>
+          </div>
+        </div>
+        <!-- three -->
+        <div class="profile-list">
+          <div class="profile-icon">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h5>Sophia Lee</h5>
+            <h6>Wide midfield</h6>
+          </div>
+          <div class="profile-btn">
+            <button>
+              <i-feather name="user-plus" class="icon-size"></i-feather>
+            </button>
+          </div>
+        </div>
+        <!-- four -->
+        <div class="profile-list">
+          <div class="profile-icon">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h5>Sophia Lee</h5>
+            <h6>Wide midfield</h6>
+          </div>
+          <div class="profile-btn">
+            <button>
+              <i-feather name="user-plus" class="icon-size"></i-feather>
+            </button>
+          </div>
+        </div>
+        <!-- five -->
+        <div class="profile-list">
+          <div class="profile-icon">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h5>Sophia Lee</h5>
+            <h6>Wide midfield</h6>
+          </div>
+          <div class="profile-btn">
+            <button>
+              <i-feather name="user-plus" class="icon-size"></i-feather>
+            </button>
+          </div>
+        </div>
+        <!-- six -->
+        <div class="profile-list">
+          <div class="profile-icon">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h5>Sophia Lee</h5>
+            <h6>Wide midfield</h6>
+          </div>
+          <div class="profile-btn">
+            <button>
+              <i-feather name="user-plus" class="icon-size"></i-feather>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- yft chain premium -->
+    <div class="block">
+      <div class="block-img">
+        <img src="assets/images/ads.png" alt="" />
+      </div>
+      <div class="block-middle border-bottom">
+        <div class="premium">
+          <h4>YFT chain Premium</h4>
+          <p>Grow & nurture your network</p>
+        </div>
+      </div>
+      <div class="block-bottom">
+        <button>Activate</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -46,6 +46,7 @@
       display: flex;
       align-items: center;
       position: relative;
+      cursor: pointer;
       img {
         width: 4.6rem;
         height: 4.6rem;
@@ -79,6 +80,36 @@
             color: #616161;
             font-weight: 400;
             margin-left: 1.6rem;
+          }
+        }
+      }
+      .dropdown {
+        position: absolute;
+        max-width: 25rem;
+        width: 100%;
+        background-color: $color-white;
+        box-shadow: 0.097rem 0.1749rem 0.8rem rgba($color-black, 0.16);
+        top: 7rem;
+        left: 0rem;
+        ul {
+          list-style: none;
+          li {
+            display: block;
+            a {
+              display: block;
+              color: $text-color;
+              padding: 1.5rem;
+              font-size: 1.8rem;
+              i-feather {
+                width: 2rem;
+                height: 2rem;
+                transform: translateY(2px);
+              }
+              &:hover {
+                background-color: $blue;
+                color: $color-white;
+              }
+            }
           }
         }
       }

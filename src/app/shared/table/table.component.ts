@@ -24,13 +24,20 @@ export class TableComponent implements OnInit {
   // dataSource = new MatTableDataSource<any>();
   // rows = new MatTableDataSource([
   //   {
-  //     'name' : 'Pushpam'
+  //     name: 'Pushpam',
+  //     position: 'Sample',
+  //     type: 'Sample',
+  //     email: 'email',
+  //     status: 'pending',
+  //     actions: ''
   //   },
   //   {
-  //     'name' : 'Dushpam'
-  //   },
-  //   {
-  //     'name' : 'Aushpam'
+  //     name: 'Pushpam',
+  //     position: 'Sample',
+  //     type: 'Sample',
+  //     email: 'email',
+  //     status: 'pending',
+  //     actions: ''
   //   }
   // ]);
   public columns: string[] = [];

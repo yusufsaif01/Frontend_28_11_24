@@ -13,6 +13,7 @@ import {
   Camera,
   Heart,
   Github,
+  Mail,
   Users,
   Crosshair,
   MessageSquare,
@@ -31,13 +32,23 @@ import {
   PhoneCall,
   MapPin,
   Clock,
-  Star
+  Star,
+  UserPlus,
+  Share2,
+  Video,
+  File,
+  Edit,
+  Plus,
+  LogOut,
+  ChevronDown,
+  Search
 } from 'angular-feather/icons';
 
 const icons = {
   Camera,
   Heart,
   Github,
+  Mail,
   Users,
   Crosshair,
   MessageSquare,
@@ -56,7 +67,16 @@ const icons = {
   PhoneCall,
   MapPin,
   Clock,
-  Star
+  Star,
+  UserPlus,
+  Share2,
+  Video,
+  File,
+  Edit,
+  Plus,
+  LogOut,
+  ChevronDown,
+  Search
 };
 
 @NgModule({

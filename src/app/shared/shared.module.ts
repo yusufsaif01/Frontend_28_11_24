@@ -8,6 +8,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { PageComponentsModule } from './page-components/page-components.module';
 import { TableComponent } from './table/table.component';
 import { RouterModule } from '@angular/router';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   imports: [
@@ -19,13 +20,14 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     RouterModule
   ],
-  declarations: [LoaderComponent, TableComponent],
+  declarations: [LoaderComponent, TableComponent, PaginationComponent],
   exports: [
     LoaderComponent,
     PageComponentsModule,
     FlexLayoutModule,
     MaterialModule,
     TableComponent,
+    PaginationComponent,
     ReactiveFormsModule,
     FormsModule,
     RouterModule

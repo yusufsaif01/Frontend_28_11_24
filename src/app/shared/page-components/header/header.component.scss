@@ -21,6 +21,30 @@ header {
       }
     }
 
+    .search {
+      margin-left: 5rem;
+      display: flex;
+      position: relative;
+      width: 80%;
+      input {
+        width: 100%;
+        background-color: #1d1d1d;
+        padding: 1rem 2rem;
+        border-radius: 0.8rem;
+        border: none;
+        outline: none;
+        color: $text-muted;
+      }
+      button {
+        position: absolute;
+        left: calc(100% - 4rem);
+        top: 1rem;
+        border: none;
+        background: transparent;
+        color: $text-muted;
+      }
+    }
+
     &-menu {
       display: flex;
       align-items: center;
@@ -36,6 +60,7 @@ header {
             display: flex;
             align-items: center;
             position: relative;
+            text-decoration: none;
             span {
               margin-right: 1rem;
             }
@@ -62,9 +87,39 @@ header {
         padding: 1rem 0px;
         margin-left: 4rem;
         border-radius: 10rem;
+        position: relative;
+        cursor: pointer;
         img {
           max-width: 5rem;
           border-radius: 10rem;
+        }
+        i-feather.down {
+          color: $text-muted;
+          transform: translateY(-1rem);
+        }
+        .dropdown {
+          position: absolute;
+          width: 23rem;
+          left: -7rem;
+          top: 7rem;
+          background-color: #1d2f38;
+          ul {
+            list-style: none;
+            li {
+              display: block;
+              margin-left: 0px;
+              a {
+                display: block;
+                padding: 1rem;
+                i-feather {
+                  transform: translateY(2px);
+                }
+                &:hover {
+                  background-color: #12181b;
+                }
+              }
+            }
+          }
         }
       }
     }

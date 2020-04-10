@@ -1,4 +1,5 @@
-<app-admin-header (click)="sideBarToogle = !sideBarToogle"></app-admin-header>
+<!-- (click)="sideBarToogle = !sideBarToogle" -->
+<app-admin-header></app-admin-header>
 <mat-drawer-container class="admin-wrapper" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="sideBarToogle">
     <app-admin-sidebar></app-admin-sidebar>
@@ -30,7 +31,7 @@
           </div>
           <div class="count-details">
             <h3>Total Clubs</h3>
-            <h5>300</h5>
+            <h5>{{ clubs_count }}</h5>
           </div>
         </div>
       </div>
@@ -48,7 +49,9 @@
                 /></a>
               </li>
               <li>
-                <a><img src="assets/images/icons/refresh.png"/></a>
+                <a (click)="ngOnInit()"
+                  ><img src="assets/images/icons/refresh.png"
+                /></a>
               </li>
             </ul>
           </div>
@@ -85,28 +88,40 @@
             [tableConfig]="tableConfig"
             [NumberColumn]="'true'"
             [rows]="dataSource"
-          ></app-table>
+            [TableActions]="ListAction"
+          >
+          </app-table>
+          <ng-template #ListAction let-user_id="user_id" let-status="status">
+            <div class="action-buttons">
+              <button>
+                <img src="assets/images/icons/eyes.png" alt="Edit" />
+              </button>
+              <button (click)="statusPopup(user_id, status)">
+                <img src="assets/images/icons/change.png" alt="Edit" />
+              </button>
+              <button (click)="deletePopup(user_id, status)">
+                <img src="assets/images/icons/bin.png" alt="Delete" />
+              </button>
+            </div>
+          </ng-template>
         </div>
       </div>
 
       <!-- pagination -->
       <div class="pagination-wrapper">
         <div class="showing-data">
-          <p><strong>Showing</strong> 20 / 500 Data</p>
+          <p>
+            <strong>Showing</strong>
+            {{ pageSize > clubs_count ? clubs_count : pageSize }}
+            / {{ clubs_count }} Data
+          </p>
         </div>
-        <div class="pagination">
-          <ul>
-            <li>
-              <a><span> &#8592; </span></a>
-            </li>
-            <li><a>1</a></li>
-            <li><a>2</a></li>
-            <li><a>3</a></li>
-            <li>
-              <a> <span>&#8594;</span> </a>
-            </li>
-          </ul>
-        </div>
+        <app-pagination
+          [totalRows]="clubs_count"
+          [rowsPerPage]="pageSize"
+          (onChange)="updatePage($event)"
+        >
+        </app-pagination>
       </div>
       <!-- pagination end here -->
     </div>

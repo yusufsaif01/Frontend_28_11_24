@@ -27,7 +27,7 @@ export class CreatePasswordComponent implements OnInit {
   }
 
   ngOnInit() {}
-  
+
   createPassword() {
     this._authenticationService
       .createPassword(this.createPasswordForm.value, this.token)

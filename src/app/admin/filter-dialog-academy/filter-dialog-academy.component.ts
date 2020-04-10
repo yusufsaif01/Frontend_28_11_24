@@ -14,20 +14,19 @@ export class FilterDialogAcademyComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder
   ) {
-    this.createForm()
+    this.createForm();
   }
 
   ngOnInit() {}
 
-  createForm(){
+  createForm() {
     this.filterForm = this.formBuilder.group({
-      from            : [''],
-      to              : [''],
-      name            : [''],
-      email           : [''],
-      email_verified  : [''],
-      profile_status  : [''],
-    })
-
+      from: [''],
+      to: [''],
+      name: [''],
+      email: [''],
+      email_verified: [''],
+      profile_status: ['']
+    });
   }
 }
