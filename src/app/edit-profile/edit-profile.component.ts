@@ -22,6 +22,9 @@ interface contactPersonObject {
 interface topSigningObject {
   name: string;
 }
+interface topAcademyPlayerObject {
+  name: string;
+}
 
 interface positionObject {
   name: string;
@@ -245,16 +248,6 @@ export class EditProfileComponent implements OnInit {
     console.log('player_type', this.player_type);
   }
 
-  isFocused(form: FormGroup, field: string) {
-    const { invalid, touched } = form.get(field);
-    return invalid && touched;
-  }
-
-  isRequired(form: FormGroup, field: string) {
-    const { required } = form.get(field).errors;
-    return required;
-  }
-
   toFormData<T>(formValue: T) {
     const formData = new FormData();
     for (const key of Object.keys(formValue)) {
@@ -282,6 +275,7 @@ export class EditProfileComponent implements OnInit {
           this.populateDynamicContact();
           this.populateDynamicTrophy();
           this.populateDynamicTopSigning();
+          this.populateDynamicTopAcademyPlayer();
         }
 
         if (this.profile.member_type === 'player') {
@@ -725,6 +719,13 @@ export class EditProfileComponent implements OnInit {
       }
     }
   }
+  populateDynamicTopAcademyPlayer() {
+    if (this.profile.top_players.length !== 0) {
+      for (let i = 0; i < this.profile.top_players.length; i++) {
+        this.addTopAcademyPlayer(this.profile.top_players[i]);
+      }
+    }
+  }
 
   populateDynamicPosition() {
     for (let i = 0; i < 3; i++) {
@@ -810,7 +811,7 @@ export class EditProfileComponent implements OnInit {
     this.top_signings.removeAt(i);
   }
 
-  addTopAcademyPlayer(data?: {name:string}) {
+  addTopAcademyPlayer(data?:topAcademyPlayerObject) {
     this.top_players = this.editProfileForm.get('top_players') as FormArray;
 
     if (data !== undefined) {
