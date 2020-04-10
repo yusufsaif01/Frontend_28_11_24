@@ -301,6 +301,14 @@
                   translate
                   >Height in Feet is required</span
                 >
+                <mat-error
+                class="error-text"
+                *ngIf="
+                  editProfileForm.controls.height_feet.errors.pattern;
+                "
+              >
+                Height in Feet format is invalid
+              </mat-error>
               </mat-error>
               <mat-error
                 *ngIf="
@@ -318,6 +326,14 @@
                   translate
                   >Height in Inches is required</span
                 >
+                <mat-error
+                class="error-text"
+                *ngIf="
+                  editProfileForm.controls.height_inches.errors.pattern;
+                "
+              >
+                Height in Inches format is invalid
+              </mat-error>
               </mat-error>
             </div>
 
@@ -330,6 +346,31 @@
                 matInput
                 autocomplete="off"
               />
+              <mat-error
+              *ngIf="
+                (editProfileForm.controls.weight.invalid &&
+                  editProfileForm.controls.weight.touched &&
+                  player_type === 'amateur') ||
+                player_type === 'professional'
+              "
+            >
+              <span
+                *ngIf="
+                  editProfileForm.controls.weight.errors &&
+                  editProfileForm.controls.weight.errors.required
+                "
+                translate
+                >Weight in Kg is required</span
+              >
+              <mat-error
+              class="error-text"
+              *ngIf="
+                editProfileForm.controls.weight.errors.pattern;
+              "
+            >
+              Weight in Kg format is invalid
+            </mat-error>
+            </mat-error>
             </div>
 
             <!-- nationality -->
