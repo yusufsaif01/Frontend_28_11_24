@@ -81,7 +81,10 @@
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Weight :</span> {{ profile?.weight }} kg</p>
+            <p>
+              <span>Weight :</span>
+              {{ profile.weight ? profile.weight + 'kg' : '' }}
+            </p>
           </div>
           <div class="half">
             <p><span>Nationality :</span> {{ profile.country }}</p>
