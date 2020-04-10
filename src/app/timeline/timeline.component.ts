@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@app/core';
+import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment';
+
 import {
   MatDialog,
   MatDialogRef,
@@ -12,6 +16,9 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./timeline.component.scss']
 })
 export class TimelineComponent implements OnInit {
+  environment = environment;
+  profile: any;
+
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -36,7 +43,11 @@ export class TimelineComponent implements OnInit {
       }
     }
   };
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private _authenticationService: AuthenticationService,
+    private _toastrService: ToastrService
+  ) {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(PostPopupComponent, {
@@ -48,5 +59,36 @@ export class TimelineComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {});
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getProfileData();
+  }
+
+  getProfileData() {
+    this._authenticationService.getProfileDetails().subscribe(
+      response => {
+        console.log('data', response);
+        this.profile = response.data;
+
+        if (this.profile.avatar_url) {
+          this.profile.avatar_url =
+            this.environment.mediaUrl + this.profile.avatar_url;
+        } else {
+          this.profile.avatar_url =
+            this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
+        }
+
+        this._toastrService.success(
+          'Successful',
+          'Data retrieved successfully'
+        );
+      },
+      error => {
+        console.log('error', error);
+        this._toastrService.error(
+          `${error.error.message}`,
+          'Failed to load data'
+        );
+      }
+    );
+  }
 }
