@@ -6,7 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-header.component.scss']
 })
 export class AdminHeaderComponent implements OnInit {
+  public isActive: boolean = true;
+
   constructor() {}
 
   ngOnInit() {}
+  changeDropdown() {
+    if (this.isActive) {
+      this.isActive = false;
+    } else {
+      this.isActive = true;
+    }
+  }
 }
