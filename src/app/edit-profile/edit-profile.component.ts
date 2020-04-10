@@ -500,7 +500,7 @@ export class EditProfileComponent implements OnInit {
         ],
         weight: [
           '',
-          [Validators.required, Validators.pattern(/^\d{2,3}.\d{1}$/)]
+          [Validators.pattern(/^\d{1,3}(\.\d)?$/)]
         ],
         country: ['', [Validators.required]], // country or nationality
         state: ['', [Validators.required]],
