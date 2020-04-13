@@ -311,7 +311,15 @@
             <p><span>Founded (Year) :</span> {{ profile.founded_in }}</p>
           </div>
           <div class="half">
-            <p><span>Short Club Name :</span> {{ profile.short_name }}</p>
+            <p>
+              <span *ngIf="profile.member_type === 'club'"
+                >Short Club Name :</span
+              >
+              <span *ngIf="profile.member_type === 'academy'"
+                >Short Academy Name :</span
+              >
+              {{ profile.short_name }}
+            </p>
           </div>
         </div>
 
