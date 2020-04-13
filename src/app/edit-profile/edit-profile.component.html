@@ -1644,6 +1644,74 @@
                 </div>
               </div>
 
+              <div
+                class="top_signing-player w-100 block-part"
+                *ngIf="member_type === 'academy'"
+              >
+                <div class="input-wrapper w-100 align-right">
+                  <a class="mt-0" (click)="addTopAcademyPlayer()">
+                    Add Top Academy Players
+                  </a>
+                </div>
+
+                <!-- top sign in player -->
+                <div class="flex-wrapper wrap">
+                  <div
+                    class="form-block-clubs w-50 "
+                    *ngFor="
+                      let top_player of editProfileForm.get('top_players')
+                        .controls;
+                      let i = index
+                    "
+                    formArrayName="top_players"
+                  >
+                    <div class="w-50">
+                      <label>Top Academy Player</label>
+
+                      <ng-container [formGroupName]="i">
+                        <div class="flex-wrapper">
+                          <div class="input-wrapper">
+                            <input
+                              type="text"
+                              matInput
+                              formControlName="name"
+                            />
+                            <mat-error
+                              *ngIf="
+                                editProfileForm.controls.top_players.controls[
+                                  i
+                                ].get('name').invalid &&
+                                editProfileForm.controls.top_players.controls[
+                                  i
+                                ].get('name').touched
+                              "
+                            >
+                              <span
+                                *ngIf="
+                                  editProfileForm.controls.top_players.controls[
+                                    i
+                                  ]
+                                    .get('name')
+                                    .hasError('required')
+                                "
+                                translate
+                                >Name is required</span
+                              >
+                            </mat-error>
+                          </div>
+
+                          <div class="input-wrapper">
+                            <a class="mt-0" (click)="removeTopAcademyPlayer(i)">
+                              Remove
+                            </a>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <!-- No of associated Player -->
               <div class="from-block">
                 <div classd="input-wrapper-second">
