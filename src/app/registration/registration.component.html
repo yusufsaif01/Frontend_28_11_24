@@ -126,7 +126,12 @@
               <i-feather name="phone-call" class="icon-size"></i-feather>
               <!-- <img src="assets/icons/phone-call.svg" alt="" /> -->
               <label>Contact Number</label>
-              <input formControlName="phone" type="text" matInput />
+              <input
+                formControlName="phone"
+                type="text"
+                matInput
+                autocomplete="off"
+              />
               <ng-container
                 *ngIf="
                   playerRegistrationForm.controls.phone.invalid &&

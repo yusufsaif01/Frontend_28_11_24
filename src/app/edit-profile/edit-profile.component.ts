@@ -40,6 +40,7 @@ export class EditProfileComponent implements OnInit {
   // player_type = "grassroot";
   environment = environment;
   avatar: File;
+  aiff: File;
   document: File;
   aadhar: File;
   employment_contract: File;
@@ -337,13 +338,19 @@ export class EditProfileComponent implements OnInit {
           }
 
           if (player_type === 'amateur' || player_type === 'professional') {
-            height_feet.setValidators(Validators.required);
-            height_inches.setValidators(Validators.required);
+            height_feet.setValidators([
+              Validators.required,
+              Validators.pattern(/^\d+$/)
+            ]);
+            height_inches.setValidators([
+              Validators.required,
+              Validators.pattern(/^\d+$/)
+            ]);
           }
 
           if (player_type === 'grassroot') {
-            height_feet.setValidators(null);
-            height_inches.setValidators(null);
+            height_feet.setValidators([Validators.pattern(/^\d+$/)]);
+            height_inches.setValidators([Validators.pattern(/^\d+$/)]);
           }
 
           height_feet.updateValueAndValidity();
@@ -389,7 +396,9 @@ export class EditProfileComponent implements OnInit {
       );
       requestData.set('dob', this.editProfileForm.get('dob').value);
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
-      requestData.set('document', this.document);
+      if (this.member_type === 'club') requestData.set('aiff', this.aiff);
+      else requestData.set('document', this.document);
+
       requestData.set(
         'contact_person',
         JSON.stringify(this.editProfileForm.get('contact_person').value)
@@ -404,11 +413,11 @@ export class EditProfileComponent implements OnInit {
           JSON.stringify(this.editProfileForm.get('top_signings').value)
         );
       }
-      if(this.member_type === 'academy'){
+      if (this.member_type === 'academy') {
         requestData.set(
           'top_players',
           JSON.stringify(this.editProfileForm.get('top_players').value)
-        ); 
+        );
       }
     }
 
@@ -432,6 +441,10 @@ export class EditProfileComponent implements OnInit {
 
   uploadAadhar(files: FileList) {
     this.aadhar = files[0];
+  }
+
+  uploadAiff(files: FileList) {
+    this.aiff = files[0];
   }
 
   uploadDocument(files: FileList) {
@@ -545,18 +558,9 @@ export class EditProfileComponent implements OnInit {
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
         dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
-        height_feet: [
-          '',
-          [Validators.required, Validators.pattern(/^\d{1,2}$/)]
-        ],
-        height_inches: [
-          '',
-          [Validators.required, Validators.pattern(/^\d{2}$/)]
-        ],
-        weight: [
-          '',
-          [Validators.required, Validators.pattern(/^\d{2,3}.\d{1}$/)]
-        ],
+        height_feet: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+        height_inches: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+        weight: ['', [Validators.pattern(/^\d+(\.\d)?$/)]],
         country: ['', [Validators.required]], // country or nationality
         state: ['', [Validators.required]],
         city: ['', [Validators.required]], //city
@@ -566,7 +570,7 @@ export class EditProfileComponent implements OnInit {
             Validators.required,
             Validators.minLength(10),
             Validators.maxLength(10),
-            Validators.pattern(/^[0-9]+$/)
+            Validators.pattern(/^\d+$/)
           ]
         ],
         school: ['', []], //institute.school
@@ -579,7 +583,14 @@ export class EditProfileComponent implements OnInit {
         strong_foot: ['', []],
         associated_club: ['', []],
         weak_foot: ['', []],
-        head_coach_phone: ['', []],
+        head_coach_phone: [
+          '',
+          [
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^\d+$/)
+          ]
+        ],
         head_coach_email: ['', []],
         former_club: ['', []]
       });
@@ -599,7 +610,7 @@ export class EditProfileComponent implements OnInit {
             Validators.required,
             Validators.minLength(10),
             Validators.maxLength(10),
-            Validators.pattern(/^[0-9]+$/)
+            Validators.pattern(/^\d+$/)
           ]
         ],
         stadium_name: ['', []],
@@ -608,8 +619,11 @@ export class EditProfileComponent implements OnInit {
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
-        associated_players: ['', [Validators.required]],
-        document: ['', [requiredFileDocument]]
+        associated_players: [
+          '',
+          [Validators.required, Validators.pattern(/^\d+$/)]
+        ],
+        aiff: ['', [requiredFileDocument]]
         // onclick upload document [aiff]
       });
     } else if (this.member_type === 'academy') {
@@ -628,7 +642,7 @@ export class EditProfileComponent implements OnInit {
             Validators.required,
             Validators.minLength(10),
             Validators.maxLength(10),
-            Validators.pattern(/^[0-9]+$/)
+            Validators.pattern(/^\d+$/)
           ]
         ],
         stadium_name: ['', []],
@@ -638,7 +652,10 @@ export class EditProfileComponent implements OnInit {
         contact_person: this._formBuilder.array([], []),
         trophies: this._formBuilder.array([], []),
         top_players: this._formBuilder.array([], []),
-        associated_players: ['', [Validators.required]],
+        associated_players: [
+          '',
+          [Validators.required, Validators.pattern(/^\d+$/)]
+        ],
         document: ['', [requiredFileDocument]]
         //onclick upload documenet aiff / pan card/tin / coi
       });
@@ -769,8 +786,16 @@ export class EditProfileComponent implements OnInit {
         this._formBuilder.group({
           designation: [data.designation, [Validators.required]],
           name: [data.name, [Validators.required]],
-          email: [data.email, [Validators.required]],
-          phone_number: [data.phone_number, [Validators.required]]
+          email: [data.email, [Validators.required, Validators.email]],
+          phone_number: [
+            data.phone_number,
+            [
+              Validators.required,
+              Validators.minLength(10),
+              Validators.maxLength(10),
+              Validators.pattern(/^\d+$/)
+            ]
+          ]
         })
       );
     } else {
@@ -778,8 +803,16 @@ export class EditProfileComponent implements OnInit {
         this._formBuilder.group({
           designation: ['', [Validators.required]],
           name: ['', [Validators.required]],
-          email: ['', [Validators.required]],
-          phone_number: ['', [Validators.required]]
+          email: ['', [Validators.required, Validators.email]],
+          phone_number: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(10),
+              Validators.maxLength(10),
+              Validators.pattern(/^\d+$/)
+            ]
+          ]
         })
       );
     }
@@ -837,7 +870,7 @@ export class EditProfileComponent implements OnInit {
     this.top_signings.removeAt(i);
   }
 
-  addTopAcademyPlayer(data?:topAcademyPlayerObject) {
+  addTopAcademyPlayer(data?: topAcademyPlayerObject) {
     this.top_players = this.editProfileForm.get('top_players') as FormArray;
 
     if (data !== undefined) {
