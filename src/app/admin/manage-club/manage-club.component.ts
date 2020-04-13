@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./manage-club.component.scss']
 })
 export class ManageClubComponent implements OnInit {
-  sideBarToogle: boolean = true;
+  public sideBarToggle: boolean = true;
   showFiller = false;
   list: any;
   pageSize: number = 20;
@@ -31,6 +31,10 @@ export class ManageClubComponent implements OnInit {
 
   ngOnInit() {
     this.getClubList(this.pageSize, 1);
+  }
+
+  updateSidebar($event: any) {
+    this.sideBarToggle = $event;
   }
 
   getClubList(page_size: number, page_no: number) {
