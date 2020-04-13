@@ -71,9 +71,15 @@
           <div class="half">
             <p>
               <span>Height :</span>
-              {{ profile.height.feet ? profile.height.feet + 'ft' : '' }}
               {{
-                profile.height.inches ? profile.height.inches + 'inches' : ''
+                profile.height && profile.height.feet
+                  ? profile.height.feet + 'ft'
+                  : ''
+              }}
+              {{
+                profile.height && profile.height.inches
+                  ? profile.height.inches + 'inches'
+                  : ''
               }}
             </p>
           </div>
