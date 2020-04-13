@@ -712,8 +712,13 @@ export class EditProfileComponent implements OnInit {
         this._formBuilder.group({
           designation: [data.designation, [Validators.required]],
           name: [data.name, [Validators.required]],
-          email: [data.email, [Validators.required]],
-          phone_number: [data.phone_number, [Validators.required]]
+          email: [data.email, [Validators.required,Validators.email]],
+          phone_number: [data.phone_number, [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^[0-9]+$/)
+          ]]
         })
       );
     } else {
@@ -721,8 +726,13 @@ export class EditProfileComponent implements OnInit {
         this._formBuilder.group({
           designation: ['', [Validators.required]],
           name: ['', [Validators.required]],
-          email: ['', [Validators.required]],
-          phone_number: ['', [Validators.required]]
+          email: ['', [Validators.required, Validators.email]],
+          phone_number: ['', [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^[0-9]+$/)
+          ]]
         })
       );
     }

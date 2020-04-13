@@ -1288,8 +1288,15 @@
                               .hasError('required')
                           "
                           translate
-                          >Email is required</span
-                        >
+                          >Email is required</span>
+                        <span 
+                          *ngIf="
+                            editProfileForm.controls.contact_person.controls[i]
+                              .get('email')
+                              .hasError('email')
+                          " 
+                          translate
+                        >Email format is invalid</span>
                       </mat-error>
                     </div>
 
@@ -1319,6 +1326,51 @@
                           translate
                           >Phone Number is required</span
                         >
+                        <ng-template #lengthBlock>
+                          <span
+                    
+                            *ngIf="
+                              editProfileForm.controls.contact_person.controls[i]
+                                .get('phone_number')
+                                .hasError('minlength')
+                            "
+                          >
+                            Please provide number upto
+                            {{
+                              editProfileForm.controls.contact_person.controls[i]
+                                .get('phone_number')
+                                .errors.minlength
+                                .requiredLength
+                            }}
+                            digits
+                          </span>
+                          <span
+                            *ngIf="
+                              editProfileForm.controls.contact_person.controls[i]
+                                .get('phone_number')
+                                .hasError('maxlength')
+                            "
+                          >
+                            Please provide number upto
+                            {{
+                              editProfileForm.controls.contact_person.controls[i]
+                                .get('phone_number')
+                                .errors.maxlength
+                                .requiredLength
+                            }}
+                            digits
+                          </span>
+                        </ng-template>
+                        <span
+                          *ngIf="
+                            editProfileForm.controls.contact_person.controls[i]
+                              .get('phone_number')
+                              .hasError('pattern');
+                            else lengthBlock
+                          "
+                        >
+                          Phone Number format is invalid
+                        </span>
                       </mat-error>
                     </div>
 
