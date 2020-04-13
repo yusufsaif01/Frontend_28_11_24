@@ -1,25 +1,24 @@
 <app-header></app-header>
-<div class="site-wrapper">
+<div class="site-wrapper" *ngIf="profile">
   <!-- Left section -->
   <div class="left-section">
     <!-- profile  -->
     <div class="block-design">
       <div class="profile-section border-bottom">
-        <img src="{{ profile?.avatar_url }}" alt="profile-icon" />
-        <h3 *ngIf="profile?.member_type === 'player'">
-          {{ profile?.first_name }} {{ profile?.last_name }}
+        <img src="{{ profile.avatar_url }}" alt="profile-icon" />
+        <h3 *ngIf="profile.member_type === 'player'">
+          {{ profile.first_name }} {{ profile.last_name }}
         </h3>
         <h3
           *ngIf="
-            profile?.member_type === 'club' ||
-            profile?.member_type === 'academy'
+            profile.member_type === 'club' || profile.member_type === 'academy'
           "
         >
-          {{ profile?.name }}
+          {{ profile.name }}
         </h3>
         <h6>
           {{
-            profile.position && profile.position[0]
+            profile.position.length !== 0 && profile.position[0]
               ? profile.position[0].name
               : ''
           }}
@@ -51,7 +50,7 @@
           <h4>Player Type</h4>
         </div>
         <div class="part">
-          <h5>{{ profile?.player_type }}</h5>
+          <h5>{{ profile.player_type }}</h5>
         </div>
       </div>
     </div>
@@ -64,7 +63,7 @@
         </div>
         <div class="player-boi">
           <p>
-            {{ profile?.bio }}
+            {{ profile.bio }}
           </p>
         </div>
       </div>

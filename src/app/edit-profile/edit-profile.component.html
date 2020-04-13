@@ -43,6 +43,7 @@
           "
         >
           <span
+            class="align-center"
             *ngIf="aboutForm.controls.avatar.errors.requiredFileAvatar"
             translate
             >Image must be of type JPEG / JPG / PNG</span
@@ -142,7 +143,7 @@
             <!-- <p>Lorem ipsum dolor sit amet, consecteturs.</p> -->
           </div>
           <div class="block-middle">
-            <div class="radio">
+            <div class="radio w-50">
               <label
                 ><input
                   type="radio"
@@ -240,6 +241,7 @@
                   formControlName="dob"
                   matInput
                   [matDatepicker]="myDatepicker"
+                  readonly
                 />
                 <mat-datepicker-toggle
                   [for]="myDatepicker"
@@ -272,48 +274,102 @@
                 ></label
               >
               <div class="double-input">
-                <input formControlName="height_feet" type="text" matInput />
-                <input formControlName="height_inches" type="text" matInput />
+                <div class="height-input">
+                  <input formControlName="height_feet" type="text" matInput />
+                  <mat-error
+                    *ngIf="
+                      editProfileForm.controls.height_feet.invalid &&
+                      editProfileForm.controls.height_feet.touched &&
+                      (player_type === 'amateur' ||
+                        player_type === 'professional')
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.height_feet.errors &&
+                        editProfileForm.controls.height_feet.errors.required
+                      "
+                      translate
+                      >Height in Feet is required</span
+                    >
+                    <span
+                      class="error-text"
+                      *ngIf="
+                        editProfileForm.controls.height_feet.errors &&
+                        editProfileForm.controls.height_feet.errors.pattern
+                      "
+                    >
+                      Height in Feet format is invalid
+                    </span>
+                  </mat-error>
+                </div>
+                <div class="height-input">
+                  <input formControlName="height_inches" type="text" matInput />
+                  <mat-error
+                    *ngIf="
+                      (editProfileForm.controls.height_inches.invalid &&
+                        editProfileForm.controls.height_inches.touched &&
+                        player_type === 'amateur') ||
+                      player_type === 'professional'
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.height_inches.errors &&
+                        editProfileForm.controls.height_inches.errors.required
+                      "
+                      translate
+                      >Height in Inches is required</span
+                    >
+                    <span
+                      class="error-text"
+                      *ngIf="
+                        editProfileForm.controls.height_inches.errors &&
+                        editProfileForm.controls.height_inches.errors.pattern
+                      "
+                    >
+                      Height in Inches format is invalid
+                    </span>
+                  </mat-error>
+                </div>
               </div>
+            </div>
+
+            <!-- weight -->
+            <div class="from-block">
+              <label>Weight (kg)</label>
+              <input
+                formControlName="weight"
+                type="text"
+                matInput
+                autocomplete="off"
+              />
               <mat-error
                 *ngIf="
-                  editProfileForm.controls.height_feet.invalid &&
-                  editProfileForm.controls.height_feet.touched &&
-                  (player_type === 'amateur' || player_type === 'professional')
-                "
-              >
-                <span
-                  *ngIf="
-                    editProfileForm.controls.height_feet.errors &&
-                    editProfileForm.controls.height_feet.errors.required
-                  "
-                  translate
-                  >Height in Feet is required</span
-                >
-              </mat-error>
-              <mat-error
-                *ngIf="
-                  (editProfileForm.controls.height_inches.invalid &&
-                    editProfileForm.controls.height_inches.touched &&
+                  (editProfileForm.controls.weight.invalid &&
+                    editProfileForm.controls.weight.touched &&
                     player_type === 'amateur') ||
                   player_type === 'professional'
                 "
               >
                 <span
                   *ngIf="
-                    editProfileForm.controls.height_inches.errors &&
-                    editProfileForm.controls.height_inches.errors.required
+                    editProfileForm.controls.weight.errors &&
+                    editProfileForm.controls.weight.errors.required
                   "
                   translate
-                  >Height in Inches is required</span
+                  >Weight in Kg is required</span
                 >
+                <span
+                  class="error-text"
+                  *ngIf="
+                    editProfileForm.controls.weight.errors &&
+                    editProfileForm.controls.weight.errors.pattern
+                  "
+                >
+                  Weight in Kg format is invalid
+                </span>
               </mat-error>
-            </div>
-
-            <!-- weight -->
-            <div class="from-block">
-              <label>Weight</label>
-              <input formControlName="weight" type="text" matInput />
             </div>
 
             <!-- nationality -->
@@ -496,7 +552,7 @@
                     editProfileForm.controls.aadhar.errors.requiredFileDocument
                   "
                   translate
-                  >Aadhar must be of type PDF / PNG</span
+                  >Aadhar must be of type PDF / PNG / JPG / JPEG</span
                 >
               </mat-error>
             </div>
@@ -521,7 +577,8 @@
                       .requiredFileDocument
                   "
                   translate
-                  >Employment Contract must be of type PDF / PNG</span
+                  >Employment Contract must be of type PDF / PNG / JPG /
+                  JPEG</span
                 >
               </mat-error>
             </div>
@@ -602,6 +659,11 @@
                     type="radio"
                     formControlName="associated_club"
                     value="yes"
+                    [checked]="
+                      profile?.club_academy_details &&
+                      profile.club_academy_details?.head_coach_phone &&
+                      profile.club_academy_details?.head_coach_email
+                    "
                   />
                   <span>Yes</span>
                 </label>
@@ -610,6 +672,13 @@
                     type="radio"
                     formControlName="associated_club"
                     value="no"
+                    [checked]="
+                      !(
+                        profile?.club_academy_details &&
+                        profile.club_academy_details?.head_coach_phone &&
+                        profile.club_academy_details?.head_coach_email
+                      )
+                    "
                   />
                   <span>No</span>
                 </label>
@@ -664,50 +733,60 @@
             </div>
 
             <!-- Head coach phone number * -->
-            <div
-              class="from-block"
-              *ngIf="editProfileForm.controls.associated_club.value === 'yes'"
+            <ng-container
+              *ngIf="
+                editProfileForm.controls.associated_club.value === 'yes' ||
+                (profile?.club_academy_details &&
+                  profile.club_academy_details?.head_coach_phone)
+              "
             >
-              <label>Head coach phone number <span>*</span></label>
-              <input formControlName="head_coach_phone" type="text" matInput />
-              <mat-error
-                *ngIf="
-                  editProfileForm.controls.head_coach_phonenvalid &&
-                  editProfileForm.controls.head_coach_phone.touched
-                "
-              >
-                <span
+              <div class="from-block">
+                <label>Head coach phone number <span>*</span></label>
+                <input
+                  formControlName="head_coach_phone"
+                  type="text"
+                  matInput
+                />
+                <mat-error
                   *ngIf="
-                    editProfileForm.controls.head_coach_phone.errors.required
+                    editProfileForm.controls.head_coach_phone.invalid &&
+                    editProfileForm.controls.head_coach_phone.touched
                   "
-                  translate
-                  >Head Coach Phone is required</span
                 >
-              </mat-error>
-            </div>
+                  <span
+                    *ngIf="
+                      editProfileForm.controls.head_coach_phone.errors.required
+                    "
+                    translate
+                    >Head Coach Phone is required</span
+                  >
+                </mat-error>
+              </div>
 
-            <!-- Head coach email number -->
-            <div
-              class="from-block"
-              *ngIf="editProfileForm.controls.associated_club.value === 'yes'"
-            >
-              <label>Head coach email <span>*</span></label>
-              <input formControlName="head_coach_email" type="text" matInput />
-              <mat-error
-                *ngIf="
-                  editProfileForm.controls.head_coach_emailnvalid &&
-                  editProfileForm.controls.head_coach_email.touched
-                "
-              >
-                <span
+              <!-- Head coach email number -->
+              <div class="from-block">
+                <label>Head coach email <span>*</span></label>
+                <input
+                  formControlName="head_coach_email"
+                  type="text"
+                  matInput
+                />
+                <mat-error
                   *ngIf="
-                    editProfileForm.controls.head_coach_email.errors.required
+                    editProfileForm.controls.head_coach_email.invalid &&
+                    editProfileForm.controls.head_coach_email.touched
                   "
-                  translate
-                  >Head Coach Email is required</span
                 >
-              </mat-error>
-            </div>
+                  <span
+                    *ngIf="
+                      editProfileForm.controls.head_coach_email.errors.required
+                    "
+                    translate
+                    >Head Coach Email is required</span
+                  >
+                </mat-error>
+              </div>
+            </ng-container>
 
             <!-- former Club -->
             <ng-container *ngIf="player_type !== 'grassroot'">
@@ -1052,7 +1131,7 @@
                         .requiredFileDocument
                     "
                     translate
-                    >Document must be of type PDF / PNG</span
+                    >Document must be of type PDF / PNG / JPG / JPEG</span
                   >
                 </mat-error>
               </div>
