@@ -37,6 +37,7 @@ export class EditProfileComponent implements OnInit {
   // player_type = "grassroot";
   environment = environment;
   avatar: File;
+  aiff: File;
   document: File;
   aadhar: File;
   employment_contract: File;
@@ -348,7 +349,9 @@ export class EditProfileComponent implements OnInit {
       );
       requestData.set('dob', this.editProfileForm.get('dob').value);
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
-      requestData.set('document', this.document);
+      if (this.member_type === 'club') requestData.set('aiff', this.aiff);
+      else requestData.set('document', this.document);
+
       requestData.set(
         'contact_person',
         JSON.stringify(this.editProfileForm.get('contact_person').value)
@@ -385,6 +388,10 @@ export class EditProfileComponent implements OnInit {
 
   uploadAadhar(files: FileList) {
     this.aadhar = files[0];
+  }
+
+  uploadAiff(files: FileList) {
+    this.aiff = files[0];
   }
 
   uploadDocument(files: FileList) {
@@ -510,7 +517,7 @@ export class EditProfileComponent implements OnInit {
             Validators.required,
             Validators.minLength(10),
             Validators.maxLength(10),
-            Validators.pattern(/^[0-9]+$/)
+            Validators.pattern(/^\d+$/)
           ]
         ],
         school: ['', []], //institute.school
@@ -528,7 +535,7 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.minLength(10),
             Validators.maxLength(10),
-            Validators.pattern(/^[0-9]+$/)
+            Validators.pattern(/^\d+$/)
           ]
         ],
         head_coach_email: ['', []],
@@ -550,7 +557,7 @@ export class EditProfileComponent implements OnInit {
             Validators.required,
             Validators.minLength(10),
             Validators.maxLength(10),
-            Validators.pattern(/^[0-9]+$/)
+            Validators.pattern(/^\d+$/)
           ]
         ],
         stadium_name: ['', []],
@@ -559,8 +566,11 @@ export class EditProfileComponent implements OnInit {
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
-        associated_players: ['', [Validators.required]],
-        document: ['', [requiredFileDocument]]
+        associated_players: [
+          '',
+          [Validators.required, Validators.pattern(/^\d+$/)]
+        ],
+        aiff: ['', [requiredFileDocument]]
         // onclick upload document [aiff]
       });
     } else if (this.member_type === 'academy') {
@@ -579,7 +589,7 @@ export class EditProfileComponent implements OnInit {
             Validators.required,
             Validators.minLength(10),
             Validators.maxLength(10),
-            Validators.pattern(/^[0-9]+$/)
+            Validators.pattern(/^\d+$/)
           ]
         ],
         stadium_name: ['', []],
@@ -588,7 +598,10 @@ export class EditProfileComponent implements OnInit {
         document_type: ['', []],
         contact_person: this._formBuilder.array([], []),
         trophies: this._formBuilder.array([], []),
-        associated_players: ['', [Validators.required]],
+        associated_players: [
+          '',
+          [Validators.required, Validators.pattern(/^\d+$/)]
+        ],
         document: ['', [requiredFileDocument]]
         //onclick upload documenet aiff / pan card/tin / coi
       });
@@ -712,8 +725,16 @@ export class EditProfileComponent implements OnInit {
         this._formBuilder.group({
           designation: [data.designation, [Validators.required]],
           name: [data.name, [Validators.required]],
-          email: [data.email, [Validators.required]],
-          phone_number: [data.phone_number, [Validators.required]]
+          email: [data.email, [Validators.required, Validators.email]],
+          phone_number: [
+            data.phone_number,
+            [
+              Validators.required,
+              Validators.minLength(10),
+              Validators.maxLength(10),
+              Validators.pattern(/^\d+$/)
+            ]
+          ]
         })
       );
     } else {
@@ -721,8 +742,16 @@ export class EditProfileComponent implements OnInit {
         this._formBuilder.group({
           designation: ['', [Validators.required]],
           name: ['', [Validators.required]],
-          email: ['', [Validators.required]],
-          phone_number: ['', [Validators.required]]
+          email: ['', [Validators.required, Validators.email]],
+          phone_number: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(10),
+              Validators.maxLength(10),
+              Validators.pattern(/^\d+$/)
+            ]
+          ]
         })
       );
     }
