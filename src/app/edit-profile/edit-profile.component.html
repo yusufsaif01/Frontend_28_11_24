@@ -785,15 +785,15 @@
                       digits
                     </span>
                   </ng-template>
-                </mat-error>
-                <mat-error
-                  class="error-text"
-                  *ngIf="
-                    editProfileForm.controls.head_coach_phone.errors.pattern;
-                    else lengthBlock
-                  "
-                >
-                  Phone Number format is invalid
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      editProfileForm.controls.head_coach_phone.errors.pattern;
+                      else lengthBlock
+                    "
+                  >
+                    Phone Number format is invalid
+                  </mat-error>
                 </mat-error>
               </div>
 
