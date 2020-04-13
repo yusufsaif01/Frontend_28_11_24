@@ -1626,6 +1626,26 @@
                     matInput
                     formControlName="associated_players"
                   />
+                  <mat-error
+                    *ngIf="
+                      editProfileForm.controls.associated_players.invalid &&
+                      editProfileForm.controls.associated_players.touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.associated_players.errors.required
+                      "
+                      translate
+                      >Associated Players is required</span>
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.associated_players.errors.pattern
+                      "
+                    >
+                      Associated Players format is invalid
+                    </span>
+                  </mat-error>
                 </div>
               </div>
             </div>

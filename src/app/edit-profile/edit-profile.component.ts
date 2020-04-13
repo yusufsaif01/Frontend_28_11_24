@@ -510,7 +510,7 @@ export class EditProfileComponent implements OnInit {
             Validators.required,
             Validators.minLength(10),
             Validators.maxLength(10),
-            Validators.pattern(/^[0-9]+$/)
+            Validators.pattern(/^\d+$/)
           ]
         ],
         school: ['', []], //institute.school
@@ -528,7 +528,7 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.minLength(10),
             Validators.maxLength(10),
-            Validators.pattern(/^[0-9]+$/)
+            Validators.pattern(/^\d+$/)
           ]
         ],
         head_coach_email: ['', []],
@@ -550,7 +550,7 @@ export class EditProfileComponent implements OnInit {
             Validators.required,
             Validators.minLength(10),
             Validators.maxLength(10),
-            Validators.pattern(/^[0-9]+$/)
+            Validators.pattern(/^\d+$/)
           ]
         ],
         stadium_name: ['', []],
@@ -559,7 +559,10 @@ export class EditProfileComponent implements OnInit {
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
-        associated_players: ['', [Validators.required]],
+        associated_players: ['', [
+          Validators.required,
+          Validators.pattern(/^\d+$/)
+        ]],
         document: ['', [requiredFileDocument]]
         // onclick upload document [aiff]
       });
@@ -579,7 +582,7 @@ export class EditProfileComponent implements OnInit {
             Validators.required,
             Validators.minLength(10),
             Validators.maxLength(10),
-            Validators.pattern(/^[0-9]+$/)
+            Validators.pattern(/^\d+$/)
           ]
         ],
         stadium_name: ['', []],
@@ -588,7 +591,10 @@ export class EditProfileComponent implements OnInit {
         document_type: ['', []],
         contact_person: this._formBuilder.array([], []),
         trophies: this._formBuilder.array([], []),
-        associated_players: ['', [Validators.required]],
+        associated_players: ['', [
+          Validators.required,
+          Validators.pattern(/^\d+$/)
+        ]],
         document: ['', [requiredFileDocument]]
         //onclick upload documenet aiff / pan card/tin / coi
       });
@@ -717,7 +723,7 @@ export class EditProfileComponent implements OnInit {
             Validators.required,
             Validators.minLength(10),
             Validators.maxLength(10),
-            Validators.pattern(/^[0-9]+$/)
+            Validators.pattern(/^\d+$/)
           ]]
         })
       );
@@ -731,7 +737,7 @@ export class EditProfileComponent implements OnInit {
             Validators.required,
             Validators.minLength(10),
             Validators.maxLength(10),
-            Validators.pattern(/^[0-9]+$/)
+            Validators.pattern(/^\d+$/)
           ]]
         })
       );
