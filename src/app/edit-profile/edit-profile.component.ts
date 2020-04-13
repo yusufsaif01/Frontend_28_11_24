@@ -292,7 +292,9 @@ export class EditProfileComponent implements OnInit {
           if (player_type === 'amateur' || player_type === 'professional') {
             height_feet.setValidators(Validators.required);
             height_inches.setValidators(Validators.required);
-          } else {
+          }
+
+          if (player_type === 'grassroot') {
             height_feet.setValidators(null);
             height_inches.setValidators(null);
           }
