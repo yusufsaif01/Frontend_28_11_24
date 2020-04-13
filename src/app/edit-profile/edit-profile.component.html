@@ -1140,15 +1140,31 @@
               </ng-container>
 
               <!-- Upload   -->
-              <div class="from-block w-40">
-                <label
-                  [innerHTML]="
-                    member_type === 'academy'
-                      ? 'Upload Document'
-                      : 'Upload AIFF accreditation status'
+              <div class="from-block w-40" *ngIf="member_type === 'club'">
+                <label>Upload AIFF accreditation status</label>
+                <input
+                  type="file"
+                  formControlName="aiff"
+                  (change)="uploadAiff($event.target.files)"
+                />
+                <mat-error
+                  *ngIf="
+                    editProfileForm.controls.aiff.errors &&
+                    editProfileForm.controls.aiff.dirty
                   "
-                  >Upload AIFF accreditation status</label
                 >
+                  <span
+                    *ngIf="
+                      editProfileForm.controls.aiff.errors.requiredFileDocument
+                    "
+                    translate
+                    >AIFF status must be of type PDF / PNG / JPG / JPEG</span
+                  >
+                </mat-error>
+              </div>
+
+              <div class="from-block w-40" *ngIf="member_type === 'academy'">
+                <label>Upload Document</label>
                 <input
                   type="file"
                   formControlName="document"
@@ -1270,7 +1286,12 @@
 
                     <div class="input-wrapper">
                       <label>Email <span>*</span></label>
-                      <input formControlName="email" type="email" matInput />
+                      <input
+                        formControlName="email"
+                        type="email"
+                        matInput
+                        autocomplete="off"
+                      />
                       <mat-error
                         *ngIf="
                           editProfileForm.controls.contact_person.controls[
@@ -1288,15 +1309,17 @@
                               .hasError('required')
                           "
                           translate
-                          >Email is required</span>
-                        <span 
+                          >Email is required</span
+                        >
+                        <span
                           *ngIf="
                             editProfileForm.controls.contact_person.controls[i]
                               .get('email')
                               .hasError('email')
-                          " 
+                          "
                           translate
-                        >Email format is invalid</span>
+                          >Email format is invalid</span
+                        >
                       </mat-error>
                     </div>
 
@@ -1306,6 +1329,7 @@
                         formControlName="phone_number"
                         type="text"
                         matInput
+                        autocomplete="off"
                       />
                       <mat-error
                         *ngIf="
@@ -1328,34 +1352,37 @@
                         >
                         <ng-template #lengthBlock>
                           <span
-                    
                             *ngIf="
-                              editProfileForm.controls.contact_person.controls[i]
+                              editProfileForm.controls.contact_person.controls[
+                                i
+                              ]
                                 .get('phone_number')
                                 .hasError('minlength')
                             "
                           >
                             Please provide number upto
                             {{
-                              editProfileForm.controls.contact_person.controls[i]
-                                .get('phone_number')
-                                .errors.minlength
+                              editProfileForm.controls.contact_person.controls[
+                                i
+                              ].get('phone_number').errors.minlength
                                 .requiredLength
                             }}
                             digits
                           </span>
                           <span
                             *ngIf="
-                              editProfileForm.controls.contact_person.controls[i]
+                              editProfileForm.controls.contact_person.controls[
+                                i
+                              ]
                                 .get('phone_number')
                                 .hasError('maxlength')
                             "
                           >
                             Please provide number upto
                             {{
-                              editProfileForm.controls.contact_person.controls[i]
-                                .get('phone_number')
-                                .errors.maxlength
+                              editProfileForm.controls.contact_person.controls[
+                                i
+                              ].get('phone_number').errors.maxlength
                                 .requiredLength
                             }}
                             digits
@@ -1634,13 +1661,16 @@
                   >
                     <span
                       *ngIf="
-                        editProfileForm.controls.associated_players.errors.required
+                        editProfileForm.controls.associated_players.errors
+                          .required
                       "
                       translate
-                      >Associated Players is required</span>
+                      >Associated Players is required</span
+                    >
                     <span
                       *ngIf="
-                        editProfileForm.controls.associated_players.errors.pattern
+                        editProfileForm.controls.associated_players.errors
+                          .pattern
                       "
                     >
                       Associated Players format is invalid
