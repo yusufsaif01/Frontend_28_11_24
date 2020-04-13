@@ -268,7 +268,8 @@
                 >Height
                 <span
                   *ngIf="
-                    player_type === 'amateur' || player_type === 'professional'
+                    player_type === 'amateur' ||
+                    player_type === 'professional'
                   "
                   >*</span
                 ></label
@@ -280,8 +281,11 @@
                     *ngIf="
                       editProfileForm.controls.height_feet.invalid &&
                       editProfileForm.controls.height_feet.touched &&
-                      (player_type === 'amateur' ||
-                        player_type === 'professional')
+                      (
+                        player_type === 'amateur' ||
+                        player_type === 'professional' ||
+                        player_type === 'grassroot'
+                      )
                     "
                   >
                     <span
@@ -307,10 +311,13 @@
                   <input formControlName="height_inches" type="text" matInput />
                   <mat-error
                     *ngIf="
-                      (editProfileForm.controls.height_inches.invalid &&
-                        editProfileForm.controls.height_inches.touched &&
-                        player_type === 'amateur') ||
-                      player_type === 'professional'
+                      editProfileForm.controls.height_inches.invalid &&
+                      editProfileForm.controls.height_inches.touched &&
+                      (
+                        player_type === 'amateur' ||
+                        player_type === 'professional' ||
+                        player_type === 'grassroot'
+                      )
                     "
                   >
                     <span
@@ -346,20 +353,15 @@
               />
               <mat-error
                 *ngIf="
-                  (editProfileForm.controls.weight.invalid &&
-                    editProfileForm.controls.weight.touched &&
-                    player_type === 'amateur') ||
-                  player_type === 'professional'
+                  editProfileForm.controls.weight.invalid &&
+                  editProfileForm.controls.weight.touched &&
+                  (
+                    player_type === 'amateur' ||
+                    player_type === 'professional' ||
+                    player_type === 'grassroot'
+                  )
                 "
               >
-                <span
-                  *ngIf="
-                    editProfileForm.controls.weight.errors &&
-                    editProfileForm.controls.weight.errors.required
-                  "
-                  translate
-                  >Weight in Kg is required</span
-                >
                 <span
                   class="error-text"
                   *ngIf="

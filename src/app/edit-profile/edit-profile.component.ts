@@ -290,13 +290,13 @@ export class EditProfileComponent implements OnInit {
           }
 
           if (player_type === 'amateur' || player_type === 'professional') {
-            height_feet.setValidators(Validators.required);
-            height_inches.setValidators(Validators.required);
+            height_feet.setValidators([Validators.required,Validators.pattern(/^\d+$/)]);
+            height_inches.setValidators([Validators.required,Validators.pattern(/^\d+$/)]);
           }
 
           if (player_type === 'grassroot') {
-            height_feet.setValidators(null);
-            height_inches.setValidators(null);
+            height_feet.setValidators([Validators.pattern(/^\d+$/)]);
+            height_inches.setValidators([Validators.pattern(/^\d+$/)]);
           }
 
           height_feet.updateValueAndValidity();
@@ -494,15 +494,15 @@ export class EditProfileComponent implements OnInit {
         dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
         height_feet: [
           '',
-          [Validators.required, Validators.pattern(/^\d{1,2}$/)]
+          [Validators.required, Validators.pattern(/^\d+$/)]
         ],
         height_inches: [
           '',
-          [Validators.required, Validators.pattern(/^\d{2}$/)]
+          [Validators.required, Validators.pattern(/^\d+$/)]
         ],
         weight: [
           '',
-          [Validators.pattern(/^\d{1,3}(\.\d)?$/)]
+          [Validators.pattern(/^\d+(\.\d)?$/)]
         ],
         country: ['', [Validators.required]], // country or nationality
         state: ['', [Validators.required]],
