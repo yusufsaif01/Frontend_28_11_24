@@ -19,7 +19,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./manage-player.component.scss']
 })
 export class ManagePlayerComponent implements OnInit {
-  sideBarToogle: boolean = true;
+  public sideBarToggle: boolean = true;
   showFiller = false;
   list: any;
   pageSize: number = 20;
@@ -40,6 +40,10 @@ export class ManagePlayerComponent implements OnInit {
 
   ngOnInit() {
     this.getPlayerList(this.pageSize, 1);
+  }
+
+  updateSidebar($event: any) {
+    this.sideBarToggle = $event;
   }
 
   getPlayerList(page_size: number, page_no: number) {

@@ -275,13 +275,16 @@
               >
               <div class="double-input">
                 <div class="height-input">
-                  <input formControlName="height_feet" type="text" matInput />
+                  <input
+                    formControlName="height_feet"
+                    type="text"
+                    matInput
+                    autocomplete="off"
+                  />
                   <mat-error
                     *ngIf="
                       editProfileForm.controls.height_feet.invalid &&
-                      editProfileForm.controls.height_feet.touched &&
-                      (player_type === 'amateur' ||
-                        player_type === 'professional')
+                      editProfileForm.controls.height_feet.touched
                     "
                   >
                     <span
@@ -304,13 +307,16 @@
                   </mat-error>
                 </div>
                 <div class="height-input">
-                  <input formControlName="height_inches" type="text" matInput />
+                  <input
+                    formControlName="height_inches"
+                    type="text"
+                    matInput
+                    autocomplete="off"
+                  />
                   <mat-error
                     *ngIf="
-                      (editProfileForm.controls.height_inches.invalid &&
-                        editProfileForm.controls.height_inches.touched &&
-                        player_type === 'amateur') ||
-                      player_type === 'professional'
+                      editProfileForm.controls.height_inches.invalid &&
+                      editProfileForm.controls.height_inches.touched
                     "
                   >
                     <span
@@ -346,20 +352,10 @@
               />
               <mat-error
                 *ngIf="
-                  (editProfileForm.controls.weight.invalid &&
-                    editProfileForm.controls.weight.touched &&
-                    player_type === 'amateur') ||
-                  player_type === 'professional'
+                  editProfileForm.controls.weight.invalid &&
+                  editProfileForm.controls.weight.touched
                 "
               >
-                <span
-                  *ngIf="
-                    editProfileForm.controls.weight.errors &&
-                    editProfileForm.controls.weight.errors.required
-                  "
-                  translate
-                  >Weight in Kg is required</span
-                >
                 <span
                   class="error-text"
                   *ngIf="
@@ -367,7 +363,7 @@
                     editProfileForm.controls.weight.errors.pattern
                   "
                 >
-                  Weight in Kg format is invalid
+                  Weight format is invalid
                 </span>
               </mat-error>
             </div>
@@ -746,6 +742,7 @@
                   formControlName="head_coach_phone"
                   type="text"
                   matInput
+                  autocomplete="off"
                 />
                 <mat-error
                   *ngIf="
@@ -760,6 +757,43 @@
                     translate
                     >Head Coach Phone is required</span
                   >
+                  <ng-template #lengthBlock>
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.head_coach_phone.errors
+                          .minlength
+                      "
+                    >
+                      Please provide number upto
+                      {{
+                        editProfileForm.controls.head_coach_phone.errors
+                          .minlength.requiredLength
+                      }}
+                      digits
+                    </span>
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.head_coach_phone.errors
+                          .maxlength
+                      "
+                    >
+                      Please provide number upto
+                      {{
+                        editProfileForm.controls.head_coach_phone.errors
+                          .maxlength.requiredLength
+                      }}
+                      digits
+                    </span>
+                  </ng-template>
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    editProfileForm.controls.head_coach_phone.errors.pattern;
+                    else lengthBlock
+                  "
+                >
+                  Phone Number format is invalid
                 </mat-error>
               </div>
 
@@ -770,6 +804,7 @@
                   formControlName="head_coach_email"
                   type="text"
                   matInput
+                  autocomplete="off"
                 />
                 <mat-error
                   *ngIf="
@@ -1344,7 +1379,7 @@
                     </div>
 
                     <div class="input-wrapper-full">
-                      <label>Years <span>*</span></label>
+                      <label>Year <span>*</span></label>
                       <input type="text" matInput formControlName="year" />
                       <mat-error
                         *ngIf="

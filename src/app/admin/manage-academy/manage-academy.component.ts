@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./manage-academy.component.scss']
 })
 export class ManageAcademyComponent implements OnInit {
-  sideBarToogle: boolean = true;
+  public sideBarToggle: boolean = true;
   showFiller = false;
   list: any;
   pageSize: number = 20;
@@ -31,6 +31,10 @@ export class ManageAcademyComponent implements OnInit {
 
   ngOnInit() {
     this.getAcademyList(this.pageSize, 1);
+  }
+
+  updateSidebar($event: any) {
+    this.sideBarToggle = $event;
   }
 
   updatePage(event: any) {

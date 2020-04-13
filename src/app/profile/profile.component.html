@@ -146,7 +146,12 @@
           <div class="full">
             <p>
               <span>View Adhaar : </span>
-              <a href="{{ aadhar ? aadhar : '' }}" target="_blank">Document</a>
+              <a
+                *ngIf="aadhar"
+                href="{{ aadhar ? aadhar : '' }}"
+                target="_blank"
+                >Document</a
+              >
             </p>
           </div>
         </div>
@@ -159,6 +164,7 @@
             <p>
               <span>View Employement : </span>
               <a
+                *ngIf="employment_contract"
                 href="{{ employment_contract ? employment_contract : '' }}"
                 target="_blank"
                 >Document</a
@@ -322,16 +328,14 @@
           <div class="full">
             <p>
               <span>Office address :</span>
-              {{ profile?.address?.full_address }}
+              {{ profile.address?.full_address }}
             </p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p>
-              <span>Zipcode/Pincode :</span> {{ profile?.address?.pincode }}
-            </p>
+            <p><span>Zipcode/Pincode :</span> {{ profile.address?.pincode }}</p>
           </div>
           <div class="half">
             <p><span>Email :</span> {{ profile.email }}</p>
@@ -348,7 +352,10 @@
           <div class="full">
             <p>
               <span>View Document Status : </span>
-              <a href="{{ document ? document : '' }}" target="_blank"
+              <a
+                *ngIf="document"
+                href="{{ document ? document : '' }}"
+                target="_blank"
                 >Document</a
               >
             </p>
@@ -388,10 +395,13 @@
           </div>
         </div>
 
-        <div class="block-middle border-bottom" *ngIf="member_type === 'club'">
+        <div
+          class="block-middle border-bottom"
+          *ngIf="profile.member_type === 'club'"
+        >
           <div class="full">
             <p>
-              <span>Top Signing : </span>
+              <span>Top Signings : </span>
               <ng-container *ngIf="profile.top_signings">
                 <ng-container *ngFor="let signings of profile.top_signings">
                   {{ signings.name }}
