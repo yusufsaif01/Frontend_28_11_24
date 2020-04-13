@@ -374,9 +374,11 @@
             <p>
               <span>Major trophies won : </span>
               <ng-container *ngIf="profile.trophies">
-                <ng-container *ngFor="let trophies of profile.trophies">
+                <ng-container
+                  *ngFor="let trophies of profile.trophies; let isLast = last"
+                >
                   Name : {{ trophies.name }} Year : {{ trophies.year }} Position
-                  Secured : {{ trophies.position }}
+                  Secured : {{ trophies.position }}{{ isLast ? '' : ', ' }}
                 </ng-container>
               </ng-container>
             </p>
@@ -403,8 +405,13 @@
             <p>
               <span>Top Signings : </span>
               <ng-container *ngIf="profile.top_signings">
-                <ng-container *ngFor="let signings of profile.top_signings">
-                  {{ signings.name }}
+                <ng-container
+                  *ngFor="
+                    let signings of profile.top_signings;
+                    let isLast = last
+                  "
+                >
+                  {{ signings.name }}{{ isLast ? '' : ', ' }}
                 </ng-container>
               </ng-container>
             </p>
