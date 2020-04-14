@@ -26,7 +26,19 @@ export class CreatePasswordComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('token',this.token);
+    this._authenticationService
+      .emailVerification(this.token)
+      .subscribe(
+        response => {
+          console.log('data', response);
+        },
+        error => {
+          console.log('error', error);
+        }
+      )
+  }
 
   createPassword() {
     this._authenticationService

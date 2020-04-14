@@ -16,7 +16,8 @@ const routes = {
   editProfile: (c: any) => '/update-details',
   updateBio: (a: any) => '/update-bio',
   getProfileDetails: () => '/profile',
-  removeAvatar: () => '/avatar'
+  removeAvatar: () => '/avatar',
+  emailVerification : () => '/activate'
 };
 
 export interface LoginContext {
@@ -203,4 +204,16 @@ export class AuthenticationService {
     };
     return this.httpClient.delete(routes.removeAvatar(), httpOptions);
   }
+
+  emailVerification(token:string):Observable<any>{
+
+    let httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return this.httpClient.put<any>(routes.emailVerification(),httpOptions);
+  }
+
 }
