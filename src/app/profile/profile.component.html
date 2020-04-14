@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="block-bottom">
-        <a> Log Out</a>
+        <a [routerLink]="['/logout']"> Log Out</a>
       </div>
     </div>
   </div>
@@ -124,7 +124,13 @@
           </div>
         </div>
 
-        <div class="block-middle border-bottom">
+        <div
+          class="block-middle border-bottom"
+          *ngIf="
+            profile.player_type === 'professional' ||
+            profile.player_type === 'amateur'
+          "
+        >
           <div class="full">
             <p>
               <span>Current University Name :</span>
@@ -133,7 +139,13 @@
           </div>
         </div>
 
-        <div class="block-middle border-bottom">
+        <div
+          class="block-middle border-bottom"
+          *ngIf="
+            profile.player_type === 'professional' ||
+            profile.player_type === 'amateur'
+          "
+        >
           <div class="full">
             <p>
               <span>Current College Name :</span>
