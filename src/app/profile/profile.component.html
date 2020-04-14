@@ -437,6 +437,24 @@
             </p>
           </div>
         </div>
+
+        <div
+          class="block-middle border-bottom"
+          *ngIf="profile.member_type === 'academy'"
+        >
+          <div class="full">
+            <p>
+              <span>Top Academy Players : </span>
+              <ng-container *ngIf="profile.top_players">
+                <ng-container
+                  *ngFor="let players of profile.top_players; let isLast = last"
+                >
+                  {{ players.name }}{{ isLast ? '' : ', ' }}
+                </ng-container>
+              </ng-container>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
