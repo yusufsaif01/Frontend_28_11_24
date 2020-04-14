@@ -310,6 +310,7 @@ export class EditProfileComponent implements OnInit {
   resetForm() {
     this.editProfileForm.reset();
     this.createForm();
+    this.setCategoryValidators();
   }
 
   setCategoryValidators() {

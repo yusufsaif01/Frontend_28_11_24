@@ -817,14 +817,14 @@
                       editProfileForm.controls.head_coach_email.errors.required
                     "
                     translate
-                  >Head Coach Email is required
+                    >Head Coach Email is required
                   </span>
                   <span
                     *ngIf="
                       editProfileForm.controls.head_coach_email.errors.email
                     "
-                    translate                
-                  >Head Coach Email format is invalid
+                    translate
+                    >Head Coach Email format is invalid
                   </span>
                 </mat-error>
               </div>
@@ -909,14 +909,19 @@
                   >
                   <ng-template #charBlock>
                     <span
-                      *ngIf="editProfileForm.controls.founded_in.errors.maxlength"
+                      *ngIf="
+                        editProfileForm.controls.founded_in.errors.maxlength
+                      "
                       translate
                     >
                       Founded must not exceed 4 character length
                     </span>
                   </ng-template>
                   <span
-                    *ngIf="editProfileForm.controls.founded_in.errors.pattern;else charBlock"
+                    *ngIf="
+                      editProfileForm.controls.founded_in.errors.pattern;
+                      else charBlock
+                    "
                     translate
                   >
                     Founded format is invalid
@@ -1505,24 +1510,27 @@
                         >
                         <ng-template #charBlock>
                           <span
-                            *ngIf="editProfileForm.controls.trophies.controls[i]
-                            .get('year')
-                            .hasError('maxlength')"
+                            *ngIf="
+                              editProfileForm.controls.trophies.controls[i]
+                                .get('year')
+                                .hasError('maxlength')
+                            "
                             translate
                           >
                             Year must not exceed 4 character length
                           </span>
                         </ng-template>
                         <span
-                          *ngIf="editProfileForm.controls.trophies.controls[i]
-                          .get('year')
-                          .hasError('pattern');
-                          else charBlock"
+                          *ngIf="
+                            editProfileForm.controls.trophies.controls[i]
+                              .get('year')
+                              .hasError('pattern');
+                            else charBlock
+                          "
                           translate
                         >
                           Year format is invalid
                         </span>
-
                       </mat-error>
                     </div>
 
@@ -1797,7 +1805,7 @@
 
       <!-- bottom -->
       <div class="block-bottom">
-        <a (click)="resetForm()">Cancel</a>
+        <a [routerLink]="['/profile']">Cancel</a>
         <button class="btn" [disabled]="!editProfileForm.valid">
           Save Changes
         </button>
