@@ -842,7 +842,11 @@ export class EditProfileComponent implements OnInit {
       this.trophies.push(
         this._formBuilder.group({
           name: [data.name, [Validators.required]],
-          year: [data.year, [Validators.required]],
+          year: [data.year, [
+            Validators.required,
+            Validators.maxLength(4),
+            Validators.pattern(/^\d+$/)
+          ]],
           position: [data.position, [Validators.required]]
         })
       );
@@ -850,7 +854,11 @@ export class EditProfileComponent implements OnInit {
       this.trophies.push(
         this._formBuilder.group({
           name: ['', [Validators.required]],
-          year: ['', [Validators.required]],
+          year: ['', [
+            Validators.required,
+            Validators.maxLength(4),
+            Validators.pattern(/^\d+$/)
+          ]],
           position: ['', [Validators.required]]
         })
       );

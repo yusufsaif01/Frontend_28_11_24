@@ -1503,6 +1503,26 @@
                           translate
                           >Year is required</span
                         >
+                        <ng-template #charBlock>
+                          <span
+                            *ngIf="editProfileForm.controls.trophies.controls[i]
+                            .get('year')
+                            .hasError('maxlength')"
+                            translate
+                          >
+                            Year must not exceed 4 character length
+                          </span>
+                        </ng-template>
+                        <span
+                          *ngIf="editProfileForm.controls.trophies.controls[i]
+                          .get('year')
+                          .hasError('pattern');
+                          else charBlock"
+                          translate
+                        >
+                          Year format is invalid
+                        </span>
+
                       </mat-error>
                     </div>
 
