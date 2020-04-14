@@ -320,6 +320,25 @@ export class EditProfileComponent implements OnInit {
       const aadhar = this.editProfileForm.get('aadhar');
       const height_feet = this.editProfileForm.get('height_feet');
       const height_inches = this.editProfileForm.get('height_inches');
+      const head_coach_phone = this.editProfileForm.get('head_coach_phone');
+      const head_coach_email = this.editProfileForm.get('head_coach_email');
+
+      this.editProfileForm
+        .get('associated_club')
+        .valueChanges.subscribe(associated_club => {
+          if (associated_club === 'yes')
+            head_coach_phone.setValidators([
+              Validators.required,
+              Validators.minLength(10),
+              Validators.maxLength(10),
+              Validators.pattern(/^\d+$/)
+            ]);
+          else if (associated_club === 'no')
+            head_coach_email.setValidators([
+              Validators.required,
+              Validators.email
+            ]);
+        });
 
       this.editProfileForm
         .get('player_type')
@@ -366,9 +385,7 @@ export class EditProfileComponent implements OnInit {
       if (this.member_type === 'club') {
         trophies.setValidators(null);
         address.setValidators(null);
-        pincode.setValidators([
-          Validators.pattern(/^\d+$/)
-        ]);
+        pincode.setValidators([Validators.pattern(/^\d+$/)]);
       }
 
       if (this.member_type === 'academy') {
@@ -604,11 +621,14 @@ export class EditProfileComponent implements OnInit {
         // personal_details
         name: ['', [Validators.required]],
         short_name: ['', []],
-        founded_in: ['', [
-          Validators.required,
-          Validators.maxLength(4),
-          Validators.pattern(/^\d+$/)
-        ]],
+        founded_in: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(4),
+            Validators.pattern(/^\d+$/)
+          ]
+        ],
         country: ['', [Validators.required]],
         city: ['', [Validators.required]],
         address: ['', []],
@@ -640,11 +660,14 @@ export class EditProfileComponent implements OnInit {
         // personal_details
         name: ['', [Validators.required]],
         short_name: ['', []],
-        founded_in: ['', [
-          Validators.required,
-          Validators.maxLength(4),
-          Validators.pattern(/^\d+$/)
-        ]],
+        founded_in: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(4),
+            Validators.pattern(/^\d+$/)
+          ]
+        ],
         country: ['', [Validators.required]],
         city: ['', [Validators.required]],
         address: ['', [Validators.required]],
@@ -842,11 +865,14 @@ export class EditProfileComponent implements OnInit {
       this.trophies.push(
         this._formBuilder.group({
           name: [data.name, [Validators.required]],
-          year: [data.year, [
-            Validators.required,
-            Validators.maxLength(4),
-            Validators.pattern(/^\d+$/)
-          ]],
+          year: [
+            data.year,
+            [
+              Validators.required,
+              Validators.maxLength(4),
+              Validators.pattern(/^\d+$/)
+            ]
+          ],
           position: [data.position, [Validators.required]]
         })
       );
@@ -854,11 +880,14 @@ export class EditProfileComponent implements OnInit {
       this.trophies.push(
         this._formBuilder.group({
           name: ['', [Validators.required]],
-          year: ['', [
-            Validators.required,
-            Validators.maxLength(4),
-            Validators.pattern(/^\d+$/)
-          ]],
+          year: [
+            '',
+            [
+              Validators.required,
+              Validators.maxLength(4),
+              Validators.pattern(/^\d+$/)
+            ]
+          ],
           position: ['', [Validators.required]]
         })
       );
