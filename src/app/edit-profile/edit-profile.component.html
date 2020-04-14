@@ -817,8 +817,15 @@
                       editProfileForm.controls.head_coach_email.errors.required
                     "
                     translate
-                    >Head Coach Email is required</span
-                  >
+                  >Head Coach Email is required
+                  </span>
+                  <span
+                    *ngIf="
+                      editProfileForm.controls.head_coach_email.errors.email
+                    "
+                    translate                
+                  >Head Coach Email format is invalid
+                  </span>
                 </mat-error>
               </div>
             </ng-container>
@@ -900,11 +907,20 @@
                     translate
                     >Founded is required</span
                   >
+                  <ng-template #charBlock>
+                    <span
+                      *ngIf="editProfileForm.controls.founded_in.errors.maxlength"
+                      translate
+                    >
+                      Founded must not exceed 4 character length
+                    </span>
+                  </ng-template>
                   <span
-                    *ngIf="editProfileForm.controls.founded_in.errors.maxlength"
+                    *ngIf="editProfileForm.controls.founded_in.errors.pattern;else charBlock"
                     translate
-                    >Founded must not exceed 4 character length</span
                   >
+                    Founded format is invalid
+                  </span>
                 </mat-error>
               </div>
 
@@ -989,8 +1005,7 @@
                 <mat-error
                   *ngIf="
                     editProfileForm.controls.pincode.invalid &&
-                    editProfileForm.controls.pincode.touched &&
-                    member_type === 'academy'
+                    editProfileForm.controls.pincode.touched
                   "
                 >
                   <span
@@ -998,6 +1013,15 @@
                     translate
                     >Zipcode / Pincode is required</span
                   >
+                  <span
+                    class="error-text"
+                    *ngIf="
+                      editProfileForm.controls.pincode.errors &&
+                      editProfileForm.controls.pincode.errors.pattern
+                    "
+                  >
+                    Zipcode / Pincode format is invalid
+                  </span>
                 </mat-error>
               </div>
 

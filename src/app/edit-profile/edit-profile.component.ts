@@ -253,7 +253,7 @@ export class EditProfileComponent implements OnInit {
     for (const key of Object.keys(formValue)) {
       const value = formValue[key];
       console.log(key, value);
-      if (!value.length) {
+      if (!value && !value.length) {
         continue;
       }
       formData.append(key, value);
@@ -366,13 +366,18 @@ export class EditProfileComponent implements OnInit {
       if (this.member_type === 'club') {
         trophies.setValidators(null);
         address.setValidators(null);
-        pincode.setValidators(null);
+        pincode.setValidators([
+          Validators.pattern(/^\d+$/)
+        ]);
       }
 
       if (this.member_type === 'academy') {
         trophies.setValidators([Validators.required]);
         address.setValidators([Validators.required]);
-        pincode.setValidators([Validators.required]);
+        pincode.setValidators([
+          Validators.required,
+          Validators.pattern(/^\d+$/)
+        ]);
       }
 
       trophies.updateValueAndValidity();
@@ -591,7 +596,7 @@ export class EditProfileComponent implements OnInit {
             Validators.pattern(/^\d+$/)
           ]
         ],
-        head_coach_email: ['', []],
+        head_coach_email: ['', [Validators.email]],
         former_club: ['', []]
       });
     } else if (this.member_type === 'club') {
@@ -599,7 +604,11 @@ export class EditProfileComponent implements OnInit {
         // personal_details
         name: ['', [Validators.required]],
         short_name: ['', []],
-        founded_in: ['', [Validators.required, Validators.maxLength(4)]],
+        founded_in: ['', [
+          Validators.required,
+          Validators.maxLength(4),
+          Validators.pattern(/^\d+$/)
+        ]],
         country: ['', [Validators.required]],
         city: ['', [Validators.required]],
         address: ['', []],
@@ -631,7 +640,11 @@ export class EditProfileComponent implements OnInit {
         // personal_details
         name: ['', [Validators.required]],
         short_name: ['', []],
-        founded_in: ['', [Validators.required, Validators.maxLength(4)]],
+        founded_in: ['', [
+          Validators.required,
+          Validators.maxLength(4),
+          Validators.pattern(/^\d+$/)
+        ]],
         country: ['', [Validators.required]],
         city: ['', [Validators.required]],
         address: ['', [Validators.required]],
