@@ -93,7 +93,11 @@ export class RegistrationComponent implements OnInit {
     this.playerRegistrationForm = this._formBuilder.group({
       first_name: [
         '',
-        [Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]+$/)]
+        [
+          Validators.required,
+          Validators.maxLength(25),
+          Validators.pattern(/^[a-zA-Z0-9 ]+$/)
+        ]
       ],
       last_name: [
         '',
@@ -114,7 +118,14 @@ export class RegistrationComponent implements OnInit {
     });
 
     this.clubRegistrationForm = this._formBuilder.group({
-      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]+$/)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(25),
+          Validators.pattern(/^[a-zA-Z0-9 ]+$/)
+        ]
+      ],
       email: ['', [Validators.required, Validators.email]],
       phone: [
         '',
@@ -129,7 +140,14 @@ export class RegistrationComponent implements OnInit {
       state: ['', [Validators.required]]
     });
     this.academyRegistrationForm = this._formBuilder.group({
-      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]+$/)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(25),
+          Validators.pattern(/^[a-zA-Z0-9 ]+$/)
+        ]
+      ],
       email: ['', [Validators.required, Validators.email]],
       phone: [
         '',

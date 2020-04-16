@@ -65,9 +65,18 @@
             rows="5"
             placeholder="Write Content"
           ></textarea>
+          <mat-error
+            *ngIf="
+              aboutForm.controls.bio.invalid && aboutForm.controls.bio.touched
+            "
+          >
+            <span *ngIf="aboutForm.controls.bio.errors.maxlength" translate
+              >Bio cannot be greater than 150 characters</span
+            >
+          </mat-error>
         </div>
         <div class="block-bottom">
-          <button (click)="about()">Save</button>
+          <button (click)="about()" [disabled]="!aboutForm.valid">Save</button>
         </div>
       </div>
     </form>
@@ -211,6 +220,16 @@
                   *ngIf="editProfileForm.controls.first_name.errors.required"
                   translate
                   >First Name is required</span
+                >
+                <span
+                  *ngIf="editProfileForm.controls.first_name.errors.pattern"
+                  translate
+                  >First Name is invalid</span
+                >
+                <span
+                  *ngIf="editProfileForm.controls.name.errors.maxlength"
+                  translate
+                  >First Name cannot be greater than 25 characters</span
                 >
               </mat-error>
             </div>
@@ -874,6 +893,24 @@
                         : 'Club Name is required'
                     "
                     *ngIf="editProfileForm.controls.name.errors.required"
+                    translate
+                  ></span>
+                  <span
+                    *ngIf="editProfileForm.controls.name.errors.pattern"
+                    [innerText]="
+                      member_type === 'academy'
+                        ? 'Academy Name is invalid'
+                        : 'Club Name is invalid'
+                    "
+                    translate
+                  ></span>
+                  <span
+                    *ngIf="editProfileForm.controls.name.errors.maxlength"
+                    [innerText]="
+                      member_type === 'academy'
+                        ? 'Academy Name cannot be greater than 25 characters'
+                        : 'Club Name cannot be greater than 25 characters'
+                    "
                     translate
                   ></span>
                 </mat-error>

@@ -71,6 +71,14 @@
                 >
                   First Name is invalid
                 </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    playerRegistrationForm.controls.first_name.errors.maxlength
+                  "
+                >
+                  First Name cannot exceed 25 characters
+                </mat-error>
               </ng-container>
             </div>
 
@@ -323,6 +331,12 @@
                 >
                   Club Name is invalid
                 </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="clubRegistrationForm.controls.name.errors.maxlength"
+                >
+                  Club Name cannot exceed 25 characters
+                </mat-error>
               </ng-container>
             </div>
           </div>
@@ -531,6 +545,12 @@
                   *ngIf="academyRegistrationForm.controls.name.errors.pattern"
                 >
                   Academy Name is invalid
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="academyRegistrationForm.controls.name.errors.maxlength"
+                >
+                  Academy Name cannot exceed 25 characters
                 </mat-error>
               </ng-container>
             </div>
