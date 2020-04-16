@@ -75,6 +75,7 @@ export class ManageAcademyComponent implements OnInit {
         }
         console.log('The dialog was closed');
         this.adminService.getAcademyList(result).subscribe(response => {
+          this.acad_count = response.data.total;
           this.dataSource = new MatTableDataSource(response.data.records);
         });
       } else {

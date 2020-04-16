@@ -90,6 +90,7 @@ export class ManagePlayerComponent implements OnInit {
         console.log('treated result', result);
         console.log('The dialog was closed');
         this.adminService.getPlayerList(result).subscribe(response => {
+          this.players_count = response.data.total;
           this.dataSource = new MatTableDataSource(response.data.records);
         });
       } else {

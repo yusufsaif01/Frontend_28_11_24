@@ -75,6 +75,7 @@ export class ManageClubComponent implements OnInit {
         }
         console.log('The dialog was closed');
         this.adminService.getClubList(result).subscribe(response => {
+          this.clubs_count = response.data.total;
           this.dataSource = new MatTableDataSource(response.data.records);
         });
       } else {
