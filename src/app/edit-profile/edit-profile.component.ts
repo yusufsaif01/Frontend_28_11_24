@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
 import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
 import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
+import { Router } from '@angular/router';
 
 interface trophyObject {
   name: string;
@@ -232,7 +233,8 @@ export class EditProfileComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private _router: Router
   ) {
     this.createForm();
     this.setCategoryValidators();
@@ -452,6 +454,7 @@ export class EditProfileComponent implements OnInit {
           'Successful',
           'Profile updated successfully'
         );
+        this._router.navigate(['/profile']);
       },
       err => {
         console.log('err', err);
