@@ -38,11 +38,12 @@ export class ManageClubComponent implements OnInit {
     this.sideBarToggle = $event;
   }
 
-  getClubList(page_size: number, page_no: number) {
+  getClubList(page_size: number, page_no: number, search?: string) {
     this.adminService
       .getClubList({
         page_no: page_no,
-        page_size: page_size
+        page_size: page_size,
+        search: search
       })
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
@@ -172,6 +173,7 @@ export class ManageClubComponent implements OnInit {
 
   applyFilter(event: any) {
     let filterValue = event.target.value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.getClubList(this.pageSize, 1, filterValue);
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
