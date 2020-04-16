@@ -515,6 +515,10 @@ export class EditProfileComponent implements OnInit {
     this._authenticationService.removeAvatar().subscribe(
       res => {
         console.log('response', res);
+        if (res.data.avatar_url) {
+              this.profile.avatar_url =
+                this.environment.mediaUrl + res.data.avatar_url;
+            }
         this._toastrService.success(
           'Successful',
           'Avatar removed successfully'
