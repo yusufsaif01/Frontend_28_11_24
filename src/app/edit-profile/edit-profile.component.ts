@@ -486,7 +486,11 @@ export class EditProfileComponent implements OnInit {
     if (this.aboutForm.valid) {
       this._authenticationService.updateBio(requestData).subscribe(
         res => {
-          console.log('response', res);
+          console.log('response', res);      
+          if (res.data.avatar_url) {
+            this.profile.avatar_url =
+              this.environment.mediaUrl + res.data.avatar_url;
+          }
           this._toastrService.success(
             'Successful',
             'Avatar updated successfully'
