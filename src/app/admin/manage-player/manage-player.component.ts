@@ -28,6 +28,7 @@ export class ManagePlayerComponent implements OnInit {
   grassroot_count: number;
   amateur_count: number;
   proff_count: number;
+  tzoffset = new Date().getTimezoneOffset() * 60000;
 
   public tableConfig: ManagePlayerTableConfig = new ManagePlayerTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -78,14 +79,17 @@ export class ManagePlayerComponent implements OnInit {
       width: '50% ',
       panelClass: 'filterDialog'
     });
+
     dialogRef.afterClosed().subscribe(result => {
       console.log('original', result);
       if (result) {
         if (result['from']) {
-          result['from'] = new Date(result['from']).toISOString();
+          result['from'] = new Date(
+            result['from'] - this.tzoffset
+          ).toISOString();
         }
         if (result['to']) {
-          result['to'] = new Date(result['to']).toISOString();
+          result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
         console.log('treated result', result);
         console.log('The dialog was closed');

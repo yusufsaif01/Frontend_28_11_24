@@ -19,6 +19,7 @@ export class ManageAcademyComponent implements OnInit {
   pageSize: number = 20;
   totalRecords = 10;
   acad_count: number;
+  tzoffset = new Date().getTimezoneOffset() * 60000;
 
   public tableConfig: ManageAcademyTableConfig = new ManageAcademyTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -68,10 +69,12 @@ export class ManageAcademyComponent implements OnInit {
       console.log('original', result);
       if (result) {
         if (result['from']) {
-          result['from'] = new Date(result['from']).toISOString();
+          result['from'] = new Date(
+            result['from'] - this.tzoffset
+          ).toISOString();
         }
         if (result['to']) {
-          result['to'] = new Date(result['to']).toISOString();
+          result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
         console.log('The dialog was closed');
         this.adminService.getAcademyList(result).subscribe(response => {
