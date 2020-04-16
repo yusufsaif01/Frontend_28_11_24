@@ -1087,7 +1087,10 @@
               </div>
 
               <!-- Stadium Name -->
-              <div class="from-block" *ngIf="member_type === 'club'">
+              <div
+                class="from-block"
+                *ngIf="member_type === 'club' && member_type === 'academy'"
+              >
                 <label>Stadium Name</label>
                 <input formControlName="stadium_name" type="text" matInput />
               </div>
