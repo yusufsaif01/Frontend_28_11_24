@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { AuthenticationService } from '../core/authentication/authentication.service';
 import { ToastrService } from 'ngx-toastr';
@@ -36,8 +36,8 @@ interface positionObject {
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit {
-  // member_type = 'academy';
-  // player_type = "grassroot";
+  @Input() max: Date | null;
+  tomorrow = new Date();
   environment = environment;
   avatar: File;
   aiff: File;
@@ -236,6 +236,7 @@ export class EditProfileComponent implements OnInit {
   ) {
     this.createForm();
     this.setCategoryValidators();
+    this.tomorrow.setDate(this.tomorrow.getDate() + 1);
   }
 
   ngOnInit() {
