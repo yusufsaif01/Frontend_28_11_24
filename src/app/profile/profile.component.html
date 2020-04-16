@@ -339,7 +339,7 @@
               <span *ngIf="profile.member_type === 'academy'"
                 >Short Academy Name :</span
               >
-              {{ profile.short_name }}
+              {{ profile.short_name | titlecase }}
             </p>
           </div>
         </div>
