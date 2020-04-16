@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { AuthenticationService } from '../core/authentication/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
 import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
 import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
+import { Router } from '@angular/router';
 
 interface trophyObject {
   name: string;
@@ -36,8 +37,8 @@ interface positionObject {
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit {
-  // member_type = 'academy';
-  // player_type = "grassroot";
+  @Input() max: Date | null;
+  tomorrow = new Date();
   environment = environment;
   avatar: File;
   aiff: File;
@@ -232,10 +233,12 @@ export class EditProfileComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private _router: Router
   ) {
     this.createForm();
     this.setCategoryValidators();
+    this.tomorrow.setDate(this.tomorrow.getDate() + 1);
   }
 
   ngOnInit() {
@@ -310,6 +313,7 @@ export class EditProfileComponent implements OnInit {
   resetForm() {
     this.editProfileForm.reset();
     this.createForm();
+    this.setCategoryValidators();
   }
 
   setCategoryValidators() {
@@ -450,6 +454,7 @@ export class EditProfileComponent implements OnInit {
           'Successful',
           'Profile updated successfully'
         );
+        this._router.navigate(['/profile']);
       },
       err => {
         console.log('err', err);

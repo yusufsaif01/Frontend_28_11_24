@@ -23,10 +23,14 @@
       <div class="dropdown" [hidden]="this.isActive">
         <ul>
           <li>
-            <a> <i-feather name="lock"></i-feather> Change Password </a>
+            <a [routerLink]="['/change-password']">
+              <i-feather name="lock"></i-feather> Change Password
+            </a>
           </li>
           <li>
-            <a> <i-feather name="log-out"></i-feather> Logout </a>
+            <a [routerLink]="['/logout']">
+              <i-feather name="log-out"></i-feather> Logout
+            </a>
           </li>
         </ul>
       </div>

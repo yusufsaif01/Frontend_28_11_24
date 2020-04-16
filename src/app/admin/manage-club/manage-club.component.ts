@@ -19,6 +19,7 @@ export class ManageClubComponent implements OnInit {
   pageSize: number = 20;
   totalRecords = 10;
   clubs_count: number;
+  tzoffset = new Date().getTimezoneOffset() * 60000;
 
   public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -68,13 +69,16 @@ export class ManageClubComponent implements OnInit {
       console.log(result);
       if (result) {
         if (result['from']) {
-          result['from'] = new Date(result['from']).toISOString();
+          result['from'] = new Date(
+            result['from'] - this.tzoffset
+          ).toISOString();
         }
         if (result['to']) {
-          result['to'] = new Date(result['to']).toISOString();
+          result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
         console.log('The dialog was closed');
         this.adminService.getClubList(result).subscribe(response => {
+          this.clubs_count = response.data.total;
           this.dataSource = new MatTableDataSource(response.data.records);
         });
       } else {
