@@ -11,7 +11,7 @@
             {{ profile?.first_name }} {{ profile?.last_name }}
           </h3>
           <h3 *ngIf="member_type === 'club' || member_type === 'academy'">
-            {{ profile?.name }}
+            {{ profile?.name | titlecase }}
           </h3>
           <p>
             <i-feather name="alert-circle" class="icon-size"></i-feather>
@@ -65,9 +65,18 @@
             rows="5"
             placeholder="Write Content"
           ></textarea>
+          <mat-error
+            *ngIf="
+              aboutForm.controls.bio.invalid && aboutForm.controls.bio.touched
+            "
+          >
+            <span *ngIf="aboutForm.controls.bio.errors.maxlength" translate
+              >Bio cannot be greater than 1000 characters</span
+            >
+          </mat-error>
         </div>
         <div class="block-bottom">
-          <button (click)="about()">Save</button>
+          <button (click)="about()" [disabled]="!aboutForm.valid">Save</button>
         </div>
       </div>
     </form>
@@ -212,6 +221,23 @@
                   translate
                   >First Name is required</span
                 >
+                <span
+                  *ngIf="
+                    !editProfileForm.controls.first_name.errors.required &&
+                    editProfileForm.controls.first_name.errors.pattern
+                  "
+                  translate
+                  >First Name is invalid</span
+                >
+                <span
+                  *ngIf="
+                    !editProfileForm.controls.first_name.errors.required &&
+                    !editProfileForm.controls.first_name.errors.pattern &&
+                    editProfileForm.controls.first_name.errors.maxlength
+                  "
+                  translate
+                  >First Name cannot be greater than 25 characters</span
+                >
               </mat-error>
             </div>
 
@@ -241,6 +267,7 @@
                   formControlName="dob"
                   matInput
                   [matDatepicker]="myDatepicker"
+                  [max]="tomorrow"
                   readonly
                 />
                 <mat-datepicker-toggle
@@ -265,7 +292,7 @@
             <!-- height -->
             <div class="from-block">
               <label
-                >Height
+                >Height (ft / inches)
                 <span
                   *ngIf="
                     player_type === 'amateur' || player_type === 'professional'
@@ -523,7 +550,7 @@
               </div>
 
               <!-- college School -->
-              <div class="from-block" *ngIf="player_type === 'amateur'">
+              <div class="from-block">
                 <label>Current College Name</label>
                 <input formControlName="college" type="text" matinput />
               </div>
@@ -817,14 +844,14 @@
                       editProfileForm.controls.head_coach_email.errors.required
                     "
                     translate
-                  >Head Coach Email is required
+                    >Head Coach Email is required
                   </span>
                   <span
                     *ngIf="
                       editProfileForm.controls.head_coach_email.errors.email
                     "
-                    translate                
-                  >Head Coach Email format is invalid
+                    translate
+                    >Head Coach Email format is invalid
                   </span>
                 </mat-error>
               </div>
@@ -875,6 +902,31 @@
                     *ngIf="editProfileForm.controls.name.errors.required"
                     translate
                   ></span>
+                  <span
+                    *ngIf="
+                      !editProfileForm.controls.name.errors.required &&
+                      editProfileForm.controls.name.errors.pattern
+                    "
+                    [innerText]="
+                      member_type === 'academy'
+                        ? 'Academy Name is invalid'
+                        : 'Club Name is invalid'
+                    "
+                    translate
+                  ></span>
+                  <span
+                    *ngIf="
+                      !editProfileForm.controls.name.errors.required &&
+                      !editProfileForm.controls.name.errors.pattern &&
+                      editProfileForm.controls.name.errors.maxlength
+                    "
+                    [innerText]="
+                      member_type === 'academy'
+                        ? 'Academy Name cannot be greater than 25 characters'
+                        : 'Club Name cannot be greater than 25 characters'
+                    "
+                    translate
+                  ></span>
                 </mat-error>
               </div>
 
@@ -909,14 +961,19 @@
                   >
                   <ng-template #charBlock>
                     <span
-                      *ngIf="editProfileForm.controls.founded_in.errors.maxlength"
+                      *ngIf="
+                        editProfileForm.controls.founded_in.errors.maxlength
+                      "
                       translate
                     >
                       Founded must not exceed 4 character length
                     </span>
                   </ng-template>
                   <span
-                    *ngIf="editProfileForm.controls.founded_in.errors.pattern;else charBlock"
+                    *ngIf="
+                      editProfileForm.controls.founded_in.errors.pattern;
+                      else charBlock
+                    "
                     translate
                   >
                     Founded format is invalid
@@ -1081,7 +1138,10 @@
               </div>
 
               <!-- Stadium Name -->
-              <div class="from-block" *ngIf="member_type === 'club'">
+              <div
+                class="from-block"
+                *ngIf="member_type === 'club' || member_type === 'academy'"
+              >
                 <label>Stadium Name</label>
                 <input formControlName="stadium_name" type="text" matInput />
               </div>
@@ -1505,24 +1565,27 @@
                         >
                         <ng-template #charBlock>
                           <span
-                            *ngIf="editProfileForm.controls.trophies.controls[i]
-                            .get('year')
-                            .hasError('maxlength')"
+                            *ngIf="
+                              editProfileForm.controls.trophies.controls[i]
+                                .get('year')
+                                .hasError('maxlength')
+                            "
                             translate
                           >
                             Year must not exceed 4 character length
                           </span>
                         </ng-template>
                         <span
-                          *ngIf="editProfileForm.controls.trophies.controls[i]
-                          .get('year')
-                          .hasError('pattern');
-                          else charBlock"
+                          *ngIf="
+                            editProfileForm.controls.trophies.controls[i]
+                              .get('year')
+                              .hasError('pattern');
+                            else charBlock
+                          "
                           translate
                         >
                           Year format is invalid
                         </span>
-
                       </mat-error>
                     </div>
 
@@ -1797,7 +1860,7 @@
 
       <!-- bottom -->
       <div class="block-bottom">
-        <a (click)="resetForm()">Cancel</a>
+        <a [routerLink]="['/profile']">Cancel</a>
         <button class="btn" [disabled]="!editProfileForm.valid">
           Save Changes
         </button>

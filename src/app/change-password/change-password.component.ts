@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '@app/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -14,7 +15,8 @@ export class ChangePasswordComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private _router: Router
   ) {
     this.createForm();
   }
@@ -36,8 +38,9 @@ export class ChangePasswordComponent implements OnInit {
             console.log('data', response);
             this._toastrService.success(
               'Successful',
-              'Password updated successfully'
+              'Password updated successfully. Please login again with your new password.'
             );
+            this._router.navigate(['/logout']);
           },
           error => {
             console.log('error', error);

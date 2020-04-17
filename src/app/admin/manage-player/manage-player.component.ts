@@ -28,6 +28,7 @@ export class ManagePlayerComponent implements OnInit {
   grassroot_count: number;
   amateur_count: number;
   proff_count: number;
+  tzoffset = new Date().getTimezoneOffset() * 60000;
 
   public tableConfig: ManagePlayerTableConfig = new ManagePlayerTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -46,11 +47,12 @@ export class ManagePlayerComponent implements OnInit {
     this.sideBarToggle = $event;
   }
 
-  getPlayerList(page_size: number, page_no: number) {
+  getPlayerList(page_size: number, page_no: number, search?: string) {
     this.adminService
       .getPlayerList({
         page_no: page_no,
-        page_size: page_size
+        page_size: page_size,
+        search: search
       })
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
@@ -78,18 +80,23 @@ export class ManagePlayerComponent implements OnInit {
       width: '50% ',
       panelClass: 'filterDialog'
     });
+
     dialogRef.afterClosed().subscribe(result => {
       console.log('original', result);
       if (result) {
         if (result['from']) {
-          result['from'] = new Date(result['from']).toISOString();
+          result['from'] = new Date(
+            result['from'] - this.tzoffset
+          ).toISOString();
         }
         if (result['to']) {
-          result['to'] = new Date(result['to']).toISOString();
+          result['to'] = new Date(result['to']).setHours(23, 59, 59);
+          result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
         console.log('treated result', result);
         console.log('The dialog was closed');
         this.adminService.getPlayerList(result).subscribe(response => {
+          this.players_count = response.data.total;
           this.dataSource = new MatTableDataSource(response.data.records);
         });
       } else {
@@ -183,6 +190,7 @@ export class ManagePlayerComponent implements OnInit {
 
   applyFilter(event: any) {
     let filterValue = event.target.value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.getPlayerList(this.pageSize, 1, filterValue);
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
