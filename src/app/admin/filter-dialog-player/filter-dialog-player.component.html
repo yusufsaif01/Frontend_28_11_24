@@ -22,6 +22,7 @@
             formControlName="from"
             [matDatepicker]="form"
             placeholder="From Date"
+            [max]="tomorrow"
             readonly
           />
           <mat-datepicker-toggle [for]="form"></mat-datepicker-toggle>
@@ -32,6 +33,7 @@
             formControlName="to"
             [matDatepicker]="to"
             placeholder="To Date"
+            [max]="tomorrow"
             readonly
           />
           <mat-datepicker-toggle [for]="to"></mat-datepicker-toggle>

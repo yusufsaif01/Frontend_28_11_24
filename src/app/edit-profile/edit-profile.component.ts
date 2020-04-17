@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { AuthenticationService } from '../core/authentication/authentication.service';
 import { ToastrService } from 'ngx-toastr';
@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
 import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 import { Router } from '@angular/router';
+import { HeaderComponent } from '@app/shared/page-components/header/header.component';
 
 interface trophyObject {
   name: string;
@@ -38,6 +39,7 @@ interface positionObject {
 })
 export class EditProfileComponent implements OnInit {
   @Input() max: Date | null;
+  @ViewChild(HeaderComponent, { static: true }) header: HeaderComponent;
   tomorrow = new Date();
   environment = environment;
   avatar: File;
@@ -487,6 +489,15 @@ export class EditProfileComponent implements OnInit {
       this._authenticationService.updateBio(requestData).subscribe(
         res => {
           console.log('response', res);
+          if (res.data.avatar_url) {
+            this.profile.avatar_url =
+              this.environment.mediaUrl + res.data.avatar_url;
+          }
+          localStorage.setItem(
+            'avatar_url',
+            this.environment.mediaUrl + res.data.avatar_url
+          );
+          this.header.avatar_url = localStorage.getItem('avatar_url');
           this._toastrService.success(
             'Successful',
             'Avatar updated successfully'
@@ -511,6 +522,15 @@ export class EditProfileComponent implements OnInit {
     this._authenticationService.removeAvatar().subscribe(
       res => {
         console.log('response', res);
+        if (res.data.avatar_url) {
+          this.profile.avatar_url =
+            this.environment.mediaUrl + res.data.avatar_url;
+        }
+        localStorage.setItem(
+          'avatar_url',
+          this.environment.mediaUrl + res.data.avatar_url
+        );
+        this.header.avatar_url = localStorage.getItem('avatar_url');
         this._toastrService.success(
           'Successful',
           'Avatar removed successfully'
@@ -568,7 +588,7 @@ export class EditProfileComponent implements OnInit {
   createForm() {
     this.aboutForm = this._formBuilder.group({
       avatar: ['', [requiredFileAvatar]],
-      bio: ['']
+      bio: ['', [Validators.maxLength(1000)]]
     });
 
     this.socialProfileForm = this._formBuilder.group({
@@ -582,7 +602,14 @@ export class EditProfileComponent implements OnInit {
       this.editProfileForm = this._formBuilder.group({
         // personal_details
         player_type: ['', [Validators.required]],
-        first_name: ['', [Validators.required]],
+        first_name: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(25),
+            Validators.pattern(/^[a-zA-Z0-9]+[a-zA-Z0-9 ]*$/)
+          ]
+        ],
         last_name: ['', [Validators.required]],
         dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
         height_feet: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
@@ -624,7 +651,14 @@ export class EditProfileComponent implements OnInit {
     } else if (this.member_type === 'club') {
       this.editProfileForm = this._formBuilder.group({
         // personal_details
-        name: ['', [Validators.required]],
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(25),
+            Validators.pattern(/^[a-zA-Z0-9]+[a-zA-Z0-9 ]*$/)
+          ]
+        ],
         short_name: ['', []],
         founded_in: [
           '',
@@ -663,7 +697,14 @@ export class EditProfileComponent implements OnInit {
     } else if (this.member_type === 'academy') {
       this.editProfileForm = this._formBuilder.group({
         // personal_details
-        name: ['', [Validators.required]],
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(25),
+            Validators.pattern(/^[a-zA-Z0-9]+[a-zA-Z0-9 ]*$/)
+          ]
+        ],
         short_name: ['', []],
         founded_in: [
           '',

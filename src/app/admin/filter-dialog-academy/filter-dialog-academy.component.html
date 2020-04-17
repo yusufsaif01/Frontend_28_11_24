@@ -23,6 +23,7 @@
             [matDatepicker]="academyform"
             readonly
             placeholder="From Date"
+            [max]="tomorrow"
           />
           <mat-datepicker-toggle [for]="academyform"></mat-datepicker-toggle>
           <mat-datepicker #academyform></mat-datepicker>
@@ -33,6 +34,7 @@
             [matDatepicker]="academyto"
             readonly
             placeholder="To Date"
+            [max]="tomorrow"
           />
           <mat-datepicker-toggle [for]="academyto"></mat-datepicker-toggle>
           <mat-datepicker #academyto></mat-datepicker>
