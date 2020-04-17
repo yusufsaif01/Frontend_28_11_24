@@ -213,7 +213,7 @@ export class AuthenticationService {
       })
     };
 
-    return this.httpClient.put<any>(routes.emailVerification(),httpOptions);
+    return this.httpClient.put<any>(routes.emailVerification(),token,httpOptions);
   }
 
 }
