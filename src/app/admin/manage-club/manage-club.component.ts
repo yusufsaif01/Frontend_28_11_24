@@ -75,6 +75,7 @@ export class ManageClubComponent implements OnInit {
           ).toISOString();
         }
         if (result['to']) {
+          result['to'] = new Date(result['to']).setHours(23, 59, 59);
           result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
         console.log('The dialog was closed');

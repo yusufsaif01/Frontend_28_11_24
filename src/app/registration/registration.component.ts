@@ -96,13 +96,10 @@ export class RegistrationComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(25),
-          Validators.pattern(/^.*[a-zA-Z]+[0-9 ]*$/)
+          Validators.pattern(/^[a-zA-Z0-9]+[a-zA-Z0-9 ]*$/)
         ]
       ],
-      last_name: [
-        '',
-        [Validators.required, Validators.pattern(/^.*[a-zA-Z]+[0-9 ]*$/)]
-      ],
+      last_name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: [
         '',
@@ -123,7 +120,7 @@ export class RegistrationComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(25),
-          Validators.pattern(/^.*[a-zA-Z]+[0-9 ]*$/)
+          Validators.pattern(/^[a-zA-Z0-9]+[a-zA-Z0-9 ]*$/)
         ]
       ],
       email: ['', [Validators.required, Validators.email]],
@@ -145,7 +142,7 @@ export class RegistrationComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(25),
-          Validators.pattern(/^.*[a-zA-Z]+[0-9 ]*$/)
+          Validators.pattern(/^[a-zA-Z0-9]+[a-zA-Z0-9 ]*$/)
         ]
       ],
       email: ['', [Validators.required, Validators.email]],

@@ -588,7 +588,7 @@ export class EditProfileComponent implements OnInit {
   createForm() {
     this.aboutForm = this._formBuilder.group({
       avatar: ['', [requiredFileAvatar]],
-      bio: ['', [Validators.maxLength(150)]]
+      bio: ['', [Validators.maxLength(1000)]]
     });
 
     this.socialProfileForm = this._formBuilder.group({
@@ -607,7 +607,7 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.required,
             Validators.maxLength(25),
-            Validators.pattern(/.*[a-zA-Z]+[0-9 ]*$/)
+            Validators.pattern(/^[a-zA-Z0-9]+[a-zA-Z0-9 ]*$/)
           ]
         ],
         last_name: ['', [Validators.required]],
@@ -656,7 +656,7 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.required,
             Validators.maxLength(25),
-            Validators.pattern(/.*[a-zA-Z]+[0-9 ]*$/)
+            Validators.pattern(/^[a-zA-Z0-9]+[a-zA-Z0-9 ]*$/)
           ]
         ],
         short_name: ['', []],
@@ -702,7 +702,7 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.required,
             Validators.maxLength(25),
-            Validators.pattern(/.*[a-zA-Z]+[0-9 ]*$/)
+            Validators.pattern(/^[a-zA-Z0-9]+[a-zA-Z0-9 ]*$/)
           ]
         ],
         short_name: ['', []],

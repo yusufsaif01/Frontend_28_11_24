@@ -71,7 +71,7 @@
             "
           >
             <span *ngIf="aboutForm.controls.bio.errors.maxlength" translate
-              >Bio cannot be greater than 150 characters</span
+              >Bio cannot be greater than 1000 characters</span
             >
           </mat-error>
         </div>
@@ -904,7 +904,7 @@
                   ></span>
                   <span
                     *ngIf="
-                      !editProfileForm.controls.first_name.errors.required &&
+                      !editProfileForm.controls.name.errors.required &&
                       editProfileForm.controls.name.errors.pattern
                     "
                     [innerText]="
@@ -916,8 +916,8 @@
                   ></span>
                   <span
                     *ngIf="
-                      !editProfileForm.controls.first_name.errors.required &&
-                      !editProfileForm.controls.first_name.errors.pattern &&
+                      !editProfileForm.controls.name.errors.required &&
+                      !editProfileForm.controls.name.errors.pattern &&
                       editProfileForm.controls.name.errors.maxlength
                     "
                     [innerText]="
