@@ -345,6 +345,8 @@ export class EditProfileComponent implements OnInit {
             ]);
           }
           else if (associated_club === 'no'){
+            head_coach_phone.setValue('') // setValue use to clear any input provided
+            head_coach_email.setValue('') 
             head_coach_phone.setValidators([
               Validators.minLength(10),
               Validators.maxLength(10),
