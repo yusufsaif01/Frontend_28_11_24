@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { AuthenticationService } from '../core/authentication/authentication.service';
 import { ToastrService } from 'ngx-toastr';
@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
 import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 import { Router } from '@angular/router';
+import { HeaderComponent } from '@app/shared/page-components/header/header.component';
 
 interface trophyObject {
   name: string;
@@ -38,6 +39,7 @@ interface positionObject {
 })
 export class EditProfileComponent implements OnInit {
   @Input() max: Date | null;
+  @ViewChild(HeaderComponent,{static:true}) header:HeaderComponent;
   tomorrow = new Date();
   environment = environment;
   avatar: File;
@@ -491,6 +493,8 @@ export class EditProfileComponent implements OnInit {
             this.profile.avatar_url =
               this.environment.mediaUrl + res.data.avatar_url;
           }
+          localStorage.setItem('avatar_url',this.environment.mediaUrl + res.data.avatar_url);
+          this.header.avatar_url = localStorage.getItem('avatar_url')
           this._toastrService.success(
             'Successful',
             'Avatar updated successfully'
@@ -519,6 +523,8 @@ export class EditProfileComponent implements OnInit {
           this.profile.avatar_url =
             this.environment.mediaUrl + res.data.avatar_url;
         }
+        localStorage.setItem('avatar_url',this.environment.mediaUrl + res.data.avatar_url);
+        this.header.avatar_url = localStorage.getItem('avatar_url')
         this._toastrService.success(
           'Successful',
           'Avatar removed successfully'
