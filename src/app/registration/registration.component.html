@@ -63,6 +63,22 @@
                 >
                   First Name is required
                 </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    playerRegistrationForm.controls.first_name.errors.pattern
+                  "
+                >
+                  First Name is invalid
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    playerRegistrationForm.controls.first_name.errors.maxlength
+                  "
+                >
+                  First Name cannot exceed 25 characters
+                </mat-error>
               </ng-container>
             </div>
 
@@ -90,6 +106,14 @@
                 >
                   Last Name is required
                 </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    playerRegistrationForm.controls.last_name.errors.pattern
+                  "
+                >
+                  Last Name is invalid
+                </mat-error>
               </ng-container>
             </div>
           </div>
@@ -100,10 +124,10 @@
               <i-feather name="at-sign" class="icon-size"></i-feather>
               <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
               <label>Email</label>
-              <input 
-                formControlName="email" 
-                type="text" 
-                matInput 
+              <input
+                formControlName="email"
+                type="text"
+                matInput
                 autocomplete="off"
               />
               <ng-container
@@ -301,6 +325,18 @@
                 >
                   Club Name is required
                 </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="clubRegistrationForm.controls.name.errors.pattern"
+                >
+                  Club Name is invalid
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="clubRegistrationForm.controls.name.errors.maxlength"
+                >
+                  Club Name cannot exceed 25 characters
+                </mat-error>
               </ng-container>
             </div>
           </div>
@@ -311,10 +347,10 @@
               <i-feather name="at-sign" class="icon-size"></i-feather>
               <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
               <label>Email</label>
-              <input 
-                formControlName="email" 
-                type="text" 
-                matInput 
+              <input
+                formControlName="email"
+                type="text"
+                matInput
                 autocomplete="off"
               />
               <ng-container
@@ -342,10 +378,10 @@
               <i-feather name="phone-call" class="icon-size"></i-feather>
               <!-- <img src="assets/icons/phone-call.svg" alt="" /> -->
               <label>Contact Number</label>
-              <input 
-                formControlName="phone"  
-                type="text" 
-                matInput 
+              <input
+                formControlName="phone"
+                type="text"
+                matInput
                 autocomplete="off"
               />
               <ng-container
@@ -504,6 +540,18 @@
                 >
                   Academy Name is required
                 </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="academyRegistrationForm.controls.name.errors.pattern"
+                >
+                  Academy Name is invalid
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="academyRegistrationForm.controls.name.errors.maxlength"
+                >
+                  Academy Name cannot exceed 25 characters
+                </mat-error>
               </ng-container>
             </div>
           </div>
@@ -514,9 +562,9 @@
               <i-feather name="at-sign" class="icon-size"></i-feather>
               <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
               <label>Email</label>
-              <input 
-                formControlName="email" 
-                type="text" 
+              <input
+                formControlName="email"
+                type="text"
                 matInput
                 autocomplete="off"
               />
@@ -543,10 +591,10 @@
               <i-feather name="phone-call" class="icon-size"></i-feather>
               <!-- <img src="assets/icons/phone-call.svg" alt="" /> -->
               <label>Contact Number</label>
-              <input 
-                formControlName="phone" 
-                type="text" 
-                matInput 
+              <input
+                formControlName="phone"
+                type="text"
+                matInput
                 autocomplete="off"
               />
               <ng-container
