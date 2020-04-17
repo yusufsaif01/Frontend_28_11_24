@@ -14,13 +14,14 @@
             profile.member_type === 'club' || profile.member_type === 'academy'
           "
         >
-          {{ profile?.name }}
+          {{ profile?.name | titlecase }}
         </h3>
         <h6>
           {{
-            profile.position && profile.position[0]
+            (profile.position && profile.position[0]
               ? profile.position[0].name
               : ''
+            ) | titlecase
           }}
         </h6>
         <p>
@@ -39,7 +40,7 @@
         </div>
       </div>
       <div class="block-bottom">
-        <a> Log Out</a>
+        <a [routerLink]="['/logout']"> Log Out</a>
       </div>
     </div>
   </div>
@@ -93,16 +94,16 @@
             </p>
           </div>
           <div class="half">
-            <p><span>Nationality :</span> {{ profile.country }}</p>
+            <p><span>Nationality :</span> {{ profile.country | titlecase }}</p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>State :</span> {{ profile.state }}</p>
+            <p><span>State :</span> {{ profile.state | titlecase }}</p>
           </div>
           <div class="half">
-            <p><span>Current City :</span> {{ profile.city }}</p>
+            <p><span>Current City :</span> {{ profile.city | titlecase }}</p>
           </div>
         </div>
 
@@ -119,25 +120,37 @@
           <div class="full">
             <p>
               <span>Current School Name :</span>
-              {{ profile?.institute?.school }}
+              {{ profile?.institute?.school | titlecase }}
             </p>
           </div>
         </div>
 
-        <div class="block-middle border-bottom">
+        <div
+          class="block-middle border-bottom"
+          *ngIf="
+            profile.player_type === 'professional' ||
+            profile.player_type === 'amateur'
+          "
+        >
           <div class="full">
             <p>
               <span>Current University Name :</span>
-              {{ profile?.institute?.university }}
+              {{ profile?.institute?.university | titlecase }}
             </p>
           </div>
         </div>
 
-        <div class="block-middle border-bottom">
+        <div
+          class="block-middle border-bottom"
+          *ngIf="
+            profile.player_type === 'professional' ||
+            profile.player_type === 'amateur'
+          "
+        >
           <div class="full">
             <p>
               <span>Current College Name :</span>
-              {{ profile?.institute?.college }}
+              {{ profile?.institute?.college | titlecase }}
             </p>
           </div>
         </div>
@@ -184,9 +197,10 @@
             <p>
               <span>Positions (First) :</span>
               {{
-                profile.position && profile.position[0]
+                (profile.position && profile.position[0]
                   ? profile.position[0].name
                   : ''
+                ) | titlecase
               }}
             </p>
           </div>
@@ -194,9 +208,10 @@
             <p>
               <span>Positions (Second) :</span>
               {{
-                profile.position && profile.position[1]
+                (profile.position && profile.position[1]
                   ? profile.position[1].name
                   : ''
+                ) | titlecase
               }}
             </p>
           </div>
@@ -207,14 +222,17 @@
             <p>
               <span>Positions (Third) :</span>
               {{
-                profile.position && profile.position[2]
+                (profile.position && profile.position[2]
                   ? profile.position[2].name
                   : ''
+                ) | titlecase
               }}
             </p>
           </div>
           <div class="half">
-            <p><span>Strong Foot :</span> {{ profile.strong_foot }}</p>
+            <p>
+              <span>Strong Foot :</span> {{ profile.strong_foot | titlecase }}
+            </p>
           </div>
         </div>
 
@@ -248,7 +266,7 @@
             <div class="full">
               <p>
                 <span>Head Coach Phone Number : </span>
-                {{ profile.club_academy_details?.head_coach_phone }}
+                {{ profile.club_academy_details?.head_coach_phone | titlecase }}
               </p>
             </div>
           </div>
@@ -282,10 +300,13 @@
             </div>
             <div class="block-middle border-bottom">
               <div class="half">
-                <p><span>Designation :</span> {{ person?.designation }}</p>
+                <p>
+                  <span>Designation :</span>
+                  {{ person?.designation | titlecase }}
+                </p>
               </div>
               <div class="half">
-                <p><span> Name :</span> {{ person?.name }}</p>
+                <p><span> Name :</span> {{ person?.name | titlecase }}</p>
               </div>
             </div>
 
@@ -318,17 +339,17 @@
               <span *ngIf="profile.member_type === 'academy'"
                 >Short Academy Name :</span
               >
-              {{ profile.short_name }}
+              {{ profile.short_name | titlecase }}
             </p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Country :</span> {{ profile.country }}</p>
+            <p><span>Country :</span> {{ profile.country | titlecase }}</p>
           </div>
           <div class="half">
-            <p><span>City :</span> {{ profile.city }}</p>
+            <p><span>City :</span> {{ profile.city | titlecase }}</p>
           </div>
         </div>
 
@@ -336,7 +357,7 @@
           <div class="full">
             <p>
               <span>Office address :</span>
-              {{ profile.address?.full_address }}
+              {{ profile.address?.full_address | titlecase }}
             </p>
           </div>
         </div>
@@ -353,6 +374,18 @@
         <div class="block-middle border-bottom">
           <div class="half">
             <p><span>Phone :</span> {{ profile.phone }}</p>
+          </div>
+          <div
+            class="half"
+            *ngIf="
+              profile.member_type === 'club' ||
+              profile.member_type === 'academy'
+            "
+          >
+            <p>
+              <span>Stadium Name :</span>
+              {{ profile?.stadium_name | titlecase }}
+            </p>
           </div>
         </div>
 
@@ -385,8 +418,9 @@
                 <ng-container
                   *ngFor="let trophies of profile.trophies; let isLast = last"
                 >
-                  Name : {{ trophies.name }} Year : {{ trophies.year }} Position
-                  Secured : {{ trophies.position }}{{ isLast ? '' : ', ' }}
+                  Name : {{ trophies.name | titlecase }} Year :
+                  {{ trophies.year }} Position Secured :
+                  {{ trophies.position | titlecase }}{{ isLast ? '' : ', ' }}
                 </ng-container>
               </ng-container>
             </p>
@@ -395,13 +429,16 @@
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>League : </span>{{ profile?.league }}</p>
+            <p><span>League : </span>{{ profile?.league | titlecase }}</p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="full">
-            <p><span>League (Other) : </span>{{ profile?.league_other }}</p>
+            <p>
+              <span>League (Other) : </span
+              >{{ profile?.league_other | titlecase }}
+            </p>
           </div>
         </div>
 
@@ -419,7 +456,25 @@
                     let isLast = last
                   "
                 >
-                  {{ signings.name }}{{ isLast ? '' : ', ' }}
+                  {{ signings.name | titlecase }}{{ isLast ? '' : ', ' }}
+                </ng-container>
+              </ng-container>
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="block-middle border-bottom"
+          *ngIf="profile.member_type === 'academy'"
+        >
+          <div class="full">
+            <p>
+              <span>Top Academy Players : </span>
+              <ng-container *ngIf="profile.top_players">
+                <ng-container
+                  *ngFor="let players of profile.top_players; let isLast = last"
+                >
+                  {{ players.name | titlecase }}{{ isLast ? '' : ', ' }}
                 </ng-container>
               </ng-container>
             </p>

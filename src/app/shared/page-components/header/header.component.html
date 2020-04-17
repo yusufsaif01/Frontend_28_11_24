@@ -4,11 +4,7 @@
     <div class="header-logo">
       <img src="assets/images/logo.png" alt="" />
       <div class="search">
-        <input
-          type="text"
-          matinput
-          placeholder="Search people, club and more"
-        />
+        <input type="text" matinput placeholder="Search" />
         <button>
           <i-feather name="search" class="icon-size"></i-feather>
         </button>
@@ -45,7 +41,7 @@
         </li>
       </ul>
       <div class="profile" (click)="changeDropdown()">
-        <img src="assets/images/profile-icon.png " alt="" />
+        <img [src]="avatar_url" alt="" />
         <i-feather name="chevron-down" class="icon-size down"></i-feather>
         <div class="dropdown" [hidden]="this.isActive">
           <ul>

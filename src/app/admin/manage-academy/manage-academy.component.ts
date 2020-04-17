@@ -19,6 +19,7 @@ export class ManageAcademyComponent implements OnInit {
   pageSize: number = 20;
   totalRecords = 10;
   acad_count: number;
+  tzoffset = new Date().getTimezoneOffset() * 60000;
 
   public tableConfig: ManageAcademyTableConfig = new ManageAcademyTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -42,11 +43,12 @@ export class ManageAcademyComponent implements OnInit {
     this.getAcademyList(this.pageSize, event.selectedPage);
   }
 
-  getAcademyList(page_size: number, page_no: number) {
+  getAcademyList(page_size: number, page_no: number, search?: string) {
     this.adminService
       .getAcademyList({
         page_no: page_no,
-        page_size: page_size
+        page_size: page_size,
+        search: search
       })
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
@@ -68,13 +70,17 @@ export class ManageAcademyComponent implements OnInit {
       console.log('original', result);
       if (result) {
         if (result['from']) {
-          result['from'] = new Date(result['from']).toISOString();
+          result['from'] = new Date(
+            result['from'] - this.tzoffset
+          ).toISOString();
         }
         if (result['to']) {
-          result['to'] = new Date(result['to']).toISOString();
+          result['to'] = new Date(result['to']).setHours(23, 59, 59);
+          result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
         console.log('The dialog was closed');
         this.adminService.getAcademyList(result).subscribe(response => {
+          this.acad_count = response.data.total;
           this.dataSource = new MatTableDataSource(response.data.records);
         });
       } else {
@@ -168,6 +174,7 @@ export class ManageAcademyComponent implements OnInit {
 
   applyFilter(event: any) {
     let filterValue = event.target.value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.getAcademyList(this.pageSize, 1, filterValue);
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
