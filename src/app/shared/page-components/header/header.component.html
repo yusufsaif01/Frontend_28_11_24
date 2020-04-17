@@ -41,7 +41,7 @@
         </li>
       </ul>
       <div class="profile" (click)="changeDropdown()">
-        <img src="assets/images/profile-icon.png " alt="" />
+        <img [src]="avatar_url" alt="" />
         <i-feather name="chevron-down" class="icon-size down"></i-feather>
         <div class="dropdown" [hidden]="this.isActive">
           <ul>

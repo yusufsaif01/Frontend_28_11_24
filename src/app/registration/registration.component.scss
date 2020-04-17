@@ -127,15 +127,12 @@
             .contact-number {
               position: relative;
               width: 75%;
-              input {
-                padding-left: 1.5rem;
-              }
               .icon-size {
-                display: none;
+                // display: none;
                 width: 2.2rem;
                 height: 2.2rem;
                 position: absolute;
-                top: 1.5rem;
+                top: 1.3rem;
                 left: 1.5rem;
                 color: rgba($color-black, 0.8);
               }
