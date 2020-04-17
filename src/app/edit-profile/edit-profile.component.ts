@@ -332,18 +332,30 @@ export class EditProfileComponent implements OnInit {
       this.editProfileForm
         .get('associated_club')
         .valueChanges.subscribe(associated_club => {
-          if (associated_club === 'yes')
+          if (associated_club === 'yes'){
             head_coach_phone.setValidators([
               Validators.required,
               Validators.minLength(10),
               Validators.maxLength(10),
               Validators.pattern(/^\d+$/)
             ]);
-          else if (associated_club === 'no')
             head_coach_email.setValidators([
               Validators.required,
               Validators.email
             ]);
+          }
+          else if (associated_club === 'no'){
+            head_coach_phone.setValidators([
+              Validators.minLength(10),
+              Validators.maxLength(10),
+              Validators.pattern(/^\d+$/)
+            ]);
+            head_coach_email.setValidators([
+              Validators.email
+            ]);
+          }
+          head_coach_phone.updateValueAndValidity();
+          head_coach_email.updateValueAndValidity();
         });
 
       this.editProfileForm
