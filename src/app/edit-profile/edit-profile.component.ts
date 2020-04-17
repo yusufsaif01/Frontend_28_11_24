@@ -39,7 +39,7 @@ interface positionObject {
 })
 export class EditProfileComponent implements OnInit {
   @Input() max: Date | null;
-  @ViewChild(HeaderComponent,{static:true}) header:HeaderComponent;
+  @ViewChild(HeaderComponent, { static: true }) header: HeaderComponent;
   tomorrow = new Date();
   environment = environment;
   avatar: File;
@@ -493,8 +493,11 @@ export class EditProfileComponent implements OnInit {
             this.profile.avatar_url =
               this.environment.mediaUrl + res.data.avatar_url;
           }
-          localStorage.setItem('avatar_url',this.environment.mediaUrl + res.data.avatar_url);
-          this.header.avatar_url = localStorage.getItem('avatar_url')
+          localStorage.setItem(
+            'avatar_url',
+            this.environment.mediaUrl + res.data.avatar_url
+          );
+          this.header.avatar_url = localStorage.getItem('avatar_url');
           this._toastrService.success(
             'Successful',
             'Avatar updated successfully'
@@ -523,8 +526,11 @@ export class EditProfileComponent implements OnInit {
           this.profile.avatar_url =
             this.environment.mediaUrl + res.data.avatar_url;
         }
-        localStorage.setItem('avatar_url',this.environment.mediaUrl + res.data.avatar_url);
-        this.header.avatar_url = localStorage.getItem('avatar_url')
+        localStorage.setItem(
+          'avatar_url',
+          this.environment.mediaUrl + res.data.avatar_url
+        );
+        this.header.avatar_url = localStorage.getItem('avatar_url');
         this._toastrService.success(
           'Successful',
           'Avatar removed successfully'
@@ -601,7 +607,7 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.required,
             Validators.maxLength(25),
-            Validators.pattern(/^[a-zA-Z0-9 ]+$/)
+            Validators.pattern(/.*[a-zA-Z]+[0-9 ]*$/)
           ]
         ],
         last_name: ['', [Validators.required]],
@@ -650,7 +656,7 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.required,
             Validators.maxLength(25),
-            Validators.pattern(/^[a-zA-Z0-9 ]+$/)
+            Validators.pattern(/.*[a-zA-Z]+[0-9 ]*$/)
           ]
         ],
         short_name: ['', []],
@@ -696,7 +702,7 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.required,
             Validators.maxLength(25),
-            Validators.pattern(/^[a-zA-Z0-9 ]+$/)
+            Validators.pattern(/.*[a-zA-Z]+[0-9 ]*$/)
           ]
         ],
         short_name: ['', []],

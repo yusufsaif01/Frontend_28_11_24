@@ -20,7 +20,10 @@
         >
           {{ tableConfig.columns[col].getValue(element) }}
         </p>
-        <p *ngIf="col === 'name'">
+        <p
+          *ngIf="col === 'name'"
+          matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
+        >
           {{
             tableConfig.columns[col].getValue(element).length < 18
               ? tableConfig.columns[col].getValue(element)

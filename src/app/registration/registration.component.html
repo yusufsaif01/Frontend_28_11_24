@@ -66,6 +66,8 @@
                 <mat-error
                   class="error-text"
                   *ngIf="
+                    !playerRegistrationForm.controls.first_name.errors
+                      .required &&
                     playerRegistrationForm.controls.first_name.errors.pattern
                   "
                 >
@@ -74,6 +76,10 @@
                 <mat-error
                   class="error-text"
                   *ngIf="
+                    !playerRegistrationForm.controls.first_name.errors
+                      .required &&
+                    !playerRegistrationForm.controls.first_name.errors
+                      .pattern &&
                     playerRegistrationForm.controls.first_name.errors.maxlength
                   "
                 >
@@ -327,13 +333,20 @@
                 </mat-error>
                 <mat-error
                   class="error-text"
-                  *ngIf="clubRegistrationForm.controls.name.errors.pattern"
+                  *ngIf="
+                    !clubRegistrationForm.controls.name.errors.required &&
+                    clubRegistrationForm.controls.name.errors.pattern
+                  "
                 >
                   Club Name is invalid
                 </mat-error>
                 <mat-error
                   class="error-text"
-                  *ngIf="clubRegistrationForm.controls.name.errors.maxlength"
+                  *ngIf="
+                    !clubRegistrationForm.controls.name.errors.required &&
+                    !clubRegistrationForm.controls.name.errors.pattern &&
+                    clubRegistrationForm.controls.name.errors.maxlength
+                  "
                 >
                   Club Name cannot exceed 25 characters
                 </mat-error>
@@ -542,13 +555,20 @@
                 </mat-error>
                 <mat-error
                   class="error-text"
-                  *ngIf="academyRegistrationForm.controls.name.errors.pattern"
+                  *ngIf="
+                    !academyRegistrationForm.controls.name.errors.required &&
+                    academyRegistrationForm.controls.name.errors.pattern
+                  "
                 >
                   Academy Name is invalid
                 </mat-error>
                 <mat-error
                   class="error-text"
-                  *ngIf="academyRegistrationForm.controls.name.errors.maxlength"
+                  *ngIf="
+                    !academyRegistrationForm.controls.name.errors.required &&
+                    !academyRegistrationForm.controls.name.errors.pattern &&
+                    academyRegistrationForm.controls.name.errors.maxlength
+                  "
                 >
                   Academy Name cannot exceed 25 characters
                 </mat-error>

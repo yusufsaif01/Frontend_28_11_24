@@ -222,12 +222,19 @@
                   >First Name is required</span
                 >
                 <span
-                  *ngIf="editProfileForm.controls.first_name.errors.pattern"
+                  *ngIf="
+                    !editProfileForm.controls.first_name.errors.required &&
+                    editProfileForm.controls.first_name.errors.pattern
+                  "
                   translate
                   >First Name is invalid</span
                 >
                 <span
-                  *ngIf="editProfileForm.controls.name.errors.maxlength"
+                  *ngIf="
+                    !editProfileForm.controls.first_name.errors.required &&
+                    !editProfileForm.controls.first_name.errors.pattern &&
+                    editProfileForm.controls.name.errors.maxlength
+                  "
                   translate
                   >First Name cannot be greater than 25 characters</span
                 >
@@ -896,7 +903,10 @@
                     translate
                   ></span>
                   <span
-                    *ngIf="editProfileForm.controls.name.errors.pattern"
+                    *ngIf="
+                      !editProfileForm.controls.first_name.errors.required &&
+                      editProfileForm.controls.name.errors.pattern
+                    "
                     [innerText]="
                       member_type === 'academy'
                         ? 'Academy Name is invalid'
@@ -905,7 +915,11 @@
                     translate
                   ></span>
                   <span
-                    *ngIf="editProfileForm.controls.name.errors.maxlength"
+                    *ngIf="
+                      !editProfileForm.controls.first_name.errors.required &&
+                      !editProfileForm.controls.first_name.errors.pattern &&
+                      editProfileForm.controls.name.errors.maxlength
+                    "
                     [innerText]="
                       member_type === 'academy'
                         ? 'Academy Name cannot be greater than 25 characters'
