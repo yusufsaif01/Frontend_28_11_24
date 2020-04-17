@@ -150,6 +150,11 @@ body {
             background-color: $color-white;
             border: 2px solid $blue;
           }
+          &:disabled {
+            @include disable;
+            background-color: #b7b9bb;
+            color: #fff;
+          }
         }
       }
     }
