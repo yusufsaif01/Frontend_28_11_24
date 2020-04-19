@@ -43,6 +43,8 @@ import {
   ChevronDown,
   Search
 } from 'angular-feather/icons';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { LinkExpiredComponent } from './link-expired/link-expired.component';
 
 const icons = {
   Camera,
@@ -86,7 +88,9 @@ const icons = {
     FooterComponent,
     ContainerComponent,
     AdminHeaderComponent,
-    AdminSidebarComponent
+    AdminSidebarComponent,
+    NotFoundComponent,
+    LinkExpiredComponent
   ],
   imports: [
     CommonModule,
