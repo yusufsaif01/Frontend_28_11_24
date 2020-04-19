@@ -112,7 +112,7 @@
             <p><span>Email :</span> {{ profile.email }}</p>
           </div>
           <div class="half">
-            <p><span>Phone :</span> {{ profile.phone }}</p>
+            <p><span>Phone :</span> +91 {{ profile.phone }}</p>
           </div>
         </div>
 
@@ -266,7 +266,7 @@
             <div class="full">
               <p>
                 <span>Head Coach Phone Number : </span>
-                {{ profile.club_academy_details?.head_coach_phone | titlecase }}
+                +91 {{ profile.club_academy_details?.head_coach_phone }}
               </p>
             </div>
           </div>
@@ -315,7 +315,9 @@
                 <p><span>Email :</span> {{ person?.email }}</p>
               </div>
               <div class="half">
-                <p><span> Phone Number :</span> {{ person?.phone_number }}</p>
+                <p>
+                  <span> Phone Number :</span> +91 {{ person?.phone_number }}
+                </p>
               </div>
             </div>
           </ng-container>
@@ -373,7 +375,7 @@
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Phone :</span> {{ profile.phone }}</p>
+            <p><span>Phone :</span> +91 {{ profile.phone }}</p>
           </div>
           <div
             class="half"
