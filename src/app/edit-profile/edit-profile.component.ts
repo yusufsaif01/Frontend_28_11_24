@@ -760,6 +760,13 @@ export class EditProfileComponent implements OnInit {
       this.player_type = val.player_type;
     });
 
+    if (
+      this.profile.club_academy_details &&
+      this.profile.club_academy_details.head_coach_phone
+    )
+      this.editProfileForm.get('associated_club').setValue('yes');
+    else this.editProfileForm.get('associated_club').setValue('no');
+
     this.editProfileForm.patchValue({
       player_type: this.profile.player_type ? this.profile.player_type : '',
       name: this.profile.name,
