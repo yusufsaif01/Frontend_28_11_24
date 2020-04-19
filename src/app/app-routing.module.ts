@@ -16,6 +16,8 @@ import { ManagePlayerComponent } from './admin/manage-player/manage-player.compo
 import { ManageClubComponent } from './admin/manage-club/manage-club.component';
 import { ManageAcademyComponent } from './admin/manage-academy/manage-academy.component';
 import { TimelineComponent } from './timeline/timeline.component';
+import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
+import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
 const routes: Routes = [
   {
     path: '',
@@ -84,7 +86,14 @@ const routes: Routes = [
     data: { title: extract('Manage Academy') }
   },
 
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  {
+    path: 'link-expired',
+    component: LinkExpiredComponent,
+    data: { title: extract('Link Expired') }
+  },
+  { path: '404', component: NotFoundComponent },
+
+  { path: '**', redirectTo: '/404' }
 ];
 
 @NgModule({
