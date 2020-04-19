@@ -20,11 +20,12 @@ body {
       background-color: $color-white;
       border-radius: 0.8rem;
       .profile-section {
-        max-width: 23rem;
+        // max-width: 23rem;
         width: 100%;
         display: block;
         margin: 0rem auto;
-        padding: 1rem;
+        padding: 3rem;
+        text-align: center;
         p {
           display: flex;
           justify-content: center;
@@ -34,13 +35,16 @@ body {
           margin: 2rem 0;
         }
         h3 {
-          font-size: 3rem;
+          font-size: 2.4rem;
           text-align: center;
           margin: 1.5rem auto 1rem;
+          word-wrap: break-word;
         }
         img {
           width: 100%;
           border-radius: 30rem;
+          max-width: 180px;
+          max-height: 180px;
         }
         .add-btn {
           display: flex;
@@ -277,6 +281,16 @@ body {
               }
             }
           }
+          .contact-no {
+            display: flex;
+            .countrycode {
+              width: 20%;
+            }
+            .phonenumber {
+              width: 80%;
+              margin-left: 1rem;
+            }
+          }
         }
         .input-wrapper {
           margin-right: 2rem;
@@ -320,6 +334,23 @@ body {
             border: none;
             display: inline-block;
             margin-top: 4rem;
+          }
+          .contact-no {
+            display: flex;
+            width: 30rem;
+            .countrycode {
+              width: 20%;
+              input {
+                width: 100%;
+              }
+            }
+            .phonenumber {
+              width: 80%;
+              margin-left: 1rem;
+              input {
+                width: 100%;
+              }
+            }
           }
         }
         .form-block-clubs {
@@ -421,6 +452,27 @@ body {
           @include disable;
         }
       }
+    }
+  }
+}
+
+.ph-no {
+  input {
+    width: 100%;
+    border: 1px solid $border-color;
+    border-radius: 0.8rem;
+    padding: 1.2rem 2rem;
+    outline: none;
+  }
+  .contact-no {
+    display: flex;
+    width: 32rem;
+    .countrycode {
+      width: 30%;
+    }
+    .phonenumber {
+      width: 70%;
+      margin-left: 1rem;
     }
   }
 }

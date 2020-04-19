@@ -20,10 +20,12 @@
         display: block;
         margin: 0rem auto;
         padding: 3rem;
+        text-align: center;
         h3 {
-          font-size: 3rem;
+          font-size: 2.4rem;
           text-align: center;
           margin: 1.5rem auto 1rem;
+          word-wrap: break-word;
         }
         h6 {
           font-size: 1.8rem;
