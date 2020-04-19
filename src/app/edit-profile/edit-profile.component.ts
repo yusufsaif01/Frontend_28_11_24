@@ -332,18 +332,29 @@ export class EditProfileComponent implements OnInit {
       this.editProfileForm
         .get('associated_club')
         .valueChanges.subscribe(associated_club => {
-          if (associated_club === 'yes')
+          if (associated_club === 'yes') {
             head_coach_phone.setValidators([
               Validators.required,
               Validators.minLength(10),
               Validators.maxLength(10),
               Validators.pattern(/^\d+$/)
             ]);
-          else if (associated_club === 'no')
             head_coach_email.setValidators([
               Validators.required,
               Validators.email
             ]);
+          } else if (associated_club === 'no') {
+            head_coach_phone.setValue(''); // setValue use to clear any input provided
+            head_coach_email.setValue('');
+            head_coach_phone.setValidators([
+              Validators.minLength(10),
+              Validators.maxLength(10),
+              Validators.pattern(/^\d+$/)
+            ]);
+            head_coach_email.setValidators([Validators.email]);
+          }
+          head_coach_phone.updateValueAndValidity();
+          head_coach_email.updateValueAndValidity();
         });
 
       this.editProfileForm
@@ -607,7 +618,7 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.required,
             Validators.maxLength(25),
-            Validators.pattern(/^(?:[0-9]+[ a-z]|[a-z])[a-z0-9 ]*$/)
+            Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
           ]
         ],
         last_name: ['', [Validators.required]],
@@ -656,7 +667,7 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.required,
             Validators.maxLength(25),
-            Validators.pattern(/^(?:[0-9]+[ a-z]|[a-z])[a-z0-9 ]*$/)
+            Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
           ]
         ],
         short_name: ['', []],
@@ -702,7 +713,7 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.required,
             Validators.maxLength(25),
-            Validators.pattern(/^(?:[0-9]+[ a-z]|[a-z])[a-z0-9 ]*$/)
+            Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
           ]
         ],
         short_name: ['', []],
@@ -748,6 +759,13 @@ export class EditProfileComponent implements OnInit {
     this.editProfileForm.valueChanges.subscribe(val => {
       this.player_type = val.player_type;
     });
+
+    if (
+      this.profile.club_academy_details &&
+      this.profile.club_academy_details.head_coach_phone
+    )
+      this.editProfileForm.get('associated_club').setValue('yes');
+    else this.editProfileForm.get('associated_club').setValue('no');
 
     this.editProfileForm.patchValue({
       player_type: this.profile.player_type ? this.profile.player_type : '',

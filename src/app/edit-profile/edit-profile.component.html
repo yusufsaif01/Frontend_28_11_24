@@ -774,11 +774,7 @@
 
             <!-- Head coach phone number * -->
             <ng-container
-              *ngIf="
-                editProfileForm.controls.associated_club.value === 'yes' ||
-                (profile?.club_academy_details &&
-                  profile.club_academy_details?.head_coach_phone)
-              "
+              *ngIf="editProfileForm.controls.associated_club.value === 'yes'"
             >
               <div class="from-block">
                 <label>Head coach phone number <span>*</span></label>

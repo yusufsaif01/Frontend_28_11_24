@@ -31,8 +31,13 @@ export class CreatePasswordComponent implements OnInit {
     console.log('token', this.token);
     this._authenticationService.emailVerification(this.token).subscribe(
       response => {
-        if (response.status === 'success') this.isLinkExpired = true;
-
+        if (response.status === 'success') {
+          this.isLinkExpired = true;
+          this._toastrService.success(
+            'Successful',
+            'Email verified successfully'
+          );
+        }
         console.log('data', response);
       },
       error => {

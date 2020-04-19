@@ -96,7 +96,7 @@ export class RegistrationComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(25),
-          Validators.pattern(/^(?:[0-9]+[ a-z]|[a-z])[a-z0-9 ]*$/)
+          Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
         ]
       ],
       last_name: ['', [Validators.required]],
@@ -120,7 +120,7 @@ export class RegistrationComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(25),
-          Validators.pattern(/^(?:[0-9]+[ a-z]|[a-z])[a-z0-9 ]*$/)
+          Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
         ]
       ],
       email: ['', [Validators.required, Validators.email]],
@@ -142,7 +142,7 @@ export class RegistrationComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(25),
-          Validators.pattern(/^(?:[0-9]+[ a-z]|[a-z])[a-z0-9 ]*$/)
+          Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
         ]
       ],
       email: ['', [Validators.required, Validators.email]],
