@@ -9,7 +9,7 @@ import { AuthenticationService } from '@app/core/authentication/authentication.s
 })
 export class HeaderComponent implements OnInit {
   public isActive: boolean = true;
-  public avatar_url:string = localStorage.getItem('avatar_url');
+  public avatar_url: string = localStorage.getItem('avatar_url');
   constructor(
     private router: Router,
     private authService: AuthenticationService
