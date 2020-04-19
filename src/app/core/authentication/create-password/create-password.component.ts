@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CreatePasswordComponent implements OnInit {
   createPasswordForm: FormGroup;
   token: string;
+  isLinkExpired: boolean = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -26,7 +27,22 @@ export class CreatePasswordComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('token', this.token);
+    this._authenticationService.emailVerification(this.token).subscribe(
+      response => {
+        if (response.status === 'success') this.isLinkExpired = true;
+
+        console.log('data', response);
+      },
+      error => {
+        if (error.error.code === 'UNAUTHORIZED')
+          this._router.navigate(['/link-expired']);
+
+        console.log('error', error);
+      }
+    );
+  }
 
   createPassword() {
     this._authenticationService
