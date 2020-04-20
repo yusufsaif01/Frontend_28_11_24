@@ -13,14 +13,6 @@ interface countResponseContext {
     tournaments:number
  }
 }
-let countResponse:countResponseContext = {
-  data: {
-    achievements:20,
-    tournaments:50
- }
-};
-
-
 @Injectable({
   providedIn: 'root'
 })
