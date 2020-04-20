@@ -250,7 +250,7 @@
               </ng-container>
             </p>
           </div>
-          <div class="half">
+          <div class="half" *ngIf="profile.player_type !== 'grassroot'">
             <p><span>Former Clubs :</span> {{ profile.former_club }}</p>
           </div>
         </div>
