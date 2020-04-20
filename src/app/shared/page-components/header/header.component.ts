@@ -12,13 +12,13 @@ export class HeaderComponent implements OnInit {
   public avatar_url: string = localStorage.getItem('avatar_url');
   constructor(
     private router: Router,
-    private authService: AuthenticationService
+    private _authenticationService: AuthenticationService
   ) {}
 
   ngOnInit(): void {}
 
-  Logout() {
-    this.authService.logout();
+  logout() {
+    this._authenticationService.logout();
     this.router.navigateByUrl('/login');
   }
   changeDropdown() {
