@@ -1,0 +1,87 @@
+<div class="from-container">
+  <form>
+    <div class="header">
+      <div class="title">
+        <h3>Add Awards</h3>
+      </div>
+      <div class="close">
+        <img
+          [mat-dialog-close]
+          src="assets/images/icons/close-white.png"
+          alt=""
+        />
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="from-wrapper">
+        <!-- Awards type  -->
+        <div class="from-block">
+          <label
+            >Award Type
+            <span>*</span>
+          </label>
+          <select matNativeControl required>
+            <option value="">Select Award type</option>
+            <option value="">Awards Type</option>
+            <option value="">Awards Type</option>
+            <option value="">Awards Type</option>
+          </select>
+        </div>
+
+        <!-- Awards Name  -->
+        <div class="from-block">
+          <label
+            >Award Name
+            <span>*</span>
+          </label>
+          <input type="text" matInput placeholder="Awards Name" />
+        </div>
+      </div>
+      <div class="from-wrapper">
+        <!-- year  -->
+        <div class="from-block">
+          <div class="datepicker">
+            <label
+              >Year
+              <span>*</span>
+            </label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              readonly
+              placeholder="Select your year"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+        </div>
+
+        <!-- position secured  -->
+        <div class="from-block">
+          <label
+            >Position Secured
+            <span>*</span>
+          </label>
+          <input type="text" matInput placeholder="Second" />
+        </div>
+      </div>
+      <div class="from-wrapper">
+        <!-- Upload image  -->
+        <div class="from-block">
+          <label
+            >Upload image
+            <span>*</span>
+          </label>
+          <input type="file" matInput />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="cancel">Cancel</button>
+      <button class="save">Save</button>
+    </div>
+  </form>
+</div>

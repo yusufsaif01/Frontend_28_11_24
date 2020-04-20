@@ -24,21 +24,32 @@ export class TableComponent implements OnInit {
   // dataSource = new MatTableDataSource<any>();
   // rows = new MatTableDataSource([
   //   {
-  //     name: 'Pushpam',
-  //     position: 'Sample',
-  //     type: 'Sample',
-  //     email: 'email',
-  //     status: 'pending',
+  //     serialnumber: '1',
+  //     awardtype: 'Professional',
+  //     awardname: 'FIFA World Cup',
+  //     year: '1980',
+  //     position_secured: 'Second',
+  //     thumbnail: '',
   //     actions: ''
   //   },
   //   {
-  //     name: 'Pushpam',
-  //     position: 'Sample',
-  //     type: 'Sample',
-  //     email: 'email',
-  //     status: 'pending',
+  //     serialnumber: '1',
+  //     awardtype: 'Professional',
+  //     awardname: 'FIFA World Cup',
+  //     year: '1980',
+  //     position_secured: 'Second',
+  //     thumbnail: '',
   //     actions: ''
-  //   }
+  //   },
+  //   {
+  //     serialnumber: '1',
+  //     awardtype: 'Professional',
+  //     awardname: 'FIFA World Cup',
+  //     year: '1980',
+  //     position_secured: 'Second',
+  //     thumbnail: '',
+  //     actions: ''
+  //   },
   // ]);
   public columns: string[] = [];
 
