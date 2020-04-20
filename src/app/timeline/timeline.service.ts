@@ -4,14 +4,15 @@ import { Observable } from 'rxjs';
 import { CredentialsService } from '@app/core';
 
 const routes = {
-  getAchievementCount : () => '/count',
+  getAchievementCount : () => '/timeline/achievement/stats',
 };
 
-let achievementCount = {
-  count : 10
-};
-
-
+interface countResponseContext {
+  data: {
+    achievements:number,
+    tournaments:number
+ }
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +23,7 @@ export class TimelineService {
     private credentialsService: CredentialsService
   ) {}
   
-  getAchievementCount(){
+  getAchievementCount():Observable<countResponseContext>{
     let token = this.credentialsService.isAuthenticated()
     ? this.credentialsService.credentials['data']['token']
     : '';
@@ -33,6 +34,9 @@ export class TimelineService {
       })
     };
 
-    return achievementCount.count;
+    return this.httpClient.get<countResponseContext>(
+      routes.getAchievementCount(),
+      httpOptions
+    );
   }
 }

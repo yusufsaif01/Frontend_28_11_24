@@ -41,7 +41,7 @@ export class CreatePasswordComponent implements OnInit {
         console.log('data', response);
       },
       error => {
-        if (error.error.code === 'UNAUTHORIZED')
+        if (error.error.code === 'LINK_EXPIRED')
           this._router.navigate(['/link-expired']);
 
         console.log('error', error);
