@@ -10,6 +10,13 @@ import {
 } from '@angular/material/dialog';
 import { PostPopupComponent } from '@app/post-popup/post-popup.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { TimelineService } from '@app/timeline/timeline.service';
+
+interface countResponseDataContext {
+  achievements: number;
+  tournaments: number;
+}
+
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
@@ -18,6 +25,10 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 export class TimelineComponent implements OnInit {
   environment = environment;
   profile: any;
+  count: countResponseDataContext = {
+    achievements: 0,
+    tournaments: 0
+  };
 
   customOptions: OwlOptions = {
     loop: true,
@@ -46,7 +57,8 @@ export class TimelineComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private _authenticationService: AuthenticationService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private _timelineService: TimelineService
   ) {}
 
   openDialog(): void {
@@ -61,6 +73,7 @@ export class TimelineComponent implements OnInit {
 
   ngOnInit() {
     this.getProfileData();
+    this.getAchievementCount();
   }
 
   getProfileData() {
@@ -81,6 +94,21 @@ export class TimelineComponent implements OnInit {
           'Successful',
           'Data retrieved successfully'
         );
+      },
+      error => {
+        console.log('error', error);
+        this._toastrService.error(
+          `${error.error.message}`,
+          'Failed to load data'
+        );
+      }
+    );
+  }
+
+  getAchievementCount() {
+    this._timelineService.getAchievementCount().subscribe(
+      response => {
+        this.count = response.data;
       },
       error => {
         console.log('error', error);

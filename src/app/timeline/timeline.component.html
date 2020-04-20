@@ -16,7 +16,11 @@
         >
           {{ profile.name }}
         </h3>
-        <h6>
+        <h6
+          *ngIf="
+            profile.member_type === 'player'
+          "
+        >
           {{
             profile.position.length !== 0 && profile.position[0]
               ? profile.position[0].name
@@ -30,11 +34,11 @@
       </div>
       <div class="block-middle border-bottom">
         <div class="part text-center">
-          <h4>348</h4>
+          <h4>{{ count.achievements }}</h4>
           <p>Achievements</p>
         </div>
         <div class="part border-left text-center">
-          <h4>85</h4>
+          <h4>{{ count.tournaments }}</h4>
           <p>Tournaments</p>
         </div>
       </div>
