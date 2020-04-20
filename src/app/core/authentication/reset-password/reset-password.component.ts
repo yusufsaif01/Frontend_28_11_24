@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: FormGroup;
   token: string;
+  isLinkExpired: boolean = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -33,16 +34,18 @@ export class ResetPasswordComponent implements OnInit {
       .resetPassword(this.resetPasswordForm.value, this.token)
       .subscribe(
         response => {
+          if (response.status === 'success') {
+            this.isLinkExpired = true;
+            this._toastrService.success('Successful', 'Password Reset');
+            this._authenticationService.logout();
+          }
           console.log('data', response);
-          this._toastrService.success('Successful', 'Password Reset');
-          this._router.navigate(['/login']);
         },
         error => {
+          if (error.error.code === 'UNAUTHORIZED')
+            this._router.navigate(['/link-expired']);
+
           console.log('error', error);
-          this._toastrService.error(
-            `${error.error.message}`,
-            'Password Reset Failed'
-          );
         }
       );
   }

@@ -40,7 +40,7 @@ export class ChangePasswordComponent implements OnInit {
               'Successful',
               'Password updated successfully. Please login again with your new password.'
             );
-            this._router.navigate(['/logout']);
+            this._authenticationService.logout();
           },
           error => {
             console.log('error', error);
