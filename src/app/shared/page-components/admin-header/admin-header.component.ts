@@ -35,6 +35,5 @@ export class AdminHeaderComponent implements OnInit {
 
   logout() {
     this._authenticationService.logout();
-    this.router.navigateByUrl('/login');
   }
 }

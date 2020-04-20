@@ -621,7 +621,13 @@ export class EditProfileComponent implements OnInit {
             Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
           ]
         ],
-        last_name: ['', [Validators.required]],
+        last_name: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
+          ]
+        ],
         dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
         height_feet: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
         height_inches: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
