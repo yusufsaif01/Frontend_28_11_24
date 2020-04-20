@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-
+import { Router } from '@angular/router';
 import { Credentials, CredentialsService } from './credentials.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
@@ -61,7 +61,8 @@ export interface ChangePasswordContext {
 export class AuthenticationService {
   constructor(
     private credentialsService: CredentialsService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router
   ) {}
 
   register(context: RegisterContext): Observable<any> {
@@ -96,6 +97,7 @@ export class AuthenticationService {
     }
     this.httpClient.post(routes.logout(), credentials.data.token);
     this.credentialsService.setCredentials();
+    this.router.navigateByUrl('/login');
     return of(true);
   }
 
@@ -227,10 +229,6 @@ export class AuthenticationService {
       })
     };
 
-    return this.httpClient.put<any>(
-      routes.resetLinkStatus(),
-      token,
-      httpOptions
-    );
+    return this.httpClient.get(routes.resetLinkStatus(), httpOptions);
   }
 }

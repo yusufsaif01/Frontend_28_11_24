@@ -56,7 +56,7 @@ export class ResetPasswordComponent implements OnInit {
         response => {
           console.log('data', response);
           this._toastrService.success('Successful', 'Password Reset');
-          this._authenticationService.logout();
+          this._router.navigate(['/login']);
         },
         error => {
           console.log('error', error);
