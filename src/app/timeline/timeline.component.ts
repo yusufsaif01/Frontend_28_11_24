@@ -49,7 +49,7 @@ export class TimelineComponent implements OnInit {
     public dialog: MatDialog,
     private _authenticationService: AuthenticationService,
     private _toastrService: ToastrService,
-    private _timeline: TimelineService
+    private _timelineService: TimelineService
   ) {}
 
   openDialog(): void {
@@ -97,6 +97,6 @@ export class TimelineComponent implements OnInit {
   }
 
   getAchievementCount(){
-    this.achievement_count = this._timeline.getAchievementCount()
+    this.achievement_count = this._timelineService.getAchievementCount()
   }
 }
