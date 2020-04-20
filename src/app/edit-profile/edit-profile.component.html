@@ -256,6 +256,14 @@
                   translate
                   >Last Name is required</span
                 >
+                <span
+                  *ngIf="
+                    !editProfileForm.controls.last_name.errors.required &&
+                    editProfileForm.controls.last_name.errors.pattern
+                  "
+                  translate
+                  >Last Name is invalid</span
+                >
               </mat-error>
             </div>
 

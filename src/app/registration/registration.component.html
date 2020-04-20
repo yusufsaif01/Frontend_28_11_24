@@ -115,6 +115,8 @@
                 <mat-error
                   class="error-text"
                   *ngIf="
+                    !playerRegistrationForm.controls.last_name.errors
+                      .required &&
                     playerRegistrationForm.controls.last_name.errors.pattern
                   "
                 >
