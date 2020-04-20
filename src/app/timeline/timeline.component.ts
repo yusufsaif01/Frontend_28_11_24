@@ -98,21 +98,18 @@ export class TimelineComponent implements OnInit {
   }
 
   getAchievementCount(){
-    let { achievements, tournaments } = this._timelineService.getAchievementCount().data;
-    this.achievement_count = achievements;
-    this.tournament_count = tournaments;
-    // this._timelineService.getAchievementCount().subscribe(
-    //   response =>{
-    //     this.achievement_count = response.data.achievements
-    //     this.tournament_count = response.data.tournaments
-    //   },
-    //   error => {
-    //     console.log('error', error);
-    //     this._toastrService.error(
-    //       `${error.error.message}`,
-    //       'Failed to load data'
-    //     );
-    //   }
-    // )
+    this._timelineService.getAchievementCount().subscribe(
+      response =>{
+        this.achievement_count = response.data.achievements
+        this.tournament_count = response.data.tournaments
+      },
+      error => {
+        console.log('error', error);
+        this._toastrService.error(
+          `${error.error.message}`,
+          'Failed to load data'
+        );
+      }
+    )
   }
 }

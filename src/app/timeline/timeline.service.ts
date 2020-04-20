@@ -31,7 +31,7 @@ export class TimelineService {
     private credentialsService: CredentialsService
   ) {}
   
-  getAchievementCount(){
+  getAchievementCount():Observable<countResponseContext>{
     let token = this.credentialsService.isAuthenticated()
     ? this.credentialsService.credentials['data']['token']
     : '';
@@ -42,10 +42,9 @@ export class TimelineService {
       })
     };
 
-    return countResponse;
-    // return this.httpClient.get<countResponseContext>(
-    //   routes.getAchievementCount(),
-    //   httpOptions
-    // );
+    return this.httpClient.get<countResponseContext>(
+      routes.getAchievementCount(),
+      httpOptions
+    );
   }
 }
