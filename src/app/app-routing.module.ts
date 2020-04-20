@@ -18,6 +18,7 @@ import { ManageAcademyComponent } from './admin/manage-academy/manage-academy.co
 import { TimelineComponent } from './timeline/timeline.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
 import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
+import { AwardCertificateComponent } from './award-certificate/award-certificate.component';
 const routes: Routes = [
   {
     path: '',
@@ -73,7 +74,11 @@ const routes: Routes = [
     component: ManagePlayerComponent,
     data: { title: extract('Manage Player') }
   },
-
+  {
+    path: 'awardcertification',
+    component: AwardCertificateComponent,
+    data: { title: extract('Awards and Certification') }
+  },
   {
     path: 'manage-club',
     component: ManageClubComponent,

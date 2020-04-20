@@ -118,7 +118,9 @@ export class ManagePlayerComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
       width: '50% ',
       panelClass: 'filterDialog',
-      data: {}
+      data: {
+        header: 'Delete Player'
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('popup closed');
