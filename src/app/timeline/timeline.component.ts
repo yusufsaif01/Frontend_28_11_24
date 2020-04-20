@@ -11,6 +11,12 @@ import {
 import { PostPopupComponent } from '@app/post-popup/post-popup.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { TimelineService } from '@app/timeline/timeline.service';
+
+interface countResponseDataContext {
+  achievements: number;
+  tournaments: number;
+}
+
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
@@ -19,8 +25,10 @@ import { TimelineService } from '@app/timeline/timeline.service';
 export class TimelineComponent implements OnInit {
   environment = environment;
   profile: any;
-  achievement_count:number;
-  tournament_count:number;
+  count: countResponseDataContext = {
+    achievements: 0,
+    tournaments: 0
+  };
 
   customOptions: OwlOptions = {
     loop: true,
@@ -97,11 +105,10 @@ export class TimelineComponent implements OnInit {
     );
   }
 
-  getAchievementCount(){
+  getAchievementCount() {
     this._timelineService.getAchievementCount().subscribe(
-      response =>{
-        this.achievement_count = response.data.achievements
-        this.tournament_count = response.data.tournaments
+      response => {
+        this.count = response.data;
       },
       error => {
         console.log('error', error);
@@ -110,6 +117,6 @@ export class TimelineComponent implements OnInit {
           'Failed to load data'
         );
       }
-    )
+    );
   }
 }
