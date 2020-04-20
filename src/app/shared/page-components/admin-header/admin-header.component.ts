@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '@app/core';
 
 @Component({
   selector: 'app-admin-header',
@@ -10,7 +12,10 @@ export class AdminHeaderComponent implements OnInit {
   @Input() toggler: boolean = true;
   @Output() toggleChange = new EventEmitter<boolean>();
 
-  constructor() {}
+  constructor(
+    private router: Router,
+    private _authenticationService: AuthenticationService
+  ) {}
 
   ngOnInit() {}
 
@@ -26,5 +31,10 @@ export class AdminHeaderComponent implements OnInit {
     } else {
       this.isActive = true;
     }
+  }
+
+  logout() {
+    this._authenticationService.logout();
+    this.router.navigateByUrl('/login');
   }
 }
