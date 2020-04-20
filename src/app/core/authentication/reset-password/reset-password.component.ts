@@ -27,25 +27,43 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('token', this.token);
+    this._authenticationService.resetLinkStatus(this.token).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.isLinkExpired = true;
+          this._toastrService.success(
+            'Successful',
+            'Email verified successfully'
+          );
+        }
+        console.log('data', response);
+      },
+      error => {
+        if (error.error.code === 'LINK_EXPIRED')
+          this._router.navigate(['/link-expired']);
+
+        console.log('error', error);
+      }
+    );
+  }
 
   resetPassword() {
     this._authenticationService
       .resetPassword(this.resetPasswordForm.value, this.token)
       .subscribe(
         response => {
-          if (response.status === 'success') {
-            this.isLinkExpired = true;
-            this._toastrService.success('Successful', 'Password Reset');
-            this._authenticationService.logout();
-          }
           console.log('data', response);
+          this._toastrService.success('Successful', 'Password Reset');
+          this._authenticationService.logout();
         },
         error => {
-          if (error.error.code === 'UNAUTHORIZED')
-            this._router.navigate(['/link-expired']);
-
           console.log('error', error);
+          this._toastrService.error(
+            `${error.error.message}`,
+            'Password Reset Failed'
+          );
         }
       );
   }
