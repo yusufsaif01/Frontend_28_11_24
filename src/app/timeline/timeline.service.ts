@@ -4,11 +4,20 @@ import { Observable } from 'rxjs';
 import { CredentialsService } from '@app/core';
 
 const routes = {
-  getAchievementCount : () => '/count',
+  getAchievementCount : () => '/timeline/achievement/stats',
 };
 
-let achievementCount = {
-  count : 10
+interface countResponseContext {
+  data: {
+    achievements:number,
+    tournaments:number
+ }
+}
+let countResponse:countResponseContext = {
+  data: {
+    achievements:20,
+    tournaments:50
+ }
 };
 
 
@@ -33,6 +42,10 @@ export class TimelineService {
       })
     };
 
-    return achievementCount.count;
+    return countResponse;
+    // return this.httpClient.get<countResponseContext>(
+    //   routes.getAchievementCount(),
+    //   httpOptions
+    // );
   }
 }

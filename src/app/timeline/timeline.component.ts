@@ -20,6 +20,7 @@ export class TimelineComponent implements OnInit {
   environment = environment;
   profile: any;
   achievement_count:number;
+  tournament_count:number;
 
   customOptions: OwlOptions = {
     loop: true,
@@ -97,6 +98,21 @@ export class TimelineComponent implements OnInit {
   }
 
   getAchievementCount(){
-    this.achievement_count = this._timelineService.getAchievementCount()
+    let { achievements, tournaments } = this._timelineService.getAchievementCount().data;
+    this.achievement_count = achievements;
+    this.tournament_count = tournaments;
+    // this._timelineService.getAchievementCount().subscribe(
+    //   response =>{
+    //     this.achievement_count = response.data.achievements
+    //     this.tournament_count = response.data.tournaments
+    //   },
+    //   error => {
+    //     console.log('error', error);
+    //     this._toastrService.error(
+    //       `${error.error.message}`,
+    //       'Failed to load data'
+    //     );
+    //   }
+    // )
   }
 }
