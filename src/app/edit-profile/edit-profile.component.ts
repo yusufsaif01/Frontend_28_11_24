@@ -621,7 +621,13 @@ export class EditProfileComponent implements OnInit {
             Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
           ]
         ],
-        last_name: ['', [Validators.required]],
+        last_name: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
+          ]
+        ],
         dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
         height_feet: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
         height_inches: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
@@ -760,12 +766,14 @@ export class EditProfileComponent implements OnInit {
       this.player_type = val.player_type;
     });
 
-    if (
-      this.profile.club_academy_details &&
-      this.profile.club_academy_details.head_coach_phone
-    )
-      this.editProfileForm.get('associated_club').setValue('yes');
-    else this.editProfileForm.get('associated_club').setValue('no');
+    if (this.profile.member_type === 'player') {
+      if (
+        this.profile.club_academy_details &&
+        this.profile.club_academy_details.head_coach_phone
+      )
+        this.editProfileForm.get('associated_club').setValue('yes');
+      else this.editProfileForm.get('associated_club').setValue('no');
+    }
 
     this.editProfileForm.patchValue({
       player_type: this.profile.player_type ? this.profile.player_type : '',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-
+import { Router } from '@angular/router';
 import { Credentials, CredentialsService } from './credentials.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
@@ -17,7 +17,8 @@ const routes = {
   updateBio: (a: any) => '/update-bio',
   getProfileDetails: () => '/profile',
   removeAvatar: () => '/avatar',
-  emailVerification: () => '/activate'
+  emailVerification: () => '/activate',
+  resetLinkStatus: () => '/link/status'
 };
 
 export interface LoginContext {
@@ -60,7 +61,8 @@ export interface ChangePasswordContext {
 export class AuthenticationService {
   constructor(
     private credentialsService: CredentialsService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router
   ) {}
 
   register(context: RegisterContext): Observable<any> {
@@ -95,6 +97,7 @@ export class AuthenticationService {
     }
     this.httpClient.post(routes.logout(), credentials.data.token);
     this.credentialsService.setCredentials();
+    this.router.navigateByUrl('/login');
     return of(true);
   }
 
@@ -217,5 +220,15 @@ export class AuthenticationService {
       token,
       httpOptions
     );
+  }
+
+  resetLinkStatus(token: string): Observable<any> {
+    let httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return this.httpClient.get(routes.resetLinkStatus(), httpOptions);
   }
 }
