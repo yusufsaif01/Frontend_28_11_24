@@ -10,7 +10,7 @@ import {
 } from '@angular/material/dialog';
 import { PostPopupComponent } from '@app/post-popup/post-popup.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { TimelineService } from '@app/admin/service/timeline.service';
+import { TimelineService } from '@app/timeline/service/timeline.service';
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
