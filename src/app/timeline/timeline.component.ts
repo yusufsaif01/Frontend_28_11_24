@@ -10,6 +10,7 @@ import {
 } from '@angular/material/dialog';
 import { PostPopupComponent } from '@app/post-popup/post-popup.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { TimelineService } from '@app/admin/service/timeline.service';
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
@@ -18,6 +19,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 export class TimelineComponent implements OnInit {
   environment = environment;
   profile: any;
+  achievement_count:number;
 
   customOptions: OwlOptions = {
     loop: true,
@@ -46,7 +48,8 @@ export class TimelineComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private _authenticationService: AuthenticationService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private _timeline: TimelineService
   ) {}
 
   openDialog(): void {
@@ -61,6 +64,7 @@ export class TimelineComponent implements OnInit {
 
   ngOnInit() {
     this.getProfileData();
+    this.getAchievementCount();
   }
 
   getProfileData() {
@@ -90,5 +94,9 @@ export class TimelineComponent implements OnInit {
         );
       }
     );
+  }
+
+  getAchievementCount(){
+    this.achievement_count = this._timeline.getAchievementCount()
   }
 }
