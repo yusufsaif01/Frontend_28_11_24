@@ -34,7 +34,11 @@ export class AwardCertificateComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
       width: '40% ',
       panelClass: 'filterDialog',
-      data: {}
+      data: {
+        message: 'Are you sure you want to delete',
+        acceptText: 'Yes',
+        rejectText: 'No'
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
       // if (result === true) {
