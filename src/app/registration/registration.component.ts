@@ -99,7 +99,13 @@ export class RegistrationComponent implements OnInit {
           Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
         ]
       ],
-      last_name: ['', [Validators.required]],
+      last_name: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
+        ]
+      ],
       email: ['', [Validators.required, Validators.email]],
       phone: [
         '',
