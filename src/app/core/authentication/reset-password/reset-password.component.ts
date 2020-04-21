@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '@app/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { matchingPassword } from '@app/shared/validators/matchingPassword';
 
 @Component({
   selector: 'app-reset-password',
@@ -33,10 +34,6 @@ export class ResetPasswordComponent implements OnInit {
       response => {
         if (response.status === 'success') {
           this.isLinkExpired = true;
-          this._toastrService.success(
-            'Successful',
-            'Email verified successfully'
-          );
         }
         console.log('data', response);
       },
@@ -69,9 +66,14 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   createForm() {
-    this.resetPasswordForm = this._formBuilder.group({
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
-    });
+    this.resetPasswordForm = this._formBuilder.group(
+      {
+        password: ['', Validators.required],
+        confirmPassword: ['', Validators.required]
+      },
+      {
+        validator: matchingPassword
+      }
+    );
   }
 }

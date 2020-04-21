@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '@app/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { matchingPassword } from '@app/shared/validators/matchingPassword';
 
 @Component({
   selector: 'app-reset-password',
@@ -66,9 +67,14 @@ export class CreatePasswordComponent implements OnInit {
   }
 
   createForm() {
-    this.createPasswordForm = this._formBuilder.group({
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
-    });
+    this.createPasswordForm = this._formBuilder.group(
+      {
+        password: ['', Validators.required],
+        confirmPassword: ['', Validators.required]
+      },
+      {
+        validator: matchingPassword
+      }
+    );
   }
 }
