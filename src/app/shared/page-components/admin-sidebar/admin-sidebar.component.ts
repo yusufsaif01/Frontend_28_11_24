@@ -10,6 +10,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class AdminSidebarComponent implements OnInit {
   public isActive: boolean = true;
+  public isActiveMasterData: boolean = true;
 
   sidebarList: { link: string; name: string; imagePath: string }[] = [
     {
@@ -146,15 +147,42 @@ export class AdminSidebarComponent implements OnInit {
           '/assets/images/icons/sidebar/manage-reports.svg'
       )
     );
+    this.matIconRegistry.addSvgIcon(
+      'location',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.environment.mediaUrl + '/assets/images/icons/sidebar/location.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'member-type',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.environment.mediaUrl +
+          '/assets/images/icons/sidebar/member-type.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'player-specialization',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.environment.mediaUrl +
+          '/assets/images/icons/sidebar/player-specialization.svg'
+      )
+    );
   }
 
   ngOnInit() {}
   changeDropdown() {
-    console.log('fgd');
     if (this.isActive) {
       this.isActive = false;
     } else {
       this.isActive = true;
+    }
+  }
+  // materdata
+  onclickMasterData() {
+    if (this.isActiveMasterData) {
+      this.isActiveMasterData = false;
+    } else {
+      this.isActiveMasterData = true;
     }
   }
 }

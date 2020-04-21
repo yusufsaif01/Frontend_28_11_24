@@ -19,6 +19,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
 import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
 import { AwardCertificateComponent } from './award-certificate/award-certificate.component';
+import { ManageLocationComponent } from './admin/masterdata/manage-location/manage-location.component';
 const routes: Routes = [
   {
     path: '',
@@ -89,6 +90,12 @@ const routes: Routes = [
     path: 'manage-academy',
     component: ManageAcademyComponent,
     data: { title: extract('Manage Academy') }
+  },
+
+  {
+    path: 'masterdata-location',
+    component: ManageLocationComponent,
+    data: { title: extract('Manage Location') }
   },
 
   {
