@@ -22,18 +22,15 @@
           </label>
           <select formControlName="type" matNativeControl required>
             <option value="">Select Award Type</option>
-            <option value="Awards Type">Awards Type</option>
-            <option value="Awards Type">Awards Type</option>
-            <option value="Awards Type">Awards Type</option>
+            <ng-container *ngFor="let award of awardsArray">
+              <option value="{{ award.value }}">{{ award.name }}</option>
+            </ng-container>
           </select>
         </div>
 
         <!-- Awards Name  -->
         <div class="from-block">
-          <label
-            >Award Name
-            <span>*</span>
-          </label>
+          <label>Award Name </label>
           <input
             formControlName="name"
             type="text"
@@ -67,10 +64,7 @@
 
         <!-- position secured  -->
         <div class="from-block">
-          <label
-            >Position Secured
-            <span>*</span>
-          </label>
+          <label>Position Secured </label>
           <input
             formControlName="position"
             type="text"
@@ -86,13 +80,23 @@
             >Upload Image
             <span>*</span>
           </label>
-          <input type="file" (change)="uploadAchievement($event.target.files)"/>
+          <input
+            type="file"
+            (change)="uploadAchievement($event.target.files)"
+          />
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button (click)="onNoClick()" class="cancel">Cancel</button>
-      <button [mat-dialog-close] (click)="editAddFormValue()" class="save">Save</button>
+      <button [mat-dialog-close] class="cancel">Cancel</button>
+      <button
+        [mat-dialog-close]
+        (click)="editAddFormValue()"
+        class="save"
+        [disabled]="editAddForm.invalid"
+      >
+        Save
+      </button>
     </div>
   </form>
 </div>

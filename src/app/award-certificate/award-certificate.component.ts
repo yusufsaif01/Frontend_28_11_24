@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {
   MatDialog,
@@ -19,16 +19,14 @@ export class AwardCertificateComponent implements OnInit {
   public dataSource = new MatTableDataSource([]);
   constructor(public dialog: MatDialog) {}
 
-  // dailog box open
+  // dialog box open
   openDialog(): void {
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
       width: '40%',
       panelClass: 'edit-add-popup'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('dialog data',result);      
-    });
+    dialogRef.afterClosed().subscribe(result => {});
   }
 
   // delele
