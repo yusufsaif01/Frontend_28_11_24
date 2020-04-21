@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {
   MatDialog,
@@ -19,7 +19,8 @@ export class AwardCertificateComponent implements OnInit {
   public tableConfig: AwardCertificateTableConfig = new AwardCertificateTableConfig();
   public dataSource = new MatTableDataSource([]);
   pageSize: number = 20;
-  environment = environment
+  environment = environment;
+  player_type: string;
 
   panelOptions: object = {
     bio: true,
@@ -35,33 +36,39 @@ export class AwardCertificateComponent implements OnInit {
 
   // dialog box open
   ngOnInit() {
-    this.getAwardsList(this.pageSize,1);
+    this.getAwardsList(this.pageSize, 1);
   }
 
-  // dailog box open
+  // dialog box open
   openDialog(): void {
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
       width: '40%',
-      panelClass: 'edit-add-popup'
+      panelClass: 'edit-add-popup',
+      data: { player_type: this.player_type }
     });
 
     dialogRef.afterClosed().subscribe(result => {});
   }
 
+  getPlayerType(value: string) {
+    console.log(value);
+    this.player_type = value;
+  }
+
   getAwardsList(page_size: number, page_no: number) {
     this.awardCertificateService
       .getAwardsList({ page_size, page_no })
-      .subscribe((response) => {
-        let records = response.data.records
-        for(let i=0;i<records.length;i++){
-          records[i]['serialnumber'] = i+1;
-          records[i]['media'] = environment.mediaUrl + records[i]['media']
+      .subscribe(response => {
+        let records = response.data.records;
+        for (let i = 0; i < records.length; i++) {
+          records[i]['serialnumber'] = i + 1;
+          records[i]['media'] = environment.mediaUrl + records[i]['media'];
         }
         this.dataSource = new MatTableDataSource(records);
       });
   }
 
-  // delele
+  // delete
   deletePopup(user_id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
       width: '40% ',
