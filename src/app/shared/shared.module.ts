@@ -7,6 +7,7 @@ import { MaterialModule } from './material/material.module';
 import { LoaderComponent } from './loader/loader.component';
 import { PageComponentsModule } from './page-components/page-components.module';
 import { TableComponent } from './table/table.component';
+import { MasterTableComponent } from './master-table/master-table.component';
 import { RouterModule } from '@angular/router';
 import { PaginationComponent } from './pagination/pagination.component';
 
@@ -20,13 +21,19 @@ import { PaginationComponent } from './pagination/pagination.component';
     FormsModule,
     RouterModule
   ],
-  declarations: [LoaderComponent, TableComponent, PaginationComponent],
+  declarations: [
+    LoaderComponent,
+    TableComponent,
+    MasterTableComponent,
+    PaginationComponent
+  ],
   exports: [
     LoaderComponent,
     PageComponentsModule,
     FlexLayoutModule,
     MaterialModule,
     TableComponent,
+    MasterTableComponent,
     PaginationComponent,
     ReactiveFormsModule,
     FormsModule,
