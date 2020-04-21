@@ -20,6 +20,7 @@ import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/l
 import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
 import { AwardCertificateComponent } from './award-certificate/award-certificate.component';
 import { ManageLocationComponent } from './admin/masterdata/manage-location/manage-location.component';
+import { ManageStateComponent } from './admin/masterdata/manage-location/manage-state/manage-state.component';
 const routes: Routes = [
   {
     path: '',
@@ -96,6 +97,12 @@ const routes: Routes = [
     path: 'masterdata-location',
     component: ManageLocationComponent,
     data: { title: extract('Manage Location') }
+  },
+
+  {
+    path: 'masterdata-state',
+    component: ManageStateComponent,
+    data: { title: extract('Manage State') }
   },
 
   {
