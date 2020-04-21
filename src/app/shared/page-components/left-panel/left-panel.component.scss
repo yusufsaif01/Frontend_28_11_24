@@ -74,6 +74,16 @@
         }
       }
     }
+    .achievement {
+      a {
+        display: block;
+        color: $blue;
+        padding: 2rem;
+        font-size: 2.2rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+    }
     .boi {
       display: flex;
       flex-direction: column;
@@ -103,111 +113,11 @@
       }
     }
   }
-  // Right Section
-  .right-section {
-    width: 75%;
-    margin: 3rem 2rem;
-    background: $color-white;
-    border-radius: 0.8rem;
-    .award-heading {
-      display: flex;
-      justify-content: space-between;
-      padding: 2rem;
-      border-bottom: 0.3rem solid #edf2f6;
-      .left-part {
-        h2 {
-          font-size: 2.8rem;
-          i-feather {
-            width: 2.8rem;
-            margin-right: 0.5rem;
-            transform: translateY(0.4rem);
-          }
-        }
-      }
-      .right-part {
-        button {
-          @include btn-primary-outline;
-        }
-      }
-    }
-    .award-table {
-      padding: 2rem;
-      ::ng-deep {
-        .mat-cell:first-of-type,
-        .mat-footer-cell:first-of-type,
-        .mat-header-cell:first-of-type {
-          max-width: 12rem;
-        }
-        .mat-cell:nth-of-type(4),
-        .mat-footer-cell:nth-of-type(4),
-        .mat-header-cell:nth-of-type(4) {
-          max-width: 11rem;
-        }
-        .mat-cell:last-child,
-        .mat-footer-cell:last-child,
-        .mat-header-cell:last-child {
-          max-width: 15rem;
-        }
-        .mat-table
-          .mat-row
-          .mat-cell
-          .action-buttons
-          button:nth-of-type(1)
-          img {
-          margin-top: 0px;
-          height: 2rem;
-        }
-        .mat-table .mat-row .mat-cell .action-buttons button:nth-of-type(1) {
-          transform: translateY(0px);
-        }
-        .mat-table .mat-row .mat-cell img.thumbnail {
-          width: 3rem;
-          height: 3rem;
-        }
-      }
-    }
-  }
-}
-
-// paginations
-.pagination-wrapper {
-  width: 96.5%;
-  margin: 1rem 2rem;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 2rem;
-  background-color: $color-white;
-  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-  .showing-data {
-    p {
-      font-size: 1.8rem;
-      color: $text-color;
-    }
-  }
-  .pagination {
-    ul {
-      list-style: none;
-      li {
-        display: inline-block;
-        margin: 0 1rem;
-        a {
-          color: $text-color;
-          font-weight: 700;
-          padding: 0.75rem 1.2rem;
-          display: inline-block;
-          font-size: 1.4rem;
-          border-radius: 3rem;
-          box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-        }
-      }
-    }
-  }
 }
 
 .icon-size {
-  width: 2rem;
-  height: 2rem;
+  width: 2rem !important;
+  height: 2rem !important;
   margin-right: 1rem;
 }
 
