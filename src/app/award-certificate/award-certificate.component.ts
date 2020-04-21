@@ -19,6 +19,8 @@ export class AwardCertificateComponent implements OnInit {
   public dataSource = new MatTableDataSource([]);
   constructor(public dialog: MatDialog) {}
 
+  ngOnInit() {}
+
   // dailog box open
   openDialog(): void {
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
@@ -55,6 +57,4 @@ export class AwardCertificateComponent implements OnInit {
       // }
     });
   }
-
-  ngOnInit() {}
 }
