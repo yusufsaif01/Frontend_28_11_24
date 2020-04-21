@@ -21,7 +21,8 @@ export class AwardCertificateComponent implements OnInit {
   panelOptions: object = {
     bio: true,
     member_type: true,
-    my_achievements: false
+    my_achievements: false,
+    view_profile_link: true
   };
 
   constructor(public dialog: MatDialog) {}

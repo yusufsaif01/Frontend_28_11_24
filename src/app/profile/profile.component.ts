@@ -15,6 +15,12 @@ export class ProfileComponent implements OnInit {
   aadhar: string;
   employment_contract: string;
   document: string;
+  panelOptions: object = {
+    logout_link: true,
+    bio: false,
+    my_achievements: false
+  };
+
   constructor(
     private _authenticationService: AuthenticationService,
     private _toastrService: ToastrService

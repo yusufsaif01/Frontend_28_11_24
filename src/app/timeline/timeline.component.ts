@@ -20,7 +20,8 @@ export class TimelineComponent implements OnInit {
   panelOptions: object = {
     bio: true,
     member_type: true,
-    my_achievements: true
+    my_achievements: true,
+    view_profile_link: true
   };
 
   customOptions: OwlOptions = {

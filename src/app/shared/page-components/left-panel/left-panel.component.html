@@ -36,7 +36,10 @@
     </div>
   </div>
   <div class="block-bottom">
-    <a [routerLink]="['/profile']"> View my profile</a>
+    <a *ngIf="options.view_profile_link" [routerLink]="['/profile']">
+      View my profile</a
+    >
+    <a *ngIf="options.logout_link" [routerLink]="['/logout']"> Logout</a>
   </div>
 </div>
 
