@@ -1630,16 +1630,29 @@
                             Year must not exceed 4 character length
                           </span>
                         </ng-template>
+                        <ng-template #patternBlock>
+                          <span
+                            *ngIf="
+                              editProfileForm.controls.trophies.controls[i]
+                                .get('year')
+                                .hasError('pattern');
+                              else charBlock
+                            "
+                            translate
+                          >
+                            Year format is invalid
+                          </span>
+                        </ng-template>
                         <span
                           *ngIf="
                             editProfileForm.controls.trophies.controls[i]
                               .get('year')
-                              .hasError('pattern');
-                            else charBlock
+                              .hasError('max');
+                            else patternBlock
                           "
                           translate
                         >
-                          Year format is invalid
+                          Year cannot be greater than current year
                         </span>
                       </mat-error>
                     </div>
