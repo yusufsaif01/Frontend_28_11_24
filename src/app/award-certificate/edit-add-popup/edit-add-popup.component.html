@@ -1,5 +1,5 @@
 <div class="from-container">
-  <form>
+  <form [formGroup]="editAddForm">
     <div class="header">
       <div class="title">
         <h3>Add Awards</h3>
@@ -20,11 +20,11 @@
             >Award Type
             <span>*</span>
           </label>
-          <select matNativeControl required>
+          <select formControlName="type" matNativeControl required>
             <option value="">Select Award Type</option>
-            <option value="">Awards Type</option>
-            <option value="">Awards Type</option>
-            <option value="">Awards Type</option>
+            <option value="Awards Type">Awards Type</option>
+            <option value="Awards Type">Awards Type</option>
+            <option value="Awards Type">Awards Type</option>
           </select>
         </div>
 
@@ -34,7 +34,12 @@
             >Award Name
             <span>*</span>
           </label>
-          <input type="text" matInput placeholder="Award Name" />
+          <input
+            formControlName="name"
+            type="text"
+            matInput
+            placeholder="Award Name"
+          />
         </div>
       </div>
       <div class="from-wrapper">
@@ -46,6 +51,7 @@
               <span>*</span>
             </label>
             <input
+              formControlName="year"
               matInput
               [matDatepicker]="picker"
               readonly
@@ -65,7 +71,12 @@
             >Position Secured
             <span>*</span>
           </label>
-          <input type="text" matInput placeholder="Position" />
+          <input
+            formControlName="position"
+            type="text"
+            matInput
+            placeholder="Position"
+          />
         </div>
       </div>
       <div class="from-wrapper">
@@ -75,13 +86,13 @@
             >Upload Image
             <span>*</span>
           </label>
-          <input type="file" />
+          <input type="file" (change)="uploadAchievement($event.target.files)"/>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="cancel">Cancel</button>
-      <button class="save">Save</button>
+      <button (click)="onNoClick()" class="cancel">Cancel</button>
+      <button [mat-dialog-close] (click)="editAddFormValue()" class="save">Save</button>
     </div>
   </form>
 </div>

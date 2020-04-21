@@ -26,7 +26,9 @@ export class AwardCertificateComponent implements OnInit {
       panelClass: 'edit-add-popup'
     });
 
-    dialogRef.afterClosed().subscribe(result => {});
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('dialog data',result);      
+    });
   }
 
   // delele
