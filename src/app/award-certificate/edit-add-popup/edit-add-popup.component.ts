@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { AwardCertificateService } from '../award-certificate.service';
 import { finalize } from 'rxjs/operators';
 import { untilDestroyed } from '@app/core';
@@ -11,10 +13,19 @@ interface ArrayTypeContext {
   value: string;
 }
 
+const APP_DATE_FORMATS = {
+  parse: {
+    dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
+  },
+  display: {
+    dateInput: { year: 'numeric' }
+  }
+};
 @Component({
   selector: 'app-edit-add-popup',
   templateUrl: './edit-add-popup.component.html',
-  styleUrls: ['./edit-add-popup.component.scss']
+  styleUrls: ['./edit-add-popup.component.scss'],
+  providers: [{ provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }]
 })
 export class EditAddPopupComponent implements OnInit, OnDestroy {
   editAddForm: FormGroup;
@@ -22,6 +33,9 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   member_type: string = localStorage.getItem('member_type') || 'player';
   player_type: string = 'amateur';
   awardsArray: ArrayTypeContext[];
+
+  minDate: Date = new Date(1970, 0, 1);
+  maxDate: Date = new Date();
 
   constructor(
     public dialogRef: MatDialogRef<EditAddPopupComponent>,
@@ -32,6 +46,15 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   ) {
     this.createForm();
     this.player_type = data.player_type;
+  }
+
+  closeDatePicker(
+    elem: MatDatepicker<any>,
+    event: MatDatepickerInputEvent<Date>
+  ) {
+    elem.close();
+    let year = new Date(String(event));
+    this.editAddForm.get('year').setValue(new Date(year));
   }
 
   ngOnInit() {
@@ -168,9 +191,18 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   private createForm() {
     this.editAddForm = this.formBuilder.group({
       type: ['', [Validators.required]],
-      name: ['', []],
+      name: [
+        '',
+        [
+          Validators.maxLength(30),
+          Validators.pattern(/^[a-zA-Z]+|[0-9]?[a-zA-Z]+[0-9]?$/)
+        ]
+      ],
       year: ['', [Validators.required]],
-      position: ['', []]
+      position: [
+        '',
+        [Validators.maxLength(20), Validators.pattern(/^[0-9a-zA-Z]+%?$/)]
+      ]
     });
   }
 

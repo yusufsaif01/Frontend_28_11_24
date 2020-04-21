@@ -26,6 +26,16 @@
               <option value="{{ award.value }}">{{ award.name }}</option>
             </ng-container>
           </select>
+          <mat-error
+            *ngIf="
+              editAddForm.controls.type.invalid &&
+              editAddForm.controls.type.touched
+            "
+          >
+            <span *ngIf="editAddForm.controls.type.errors.required" translate
+              >Award Type is required
+            </span>
+          </mat-error>
         </div>
 
         <!-- Awards Name  -->
@@ -37,6 +47,36 @@
             matInput
             placeholder="Award Name"
           />
+          <mat-error
+            *ngIf="
+              editAddForm.controls.name.invalid &&
+              editAddForm.controls.name.touched
+            "
+          >
+            <ng-template #lengthBlock>
+              <span
+                class="error-text"
+                *ngIf="
+                  editAddForm.controls.name.errors &&
+                  editAddForm.controls.name.errors.maxlength
+                "
+              >
+                Please provide award name upto
+                {{ editAddForm.controls.name.errors.maxlength.requiredLength }}
+                characters
+              </span>
+            </ng-template>
+            <span
+              class="error-text"
+              *ngIf="
+                editAddForm.controls.name.errors &&
+                  editAddForm.controls.name.errors.pattern;
+                else lengthBlock
+              "
+            >
+              Award Name format is invalid
+            </span>
+          </mat-error>
         </div>
       </div>
       <div class="from-wrapper">
@@ -53,13 +93,29 @@
               [matDatepicker]="picker"
               readonly
               placeholder="Select Year"
+              [min]="minDate"
+              [max]="maxDate"
             />
             <mat-datepicker-toggle
               matSuffix
               [for]="picker"
             ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker
+              #picker
+              startView="multi-year"
+              (yearSelected)="closeDatePicker(picker, $event)"
+            ></mat-datepicker>
           </div>
+          <mat-error
+            *ngIf="
+              editAddForm.controls.year.invalid &&
+              editAddForm.controls.year.touched
+            "
+          >
+            <span *ngIf="editAddForm.controls.year.errors.required" translate
+              >Year is required</span
+            >
+          </mat-error>
         </div>
 
         <!-- position secured  -->
@@ -71,6 +127,38 @@
             matInput
             placeholder="Position"
           />
+          <mat-error
+            *ngIf="
+              editAddForm.controls.position.invalid &&
+              editAddForm.controls.position.touched
+            "
+          >
+            <ng-template #lengthBlock>
+              <span
+                class="error-text"
+                *ngIf="
+                  editAddForm.controls.position.errors &&
+                  editAddForm.controls.position.errors.maxlength
+                "
+              >
+                Please provide award position upto
+                {{
+                  editAddForm.controls.position.errors.maxlength.requiredLength
+                }}
+                characters
+              </span>
+            </ng-template>
+            <span
+              class="error-text"
+              *ngIf="
+                editAddForm.controls.position.errors &&
+                  editAddForm.controls.position.errors.pattern;
+                else lengthBlock
+              "
+            >
+              Award Position format is invalid
+            </span>
+          </mat-error>
         </div>
       </div>
       <div class="from-wrapper">
