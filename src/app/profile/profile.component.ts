@@ -16,9 +16,7 @@ export class ProfileComponent implements OnInit {
   employment_contract: string;
   document: string;
   panelOptions: object = {
-    logout_link: true,
-    bio: false,
-    my_achievements: false
+    logout_link: true
   };
 
   constructor(
