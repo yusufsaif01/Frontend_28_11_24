@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '@app/core';
-import { ToastrService } from 'ngx-toastr';
+
 import { environment } from '../../environments/environment';
 
 import {
@@ -10,12 +9,6 @@ import {
 } from '@angular/material/dialog';
 import { PostPopupComponent } from '@app/post-popup/post-popup.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { TimelineService } from '@app/timeline/timeline.service';
-
-interface countResponseDataContext {
-  achievements: number;
-  tournaments: number;
-}
 
 @Component({
   selector: 'app-timeline',
@@ -24,10 +17,11 @@ interface countResponseDataContext {
 })
 export class TimelineComponent implements OnInit {
   environment = environment;
-  profile: any;
-  count: countResponseDataContext = {
-    achievements: 0,
-    tournaments: 0
+  panelOptions: object = {
+    bio: true,
+    member_type: true,
+    my_achievements: true,
+    view_profile_link: true
   };
 
   customOptions: OwlOptions = {
@@ -54,69 +48,16 @@ export class TimelineComponent implements OnInit {
       }
     }
   };
-  constructor(
-    public dialog: MatDialog,
-    private _authenticationService: AuthenticationService,
-    private _toastrService: ToastrService,
-    private _timelineService: TimelineService
-  ) {}
+  constructor(public dialog: MatDialog) {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(PostPopupComponent, {
       width: '45%',
       panelClass: 'postpopup'
-      // data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {});
   }
 
-  ngOnInit() {
-    this.getProfileData();
-    this.getAchievementCount();
-  }
-
-  getProfileData() {
-    this._authenticationService.getProfileDetails().subscribe(
-      response => {
-        console.log('data', response);
-        this.profile = response.data;
-
-        if (this.profile.avatar_url) {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + this.profile.avatar_url;
-        } else {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
-        }
-
-        this._toastrService.success(
-          'Successful',
-          'Data retrieved successfully'
-        );
-      },
-      error => {
-        console.log('error', error);
-        this._toastrService.error(
-          `${error.error.message}`,
-          'Failed to load data'
-        );
-      }
-    );
-  }
-
-  getAchievementCount() {
-    this._timelineService.getAchievementCount().subscribe(
-      response => {
-        this.count = response.data;
-      },
-      error => {
-        console.log('error', error);
-        this._toastrService.error(
-          `${error.error.message}`,
-          'Failed to load data'
-        );
-      }
-    );
-  }
+  ngOnInit() {}
 }
