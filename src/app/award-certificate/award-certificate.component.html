@@ -2,65 +2,7 @@
 <div class="site-wrapper">
   <!-- left Sidebar -->
   <div class="left-section">
-    <!-- profile  -->
-    <div class="block-design">
-      <div class="profile-section border-bottom">
-        <img src="assets/images/profile-icon.png" alt="profile-icon" />
-        <h3>Rohan Mehta</h3>
-        <h6>
-          Sticker
-        </h6>
-        <p>
-          <i-feather name="alert-circle" class="icon-size"></i-feather>
-          Not Verified
-        </p>
-      </div>
-      <div class="block-middle border-bottom">
-        <div class="part text-center">
-          <h4>348</h4>
-          <p>Achievements</p>
-        </div>
-        <div class="part border-left text-center">
-          <h4>85</h4>
-          <p>Tournaments</p>
-        </div>
-      </div>
-      <div class="block-bottom">
-        <a [routerLink]="['/profile']"> View my profile</a>
-      </div>
-    </div>
-
-    <!-- player type -->
-    <div class="block-design">
-      <div class="block-middle">
-        <div class="part">
-          <h4>Player Type</h4>
-        </div>
-        <div class="part">
-          <h5>Professional</h5>
-        </div>
-      </div>
-    </div>
-
-    <!-- player bio -->
-    <div class="block-design">
-      <div class="boi">
-        <div class="heading border-bottom">
-          <h3>Player Bio</h3>
-        </div>
-        <div class="player-boi">
-          <p>
-            Contrary to popular belief, Lorem Ipsum is not simply random text.
-            It has roots in a piece of classical Latin literature from 45 BC,
-            making it over 2000 years old. Richard McClintock, a Latin professor
-            at Hampden-Sydney College in Virginia, looked up one of the more
-            obscure Latin words, consectetur, from a Lorem Ipsum passage, and
-            going through the cites of the word in classical literature,
-            discovered the undoubtable source.
-          </p>
-        </div>
-      </div>
-    </div>
+    <app-left-panel [options]="panelOptions"></app-left-panel>
   </div>
   <div class="right-section">
     <div class="award-heading">

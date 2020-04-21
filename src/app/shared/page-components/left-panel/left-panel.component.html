@@ -1,0 +1,81 @@
+<!-- profile  -->
+<div class="block-design" *ngIf="profile">
+  <div class="profile-section border-bottom">
+    <img src="{{ profile.avatar_url }}" alt="profile-icon" />
+    <h3 *ngIf="profile.member_type === 'player'">
+      {{ profile.first_name }} {{ profile.last_name }}
+    </h3>
+    <h3
+      *ngIf="
+        profile.member_type === 'club' || profile.member_type === 'academy'
+      "
+    >
+      {{ profile.name | titlecase }}
+    </h3>
+    <h6 *ngIf="profile.member_type === 'player'">
+      {{
+        (profile.position && profile.position[0]
+          ? profile.position[0].name
+          : ''
+        ) | titlecase
+      }}
+    </h6>
+    <p>
+      <i-feather name="alert-circle" class="icon-size"></i-feather>
+      Not Verified
+    </p>
+  </div>
+  <div class="block-middle border-bottom">
+    <div class="part text-center">
+      <h4>{{ count.achievements }}</h4>
+      <p>Achievements</p>
+    </div>
+    <div class="part border-left text-center">
+      <h4>{{ count.tournaments }}</h4>
+      <p>Tournaments</p>
+    </div>
+  </div>
+  <div class="block-bottom">
+    <a *ngIf="options.view_profile_link" [routerLink]="['/profile']">
+      View my profile</a
+    >
+    <a *ngIf="options.logout_link" [routerLink]="['/logout']"> Logout</a>
+  </div>
+</div>
+
+<!-- player type -->
+<div class="block-design" *ngIf="profile && profile.member_type === 'player'">
+  <div class="block-middle">
+    <div class="part">
+      <h4>Player Type</h4>
+    </div>
+    <div class="part">
+      <h5>{{ profile?.player_type | titlecase }}</h5>
+    </div>
+  </div>
+</div>
+
+<!-- achievements -->
+<ng-container *ngIf="options.my_achievements">
+  <div class="block-design">
+    <div class="achievement">
+      <a [routerLink]="['/awardcertification']">My Achievements</a>
+    </div>
+  </div>
+</ng-container>
+
+<!-- player bio -->
+<ng-container *ngIf="options.bio">
+  <div class="block-design" *ngIf="profile">
+    <div class="boi">
+      <div class="heading border-bottom">
+        <h3>{{ profile.member_type | titlecase }} Bio</h3>
+      </div>
+      <div class="player-boi">
+        <p>
+          {{ profile?.bio }}
+        </p>
+      </div>
+    </div>
+  </div>
+</ng-container>
