@@ -68,6 +68,7 @@ import { DeleteConfirmationComponent } from './shared/dialog-box/delete-confirma
 import { StatusConfirmationComponent } from './shared/dialog-box/status-confirmation/status-confirmation.component';
 import { AwardCertificateComponent } from './award-certificate/award-certificate.component';
 import { EditAddPopupComponent } from './award-certificate/edit-add-popup/edit-add-popup.component';
+import { ManageLocationComponent } from './admin/masterdata/manage-location/manage-location.component';
 const icons = {
   Camera,
   Heart,
@@ -143,7 +144,8 @@ const icons = {
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
     AwardCertificateComponent,
-    EditAddPopupComponent
+    EditAddPopupComponent,
+    ManageLocationComponent
     // , HomeComponent
   ],
   providers: [
