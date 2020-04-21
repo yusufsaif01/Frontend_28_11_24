@@ -1,43 +1,63 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { AwardCertificateService } from '../award-certificate.service';
 import { finalize } from 'rxjs/operators';
 import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 
+const APP_DATE_FORMATS = {
+  parse: {
+    dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
+  },
+  display: {
+    dateInput: { year: 'numeric' }
+  }
+};
 @Component({
   selector: 'app-edit-add-popup',
   templateUrl: './edit-add-popup.component.html',
-  styleUrls: ['./edit-add-popup.component.scss']
+  styleUrls: ['./edit-add-popup.component.scss'],
+  providers: [{ provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }]
 })
 export class EditAddPopupComponent implements OnInit, OnDestroy {
   editAddForm: FormGroup;
   achievement: File;
   member_type: string = localStorage.getItem('member_type') || 'player';
   player_type: string = 'amateur';
-  awardsArray: {name:string;value:string}[];
+  awardsArray: { name: string; value: string }[];
+
+  minDate: Date = new Date(1970, 0, 1);
+  maxDate: Date = new Date();
 
   constructor(
     public dialogRef: MatDialogRef<EditAddPopupComponent>,
     private formBuilder: FormBuilder,
     private awardCertificateService: AwardCertificateService,
-    private toastrService:ToastrService
+    private toastrService: ToastrService
   ) {
     this.createForm();
   }
 
+  closeDatePicker(
+    elem: MatDatepicker<any>,
+    event: MatDatepickerInputEvent<Date>
+  ) {
+    elem.close();
+    let year = new Date(String(event));
+    this.editAddForm.get('year').setValue(new Date(year));
+  }
 
   ngOnInit() {
-    if(this.member_type==='player'){
-      if(this.player_type==='grassroot'){
-        this.awardsArray = this.grassrootsAwardTypeArray
-      }
-      else if(this.player_type==='amateur'){
-        this.awardsArray = this.grassrootsAwardTypeArray
-      }
-      else if(this.player_type==='professional'){
-        this.awardsArray = this.grassrootsAwardTypeArray
+    if (this.member_type === 'player') {
+      if (this.player_type === 'grassroot') {
+        this.awardsArray = this.grassrootsAwardTypeArray;
+      } else if (this.player_type === 'amateur') {
+        this.awardsArray = this.grassrootsAwardTypeArray;
+      } else if (this.player_type === 'professional') {
+        this.awardsArray = this.grassrootsAwardTypeArray;
       }
     }
   }
@@ -45,106 +65,106 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
 
   grassrootsAwardTypeArray = [
     {
-      name:'School Tournament Certificates',
-      value:'School Tournament Certificates',
+      name: 'School Tournament Certificates',
+      value: 'School Tournament Certificates'
     },
     {
-      name:'Private Tournament Certificates',
-      value:'Private Tournament Certificates',
+      name: 'Private Tournament Certificates',
+      value: 'Private Tournament Certificates'
     },
     {
-      name:'National Tournaments',
-      value:'National Tournaments',
+      name: 'National Tournaments',
+      value: 'National Tournaments'
     },
     {
-      name:'State Level Tournaments',
-      value:'State Level Tournaments',
+      name: 'State Level Tournaments',
+      value: 'State Level Tournaments'
     },
     {
-      name:'Club Level Tournaments',
-      value:'Club Level Tournaments',
+      name: 'Club Level Tournaments',
+      value: 'Club Level Tournaments'
     },
     {
-      name:'Academy Level Tournaments',
-      value:'Academy Level Tournaments',
+      name: 'Academy Level Tournaments',
+      value: 'Academy Level Tournaments'
     },
     {
-      name:'International Tournament Certificates',
-      value:'International Tournament Certificates',
+      name: 'International Tournament Certificates',
+      value: 'International Tournament Certificates'
     },
     {
-      name:'Other Awards',
-      value:'Other Awards',
+      name: 'Other Awards',
+      value: 'Other Awards'
     }
   ];
 
   amateursAwardTypeArray = [
     {
-      name:'School Tournament Certificates',
-      value:'School Tournament Certificates',
+      name: 'School Tournament Certificates',
+      value: 'School Tournament Certificates'
     },
     {
-      name:'Private Tournament Certificates',
-      value:'Private Tournament Certificates',
+      name: 'Private Tournament Certificates',
+      value: 'Private Tournament Certificates'
     },
     {
-      name:'National Tournaments',
-      value:'National Tournaments',
+      name: 'National Tournaments',
+      value: 'National Tournaments'
     },
     {
-      name:'State Level Tournaments',
-      value:'State Level Tournaments',
+      name: 'State Level Tournaments',
+      value: 'State Level Tournaments'
     },
     {
-      name:'Club Level Certificates',
-      value:'Club Level Certificates',
+      name: 'Club Level Certificates',
+      value: 'Club Level Certificates'
     },
     {
-      name:'Academy Level Certificates',
-      value:'Academy Level Certificates',
+      name: 'Academy Level Certificates',
+      value: 'Academy Level Certificates'
     },
     {
-      name:'International Tournament Certificates',
-      value:'International Tournament Certificates',
+      name: 'International Tournament Certificates',
+      value: 'International Tournament Certificates'
     },
     {
-      name:'Individual Awards',
-      value:'Individual Awards',
+      name: 'Individual Awards',
+      value: 'Individual Awards'
     }
   ];
 
   professionalsAwardTypeArray = [
     {
-      name:'Club Level Competition Certificates',
-      value:'Club Level Competition Certificates',
+      name: 'Club Level Competition Certificates',
+      value: 'Club Level Competition Certificates'
     },
     {
-      name:'Academy Level Certificates',
-      value:'Academy Level Certificates',
+      name: 'Academy Level Certificates',
+      value: 'Academy Level Certificates'
     },
     {
-      name:'School Tournament Certificates',
-      value:'School Tournament Certificates',
+      name: 'School Tournament Certificates',
+      value: 'School Tournament Certificates'
     },
     {
-      name:'Private Tournament Certificates',
-      value:'Private Tournament Certificates',
+      name: 'Private Tournament Certificates',
+      value: 'Private Tournament Certificates'
     },
     {
-      name:'International Tournament Certificates',
-      value:'International Tournament Certificates',
+      name: 'International Tournament Certificates',
+      value: 'International Tournament Certificates'
     },
     {
-      name:'National Tournaments',
-      value:'National Tournaments',
+      name: 'National Tournaments',
+      value: 'National Tournaments'
     },
     {
-      name:'State Level Tournaments ',
-      value:'State Level Tournaments ',
+      name: 'State Level Tournaments ',
+      value: 'State Level Tournaments '
     },
     {
-      name:'Individual Awards',
-      value:'Individual Awards'
+      name: 'Individual Awards',
+      value: 'Individual Awards'
     }
   ];
 
@@ -177,25 +197,27 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   editAddFormValue() {
     console.log(this.editAddForm.value);
     let requestData = this.toFormData(this.editAddForm.value);
-    if(this.achievement) requestData.set('achievement',this.achievement)
+    if (this.achievement) requestData.set('achievement', this.achievement);
     const award$ = this.awardCertificateService.addAwards(requestData);
     award$
       .pipe(
-        finalize(()=>{
-          this.editAddForm.markAsPristine()
+        finalize(() => {
+          this.editAddForm.markAsPristine();
         }),
         untilDestroyed(this)
       )
       .subscribe(
-        response =>{
-          console.log('server response',response);    
-          this.toastrService.success(`${response.message}`, 'Award Added Successfully');  
+        response => {
+          console.log('server response', response);
+          this.toastrService.success(
+            `${response.message}`,
+            'Award Added Successfully'
+          );
         },
         error => {
-          console.log('error',error)
+          console.log('error', error);
           this.toastrService.error(`${error.error.message}`, 'Error');
         }
-      )
-
+      );
   }
 }

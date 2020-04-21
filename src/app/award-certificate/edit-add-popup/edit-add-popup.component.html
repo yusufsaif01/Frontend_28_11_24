@@ -53,12 +53,18 @@
               [matDatepicker]="picker"
               readonly
               placeholder="Select Year"
+              [min]="minDate"
+              [max]="maxDate"
             />
             <mat-datepicker-toggle
               matSuffix
               [for]="picker"
             ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker
+              #picker
+              startView="multi-year"
+              (yearSelected)="closeDatePicker(picker, $event)"
+            ></mat-datepicker>
           </div>
         </div>
 
