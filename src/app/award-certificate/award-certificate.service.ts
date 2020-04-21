@@ -5,8 +5,25 @@ import { CredentialsService } from '@app/core';
 
 const routes = {
   addAwards:(c:any) => '/achievement/add',
+  getAwardsList:(c:CommonContext) => '/achievement/list',
 }
 
+interface CommonContext{
+  page_no?:number;
+  page_size?:number;
+}
+interface AwardsListResponseContext {
+  data: {
+    total: number;
+    records: {
+      type: string;
+      name: string;
+      year: string;
+      position: string;
+      media: string;
+    }[];
+  };
+}
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +50,30 @@ export class AwardCertificateService {
     return this.httpClient.post<any>(
       routes.addAwards(context),
       context,
+      httpOptions
+    );
+  }
+
+  // /api/achievement/list?page_no=1&page_size=20
+  getAwardsList(context:CommonContext):Observable<AwardsListResponseContext>{
+    let token = this.credentialsService.isAuthenticated()
+    ? this.credentialsService.credentials['data']['token']
+    : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    let query = '?';
+    if (context['page_no']) {
+      query += 'page_no=' + context['page_no'];
+    }
+    if (context['page_size']) {
+      query += '&page_size=' + context['page_size'];
+    }
+    return this.httpClient.get<AwardsListResponseContext>(
+      routes.getAwardsList(context) + query,
       httpOptions
     );
   }

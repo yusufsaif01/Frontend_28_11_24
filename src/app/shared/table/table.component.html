@@ -31,8 +31,8 @@
                 '...'
           }}
         </p>
-        <p *ngIf="col === 'thumbnail'">
-          <img class="thumbnail" src="assets/images/profile-icon.png" alt="" />
+        <p *ngIf="col === 'media'">
+          <img class="thumbnail" [src]="tableConfig.columns[col].getValue(element)" alt="" />
         </p>
       </div>
     </mat-cell>

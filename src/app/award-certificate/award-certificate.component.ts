@@ -8,7 +8,8 @@ import {
 import { AwardCertificateTableConfig } from './award-certificate-table-conf';
 import { EditAddPopupComponent } from './edit-add-popup/edit-add-popup.component';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
-
+import { AwardCertificateService } from './award-certificate.service';
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-award-certificate',
   templateUrl: './award-certificate.component.html',
@@ -17,6 +18,8 @@ import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confi
 export class AwardCertificateComponent implements OnInit {
   public tableConfig: AwardCertificateTableConfig = new AwardCertificateTableConfig();
   public dataSource = new MatTableDataSource([]);
+  pageSize: number = 20;
+  environment = environment
 
   panelOptions: object = {
     bio: true,
@@ -25,10 +28,15 @@ export class AwardCertificateComponent implements OnInit {
     view_profile_link: true
   };
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private awardCertificateService: AwardCertificateService
+  ) {}
 
   // dialog box open
-  ngOnInit() {}
+  ngOnInit() {
+    this.getAwardsList(this.pageSize,1);
+  }
 
   // dailog box open
   openDialog(): void {
@@ -38,6 +46,19 @@ export class AwardCertificateComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {});
+  }
+
+  getAwardsList(page_size: number, page_no: number) {
+    this.awardCertificateService
+      .getAwardsList({ page_size, page_no })
+      .subscribe((response) => {
+        let records = response.data.records
+        for(let i=0;i<records.length;i++){
+          records[i]['serialnumber'] = i+1;
+          records[i]['media'] = environment.mediaUrl + records[i]['media']
+        }
+        this.dataSource = new MatTableDataSource(records);
+      });
   }
 
   // delele
