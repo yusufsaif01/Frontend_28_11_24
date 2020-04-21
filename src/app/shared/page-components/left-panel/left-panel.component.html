@@ -53,22 +53,26 @@
 </div>
 
 <!-- achievements -->
-<div class="block-design">
-  <div class="achievement">
-    <a [routerLink]="['/profile']">My Achievements</a>
+<ng-container *ngIf="options.my_achievements">
+  <div class="block-design">
+    <div class="achievement">
+      <a [routerLink]="['/awardcertification']">My Achievements</a>
+    </div>
   </div>
-</div>
+</ng-container>
 
 <!-- player bio -->
-<div class="block-design" *ngIf="profile">
-  <div class="boi">
-    <div class="heading border-bottom">
-      <h3>Player Bio</h3>
-    </div>
-    <div class="player-boi">
-      <p>
-        {{ profile?.bio }}
-      </p>
+<ng-container *ngIf="options.bio">
+  <div class="block-design" *ngIf="profile">
+    <div class="boi">
+      <div class="heading border-bottom">
+        <h3>Player Bio</h3>
+      </div>
+      <div class="player-boi">
+        <p>
+          {{ profile?.bio }}
+        </p>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>

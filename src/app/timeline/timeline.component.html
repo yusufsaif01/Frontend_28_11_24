@@ -1,77 +1,8 @@
 <app-header></app-header>
-<div class="site-wrapper" *ngIf="profile">
+<div class="site-wrapper">
   <!-- Left section -->
   <div class="left-section">
-    <!-- profile  -->
-    <div class="block-design">
-      <div class="profile-section border-bottom">
-        <img src="{{ profile.avatar_url }}" alt="profile-icon" />
-        <h3 *ngIf="profile.member_type === 'player'">
-          {{ profile.first_name }} {{ profile.last_name }}
-        </h3>
-        <h3
-          *ngIf="
-            profile.member_type === 'club' || profile.member_type === 'academy'
-          "
-        >
-          {{ profile.name }}
-        </h3>
-        <h6
-          *ngIf="
-            profile.member_type === 'player'
-          "
-        >
-          {{
-            profile.position.length !== 0 && profile.position[0]
-              ? profile.position[0].name
-              : ''
-          }}
-        </h6>
-        <p>
-          <i-feather name="alert-circle" class="icon-size"></i-feather>
-          Not Verified
-        </p>
-      </div>
-      <div class="block-middle border-bottom">
-        <div class="part text-center">
-          <h4>{{ count.achievements }}</h4>
-          <p>Achievements</p>
-        </div>
-        <div class="part border-left text-center">
-          <h4>{{ count.tournaments }}</h4>
-          <p>Tournaments</p>
-        </div>
-      </div>
-      <div class="block-bottom">
-        <a [routerLink]="['/profile']"> View my profile</a>
-      </div>
-    </div>
-
-    <!-- player type -->
-    <div class="block-design">
-      <div class="block-middle">
-        <div class="part">
-          <h4>Player Type</h4>
-        </div>
-        <div class="part">
-          <h5>{{ profile.player_type }}</h5>
-        </div>
-      </div>
-    </div>
-
-    <!-- player bio -->
-    <div class="block-design">
-      <div class="boi">
-        <div class="heading border-bottom">
-          <h3>Player Bio</h3>
-        </div>
-        <div class="player-boi">
-          <p>
-            {{ profile.bio }}
-          </p>
-        </div>
-      </div>
-    </div>
+    <app-left-panel [options]="panelOptions"></app-left-panel>
   </div>
   <!-- middle -->
   <div class="middle-section">

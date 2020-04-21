@@ -2,7 +2,7 @@ import {
   Component,
   OnInit,
   ViewEncapsulation,
-  Output,
+  Input,
   EventEmitter
 } from '@angular/core';
 import {
@@ -32,8 +32,7 @@ export class LeftPanelComponent implements OnInit {
   achievement: any;
   environment = environment;
 
-  // @Output() profileData = new EventEmitter<object>();
-  // @Output() achievementData = new EventEmitter<object>();
+  @Input() options: any;
 
   constructor(
     private _authenticationService: AuthenticationService,
@@ -48,7 +47,6 @@ export class LeftPanelComponent implements OnInit {
   getProfileDetails() {
     this._authenticationService.getProfileDetails().subscribe(
       response => {
-        console.log('data', response);
         this.profile = response.data;
 
         if (this.profile.avatar_url) {
@@ -58,7 +56,6 @@ export class LeftPanelComponent implements OnInit {
           this.profile.avatar_url =
             this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
         }
-        // this.profileData.emit(this.profile.avatar_url);
       },
       error => {
         console.log('error', error);
@@ -70,7 +67,6 @@ export class LeftPanelComponent implements OnInit {
     this._timelineService.getAchievementCount().subscribe(
       response => {
         this.count = response.data;
-        // this.achievementData.emit(response.data);
       },
       error => {
         console.log('error', error);

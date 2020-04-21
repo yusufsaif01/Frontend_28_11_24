@@ -17,6 +17,13 @@ import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confi
 export class AwardCertificateComponent implements OnInit {
   public tableConfig: AwardCertificateTableConfig = new AwardCertificateTableConfig();
   public dataSource = new MatTableDataSource([]);
+
+  panelOptions: object = {
+    bio: true,
+    member_type: true,
+    my_achievements: false
+  };
+
   constructor(public dialog: MatDialog) {}
 
   ngOnInit() {}
