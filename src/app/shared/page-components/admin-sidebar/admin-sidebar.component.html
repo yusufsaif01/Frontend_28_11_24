@@ -61,11 +61,43 @@
         </a>
       </li>
       <li routerLinkActive="active">
-        <a>
+        <a (click)="onclickMasterData()" class="arrow">
           <span class="custom-icons">
-            <mat-icon svgIcon="master-data"></mat-icon> </span
-          >Master Data
+            <mat-icon svgIcon="master-data"></mat-icon>
+          </span>
+          Master Data
+          <span class="down-icons">
+            <mat-icon svgIcon="down-arrow"></mat-icon>
+          </span>
         </a>
+        <div class="dropdown" [hidden]="this.isActiveMasterData">
+          <ul>
+            <li>
+              <a routerLink="/masterdata-location">
+                <span class="custom-icons">
+                  <mat-icon svgIcon="location"></mat-icon>
+                </span>
+                Location
+              </a>
+            </li>
+            <li>
+              <a routerLink="/manage-club">
+                <span class="custom-icons">
+                  <mat-icon svgIcon="member-type"></mat-icon>
+                </span>
+                Member type</a
+              >
+            </li>
+            <li>
+              <a routerLink="/manage-academy">
+                <span class="custom-icons">
+                  <mat-icon svgIcon="player-specialization"></mat-icon>
+                </span>
+                Player Specialization</a
+              >
+            </li>
+          </ul>
+        </div>
       </li>
       <li routerLinkActive="active">
         <a>
