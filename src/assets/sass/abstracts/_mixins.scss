@@ -135,3 +135,24 @@
     cursor: not-allowed;
   }
 }
+
+// admin btn
+@mixin admin-btn {
+  border: none;
+  background: $blue;
+  padding: 1rem 2rem;
+  color: $color-white;
+  outline: 0px;
+  cursor: pointer;
+  &:hover,
+  &:active {
+    background: rgba($blue, 0.8);
+    color: $color-white;
+    outline: 0px;
+  }
+  &:disabled {
+    color: $color-white;
+    background: $text-color;
+    cursor: not-allowed;
+  }
+}
