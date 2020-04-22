@@ -10,6 +10,7 @@ import { EditAddPopupComponent } from './edit-add-popup/edit-add-popup.component
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { AwardCertificateService } from './award-certificate.service';
 import { environment } from '../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-award-certificate',
   templateUrl: './award-certificate.component.html',
@@ -33,7 +34,8 @@ export class AwardCertificateComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private awardCertificateService: AwardCertificateService
+    private awardCertificateService: AwardCertificateService,
+    private toastrService: ToastrService
   ) {}
 
   // dialog box open
@@ -112,29 +114,31 @@ export class AwardCertificateComponent implements OnInit {
   }
 
   // delete
-  deletePopup(user_id: string) {
+  deletePopup(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
       width: '40% ',
       panelClass: 'filterDialog',
       data: {
-        message: 'Are you sure you want to delete',
+        message: 'Are you sure you want to delete?',
         acceptText: 'Yes',
         rejectText: 'No'
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      // if (result === true) {
-      //   this.adminService.deleteUser({ user_id: user_id }).subscribe(
-      //     response => {
-      //       this.toastrService.success(`Success`, 'User deleted successfully');
-      //     },
-      //     error => {
-      //       // log.debug(`Login error: ${error}`);
-      //       console.log('error', error);
-      //       this.toastrService.error(`${error.error.message}`, 'Delete User');
-      //     }
-      //   );
-      // }
+      console.log(id);
+      if (result === true) {
+        this.awardCertificateService.deleteAward({ id }).subscribe(
+          response => {
+            this.toastrService.success(`Success`, 'Award deleted successfully');
+            this.ngOnInit();
+          },
+          error => {
+            // log.debug(`Login error: ${error}`);
+            console.log('error', error);
+            this.toastrService.error(`${error.error.message}`, 'Delete Award');
+          }
+        );
+      }
     });
   }
 }

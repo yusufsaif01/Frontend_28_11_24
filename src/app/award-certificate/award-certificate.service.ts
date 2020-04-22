@@ -6,7 +6,8 @@ import { CredentialsService } from '@app/core';
 const routes = {
   addAwards: (c: any) => '/achievement/add',
   updateAwards: (id: any) => `/achievement/${id}`,
-  getAwardsList: (c: CommonContext) => '/achievement/list'
+  getAwardsList: (c: CommonContext) => '/achievement/list',
+  deleteAward: (c: DeleteAwardContext) => '/achievement'
 };
 
 interface CommonContext {
@@ -24,6 +25,14 @@ interface AwardsListResponseContext {
       media: string;
     }[];
   };
+}
+interface DeleteAwardContext {
+  id: string;
+}
+
+interface DelEditAddAwardResponseContext {
+  status: string;
+  message: string;
 }
 
 @Injectable({
@@ -72,6 +81,26 @@ export class AwardCertificateService {
       httpOptions
     );
   }
+
+  deleteAward(context: DeleteAwardContext) {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + token
+      })
+    };
+    let params = '/';
+    if (context['id']) {
+      params += `${context['id']}`;
+    }
+    return this.httpClient.delete<DelEditAddAwardResponseContext>(
+      routes.deleteAward(context) + params,
+      httpOptions
+    );
+  }
+
   // /api/achievement/list?page_no=1&page_size=20
   getAwardsList(context: CommonContext): Observable<AwardsListResponseContext> {
     let token = this.credentialsService.isAuthenticated()

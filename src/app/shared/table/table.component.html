@@ -4,9 +4,12 @@
     [matColumnDef]="tableConfig.columns[col].code"
     *ngFor="let col of tableConfig.allowedColumns"
   >
-    <mat-header-cell *matHeaderCellDef mat-sort-header>{{
-      tableConfig.columns[col].text
-    }}</mat-header-cell>
+    <mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      [disabled]="!sortEnabled"
+      >{{ tableConfig.columns[col].text }}</mat-header-cell
+    >
     <mat-cell *matCellDef="let element; let i = index">
       <div>
         <p
