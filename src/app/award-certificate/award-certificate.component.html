@@ -28,12 +28,12 @@
           [TableActions]="ListAction"
         >
         </app-table>
-        <ng-template #ListAction>
+        <ng-template #ListAction let-id="id">
           <div class="action-buttons">
             <button (click)="openDialog()">
               <img src="assets/images/icons/edit01.png" alt="Edit" />
             </button>
-            <button (click)="deletePopup()">
+            <button (click)="deletePopup(id)">
               <img src="assets/images/icons/bin.png" alt="Delete" />
             </button>
           </div>

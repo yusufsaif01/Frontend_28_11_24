@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { CredentialsService } from '@app/core';
 
 const routes = {
-  addAwards:(c:any) => '/achievement/add',
-  getAwardsList:(c:CommonContext) => '/achievement/list',
-}
+  addAwards: (c: any) => '/achievement/add',
+  getAwardsList: (c: CommonContext) => '/achievement/list',
+  deleteAward: (c: DeleteAwardContext) => '/achievement'
+};
 
-interface CommonContext{
-  page_no?:number;
-  page_size?:number;
+interface CommonContext {
+  page_no?: number;
+  page_size?: number;
 }
 interface AwardsListResponseContext {
   data: {
@@ -24,41 +25,67 @@ interface AwardsListResponseContext {
     }[];
   };
 }
+interface DeleteAwardContext {
+  id: string;
+}
+
+interface DelEditAddAwardResponseContext {
+  status: string;
+  message: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AwardCertificateService {
-
   constructor(
     private httpClient: HttpClient,
     private credentialsService: CredentialsService
   ) {}
 
-  addAwards(context:any): Observable<any> {
+  addAwards(context: any): Observable<DelEditAddAwardResponseContext> {
     for (var pair of context.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]); 
+      console.log(pair[0] + ', ' + pair[1]);
     }
     let token = this.credentialsService.isAuthenticated()
-    ? this.credentialsService.credentials['data']['token']
-    : '';
+      ? this.credentialsService.credentials['data']['token']
+      : '';
     let httpOptions = {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token
       })
-    };    
-    return this.httpClient.post<any>(
+    };
+    return this.httpClient.post<DelEditAddAwardResponseContext>(
       routes.addAwards(context),
       context,
       httpOptions
     );
   }
 
-  // /api/achievement/list?page_no=1&page_size=20
-  getAwardsList(context:CommonContext):Observable<AwardsListResponseContext>{
+  deleteAward(context: DeleteAwardContext) {
     let token = this.credentialsService.isAuthenticated()
-    ? this.credentialsService.credentials['data']['token']
-    : '';
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + token
+      })
+    };
+    let params = '/';
+    if (context['id']) {
+      params += `${context['id']}`;
+    }
+    return this.httpClient.delete<DelEditAddAwardResponseContext>(
+      routes.deleteAward(context) + params,
+      httpOptions
+    );
+  }
+
+  // /api/achievement/list?page_no=1&page_size=20
+  getAwardsList(context: CommonContext): Observable<AwardsListResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
     let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
