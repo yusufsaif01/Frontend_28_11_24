@@ -46,11 +46,11 @@
         <p>
           <strong>Showing</strong>
           {{ pageSize > award_count ? award_count : pageSize }}
-          / {{ award_count }} Data
+          / {{ total_count }} Data
         </p>
       </div>
       <app-pagination
-        [totalRows]="award_count"
+        [totalRows]="total_count"
         [rowsPerPage]="pageSize"
         (onChange)="updatePage($event)"
       >

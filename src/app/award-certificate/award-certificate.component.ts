@@ -22,6 +22,7 @@ export class AwardCertificateComponent implements OnInit {
   environment = environment;
   player_type: string;
   award_count: number;
+  total_count: number;
 
   panelOptions: object = {
     bio: true,
@@ -77,7 +78,8 @@ export class AwardCertificateComponent implements OnInit {
           records[i]['media'] = environment.mediaUrl + records[i]['media'];
         }
         this.dataSource = new MatTableDataSource(records);
-        this.award_count = response.data.total;
+        this.award_count = response.data.records.length;
+        this.total_count = response.data.total;
       });
   }
 
