@@ -42,7 +42,8 @@ import {
   LogOut,
   ChevronDown,
   Search,
-  Award
+  Award,
+  Home
 } from 'angular-feather/icons';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LinkExpiredComponent } from './link-expired/link-expired.component';
@@ -81,7 +82,8 @@ const icons = {
   LogOut,
   ChevronDown,
   Search,
-  Award
+  Award,
+  Home
 };
 
 @NgModule({
