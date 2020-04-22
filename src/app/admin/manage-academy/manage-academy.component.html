@@ -93,6 +93,7 @@
             [NumberColumn]="'true'"
             [rows]="dataSource"
             [TableActions]="ListAction"
+            [sortEnabled]="true"
           >
           </app-table>
           <ng-template #ListAction let-user_id="user_id" let-status="status">

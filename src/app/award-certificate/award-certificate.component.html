@@ -26,6 +26,7 @@
           [NumberColumn]="'true'"
           [rows]="dataSource"
           [TableActions]="ListAction"
+          [sortEnabled]="false"
         >
         </app-table>
         <ng-template #ListAction let-id="id">
@@ -42,13 +43,13 @@
     </div>
     <!-- pagination -->
     <div class="pagination-wrapper">
-      <div class="showing-data">
+      <!-- <div class="showing-data">
         <p>
           <strong>Showing</strong>
           {{ pageSize > award_count ? award_count : pageSize }}
           / {{ total_count }} Data
         </p>
-      </div>
+      </div> -->
       <app-pagination
         [totalRows]="total_count"
         [rowsPerPage]="pageSize"
