@@ -18,9 +18,11 @@ import { environment } from '../../environments/environment';
 export class AwardCertificateComponent implements OnInit {
   public tableConfig: AwardCertificateTableConfig = new AwardCertificateTableConfig();
   public dataSource = new MatTableDataSource([]);
-  pageSize: number = 20;
+  pageSize: number = 10;
   environment = environment;
   player_type: string;
+  award_count: number;
+  total_count: number;
 
   panelOptions: object = {
     bio: true,
@@ -85,23 +87,28 @@ export class AwardCertificateComponent implements OnInit {
     this.player_type = value;
   }
 
+  updatePage(event: any) {
+    this.getAwardsList(this.pageSize, event.selectedPage);
+  }
+
   getAwardsList(page_size: number, page_no: number) {
     this.awardCertificateService
       .getAwardsList({ page_size, page_no })
-      .subscribe(
-        response => {
-          console.log('Response', response);
-          let records = response.data.records;
-          for (let i = 0; i < records.length; i++) {
+      .subscribe(response => {
+        let records = response.data.records;
+        for (let i = 0; i < records.length; i++) {
+          if (page_no > 1) {
+            records[i]['serialnumber'] =
+              i + 1 + page_size * page_no - page_size;
+          } else {
             records[i]['serialnumber'] = i + 1;
-            records[i]['media'] = environment.mediaUrl + records[i]['media'];
           }
-          this.dataSource = new MatTableDataSource(records);
-        },
-        error => {
-          console.log('ERROR', error);
+          records[i]['media'] = environment.mediaUrl + records[i]['media'];
         }
-      );
+        this.dataSource = new MatTableDataSource(records);
+        this.award_count = response.data.records.length;
+        this.total_count = response.data.total;
+      });
   }
 
   // delete
