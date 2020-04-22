@@ -30,7 +30,7 @@ export class LeftPanelComponent implements OnInit {
     tournaments: 0
   };
   profile: any;
-  achievement: any;
+  @Input() achievements: number = 0;
   environment = environment;
 
   @Input() options: any;
@@ -72,6 +72,7 @@ export class LeftPanelComponent implements OnInit {
     this._timelineService.getAchievementCount().subscribe(
       response => {
         this.count = response.data;
+        this.achievements = response.data.achievements;
       },
       error => {
         console.log('error', error);

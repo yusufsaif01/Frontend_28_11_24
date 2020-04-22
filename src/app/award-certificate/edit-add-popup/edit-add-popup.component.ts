@@ -237,6 +237,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
       .updateAwards(this.data.id, requestData)
       .subscribe(
         response => {
+          this.dialogRef.close('refresh');
           console.log('server response', response);
           this.toastrService.success(
             `${response.message}`,
@@ -262,6 +263,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     if (this.achievement) requestData.set('achievement', this.achievement);
     this.awardCertificateService.addAwards(requestData).subscribe(
       response => {
+        this.dialogRef.close('refresh');
         console.log('server response', response);
         this.toastrService.success(
           `${response.message}`,
