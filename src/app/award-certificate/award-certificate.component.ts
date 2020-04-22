@@ -25,6 +25,7 @@ export class AwardCertificateComponent implements OnInit {
   member_type: string;
   award_count: number;
   total_count: number;
+  awards_count: number = 0;
 
   panelOptions: object = {
     bio: true,
@@ -53,7 +54,7 @@ export class AwardCertificateComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'refresh') this.ngOnInit();
+      if (result === 'refresh') this.getAwardsList(this.pageSize, 1);
     });
   }
 
@@ -82,7 +83,7 @@ export class AwardCertificateComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'refresh') this.ngOnInit();
+      if (result === 'refresh') this.getAwardsList(this.pageSize, 1);
     });
   }
 
@@ -102,6 +103,7 @@ export class AwardCertificateComponent implements OnInit {
     this.awardCertificateService
       .getAwardsList({ page_size, page_no })
       .subscribe(response => {
+        console.log('Response LIST', response);
         let records = response.data.records;
         for (let i = 0; i < records.length; i++) {
           if (page_no > 1) {
@@ -115,6 +117,7 @@ export class AwardCertificateComponent implements OnInit {
         this.dataSource = new MatTableDataSource(records);
         this.award_count = response.data.records.length;
         this.total_count = response.data.total;
+        this.awards_count = this.total_count;
       });
   }
 
@@ -135,7 +138,7 @@ export class AwardCertificateComponent implements OnInit {
         this.awardCertificateService.deleteAward({ id }).subscribe(
           response => {
             this.toastrService.success(`Success`, 'Award deleted successfully');
-            this.ngOnInit();
+            this.getAwardsList(this.pageSize, 1);
           },
           error => {
             // log.debug(`Login error: ${error}`);
