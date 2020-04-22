@@ -42,19 +42,19 @@
     </div>
     <!-- pagination -->
     <div class="pagination-wrapper">
-      <!-- <div class="showing-data">
-                <p>
-                    <strong>Showing</strong>
-                    {{ pageSize > acad_count ? acad_count : pageSize }}
-                    / {{ acad_count }} Data
-                </p>
-            </div> -->
-      <!-- <app-pagination
-        [totalRows]="acad_count"
+      <div class="showing-data">
+        <p>
+          <strong>Showing</strong>
+          {{ pageSize > award_count ? award_count : pageSize }}
+          / {{ award_count }} Data
+        </p>
+      </div>
+      <app-pagination
+        [totalRows]="award_count"
         [rowsPerPage]="pageSize"
         (onChange)="updatePage($event)"
       >
-      </app-pagination> -->
+      </app-pagination>
     </div>
   </div>
 </div>
