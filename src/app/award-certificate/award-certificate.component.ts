@@ -52,6 +52,34 @@ export class AwardCertificateComponent implements OnInit {
     });
   }
 
+  openEditDialog(
+    id: any,
+    media: any,
+    name: any,
+    position: any,
+    type: any,
+    year: any
+  ) {
+    let data: any = {
+      id: id,
+      media: media,
+      name: name,
+      position: position,
+      type: type,
+      year,
+      player_type: this.player_type
+    };
+    const dialogRef = this.dialog.open(EditAddPopupComponent, {
+      width: '40%',
+      panelClass: 'edit-add-popup',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'refresh') this.ngOnInit();
+    });
+  }
+
   getPlayerType(value: string) {
     console.log(value);
     this.player_type = value;
@@ -60,14 +88,20 @@ export class AwardCertificateComponent implements OnInit {
   getAwardsList(page_size: number, page_no: number) {
     this.awardCertificateService
       .getAwardsList({ page_size, page_no })
-      .subscribe(response => {
-        let records = response.data.records;
-        for (let i = 0; i < records.length; i++) {
-          records[i]['serialnumber'] = i + 1;
-          records[i]['media'] = environment.mediaUrl + records[i]['media'];
+      .subscribe(
+        response => {
+          console.log('Response', response);
+          let records = response.data.records;
+          for (let i = 0; i < records.length; i++) {
+            records[i]['serialnumber'] = i + 1;
+            records[i]['media'] = environment.mediaUrl + records[i]['media'];
+          }
+          this.dataSource = new MatTableDataSource(records);
+        },
+        error => {
+          console.log('ERROR', error);
         }
-        this.dataSource = new MatTableDataSource(records);
-      });
+      );
   }
 
   // delete

@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { CredentialsService } from '@app/core';
 
 const routes = {
-  addAwards:(c:any) => '/achievement/add',
-  getAwardsList:(c:CommonContext) => '/achievement/list',
-}
+  addAwards: (c: any) => '/achievement/add',
+  updateAwards: (id: any) => `/achievement/${id}`,
+  getAwardsList: (c: CommonContext) => '/achievement/list'
+};
 
-interface CommonContext{
-  page_no?:number;
-  page_size?:number;
+interface CommonContext {
+  page_no?: number;
+  page_size?: number;
 }
 interface AwardsListResponseContext {
   data: {
@@ -29,24 +30,23 @@ interface AwardsListResponseContext {
   providedIn: 'root'
 })
 export class AwardCertificateService {
-
   constructor(
     private httpClient: HttpClient,
     private credentialsService: CredentialsService
   ) {}
 
-  addAwards(context:any): Observable<any> {
+  addAwards(context: any): Observable<any> {
     for (var pair of context.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]); 
+      console.log(pair[0] + ', ' + pair[1]);
     }
     let token = this.credentialsService.isAuthenticated()
-    ? this.credentialsService.credentials['data']['token']
-    : '';
+      ? this.credentialsService.credentials['data']['token']
+      : '';
     let httpOptions = {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token
       })
-    };    
+    };
     return this.httpClient.post<any>(
       routes.addAwards(context),
       context,
@@ -54,11 +54,29 @@ export class AwardCertificateService {
     );
   }
 
-  // /api/achievement/list?page_no=1&page_size=20
-  getAwardsList(context:CommonContext):Observable<AwardsListResponseContext>{
+  updateAwards(id: any, context: any): Observable<any> {
+    for (var pair of context.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
     let token = this.credentialsService.isAuthenticated()
-    ? this.credentialsService.credentials['data']['token']
-    : '';
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + token
+      })
+    };
+    return this.httpClient.put<any>(
+      routes.updateAwards(id),
+      context,
+      httpOptions
+    );
+  }
+  // /api/achievement/list?page_no=1&page_size=20
+  getAwardsList(context: CommonContext): Observable<AwardsListResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
     let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
