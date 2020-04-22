@@ -10,7 +10,8 @@ const routes = {
   activeUser: (c: StatusUserContext) => '/member/status-activate',
   deactivateUser: (c: StatusUserContext) => '/member/status-deactivate',
   addState: (c: any) => '/master/state/add',
-  getStateList: () => '/master/state/all'
+  getStateList: () => '/master/state/all',
+  getLocationStats: () => '/master/location/stats'
 };
 
 export interface CommonContext {
@@ -140,6 +141,13 @@ interface StateListResponseContext {
 interface AddStateResponseContext {
   status: string;
   message: string;
+}
+interface LocationStatsResponseContext {
+  data: {
+    country: string;
+    no_of_state: number;
+    no_of_city: number;
+  }[];
 }
 
 @Injectable({
@@ -392,7 +400,7 @@ export class AdminService {
       ? this.credentialsService.credentials['data']['token']
       : '';
     let httpOptions = {
-    headers: new HttpHeaders({
+      headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token
       })
@@ -414,8 +422,26 @@ export class AdminService {
         Authorization: 'Bearer ' + token
       })
     };
+
     return this.httpClient.get<StateListResponseContext>(
       routes.getStateList(),
+      httpOptions
+    );
+  }
+
+  getLocationStats(): Observable<LocationStatsResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return this.httpClient.get<LocationStatsResponseContext>(
+      routes.getLocationStats(),
       httpOptions
     );
   }
