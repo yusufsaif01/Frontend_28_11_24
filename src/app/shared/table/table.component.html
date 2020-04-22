@@ -60,6 +60,16 @@
     </mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="noData">
+    <mat-footer-cell *matFooterCellDef [attr.colspan]="columns.length">
+      No records added
+    </mat-footer-cell>
+  </ng-container>
+
   <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: columns"></mat-row>
+  <mat-footer-row
+    *matFooterRowDef="['noData']"
+    [hidden]="rows || rows.data || rows.data.length !== 0"
+  ></mat-footer-row>
 </mat-table>
