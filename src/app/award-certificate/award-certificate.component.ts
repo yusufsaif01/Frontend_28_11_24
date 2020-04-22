@@ -72,7 +72,8 @@ export class AwardCertificateComponent implements OnInit {
       position: position,
       type: type,
       year,
-      player_type: this.player_type
+      player_type: this.player_type,
+      member_type: this.member_type
     };
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
       width: '40%',

@@ -4,8 +4,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { AwardCertificateService } from '../award-certificate.service';
-import { finalize } from 'rxjs/operators';
-import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 
 interface ArrayTypeContext {
@@ -242,7 +240,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
           console.log('server response', response);
           this.toastrService.success(
             `${response.message}`,
-            'Award Added Successfully'
+            'Award Updated Successfully'
           );
         },
         error => {
@@ -262,26 +260,18 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   addData(requestData: any) {
     console.log(this.editAddForm.value);
     if (this.achievement) requestData.set('achievement', this.achievement);
-    const award$ = this.awardCertificateService.addAwards(requestData);
-    award$
-      .pipe(
-        finalize(() => {
-          this.editAddForm.markAsPristine();
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe(
-        response => {
-          console.log('server response', response);
-          this.toastrService.success(
-            `${response.message}`,
-            'Award Added Successfully'
-          );
-        },
-        error => {
-          console.log('error', error);
-          this.toastrService.error(`${error.error.message}`, 'Error');
-        }
-      );
+    this.awardCertificateService.addAwards(requestData).subscribe(
+      response => {
+        console.log('server response', response);
+        this.toastrService.success(
+          `${response.message}`,
+          'Award Added Successfully'
+        );
+      },
+      error => {
+        console.log('error', error);
+        this.toastrService.error(`${error.error.message}`, 'Error');
+      }
+    );
   }
 }
