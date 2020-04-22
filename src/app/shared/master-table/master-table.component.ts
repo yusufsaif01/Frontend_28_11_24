@@ -25,21 +25,24 @@ export class MasterTableComponent implements OnInit {
   // rows = new MatTableDataSource([
   //   {
   //     serialNo: '1',
-  //     cities: 'Uttar Pradesh',
+  //     MemberCategory: 'Player',
+  //     MemberSubCategory: 'Grassroot'
   //   },
   //   {
   //     serialNo: '2',
-  //     cities: 'Kolkata',
+  //     MemberCategory: 'Player',
+  //     MemberSubCategory: 'Grassroot'
   //   },
   //   {
   //     serialNo: '3',
-  //     cities: 'Assam',
+  //     MemberCategory: 'Player',
+  //     MemberSubCategory: 'Grassroot'
   //   },
   //   {
   //     serialNo: '4',
-  //     cities: 'Kerala',
-  //   },
-
+  //     MemberCategory: 'Player',
+  //     MemberSubCategory: 'Grassroot'
+  //   }
   // ]);
   public columns: string[] = [];
 
