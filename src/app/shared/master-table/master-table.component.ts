@@ -25,19 +25,19 @@ export class MasterTableComponent implements OnInit {
   // rows = new MatTableDataSource([
   //   {
   //     serialNo: '1',
-  //     state: 'Uttar Pradesh',
+  //     cities: 'Uttar Pradesh',
   //   },
   //   {
   //     serialNo: '2',
-  //     state: 'Kolkata',
+  //     cities: 'Kolkata',
   //   },
   //   {
   //     serialNo: '3',
-  //     state: 'Assam',
+  //     cities: 'Assam',
   //   },
   //   {
   //     serialNo: '4',
-  //     state: 'Kerala',
+  //     cities: 'Kerala',
   //   },
 
   // ]);

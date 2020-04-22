@@ -1,8 +1,9 @@
 @import "src/assets/sass/abstracts/variables";
-
+@import "src/assets/sass/abstracts/mixins";
 .admin-wrapper {
   background-color: #fff;
   height: 100%;
+  min-height: 80vh;
   .admin-sidebar {
     background-color: $color-white;
   }
@@ -109,6 +110,11 @@
     h3 {
       font-size: 2.4rem;
       color: $text-color;
+      span {
+        border-left: 2px solid $text-color;
+        padding-left: 2rem;
+        margin-left: 2rem;
+      }
     }
   }
   .breadcrumb {
@@ -127,42 +133,60 @@
     }
   }
 }
-
-// blocks
-.counter-wrapper {
+// add forms
+.addform {
   width: 95%;
   margin: 3rem auto;
-  display: flex;
-  justify-content: space-between;
-  .count-block {
-    width: 23%;
-    background-color: $color-white;
-    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    padding: 1rem;
+  background-color: $color-white;
+  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+  .heading {
     display: flex;
+    width: 100%;
+    padding: 2rem;
     align-items: center;
-    .count-img {
-      width: 40%;
-      padding: 1rem;
-      img {
-        width: 100%;
-      }
+    border-bottom: 2px solid $border-color;
+    img {
+      width: 3rem;
+      height: 3rem;
+      margin-right: 1rem;
     }
-    .count-details {
-      width: 60%;
-      padding: 1rem;
-      h3 {
-        color: $text-color;
-        font-size: 2.8rem;
-      }
-      h5 {
-        color: $blue;
-        font-size: 4rem;
+    h3 {
+      font-size: 3rem;
+      color: $text-color;
+      font-weight: 500;
+    }
+  }
+  .form-block {
+    padding: 3rem 2rem;
+    .form-part {
+      display: flex;
+      align-items: flex-end;
+      .input-wrapper {
+        width: 30%;
+        margin-right: 1rem;
+        label {
+          display: block;
+          width: 100%;
+          margin-bottom: 1rem;
+          font-size: 2rem;
+          font-weight: 700;
+        }
+        input,
+        select {
+          width: 100%;
+          padding: 1rem;
+        }
+        select {
+          padding: 1.15rem;
+        }
+        button {
+          @include admin-btn;
+          padding: 1.35rem 4rem;
+        }
       }
     }
   }
 }
-
 // table content
 .middle-part {
   width: 95%;
@@ -181,33 +205,8 @@
   padding: 2rem;
   justify-content: space-between;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-  .filter {
-    width: 40%;
-    ul {
-      list-style: none;
-      margin-bottom: 0rem;
-      li {
-        margin-right: 1rem;
-        display: inline-block;
-        a {
-          font-size: 1rem;
-          display: inline-flex;
-          justify-content: center;
-          align-items: center;
-          background: $blue;
-          width: 5rem;
-          height: 5rem;
-          border-radius: 4rem;
-          img {
-            width: 2.5rem;
-            height: 2.5rem;
-          }
-        }
-      }
-    }
-  }
   .search {
-    width: 60%;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
     .search-box {
@@ -223,30 +222,22 @@
   }
 }
 
-.change-icon {
-  width: 10rem;
-  left: calc(100% - 3rem);
-  -webkit-appearance: none;
-  appearance: none;
-  background-image: url("../../../assets/images/icons/drowdown-caret.png");
-  background-repeat: no-repeat;
-  background-size: 2rem;
-  background-position: calc(100% - 1rem);
-}
-.search-icon {
-  left: calc(100% - 3rem);
-  -webkit-appearance: none;
-  appearance: none;
-  background-image: url("../../../assets/images/icons/search.png");
-  background-repeat: no-repeat;
-  background-size: 2rem;
-  background-position: calc(100% - 1rem);
-}
-
 // table container
 .table-container {
   width: 95%;
   margin: 2rem auto;
+  ::ng-deep {
+    .mat-table .mat-header-row {
+      background-color: #f8f8f8;
+    }
+    .mat-table .mat-row .mat-cell .action-buttons button:nth-of-type(1) img {
+      margin-top: 0px;
+      height: 2rem;
+    }
+    .mat-table .mat-row .mat-cell .action-buttons button:nth-of-type(1) {
+      transform: translateY(0px);
+    }
+  }
 }
 
 // paginations
@@ -265,4 +256,24 @@
       color: $text-color;
     }
   }
+}
+
+.change-icon {
+  width: 10rem;
+  left: calc(100% - 3rem);
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("../../../../../assets/images/icons/drowdown-caret.png");
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  background-position: calc(100% - 1rem);
+}
+.search-icon {
+  left: calc(100% - 3rem);
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("../../../../../assets/images/icons/search.png");
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  background-position: calc(100% - 1rem);
 }

@@ -21,6 +21,7 @@ import { NotFoundComponent } from '@app/shared/page-components/not-found/not-fou
 import { AwardCertificateComponent } from './award-certificate/award-certificate.component';
 import { ManageLocationComponent } from './admin/masterdata/manage-location/manage-location.component';
 import { ManageStateComponent } from './admin/masterdata/manage-location/manage-state/manage-state.component';
+import { ManageCityComponent } from './admin/masterdata/manage-location/manage-city/manage-city.component';
 const routes: Routes = [
   {
     path: '',
@@ -103,6 +104,11 @@ const routes: Routes = [
     path: 'masterdata-state',
     component: ManageStateComponent,
     data: { title: extract('Manage State') }
+  },
+  {
+    path: 'masterdata-city',
+    component: ManageCityComponent,
+    data: { title: extract('Manage City') }
   },
 
   {
