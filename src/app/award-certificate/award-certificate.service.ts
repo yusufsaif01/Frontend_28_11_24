@@ -5,6 +5,7 @@ import { CredentialsService } from '@app/core';
 
 const routes = {
   addAwards: (c: any) => '/achievement/add',
+  updateAwards: (id: any) => `/achievement/${id}`,
   getAwardsList: (c: CommonContext) => '/achievement/list',
   deleteAward: (c: DeleteAwardContext) => '/achievement'
 };
@@ -57,6 +58,25 @@ export class AwardCertificateService {
     };
     return this.httpClient.post<DelEditAddAwardResponseContext>(
       routes.addAwards(context),
+      context,
+      httpOptions
+    );
+  }
+
+  updateAwards(id: any, context: any): Observable<any> {
+    for (var pair of context.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + token
+      })
+    };
+    return this.httpClient.put<any>(
+      routes.updateAwards(id),
       context,
       httpOptions
     );

@@ -30,9 +30,19 @@
           [sortEnabled]="false"
         >
         </app-table>
-        <ng-template #ListAction let-id="id">
+        <ng-template
+          #ListAction
+          let-id="id"
+          let-media="media"
+          let-name="name"
+          let-position="position"
+          let-type="type"
+          let-year="year"
+        >
           <div class="action-buttons">
-            <button (click)="openDialog()">
+            <button
+              (click)="openEditDialog(id, media, name, position, type, year)"
+            >
               <img src="assets/images/icons/edit01.png" alt="Edit" />
             </button>
             <button (click)="deletePopup(id)">

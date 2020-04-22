@@ -42,7 +42,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private awardCertificateService: AwardCertificateService,
     private toastrService: ToastrService,
-    @Inject(MAT_DIALOG_DATA) data: any
+    @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     this.createForm();
     this.player_type = data.player_type;
@@ -60,6 +60,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.member_type === 'player') {
+      if (!this.player_type) this.player_type = 'grassroot';
       if (this.player_type === 'grassroot') {
         this.awardsArray = this.grassrootsAwardTypeArray;
       } else if (this.player_type === 'amateur') {
@@ -71,6 +72,10 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
       this.awardsArray = this.clubAwardTypeArray;
     } else if (this.member_type === 'academy') {
       this.awardsArray = this.academyAwardTypeArray;
+    }
+    if (this.data.id) {
+      this.editAddForm.patchValue(this.data);
+      this.editAddForm.patchValue({ year: new Date(this.data.year) });
     }
   }
   ngOnDestroy() {}
@@ -228,9 +233,34 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     this.achievement = files[0];
     console.log('achievement', this.achievement);
   }
+  updateData(requestData: any) {
+    if (this.achievement) requestData.set('achievement', this.achievement);
+    this.awardCertificateService
+      .updateAwards(this.data.id, requestData)
+      .subscribe(
+        response => {
+          console.log('server response', response);
+          this.toastrService.success(
+            `${response.message}`,
+            'Award Added Successfully'
+          );
+        },
+        error => {
+          console.log('error', error);
+          this.toastrService.error(`${error.error.message}`, 'Error');
+        }
+      );
+  }
   editAddFormValue() {
-    console.log(this.editAddForm.value);
     let requestData = this.toFormData(this.editAddForm.value);
+    if (this.data.id) {
+      this.updateData(requestData);
+    } else {
+      this.addData(requestData);
+    }
+  }
+  addData(requestData: any) {
+    console.log(this.editAddForm.value);
     if (this.achievement) requestData.set('achievement', this.achievement);
     const award$ = this.awardCertificateService.addAwards(requestData);
     award$

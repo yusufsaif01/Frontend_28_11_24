@@ -57,6 +57,34 @@ export class AwardCertificateComponent implements OnInit {
     });
   }
 
+  openEditDialog(
+    id: any,
+    media: any,
+    name: any,
+    position: any,
+    type: any,
+    year: any
+  ) {
+    let data: any = {
+      id: id,
+      media: media,
+      name: name,
+      position: position,
+      type: type,
+      year,
+      player_type: this.player_type
+    };
+    const dialogRef = this.dialog.open(EditAddPopupComponent, {
+      width: '40%',
+      panelClass: 'edit-add-popup',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'refresh') this.ngOnInit();
+    });
+  }
+
   getPlayerType(value: string) {
     console.log(value);
     this.player_type = value;
