@@ -47,7 +47,9 @@ export class AwardCertificateComponent implements OnInit {
       data: { player_type: this.player_type }
     });
 
-    dialogRef.afterClosed().subscribe(result => {});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'refresh') this.ngOnInit();
+    });
   }
 
   getPlayerType(value: string) {
