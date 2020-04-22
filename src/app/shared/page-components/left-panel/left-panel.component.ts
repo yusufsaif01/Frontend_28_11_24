@@ -3,7 +3,8 @@ import {
   OnInit,
   ViewEncapsulation,
   Input,
-  EventEmitter
+  EventEmitter,
+  Output
 } from '@angular/core';
 import {
   AuthenticationService,
@@ -33,6 +34,7 @@ export class LeftPanelComponent implements OnInit {
   environment = environment;
 
   @Input() options: any;
+  @Output() sendPlayerType = new EventEmitter<string>();
 
   constructor(
     private _authenticationService: AuthenticationService,
@@ -56,6 +58,7 @@ export class LeftPanelComponent implements OnInit {
           this.profile.avatar_url =
             this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
         }
+        this.sendPlayerType.emit(this.profile.player_type)
       },
       error => {
         console.log('error', error);

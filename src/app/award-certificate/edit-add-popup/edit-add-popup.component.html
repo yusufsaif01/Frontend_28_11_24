@@ -1,5 +1,5 @@
 <div class="from-container">
-  <form>
+  <form [formGroup]="editAddForm">
     <div class="header">
       <div class="title">
         <h3>Add Awards</h3>
@@ -20,21 +20,63 @@
             >Award Type
             <span>*</span>
           </label>
-          <select matNativeControl required>
+          <select formControlName="type" matNativeControl required>
             <option value="">Select Award Type</option>
-            <option value="">Awards Type</option>
-            <option value="">Awards Type</option>
-            <option value="">Awards Type</option>
+            <ng-container *ngFor="let award of awardsArray">
+              <option value="{{ award.value }}">{{ award.name }}</option>
+            </ng-container>
           </select>
+          <mat-error
+            *ngIf="
+              editAddForm.controls.type.invalid &&
+              editAddForm.controls.type.touched
+            "
+          >
+            <span *ngIf="editAddForm.controls.type.errors.required" translate
+              >Award Type is required
+            </span>
+          </mat-error>
         </div>
 
         <!-- Awards Name  -->
         <div class="from-block">
-          <label
-            >Award Name
-            <span>*</span>
-          </label>
-          <input type="text" matInput placeholder="Award Name" />
+          <label>Award Name </label>
+          <input
+            formControlName="name"
+            type="text"
+            matInput
+            placeholder="Award Name"
+          />
+          <mat-error
+            *ngIf="
+              editAddForm.controls.name.invalid &&
+              editAddForm.controls.name.touched
+            "
+          >
+            <ng-template #lengthBlock>
+              <span
+                class="error-text"
+                *ngIf="
+                  editAddForm.controls.name.errors &&
+                  editAddForm.controls.name.errors.maxlength
+                "
+              >
+                Please provide award name upto
+                {{ editAddForm.controls.name.errors.maxlength.requiredLength }}
+                characters
+              </span>
+            </ng-template>
+            <span
+              class="error-text"
+              *ngIf="
+                editAddForm.controls.name.errors &&
+                  editAddForm.controls.name.errors.pattern;
+                else lengthBlock
+              "
+            >
+              Award Name format is invalid
+            </span>
+          </mat-error>
         </div>
       </div>
       <div class="from-wrapper">
@@ -46,42 +88,100 @@
               <span>*</span>
             </label>
             <input
+              formControlName="year"
               matInput
               [matDatepicker]="picker"
               readonly
               placeholder="Select Year"
+              [min]="minDate"
+              [max]="maxDate"
             />
             <mat-datepicker-toggle
               matSuffix
               [for]="picker"
             ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker
+              #picker
+              startView="multi-year"
+              (yearSelected)="closeDatePicker(picker, $event)"
+            ></mat-datepicker>
           </div>
+          <mat-error
+            *ngIf="
+              editAddForm.controls.year.invalid &&
+              editAddForm.controls.year.touched
+            "
+          >
+            <span *ngIf="editAddForm.controls.year.errors.required" translate
+              >Year is required</span
+            >
+          </mat-error>
         </div>
 
         <!-- position secured  -->
         <div class="from-block">
-          <label
-            >Position Secured
-            <span>*</span>
-          </label>
-          <input type="text" matInput placeholder="Position" />
+          <label>Position Secured </label>
+          <input
+            formControlName="position"
+            type="text"
+            matInput
+            placeholder="Position"
+          />
+          <mat-error
+            *ngIf="
+              editAddForm.controls.position.invalid &&
+              editAddForm.controls.position.touched
+            "
+          >
+            <ng-template #lengthBlock>
+              <span
+                class="error-text"
+                *ngIf="
+                  editAddForm.controls.position.errors &&
+                  editAddForm.controls.position.errors.maxlength
+                "
+              >
+                Please provide award position upto
+                {{
+                  editAddForm.controls.position.errors.maxlength.requiredLength
+                }}
+                characters
+              </span>
+            </ng-template>
+            <span
+              class="error-text"
+              *ngIf="
+                editAddForm.controls.position.errors &&
+                  editAddForm.controls.position.errors.pattern;
+                else lengthBlock
+              "
+            >
+              Award Position format is invalid
+            </span>
+          </mat-error>
         </div>
       </div>
       <div class="from-wrapper">
         <!-- Upload image  -->
         <div class="from-block">
-          <label
-            >Upload Image
-            <span>*</span>
-          </label>
-          <input type="file" />
+          <label>Upload Image </label>
+          <input
+            type="file"
+            (change)="uploadAchievement($event.target.files)"
+          />
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="cancel">Cancel</button>
-      <button class="save">Save</button>
+      <button [mat-dialog-close] class="cancel">Cancel</button>
+      <button
+        [mat-dialog-close]="'refresh'"
+        (click)="editAddFormValue()"
+        class="save"
+        [disabled]="editAddForm.invalid"
+      >
+        Save
+      </button>
     </div>
   </form>
 </div>

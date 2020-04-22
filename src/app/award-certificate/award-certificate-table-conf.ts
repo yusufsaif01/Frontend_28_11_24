@@ -4,11 +4,11 @@ export class AwardCertificateTableConfig extends TableConfig {
     super();
     this.allowedColumns = [
       'serialnumber',
-      'awardtype',
-      'awardname',
+      'type',
+      'name',
       'year',
-      'position_secured',
-      'thumbnail'
+      'position',
+      'media'
     ];
 
     this.columns = {
@@ -19,18 +19,18 @@ export class AwardCertificateTableConfig extends TableConfig {
           return ele[this.columns.serialnumber.code];
         }
       },
-      awardtype: {
-        code: 'awardtype',
+      type: {
+        code: 'type',
         text: 'Award Type',
         getValue: (ele: any) => {
-          return ele[this.columns.awardtype.code];
+          return ele[this.columns.type.code];
         }
       },
-      awardname: {
-        code: 'awardname',
+      name: {
+        code: 'name',
         text: 'Award Name',
         getValue: (ele: any) => {
-          return ele[this.columns.awardname.code];
+          return ele[this.columns.name.code];
         }
       },
       year: {
@@ -40,18 +40,18 @@ export class AwardCertificateTableConfig extends TableConfig {
           return ele[this.columns.year.code];
         }
       },
-      position_secured: {
-        code: 'position_secured',
+      position: {
+        code: 'position',
         text: 'Position Secured',
         getValue: (ele: any) => {
-          return ele[this.columns.position_secured.code];
+          return ele[this.columns.position.code];
         }
       },
-      thumbnail: {
-        code: 'thumbnail',
+      media: {
+        code: 'media',
         text: 'Image',
         getValue: (ele: any) => {
-          return ele[this.columns.thumbnail.code];
+          return ele[this.columns.media.code];
         }
       },
       action: {

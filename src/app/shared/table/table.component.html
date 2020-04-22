@@ -4,9 +4,12 @@
     [matColumnDef]="tableConfig.columns[col].code"
     *ngFor="let col of tableConfig.allowedColumns"
   >
-    <mat-header-cell *matHeaderCellDef mat-sort-header>{{
-      tableConfig.columns[col].text
-    }}</mat-header-cell>
+    <mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      [disabled]="!sortEnabled"
+      >{{ tableConfig.columns[col].text }}</mat-header-cell
+    >
     <mat-cell *matCellDef="let element; let i = index">
       <div>
         <p
@@ -16,12 +19,12 @@
               (col === 'email' || col === 'status'),
             active: element.status === 'active' && col === 'status'
           }"
-          *ngIf="col !== 'name'"
+          *ngIf="col !== 'name' && col !== 'media' && col !== 'type'"
         >
           {{ tableConfig.columns[col].getValue(element) }}
         </p>
         <p
-          *ngIf="col === 'name'"
+          *ngIf="col === 'name' || col === 'type'"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
         >
           {{
@@ -31,8 +34,12 @@
                 '...'
           }}
         </p>
-        <p *ngIf="col === 'thumbnail'">
-          <img class="thumbnail" src="assets/images/profile-icon.png" alt="" />
+        <p *ngIf="col === 'media'">
+          <img
+            class="thumbnail"
+            [src]="tableConfig.columns[col].getValue(element)"
+            alt=""
+          />
         </p>
       </div>
     </mat-cell>

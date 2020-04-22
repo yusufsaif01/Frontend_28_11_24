@@ -2,7 +2,10 @@
 <div class="site-wrapper">
   <!-- left Sidebar -->
   <div class="left-section">
-    <app-left-panel [options]="panelOptions"></app-left-panel>
+    <app-left-panel
+      (sendPlayerType)="getPlayerType($event)"
+      [options]="panelOptions"
+    ></app-left-panel>
   </div>
   <div class="right-section">
     <div class="award-heading">
@@ -23,14 +26,15 @@
           [NumberColumn]="'true'"
           [rows]="dataSource"
           [TableActions]="ListAction"
+          [sortEnabled]="false"
         >
         </app-table>
-        <ng-template #ListAction>
+        <ng-template #ListAction let-id="id">
           <div class="action-buttons">
             <button (click)="openDialog()">
               <img src="assets/images/icons/edit01.png" alt="Edit" />
             </button>
-            <button (click)="deletePopup()">
+            <button (click)="deletePopup(id)">
               <img src="assets/images/icons/bin.png" alt="Delete" />
             </button>
           </div>
@@ -40,18 +44,18 @@
     <!-- pagination -->
     <div class="pagination-wrapper">
       <!-- <div class="showing-data">
-                <p>
-                    <strong>Showing</strong>
-                    {{ pageSize > acad_count ? acad_count : pageSize }}
-                    / {{ acad_count }} Data
-                </p>
-            </div> -->
-      <!-- <app-pagination
-        [totalRows]="acad_count"
+        <p>
+          <strong>Showing</strong>
+          {{ pageSize > award_count ? award_count : pageSize }}
+          / {{ total_count }} Data
+        </p>
+      </div> -->
+      <app-pagination
+        [totalRows]="total_count"
         [rowsPerPage]="pageSize"
         (onChange)="updatePage($event)"
       >
-      </app-pagination> -->
+      </app-pagination>
     </div>
   </div>
 </div>

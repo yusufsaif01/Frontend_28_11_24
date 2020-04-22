@@ -20,6 +20,7 @@ export class TableComponent implements OnInit {
   @Input() tableConfig: any = {};
   @Input() TableActions: TemplateRef<any>;
   @Input() NumberColumn: boolean = false;
+  @Input() sortEnabled: boolean = false;
   @Input() rows = new MatTableDataSource([]);
   // dataSource = new MatTableDataSource<any>();
   // rows = new MatTableDataSource([
@@ -76,6 +77,6 @@ export class TableComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.rows.sort = this.sort;
+    if (this.sortEnabled) this.rows.sort = this.sort;
   }
 }
