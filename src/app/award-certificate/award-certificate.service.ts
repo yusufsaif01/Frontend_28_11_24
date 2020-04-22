@@ -44,7 +44,7 @@ export class AwardCertificateService {
     private credentialsService: CredentialsService
   ) {}
 
-  addAwards(context: any): Observable<any> {
+  addAwards(context: any): Observable<DelEditAddAwardResponseContext> {
     for (var pair of context.entries()) {
       console.log(pair[0] + ', ' + pair[1]);
     }
@@ -56,7 +56,7 @@ export class AwardCertificateService {
         Authorization: 'Bearer ' + token
       })
     };
-    return this.httpClient.post<any>(
+    return this.httpClient.post<DelEditAddAwardResponseContext>(
       routes.addAwards(context),
       context,
       httpOptions
