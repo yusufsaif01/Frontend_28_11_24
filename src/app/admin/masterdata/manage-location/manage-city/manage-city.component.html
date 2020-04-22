@@ -1,0 +1,115 @@
+<app-admin-header
+  [toggler]="sideBarToggle"
+  (toggleChange)="updateSidebar($event)"
+></app-admin-header>
+
+<mat-drawer-container class="admin-wrapper" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side" [opened]="sideBarToggle">
+    <app-admin-sidebar></app-admin-sidebar>
+  </mat-drawer>
+
+  <div class="sidenav-content" [ngClass]="{ sidenavToogle: !sideBarToggle }">
+    <div class="admin-main">
+      <!-- title breadcrum -->
+      <div class="title-wrapper">
+        <div class="title">
+          <h3>Manage City</h3>
+        </div>
+        <div class="breadcrumb">
+          <ul>
+            <li>Master Data</li>
+            <li>Manage Location</li>
+            <li>Manage City</li>
+          </ul>
+        </div>
+      </div>
+      <!-- end of the breadcrum -->
+
+      <!-- add state form  -->
+      <div class="addform">
+        <div class="heading">
+          <img src="assets/images/icons/plus.png" alt="" />
+          <h3>Add City</h3>
+        </div>
+        <div class="form-block">
+          <form action="">
+            <div class="form-part">
+              <div class="input-wrapper">
+                <label>State</label>
+                <select matNativeControl required class="change-icon">
+                  <option value="Uttarpradesh">Select your state</option>
+                  <option value="Uttarpradesh">Uttarpradesh</option>
+                  <option value="kerala">kerala</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Assam">Assam</option>
+                </select>
+              </div>
+              <div class="input-wrapper">
+                <label>City</label>
+                <input type="text" matinput placeholder="Add new state" />
+              </div>
+              <div class="input-wrapper">
+                <button>Add</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- end state form -->
+
+      <!-- table -->
+      <div class="middle-part">
+        <!-- filter-section -->
+        <div class="filter-wrapper">
+          <!-- search form -->
+          <div class="search">
+            <div class="search-box">
+              <input
+                matInput
+                placeholder="Search your Club"
+                class="search-icon"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- filter-seciton -->
+
+        <!-- table -->
+        <div class="table-container">
+          <app-master-table
+            [tableConfig]="tableConfig"
+            [NumberColumn]="'true'"
+            [rows]="dataSource"
+            [TableActions]="ListAction"
+          ></app-master-table>
+          <ng-template #ListAction>
+            <div class="action-buttons">
+              <button>
+                <img src="assets/images/icons/edit.png" alt="Edit" />
+              </button>
+              <button (click)="statusPopup(user_id, status)">
+                <img src="assets/images/icons/tick.png" alt="Edit" />
+              </button>
+              <button (click)="deletePopup(user_id, status)">
+                <img src="assets/images/icons/close01.png" alt="Delete" />
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+
+      <!-- paginations -->
+      <!-- pagination -->
+      <div class="pagination-wrapper">
+        <div class="showing-data">
+          <p>
+            <strong>Showing</strong>
+            30 / 100 Data
+          </p>
+        </div>
+        <app-pagination> </app-pagination>
+      </div>
+    </div>
+  </div>
+</mat-drawer-container>
+<app-footer></app-footer>
