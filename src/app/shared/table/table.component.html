@@ -16,12 +16,12 @@
               (col === 'email' || col === 'status'),
             active: element.status === 'active' && col === 'status'
           }"
-          *ngIf="col !== 'name'"
+          *ngIf="col !== 'name' && col !== 'media' && col !== 'type'"
         >
           {{ tableConfig.columns[col].getValue(element) }}
         </p>
         <p
-          *ngIf="col === 'name'"
+          *ngIf="col === 'name' || col === 'type'"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
         >
           {{
@@ -32,7 +32,11 @@
           }}
         </p>
         <p *ngIf="col === 'media'">
-          <img class="thumbnail" [src]="tableConfig.columns[col].getValue(element)" alt="" />
+          <img
+            class="thumbnail"
+            [src]="tableConfig.columns[col].getValue(element)"
+            alt=""
+          />
         </p>
       </div>
     </mat-cell>
