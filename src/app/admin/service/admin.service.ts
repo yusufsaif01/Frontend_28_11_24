@@ -8,7 +8,9 @@ const routes = {
   getAcademyList: (c: CommonContext) => '/member/academy/list',
   deleteUser: (c: DeleteUserContext) => '/member/delete',
   activeUser: (c: StatusUserContext) => '/member/status-activate',
-  deactivateUser: (c: StatusUserContext) => '/member/status-deactivate'
+  deactivateUser: (c: StatusUserContext) => '/member/status-deactivate',
+  addState: (c: any) => '/master/state/add',
+  getStateList: () => '/master/state/all'
 };
 
 export interface CommonContext {
@@ -68,6 +70,10 @@ interface AcademyListResponseContext {
   };
 }
 
+interface AddStateContext {
+  name: string;
+}
+
 let clubResponse = {
   data: {
     total: 1,
@@ -121,6 +127,17 @@ interface StatusUserContext {
 }
 
 interface StatusUserResponseContext {
+  status: string;
+  message: string;
+}
+interface StateListResponseContext {
+  data: {
+    id: number;
+    name: string;
+    country_id: string;
+  }[];
+}
+interface AddStateResponseContext {
   status: string;
   message: string;
 }
@@ -367,6 +384,38 @@ export class AdminService {
     return this.httpClient.put<StatusUserResponseContext>(
       routes.deactivateUser(context) + params,
       context,
+      httpOptions
+    );
+  }
+  addState(context: AddStateContext): Observable<AddStateResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+    headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    return this.httpClient.post<AddStateResponseContext>(
+      routes.addState(context),
+      context,
+      httpOptions
+    );
+  }
+
+  getStateList(): Observable<StateListResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    return this.httpClient.get<StateListResponseContext>(
+      routes.getStateList(),
       httpOptions
     );
   }

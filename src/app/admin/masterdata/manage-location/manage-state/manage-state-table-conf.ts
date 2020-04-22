@@ -3,21 +3,21 @@ import { MasterTableConfig } from '@app/shared/master-table/MasterTableConfig';
 export class ManageStateTableConfig extends MasterTableConfig {
   constructor() {
     super();
-    this.allowedColumns = ['serialNo', 'state'];
+    this.allowedColumns = ['id', 'name'];
 
     this.columns = {
-      serialNo: {
-        code: 'serialNo',
+      id: {
+        code: 'id',
         text: 'S.No',
         getValue: (ele: any) => {
-          return ele[this.columns.serialNo.code];
+          return ele[this.columns.id.code];
         }
       },
-      state: {
-        code: 'state',
+      name: {
+        code: 'name',
         text: 'States',
         getValue: (ele: any) => {
-          return ele[this.columns.state.code];
+          return ele[this.columns.name.code];
         }
       },
       action: {

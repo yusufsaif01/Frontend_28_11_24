@@ -32,11 +32,16 @@
           <h3>Add State</h3>
         </div>
         <div class="form-block">
-          <form action="">
+          <form (ngSubmit)="addState()" [formGroup]="addStateForm">
             <div class="form-part">
               <div class="input-wrapper">
                 <label>State</label>
-                <input type="text" matinput placeholder="Add new state" />
+                <input
+                  formControlName="name"
+                  type="text"
+                  matinput
+                  placeholder="Add new state"
+                />
               </div>
               <div class="input-wrapper">
                 <button>Add</button>
