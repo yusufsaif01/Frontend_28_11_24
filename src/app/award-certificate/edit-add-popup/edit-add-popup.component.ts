@@ -54,7 +54,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   ) {
     elem.close();
     let year = new Date(String(event));
-    this.editAddForm.get('year').setValue(new Date(year));
+    this.editAddForm.get('year').setValue(year);
   }
 
   ngOnInit() {
