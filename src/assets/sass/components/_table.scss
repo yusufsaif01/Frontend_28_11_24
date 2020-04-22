@@ -26,6 +26,9 @@
     background: $color-white;
     box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
+    &:last-child {
+      margin-bottom: 0rem;
+    }
     .mat-cell {
       font-size: 2rem;
       line-height: 3rem;

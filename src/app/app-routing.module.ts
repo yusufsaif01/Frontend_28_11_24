@@ -22,6 +22,7 @@ import { AwardCertificateComponent } from './award-certificate/award-certificate
 import { ManageLocationComponent } from './admin/masterdata/manage-location/manage-location.component';
 import { ManageStateComponent } from './admin/masterdata/manage-location/manage-state/manage-state.component';
 import { ManageCityComponent } from './admin/masterdata/manage-location/manage-city/manage-city.component';
+import { MemberTypeComponent } from './admin/masterdata/member-type/member-type.component';
 const routes: Routes = [
   {
     path: '',
@@ -109,6 +110,12 @@ const routes: Routes = [
     path: 'masterdata-city',
     component: ManageCityComponent,
     data: { title: extract('Manage City') }
+  },
+
+  {
+    path: 'masterdata-membertype',
+    component: MemberTypeComponent,
+    data: { title: extract('Member Type ') }
   },
 
   {
