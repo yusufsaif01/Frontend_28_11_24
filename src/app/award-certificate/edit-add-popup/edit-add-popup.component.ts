@@ -4,8 +4,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { AwardCertificateService } from '../award-certificate.service';
-import { finalize } from 'rxjs/operators';
-import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 
 interface ArrayTypeContext {
@@ -30,7 +28,7 @@ const APP_DATE_FORMATS = {
 export class EditAddPopupComponent implements OnInit, OnDestroy {
   editAddForm: FormGroup;
   achievement: File;
-  member_type: string = localStorage.getItem('member_type') || 'player';
+  member_type: string = 'player';
   player_type: string = 'amateur';
   awardsArray: ArrayTypeContext[];
 
@@ -45,7 +43,8 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     this.createForm();
-    this.player_type = this.data.player_type;
+    this.player_type = data.player_type;
+    this.member_type = data.member_type;
   }
 
   closeDatePicker(
@@ -67,6 +66,10 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
       } else if (this.player_type === 'professional') {
         this.awardsArray = this.professionalsAwardTypeArray;
       }
+    } else if (this.member_type === 'club') {
+      this.awardsArray = this.clubAwardTypeArray;
+    } else if (this.member_type === 'academy') {
+      this.awardsArray = this.academyAwardTypeArray;
     }
     if (this.data.id) {
       this.editAddForm.patchValue(this.data);
@@ -74,6 +77,19 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     }
   }
   ngOnDestroy() {}
+
+  clubAwardTypeArray = [
+    {
+      name: 'Club Level Competition Certificates',
+      value: 'Club Level Competition Certificates'
+    }
+  ];
+  academyAwardTypeArray = [
+    {
+      name: 'Private Tournament Certificates',
+      value: 'Private Tournament Certificates'
+    }
+  ];
 
   grassrootsAwardTypeArray = [
     {
@@ -224,7 +240,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
           console.log('server response', response);
           this.toastrService.success(
             `${response.message}`,
-            'Award Added Successfully'
+            'Award Updated Successfully'
           );
         },
         error => {
@@ -244,26 +260,18 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   addData(requestData: any) {
     console.log(this.editAddForm.value);
     if (this.achievement) requestData.set('achievement', this.achievement);
-    const award$ = this.awardCertificateService.addAwards(requestData);
-    award$
-      .pipe(
-        finalize(() => {
-          this.editAddForm.markAsPristine();
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe(
-        response => {
-          console.log('server response', response);
-          this.toastrService.success(
-            `${response.message}`,
-            'Award Added Successfully'
-          );
-        },
-        error => {
-          console.log('error', error);
-          this.toastrService.error(`${error.error.message}`, 'Error');
-        }
-      );
+    this.awardCertificateService.addAwards(requestData).subscribe(
+      response => {
+        console.log('server response', response);
+        this.toastrService.success(
+          `${response.message}`,
+          'Award Added Successfully'
+        );
+      },
+      error => {
+        console.log('error', error);
+        this.toastrService.error(`${error.error.message}`, 'Error');
+      }
+    );
   }
 }

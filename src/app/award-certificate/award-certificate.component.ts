@@ -22,6 +22,7 @@ export class AwardCertificateComponent implements OnInit {
   pageSize: number = 10;
   environment = environment;
   player_type: string;
+  member_type: string;
   award_count: number;
   total_count: number;
 
@@ -48,7 +49,7 @@ export class AwardCertificateComponent implements OnInit {
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
       width: '40%',
       panelClass: 'edit-add-popup',
-      data: { player_type: this.player_type }
+      data: { player_type: this.player_type, member_type: this.member_type }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -71,7 +72,8 @@ export class AwardCertificateComponent implements OnInit {
       position: position,
       type: type,
       year,
-      player_type: this.player_type
+      player_type: this.player_type,
+      member_type: this.member_type
     };
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
       width: '40%',
@@ -87,6 +89,9 @@ export class AwardCertificateComponent implements OnInit {
   getPlayerType(value: string) {
     console.log(value);
     this.player_type = value;
+  }
+  getMemberType(value: string) {
+    this.member_type = value;
   }
 
   updatePage(event: any) {

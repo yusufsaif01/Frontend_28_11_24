@@ -35,6 +35,7 @@ export class LeftPanelComponent implements OnInit {
 
   @Input() options: any;
   @Output() sendPlayerType = new EventEmitter<string>();
+  @Output() sendMemberType = new EventEmitter<string>();
 
   constructor(
     private _authenticationService: AuthenticationService,
@@ -58,7 +59,8 @@ export class LeftPanelComponent implements OnInit {
           this.profile.avatar_url =
             this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
         }
-        this.sendPlayerType.emit(this.profile.player_type)
+        this.sendPlayerType.emit(this.profile.player_type);
+        this.sendMemberType.emit(this.profile.member_type);
       },
       error => {
         console.log('error', error);
