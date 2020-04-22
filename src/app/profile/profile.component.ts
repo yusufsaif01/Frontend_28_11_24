@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   employment_contract: string;
   document: string;
   panelOptions: object = {
-    player_type: true,
+    player_type: false,
     logout_link: true
   };
 
