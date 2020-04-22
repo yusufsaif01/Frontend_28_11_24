@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -22,12 +23,18 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private _authenticationService: AuthenticationService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
     this.populateView();
     this.numbers = [1, 2, 3, 4, 5];
+  }
+
+  logout() {
+    this._authenticationService.logout();
+    this._router.navigateByUrl('/login');
   }
 
   populateView() {

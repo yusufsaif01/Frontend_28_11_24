@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '@app/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { matchingPassword } from '@app/shared/validators/matchingPassword';
 
 @Component({
   selector: 'app-change-password',
@@ -56,10 +57,15 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   createForm() {
-    this.changePasswordForm = this._formBuilder.group({
-      old_password: ['', [Validators.required]],
-      new_password: ['', [Validators.required]],
-      confirm_password: ['', [Validators.required]]
-    });
+    this.changePasswordForm = this._formBuilder.group(
+      {
+        old_password: ['', [Validators.required]],
+        new_password: ['', [Validators.required]],
+        confirm_password: ['', [Validators.required]]
+      },
+      {
+        validator: matchingPassword
+      }
+    );
   }
 }

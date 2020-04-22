@@ -40,6 +40,8 @@ interface positionObject {
 export class EditProfileComponent implements OnInit {
   @Input() max: Date | null;
   @ViewChild(HeaderComponent, { static: true }) header: HeaderComponent;
+
+  currentYear = new Date().getFullYear();
   tomorrow = new Date();
   environment = environment;
   avatar: File;
@@ -942,6 +944,7 @@ export class EditProfileComponent implements OnInit {
             [
               Validators.required,
               Validators.maxLength(4),
+              Validators.max(this.currentYear),
               Validators.pattern(/^\d+$/)
             ]
           ],
@@ -957,6 +960,7 @@ export class EditProfileComponent implements OnInit {
             [
               Validators.required,
               Validators.maxLength(4),
+              Validators.max(this.currentYear),
               Validators.pattern(/^\d+$/)
             ]
           ],
