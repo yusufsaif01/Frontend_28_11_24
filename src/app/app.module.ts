@@ -71,6 +71,7 @@ import { EditAddPopupComponent } from './award-certificate/edit-add-popup/edit-a
 import { ManageLocationComponent } from './admin/masterdata/manage-location/manage-location.component';
 import { ManageStateComponent } from './admin/masterdata/manage-location/manage-state/manage-state.component';
 import { ManageCityComponent } from './admin/masterdata/manage-location/manage-city/manage-city.component';
+import { MemberTypeComponent } from './admin/masterdata/member-type/member-type.component';
 const icons = {
   Camera,
   Heart,
@@ -149,7 +150,8 @@ const icons = {
     EditAddPopupComponent,
     ManageLocationComponent,
     ManageStateComponent,
-    ManageCityComponent
+    ManageCityComponent,
+    MemberTypeComponent
     // , HomeComponent
   ],
   providers: [

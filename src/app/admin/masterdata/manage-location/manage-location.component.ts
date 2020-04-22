@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ManageLocationTableConfig } from './manage-location-table-conf';
+import { AdminService } from '@app/admin/service/admin.service';
 @Component({
   selector: 'app-manage-location',
   templateUrl: './manage-location.component.html',
@@ -16,7 +17,24 @@ export class ManageLocationComponent implements OnInit {
   updateSidebar($event: any) {
     this.sideBarToggle = $event;
   }
-  constructor() {}
+  constructor(public adminService: AdminService) {}
+  ngOnInit() {
+    this.getLocationStats();
+  }
 
-  ngOnInit() {}
+  getLocationStats() {
+    this.adminService.getLocationStats().subscribe(
+      response => {
+        console.log(response);
+        let records = response.data;
+        for (let i = 0; i < records.length; i++) {
+          records[i]['serialNo'] = i + 1;
+        }
+        this.dataSource = new MatTableDataSource(records);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 }
