@@ -20,30 +20,30 @@ export class MasterTableComponent implements OnInit {
   @Input() tableConfig: any = {};
   @Input() TableActions: TemplateRef<any>;
   @Input() NumberColumn: boolean = false;
-  //  @Input() rows = new MatTableDataSource([]);
-  dataSource = new MatTableDataSource<any>();
-  rows = new MatTableDataSource([
-    {
-      serialNo: '1',
-      MemberCategory: 'Player',
-      MemberSubCategory: 'Grassroot'
-    },
-    {
-      serialNo: '2',
-      MemberCategory: 'Player',
-      MemberSubCategory: 'Grassroot'
-    },
-    {
-      serialNo: '3',
-      MemberCategory: 'Player',
-      MemberSubCategory: 'Grassroot'
-    },
-    {
-      serialNo: '4',
-      MemberCategory: 'Player',
-      MemberSubCategory: 'Grassroot'
-    }
-  ]);
+  @Input() rows = new MatTableDataSource([]);
+  // dataSource = new MatTableDataSource<any>();
+  // rows = new MatTableDataSource([
+  //   {
+  //     serialNo: '1',
+  //     MemberCategory: 'Player',
+  //     MemberSubCategory: 'Grassroot'
+  //   },
+  //   {
+  //     serialNo: '2',
+  //     MemberCategory: 'Player',
+  //     MemberSubCategory: 'Grassroot'
+  //   },
+  //   {
+  //     serialNo: '3',
+  //     MemberCategory: 'Player',
+  //     MemberSubCategory: 'Grassroot'
+  //   },
+  //   {
+  //     serialNo: '4',
+  //     MemberCategory: 'Player',
+  //     MemberSubCategory: 'Grassroot'
+  //   }
+  // ]);
   public columns: string[] = [];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
