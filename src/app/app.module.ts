@@ -51,7 +51,8 @@ import {
   Twitter,
   MapPin,
   Clock,
-  Star
+  Star,
+  Edit
 } from 'angular-feather/icons';
 import { from } from 'rxjs';
 import { ManagePlayerComponent } from './admin/manage-player/manage-player.component';
@@ -65,6 +66,11 @@ import { PostPopupComponent } from './post-popup/post-popup.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { DeleteConfirmationComponent } from './shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from './shared/dialog-box/status-confirmation/status-confirmation.component';
+import { AwardCertificateComponent } from './award-certificate/award-certificate.component';
+import { EditAddPopupComponent } from './award-certificate/edit-add-popup/edit-add-popup.component';
+import { ManageLocationComponent } from './admin/masterdata/manage-location/manage-location.component';
+import { ManageStateComponent } from './admin/masterdata/manage-location/manage-state/manage-state.component';
+import { ManageCityComponent } from './admin/masterdata/manage-location/manage-city/manage-city.component';
 const icons = {
   Camera,
   Heart,
@@ -138,7 +144,12 @@ const icons = {
     TimelineComponent,
     PostPopupComponent,
     DeleteConfirmationComponent,
-    StatusConfirmationComponent
+    StatusConfirmationComponent,
+    AwardCertificateComponent,
+    EditAddPopupComponent,
+    ManageLocationComponent,
+    ManageStateComponent,
+    ManageCityComponent
     // , HomeComponent
   ],
   providers: [
@@ -156,7 +167,8 @@ const icons = {
     FilterDialogAcademyComponent,
     PostPopupComponent,
     DeleteConfirmationComponent,
-    StatusConfirmationComponent
+    StatusConfirmationComponent,
+    EditAddPopupComponent
   ]
 })
 export class AppModule {}

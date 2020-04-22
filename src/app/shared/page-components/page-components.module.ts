@@ -41,10 +41,13 @@ import {
   Plus,
   LogOut,
   ChevronDown,
-  Search
+  Search,
+  Award,
+  Home
 } from 'angular-feather/icons';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LinkExpiredComponent } from './link-expired/link-expired.component';
+import { LeftPanelComponent } from './left-panel/left-panel.component';
 
 const icons = {
   Camera,
@@ -78,7 +81,9 @@ const icons = {
   Plus,
   LogOut,
   ChevronDown,
-  Search
+  Search,
+  Award,
+  Home
 };
 
 @NgModule({
@@ -90,7 +95,8 @@ const icons = {
     AdminHeaderComponent,
     AdminSidebarComponent,
     NotFoundComponent,
-    LinkExpiredComponent
+    LinkExpiredComponent,
+    LeftPanelComponent
   ],
   imports: [
     CommonModule,
@@ -105,6 +111,7 @@ const icons = {
     ContainerComponent,
     AdminHeaderComponent,
     AdminSidebarComponent,
+    LeftPanelComponent,
     FeatherModule
   ]
 })

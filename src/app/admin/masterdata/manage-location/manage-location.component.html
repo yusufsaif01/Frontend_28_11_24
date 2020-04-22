@@ -1,0 +1,59 @@
+<app-admin-header
+  [toggler]="sideBarToggle"
+  (toggleChange)="updateSidebar($event)"
+></app-admin-header>
+
+<mat-drawer-container class="admin-wrapper" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side" [opened]="sideBarToggle">
+    <app-admin-sidebar></app-admin-sidebar>
+  </mat-drawer>
+
+  <div class="sidenav-content" [ngClass]="{ sidenavToogle: !sideBarToggle }">
+    <!-- <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button> -->
+    <div class="admin-main">
+      <!-- title breadcrum -->
+      <div class="title-wrapper">
+        <div class="title">
+          <h3>Manage Location</h3>
+        </div>
+        <div class="breadcrumb">
+          <ul>
+            <li>Master Data</li>
+            <li>Manage Location</li>
+          </ul>
+        </div>
+      </div>
+      <!-- end of the breadcrum -->
+
+      <!-- table -->
+      <div class="middle-part">
+        <!-- table -->
+        <div class="table-container">
+          <app-table
+            [tableConfig]="tableConfig"
+            [NumberColumn]="'true'"
+            [rows]="dataSource"
+            [TableActions]="ListAction"
+          >
+          </app-table>
+          <ng-template #ListAction>
+            <div class="action-buttons">
+              <!--  <button>
+                                <img src="assets/images/icons/eyes.png" alt="Edit" />
+                            </button>
+                            <button (click)="statusPopup(user_id, status)">
+                                <img src="assets/images/icons/change.png" alt="Edit" />
+                            </button>
+                            <button (click)="deletePopup(user_id, status)">
+                                <img src="assets/images/icons/bin.png" alt="Delete" />
+                            </button> -->
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-drawer-container>
+<app-footer></app-footer>

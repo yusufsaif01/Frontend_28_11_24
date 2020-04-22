@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '@app/core';
-import { ToastrService } from 'ngx-toastr';
+
 import { environment } from '../../environments/environment';
 
 import {
@@ -10,6 +9,7 @@ import {
 } from '@angular/material/dialog';
 import { PostPopupComponent } from '@app/post-popup/post-popup.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
@@ -17,7 +17,12 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 })
 export class TimelineComponent implements OnInit {
   environment = environment;
-  profile: any;
+  panelOptions: object = {
+    bio: true,
+    member_type: true,
+    my_achievements: true,
+    view_profile_link: true
+  };
 
   customOptions: OwlOptions = {
     loop: true,
@@ -43,52 +48,16 @@ export class TimelineComponent implements OnInit {
       }
     }
   };
-  constructor(
-    public dialog: MatDialog,
-    private _authenticationService: AuthenticationService,
-    private _toastrService: ToastrService
-  ) {}
+  constructor(public dialog: MatDialog) {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(PostPopupComponent, {
       width: '45%',
       panelClass: 'postpopup'
-      // data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {});
   }
 
-  ngOnInit() {
-    this.getProfileData();
-  }
-
-  getProfileData() {
-    this._authenticationService.getProfileDetails().subscribe(
-      response => {
-        console.log('data', response);
-        this.profile = response.data;
-
-        if (this.profile.avatar_url) {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + this.profile.avatar_url;
-        } else {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
-        }
-
-        this._toastrService.success(
-          'Successful',
-          'Data retrieved successfully'
-        );
-      },
-      error => {
-        console.log('error', error);
-        this._toastrService.error(
-          `${error.error.message}`,
-          'Failed to load data'
-        );
-      }
-    );
-  }
+  ngOnInit() {}
 }

@@ -1,0 +1,58 @@
+<mat-table matSort [dataSource]="rows">
+  <!-- Checkbox Column -->
+  <ng-container
+    [matColumnDef]="tableConfig.columns[col].code"
+    *ngFor="let col of tableConfig.allowedColumns"
+  >
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{
+      tableConfig.columns[col].text
+    }}</mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index">
+      <div>
+        <p
+          [ngClass]="{
+            pending:
+              element.status === 'pending' &&
+              (col === 'email' || col === 'status'),
+            active: element.status === 'active' && col === 'status'
+          }"
+          *ngIf="col !== 'name'"
+        >
+          {{ tableConfig.columns[col].getValue(element) }}
+        </p>
+        <p
+          *ngIf="col === 'name'"
+          matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
+        >
+          {{
+            tableConfig.columns[col].getValue(element).length < 18
+              ? tableConfig.columns[col].getValue(element)
+              : (tableConfig.columns[col].getValue(element) | slice: 0:18) +
+                '...'
+          }}
+        </p>
+        <p *ngIf="col === 'thumbnail'">
+          <img class="thumbnail" src="assets/images/profile-icon.png" alt="" />
+        </p>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- <ng-container matColumnDef="sno">
+    <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index">
+      <div>{{ i > 8 ? '' : 0 }}{{ i + 1 }}</div>
+    </mat-cell>
+  </ng-container> -->
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index">
+      <ng-container
+        *ngTemplateOutlet="TableActions; context: element"
+      ></ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
+</mat-table>

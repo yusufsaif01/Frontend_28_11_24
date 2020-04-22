@@ -20,25 +20,37 @@ export class TableComponent implements OnInit {
   @Input() tableConfig: any = {};
   @Input() TableActions: TemplateRef<any>;
   @Input() NumberColumn: boolean = false;
+  @Input() sortEnabled: boolean = false;
   @Input() rows = new MatTableDataSource([]);
   // dataSource = new MatTableDataSource<any>();
   // rows = new MatTableDataSource([
   //   {
-  //     name: 'Pushpam',
-  //     position: 'Sample',
-  //     type: 'Sample',
-  //     email: 'email',
-  //     status: 'pending',
+  //     serialnumber: '1',
+  //     awardtype: 'Professional',
+  //     awardname: 'FIFA World Cup',
+  //     year: '1980',
+  //     position_secured: 'Second',
+  //     thumbnail: '',
   //     actions: ''
   //   },
   //   {
-  //     name: 'Pushpam',
-  //     position: 'Sample',
-  //     type: 'Sample',
-  //     email: 'email',
-  //     status: 'pending',
+  //     serialnumber: '1',
+  //     awardtype: 'Professional',
+  //     awardname: 'FIFA World Cup',
+  //     year: '1980',
+  //     position_secured: 'Second',
+  //     thumbnail: '',
   //     actions: ''
-  //   }
+  //   },
+  //   {
+  //     serialnumber: '1',
+  //     awardtype: 'Professional',
+  //     awardname: 'FIFA World Cup',
+  //     year: '1980',
+  //     position_secured: 'Second',
+  //     thumbnail: '',
+  //     actions: ''
+  //   },
   // ]);
   public columns: string[] = [];
 
@@ -65,6 +77,6 @@ export class TableComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.rows.sort = this.sort;
+    if (this.sortEnabled) this.rows.sort = this.sort;
   }
 }

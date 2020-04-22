@@ -18,6 +18,10 @@ import { ManageAcademyComponent } from './admin/manage-academy/manage-academy.co
 import { TimelineComponent } from './timeline/timeline.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
 import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
+import { AwardCertificateComponent } from './award-certificate/award-certificate.component';
+import { ManageLocationComponent } from './admin/masterdata/manage-location/manage-location.component';
+import { ManageStateComponent } from './admin/masterdata/manage-location/manage-state/manage-state.component';
+import { ManageCityComponent } from './admin/masterdata/manage-location/manage-city/manage-city.component';
 const routes: Routes = [
   {
     path: '',
@@ -73,7 +77,11 @@ const routes: Routes = [
     component: ManagePlayerComponent,
     data: { title: extract('Manage Player') }
   },
-
+  {
+    path: 'awardcertification',
+    component: AwardCertificateComponent,
+    data: { title: extract('Awards and Certification') }
+  },
   {
     path: 'manage-club',
     component: ManageClubComponent,
@@ -84,6 +92,23 @@ const routes: Routes = [
     path: 'manage-academy',
     component: ManageAcademyComponent,
     data: { title: extract('Manage Academy') }
+  },
+
+  {
+    path: 'masterdata-location',
+    component: ManageLocationComponent,
+    data: { title: extract('Manage Location') }
+  },
+
+  {
+    path: 'masterdata-state',
+    component: ManageStateComponent,
+    data: { title: extract('Manage State') }
+  },
+  {
+    path: 'masterdata-city',
+    component: ManageCityComponent,
+    data: { title: extract('Manage City') }
   },
 
   {

@@ -1,0 +1,72 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <!-- left Sidebar -->
+  <div class="left-section">
+    <app-left-panel
+      (sendPlayerType)="getPlayerType($event)"
+      (sendMemberType)="getMemberType($event)"
+      [options]="panelOptions"
+    ></app-left-panel>
+  </div>
+  <div class="right-section">
+    <div class="award-heading">
+      <div class="left-part">
+        <h2>
+          <i-feather name="Award"></i-feather> My Awards and Certifications
+        </h2>
+      </div>
+      <div class="right-part">
+        <button (click)="openDialog()">Add Awards</button>
+      </div>
+    </div>
+    <div class="award-table">
+      <!-- table -->
+      <div class="table-container">
+        <app-table
+          [tableConfig]="tableConfig"
+          [NumberColumn]="'true'"
+          [rows]="dataSource"
+          [TableActions]="ListAction"
+          [sortEnabled]="false"
+        >
+        </app-table>
+        <ng-template
+          #ListAction
+          let-id="id"
+          let-media="media"
+          let-name="name"
+          let-position="position"
+          let-type="type"
+          let-year="year"
+        >
+          <div class="action-buttons">
+            <button
+              (click)="openEditDialog(id, media, name, position, type, year)"
+            >
+              <img src="assets/images/icons/edit01.png" alt="Edit" />
+            </button>
+            <button (click)="deletePopup(id)">
+              <img src="assets/images/icons/bin.png" alt="Delete" />
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <!-- pagination -->
+    <div class="pagination-wrapper">
+      <!-- <div class="showing-data">
+        <p>
+          <strong>Showing</strong>
+          {{ pageSize > award_count ? award_count : pageSize }}
+          / {{ total_count }} Data
+        </p>
+      </div> -->
+      <app-pagination
+        [totalRows]="total_count"
+        [rowsPerPage]="pageSize"
+        (onChange)="updatePage($event)"
+      >
+      </app-pagination>
+    </div>
+  </div>
+</div>
