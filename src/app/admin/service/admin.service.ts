@@ -8,7 +8,8 @@ const routes = {
   getAcademyList: (c: CommonContext) => '/member/academy/list',
   deleteUser: (c: DeleteUserContext) => '/member/delete',
   activeUser: (c: StatusUserContext) => '/member/status-activate',
-  deactivateUser: (c: StatusUserContext) => '/member/status-deactivate'
+  deactivateUser: (c: StatusUserContext) => '/member/status-deactivate',
+  getLocationStats: () => '/master/location/stats'
 };
 
 export interface CommonContext {
@@ -123,6 +124,13 @@ interface StatusUserContext {
 interface StatusUserResponseContext {
   status: string;
   message: string;
+}
+interface LocationStatsResponseContext {
+  data: {
+    country: string;
+    no_of_state: number;
+    no_of_city: number;
+  }[];
 }
 
 @Injectable({
@@ -367,6 +375,22 @@ export class AdminService {
     return this.httpClient.put<StatusUserResponseContext>(
       routes.deactivateUser(context) + params,
       context,
+      httpOptions
+    );
+  }
+
+  getLocationStats(): Observable<LocationStatsResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    return this.httpClient.get<LocationStatsResponseContext>(
+      routes.getLocationStats(),
       httpOptions
     );
   }
