@@ -30,7 +30,7 @@ const APP_DATE_FORMATS = {
 export class EditAddPopupComponent implements OnInit, OnDestroy {
   editAddForm: FormGroup;
   achievement: File;
-  member_type: string = localStorage.getItem('member_type') || 'player';
+  member_type: string = 'player';
   player_type: string = 'amateur';
   awardsArray: ArrayTypeContext[];
 
@@ -46,6 +46,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   ) {
     this.createForm();
     this.player_type = data.player_type;
+    this.member_type = data.member_type;
   }
 
   closeDatePicker(
@@ -66,9 +67,26 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
       } else if (this.player_type === 'professional') {
         this.awardsArray = this.professionalsAwardTypeArray;
       }
+    } else if (this.member_type === 'club') {
+      this.awardsArray = this.clubAwardTypeArray;
+    } else if (this.member_type === 'academy') {
+      this.awardsArray = this.academyAwardTypeArray;
     }
   }
   ngOnDestroy() {}
+
+  clubAwardTypeArray = [
+    {
+      name: 'Club Level Competition Certificates',
+      value: 'Club Level Competition Certificates'
+    }
+  ];
+  academyAwardTypeArray = [
+    {
+      name: 'Private Tournament Certificates',
+      value: 'Private Tournament Certificates'
+    }
+  ];
 
   grassrootsAwardTypeArray = [
     {

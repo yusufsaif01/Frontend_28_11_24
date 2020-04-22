@@ -4,6 +4,7 @@
   <div class="left-section">
     <app-left-panel
       (sendPlayerType)="getPlayerType($event)"
+      (sendMemberType)="getMemberType($event)"
       [options]="panelOptions"
     ></app-left-panel>
   </div>
