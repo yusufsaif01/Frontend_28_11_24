@@ -44,7 +44,10 @@
 </div>
 
 <!-- player type -->
-<div class="block-design" *ngIf="profile && profile.member_type === 'player'">
+<div
+  class="block-design"
+  *ngIf="profile && profile.member_type === 'player' && options.player_type"
+>
   <div class="block-middle">
     <div class="part">
       <h4>Player Type</h4>
