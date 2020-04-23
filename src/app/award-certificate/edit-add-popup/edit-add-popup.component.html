@@ -104,7 +104,8 @@
               #picker
               startView="multi-year"
               (yearSelected)="closeDatePicker(picker, $event)"
-            ></mat-datepicker>
+            >
+            </mat-datepicker>
           </div>
           <mat-error
             *ngIf="
@@ -170,20 +171,20 @@
             formControlName="achievement"
             (change)="uploadAchievement($event.target.files)"
           />
-        </div>
-        <mat-error
-          *ngIf="
-            editAddForm.controls.achievement.errors &&
-            editAddForm.controls.achievement.dirty
-          "
-        >
-          <span
-            class="align-center"
-            *ngIf="editAddForm.controls.achievement.errors.requiredFileAvatar"
-            translate
-            >Image must be of type JPEG / JPG / PNG</span
+          <mat-error
+            *ngIf="
+              editAddForm.controls.achievement.errors &&
+              editAddForm.controls.achievement.dirty
+            "
           >
-        </mat-error>
+            <span
+              class="align-center"
+              *ngIf="editAddForm.controls.achievement.errors.requiredFileAvatar"
+              translate
+              >Image must be of type JPEG / JPG / PNG</span
+            >
+          </mat-error>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
