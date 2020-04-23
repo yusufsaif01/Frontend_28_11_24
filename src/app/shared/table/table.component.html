@@ -19,13 +19,7 @@
               (col === 'email' || col === 'status'),
             active: element.status === 'active' && col === 'status'
           }"
-          *ngIf="
-            col !== 'name' &&
-            col !== 'media' &&
-            col !== 'type' &&
-            col !== 'no_of_state' &&
-            col !== 'no_of_city'
-          "
+          *ngIf="col !== 'name' && col !== 'media' && col !== 'type'"
         >
           {{ tableConfig.columns[col].getValue(element) }}
         </p>
@@ -46,16 +40,6 @@
             [src]="tableConfig.columns[col].getValue(element)"
             alt=""
           />
-        </p>
-        <p *ngIf="col === 'no_of_state'">
-          <a href="/masterdata-state" target="_blank">{{
-            tableConfig.columns[col].getValue(element)
-          }}</a>
-        </p>
-        <p *ngIf="col === 'no_of_city'">
-          <a href="/masterdata-city" target="_blank">{{
-            tableConfig.columns[col].getValue(element)
-          }}</a>
         </p>
       </div>
     </mat-cell>
