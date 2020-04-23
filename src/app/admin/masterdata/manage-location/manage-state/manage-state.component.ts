@@ -29,7 +29,7 @@ export class ManageStateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getStateList();
+    this.getStateByCountry();
   }
   addState() {
     this.adminService.addState(this.addStateForm.value).subscribe(
@@ -39,11 +39,23 @@ export class ManageStateComponent implements OnInit {
           `${response.message}`,
           'State Added Successfully'
         );
-        this.getStateList();
+        this.getStateByCountry();
       },
       error => {
         console.log('error', error);
         this.toastrService.error(`${error.error.message}`, 'Error');
+      }
+    );
+  }
+  getStateByCountry() {
+    this.adminService.getStateByCountry({ countryId: 101 }).subscribe(
+      response => {
+        console.log('response', response);
+        let records = response.data;
+        this.dataSource = new MatTableDataSource(records);
+      },
+      error => {
+        console.log('error', error);
       }
     );
   }

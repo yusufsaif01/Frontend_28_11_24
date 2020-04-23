@@ -11,7 +11,8 @@ const routes = {
   deactivateUser: (c: StatusUserContext) => '/member/status-deactivate',
   addState: (c: any) => '/master/state/add',
   getStateList: () => '/master/state/all',
-  getLocationStats: () => '/master/location/stats'
+  getLocationStats: () => '/master/location/stats',
+  getStateByCountry: (c: any) => '/master/state/byCountryId'
 };
 
 export interface CommonContext {
@@ -28,6 +29,10 @@ export interface CommonContext {
   position?: string;
   email_verified?: string;
   profile_status?: string;
+}
+
+interface StateByCountryIdContext {
+  countryId: number;
 }
 
 interface PlayerListResponseContext {
@@ -442,6 +447,26 @@ export class AdminService {
 
     return this.httpClient.get<LocationStatsResponseContext>(
       routes.getLocationStats(),
+      httpOptions
+    );
+  }
+
+  getStateByCountry(context: StateByCountryIdContext): Observable<any> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    let params = '/';
+    if (context['countryId']) {
+      params += `${context['countryId']}`;
+    }
+    return this.httpClient.get<any>(
+      routes.getStateByCountry(context) + params,
       httpOptions
     );
   }
