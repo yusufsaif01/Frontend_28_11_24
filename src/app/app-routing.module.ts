@@ -107,7 +107,7 @@ const routes: Routes = [
     data: { title: extract('Manage State') }
   },
   {
-    path: 'masterdata-city',
+    path: 'masterdata-city/:id',
     component: ManageCityComponent,
     data: { title: extract('Manage City') }
   },
