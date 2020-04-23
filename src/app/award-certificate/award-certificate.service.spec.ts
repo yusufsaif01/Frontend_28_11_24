@@ -6,7 +6,9 @@ describe('AwardCertificateService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: AwardCertificateService = TestBed.get(AwardCertificateService);
+    const service: AwardCertificateService = TestBed.get(
+      AwardCertificateService
+    );
     expect(service).toBeTruthy();
   });
 });

@@ -23,6 +23,8 @@ import { ManageLocationComponent } from './admin/masterdata/manage-location/mana
 import { ManageStateComponent } from './admin/masterdata/manage-location/manage-state/manage-state.component';
 import { ManageCityComponent } from './admin/masterdata/manage-location/manage-city/manage-city.component';
 import { MemberTypeComponent } from './admin/masterdata/member-type/member-type.component';
+import { ManagePositionComponent } from './admin/masterdata/player-specialization/manage-position/manage-position.component';
+import { ManageAbilityComponent } from './admin/masterdata/player-specialization/manage-ability/manage-ability.component';
 const routes: Routes = [
   {
     path: '',
@@ -116,6 +118,18 @@ const routes: Routes = [
     path: 'masterdata-membertype',
     component: MemberTypeComponent,
     data: { title: extract('Member Type ') }
+  },
+
+  {
+    path: 'masterdata-position',
+    component: ManagePositionComponent,
+    data: { title: extract('Manage Position ') }
+  },
+
+  {
+    path: 'masterdata-ability',
+    component: ManageAbilityComponent,
+    data: { title: extract('Manage Ability ') }
   },
 
   {

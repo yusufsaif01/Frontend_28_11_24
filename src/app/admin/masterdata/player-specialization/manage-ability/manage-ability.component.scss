@@ -1,5 +1,5 @@
 @import "src/assets/sass/abstracts/variables";
-
+@import "src/assets/sass/abstracts/mixins";
 .admin-wrapper {
   background-color: #fff;
   height: 100%;
@@ -128,6 +128,7 @@
     }
   }
 }
+
 // table content
 .middle-part {
   width: 95%;
@@ -138,18 +139,17 @@
   background-color: $color-white;
   box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
 }
-
-.change-icon {
-  width: 10rem;
-  left: calc(100% - 3rem);
-  -webkit-appearance: none;
-  appearance: none;
-  background-image: url("../../../../assets/images/icons/drowdown-caret.png");
-  background-repeat: no-repeat;
-  background-size: 2rem;
-  background-position: calc(100% - 1rem);
+// popup btn
+.btn-popup {
+  border-bottom: 2px solid $border-color;
+  .btn-wrapper {
+    width: 95%;
+    margin: 2rem auto;
+    button.popup {
+      @include admin-btn;
+    }
+  }
 }
-
 // table container
 .table-container {
   width: 95%;

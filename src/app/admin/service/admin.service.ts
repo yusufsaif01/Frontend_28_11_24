@@ -443,12 +443,12 @@ export class AdminService {
         Authorization: 'Bearer ' + token
       })
     };
-    let params = '/';
-    if (context['country_id']) {
-      params += `${context['country_id']}`;
-    }
+    // let params = '/';
+    // if (context['country_id']) {
+    //   params += `${context['country_id']}`;
+    // }
     return this.httpClient.post<AddStateResponseContext>(
-      routes.addState(context) + params,
+      routes.addState(context),
       context,
       httpOptions
     );

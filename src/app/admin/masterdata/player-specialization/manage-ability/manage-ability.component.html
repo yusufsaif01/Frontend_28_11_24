@@ -1,0 +1,65 @@
+<app-admin-header
+  [toggler]="sideBarToggle"
+  (toggleChange)="updateSidebar($event)"
+></app-admin-header>
+
+<mat-drawer-container class="admin-wrapper" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side" [opened]="sideBarToggle">
+    <app-admin-sidebar></app-admin-sidebar>
+  </mat-drawer>
+
+  <div class="sidenav-content" [ngClass]="{ sidenavToogle: !sideBarToggle }">
+    <div class="admin-main">
+      <!-- title breadcrum -->
+      <div class="title-wrapper">
+        <div class="title">
+          <h3>Manage Ability</h3>
+        </div>
+        <div class="breadcrumb">
+          <ul>
+            <li>Master Data</li>
+            <li>Player Specialization</li>
+            <li>Manage Ability</li>
+          </ul>
+        </div>
+      </div>
+      <!-- end of the breadcrum -->
+
+      <!-- table -->
+      <div class="middle-part">
+        <div class="btn-popup">
+          <div class="btn-wrapper">
+            <button class="popup" (click)="openDialog()">Add Ability</button>
+          </div>
+        </div>
+        <!-- table -->
+        <div class="table-container">
+          <app-master-table
+            [tableConfig]="tableConfig"
+            [NumberColumn]="'true'"
+            [rows]="dataSource"
+            [TableActions]="ListAction"
+          >
+          </app-master-table>
+          <ng-template #ListAction>
+            <div class="action-buttons">
+              <button (click)="openDialog()">
+                <img src=" assets/images/icons/edit.png" alt="Edit" />
+              </button>
+              <button>
+                <img src=" assets/images/icons/plus.png" alt="Edit" />
+              </button>
+              <button (click)="statusPopup(user_id, status)">
+                <img src="assets/images/icons/tick.png" alt="Edit" />
+              </button>
+              <button (click)="deletePopup(user_id, status)">
+                <img src="assets/images/icons/close01.png" alt="Delete" />
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-drawer-container>
+<app-footer></app-footer>
