@@ -31,13 +31,13 @@
       <div class="middle-part">
         <!-- table -->
         <div class="table-container">
-          <app-table
+          <app-master-table
             [tableConfig]="tableConfig"
             [NumberColumn]="'true'"
             [rows]="dataSource"
             [TableActions]="ListAction"
           >
-          </app-table>
+          </app-master-table>
           <ng-template #ListAction>
             <div class="action-buttons">
               <!--  <button>
