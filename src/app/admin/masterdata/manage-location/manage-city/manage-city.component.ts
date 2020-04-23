@@ -39,7 +39,7 @@ export class ManageCityComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getStateList();
+    this.getStateListByCountry();
   }
   addCity() {
     this.adminService
@@ -52,7 +52,7 @@ export class ManageCityComponent implements OnInit {
             'City Added Successfully'
           );
           this.addCityForm.reset();
-          this.getStateList();
+          this.getStateListByCountry();
           this.dataSource = new MatTableDataSource([]);
         },
         error => {
@@ -61,9 +61,9 @@ export class ManageCityComponent implements OnInit {
         }
       );
   }
-  getStateList() {
+  getStateListByCountry() {
     this.adminService
-      .getStateByCountry({ country_id: this.country_id })
+      .getStateListByCountry({ country_id: this.country_id })
       .subscribe(
         response => {
           console.log('response', response.data.records);

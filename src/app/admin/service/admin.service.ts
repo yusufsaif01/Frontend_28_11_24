@@ -11,7 +11,7 @@ const routes = {
   deactivateUser: (c: StatusUserContext) => '/member/status-deactivate',
   addState: (c: AddStateContext) => '/master/state/add',
   getLocationStats: () => '/master/location/stats',
-  getStateByCountry: (c: StateByCountryIdContext) => '/master/state/list',
+  getStateListByCountry: (c: GetStateListByCountryContext) => '/master/state/list',
   addCity: (c: AddCityContext) => '/master/city/add',
   getCityListByState: (c: GetCityListByStateContext) => '/master/city/list'
 };
@@ -45,7 +45,7 @@ interface AddCityContext {
   name: string;
 }
 
-interface StateByCountryIdContext {
+interface GetStateListByCountryContext {
   country_id: string;
 }
 
@@ -151,13 +151,7 @@ interface StatusUserResponseContext {
   status: string;
   message: string;
 }
-interface StateListResponseContext {
-  data: {
-    id: number;
-    name: string;
-    country_id: string;
-  }[];
-}
+
 interface AddStateResponseContext {
   status: string;
   message: string;
@@ -471,8 +465,8 @@ export class AdminService {
     );
   }
 
-  getStateByCountry(
-    context: StateByCountryIdContext
+  getStateListByCountry(
+    context: GetStateListByCountryContext
   ): Observable<GetCityStateListResponseContext> {
     let token = this.credentialsService.isAuthenticated()
       ? this.credentialsService.credentials['data']['token']
@@ -488,7 +482,7 @@ export class AdminService {
       params += `${context['country_id']}`;
     }
     return this.httpClient.get<GetCityStateListResponseContext>(
-      routes.getStateByCountry(context) + params,
+      routes.getStateListByCountry(context) + params,
       httpOptions
     );
   }
