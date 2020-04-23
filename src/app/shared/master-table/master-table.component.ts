@@ -20,27 +20,27 @@ export class MasterTableComponent implements OnInit {
   @Input() tableConfig: any = {};
   @Input() TableActions: TemplateRef<any>;
   @Input() NumberColumn: boolean = false;
-  //  @Input() rows = new MatTableDataSource([]);
+  @Input() rows = new MatTableDataSource([]);
   @Input() TableOptions: {};
-  dataSource = new MatTableDataSource<any>();
-  rows = new MatTableDataSource([
-    {
-      serialNo: '1',
-      ability: 'Physical'
-    },
-    {
-      serialNo: '2',
-      ability: 'Mental'
-    },
-    {
-      serialNo: '3',
-      ability: 'Goal Keeping'
-    },
-    {
-      serialNo: '4',
-      ability: 'Technical'
-    }
-  ]);
+  // dataSource = new MatTableDataSource<any>();
+  // rows = new MatTableDataSource([
+  //   {
+  //     serialNo: '1',
+  //     ability: 'Physical'
+  //   },
+  //   {
+  //     serialNo: '2',
+  //     ability: 'Mental'
+  //   },
+  //   {
+  //     serialNo: '3',
+  //     ability: 'Goal Keeping'
+  //   },
+  //   {
+  //     serialNo: '4',
+  //     ability: 'Technical'
+  //   }
+  // ]);
   public columns: string[] = [];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
