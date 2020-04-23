@@ -3,11 +3,12 @@
     <li>
       <a (click)="goToPage(selectedPage - 1)"><span> &#8592; </span></a>
     </li>
-    <li
-      class="{{ val == selectedPage ? 'active' : '' }}"
-      *ngFor="let val of pages()"
-    >
-      <a (click)="goToPage(val)">{{ val }}</a>
+    <li *ngFor="let val of pages()">
+      <a
+        [ngClass]="val == selectedPage ? 'active' : ''"
+        (click)="goToPage(val)"
+        >{{ val }}</a
+      >
     </li>
     <li>
       <a (click)="goToPage(selectedPage + 1)"> <span>&#8594;</span> </a>
