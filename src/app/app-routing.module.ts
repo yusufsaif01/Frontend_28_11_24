@@ -102,7 +102,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'masterdata-state',
+    path: 'masterdata-state/:id',
     component: ManageStateComponent,
     data: { title: extract('Manage State') }
   },
