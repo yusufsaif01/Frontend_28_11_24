@@ -9,10 +9,9 @@ const routes = {
   deleteUser: (c: DeleteUserContext) => '/member/delete',
   activeUser: (c: StatusUserContext) => '/member/status-activate',
   deactivateUser: (c: StatusUserContext) => '/member/status-deactivate',
-  addState: (c: any) => '/master/state/add',
-  getStateList: () => '/master/state/all',
+  addState: (c: AddStateContext) => '/master/state/add',
   getLocationStats: () => '/master/location/stats',
-  getStateByCountry: (c: any) => '/master/state/byCountryId'
+  getStateByCountry: (c: StateByCountryIdContext) => '/master/state/list'
 };
 
 export interface CommonContext {
@@ -32,7 +31,7 @@ export interface CommonContext {
 }
 
 interface StateByCountryIdContext {
-  countryId: number;
+  country_id: string;
 }
 
 interface PlayerListResponseContext {
@@ -78,6 +77,7 @@ interface AcademyListResponseContext {
 
 interface AddStateContext {
   name: string;
+  country_id: string;
 }
 
 let clubResponse = {
@@ -150,6 +150,7 @@ interface AddStateResponseContext {
 interface LocationStatsResponseContext {
   data: {
     country: string;
+    country_id: string;
     no_of_state: number;
     no_of_city: number;
   }[];
@@ -410,26 +411,14 @@ export class AdminService {
         Authorization: 'Bearer ' + token
       })
     };
+    let params = '/';
+    if (context['country_id']) {
+      params += `${context['country_id']}`;
+    }
+    let { name } = context;
     return this.httpClient.post<AddStateResponseContext>(
-      routes.addState(context),
-      context,
-      httpOptions
-    );
-  }
-
-  getStateList(): Observable<StateListResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
-
-    return this.httpClient.get<StateListResponseContext>(
-      routes.getStateList(),
+      routes.addState(context) + params,
+      { name },
       httpOptions
     );
   }
@@ -462,8 +451,8 @@ export class AdminService {
       })
     };
     let params = '/';
-    if (context['countryId']) {
-      params += `${context['countryId']}`;
+    if (context['country_id']) {
+      params += `${context['country_id']}`;
     }
     return this.httpClient.get<any>(
       routes.getStateByCountry(context) + params,

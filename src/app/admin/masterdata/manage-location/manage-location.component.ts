@@ -11,6 +11,7 @@ export class ManageLocationComponent implements OnInit {
   // table config
   public tableConfig: ManageLocationTableConfig = new ManageLocationTableConfig();
   public dataSource = new MatTableDataSource([]);
+  TableOptions: {};
 
   // sidebar
   public sideBarToggle: boolean = true;
@@ -30,6 +31,8 @@ export class ManageLocationComponent implements OnInit {
         for (let i = 0; i < records.length; i++) {
           records[i]['serialNo'] = i + 1;
         }
+        let country_id = response.data[0].country_id;
+        this.TableOptions = { country_id };
         this.dataSource = new MatTableDataSource(records);
       },
       error => {
