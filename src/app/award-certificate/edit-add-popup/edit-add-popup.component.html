@@ -2,7 +2,7 @@
   <form [formGroup]="editAddForm">
     <div class="header">
       <div class="title">
-        <h3>{{ header }} Awards</h3>
+        <h3>{{ options.header }} Awards</h3>
       </div>
       <div class="close">
         <img
@@ -194,7 +194,7 @@
         class="save"
         [disabled]="editAddForm.invalid"
       >
-        Save
+        {{ options.buttonName }}
       </button>
     </div>
   </form>

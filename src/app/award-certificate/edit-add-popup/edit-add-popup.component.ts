@@ -31,7 +31,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   achievement: File;
   member_type: string = 'player';
   player_type: string = 'amateur';
-  header: string;
+  options: any = {};
   awardsArray: ArrayTypeContext[];
 
   minDate: Date = new Date(1970, 0, 1);
@@ -47,7 +47,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     this.createForm();
     this.player_type = data.player_type;
     this.member_type = data.member_type;
-    this.header = data.header;
+    this.options = data.options;
   }
 
   closeDatePicker(
