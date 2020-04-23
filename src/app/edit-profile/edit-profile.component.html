@@ -999,14 +999,25 @@
                       Founded must not exceed 4 character length
                     </span>
                   </ng-template>
+                  <ng-template #patternBlock>
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.founded_in.errors.pattern;
+                        else charBlock
+                      "
+                      translate
+                    >
+                      Founded format is invalid
+                    </span>
+                  </ng-template>
                   <span
                     *ngIf="
-                      editProfileForm.controls.founded_in.errors.pattern;
-                      else charBlock
+                      editProfileForm.controls.founded_in.errors.max;
+                      else patternBlock
                     "
                     translate
                   >
-                    Founded format is invalid
+                    Founded cannot be greater than current year
                   </span>
                 </mat-error>
               </div>

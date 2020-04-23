@@ -50,7 +50,12 @@ export class AwardCertificateComponent implements OnInit {
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
       width: '40%',
       panelClass: 'edit-add-popup',
-      data: { player_type: this.player_type, member_type: this.member_type }
+      data: {
+        player_type: this.player_type,
+        member_type: this.member_type,
+        options: { header: 'Add', buttonName: 'Save' }
+      },
+      autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -79,7 +84,11 @@ export class AwardCertificateComponent implements OnInit {
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
       width: '40%',
       panelClass: 'edit-add-popup',
-      data: data
+      data: {
+        ...data,
+        options: { header: 'Edit', buttonName: 'Update' }
+      },
+      autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe(result => {
