@@ -21,6 +21,7 @@ export class MasterTableComponent implements OnInit {
   @Input() TableActions: TemplateRef<any>;
   @Input() NumberColumn: boolean = false;
   @Input() rows = new MatTableDataSource([]);
+  @Input() TableOptions: {};
   // dataSource = new MatTableDataSource<any>();
   // rows = new MatTableDataSource([
   //   {
