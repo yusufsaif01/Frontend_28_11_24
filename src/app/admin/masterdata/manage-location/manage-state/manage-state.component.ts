@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ManageStateTableConfig } from './manage-state-table-conf';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdminService } from '@app/admin/service/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
@@ -46,6 +46,7 @@ export class ManageStateComponent implements OnInit {
             `${response.message}`,
             'State Added Successfully'
           );
+          this.addStateForm.reset();
           this.getStateByCountry(this.country_id);
         },
         error => {
@@ -72,7 +73,7 @@ export class ManageStateComponent implements OnInit {
 
   createForm() {
     this.addStateForm = this.formBuilder.group({
-      name: ['']
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]]
     });
   }
 }

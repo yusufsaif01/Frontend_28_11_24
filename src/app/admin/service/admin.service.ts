@@ -415,10 +415,9 @@ export class AdminService {
     if (context['country_id']) {
       params += `${context['country_id']}`;
     }
-    let { name } = context;
     return this.httpClient.post<AddStateResponseContext>(
       routes.addState(context) + params,
-      { name },
+      context,
       httpOptions
     );
   }
