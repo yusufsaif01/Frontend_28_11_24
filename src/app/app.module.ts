@@ -72,6 +72,8 @@ import { ManageLocationComponent } from './admin/masterdata/manage-location/mana
 import { ManageStateComponent } from './admin/masterdata/manage-location/manage-state/manage-state.component';
 import { ManageCityComponent } from './admin/masterdata/manage-location/manage-city/manage-city.component';
 import { MemberTypeComponent } from './admin/masterdata/member-type/member-type.component';
+import { ManagePositionComponent } from './admin/masterdata/player-specialization/manage-position/manage-position.component';
+import { AddEditPopupComponent } from './admin/masterdata/player-specialization/manage-position/add-edit-popup/add-edit-popup.component';
 const icons = {
   Camera,
   Heart,
@@ -151,7 +153,9 @@ const icons = {
     ManageLocationComponent,
     ManageStateComponent,
     ManageCityComponent,
-    MemberTypeComponent
+    MemberTypeComponent,
+    ManagePositionComponent,
+    AddEditPopupComponent
     // , HomeComponent
   ],
   providers: [
@@ -170,7 +174,8 @@ const icons = {
     PostPopupComponent,
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
-    EditAddPopupComponent
+    EditAddPopupComponent,
+    AddEditPopupComponent
   ]
 })
 export class AppModule {}

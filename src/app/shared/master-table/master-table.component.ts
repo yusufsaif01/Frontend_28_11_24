@@ -26,23 +26,23 @@ export class MasterTableComponent implements OnInit {
   // rows = new MatTableDataSource([
   //   {
   //     serialNo: '1',
-  //     MemberCategory: 'Player',
-  //     MemberSubCategory: 'Grassroot'
+  //     position: 'Goalkeeper',
+  //     abbrevation: 'GK'
   //   },
   //   {
   //     serialNo: '2',
-  //     MemberCategory: 'Player',
-  //     MemberSubCategory: 'Grassroot'
+  //     position: 'Goalkeeper',
+  //     abbrevation: 'GK'
   //   },
   //   {
   //     serialNo: '3',
-  //     MemberCategory: 'Player',
-  //     MemberSubCategory: 'Grassroot'
+  //     position: 'Goalkeeper',
+  //     abbrevation: 'GK'
   //   },
   //   {
   //     serialNo: '4',
-  //     MemberCategory: 'Player',
-  //     MemberSubCategory: 'Grassroot'
+  //     position: 'Goalkeeper',
+  //     abbrevation: 'GK'
   //   }
   // ]);
   public columns: string[] = [];
