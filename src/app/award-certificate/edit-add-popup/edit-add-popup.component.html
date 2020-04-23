@@ -2,7 +2,7 @@
   <form [formGroup]="editAddForm">
     <div class="header">
       <div class="title">
-        <h3>Add Awards</h3>
+        <h3>{{ options.header }} Awards</h3>
       </div>
       <div class="close">
         <img
@@ -104,7 +104,8 @@
               #picker
               startView="multi-year"
               (yearSelected)="closeDatePicker(picker, $event)"
-            ></mat-datepicker>
+            >
+            </mat-datepicker>
           </div>
           <mat-error
             *ngIf="
@@ -167,8 +168,22 @@
           <label>Upload Image </label>
           <input
             type="file"
+            formControlName="achievement"
             (change)="uploadAchievement($event.target.files)"
           />
+          <mat-error
+            *ngIf="
+              editAddForm.controls.achievement.errors &&
+              editAddForm.controls.achievement.dirty
+            "
+          >
+            <span
+              class="align-center"
+              *ngIf="editAddForm.controls.achievement.errors.requiredFileAvatar"
+              translate
+              >Image must be of type JPEG / JPG / PNG</span
+            >
+          </mat-error>
         </div>
       </div>
     </div>
@@ -179,7 +194,7 @@
         class="save"
         [disabled]="editAddForm.invalid"
       >
-        Save
+        {{ options.buttonName }}
       </button>
     </div>
   </form>
