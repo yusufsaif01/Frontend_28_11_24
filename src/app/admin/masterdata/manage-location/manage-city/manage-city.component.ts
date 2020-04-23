@@ -51,9 +51,8 @@ export class ManageCityComponent implements OnInit {
             `${response.message}`,
             'City Added Successfully'
           );
-          this.addCityForm.reset();
-          this.getStateListByCountry();
-          this.dataSource = new MatTableDataSource([]);
+          this.addCityForm.get('name').reset();
+          this.getCityListByState(this.state_id, this.pageSize, 1);
         },
         error => {
           console.log('error', error);
