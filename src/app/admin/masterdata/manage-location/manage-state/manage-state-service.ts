@@ -34,24 +34,3 @@ export class StateService {
     );
   }
 }
-
-// addState(context: AddStateContext): Observable<AddStateResponseContext> {
-//     let token = this.credentialsService.isAuthenticated()
-//       ? this.credentialsService.credentials['data']['token']
-//       : '';
-//     let httpOptions = {
-//       headers: new HttpHeaders({
-//         'Content-Type': 'application/json',
-//         Authorization: 'Bearer ' + token
-//       })
-//     };
-//     // let params = '/';
-//     // if (context['country_id']) {
-//     //   params += `${context['country_id']}`;
-//     // }
-//     return this.httpClient.post<AddStateResponseContext>(
-//       routes.addState(context),
-//       context,
-//       httpOptions
-//     );
-//   }
