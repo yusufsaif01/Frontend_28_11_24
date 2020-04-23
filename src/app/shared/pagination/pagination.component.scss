@@ -15,6 +15,10 @@
         border-radius: 3rem;
         box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
       }
+      .active {
+        background: #117ab5;
+        color: white;
+      }
     }
   }
 }
