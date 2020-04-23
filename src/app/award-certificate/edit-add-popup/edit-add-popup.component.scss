@@ -52,7 +52,8 @@
 // form sections
 .from-block {
   width: 48%;
-  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  position: relative;
   label {
     display: block;
     margin-bottom: 1rem;
@@ -84,6 +85,8 @@
   input[type="file"] {
     border: none;
     padding: 1.2rem 0rem;
+    max-width: 28rem;
+    cursor: pointer;
   }
   .datepicker {
     position: relative;
@@ -100,4 +103,9 @@
       opacity: 0;
     }
   }
+}
+
+.mat-error {
+  color: red;
+  display: block;
 }
