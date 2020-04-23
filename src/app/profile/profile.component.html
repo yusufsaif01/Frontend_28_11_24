@@ -442,6 +442,18 @@
             </p>
           </div>
         </div>
+
+        <div
+          class="block-middle border-bottom"
+          *ngIf="profile.member_type === 'academy'"
+        >
+          <div class="full">
+            <p>
+              <span>Number of associated players : </span
+              >{{ profile?.associated_players }}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

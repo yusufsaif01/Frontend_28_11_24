@@ -5,6 +5,7 @@ import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { AwardCertificateService } from '../award-certificate.service';
 import { ToastrService } from 'ngx-toastr';
+import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 
 interface ArrayTypeContext {
   name: string;
@@ -30,6 +31,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   achievement: File;
   member_type: string = 'player';
   player_type: string = 'amateur';
+  options: any = {};
   awardsArray: ArrayTypeContext[];
 
   minDate: Date = new Date(1970, 0, 1);
@@ -45,6 +47,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     this.createForm();
     this.player_type = data.player_type;
     this.member_type = data.member_type;
+    this.options = data.options;
   }
 
   closeDatePicker(
@@ -223,7 +226,8 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
       position: [
         '',
         [Validators.maxLength(20), Validators.pattern(/^[0-9a-zA-Z]+%?$/)]
-      ]
+      ],
+      achievement: ['', [requiredFileAvatar]]
     });
   }
 
