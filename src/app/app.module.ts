@@ -74,6 +74,7 @@ import { ManageCityComponent } from './admin/masterdata/manage-location/manage-c
 import { MemberTypeComponent } from './admin/masterdata/member-type/member-type.component';
 import { ManagePositionComponent } from './admin/masterdata/player-specialization/manage-position/manage-position.component';
 import { AddEditPopupComponent } from './admin/masterdata/player-specialization/manage-position/add-edit-popup/add-edit-popup.component';
+import { ManageAbilityComponent } from './admin/masterdata/player-specialization/manage-ability/manage-ability.component';
 const icons = {
   Camera,
   Heart,
@@ -155,7 +156,8 @@ const icons = {
     ManageCityComponent,
     MemberTypeComponent,
     ManagePositionComponent,
-    AddEditPopupComponent
+    AddEditPopupComponent,
+    ManageAbilityComponent
     // , HomeComponent
   ],
   providers: [
