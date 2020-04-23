@@ -34,7 +34,7 @@ export class ManageStateComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.getStateByCountry(this.country_id);
+    this.getStateListByCountry(this.country_id);
   }
   addState() {
     this.adminService
@@ -47,7 +47,7 @@ export class ManageStateComponent implements OnInit {
             'State Added Successfully'
           );
           this.addStateForm.reset();
-          this.getStateByCountry(this.country_id);
+          this.getStateListByCountry(this.country_id);
         },
         error => {
           console.log('error', error);
@@ -55,8 +55,8 @@ export class ManageStateComponent implements OnInit {
         }
       );
   }
-  getStateByCountry(country_id: string) {
-    this.adminService.getStateByCountry({ country_id }).subscribe(
+  getStateListByCountry(country_id: string) {
+    this.adminService.getStateListByCountry({ country_id }).subscribe(
       response => {
         console.log('response', response);
         let records = response.data.records;
