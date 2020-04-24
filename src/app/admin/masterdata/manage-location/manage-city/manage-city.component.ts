@@ -20,7 +20,7 @@ export class ManageCityComponent implements OnInit {
   state_id: string;
   stateArray: { id: string; name: string }[];
   pageSize: number = 10;
-  total_count: number;
+  total_count: number = 0;
   editMode: boolean = false;
   cityId: any;
   row: any = {};
@@ -133,7 +133,7 @@ export class ManageCityComponent implements OnInit {
   createForm() {
     this.addCityForm = this.formBuilder.group({
       state_id: ['', [Validators.required]],
-      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]]
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]]
     });
   }
   editCity(name: any, id: any) {
