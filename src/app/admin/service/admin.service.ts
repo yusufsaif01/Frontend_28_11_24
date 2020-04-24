@@ -11,7 +11,8 @@ const routes = {
   deactivateUser: (c: StatusUserContext) => '/member/status-deactivate',
   addState: (c: AddStateContext) => '/master/state/add',
   getLocationStats: () => '/master/location/stats',
-  getStateListByCountry: (c: GetStateListByCountryContext) => '/master/state/list',
+  getStateListByCountry: (c: GetStateListByCountryContext) =>
+    '/master/state/list',
   addCity: (c: AddCityContext) => '/master/city/add',
   getCityListByState: (c: GetCityListByStateContext) => '/master/city/list'
 };
