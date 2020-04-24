@@ -11,9 +11,63 @@ const routes = {
   deactivateUser: (c: StatusUserContext) => '/member/status-deactivate',
   addState: (c: AddStateContext) => '/master/state/add',
   getLocationStats: () => '/master/location/stats',
-  getStateListByCountry: (c: GetStateListByCountryContext) => '/master/state/list',
+  getStateListByCountry: (c: GetStateListByCountryContext) =>
+    '/master/state/list',
   addCity: (c: AddCityContext) => '/master/city/add',
-  getCityListByState: (c: GetCityListByStateContext) => '/master/city/list'
+  getCityListByState: (c: GetCityListByStateContext) => '/master/city/list',
+  getMemberTypeList: () => '/member-type/list'
+};
+
+interface GetMemberTypeListResponseContext {
+  status: string;
+  message: string;
+  data: {
+    id: string;
+    category: string;
+    sub_category: string;
+  }[];
+}
+
+let memberTypeResponse: GetMemberTypeListResponseContext = {
+  status: 'success',
+  message: 'Successfully done',
+  data: [
+    {
+      id: '',
+      category: 'Player',
+      sub_category: 'Grassroot'
+    },
+    {
+      id: '',
+      category: 'Player',
+      sub_category: 'Amateur'
+    },
+    {
+      id: '',
+      category: 'Player',
+      sub_category: 'Professional'
+    },
+    {
+      id: '',
+      category: 'Club',
+      sub_category: 'Residential'
+    },
+    {
+      id: '',
+      category: 'Club',
+      sub_category: 'Non-Residential'
+    },
+    {
+      id: '',
+      category: 'Academy',
+      sub_category: 'Residential'
+    },
+    {
+      id: '',
+      category: 'Academy',
+      sub_category: 'Non-Residential'
+    }
+  ]
 };
 
 export interface CommonContext {
@@ -536,5 +590,24 @@ export class AdminService {
       routes.getCityListByState(context) + params + query,
       httpOptions
     );
+  }
+
+  getMemberTypeList() {
+    //: Observable<GetMemberTypeListResponseContext>
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return memberTypeResponse;
+    // this.httpClient.get<GetMemberTypeListResponseContext>(
+    //   routes.getMemberTypeList(),
+    //   httpOptions
+    // );
   }
 }
