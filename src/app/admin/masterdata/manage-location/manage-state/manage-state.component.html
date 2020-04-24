@@ -95,12 +95,6 @@
               <button (click)="editState(name, id)">
                 <img src="assets/images/icons/edit.png" alt="Edit" />
               </button>
-              <!-- <button (click)="statusPopup(user_id, status)">
-                <img src="assets/images/icons/tick.png" alt="Edit" />
-              </button>
-              <button (click)="deletePopup(user_id, status)">
-                <img src="assets/images/icons/close01.png" alt="Delete" />
-              </button> -->
             </div>
             <div class="action-buttons" *ngIf="editMode && id == stateId">
               <button (click)="updateState(name, id)">

@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { AdminService } from '@app/admin/service/admin.service';
+import { CityService } from './manage-city-service';
 @Component({
   selector: 'app-manage-city',
   templateUrl: './manage-city.component.html',
@@ -20,9 +21,14 @@ export class ManageCityComponent implements OnInit {
   stateArray: { id: string; name: string }[];
   pageSize: number = 10;
   total_count: number;
+  editMode: boolean = false;
+  cityId: any;
+  row: any = {};
+  update: any = '';
 
   // sidebar
   public sideBarToggle: boolean = true;
+  selectedPage: any;
   updateSidebar($event: any) {
     this.sideBarToggle = $event;
   }
@@ -30,7 +36,8 @@ export class ManageCityComponent implements OnInit {
     private formBuilder: FormBuilder,
     private adminService: AdminService,
     private toastrService: ToastrService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cityService: CityService
   ) {
     this.createForm();
     this.route.params.subscribe(params => {
@@ -115,7 +122,8 @@ export class ManageCityComponent implements OnInit {
   }
 
   updatePage(event: any) {
-    this.getCityListByState(this.state_id, this.pageSize, event.selectedPage);
+    this.selectedPage = event.selectedPage;
+    this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
   }
   applyFilter(event: any) {
     let filterValue = event.target.value;
@@ -127,5 +135,67 @@ export class ManageCityComponent implements OnInit {
       state_id: ['', [Validators.required]],
       name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]]
     });
+  }
+  editCity(name: any, id: any) {
+    let obj = { name, id };
+    this.row = obj;
+    console.log(obj);
+    this.editMode = true;
+    this.cityId = id;
+    this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
+  }
+  updateCity(name: any, id: any) {
+    console.log('NAME N ID', name, id);
+    if (!name || name == '') {
+      return;
+    }
+    this.editMode = false;
+    this.update = 'update';
+    setTimeout(() => {
+      this.update = '';
+    }, 1000);
+  }
+  cancelCity(user: any) {
+    console.log(user);
+    this.editMode = false;
+    this.update = 'cancel';
+    this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
+  }
+  onChange(event: any) {
+    console.log(event);
+    if (event.id) {
+      console.log('UPDATE');
+      this.updateStateByCountry(event);
+    }
+  }
+  updateStateByCountry(body: any) {
+    let city_id = body.id;
+    delete body['id'];
+    delete body['serialNumber'];
+    this.cityService
+      .updateCity(this.state_id, city_id, this.country_id, body)
+      .subscribe(
+        data => {
+          console.log('Update', data);
+          this.toastrService.success(
+            `${data.message}`,
+            'City Updated Successfully'
+          );
+          this.getCityListByState(
+            this.state_id,
+            this.pageSize,
+            this.selectedPage
+          );
+        },
+        error => {
+          console.log(error);
+          this.toastrService.error(`${error.error.message}`, 'Error');
+          this.getCityListByState(
+            this.state_id,
+            this.pageSize,
+            this.selectedPage
+          );
+        }
+      );
   }
 }

@@ -124,16 +124,27 @@
             [rows]="dataSource"
             [TableActions]="ListAction"
             [sortEnabled]="false"
+            [editMode]="editMode"
+            [row]="row"
+            [update]="update"
+            (event)="onChange($event)"
           ></app-master-table>
-          <ng-template #ListAction>
-            <div class="action-buttons">
-              <button>
+          <ng-template
+            #ListAction
+            let-name="name"
+            let-id="id"
+            let-serialNumber="serialNumber"
+          >
+            <div class="action-buttons" *ngIf="!editMode || id != cityId">
+              <button (click)="editCity(name, id)">
                 <img src="assets/images/icons/edit.png" alt="Edit" />
               </button>
-              <button (click)="statusPopup(user_id, status)">
+            </div>
+            <div class="action-buttons" *ngIf="editMode && id == cityId">
+              <button (click)="updateCity(name, id)">
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button (click)="deletePopup(user_id, status)">
+              <button (click)="cancelCity(name, id)">
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>

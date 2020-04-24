@@ -4,20 +4,25 @@ import { Observable } from 'rxjs';
 import { CredentialsService } from '@app/core';
 
 const routes = {
-  updateState: (state_id: any, country_id: any) =>
-    `/master/state/${country_id}/${state_id}`
+  updateCity: (city_id: any, country_id: any, state_id: any) =>
+    `/master/city/${country_id}/${state_id}/${city_id}`
 };
 
 @Injectable({
   providedIn: 'root'
 })
-export class StateService {
+export class CityService {
   constructor(
     private httpClient: HttpClient,
     private credentialsService: CredentialsService
   ) {}
 
-  updateState(state_id: any, country_id: any, data: any): Observable<any> {
+  updateCity(
+    state_id: any,
+    city_id: any,
+    country_id: any,
+    data: any
+  ): Observable<any> {
     let token = this.credentialsService.isAuthenticated()
       ? this.credentialsService.credentials['data']['token']
       : '';
@@ -28,7 +33,7 @@ export class StateService {
       })
     };
     return this.httpClient.put<any>(
-      routes.updateState(state_id, country_id),
+      routes.updateCity(city_id, country_id, state_id),
       data,
       httpOptions
     );
