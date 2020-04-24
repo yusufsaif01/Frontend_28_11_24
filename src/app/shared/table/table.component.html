@@ -61,5 +61,7 @@
   <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
 <ng-container *ngIf="!rows || !rows.data || rows.data.length === 0">
-  NO DATA FOUND
+  <span class="no-data-found">
+    No record added
+  </span>
 </ng-container>
