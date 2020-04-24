@@ -22,6 +22,7 @@ export class MasterTableComponent implements OnInit {
   @Input() tableConfig: any = {};
   @Input() TableActions: TemplateRef<any>;
   // @Input() Inputs: TemplateRef<any>;
+  @Input() sortEnabled: boolean = false;
   @Input() row: any = {};
   @Input() editMode: boolean = false;
   @Input() NumberColumn: boolean = false;
@@ -93,6 +94,6 @@ export class MasterTableComponent implements OnInit {
       this.obj = {};
       this.event.emit('cancelled');
     }
-    this.rows.sort = this.sort;
+    if (this.sortEnabled) this.rows.sort = this.sort;
   }
 }

@@ -43,7 +43,7 @@
                   class="change-icon"
                   (change)="loadCityList($event.target.value)"
                 >
-                  <option value="">Select your state</option>
+                  <option value="">Select State</option>
                   <ng-container *ngFor="let state of stateArray">
                     <option value="{{ state.id }}">{{ state.name }}</option>
                   </ng-container>
@@ -68,7 +68,7 @@
                   formControlName="name"
                   type="text"
                   matinput
-                  placeholder="Add new city"
+                  placeholder="Add city"
                 />
                 <mat-error
                   *ngIf="
@@ -123,6 +123,7 @@
             [NumberColumn]="'true'"
             [rows]="dataSource"
             [TableActions]="ListAction"
+            [sortEnabled]="false"
           ></app-master-table>
           <ng-template #ListAction>
             <div class="action-buttons">
