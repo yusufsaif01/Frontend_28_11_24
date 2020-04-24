@@ -4,25 +4,20 @@ import { Observable } from 'rxjs';
 import { CredentialsService } from '@app/core';
 
 const routes = {
-  getAchievementCount: () => '/timeline/achievement/stats'
+  updateState: (state_id: any, country_id: any) =>
+    `/master/state/${country_id}/${state_id}`
 };
 
-interface countResponseContext {
-  data: {
-    achievements: number;
-    tournaments: number;
-  };
-}
 @Injectable({
   providedIn: 'root'
 })
-export class TimelineService {
+export class StateService {
   constructor(
     private httpClient: HttpClient,
     private credentialsService: CredentialsService
   ) {}
 
-  getAchievementCount(): Observable<countResponseContext> {
+  updateState(state_id: any, country_id: any, data: any): Observable<any> {
     let token = this.credentialsService.isAuthenticated()
       ? this.credentialsService.credentials['data']['token']
       : '';
@@ -32,9 +27,9 @@ export class TimelineService {
         Authorization: 'Bearer ' + token
       })
     };
-
-    return this.httpClient.get<countResponseContext>(
-      routes.getAchievementCount(),
+    return this.httpClient.put<any>(
+      routes.updateState(state_id, country_id),
+      data,
       httpOptions
     );
   }

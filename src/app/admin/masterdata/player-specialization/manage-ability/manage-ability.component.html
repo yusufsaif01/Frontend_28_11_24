@@ -9,19 +9,17 @@
   </mat-drawer>
 
   <div class="sidenav-content" [ngClass]="{ sidenavToogle: !sideBarToggle }">
-    <!-- <button type="button" mat-button (click)="drawer.toggle()">
-      Toggle sidenav
-    </button> -->
     <div class="admin-main">
       <!-- title breadcrum -->
       <div class="title-wrapper">
         <div class="title">
-          <h3>Manage Location</h3>
+          <h3>Manage Ability</h3>
         </div>
         <div class="breadcrumb">
           <ul>
             <li>Master Data</li>
-            <li>Manage Location</li>
+            <li>Player Specialization</li>
+            <li>Manage Ability</li>
           </ul>
         </div>
       </div>
@@ -29,6 +27,11 @@
 
       <!-- table -->
       <div class="middle-part">
+        <div class="btn-popup">
+          <div class="btn-wrapper">
+            <button class="popup" (click)="openDialog()">Add Ability</button>
+          </div>
+        </div>
         <!-- table -->
         <div class="table-container">
           <app-master-table
@@ -36,21 +39,22 @@
             [NumberColumn]="'true'"
             [rows]="dataSource"
             [TableActions]="ListAction"
-            [TableOptions]="TableOptions"
-            [sortEnabled]="false"
           >
           </app-master-table>
           <ng-template #ListAction>
             <div class="action-buttons">
-              <!--  <button>
-                                <img src="assets/images/icons/eyes.png" alt="Edit" />
-                            </button>
-                            <button (click)="statusPopup(user_id, status)">
-                                <img src="assets/images/icons/change.png" alt="Edit" />
-                            </button>
-                            <button (click)="deletePopup(user_id, status)">
-                                <img src="assets/images/icons/bin.png" alt="Delete" />
-                            </button> -->
+              <button (click)="openDialog()">
+                <img src=" assets/images/icons/edit.png" alt="Edit" />
+              </button>
+              <button>
+                <img src=" assets/images/icons/plus.png" alt="Edit" />
+              </button>
+              <button (click)="statusPopup(user_id, status)">
+                <img src="assets/images/icons/tick.png" alt="Edit" />
+              </button>
+              <button (click)="deletePopup(user_id, status)">
+                <img src="assets/images/icons/close01.png" alt="Delete" />
+              </button>
             </div>
           </ng-template>
         </div>

@@ -9,8 +9,24 @@ const routes = {
   deleteUser: (c: DeleteUserContext) => '/member/delete',
   activeUser: (c: StatusUserContext) => '/member/status-activate',
   deactivateUser: (c: StatusUserContext) => '/member/status-deactivate',
-  getLocationStats: () => '/master/location/stats'
+  addState: (c: AddStateContext) => '/master/state/add',
+  getLocationStats: () => '/master/location/stats',
+  getStateListByCountry: (c: GetStateListByCountryContext) =>
+    '/master/state/list',
+  addCity: (c: AddCityContext) => '/master/city/add',
+  getCityListByState: (c: GetCityListByStateContext) => '/master/city/list',
+  getMemberTypeList: () => '/member-type/list'
 };
+
+interface GetMemberTypeListResponseContext {
+  status: string;
+  message: string;
+  data: {
+    id: string;
+    category: string;
+    sub_category: string;
+  }[];
+}
 
 export interface CommonContext {
   page_no?: number;
@@ -26,6 +42,23 @@ export interface CommonContext {
   position?: string;
   email_verified?: string;
   profile_status?: string;
+}
+
+interface GetCityListByStateContext {
+  country_id: string;
+  state_id: string;
+  page_size?: number;
+  page_no?: number;
+  search?: string;
+}
+interface AddCityContext {
+  state_id: string;
+  country_id: string;
+  name: string;
+}
+
+interface GetStateListByCountryContext {
+  country_id: string;
 }
 
 interface PlayerListResponseContext {
@@ -67,6 +100,11 @@ interface AcademyListResponseContext {
       status: string;
     }[];
   };
+}
+
+interface AddStateContext {
+  name: string;
+  country_id: string;
 }
 
 let clubResponse = {
@@ -125,12 +163,35 @@ interface StatusUserResponseContext {
   status: string;
   message: string;
 }
+
+interface AddStateResponseContext {
+  status: string;
+  message: string;
+}
 interface LocationStatsResponseContext {
   data: {
     country: string;
+    country_id: string;
     no_of_state: number;
     no_of_city: number;
   }[];
+}
+
+interface GetCityStateListResponseContext {
+  status: string;
+  message: string;
+  data: {
+    total: number;
+    records: {
+      name: string;
+      id: string;
+    }[];
+  };
+}
+
+interface AddCityResponseContext {
+  status: string;
+  message: string;
 }
 
 @Injectable({
@@ -378,6 +439,26 @@ export class AdminService {
       httpOptions
     );
   }
+  addState(context: AddStateContext): Observable<AddStateResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    // let params = '/';
+    // if (context['country_id']) {
+    //   params += `${context['country_id']}`;
+    // }
+    return this.httpClient.post<AddStateResponseContext>(
+      routes.addState(context),
+      context,
+      httpOptions
+    );
+  }
 
   getLocationStats(): Observable<LocationStatsResponseContext> {
     let token = this.credentialsService.isAuthenticated()
@@ -389,8 +470,99 @@ export class AdminService {
         Authorization: 'Bearer ' + token
       })
     };
+
     return this.httpClient.get<LocationStatsResponseContext>(
       routes.getLocationStats(),
+      httpOptions
+    );
+  }
+
+  getStateListByCountry(
+    context: GetStateListByCountryContext
+  ): Observable<GetCityStateListResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    let params = '/';
+    if (context['country_id']) {
+      params += `${context['country_id']}`;
+    }
+    return this.httpClient.get<GetCityStateListResponseContext>(
+      routes.getStateListByCountry(context) + params,
+      httpOptions
+    );
+  }
+
+  addCity(context: AddCityContext): Observable<AddCityResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    return this.httpClient.post<AddCityResponseContext>(
+      routes.addCity(context),
+      context,
+      httpOptions
+    );
+  }
+  getCityListByState(
+    context: GetCityListByStateContext
+  ): Observable<GetCityStateListResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    let params = '/';
+    if (context['country_id']) {
+      params += `${context['country_id']}`;
+    }
+    if (context['state_id']) {
+      params += `/${context['state_id']}`;
+    }
+    let query = '?';
+    if (context['page_no']) {
+      query += 'page_no=' + context['page_no'];
+    }
+    if (context['page_size']) {
+      query += '&page_size=' + context['page_size'];
+    }
+    if (context['search']) {
+      query += '&search=' + context['search'];
+    }
+    return this.httpClient.get<GetCityStateListResponseContext>(
+      routes.getCityListByState(context) + params + query,
+      httpOptions
+    );
+  }
+
+  getMemberTypeList(): Observable<GetMemberTypeListResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return this.httpClient.get<GetMemberTypeListResponseContext>(
+      routes.getMemberTypeList(),
       httpOptions
     );
   }

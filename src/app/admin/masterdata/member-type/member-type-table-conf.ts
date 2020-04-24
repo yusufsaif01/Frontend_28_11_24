@@ -3,28 +3,28 @@ import { MasterTableConfig } from '@app/shared/master-table/MasterTableConfig';
 export class MemberTypeTableConfig extends MasterTableConfig {
   constructor() {
     super();
-    this.allowedColumns = ['serialNo', 'MemberCategory', 'MemberSubCategory'];
+    this.allowedColumns = ['serialNumber', 'category', 'sub_category'];
 
     this.columns = {
-      serialNo: {
-        code: 'serialNo',
+      serialNumber: {
+        code: 'serialNumber',
         text: 'S.No',
         getValue: (ele: any) => {
-          return ele[this.columns.serialNo.code];
+          return ele[this.columns.serialNumber.code];
         }
       },
-      MemberCategory: {
-        code: 'MemberCategory',
+      category: {
+        code: 'category',
         text: 'Member Category',
         getValue: (ele: any) => {
-          return ele[this.columns.MemberCategory.code];
+          return ele[this.columns.category.code];
         }
       },
-      MemberSubCategory: {
-        code: 'MemberSubCategory',
+      sub_category: {
+        code: 'sub_category',
         text: 'Member Subcategory',
         getValue: (ele: any) => {
-          return ele[this.columns.MemberSubCategory.code];
+          return ele[this.columns.sub_category.code];
         }
       },
       action: {

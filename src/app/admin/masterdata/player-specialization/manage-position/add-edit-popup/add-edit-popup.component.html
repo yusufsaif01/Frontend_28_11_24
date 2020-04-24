@@ -1,0 +1,50 @@
+<div class="modal-header">
+  <div class="heading">
+    <img src="assets/images/icons/plus.png" alt="" />
+    <h4>Edit Position</h4>
+  </div>
+  <div class="close">
+    <img [mat-dialog-close] src="assets/images/icons/close.png" alt="" />
+  </div>
+</div>
+<form>
+  <div class="form-wrapper">
+    <!-- position -->
+    <div class="input__group">
+      <label>Position</label>
+      <input type="text" placeholder="Enter Position" />
+    </div>
+
+    <!-- Abbreviation -->
+    <div class="input__group">
+      <label>Abbreviation</label>
+      <input type="text" matinput placeholder="Enter Abbreviation" />
+    </div>
+  </div>
+  <!-- ability -->
+  <div class="ability-box">
+    <h3>Select Ability</h3>
+    <div class="abilities">
+      <span>
+        <mat-checkbox>Physical</mat-checkbox>
+      </span>
+      <span>
+        <mat-checkbox>Goal Keeping</mat-checkbox>
+      </span>
+      <span>
+        <mat-checkbox>Mental</mat-checkbox>
+      </span>
+      <span>
+        <mat-checkbox>Technical</mat-checkbox>
+      </span>
+    </div>
+  </div>
+  <div class="action-block">
+    <button class="cancel" [mat-dialog-close]>
+      Cancel
+    </button>
+    <button class="update" [mat-dialog-close]>
+      Update
+    </button>
+  </div>
+</form>

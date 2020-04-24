@@ -684,6 +684,7 @@ export class EditProfileComponent implements OnInit {
           [
             Validators.required,
             Validators.maxLength(4),
+            Validators.max(this.currentYear),
             Validators.pattern(/^\d+$/)
           ]
         ],
