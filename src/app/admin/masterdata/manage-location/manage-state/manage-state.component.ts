@@ -79,7 +79,7 @@ export class ManageStateComponent implements OnInit {
 
   createForm() {
     this.addStateForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]]
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]]
     });
   }
   editState(name: any, id: any) {
