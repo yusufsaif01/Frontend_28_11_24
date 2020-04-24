@@ -69,9 +69,7 @@ export class LeftPanelComponent implements OnInit {
         this.sendPlayerType.emit(this.profile.player_type);
         this.sendMemberType.emit(this.profile.member_type);
       },
-      error => {
-        console.log('error', error);
-      }
+      error => {}
     );
   }
 
@@ -81,9 +79,7 @@ export class LeftPanelComponent implements OnInit {
         this.count = response.data;
         this.achievements = response.data.achievements;
       },
-      error => {
-        console.log('error', error);
-      }
+      error => {}
     );
   }
 }

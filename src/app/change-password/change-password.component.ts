@@ -25,7 +25,6 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit() {}
 
   changePassword() {
-    console.log(this.changePasswordForm.value);
     const {
       old_password,
       new_password,
@@ -36,7 +35,6 @@ export class ChangePasswordComponent implements OnInit {
         .changePassword(this.changePasswordForm.value)
         .subscribe(
           response => {
-            console.log('data', response);
             this._toastrService.success(
               'Successful',
               'Password updated successfully. Please login again with your new password.'
@@ -44,7 +42,6 @@ export class ChangePasswordComponent implements OnInit {
             this._authenticationService.logout();
           },
           error => {
-            console.log('error', error);
             this._toastrService.error(
               `${error.error.message}`,
               'An error occured while updating the password'
@@ -52,7 +49,6 @@ export class ChangePasswordComponent implements OnInit {
           }
         );
     } else {
-      console.log('Password not match');
     }
   }
 

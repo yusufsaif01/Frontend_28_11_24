@@ -40,16 +40,14 @@ export class RegistrationComponent implements OnInit {
   playerRegister() {
     let form_data = this.playerRegistrationForm.value;
     form_data.member_type = this.activeForm;
-    console.log('player form_data', form_data);
+
     const register = this._authenticationService.register(form_data);
     register.subscribe(
       credentials => {
-        console.log('CRedentials', credentials);
         this._toastrService.success('Successful', 'Registered');
         this.playerRegistrationForm.reset();
       },
       error => {
-        console.log('ERror', error);
         this._toastrService.error(`${error.error.message}`, 'Failed');
       }
     );
@@ -57,16 +55,14 @@ export class RegistrationComponent implements OnInit {
   clubRegister() {
     let form_data = this.clubRegistrationForm.value;
     form_data.member_type = this.activeForm;
-    console.log('club form_data', form_data);
+
     const register = this._authenticationService.register(form_data);
     register.subscribe(
       credentials => {
-        console.log('CRedentials', credentials);
         this._toastrService.success('Successful', 'Registered');
         this.clubRegistrationForm.reset();
       },
       error => {
-        console.log('ERror', error);
         this._toastrService.error(`${error.error.message}`, 'Failed');
       }
     );
@@ -74,16 +70,14 @@ export class RegistrationComponent implements OnInit {
   academyRegister() {
     let form_data = this.academyRegistrationForm.value;
     form_data.member_type = this.activeForm;
-    console.log('academy form_data', form_data);
+
     const register = this._authenticationService.register(form_data);
     register.subscribe(
       credentials => {
-        console.log('CRedentials', credentials);
         this._toastrService.success('Successful', 'Registered');
         this.academyRegistrationForm.reset();
       },
       error => {
-        console.log('ERror', error);
         this._toastrService.error(`${error.error.message}`, 'Failed');
       }
     );

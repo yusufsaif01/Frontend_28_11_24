@@ -26,16 +26,13 @@ export class MemberTypeComponent implements OnInit {
   getMemberTypeList() {
     this.adminService.getMemberTypeList().subscribe(
       response => {
-        console.log('response', response);
         let records = response.data;
         for (let i = 0; i < records.length; i++) {
           records[i]['serialNumber'] = i + 1;
         }
         this.dataSource = new MatTableDataSource(records);
       },
-      error => {
-        console.log('error', error);
-      }
+      error => {}
     );
   }
 }

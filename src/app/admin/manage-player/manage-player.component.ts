@@ -65,14 +65,12 @@ export class ManagePlayerComponent implements OnInit {
 
   recordsPerPage(event: any) {
     this.pageSize = event.target.value;
-    console.log('PAGE_SIZE', this.pageSize);
+
     this.getPlayerList(this.pageSize, 1);
   }
 
   updatePage(event: any) {
-    // console.log(event);
     this.getPlayerList(this.pageSize, event.selectedPage);
-    // console.log(event.target.value);
   }
 
   sampleModel() {
@@ -82,7 +80,6 @@ export class ManagePlayerComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('original', result);
       if (result) {
         if (result['from']) {
           result['from'] = new Date(
@@ -93,14 +90,11 @@ export class ManagePlayerComponent implements OnInit {
           result['to'] = new Date(result['to']).setHours(23, 59, 59);
           result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
-        console.log('treated result', result);
-        console.log('The dialog was closed');
         this.adminService.getPlayerList(result).subscribe(response => {
           this.players_count = response.data.total;
           this.dataSource = new MatTableDataSource(response.data.records);
         });
       } else {
-        console.log('filter data not provided');
       }
     });
 
@@ -123,8 +117,6 @@ export class ManagePlayerComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('popup closed');
-      console.log('result', result);
       if (result === true) {
         this.adminService.deleteUser({ user_id: user_id }).subscribe(
           response => {
@@ -132,7 +124,6 @@ export class ManagePlayerComponent implements OnInit {
           },
           error => {
             // log.debug(`Login error: ${error}`);
-            console.log('error', error);
             this.toastrService.error(`${error.error.message}`, 'Delete User');
           }
         );
@@ -147,8 +138,6 @@ export class ManagePlayerComponent implements OnInit {
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('popup closed');
-      console.log('result', result);
       // deactive user not implemented
       if (result === true) {
         if (status === 'active') {
@@ -161,7 +150,6 @@ export class ManagePlayerComponent implements OnInit {
             },
             error => {
               // log.debug(`Login error: ${error}`);
-              console.log('error', error);
               this.toastrService.error(
                 `${error.error.message}`,
                 'Status update'
@@ -178,7 +166,6 @@ export class ManagePlayerComponent implements OnInit {
             },
             error => {
               // log.debug(`Login error: ${error}`);
-              console.log('error', error);
               this.toastrService.error(
                 `${error.error.message}`,
                 'Status update'

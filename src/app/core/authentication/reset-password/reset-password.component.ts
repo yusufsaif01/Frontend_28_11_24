@@ -29,19 +29,15 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('token', this.token);
     this._authenticationService.resetLinkStatus(this.token).subscribe(
       response => {
         if (response.status === 'success') {
           this.isLinkExpired = true;
         }
-        console.log('data', response);
       },
       error => {
         if (error.error.code === 'LINK_EXPIRED')
           this._router.navigate(['/link-expired']);
-
-        console.log('error', error);
       }
     );
   }
@@ -51,12 +47,10 @@ export class ResetPasswordComponent implements OnInit {
       .resetPassword(this.resetPasswordForm.value, this.token)
       .subscribe(
         response => {
-          console.log('data', response);
           this._toastrService.success('Successful', 'Password Reset');
           this._router.navigate(['/login']);
         },
         error => {
-          console.log('error', error);
           this._toastrService.error(
             `${error.error.message}`,
             'Password Reset Failed'

@@ -203,7 +203,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     const formData = new FormData();
     for (const key of Object.keys(formValue)) {
       const value = formValue[key];
-      console.log(key, value);
+
       if (!value && !value.length) {
         continue;
       }
@@ -233,7 +233,6 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
 
   uploadAchievement(files: FileList) {
     this.achievement = files[0];
-    console.log('achievement', this.achievement);
   }
   updateData(requestData: any) {
     if (this.achievement) requestData.set('achievement', this.achievement);
@@ -242,14 +241,13 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.dialogRef.close('refresh');
-          console.log('server response', response);
+
           this.toastrService.success(
             `${response.message}`,
             'Award Updated Successfully'
           );
         },
         error => {
-          console.log('error', error);
           this.toastrService.error(`${error.error.message}`, 'Error');
         }
       );
@@ -263,19 +261,17 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     }
   }
   addData(requestData: any) {
-    console.log(this.editAddForm.value);
     if (this.achievement) requestData.set('achievement', this.achievement);
     this.awardCertificateService.addAwards(requestData).subscribe(
       response => {
         this.dialogRef.close('refresh');
-        console.log('server response', response);
+
         this.toastrService.success(
           `${response.message}`,
           'Award Added Successfully'
         );
       },
       error => {
-        console.log('error', error);
         this.toastrService.error(`${error.error.message}`, 'Error');
       }
     );
