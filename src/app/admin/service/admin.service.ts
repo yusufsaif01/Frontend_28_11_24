@@ -11,10 +11,22 @@ const routes = {
   deactivateUser: (c: StatusUserContext) => '/member/status-deactivate',
   addState: (c: AddStateContext) => '/master/state/add',
   getLocationStats: () => '/master/location/stats',
-  getStateListByCountry: (c: GetStateListByCountryContext) => '/master/state/list',
+  getStateListByCountry: (c: GetStateListByCountryContext) =>
+    '/master/state/list',
   addCity: (c: AddCityContext) => '/master/city/add',
-  getCityListByState: (c: GetCityListByStateContext) => '/master/city/list'
+  getCityListByState: (c: GetCityListByStateContext) => '/master/city/list',
+  getMemberTypeList: () => '/member-type/list'
 };
+
+interface GetMemberTypeListResponseContext {
+  status: string;
+  message: string;
+  data: {
+    id: string;
+    category: string;
+    sub_category: string;
+  }[];
+}
 
 export interface CommonContext {
   page_no?: number;
@@ -534,6 +546,23 @@ export class AdminService {
     }
     return this.httpClient.get<GetCityStateListResponseContext>(
       routes.getCityListByState(context) + params + query,
+      httpOptions
+    );
+  }
+
+  getMemberTypeList(): Observable<GetMemberTypeListResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return this.httpClient.get<GetMemberTypeListResponseContext>(
+      routes.getMemberTypeList(),
       httpOptions
     );
   }
