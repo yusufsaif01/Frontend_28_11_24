@@ -179,7 +179,7 @@ export class ManageCityComponent implements OnInit {
           console.log('Update', data);
           this.toastrService.success(
             `${data.message}`,
-            'State Updated Successfully'
+            'City Updated Successfully'
           );
           this.getCityListByState(
             this.state_id,
