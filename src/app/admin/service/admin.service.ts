@@ -28,48 +28,6 @@ interface GetMemberTypeListResponseContext {
   }[];
 }
 
-let memberTypeResponse: GetMemberTypeListResponseContext = {
-  status: 'success',
-  message: 'Successfully done',
-  data: [
-    {
-      id: '',
-      category: 'Player',
-      sub_category: 'Grassroot'
-    },
-    {
-      id: '',
-      category: 'Player',
-      sub_category: 'Amateur'
-    },
-    {
-      id: '',
-      category: 'Player',
-      sub_category: 'Professional'
-    },
-    {
-      id: '',
-      category: 'Club',
-      sub_category: 'Residential'
-    },
-    {
-      id: '',
-      category: 'Club',
-      sub_category: 'Non-Residential'
-    },
-    {
-      id: '',
-      category: 'Academy',
-      sub_category: 'Residential'
-    },
-    {
-      id: '',
-      category: 'Academy',
-      sub_category: 'Non-Residential'
-    }
-  ]
-};
-
 export interface CommonContext {
   page_no?: number;
   page_size?: number;
@@ -592,8 +550,7 @@ export class AdminService {
     );
   }
 
-  getMemberTypeList() {
-    //: Observable<GetMemberTypeListResponseContext>
+  getMemberTypeList(): Observable<GetMemberTypeListResponseContext> {
     let token = this.credentialsService.isAuthenticated()
       ? this.credentialsService.credentials['data']['token']
       : '';
@@ -604,10 +561,9 @@ export class AdminService {
       })
     };
 
-    return memberTypeResponse;
-    // this.httpClient.get<GetMemberTypeListResponseContext>(
-    //   routes.getMemberTypeList(),
-    //   httpOptions
-    // );
+    return this.httpClient.get<GetMemberTypeListResponseContext>(
+      routes.getMemberTypeList(),
+      httpOptions
+    );
   }
 }
