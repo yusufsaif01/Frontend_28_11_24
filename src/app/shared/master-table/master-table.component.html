@@ -14,8 +14,7 @@
       <!-- <ng-container
       *ngTemplateOutlet="Inputs; context: element"
     ></ng-container> -->
-      <mat-form-field
-        appearance="outline"
+      <ng-container
         *ngIf="
           editMode &&
           element.id == row.id &&
@@ -31,7 +30,7 @@
           #names="ngModel"
           [ngModel]="tableConfig.columns[col].getValue(element)"
         />
-      </mat-form-field>
+      </ng-container>
       <div
         *ngIf="
           !editMode ||
