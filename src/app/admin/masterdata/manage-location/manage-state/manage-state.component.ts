@@ -88,6 +88,7 @@ export class ManageStateComponent implements OnInit {
     console.log(obj);
     this.editMode = true;
     this.stateId = id;
+    this.getStateListByCountry(this.country_id);
   }
   updateState(name: any, id: any) {
     console.log('NAME N ID', name, id);
