@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdminService } from '@app/admin/service/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { StateService } from './manage-state-service';
 @Component({
   selector: 'app-manage-state',
   templateUrl: './manage-state.component.html',
@@ -16,6 +17,10 @@ export class ManageStateComponent implements OnInit {
   public dataSource = new MatTableDataSource([]);
   addStateForm: FormGroup;
   country_id: string;
+  editMode: boolean = false;
+  stateId: any;
+  row: any = {};
+  update: any = '';
 
   // sidebar
   public sideBarToggle: boolean = true;
@@ -26,7 +31,8 @@ export class ManageStateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private adminService: AdminService,
     private toastrService: ToastrService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private service: StateService
   ) {
     this.createForm();
     this.route.params.subscribe(params => {
@@ -75,5 +81,57 @@ export class ManageStateComponent implements OnInit {
     this.addStateForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]]
     });
+  }
+  editState(name: any, id: any) {
+    let obj = { name, id };
+    this.row = obj;
+    console.log(obj);
+    this.editMode = true;
+    this.stateId = id;
+    this.getStateListByCountry(this.country_id);
+  }
+  updateState(name: any, id: any) {
+    console.log('NAME N ID', name, id);
+    if (!name || name == '') {
+      return;
+    }
+    this.editMode = false;
+    this.update = 'update';
+    setTimeout(() => {
+      this.update = '';
+    }, 1000);
+  }
+  cancelState(user: any) {
+    console.log(user);
+    this.editMode = false;
+    this.update = 'cancel';
+    this.getStateListByCountry(this.country_id);
+  }
+  onChange(event: any) {
+    console.log(event);
+    if (event.id) {
+      console.log('UPDATE');
+      this.updateStateByCountry(event);
+    }
+  }
+  updateStateByCountry(body: any) {
+    let state_id = body.id;
+    delete body['id'];
+    delete body['serialNumber'];
+    this.service.updateState(state_id, this.country_id, body).subscribe(
+      data => {
+        console.log('Update', data);
+        this.toastrService.success(
+          `${data.message}`,
+          'State Updated Successfully'
+        );
+        this.getStateListByCountry(this.country_id);
+      },
+      error => {
+        console.log(error);
+        this.toastrService.error(`${error.error.message}`, 'Error');
+        this.getStateListByCountry(this.country_id);
+      }
+    );
   }
 }

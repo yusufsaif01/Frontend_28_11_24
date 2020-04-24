@@ -4,11 +4,40 @@
     [matColumnDef]="tableConfig.columns[col].code"
     *ngFor="let col of tableConfig.allowedColumns"
   >
-    <mat-header-cell *matHeaderCellDef mat-sort-header>{{
-      tableConfig.columns[col].text
-    }}</mat-header-cell>
+    <mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      [disabled]="!sortEnabled"
+      >{{ tableConfig.columns[col].text }}</mat-header-cell
+    >
     <mat-cell *matCellDef="let element; let i = index">
-      <div>
+      <!-- <ng-container
+      *ngTemplateOutlet="Inputs; context: element"
+    ></ng-container> -->
+      <ng-container
+        *ngIf="
+          editMode &&
+          element.id == row.id &&
+          tableConfig.columns[col].code != 'serialNumber'
+        "
+      >
+        <input
+          required
+          (keyup)="onChange(names, element)"
+          [disabled]="names.name == 'serialNumber'"
+          matInput
+          name="{{ tableConfig.columns[col].code }}"
+          #names="ngModel"
+          [ngModel]="tableConfig.columns[col].getValue(element)"
+        />
+      </ng-container>
+      <div
+        *ngIf="
+          !editMode ||
+          element.id != row.id ||
+          tableConfig.columns[col].code == 'serialNumber'
+        "
+      >
         <p
           [ngClass]="{
             pending:

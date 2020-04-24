@@ -5,7 +5,9 @@ import {
   ViewChild,
   ElementRef,
   TemplateRef,
-  SimpleChanges
+  SimpleChanges,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -19,9 +21,16 @@ import { MatPaginator } from '@angular/material/paginator';
 export class MasterTableComponent implements OnInit {
   @Input() tableConfig: any = {};
   @Input() TableActions: TemplateRef<any>;
+  // @Input() Inputs: TemplateRef<any>;
+  @Input() sortEnabled: boolean = false;
+  @Input() row: any = {};
+  @Input() editMode: boolean = false;
   @Input() NumberColumn: boolean = false;
   @Input() rows = new MatTableDataSource([]);
   @Input() TableOptions: {};
+  @Output() event: EventEmitter<any> = new EventEmitter<any>();
+  obj: any = {};
+  @Input() update: any = '';
   // dataSource = new MatTableDataSource<any>();
   // rows = new MatTableDataSource([
   //   {
@@ -60,12 +69,31 @@ export class MasterTableComponent implements OnInit {
 
     // this.dataSource.paginator = this.paginator;
   }
+  onChange(name: any, element: any) {
+    console.log(name.name, name.viewModel, element);
+    let key = name.name;
+    let value = name.viewModel;
+    this.obj = element;
+    let keys = Object.keys(this.obj);
+    if (keys.includes(name.name)) {
+      this.obj[key] = value;
+    }
+  }
 
   applyFilter(filterValue: string) {
     this.rows.filter = filterValue.trim().toLowerCase();
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.rows.sort = this.sort;
+    console.log(changes);
+    if (changes.update && changes.update.currentValue == 'update') {
+      this.event.emit(this.obj);
+      this.obj = {};
+    }
+    if (changes.update && changes.update.currentValue == 'cancel') {
+      this.obj = {};
+      this.event.emit('cancelled');
+    }
+    if (this.sortEnabled) this.rows.sort = this.sort;
   }
 }

@@ -43,7 +43,7 @@
                   class="change-icon"
                   (change)="loadCityList($event.target.value)"
                 >
-                  <option value="">Select your state</option>
+                  <option value="">Select State</option>
                   <ng-container *ngFor="let state of stateArray">
                     <option value="{{ state.id }}">{{ state.name }}</option>
                   </ng-container>
@@ -68,7 +68,7 @@
                   formControlName="name"
                   type="text"
                   matinput
-                  placeholder="Add new city"
+                  placeholder="Add city"
                 />
                 <mat-error
                   *ngIf="
@@ -123,16 +123,28 @@
             [NumberColumn]="'true'"
             [rows]="dataSource"
             [TableActions]="ListAction"
+            [sortEnabled]="false"
+            [editMode]="editMode"
+            [row]="row"
+            [update]="update"
+            (event)="onChange($event)"
           ></app-master-table>
-          <ng-template #ListAction>
-            <div class="action-buttons">
-              <button>
+          <ng-template
+            #ListAction
+            let-name="name"
+            let-id="id"
+            let-serialNumber="serialNumber"
+          >
+            <div class="action-buttons" *ngIf="!editMode || id != cityId">
+              <button (click)="editCity(name, id)">
                 <img src="assets/images/icons/edit.png" alt="Edit" />
               </button>
-              <button (click)="statusPopup(user_id, status)">
+            </div>
+            <div class="action-buttons" *ngIf="editMode && id == cityId">
+              <button (click)="updateCity(name, id)">
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button (click)="deletePopup(user_id, status)">
+              <button (click)="cancelCity(name, id)">
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>
