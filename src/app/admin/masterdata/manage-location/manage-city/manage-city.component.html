@@ -69,6 +69,8 @@
                   type="text"
                   matinput
                   placeholder="Add city"
+                  #cityInput
+                  (keyup.enter)="blurElement()"
                 />
                 <mat-error
                   *ngIf="

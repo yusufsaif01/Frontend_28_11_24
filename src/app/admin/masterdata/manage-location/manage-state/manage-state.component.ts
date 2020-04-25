@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ManageStateTableConfig } from './manage-state-table-conf';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -13,6 +13,8 @@ import { StateService } from './manage-state-service';
 })
 export class ManageStateComponent implements OnInit {
   // table config
+  @ViewChild('stateInput') stateInput: ElementRef;
+
   public tableConfig: ManageStateTableConfig = new ManageStateTableConfig();
   public dataSource = new MatTableDataSource([]);
   addStateForm: FormGroup;
@@ -42,6 +44,11 @@ export class ManageStateComponent implements OnInit {
   ngOnInit() {
     this.getStateListByCountry(this.country_id);
   }
+
+  blurElement() {
+    this.stateInput.nativeElement.blur();
+  }
+
   addState() {
     this.cancelState();
     this.adminService
