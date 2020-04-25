@@ -445,7 +445,9 @@
 
         <div
           class="block-middle border-bottom"
-          *ngIf="profile.member_type === 'academy'"
+          *ngIf="
+            profile.member_type === 'academy' || profile.member_type === 'club'
+          "
         >
           <div class="full">
             <p>

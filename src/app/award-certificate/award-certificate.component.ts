@@ -20,6 +20,7 @@ export class AwardCertificateComponent implements OnInit {
   public tableConfig: AwardCertificateTableConfig = new AwardCertificateTableConfig();
   public dataSource = new MatTableDataSource([]);
   pageSize: number = 10;
+  currentPageNo: number = 1;
   environment = environment;
   player_type: string;
   member_type: string;
@@ -59,7 +60,9 @@ export class AwardCertificateComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'refresh') this.getAwardsList(this.pageSize, 1);
+      if (result === 'refresh') {
+        this.getAwardsList(this.pageSize, this.currentPageNo);
+      }
     });
   }
 
@@ -92,7 +95,9 @@ export class AwardCertificateComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'refresh') this.getAwardsList(this.pageSize, 1);
+      if (result === 'refresh') {
+        this.getAwardsList(this.pageSize, this.currentPageNo);
+      }
     });
   }
 
@@ -105,6 +110,7 @@ export class AwardCertificateComponent implements OnInit {
   }
 
   updatePage(event: any) {
+    this.currentPageNo = event.selectedPage;
     this.getAwardsList(this.pageSize, event.selectedPage);
   }
 
