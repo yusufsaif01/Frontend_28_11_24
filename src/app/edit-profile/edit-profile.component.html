@@ -985,40 +985,44 @@
                   "
                 >
                   <span
-                    *ngIf="editProfileForm.controls.founded_in.errors.required"
+                    *ngIf="
+                      editProfileForm.controls.founded_in.errors.required;
+                      else charBlock
+                    "
                     translate
                     >Founded is required</span
                   >
                   <ng-template #charBlock>
                     <span
                       *ngIf="
-                        editProfileForm.controls.founded_in.errors.maxlength
+                        editProfileForm.controls.founded_in.errors.maxlength ||
+                          editProfileForm.controls.founded_in.errors.minlength;
+                        else patternBlock
                       "
                       translate
                     >
-                      Founded must not exceed 4 character length
+                      Founded length must be equal to 4
                     </span>
                   </ng-template>
                   <ng-template #patternBlock>
                     <span
                       *ngIf="
                         editProfileForm.controls.founded_in.errors.pattern;
-                        else charBlock
+                        else maxBlock
                       "
                       translate
                     >
                       Founded format is invalid
                     </span>
                   </ng-template>
-                  <span
-                    *ngIf="
-                      editProfileForm.controls.founded_in.errors.max;
-                      else patternBlock
-                    "
-                    translate
-                  >
-                    Founded cannot be greater than current year
-                  </span>
+                  <ng-template #maxBlock>
+                    <span
+                      *ngIf="editProfileForm.controls.founded_in.errors.max"
+                      translate
+                    >
+                      Founded cannot be greater than current year
+                    </span>
+                  </ng-template>
                 </mat-error>
               </div>
 
