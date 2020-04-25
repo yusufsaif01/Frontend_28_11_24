@@ -49,6 +49,7 @@ export class ManageCityComponent implements OnInit {
     this.getStateListByCountry();
   }
   addCity() {
+    this.cancelCity();
     this.adminService
       .addCity({ ...this.addCityForm.value, country_id: this.country_id })
       .subscribe(
@@ -109,7 +110,10 @@ export class ManageCityComponent implements OnInit {
           this.total_count = response.data.total;
           this.dataSource = new MatTableDataSource(records);
         },
-        error => {}
+        error => {
+          if (error.status === 404)
+            this.dataSource = new MatTableDataSource([]);
+        }
       );
   }
 
@@ -145,7 +149,7 @@ export class ManageCityComponent implements OnInit {
       this.update = '';
     }, 1000);
   }
-  cancelCity(user: any) {
+  cancelCity(user?: any) {
     this.editMode = false;
     this.update = 'cancel';
     this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
