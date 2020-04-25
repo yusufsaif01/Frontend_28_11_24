@@ -252,14 +252,13 @@ export class EditProfileComponent implements OnInit {
   selectTab(tabName: string) {
     this.player_type = tabName;
     this.setCategoryValidators();
-    console.log('player_type', this.player_type);
   }
 
   toFormData<T>(formValue: T) {
     const formData = new FormData();
     for (const key of Object.keys(formValue)) {
       const value = formValue[key];
-      console.log(key, value);
+
       if (!value && !value.length) {
         continue;
       }
@@ -271,7 +270,6 @@ export class EditProfileComponent implements OnInit {
   populateView() {
     this._authenticationService.getProfileDetails().subscribe(
       response => {
-        console.log('data', response);
         this.profile = response.data;
         this.populateFormFields();
 
@@ -303,7 +301,6 @@ export class EditProfileComponent implements OnInit {
         );
       },
       error => {
-        console.log('error', error);
         this._toastrService.error(
           `${error.error.message}`,
           'Failed to load data'
@@ -464,7 +461,6 @@ export class EditProfileComponent implements OnInit {
 
     this._authenticationService.editProfile(requestData).subscribe(
       res => {
-        console.log('response', res);
         this._toastrService.success(
           'Successful',
           'Profile updated successfully'
@@ -472,7 +468,6 @@ export class EditProfileComponent implements OnInit {
         this._router.navigate(['/profile']);
       },
       err => {
-        console.log('err', err);
         this._toastrService.error(
           'Error',
           'An error occured while trying to update profile'
@@ -501,7 +496,6 @@ export class EditProfileComponent implements OnInit {
     if (this.aboutForm.valid) {
       this._authenticationService.updateBio(requestData).subscribe(
         res => {
-          console.log('response', res);
           if (res.data.avatar_url) {
             this.profile.avatar_url =
               this.environment.mediaUrl + res.data.avatar_url;
@@ -517,7 +511,6 @@ export class EditProfileComponent implements OnInit {
           );
         },
         err => {
-          console.log('err', err);
           this._toastrService.error(
             'Error',
             'An error occured while updating avatar'
@@ -534,7 +527,6 @@ export class EditProfileComponent implements OnInit {
   removeAvatar() {
     this._authenticationService.removeAvatar().subscribe(
       res => {
-        console.log('response', res);
         if (res.data.avatar_url) {
           this.profile.avatar_url =
             this.environment.mediaUrl + res.data.avatar_url;
@@ -550,7 +542,6 @@ export class EditProfileComponent implements OnInit {
         );
       },
       err => {
-        console.log('err', err);
         this._toastrService.error(
           'Error',
           'An error occured while removing avatar'
@@ -564,14 +555,12 @@ export class EditProfileComponent implements OnInit {
       .updateBio(this.socialProfileForm.value)
       .subscribe(
         res => {
-          console.log('response', res);
           this._toastrService.success(
             'Successful',
             'Social profiles updated successfully'
           );
         },
         err => {
-          console.log('err', err);
           this._toastrService.error(
             'Error',
             'An error occured while updating social profiles'
@@ -585,11 +574,9 @@ export class EditProfileComponent implements OnInit {
 
     this._authenticationService.updateBio(requestData).subscribe(
       res => {
-        console.log('response', res);
         this._toastrService.success('Successful', 'Bio updated successfully');
       },
       err => {
-        console.log('err', err);
         this._toastrService.error(
           'Error',
           'An error occured while updating bio'

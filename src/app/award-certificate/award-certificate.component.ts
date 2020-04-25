@@ -102,7 +102,6 @@ export class AwardCertificateComponent implements OnInit {
   }
 
   getPlayerType(value: string) {
-    console.log(value);
     this.player_type = value;
   }
   getMemberType(value: string) {
@@ -118,7 +117,6 @@ export class AwardCertificateComponent implements OnInit {
     this.awardCertificateService
       .getAwardsList({ page_size, page_no })
       .subscribe(response => {
-        console.log('Response LIST', response);
         let records = response.data.records;
         for (let i = 0; i < records.length; i++) {
           if (page_no > 1) {
@@ -148,7 +146,6 @@ export class AwardCertificateComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(id);
       if (result === true) {
         this.awardCertificateService.deleteAward({ id }).subscribe(
           response => {
@@ -157,7 +154,7 @@ export class AwardCertificateComponent implements OnInit {
           },
           error => {
             // log.debug(`Login error: ${error}`);
-            console.log('error', error);
+
             this.toastrService.error(`${error.error.message}`, 'Delete Award');
           }
         );

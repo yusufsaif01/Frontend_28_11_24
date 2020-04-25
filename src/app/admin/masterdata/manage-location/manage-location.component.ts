@@ -26,7 +26,6 @@ export class ManageLocationComponent implements OnInit {
   getLocationStats() {
     this.adminService.getLocationStats().subscribe(
       response => {
-        console.log(response);
         let records = response.data;
         for (let i = 0; i < records.length; i++) {
           records[i]['serialNo'] = i + 1;
@@ -35,9 +34,7 @@ export class ManageLocationComponent implements OnInit {
         this.TableOptions = { country_id };
         this.dataSource = new MatTableDataSource(records);
       },
-      error => {
-        console.log(error);
-      }
+      error => {}
     );
   }
 }

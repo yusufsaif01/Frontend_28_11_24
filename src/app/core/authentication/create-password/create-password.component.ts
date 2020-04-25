@@ -29,7 +29,6 @@ export class CreatePasswordComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('token', this.token);
     this._authenticationService.emailVerification(this.token).subscribe(
       response => {
         if (response.status === 'success') {
@@ -39,13 +38,10 @@ export class CreatePasswordComponent implements OnInit {
             'Email verified successfully'
           );
         }
-        console.log('data', response);
       },
       error => {
         if (error.error.code === 'LINK_EXPIRED')
           this._router.navigate(['/link-expired']);
-
-        console.log('error', error);
       }
     );
   }
@@ -55,12 +51,10 @@ export class CreatePasswordComponent implements OnInit {
       .createPassword(this.createPasswordForm.value, this.token)
       .subscribe(
         response => {
-          console.log('data', response);
           this._toastrService.success('Successful', 'Password Creation');
           this._router.navigate(['/login']);
         },
         error => {
-          console.log('error', error);
           this._toastrService.error('Failed', 'Password Creation');
         }
       );

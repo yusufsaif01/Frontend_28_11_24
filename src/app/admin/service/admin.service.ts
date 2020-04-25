@@ -255,7 +255,6 @@ export class AdminService {
       query += '&profile_status=' + context['profile_status'];
     }
 
-    console.log(query);
     return this.httpClient.get<PlayerListResponseContext>(
       routes.getPlayerList(context) + query,
       httpOptions
@@ -306,7 +305,7 @@ export class AdminService {
     if (context['']) {
       query += '&profile_status=' + context['profile_status'];
     }
-    console.log(query);
+
     return this.httpClient.get<ClubListResponseContext>(
       routes.getClubList(context) + query,
       httpOptions
@@ -360,7 +359,6 @@ export class AdminService {
       query += '&email_verified=' + context['email_verified'];
     }
 
-    console.log(query);
     return this.httpClient.get<AcademyListResponseContext>(
       routes.getAcademyList(context) + query,
       httpOptions
@@ -383,7 +381,6 @@ export class AdminService {
     if (context['user_id']) {
       params += `${context['user_id']}`;
     }
-    console.log(params);
 
     return this.httpClient.delete<DeleteUserResponseContext>(
       routes.deleteUser(context) + params,
@@ -407,7 +404,6 @@ export class AdminService {
     if (context['user_id']) {
       params += `${context['user_id']}`;
     }
-    console.log(params);
 
     return this.httpClient.put<StatusUserResponseContext>(
       routes.activeUser(context) + params,
@@ -431,7 +427,6 @@ export class AdminService {
     if (context['user_id']) {
       params += `${context['user_id']}`;
     }
-    console.log(params);
 
     return this.httpClient.put<StatusUserResponseContext>(
       routes.deactivateUser(context) + params,

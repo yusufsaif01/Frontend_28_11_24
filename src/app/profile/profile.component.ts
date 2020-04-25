@@ -40,7 +40,6 @@ export class ProfileComponent implements OnInit {
   populateView() {
     this._authenticationService.getProfileDetails().subscribe(
       response => {
-        console.log('data', response);
         this.profile = response.data;
 
         if (this.profile.avatar_url) {
@@ -75,7 +74,6 @@ export class ProfileComponent implements OnInit {
         );
       },
       error => {
-        console.log('error', error);
         this._toastrService.error(
           `${error.error.message}`,
           'Failed to load data'

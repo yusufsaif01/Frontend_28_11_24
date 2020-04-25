@@ -39,7 +39,6 @@ export class ManageAcademyComponent implements OnInit {
   }
 
   updatePage(event: any) {
-    // console.log(event.target.value);
     this.getAcademyList(this.pageSize, event.selectedPage);
   }
 
@@ -67,7 +66,6 @@ export class ManageAcademyComponent implements OnInit {
       panelClass: 'filterDialog'
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('original', result);
       if (result) {
         if (result['from']) {
           result['from'] = new Date(
@@ -78,13 +76,11 @@ export class ManageAcademyComponent implements OnInit {
           result['to'] = new Date(result['to']).setHours(23, 59, 59);
           result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
-        console.log('The dialog was closed');
         this.adminService.getAcademyList(result).subscribe(response => {
           this.acad_count = response.data.total;
           this.dataSource = new MatTableDataSource(response.data.records);
         });
       } else {
-        console.log('filter data not provided');
       }
     });
 
@@ -107,8 +103,6 @@ export class ManageAcademyComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('popup closed');
-      console.log('result', result);
       if (result === true) {
         this.adminService.deleteUser({ user_id: user_id }).subscribe(
           response => {
@@ -116,7 +110,6 @@ export class ManageAcademyComponent implements OnInit {
           },
           error => {
             // log.debug(`Login error: ${error}`);
-            console.log('error', error);
             this.toastrService.error(`${error.error.message}`, 'Delete User');
           }
         );
@@ -131,8 +124,6 @@ export class ManageAcademyComponent implements OnInit {
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('popup closed');
-      console.log('result', result);
       // deactive user not implemented
       if (result === true) {
         if (status === 'active') {
@@ -145,7 +136,6 @@ export class ManageAcademyComponent implements OnInit {
             },
             error => {
               // log.debug(`Login error: ${error}`);
-              console.log('error', error);
               this.toastrService.error(
                 `${error.error.message}`,
                 'Status update'
@@ -162,7 +152,6 @@ export class ManageAcademyComponent implements OnInit {
             },
             error => {
               // log.debug(`Login error: ${error}`);
-              console.log('error', error);
               this.toastrService.error(
                 `${error.error.message}`,
                 'Status update'

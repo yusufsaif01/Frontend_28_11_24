@@ -53,7 +53,6 @@ export class ManageCityComponent implements OnInit {
       .addCity({ ...this.addCityForm.value, country_id: this.country_id })
       .subscribe(
         response => {
-          console.log('server response', response);
           this.toastrService.success(
             `${response.message}`,
             'City Added Successfully'
@@ -62,7 +61,6 @@ export class ManageCityComponent implements OnInit {
           this.getCityListByState(this.state_id, this.pageSize, 1);
         },
         error => {
-          console.log('error', error);
           this.toastrService.error(`${error.error.message}`, 'Error');
         }
       );
@@ -72,12 +70,9 @@ export class ManageCityComponent implements OnInit {
       .getStateListByCountry({ country_id: this.country_id })
       .subscribe(
         response => {
-          console.log('response', response.data.records);
           this.stateArray = response.data.records;
         },
-        error => {
-          console.log('error', error);
-        }
+        error => {}
       );
   }
 
@@ -102,7 +97,6 @@ export class ManageCityComponent implements OnInit {
       })
       .subscribe(
         response => {
-          console.log('response', response);
           let records = response.data.records;
           for (let i = 0; i < records.length; i++) {
             if (page_no > 1) {
@@ -115,9 +109,7 @@ export class ManageCityComponent implements OnInit {
           this.total_count = response.data.total;
           this.dataSource = new MatTableDataSource(records);
         },
-        error => {
-          console.log('error', error);
-        }
+        error => {}
       );
   }
 
@@ -139,13 +131,11 @@ export class ManageCityComponent implements OnInit {
   editCity(name: any, id: any) {
     let obj = { name, id };
     this.row = obj;
-    console.log(obj);
     this.editMode = true;
     this.cityId = id;
     this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
   }
   updateCity(name: any, id: any) {
-    console.log('NAME N ID', name, id);
     if (!name || name == '') {
       return;
     }
@@ -156,15 +146,12 @@ export class ManageCityComponent implements OnInit {
     }, 1000);
   }
   cancelCity(user: any) {
-    console.log(user);
     this.editMode = false;
     this.update = 'cancel';
     this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
   }
   onChange(event: any) {
-    console.log(event);
     if (event.id) {
-      console.log('UPDATE');
       this.updateStateByCountry(event);
     }
   }
@@ -176,7 +163,6 @@ export class ManageCityComponent implements OnInit {
       .updateCity(this.state_id, city_id, this.country_id, body)
       .subscribe(
         data => {
-          console.log('Update', data);
           this.toastrService.success(
             `${data.message}`,
             'City Updated Successfully'
@@ -188,7 +174,6 @@ export class ManageCityComponent implements OnInit {
           );
         },
         error => {
-          console.log(error);
           this.toastrService.error(`${error.error.message}`, 'Error');
           this.getCityListByState(
             this.state_id,
