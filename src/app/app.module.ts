@@ -75,6 +75,8 @@ import { MemberTypeComponent } from './admin/masterdata/member-type/member-type.
 import { ManagePositionComponent } from './admin/masterdata/player-specialization/manage-position/manage-position.component';
 import { AddEditPopupComponent } from './admin/masterdata/player-specialization/manage-position/add-edit-popup/add-edit-popup.component';
 import { ManageAbilityComponent } from './admin/masterdata/player-specialization/manage-ability/manage-ability.component';
+import { ManageParametersComponent } from './admin/masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
+import { AddpopupComponent } from './admin/masterdata/player-specialization/manage-ability/addpopup/addpopup.component';
 const icons = {
   Camera,
   Heart,
@@ -157,7 +159,9 @@ const icons = {
     MemberTypeComponent,
     ManagePositionComponent,
     AddEditPopupComponent,
-    ManageAbilityComponent
+    ManageAbilityComponent,
+    ManageParametersComponent,
+    AddpopupComponent
     // , HomeComponent
   ],
   providers: [
@@ -177,7 +181,8 @@ const icons = {
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
     EditAddPopupComponent,
-    AddEditPopupComponent
+    AddEditPopupComponent,
+    AddpopupComponent
   ]
 })
 export class AppModule {}
