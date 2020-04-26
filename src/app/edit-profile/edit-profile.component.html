@@ -1630,7 +1630,8 @@
                           *ngIf="
                             editProfileForm.controls.trophies.controls[i]
                               .get('year')
-                              .hasError('required')
+                              .hasError('required');
+                            else charBlock
                           "
                           translate
                           >Year is required</span
@@ -1640,11 +1641,15 @@
                             *ngIf="
                               editProfileForm.controls.trophies.controls[i]
                                 .get('year')
-                                .hasError('maxlength')
+                                .hasError('maxlength') ||
+                                editProfileForm.controls.trophies.controls[i]
+                                  .get('year')
+                                  .hasError('minlength');
+                              else patternBlock
                             "
                             translate
                           >
-                            Year must not exceed 4 character length
+                            Year length must be equal to 4
                           </span>
                         </ng-template>
                         <ng-template #patternBlock>
@@ -1653,24 +1658,25 @@
                               editProfileForm.controls.trophies.controls[i]
                                 .get('year')
                                 .hasError('pattern');
-                              else charBlock
+                              else maxBlock
                             "
                             translate
                           >
                             Year format is invalid
                           </span>
                         </ng-template>
-                        <span
-                          *ngIf="
-                            editProfileForm.controls.trophies.controls[i]
-                              .get('year')
-                              .hasError('max');
-                            else patternBlock
-                          "
-                          translate
-                        >
-                          Year cannot be greater than current year
-                        </span>
+                        <ng-template #maxBlock>
+                          <span
+                            *ngIf="
+                              editProfileForm.controls.trophies.controls[i]
+                                .get('year')
+                                .hasError('max')
+                            "
+                            translate
+                          >
+                            Year cannot be greater than current year
+                          </span>
+                        </ng-template>
                       </mat-error>
                     </div>
 

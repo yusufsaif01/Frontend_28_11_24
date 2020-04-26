@@ -417,6 +417,10 @@ export class EditProfileComponent implements OnInit {
     }
   }
 
+  setRequestDataObject(requestData: any, name: string) {
+    requestData.set(name, JSON.stringify(this.editProfileForm.get(name).value));
+  }
+
   editProfile() {
     let requestData = this.toFormData(this.editProfileForm.value);
 
@@ -426,35 +430,21 @@ export class EditProfileComponent implements OnInit {
         if (this.employment_contract)
           requestData.set('employment_contract', this.employment_contract);
       }
-      requestData.set(
-        'position',
-        JSON.stringify(this.editProfileForm.get('position').value)
-      );
+      this.setRequestDataObject(requestData, 'position');
+
       requestData.set('dob', this.editProfileForm.get('dob').value);
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
       if (this.member_type === 'club') requestData.set('aiff', this.aiff);
       else requestData.set('document', this.document);
 
-      requestData.set(
-        'contact_person',
-        JSON.stringify(this.editProfileForm.get('contact_person').value)
-      );
-      requestData.set(
-        'trophies',
-        JSON.stringify(this.editProfileForm.get('trophies').value)
-      );
-      if (this.member_type === 'club') {
-        requestData.set(
-          'top_signings',
-          JSON.stringify(this.editProfileForm.get('top_signings').value)
-        );
-      }
-      if (this.member_type === 'academy') {
-        requestData.set(
-          'top_players',
-          JSON.stringify(this.editProfileForm.get('top_players').value)
-        );
-      }
+      this.setRequestDataObject(requestData, 'contact_person');
+      this.setRequestDataObject(requestData, 'trophies');
+
+      if (this.member_type === 'club')
+        this.setRequestDataObject(requestData, 'top_signings');
+
+      if (this.member_type === 'academy')
+        this.setRequestDataObject(requestData, 'top_players');
     }
 
     this._authenticationService.editProfile(requestData).subscribe(
@@ -948,6 +938,7 @@ export class EditProfileComponent implements OnInit {
             data.year,
             [
               Validators.required,
+              Validators.minLength(4),
               Validators.maxLength(4),
               Validators.max(this.currentYear),
               Validators.pattern(/^\d+$/)
@@ -964,6 +955,7 @@ export class EditProfileComponent implements OnInit {
             '',
             [
               Validators.required,
+              Validators.minLength(4),
               Validators.maxLength(4),
               Validators.max(this.currentYear),
               Validators.pattern(/^\d+$/)
