@@ -326,21 +326,34 @@
                   >
                     <span
                       *ngIf="
-                        editProfileForm.controls.height_feet.errors &&
-                        editProfileForm.controls.height_feet.errors.required
+                        editProfileForm.controls.height_feet.errors.required;
+                        else patternBlock
                       "
                       translate
                       >Height in Feet is required</span
                     >
-                    <span
-                      class="error-text"
-                      *ngIf="
-                        editProfileForm.controls.height_feet.errors &&
-                        editProfileForm.controls.height_feet.errors.pattern
-                      "
-                    >
-                      Height in Feet format is invalid
-                    </span>
+                    <ng-template #patternBlock>
+                      <span
+                        class="error-text"
+                        *ngIf="
+                          editProfileForm.controls.height_feet.errors.pattern;
+                          else maxBlock
+                        "
+                      >
+                        Height in Feet format is invalid
+                      </span>
+                    </ng-template>
+                    <ng-template #maxBlock>
+                      <span
+                        class="error-text"
+                        *ngIf="
+                          editProfileForm.controls.height_feet.errors.max ||
+                          editProfileForm.controls.height_feet.errors.min
+                        "
+                      >
+                        Height in Feet must be between 1 and 10
+                      </span>
+                    </ng-template>
                   </mat-error>
                 </div>
                 <div class="height-input">
@@ -358,21 +371,34 @@
                   >
                     <span
                       *ngIf="
-                        editProfileForm.controls.height_inches.errors &&
-                        editProfileForm.controls.height_inches.errors.required
+                        editProfileForm.controls.height_inches.errors.required;
+                        else patternBlock
                       "
                       translate
                       >Height in Inches is required</span
                     >
-                    <span
-                      class="error-text"
-                      *ngIf="
-                        editProfileForm.controls.height_inches.errors &&
-                        editProfileForm.controls.height_inches.errors.pattern
-                      "
-                    >
-                      Height in Inches format is invalid
-                    </span>
+                    <ng-template #patternBlock>
+                      <span
+                        class="error-text"
+                        *ngIf="
+                          editProfileForm.controls.height_inches.errors.pattern;
+                          else maxBlock
+                        "
+                      >
+                        Height in Inches format is invalid
+                      </span>
+                    </ng-template>
+                    <ng-template #maxBlock>
+                      <span
+                        class="error-text"
+                        *ngIf="
+                          editProfileForm.controls.height_inches.errors.max ||
+                          editProfileForm.controls.height_inches.errors.min
+                        "
+                      >
+                        Height in Inches must be between 0 and 12
+                      </span>
+                    </ng-template>
                   </mat-error>
                 </div>
               </div>
