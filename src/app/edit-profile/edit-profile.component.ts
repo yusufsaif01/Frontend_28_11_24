@@ -260,7 +260,7 @@ export class EditProfileComponent implements OnInit {
     for (const key of Object.keys(formValue)) {
       const value = formValue[key];
 
-      if (!value && !value.length) {
+      if (!value && !value.length && key != 'bio') {
         continue;
       }
       formData.append(key, value);
