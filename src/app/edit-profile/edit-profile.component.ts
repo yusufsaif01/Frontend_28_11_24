@@ -249,10 +249,11 @@ export class EditProfileComponent implements OnInit {
     this.populateView();
   }
 
-  selectTab(tabName: string) {
-    this.player_type = tabName;
-    this.setCategoryValidators();
-  }
+  // selectTab(tabName: string) {
+  //   this.player_type = tabName;
+  //   this.setCategoryValidators();
+  //   this.checkFileValidations();
+  // }
 
   toFormData<T>(formValue: T) {
     const formData = new FormData();
@@ -299,6 +300,9 @@ export class EditProfileComponent implements OnInit {
           'Successful',
           'Data retrieved successfully'
         );
+
+        this.setCategoryValidators();
+        this.checkFileValidations();
       },
       error => {
         this._toastrService.error(
@@ -307,14 +311,6 @@ export class EditProfileComponent implements OnInit {
         );
       }
     );
-
-    this.setCategoryValidators();
-  }
-
-  resetForm() {
-    this.editProfileForm.reset();
-    this.createForm();
-    this.setCategoryValidators();
   }
 
   setCategoryValidators() {
@@ -392,6 +388,8 @@ export class EditProfileComponent implements OnInit {
           height_inches.updateValueAndValidity();
           aadhar.updateValueAndValidity();
           employmentContract.updateValueAndValidity();
+
+          this.checkFileValidations();
         });
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
       const address = this.editProfileForm.get('address');
@@ -752,6 +750,22 @@ export class EditProfileComponent implements OnInit {
         //onclick upload documenet aiff / pan card/tin / coi
       });
     }
+  }
+
+  checkFileValidations() {
+    if (this.profile.documents) {
+      this.profile.documents.forEach((data: any) => {
+        if (data.type === 'aadhar' || data.type === 'employment_contract') {
+          this.removeFileValidations(data.type);
+        }
+      });
+    }
+  }
+
+  removeFileValidations(type: string) {
+    const fileValidation = this.editProfileForm.get(type);
+    fileValidation.setValidators(null);
+    fileValidation.updateValueAndValidity();
   }
 
   populateFormFields() {
