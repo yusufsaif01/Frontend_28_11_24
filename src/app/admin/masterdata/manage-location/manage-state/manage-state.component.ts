@@ -13,7 +13,7 @@ import { StateService } from './manage-state-service';
 })
 export class ManageStateComponent implements OnInit {
   // table config
-  @ViewChild('stateInput') stateInput: ElementRef;
+  @ViewChild('stateInput', { static: false }) stateInput: ElementRef;
 
   public tableConfig: ManageStateTableConfig = new ManageStateTableConfig();
   public dataSource = new MatTableDataSource([]);

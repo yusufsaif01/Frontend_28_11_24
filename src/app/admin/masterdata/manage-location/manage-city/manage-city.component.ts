@@ -13,7 +13,7 @@ import { CityService } from './manage-city-service';
 })
 export class ManageCityComponent implements OnInit {
   // table config
-  @ViewChild('cityInput') cityInput: ElementRef;
+  @ViewChild('cityInput', { static: false }) cityInput: ElementRef;
 
   public tableConfig: ManageCityTableConfig = new ManageCityTableConfig();
   public dataSource = new MatTableDataSource([]);
