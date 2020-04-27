@@ -82,11 +82,23 @@
     background-repeat: no-repeat;
     background-position: calc(100% - 1rem) center;
   }
-  input[type="file"] {
-    border: none;
-    padding: 1.2rem 0rem;
-    max-width: 28rem;
-    cursor: pointer;
+
+  .file-wrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    input[type="file"] {
+      border: none;
+      padding: 1.2rem 0rem;
+      max-width: 14rem;
+      margin-right: 2rem;
+      cursor: pointer;
+    }
+    a {
+      color: $blue;
+      font-size: 2rem;
+      font-weight: 700;
+    }
   }
   .datepicker {
     position: relative;

@@ -233,9 +233,22 @@ body {
             background-repeat: no-repeat;
             background-position: calc(100% - 1rem) center;
           }
-          input[type="file"] {
-            border: none;
-            padding: 1.2rem 0rem;
+          .file-wrapper {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            input[type="file"] {
+              border: none;
+              padding: 1.2rem 0rem;
+              max-width: 14rem;
+              margin-right: 2rem;
+              cursor: pointer;
+            }
+            a {
+              color: $blue;
+              font-size: 2rem;
+              font-weight: 700;
+            }
           }
           .double-input {
             display: flex;
@@ -363,7 +376,7 @@ body {
           label {
             display: block;
             margin-bottom: 1rem;
-            margin-left: 0.5rem;
+            // margin-left: 0.5rem;
             font-size: 1.8rem;
             font-weight: 500;
             width: 100%;
@@ -412,7 +425,7 @@ body {
             input {
               width: 100%;
               min-width: 20rem;
-              margin-left: 1rem;
+              margin-right: 1rem;
             }
           }
 

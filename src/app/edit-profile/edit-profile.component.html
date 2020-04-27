@@ -600,13 +600,16 @@
             </ng-container>
 
             <!-- Upload   -->
-            <div class="from-block">
+            <div class="from-block w-100">
               <label>Upload Adhaar <span>*</span></label>
-              <input
-                formControlName="aadhar"
-                (change)="uploadAadhar($event.target.files)"
-                type="file"
-              />
+              <div class="file-wrapper">
+                <input
+                  formControlName="aadhar"
+                  (change)="uploadAadhar($event.target.files)"
+                  type="file"
+                />
+                <a>View Document</a>
+              </div>
               <mat-error
                 *ngIf="
                   editProfileForm.controls.aadhar.errors &&
@@ -631,11 +634,15 @@
             <!-- employee  -->
             <div class="from-block" *ngIf="player_type === 'professional'">
               <label>Employment Contract <span>*</span></label>
-              <input
-                formControlName="employment_contract"
-                (change)="uploadEmploymentContract($event.target.files)"
-                type="file"
-              />
+              <div class="file-wrapper">
+                <input
+                  formControlName="employment_contract"
+                  (change)="uploadEmploymentContract($event.target.files)"
+                  type="file"
+                />
+                <a>View Document</a>
+              </div>
+
               <mat-error
                 *ngIf="
                   editProfileForm.controls.employment_contract.errors &&
@@ -1310,11 +1317,14 @@
               <!-- Upload   -->
               <div class="from-block w-40" *ngIf="member_type === 'club'">
                 <label>Upload AIFF accreditation status</label>
-                <input
-                  type="file"
-                  formControlName="aiff"
-                  (change)="uploadAiff($event.target.files)"
-                />
+                <div class="file-wrapper">
+                  <input
+                    type="file"
+                    formControlName="aiff"
+                    (change)="uploadAiff($event.target.files)"
+                  />
+                  <a>View Document</a>
+                </div>
                 <mat-error
                   *ngIf="
                     editProfileForm.controls.aiff.errors &&
@@ -1331,13 +1341,16 @@
                 </mat-error>
               </div>
 
-              <div class="from-block w-40" *ngIf="member_type === 'academy'">
+              <div class="from-block w-100" *ngIf="member_type === 'academy'">
                 <label>Upload Document</label>
-                <input
-                  type="file"
-                  formControlName="document"
-                  (change)="uploadDocument($event.target.files)"
-                />
+                <div class="file-wrapper">
+                  <input
+                    type="file"
+                    formControlName="document"
+                    (change)="uploadDocument($event.target.files)"
+                  />
+                  <a>View Document</a>
+                </div>
                 <mat-error
                   *ngIf="
                     editProfileForm.controls.document.errors &&
@@ -1369,13 +1382,6 @@
               <!-- <p>Lorem ipsum dolor sit amet, consecteturs.</p> -->
             </div>
             <div class="block-middle">
-              <!-- Need to change CSS of this part (this was button) -->
-
-              <!-- Need to change CSS of this part (this was button) -->
-
-              <!-- Need to change CSS of this part (this was button) -->
-
-              <!-- Need to change CSS of this part (this was button) -->
               <div class="contact-details block-part">
                 <!-- Add contact Details btn -->
                 <div class="input-wrapper w-100 align-right">
