@@ -50,6 +50,11 @@ export class EditProfileComponent implements OnInit {
   aadhar: File;
   employment_contract: File;
 
+  aiff_url: String;
+  document_url: String;
+  aadhar_url: String;
+  employment_contract_url: String;
+
   profile: any;
   member_type: string = localStorage.getItem('member_type') || 'player';
   player_type: string = 'grassroot';
@@ -57,9 +62,6 @@ export class EditProfileComponent implements OnInit {
   aboutForm: FormGroup;
   socialProfileForm: FormGroup;
   editProfileForm: FormGroup;
-  playerProfileForm: FormGroup;
-  clubProfileForm: FormGroup;
-  academyProfileForm: FormGroup;
 
   contact_person: FormArray;
   trophies: FormArray;
@@ -273,6 +275,7 @@ export class EditProfileComponent implements OnInit {
       response => {
         this.profile = response.data;
         this.populateFormFields();
+        this.populateDocuments();
 
         if (
           this.profile.member_type === 'club' ||
@@ -852,6 +855,30 @@ export class EditProfileComponent implements OnInit {
     if (this.profile.bio) {
       this.aboutForm.patchValue({
         bio: this.profile.bio
+      });
+    }
+  }
+
+  populateDocuments() {
+    if (this.profile.documents.length !== 0) {
+      this.profile.documents.forEach((element: any) => {
+        let fileLink = this.environment.mediaUrl + element.link;
+        if (element.type === 'aadhar') {
+          this.aadhar_url = fileLink;
+        }
+        if (element.type === 'employment_contract') {
+          this.employment_contract_url = fileLink;
+        }
+        if (element.type === 'aiff') {
+          this.aiff_url = fileLink;
+        }
+        if (
+          element.type !== 'employment_contract' &&
+          element.type !== 'aadhar' &&
+          element.type !== 'aiff'
+        ) {
+          this.document_url = fileLink;
+        }
       });
     }
   }
