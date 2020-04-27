@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { AdminService } from '@app/admin/service/admin.service';
 import { CityService } from './manage-city-service';
+import { PaginationComponent } from '@app/shared/pagination/pagination.component';
 @Component({
   selector: 'app-manage-city',
   templateUrl: './manage-city.component.html',
@@ -14,7 +15,8 @@ import { CityService } from './manage-city-service';
 export class ManageCityComponent implements OnInit {
   // table config
   @ViewChild('cityInput', { static: false }) cityInput: ElementRef;
-
+  @ViewChild(PaginationComponent, { static: false })
+  pagComp: PaginationComponent;
   public tableConfig: ManageCityTableConfig = new ManageCityTableConfig();
   public dataSource = new MatTableDataSource([]);
   addCityForm: FormGroup;
@@ -66,6 +68,7 @@ export class ManageCityComponent implements OnInit {
             'City Added Successfully'
           );
           this.addCityForm.get('name').reset();
+          this.pagComp.selectedPage = 1;
           this.getCityListByState(this.state_id, this.pageSize, 1);
         },
         error => {
