@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ManageCityTableConfig } from './manage-city-table-conf';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,6 +13,7 @@ import { CityService } from './manage-city-service';
 })
 export class ManageCityComponent implements OnInit {
   // table config
+  @ViewChild('cityInput', { static: false }) cityInput: ElementRef;
   public tableConfig: ManageCityTableConfig = new ManageCityTableConfig();
   public dataSource = new MatTableDataSource([]);
   addCityForm: FormGroup;
@@ -21,6 +22,7 @@ export class ManageCityComponent implements OnInit {
   stateArray: { id: string; name: string }[];
   pageSize: number = 10;
   total_count: number = 0;
+  city_count: number = 0;
   editMode: boolean = false;
   cityId: any;
   row: any = {};
@@ -48,21 +50,29 @@ export class ManageCityComponent implements OnInit {
   ngOnInit() {
     this.getStateListByCountry();
   }
+
+  blurElement() {
+    this.cityInput.nativeElement.blur();
+  }
+
   addCity() {
+    this.cancelCity();
     this.adminService
       .addCity({ ...this.addCityForm.value, country_id: this.country_id })
       .subscribe(
         response => {
-          console.log('server response', response);
           this.toastrService.success(
             `${response.message}`,
             'City Added Successfully'
           );
           this.addCityForm.get('name').reset();
-          this.getCityListByState(this.state_id, this.pageSize, 1);
+          this.getCityListByState(
+            this.state_id,
+            this.pageSize,
+            this.selectedPage
+          );
         },
         error => {
-          console.log('error', error);
           this.toastrService.error(`${error.error.message}`, 'Error');
         }
       );
@@ -72,12 +82,9 @@ export class ManageCityComponent implements OnInit {
       .getStateListByCountry({ country_id: this.country_id })
       .subscribe(
         response => {
-          console.log('response', response.data.records);
           this.stateArray = response.data.records;
         },
-        error => {
-          console.log('error', error);
-        }
+        error => {}
       );
   }
 
@@ -102,7 +109,6 @@ export class ManageCityComponent implements OnInit {
       })
       .subscribe(
         response => {
-          console.log('response', response);
           let records = response.data.records;
           for (let i = 0; i < records.length; i++) {
             if (page_no > 1) {
@@ -113,10 +119,12 @@ export class ManageCityComponent implements OnInit {
             }
           }
           this.total_count = response.data.total;
+          this.city_count = response.data.records.length;
           this.dataSource = new MatTableDataSource(records);
         },
         error => {
-          console.log('error', error);
+          if (error.status === 404)
+            this.dataSource = new MatTableDataSource([]);
         }
       );
   }
@@ -139,13 +147,11 @@ export class ManageCityComponent implements OnInit {
   editCity(name: any, id: any) {
     let obj = { name, id };
     this.row = obj;
-    console.log(obj);
     this.editMode = true;
     this.cityId = id;
     this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
   }
   updateCity(name: any, id: any) {
-    console.log('NAME N ID', name, id);
     if (!name || name == '') {
       return;
     }
@@ -155,16 +161,13 @@ export class ManageCityComponent implements OnInit {
       this.update = '';
     }, 1000);
   }
-  cancelCity(user: any) {
-    console.log(user);
+  cancelCity(user?: any) {
     this.editMode = false;
     this.update = 'cancel';
     this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
   }
   onChange(event: any) {
-    console.log(event);
     if (event.id) {
-      console.log('UPDATE');
       this.updateStateByCountry(event);
     }
   }
@@ -176,7 +179,6 @@ export class ManageCityComponent implements OnInit {
       .updateCity(this.state_id, city_id, this.country_id, body)
       .subscribe(
         data => {
-          console.log('Update', data);
           this.toastrService.success(
             `${data.message}`,
             'City Updated Successfully'
@@ -188,7 +190,6 @@ export class ManageCityComponent implements OnInit {
           );
         },
         error => {
-          console.log(error);
           this.toastrService.error(`${error.error.message}`, 'Error');
           this.getCityListByState(
             this.state_id,

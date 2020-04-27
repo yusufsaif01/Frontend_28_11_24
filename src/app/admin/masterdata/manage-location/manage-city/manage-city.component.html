@@ -69,6 +69,8 @@
                   type="text"
                   matinput
                   placeholder="Add city"
+                  #cityInput
+                  (keyup.enter)="blurElement()"
                 />
                 <mat-error
                   *ngIf="
@@ -153,11 +155,11 @@
       </div>
 
       <!-- pagination -->
-      <div class="pagination-wrapper">
+      <div class="pagination-wrapper" *ngIf="dataSource.data.length !== 0">
         <div class="showing-data">
           <p>
             <strong>Showing</strong>
-            {{ pageSize > total_count ? total_count : pageSize }}
+            {{ pageSize > city_count ? city_count : pageSize }}
             / {{ total_count }} Data
           </p>
         </div>

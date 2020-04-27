@@ -249,18 +249,18 @@ export class EditProfileComponent implements OnInit {
     this.populateView();
   }
 
-  selectTab(tabName: string) {
-    this.player_type = tabName;
-    this.setCategoryValidators();
-    console.log('player_type', this.player_type);
-  }
+  // selectTab(tabName: string) {
+  //   this.player_type = tabName;
+  //   this.setCategoryValidators();
+  //   this.checkFileValidations();
+  // }
 
   toFormData<T>(formValue: T) {
     const formData = new FormData();
     for (const key of Object.keys(formValue)) {
       const value = formValue[key];
-      console.log(key, value);
-      if (!value && !value.length) {
+
+      if (!value && !value.length && key != 'bio') {
         continue;
       }
       formData.append(key, value);
@@ -271,7 +271,6 @@ export class EditProfileComponent implements OnInit {
   populateView() {
     this._authenticationService.getProfileDetails().subscribe(
       response => {
-        console.log('data', response);
         this.profile = response.data;
         this.populateFormFields();
 
@@ -301,23 +300,17 @@ export class EditProfileComponent implements OnInit {
           'Successful',
           'Data retrieved successfully'
         );
+
+        this.setCategoryValidators();
+        this.checkFileValidations();
       },
       error => {
-        console.log('error', error);
         this._toastrService.error(
           `${error.error.message}`,
           'Failed to load data'
         );
       }
     );
-
-    this.setCategoryValidators();
-  }
-
-  resetForm() {
-    this.editProfileForm.reset();
-    this.createForm();
-    this.setCategoryValidators();
   }
 
   setCategoryValidators() {
@@ -378,23 +371,37 @@ export class EditProfileComponent implements OnInit {
           if (player_type === 'amateur' || player_type === 'professional') {
             height_feet.setValidators([
               Validators.required,
+              Validators.min(1),
+              Validators.max(10),
               Validators.pattern(/^\d+$/)
             ]);
             height_inches.setValidators([
               Validators.required,
+              Validators.min(0),
+              Validators.max(12),
               Validators.pattern(/^\d+$/)
             ]);
           }
 
           if (player_type === 'grassroot') {
-            height_feet.setValidators([Validators.pattern(/^\d+$/)]);
-            height_inches.setValidators([Validators.pattern(/^\d+$/)]);
+            height_feet.setValidators([
+              Validators.min(1),
+              Validators.max(10),
+              Validators.pattern(/^\d+$/)
+            ]);
+            height_inches.setValidators([
+              Validators.min(0),
+              Validators.max(12),
+              Validators.pattern(/^\d+$/)
+            ]);
           }
 
           height_feet.updateValueAndValidity();
           height_inches.updateValueAndValidity();
           aadhar.updateValueAndValidity();
           employmentContract.updateValueAndValidity();
+
+          this.checkFileValidations();
         });
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
       const address = this.editProfileForm.get('address');
@@ -422,6 +429,10 @@ export class EditProfileComponent implements OnInit {
     }
   }
 
+  setRequestDataObject(requestData: any, name: string) {
+    requestData.set(name, JSON.stringify(this.editProfileForm.get(name).value));
+  }
+
   editProfile() {
     let requestData = this.toFormData(this.editProfileForm.value);
 
@@ -431,40 +442,25 @@ export class EditProfileComponent implements OnInit {
         if (this.employment_contract)
           requestData.set('employment_contract', this.employment_contract);
       }
-      requestData.set(
-        'position',
-        JSON.stringify(this.editProfileForm.get('position').value)
-      );
+      this.setRequestDataObject(requestData, 'position');
+
       requestData.set('dob', this.editProfileForm.get('dob').value);
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
       if (this.member_type === 'club') requestData.set('aiff', this.aiff);
       else requestData.set('document', this.document);
 
-      requestData.set(
-        'contact_person',
-        JSON.stringify(this.editProfileForm.get('contact_person').value)
-      );
-      requestData.set(
-        'trophies',
-        JSON.stringify(this.editProfileForm.get('trophies').value)
-      );
-      if (this.member_type === 'club') {
-        requestData.set(
-          'top_signings',
-          JSON.stringify(this.editProfileForm.get('top_signings').value)
-        );
-      }
-      if (this.member_type === 'academy') {
-        requestData.set(
-          'top_players',
-          JSON.stringify(this.editProfileForm.get('top_players').value)
-        );
-      }
+      this.setRequestDataObject(requestData, 'contact_person');
+      this.setRequestDataObject(requestData, 'trophies');
+
+      if (this.member_type === 'club')
+        this.setRequestDataObject(requestData, 'top_signings');
+
+      if (this.member_type === 'academy')
+        this.setRequestDataObject(requestData, 'top_players');
     }
 
     this._authenticationService.editProfile(requestData).subscribe(
       res => {
-        console.log('response', res);
         this._toastrService.success(
           'Successful',
           'Profile updated successfully'
@@ -472,7 +468,6 @@ export class EditProfileComponent implements OnInit {
         this._router.navigate(['/profile']);
       },
       err => {
-        console.log('err', err);
         this._toastrService.error(
           'Error',
           'An error occured while trying to update profile'
@@ -501,7 +496,6 @@ export class EditProfileComponent implements OnInit {
     if (this.aboutForm.valid) {
       this._authenticationService.updateBio(requestData).subscribe(
         res => {
-          console.log('response', res);
           if (res.data.avatar_url) {
             this.profile.avatar_url =
               this.environment.mediaUrl + res.data.avatar_url;
@@ -517,7 +511,6 @@ export class EditProfileComponent implements OnInit {
           );
         },
         err => {
-          console.log('err', err);
           this._toastrService.error(
             'Error',
             'An error occured while updating avatar'
@@ -534,7 +527,6 @@ export class EditProfileComponent implements OnInit {
   removeAvatar() {
     this._authenticationService.removeAvatar().subscribe(
       res => {
-        console.log('response', res);
         if (res.data.avatar_url) {
           this.profile.avatar_url =
             this.environment.mediaUrl + res.data.avatar_url;
@@ -550,7 +542,6 @@ export class EditProfileComponent implements OnInit {
         );
       },
       err => {
-        console.log('err', err);
         this._toastrService.error(
           'Error',
           'An error occured while removing avatar'
@@ -564,14 +555,12 @@ export class EditProfileComponent implements OnInit {
       .updateBio(this.socialProfileForm.value)
       .subscribe(
         res => {
-          console.log('response', res);
           this._toastrService.success(
             'Successful',
             'Social profiles updated successfully'
           );
         },
         err => {
-          console.log('err', err);
           this._toastrService.error(
             'Error',
             'An error occured while updating social profiles'
@@ -585,11 +574,9 @@ export class EditProfileComponent implements OnInit {
 
     this._authenticationService.updateBio(requestData).subscribe(
       res => {
-        console.log('response', res);
         this._toastrService.success('Successful', 'Bio updated successfully');
       },
       err => {
-        console.log('err', err);
         this._toastrService.error(
           'Error',
           'An error occured while updating bio'
@@ -631,9 +618,9 @@ export class EditProfileComponent implements OnInit {
           ]
         ],
         dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
-        height_feet: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-        height_inches: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-        weight: ['', [Validators.pattern(/^\d+(\.\d)?$/)]],
+        height_feet: ['', []],
+        height_inches: ['', []],
+        weight: ['', [Validators.min(1), Validators.pattern(/^\d+(\.\d)?$/)]],
         country: ['', [Validators.required]], // country or nationality
         state: ['', [Validators.required]],
         city: ['', [Validators.required]], //city
@@ -683,6 +670,7 @@ export class EditProfileComponent implements OnInit {
           '',
           [
             Validators.required,
+            Validators.minLength(4),
             Validators.maxLength(4),
             Validators.max(this.currentYear),
             Validators.pattern(/^\d+$/)
@@ -730,7 +718,9 @@ export class EditProfileComponent implements OnInit {
           '',
           [
             Validators.required,
+            Validators.minLength(4),
             Validators.maxLength(4),
+            Validators.max(this.currentYear),
             Validators.pattern(/^\d+$/)
           ]
         ],
@@ -762,6 +752,22 @@ export class EditProfileComponent implements OnInit {
         //onclick upload documenet aiff / pan card/tin / coi
       });
     }
+  }
+
+  checkFileValidations() {
+    if (this.profile.documents) {
+      this.profile.documents.forEach((data: any) => {
+        if (data.type === 'aadhar' || data.type === 'employment_contract') {
+          this.removeFileValidations(data.type);
+        }
+      });
+    }
+  }
+
+  removeFileValidations(type: string) {
+    const fileValidation = this.editProfileForm.get(type);
+    fileValidation.setValidators(null);
+    fileValidation.updateValueAndValidity();
   }
 
   populateFormFields() {
@@ -944,6 +950,7 @@ export class EditProfileComponent implements OnInit {
             data.year,
             [
               Validators.required,
+              Validators.minLength(4),
               Validators.maxLength(4),
               Validators.max(this.currentYear),
               Validators.pattern(/^\d+$/)
@@ -960,6 +967,7 @@ export class EditProfileComponent implements OnInit {
             '',
             [
               Validators.required,
+              Validators.minLength(4),
               Validators.maxLength(4),
               Validators.max(this.currentYear),
               Validators.pattern(/^\d+$/)

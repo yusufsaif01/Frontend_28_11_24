@@ -4,12 +4,9 @@
     [matColumnDef]="tableConfig.columns[col].code"
     *ngFor="let col of tableConfig.allowedColumns"
   >
-    <mat-header-cell
-      *matHeaderCellDef
-      mat-sort-header
-      [disabled]="!sortEnabled"
-      >{{ tableConfig.columns[col].text }}</mat-header-cell
-    >
+    <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!sortEnabled"
+      >{{ tableConfig.columns[col].text }}
+    </mat-header-cell>
     <mat-cell *matCellDef="let element; let i = index">
       <!-- <ng-container
       *ngTemplateOutlet="Inputs; context: element"
@@ -97,3 +94,8 @@
   <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
+<ng-container *ngIf="!rows || !rows.data || rows.data.length === 0">
+  <span class="no-data-found">
+    No records added
+  </span>
+</ng-container>

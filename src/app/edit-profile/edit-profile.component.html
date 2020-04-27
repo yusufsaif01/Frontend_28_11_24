@@ -54,7 +54,9 @@
       <div class="block">
         <div class="block-heading border-bottom">
           <h4>About</h4>
-          <p>{{ profile?.bio | slice: 0:150 }}</p>
+          <p>
+            {{ aboutForm.controls.bio.value | truncate: 150 }}
+          </p>
         </div>
 
         <div class="block-middle border-bottom">
@@ -315,6 +317,7 @@
                     type="text"
                     matInput
                     autocomplete="off"
+                    [value]="editProfileForm.controls.height_feet.value | trim"
                   />
                   <mat-error
                     *ngIf="
@@ -324,21 +327,34 @@
                   >
                     <span
                       *ngIf="
-                        editProfileForm.controls.height_feet.errors &&
-                        editProfileForm.controls.height_feet.errors.required
+                        editProfileForm.controls.height_feet.errors.required;
+                        else patternBlock
                       "
                       translate
                       >Height in Feet is required</span
                     >
-                    <span
-                      class="error-text"
-                      *ngIf="
-                        editProfileForm.controls.height_feet.errors &&
-                        editProfileForm.controls.height_feet.errors.pattern
-                      "
-                    >
-                      Height in Feet format is invalid
-                    </span>
+                    <ng-template #patternBlock>
+                      <span
+                        class="error-text"
+                        *ngIf="
+                          editProfileForm.controls.height_feet.errors.pattern;
+                          else maxBlock
+                        "
+                      >
+                        Height in Feet format is invalid
+                      </span>
+                    </ng-template>
+                    <ng-template #maxBlock>
+                      <span
+                        class="error-text"
+                        *ngIf="
+                          editProfileForm.controls.height_feet.errors.max ||
+                          editProfileForm.controls.height_feet.errors.min
+                        "
+                      >
+                        Height in Feet must be between 1 and 10
+                      </span>
+                    </ng-template>
                   </mat-error>
                 </div>
                 <div class="height-input">
@@ -347,6 +363,9 @@
                     type="text"
                     matInput
                     autocomplete="off"
+                    [value]="
+                      editProfileForm.controls.height_inches.value | trim
+                    "
                   />
                   <mat-error
                     *ngIf="
@@ -356,21 +375,34 @@
                   >
                     <span
                       *ngIf="
-                        editProfileForm.controls.height_inches.errors &&
-                        editProfileForm.controls.height_inches.errors.required
+                        editProfileForm.controls.height_inches.errors.required;
+                        else patternBlock
                       "
                       translate
                       >Height in Inches is required</span
                     >
-                    <span
-                      class="error-text"
-                      *ngIf="
-                        editProfileForm.controls.height_inches.errors &&
-                        editProfileForm.controls.height_inches.errors.pattern
-                      "
-                    >
-                      Height in Inches format is invalid
-                    </span>
+                    <ng-template #patternBlock>
+                      <span
+                        class="error-text"
+                        *ngIf="
+                          editProfileForm.controls.height_inches.errors.pattern;
+                          else maxBlock
+                        "
+                      >
+                        Height in Inches format is invalid
+                      </span>
+                    </ng-template>
+                    <ng-template #maxBlock>
+                      <span
+                        class="error-text"
+                        *ngIf="
+                          editProfileForm.controls.height_inches.errors.max ||
+                          editProfileForm.controls.height_inches.errors.min
+                        "
+                      >
+                        Height in Inches must be between 0 and 12
+                      </span>
+                    </ng-template>
                   </mat-error>
                 </div>
               </div>
@@ -384,6 +416,7 @@
                 type="text"
                 matInput
                 autocomplete="off"
+                [value]="editProfileForm.controls.weight.value | trim"
               />
               <mat-error
                 *ngIf="
@@ -394,12 +427,20 @@
                 <span
                   class="error-text"
                   *ngIf="
-                    editProfileForm.controls.weight.errors &&
-                    editProfileForm.controls.weight.errors.pattern
+                    editProfileForm.controls.weight.errors.pattern;
+                    else minBlock
                   "
                 >
                   Weight format is invalid
                 </span>
+                <ng-template #minBlock>
+                  <span
+                    class="error-text"
+                    *ngIf="editProfileForm.controls.weight.errors.min"
+                  >
+                    Weight must be greater than 0
+                  </span>
+                </ng-template>
               </mat-error>
             </div>
 
@@ -985,40 +1026,44 @@
                   "
                 >
                   <span
-                    *ngIf="editProfileForm.controls.founded_in.errors.required"
+                    *ngIf="
+                      editProfileForm.controls.founded_in.errors.required;
+                      else charBlock
+                    "
                     translate
                     >Founded is required</span
                   >
                   <ng-template #charBlock>
                     <span
                       *ngIf="
-                        editProfileForm.controls.founded_in.errors.maxlength
+                        editProfileForm.controls.founded_in.errors.maxlength ||
+                          editProfileForm.controls.founded_in.errors.minlength;
+                        else patternBlock
                       "
                       translate
                     >
-                      Founded must not exceed 4 character length
+                      Founded length must be equal to 4
                     </span>
                   </ng-template>
                   <ng-template #patternBlock>
                     <span
                       *ngIf="
                         editProfileForm.controls.founded_in.errors.pattern;
-                        else charBlock
+                        else maxBlock
                       "
                       translate
                     >
                       Founded format is invalid
                     </span>
                   </ng-template>
-                  <span
-                    *ngIf="
-                      editProfileForm.controls.founded_in.errors.max;
-                      else patternBlock
-                    "
-                    translate
-                  >
-                    Founded cannot be greater than current year
-                  </span>
+                  <ng-template #maxBlock>
+                    <span
+                      *ngIf="editProfileForm.controls.founded_in.errors.max"
+                      translate
+                    >
+                      Founded cannot be greater than current year
+                    </span>
+                  </ng-template>
                 </mat-error>
               </div>
 
@@ -1624,7 +1669,8 @@
                           *ngIf="
                             editProfileForm.controls.trophies.controls[i]
                               .get('year')
-                              .hasError('required')
+                              .hasError('required');
+                            else charBlock
                           "
                           translate
                           >Year is required</span
@@ -1634,11 +1680,15 @@
                             *ngIf="
                               editProfileForm.controls.trophies.controls[i]
                                 .get('year')
-                                .hasError('maxlength')
+                                .hasError('maxlength') ||
+                                editProfileForm.controls.trophies.controls[i]
+                                  .get('year')
+                                  .hasError('minlength');
+                              else patternBlock
                             "
                             translate
                           >
-                            Year must not exceed 4 character length
+                            Year length must be equal to 4
                           </span>
                         </ng-template>
                         <ng-template #patternBlock>
@@ -1647,24 +1697,25 @@
                               editProfileForm.controls.trophies.controls[i]
                                 .get('year')
                                 .hasError('pattern');
-                              else charBlock
+                              else maxBlock
                             "
                             translate
                           >
                             Year format is invalid
                           </span>
                         </ng-template>
-                        <span
-                          *ngIf="
-                            editProfileForm.controls.trophies.controls[i]
-                              .get('year')
-                              .hasError('max');
-                            else patternBlock
-                          "
-                          translate
-                        >
-                          Year cannot be greater than current year
-                        </span>
+                        <ng-template #maxBlock>
+                          <span
+                            *ngIf="
+                              editProfileForm.controls.trophies.controls[i]
+                                .get('year')
+                                .hasError('max')
+                            "
+                            translate
+                          >
+                            Year cannot be greater than current year
+                          </span>
+                        </ng-template>
                       </mat-error>
                     </div>
 

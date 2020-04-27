@@ -41,6 +41,8 @@
                   type="text"
                   matinput
                   placeholder="Add new state"
+                  #stateInput
+                  (keyup.enter)="blurElement()"
                 />
                 <mat-error
                   *ngIf="

@@ -45,9 +45,6 @@ export class AwardCertificateService {
   ) {}
 
   addAwards(context: any): Observable<DelEditAddAwardResponseContext> {
-    for (var pair of context.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
     let token = this.credentialsService.isAuthenticated()
       ? this.credentialsService.credentials['data']['token']
       : '';
@@ -64,9 +61,6 @@ export class AwardCertificateService {
   }
 
   updateAwards(id: any, context: any): Observable<any> {
-    for (var pair of context.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
     let token = this.credentialsService.isAuthenticated()
       ? this.credentialsService.credentials['data']['token']
       : '';

@@ -70,7 +70,6 @@ export class MasterTableComponent implements OnInit {
     // this.dataSource.paginator = this.paginator;
   }
   onChange(name: any, element: any) {
-    console.log(name.name, name.viewModel, element);
     let key = name.name;
     let value = name.viewModel;
     this.obj = element;
@@ -85,7 +84,6 @@ export class MasterTableComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     if (changes.update && changes.update.currentValue == 'update') {
       this.event.emit(this.obj);
       this.obj = {};

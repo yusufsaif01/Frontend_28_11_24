@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
   changeDropdown() {
-    console.log('fgd');
     if (this.isActive) {
       this.isActive = false;
     } else {

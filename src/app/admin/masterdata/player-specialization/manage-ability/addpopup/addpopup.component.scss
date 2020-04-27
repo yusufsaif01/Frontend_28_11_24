@@ -1,0 +1,67 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+.modal-container {
+  margin: -24px;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 3rem;
+  border-bottom: 2px solid $border-color;
+  .title {
+    display: flex;
+    align-items: center;
+    img {
+      width: 3rem;
+      height: 3rem;
+    }
+    h3 {
+      color: $text-color;
+      font-size: 2.4rem;
+      margin-left: 1rem;
+    }
+  }
+  .close {
+    img {
+      width: 2rem;
+      height: 2rem;
+      cursor: pointer;
+    }
+  }
+}
+
+.modal-body {
+  padding: 2rem 3rem;
+  .form-block {
+    label {
+      font-size: 2rem;
+      color: $text-color;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    input {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid $text-color;
+    }
+  }
+}
+
+.modal-footer {
+  .actions {
+    padding: 2rem 3rem;
+    display: block;
+    text-align: right;
+    button.cancel {
+      @include cancel;
+      margin-right: 1rem;
+      border-radius: 0px;
+    }
+    button.add {
+      @include admin-btn;
+    }
+  }
+}

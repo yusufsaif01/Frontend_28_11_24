@@ -54,7 +54,7 @@
       </div>
     </div>
     <!-- pagination -->
-    <div class="pagination-wrapper">
+    <div class="pagination-wrapper" *ngIf="dataSource.data.length !== 0">
       <!-- <div class="showing-data">
         <p>
           <strong>Showing</strong>

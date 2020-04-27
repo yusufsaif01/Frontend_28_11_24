@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ManageStateTableConfig } from './manage-state-table-conf';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -13,6 +13,8 @@ import { StateService } from './manage-state-service';
 })
 export class ManageStateComponent implements OnInit {
   // table config
+  @ViewChild('stateInput', { static: false }) stateInput: ElementRef;
+
   public tableConfig: ManageStateTableConfig = new ManageStateTableConfig();
   public dataSource = new MatTableDataSource([]);
   addStateForm: FormGroup;
@@ -42,12 +44,17 @@ export class ManageStateComponent implements OnInit {
   ngOnInit() {
     this.getStateListByCountry(this.country_id);
   }
+
+  blurElement() {
+    this.stateInput.nativeElement.blur();
+  }
+
   addState() {
+    this.cancelState();
     this.adminService
       .addState({ ...this.addStateForm.value, country_id: this.country_id })
       .subscribe(
         response => {
-          console.log('server response', response);
           this.toastrService.success(
             `${response.message}`,
             'State Added Successfully'
@@ -56,7 +63,6 @@ export class ManageStateComponent implements OnInit {
           this.getStateListByCountry(this.country_id);
         },
         error => {
-          console.log('error', error);
           this.toastrService.error(`${error.error.message}`, 'Error');
         }
       );
@@ -64,16 +70,13 @@ export class ManageStateComponent implements OnInit {
   getStateListByCountry(country_id: string) {
     this.adminService.getStateListByCountry({ country_id }).subscribe(
       response => {
-        console.log('response', response);
         let records = response.data.records;
         for (let i = 0; i < records.length; i++) {
           records[i]['serialNumber'] = i + 1;
         }
         this.dataSource = new MatTableDataSource(records);
       },
-      error => {
-        console.log('error', error);
-      }
+      error => {}
     );
   }
 
@@ -85,13 +88,12 @@ export class ManageStateComponent implements OnInit {
   editState(name: any, id: any) {
     let obj = { name, id };
     this.row = obj;
-    console.log(obj);
+
     this.editMode = true;
     this.stateId = id;
-    this.getStateListByCountry(this.country_id);
+    // this.getStateListByCountry(this.country_id);
   }
   updateState(name: any, id: any) {
-    console.log('NAME N ID', name, id);
     if (!name || name == '') {
       return;
     }
@@ -101,16 +103,13 @@ export class ManageStateComponent implements OnInit {
       this.update = '';
     }, 1000);
   }
-  cancelState(user: any) {
-    console.log(user);
+  cancelState(user?: any) {
     this.editMode = false;
     this.update = 'cancel';
     this.getStateListByCountry(this.country_id);
   }
   onChange(event: any) {
-    console.log(event);
     if (event.id) {
-      console.log('UPDATE');
       this.updateStateByCountry(event);
     }
   }
@@ -120,7 +119,6 @@ export class ManageStateComponent implements OnInit {
     delete body['serialNumber'];
     this.service.updateState(state_id, this.country_id, body).subscribe(
       data => {
-        console.log('Update', data);
         this.toastrService.success(
           `${data.message}`,
           'State Updated Successfully'
@@ -128,7 +126,6 @@ export class ManageStateComponent implements OnInit {
         this.getStateListByCountry(this.country_id);
       },
       error => {
-        console.log(error);
         this.toastrService.error(`${error.error.message}`, 'Error');
         this.getStateListByCountry(this.country_id);
       }
