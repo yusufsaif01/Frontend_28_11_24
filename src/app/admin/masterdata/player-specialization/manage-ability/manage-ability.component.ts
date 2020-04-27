@@ -32,8 +32,11 @@ export class ManageAbilityComponent implements OnInit {
   ) {}
   openDialog(): void {
     const dialogRef = this.dialog.open(AddpopupComponent, {
-      width: '40%'
+      width: '40%',
+      autoFocus: false
     });
+
+    this.cancelAbility();
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'refresh') {
@@ -63,7 +66,7 @@ export class ManageAbilityComponent implements OnInit {
     this.row = obj;
     this.editMode = true;
     this.abilityId = id;
-    this.getAbilityList();
+    // this.getAbilityList();
   }
   updateAbility(name: any, id: any) {
     if (!name || name == '') {
