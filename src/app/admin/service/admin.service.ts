@@ -15,7 +15,12 @@ const routes = {
     '/master/state/list',
   addCity: (c: AddCityContext) => '/master/city/add',
   getCityListByState: (c: GetCityListByStateContext) => '/master/city/list',
-  getMemberTypeList: () => '/member-type/list'
+  getMemberTypeList: () => '/member-type/list',
+  addAbility: (c: AddAbilityContext) =>
+    '/master/player-specialization/ability/add',
+  getAbilityList: () => '/master/player-specialization/ability/list',
+  updateAbilityById: (c: UpdateAbilityByIdContext) =>
+    '/master/player-specialization/ability'
 };
 
 interface GetMemberTypeListResponseContext {
@@ -26,6 +31,17 @@ interface GetMemberTypeListResponseContext {
     category: string;
     sub_category: string;
   }[];
+}
+interface GetAbilityListResponseContext {
+  status: string;
+  message: string;
+  data: {
+    total: number;
+    records: {
+      id: string;
+      name: string;
+    }[];
+  };
 }
 
 export interface CommonContext {
@@ -106,6 +122,9 @@ interface AddStateContext {
   name: string;
   country_id: string;
 }
+interface AddAbilityContext {
+  name: string;
+}
 
 let clubResponse = {
   data: {
@@ -158,6 +177,10 @@ interface DeleteUserContext {
 interface StatusUserContext {
   user_id: string;
 }
+interface UpdateAbilityByIdContext {
+  id: string;
+  name: string;
+}
 
 interface StatusUserResponseContext {
   status: string;
@@ -165,6 +188,10 @@ interface StatusUserResponseContext {
 }
 
 interface AddStateResponseContext {
+  status: string;
+  message: string;
+}
+interface AddAbilityResponseContext {
   status: string;
   message: string;
 }
@@ -190,6 +217,10 @@ interface GetCityStateListResponseContext {
 }
 
 interface AddCityResponseContext {
+  status: string;
+  message: string;
+}
+interface UpdateAbilityByIdResponseContext {
   status: string;
   message: string;
 }
@@ -558,6 +589,67 @@ export class AdminService {
 
     return this.httpClient.get<GetMemberTypeListResponseContext>(
       routes.getMemberTypeList(),
+      httpOptions
+    );
+  }
+
+  addAbility(
+    context: AddAbilityContext
+  ): Observable<AddAbilityResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    return this.httpClient.post<AddAbilityResponseContext>(
+      routes.addAbility(context),
+      context,
+      httpOptions
+    );
+  }
+
+  getAbilityList(): Observable<GetAbilityListResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return this.httpClient.get<GetAbilityListResponseContext>(
+      routes.getAbilityList(),
+      httpOptions
+    );
+  }
+
+  updateAbilityById(
+    context: UpdateAbilityByIdContext
+  ): Observable<UpdateAbilityByIdResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    let params = '/';
+    if (context['id']) {
+      params += `${context['id']}`;
+    }
+    const { name } = context;
+
+    return this.httpClient.put<UpdateAbilityByIdResponseContext>(
+      routes.updateAbilityById(context) + params,
+      { name },
       httpOptions
     );
   }
