@@ -1348,7 +1348,10 @@
                     formControlName="aiff"
                     (change)="uploadAiff($event.target.files)"
                   />
-                  <a *ngIf="aiff_url" href="{{ aiff_url ? aiff_url : '' }}"
+                  <a
+                    *ngIf="aiff_url"
+                    href="{{ aiff_url ? aiff_url : '' }}"
+                    target="_blank"
                     >View Document</a
                   >
                 </div>
@@ -1385,6 +1388,7 @@
                   <a
                     *ngIf="document_url"
                     href="{{ document_url ? document_url : '' }}"
+                    target="_blank"
                     >View Document</a
                   >
                 </div>

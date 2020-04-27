@@ -6,6 +6,7 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { AwardCertificateService } from '../award-certificate.service';
 import { ToastrService } from 'ngx-toastr';
 import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
+import { environment } from '../../../environments/environment';
 
 interface ArrayTypeContext {
   name: string;
@@ -27,6 +28,7 @@ const APP_DATE_FORMATS = {
   providers: [{ provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }]
 })
 export class EditAddPopupComponent implements OnInit, OnDestroy {
+  environment = environment;
   editAddForm: FormGroup;
   achievement: File;
   member_type: string = 'player';
@@ -36,6 +38,8 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
 
   minDate: Date = new Date(1970, 0, 1);
   maxDate: Date = new Date();
+
+  achievement_url: String;
 
   constructor(
     public dialogRef: MatDialogRef<EditAddPopupComponent>,
@@ -77,6 +81,9 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     if (this.data.id) {
       this.editAddForm.patchValue(this.data);
       this.editAddForm.patchValue({ year: new Date(this.data.year) });
+    }
+    if (this.data.media !== this.environment.mediaUrl) {
+      this.achievement_url = this.data.media;
     }
   }
   ngOnDestroy() {}
