@@ -5,20 +5,44 @@
       <h3>Add Abilities</h3>
     </div>
     <div class="close">
-      <img src="assets/images/icons/close.png" alt="" />
+      <img [mat-dialog-close] src="assets/images/icons/close.png" alt="" />
     </div>
   </div>
-  <form action="">
+  <form [formGroup]="addAbilityForm">
     <div class="modal-body">
       <div class="form-block">
         <label>Abilities</label>
-        <input type="text" matinput placeholder="Enter Abitity" />
+        <input
+          formControlName="name"
+          type="text"
+          matinput
+          placeholder="Enter Abitity"
+        />
+        <mat-error
+          *ngIf="
+            addAbilityForm.controls.name.invalid &&
+            addAbilityForm.controls.name.touched
+          "
+        >
+          <span *ngIf="addAbilityForm.controls.name.errors.required" translate>
+            Ability is required
+          </span>
+          <span *ngIf="addAbilityForm.controls.name.errors.pattern">
+            Ability format is invalid
+          </span>
+        </mat-error>
       </div>
     </div>
     <div class="modal-footer">
       <div class="actions">
-        <button class="cancel">Cancel</button>
-        <button class="add">Add</button>
+        <button [mat-dialog-close] class="cancel">Cancel</button>
+        <button
+          (click)="addAbility()"
+          class="add"
+          [disabled]="!addAbilityForm.valid"
+        >
+          Add
+        </button>
       </div>
     </div>
   </form>
