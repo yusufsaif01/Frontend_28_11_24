@@ -620,7 +620,7 @@ export class EditProfileComponent implements OnInit {
         dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
         height_feet: ['', []],
         height_inches: ['', []],
-        weight: ['', [Validators.pattern(/^\d+(\.\d)?$/)]],
+        weight: ['', [Validators.min(1), Validators.pattern(/^\d+(\.\d)?$/)]],
         country: ['', [Validators.required]], // country or nationality
         state: ['', [Validators.required]],
         city: ['', [Validators.required]], //city

@@ -11,6 +11,7 @@ import { MasterTableComponent } from './master-table/master-table.component';
 import { RouterModule } from '@angular/router';
 import { PaginationComponent } from './pagination/pagination.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { TrimPipe } from './pipes/trim.pipe';
 
 @NgModule({
   imports: [
@@ -27,11 +28,13 @@ import { TruncatePipe } from './pipes/truncate.pipe';
     TableComponent,
     MasterTableComponent,
     PaginationComponent,
-    TruncatePipe
+    TruncatePipe,
+    TrimPipe
   ],
   exports: [
     LoaderComponent,
     TruncatePipe,
+    TrimPipe,
     PageComponentsModule,
     FlexLayoutModule,
     MaterialModule,

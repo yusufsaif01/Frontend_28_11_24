@@ -40,8 +40,8 @@ export class CreatePasswordComponent implements OnInit {
         }
       },
       error => {
-        if (error.error.code === 'LINK_EXPIRED')
-          this._router.navigate(['/link-expired']);
+        // if (error.error.code === 'LINK_EXPIRED' || error.error.code === 'INVALID_TOKEN')
+        this._router.navigate(['/link-expired']);
       }
     );
   }

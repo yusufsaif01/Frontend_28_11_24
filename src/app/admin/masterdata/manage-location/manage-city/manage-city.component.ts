@@ -14,7 +14,6 @@ import { CityService } from './manage-city-service';
 export class ManageCityComponent implements OnInit {
   // table config
   @ViewChild('cityInput', { static: false }) cityInput: ElementRef;
-
   public tableConfig: ManageCityTableConfig = new ManageCityTableConfig();
   public dataSource = new MatTableDataSource([]);
   addCityForm: FormGroup;
@@ -23,6 +22,7 @@ export class ManageCityComponent implements OnInit {
   stateArray: { id: string; name: string }[];
   pageSize: number = 10;
   total_count: number = 0;
+  city_count: number = 0;
   editMode: boolean = false;
   cityId: any;
   row: any = {};
@@ -66,7 +66,11 @@ export class ManageCityComponent implements OnInit {
             'City Added Successfully'
           );
           this.addCityForm.get('name').reset();
-          this.getCityListByState(this.state_id, this.pageSize, 1);
+          this.getCityListByState(
+            this.state_id,
+            this.pageSize,
+            this.selectedPage
+          );
         },
         error => {
           this.toastrService.error(`${error.error.message}`, 'Error');
@@ -115,6 +119,7 @@ export class ManageCityComponent implements OnInit {
             }
           }
           this.total_count = response.data.total;
+          this.city_count = response.data.records.length;
           this.dataSource = new MatTableDataSource(records);
         },
         error => {

@@ -317,6 +317,7 @@
                     type="text"
                     matInput
                     autocomplete="off"
+                    [value]="editProfileForm.controls.height_feet.value | trim"
                   />
                   <mat-error
                     *ngIf="
@@ -362,6 +363,9 @@
                     type="text"
                     matInput
                     autocomplete="off"
+                    [value]="
+                      editProfileForm.controls.height_inches.value | trim
+                    "
                   />
                   <mat-error
                     *ngIf="
@@ -412,6 +416,7 @@
                 type="text"
                 matInput
                 autocomplete="off"
+                [value]="editProfileForm.controls.weight.value | trim"
               />
               <mat-error
                 *ngIf="
@@ -422,12 +427,20 @@
                 <span
                   class="error-text"
                   *ngIf="
-                    editProfileForm.controls.weight.errors &&
-                    editProfileForm.controls.weight.errors.pattern
+                    editProfileForm.controls.weight.errors.pattern;
+                    else minBlock
                   "
                 >
                   Weight format is invalid
                 </span>
+                <ng-template #minBlock>
+                  <span
+                    class="error-text"
+                    *ngIf="editProfileForm.controls.weight.errors.min"
+                  >
+                    Weight must be greater than 0
+                  </span>
+                </ng-template>
               </mat-error>
             </div>
 
