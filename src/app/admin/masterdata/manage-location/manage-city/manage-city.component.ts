@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ManageCityTableConfig } from './manage-city-table-conf';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,6 +13,8 @@ import { CityService } from './manage-city-service';
 })
 export class ManageCityComponent implements OnInit {
   // table config
+  @ViewChild('cityInput', { static: false }) cityInput: ElementRef;
+
   public tableConfig: ManageCityTableConfig = new ManageCityTableConfig();
   public dataSource = new MatTableDataSource([]);
   addCityForm: FormGroup;
@@ -48,7 +50,13 @@ export class ManageCityComponent implements OnInit {
   ngOnInit() {
     this.getStateListByCountry();
   }
+
+  blurElement() {
+    this.cityInput.nativeElement.blur();
+  }
+
   addCity() {
+    this.cancelCity();
     this.adminService
       .addCity({ ...this.addCityForm.value, country_id: this.country_id })
       .subscribe(
@@ -109,7 +117,10 @@ export class ManageCityComponent implements OnInit {
           this.total_count = response.data.total;
           this.dataSource = new MatTableDataSource(records);
         },
-        error => {}
+        error => {
+          if (error.status === 404)
+            this.dataSource = new MatTableDataSource([]);
+        }
       );
   }
 
@@ -145,7 +156,7 @@ export class ManageCityComponent implements OnInit {
       this.update = '';
     }, 1000);
   }
-  cancelCity(user: any) {
+  cancelCity(user?: any) {
     this.editMode = false;
     this.update = 'cancel';
     this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);

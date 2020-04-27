@@ -10,6 +10,7 @@ import { TableComponent } from './table/table.component';
 import { MasterTableComponent } from './master-table/master-table.component';
 import { RouterModule } from '@angular/router';
 import { PaginationComponent } from './pagination/pagination.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 @NgModule({
   imports: [
@@ -25,10 +26,12 @@ import { PaginationComponent } from './pagination/pagination.component';
     LoaderComponent,
     TableComponent,
     MasterTableComponent,
-    PaginationComponent
+    PaginationComponent,
+    TruncatePipe
   ],
   exports: [
     LoaderComponent,
+    TruncatePipe,
     PageComponentsModule,
     FlexLayoutModule,
     MaterialModule,

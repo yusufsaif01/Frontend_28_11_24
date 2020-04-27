@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ManageStateTableConfig } from './manage-state-table-conf';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -13,6 +13,8 @@ import { StateService } from './manage-state-service';
 })
 export class ManageStateComponent implements OnInit {
   // table config
+  @ViewChild('stateInput', { static: false }) stateInput: ElementRef;
+
   public tableConfig: ManageStateTableConfig = new ManageStateTableConfig();
   public dataSource = new MatTableDataSource([]);
   addStateForm: FormGroup;
@@ -42,7 +44,13 @@ export class ManageStateComponent implements OnInit {
   ngOnInit() {
     this.getStateListByCountry(this.country_id);
   }
+
+  blurElement() {
+    this.stateInput.nativeElement.blur();
+  }
+
   addState() {
+    this.cancelState();
     this.adminService
       .addState({ ...this.addStateForm.value, country_id: this.country_id })
       .subscribe(
@@ -83,7 +91,7 @@ export class ManageStateComponent implements OnInit {
 
     this.editMode = true;
     this.stateId = id;
-    this.getStateListByCountry(this.country_id);
+    // this.getStateListByCountry(this.country_id);
   }
   updateState(name: any, id: any) {
     if (!name || name == '') {
@@ -95,7 +103,7 @@ export class ManageStateComponent implements OnInit {
       this.update = '';
     }, 1000);
   }
-  cancelState(user: any) {
+  cancelState(user?: any) {
     this.editMode = false;
     this.update = 'cancel';
     this.getStateListByCountry(this.country_id);
