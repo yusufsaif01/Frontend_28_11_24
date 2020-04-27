@@ -172,7 +172,12 @@
               formControlName="achievement"
               (change)="uploadAchievement($event.target.files)"
             />
-            <a>View Image</a>
+            <a
+              *ngIf="achievement_url"
+              href="{{ achievement_url ? achievement_url : '' }}"
+              target="_blank"
+              >View Image</a
+            >
           </div>
           <mat-error
             *ngIf="
