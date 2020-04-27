@@ -242,7 +242,6 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     this.achievement = files[0];
   }
   updateData(requestData: any) {
-    if (this.achievement) requestData.set('achievement', this.achievement);
     this.awardCertificateService
       .updateAwards(this.data.id, requestData)
       .subscribe(
@@ -261,6 +260,9 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   }
   editAddFormValue() {
     let requestData = this.toFormData(this.editAddForm.value);
+    if (this.achievement) requestData.set('achievement', this.achievement);
+    this.dateModifier(requestData);
+
     if (this.data.id) {
       this.updateData(requestData);
     } else {
@@ -268,7 +270,6 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     }
   }
   addData(requestData: any) {
-    if (this.achievement) requestData.set('achievement', this.achievement);
     this.awardCertificateService.addAwards(requestData).subscribe(
       response => {
         this.dialogRef.close('refresh');
@@ -282,5 +283,11 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
         this.toastrService.error(`${error.error.message}`, 'Error');
       }
     );
+  }
+
+  dateModifier(requestData: any) {
+    let year = this.editAddForm.controls.year.value;
+    year = new Date(year).getFullYear();
+    requestData.set('year', year);
   }
 }
