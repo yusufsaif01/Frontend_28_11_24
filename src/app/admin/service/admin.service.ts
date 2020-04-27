@@ -18,7 +18,9 @@ const routes = {
   getMemberTypeList: () => '/member-type/list',
   addAbility: (c: AddAbilityContext) =>
     '/master/player-specialization/ability/add',
-  getAbilityList: () => '/master/player-specialization/ability/list'
+  getAbilityList: () => '/master/player-specialization/ability/list',
+  updateAbilityById: (c: UpdateAbilityByIdContext) =>
+    '/master/player-specialization/ability'
 };
 
 interface GetMemberTypeListResponseContext {
@@ -175,6 +177,10 @@ interface DeleteUserContext {
 interface StatusUserContext {
   user_id: string;
 }
+interface UpdateAbilityByIdContext {
+  id: string;
+  name: string;
+}
 
 interface StatusUserResponseContext {
   status: string;
@@ -211,6 +217,10 @@ interface GetCityStateListResponseContext {
 }
 
 interface AddCityResponseContext {
+  status: string;
+  message: string;
+}
+interface UpdateAbilityByIdResponseContext {
   status: string;
   message: string;
 }
@@ -615,6 +625,31 @@ export class AdminService {
 
     return this.httpClient.get<GetAbilityListResponseContext>(
       routes.getAbilityList(),
+      httpOptions
+    );
+  }
+
+  updateAbilityById(
+    context: UpdateAbilityByIdContext
+  ): Observable<UpdateAbilityByIdResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    let params = '/';
+    if (context['id']) {
+      params += `${context['id']}`;
+    }
+    const { name } = context;
+
+    return this.httpClient.put<UpdateAbilityByIdResponseContext>(
+      routes.updateAbilityById(context) + params,
+      { name },
       httpOptions
     );
   }
