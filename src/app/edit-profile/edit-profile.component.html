@@ -613,7 +613,7 @@
             </ng-container>
 
             <!-- Upload   -->
-            <div class="from-block w-100">
+            <div class="from-block">
               <label>Upload Adhaar <span>*</span></label>
               <div class="file-wrapper">
                 <input
@@ -641,7 +641,7 @@
 
             <!-- <div class="from-block">
               <label>Adhaar Number <span>*</span></label>
-              <input formControlName="manager" type="text" matinput />
+              <input type="text" matinput />
             </div> -->
 
             <!-- employee  -->
@@ -676,7 +676,7 @@
 
             <!-- <div class="from-block">
               <label>Employment Number <span>*</span></label>
-              <input formControlName="manager" type="text" matinput />
+              <input type="text" matinput />
             </div> -->
           </div>
         </div>
@@ -1288,7 +1288,7 @@
 
               <!-- Document -->
               <ng-container *ngIf="member_type === 'academy'">
-                <div class="from-block w-60">
+                <div class="from-block w-100">
                   <label>Document Type</label>
                   <div class="radio">
                     <label
@@ -1328,7 +1328,7 @@
               </ng-container>
 
               <!-- Upload   -->
-              <div class="from-block w-40" *ngIf="member_type === 'club'">
+              <div class="from-block" *ngIf="member_type === 'club'">
                 <label>Upload AIFF accreditation status</label>
                 <div class="file-wrapper">
                   <input
@@ -1354,7 +1354,13 @@
                 </mat-error>
               </div>
 
-              <div class="from-block w-100" *ngIf="member_type === 'academy'">
+              <!-- AIFF number  -->
+              <div class="from-block" *ngIf="member_type === 'club'">
+                <label>AIFF Number</label>
+                <input type="Text" matinput />
+              </div>
+
+              <div class="from-block" *ngIf="member_type === 'academy'">
                 <label>Upload Document</label>
                 <div class="file-wrapper">
                   <input
@@ -1381,10 +1387,10 @@
                 </mat-error>
               </div>
 
-              <!-- <div class="from-block">
+              <div class="from-block" *ngIf="member_type === 'academy'">
                 <label>Document Number <span>*</span></label>
-                <input formControlName="manager" type="text" matinput />
-              </div> -->
+                <input type="text" matinput />
+              </div>
             </div>
           </div>
 
