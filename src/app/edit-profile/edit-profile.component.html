@@ -621,7 +621,12 @@
                   (change)="uploadAadhar($event.target.files)"
                   type="file"
                 />
-                <a>View Document</a>
+                <a
+                  *ngIf="aadhar_url"
+                  href="{{ aadhar_url ? aadhar_url : '' }}"
+                  target="_blank"
+                  >View Document</a
+                >
               </div>
               <mat-error
                 *ngIf="
@@ -653,7 +658,14 @@
                   (change)="uploadEmploymentContract($event.target.files)"
                   type="file"
                 />
-                <a>View Document</a>
+                <a
+                  *ngIf="employment_contract_url"
+                  href="{{
+                    employment_contract_url ? employment_contract_url : ''
+                  }}"
+                  target="_blank"
+                  >View Document</a
+                >
               </div>
 
               <mat-error
@@ -1336,7 +1348,9 @@
                     formControlName="aiff"
                     (change)="uploadAiff($event.target.files)"
                   />
-                  <a>View Document</a>
+                  <a *ngIf="aiff_url" href="{{ aiff_url ? aiff_url : '' }}"
+                    >View Document</a
+                  >
                 </div>
                 <mat-error
                   *ngIf="
@@ -1355,10 +1369,10 @@
               </div>
 
               <!-- AIFF number  -->
-              <div class="from-block" *ngIf="member_type === 'club'">
+              <!-- <div class="from-block" *ngIf="member_type === 'club'">
                 <label>AIFF Number</label>
                 <input type="Text" matinput />
-              </div>
+              </div> -->
 
               <div class="from-block" *ngIf="member_type === 'academy'">
                 <label>Upload Document</label>
@@ -1368,7 +1382,11 @@
                     formControlName="document"
                     (change)="uploadDocument($event.target.files)"
                   />
-                  <a>View Document</a>
+                  <a
+                    *ngIf="document_url"
+                    href="{{ document_url ? document_url : '' }}"
+                    >View Document</a
+                  >
                 </div>
                 <mat-error
                   *ngIf="
@@ -1387,13 +1405,12 @@
                 </mat-error>
               </div>
 
-              <div class="from-block" *ngIf="member_type === 'academy'">
+              <!-- <div class="from-block" *ngIf="member_type === 'academy'">
                 <label
                   >Document Number
-                  <!-- <span>*</span> -->
                 </label>
                 <input type="text" matinput />
-              </div>
+              </div> -->
             </div>
           </div>
 
