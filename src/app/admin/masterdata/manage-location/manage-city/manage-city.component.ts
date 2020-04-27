@@ -22,6 +22,7 @@ export class ManageCityComponent implements OnInit {
   stateArray: { id: string; name: string }[];
   pageSize: number = 10;
   total_count: number = 0;
+  city_count: number = 0;
   editMode: boolean = false;
   cityId: any;
   row: any = {};
@@ -118,6 +119,7 @@ export class ManageCityComponent implements OnInit {
             }
           }
           this.total_count = response.data.total;
+          this.city_count = response.data.records.length;
           this.dataSource = new MatTableDataSource(records);
         },
         error => {
