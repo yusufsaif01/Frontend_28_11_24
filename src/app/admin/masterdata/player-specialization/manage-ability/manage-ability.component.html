@@ -39,20 +39,27 @@
             [NumberColumn]="'true'"
             [rows]="dataSource"
             [TableActions]="ListAction"
+            [sortEnabled]="false"
+            [editMode]="editMode"
+            [row]="row"
+            [update]="update"
+            (event)="onChange($event)"
           >
           </app-master-table>
-          <ng-template #ListAction>
-            <div class="action-buttons">
-              <button (click)="openDialog()">
+          <ng-template #ListAction let-id="id" let-name="name">
+            <div class="action-buttons" *ngIf="!editMode || id != abilityId">
+              <button (click)="editAbility(name, id)">
                 <img src=" assets/images/icons/edit.png" alt="Edit" />
               </button>
               <button>
                 <img src=" assets/images/icons/plus.png" alt="Edit" />
               </button>
-              <button (click)="statusPopup(user_id, status)">
+            </div>
+            <div class="action-buttons" *ngIf="editMode && id == abilityId">
+              <button (click)="updateAbility(name, id)">
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button (click)="deletePopup(user_id, status)">
+              <button (click)="cancelAbility(name, id)">
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>

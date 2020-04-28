@@ -166,11 +166,19 @@
         <!-- Upload image  -->
         <div class="from-block">
           <label>Upload Image </label>
-          <input
-            type="file"
-            formControlName="achievement"
-            (change)="uploadAchievement($event.target.files)"
-          />
+          <div class="file-wrapper">
+            <input
+              type="file"
+              formControlName="achievement"
+              (change)="uploadAchievement($event.target.files)"
+            />
+            <a
+              *ngIf="achievement_url"
+              href="{{ achievement_url ? achievement_url : '' }}"
+              target="_blank"
+              >View Image</a
+            >
+          </div>
           <mat-error
             *ngIf="
               editAddForm.controls.achievement.errors &&

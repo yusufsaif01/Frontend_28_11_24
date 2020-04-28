@@ -23,6 +23,7 @@
     img {
       max-width: 2rem;
       width: 100%;
+      cursor: pointer;
     }
   }
 }
@@ -54,6 +55,7 @@
   width: 48%;
   padding-bottom: 2rem;
   position: relative;
+  margin-bottom: 1rem;
   label {
     display: block;
     margin-bottom: 1rem;
@@ -82,11 +84,24 @@
     background-repeat: no-repeat;
     background-position: calc(100% - 1rem) center;
   }
-  input[type="file"] {
-    border: none;
-    padding: 1.2rem 0rem;
-    max-width: 28rem;
-    cursor: pointer;
+
+  .file-wrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    input[type="file"] {
+      border: none;
+      padding: 1.2rem 0rem;
+      width: 88px;
+      margin-right: 2rem;
+      cursor: pointer;
+    }
+    a {
+      color: $blue;
+      font-size: 2rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
   }
   .datepicker {
     position: relative;
@@ -103,9 +118,4 @@
       opacity: 0;
     }
   }
-}
-
-.mat-error {
-  color: red;
-  display: block;
 }

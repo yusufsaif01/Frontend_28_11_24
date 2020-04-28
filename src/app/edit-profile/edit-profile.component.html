@@ -534,7 +534,7 @@
               <label>Phone Number <span>*</span></label>
               <div class="contact-no">
                 <div class="countrycode">
-                  <input type="text" value="+91" readonly />
+                  <input type="text" value="+91" readonly tabindex="-1" />
                 </div>
 
                 <div class="phonenumber">
@@ -615,11 +615,19 @@
             <!-- Upload   -->
             <div class="from-block">
               <label>Upload Adhaar <span>*</span></label>
-              <input
-                formControlName="aadhar"
-                (change)="uploadAadhar($event.target.files)"
-                type="file"
-              />
+              <div class="file-wrapper">
+                <input
+                  formControlName="aadhar"
+                  (change)="uploadAadhar($event.target.files)"
+                  type="file"
+                />
+                <a
+                  *ngIf="aadhar_url"
+                  href="{{ aadhar_url ? aadhar_url : '' }}"
+                  target="_blank"
+                  >View Document</a
+                >
+              </div>
               <mat-error
                 *ngIf="
                   editProfileForm.controls.aadhar.errors &&
@@ -638,17 +646,28 @@
 
             <!-- <div class="from-block">
               <label>Adhaar Number <span>*</span></label>
-              <input formControlName="manager" type="text" matinput />
+              <input type="text" matinput />
             </div> -->
 
             <!-- employee  -->
             <div class="from-block" *ngIf="player_type === 'professional'">
               <label>Employment Contract <span>*</span></label>
-              <input
-                formControlName="employment_contract"
-                (change)="uploadEmploymentContract($event.target.files)"
-                type="file"
-              />
+              <div class="file-wrapper">
+                <input
+                  formControlName="employment_contract"
+                  (change)="uploadEmploymentContract($event.target.files)"
+                  type="file"
+                />
+                <a
+                  *ngIf="employment_contract_url"
+                  href="{{
+                    employment_contract_url ? employment_contract_url : ''
+                  }}"
+                  target="_blank"
+                  >View Document</a
+                >
+              </div>
+
               <mat-error
                 *ngIf="
                   editProfileForm.controls.employment_contract.errors &&
@@ -669,7 +688,7 @@
 
             <!-- <div class="from-block">
               <label>Employment Number <span>*</span></label>
-              <input formControlName="manager" type="text" matinput />
+              <input type="text" matinput />
             </div> -->
           </div>
         </div>
@@ -829,7 +848,7 @@
                 <label>Head coach phone number <span>*</span></label>
                 <div class="contact-no">
                   <div class="countrycode">
-                    <input type="text" value="+91" readonly />
+                    <input type="text" value="+91" readonly tabindex="-1" />
                   </div>
                   <div class="phonenumber">
                     <input
@@ -1179,7 +1198,7 @@
                 <label>Phone Number <span>*</span></label>
                 <div class="contact-no">
                   <div class="countrycode">
-                    <input type="text" value="+91" readonly />
+                    <input type="text" value="+91" readonly tabindex="-1" />
                   </div>
                   <div class="phonenumber">
                     <input formControlName="phone" type="text" matinput />
@@ -1281,7 +1300,7 @@
 
               <!-- Document -->
               <ng-container *ngIf="member_type === 'academy'">
-                <div class="from-block w-60">
+                <div class="from-block w-100">
                   <label>Document Type</label>
                   <div class="radio">
                     <label
@@ -1321,13 +1340,21 @@
               </ng-container>
 
               <!-- Upload   -->
-              <div class="from-block w-40" *ngIf="member_type === 'club'">
+              <div class="from-block" *ngIf="member_type === 'club'">
                 <label>Upload AIFF accreditation status</label>
-                <input
-                  type="file"
-                  formControlName="aiff"
-                  (change)="uploadAiff($event.target.files)"
-                />
+                <div class="file-wrapper">
+                  <input
+                    type="file"
+                    formControlName="aiff"
+                    (change)="uploadAiff($event.target.files)"
+                  />
+                  <a
+                    *ngIf="aiff_url"
+                    href="{{ aiff_url ? aiff_url : '' }}"
+                    target="_blank"
+                    >View Document</a
+                  >
+                </div>
                 <mat-error
                   *ngIf="
                     editProfileForm.controls.aiff.errors &&
@@ -1344,13 +1371,27 @@
                 </mat-error>
               </div>
 
-              <div class="from-block w-40" *ngIf="member_type === 'academy'">
+              <!-- AIFF number  -->
+              <!-- <div class="from-block" *ngIf="member_type === 'club'">
+                <label>AIFF Number</label>
+                <input type="Text" matinput />
+              </div> -->
+
+              <div class="from-block" *ngIf="member_type === 'academy'">
                 <label>Upload Document</label>
-                <input
-                  type="file"
-                  formControlName="document"
-                  (change)="uploadDocument($event.target.files)"
-                />
+                <div class="file-wrapper">
+                  <input
+                    type="file"
+                    formControlName="document"
+                    (change)="uploadDocument($event.target.files)"
+                  />
+                  <a
+                    *ngIf="document_url"
+                    href="{{ document_url ? document_url : '' }}"
+                    target="_blank"
+                    >View Document</a
+                  >
+                </div>
                 <mat-error
                   *ngIf="
                     editProfileForm.controls.document.errors &&
@@ -1368,9 +1409,11 @@
                 </mat-error>
               </div>
 
-              <!-- <div class="from-block">
-                <label>Document Number <span>*</span></label>
-                <input formControlName="manager" type="text" matinput />
+              <!-- <div class="from-block" *ngIf="member_type === 'academy'">
+                <label
+                  >Document Number
+                </label>
+                <input type="text" matinput />
               </div> -->
             </div>
           </div>
@@ -1382,13 +1425,6 @@
               <!-- <p>Lorem ipsum dolor sit amet, consecteturs.</p> -->
             </div>
             <div class="block-middle">
-              <!-- Need to change CSS of this part (this was button) -->
-
-              <!-- Need to change CSS of this part (this was button) -->
-
-              <!-- Need to change CSS of this part (this was button) -->
-
-              <!-- Need to change CSS of this part (this was button) -->
               <div class="contact-details block-part">
                 <!-- Add contact Details btn -->
                 <div class="input-wrapper w-100 align-right">
@@ -1513,7 +1549,12 @@
                       <label>Phone Number <span>*</span></label>
                       <div class="contact-no">
                         <div class="countrycode">
-                          <input type="text" value="+91" readonly />
+                          <input
+                            type="text"
+                            value="+91"
+                            readonly
+                            tabindex="-1"
+                          />
                         </div>
                         <div class="phonenumber">
                           <input
@@ -1598,7 +1639,7 @@
                       </div>
                     </div>
 
-                    <div class="input-wrapper">
+                    <div class="input-wrapper pb-0">
                       <a (click)="removeContactPerson(i)">Remove</a>
                     </div>
                   </ng-container>
