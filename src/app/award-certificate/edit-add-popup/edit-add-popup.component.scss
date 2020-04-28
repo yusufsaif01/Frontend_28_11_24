@@ -54,6 +54,7 @@
   width: 48%;
   padding-bottom: 2rem;
   position: relative;
+  margin-bottom: 0.5rem;
   label {
     display: block;
     margin-bottom: 1rem;
@@ -98,6 +99,7 @@
       color: $blue;
       font-size: 2rem;
       font-weight: 700;
+      text-decoration: none;
     }
   }
   .datepicker {
@@ -115,9 +117,4 @@
       opacity: 0;
     }
   }
-}
-
-.mat-error {
-  color: red;
-  display: block;
 }

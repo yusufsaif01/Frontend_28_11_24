@@ -74,8 +74,9 @@
         .input-wrapper,
         .input-wrapper-full {
           width: 48%;
-          margin-bottom: 2rem;
+          padding-bottom: 2rem;
           position: relative;
+          margin-bottom: 1rem;
           .icon-size {
             width: 2.2rem;
             height: 2.2rem;
@@ -125,8 +126,8 @@
               }
             }
             .contact-number {
-              position: relative;
               width: 75%;
+              position: relative;
               .icon-size {
                 // display: none;
                 width: 2.2rem;
@@ -135,6 +136,9 @@
                 top: 1.3rem;
                 left: 1.5rem;
                 color: rgba($color-black, 0.8);
+              }
+              .mat-error {
+                bottom: -2rem;
               }
             }
           }
@@ -169,4 +173,9 @@
 
 .error-text {
   color: red;
+}
+
+.zero {
+  margin: 0px !important;
+  padding: 0px !important;
 }
