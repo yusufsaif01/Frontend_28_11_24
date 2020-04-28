@@ -47,13 +47,16 @@ export class AddEditPopupComponent implements OnInit {
           if (element.id == el.id) {
             element.is_checked = true;
             this.selectedAbilities.push(element.id);
-          } else {
-            element.is_checked = false;
           }
         });
       });
     }
     console.log(this.abilities);
+  }
+  ngOnDestroy() {
+    console.log('destroyed');
+    this.abilities = [];
+    this.data.data.abilities = [];
   }
 
   onChangeAbility(event: any, ability: any) {

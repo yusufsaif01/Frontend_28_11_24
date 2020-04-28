@@ -45,6 +45,7 @@ export class ManagePositionComponent implements OnInit {
       if (result === 'refresh') {
         this.getPositionListing(this.pageSize, this.page_no);
       }
+      this.getAbilitiesList();
     });
   }
 
@@ -63,7 +64,9 @@ export class ManagePositionComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'refresh') {
         this.getPositionListing(this.pageSize, this.page_no);
+        console.log(this.abilities);
       }
+      this.getAbilitiesList();
     });
   }
 
@@ -90,7 +93,7 @@ export class ManagePositionComponent implements OnInit {
       .subscribe(
         response => {
           let records = response.data.records;
-          this.position_count = response.total;
+          this.position_count = response.data.total;
           for (let i = 0; i < records.length; i++) {
             if (page_no > 1) {
               records[i]['serialNo'] = i + 1 + page_size * page_no - page_size;
