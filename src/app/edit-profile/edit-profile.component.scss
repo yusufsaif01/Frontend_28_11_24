@@ -225,6 +225,9 @@ body {
             border-radius: 0.8rem;
             padding: 1.2rem 2rem;
             outline: none;
+            &:focus {
+              border: 1px solid $blue;
+            }
           }
           select {
             appearance: none;
@@ -314,6 +317,9 @@ body {
             border-radius: 0.8rem;
             padding: 1.2rem 2rem;
             outline: none;
+            &:focus {
+              border: 1px solid $blue;
+            }
           }
           select {
             min-width: 30rem;
@@ -362,6 +368,9 @@ body {
               margin-left: 1rem;
               input {
                 width: 100%;
+                &:focus {
+                  border: 1px solid $blue;
+                }
               }
             }
           }
@@ -397,6 +406,9 @@ body {
               border-radius: 0.8rem;
               padding: 1.2rem 2rem;
               outline: none;
+              &:focus {
+                border: 1px solid $blue;
+              }
             }
             select {
               min-width: 32rem;
@@ -426,6 +438,9 @@ body {
               width: 100%;
               min-width: 20rem;
               margin-right: 1rem;
+              &:focus {
+                border: 1px solid $blue;
+              }
             }
           }
 
@@ -476,6 +491,9 @@ body {
     border-radius: 0.8rem;
     padding: 1.2rem 2rem;
     outline: none;
+    &:focus {
+      border: 1px solid $blue;
+    }
   }
   .contact-no {
     display: flex;
@@ -486,6 +504,9 @@ body {
     .phonenumber {
       width: 70%;
       margin-left: 1rem;
+      &:focus {
+        border: 1px solid $blue;
+      }
     }
   }
 }
