@@ -41,9 +41,16 @@
             [TableActions]="ListAction"
           >
           </app-master-table>
-          <ng-template #ListAction>
+          <ng-template
+            #ListAction
+            let-id="id"
+            let-name="name"
+            let-abbreviation="abbreviation"
+            ,
+            let-abilities="abilities"
+          >
             <div class="action-buttons">
-              <button (click)="openDialog()">
+              <button (click)="editRow(id, name, abbreviation, abilities)">
                 <img src=" assets/images/icons/edit.png" alt="Edit" />
               </button>
               <!-- <button (click)="statusPopup(user_id, status)">
@@ -56,6 +63,22 @@
           </ng-template>
         </div>
       </div>
+      <!-- pagination -->
+      <!-- <div class="pagination-wrapper" *ngIf="dataSource.data.length !== 0">
+        <div class="showing-data">
+          <p>
+            <strong>Showing</strong>
+            {{ pageSize > position_count ? position_count : pageSize }}
+            / {{ position_count }} Data
+          </p>
+        </div>
+        <app-pagination
+          [totalRows]="position_count"
+          [rowsPerPage]="pageSize"
+          (onChange)="updatePage($event)"
+        ></app-pagination>
+      </div> -->
+      <!-- pagination end here -->
     </div>
   </div>
 </mat-drawer-container>
