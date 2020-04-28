@@ -51,10 +51,8 @@ export class AddEditPopupComponent implements OnInit {
         });
       });
     }
-    console.log(this.abilities);
   }
   ngOnDestroy() {
-    console.log('destroyed');
     this.abilities = [];
     this.data.data.abilities = [];
   }
@@ -71,7 +69,6 @@ export class AddEditPopupComponent implements OnInit {
         }
       });
     }
-    console.log(this.selectedAbilities);
   }
 
   editAddFormValue() {
@@ -85,7 +82,6 @@ export class AddEditPopupComponent implements OnInit {
     } else {
       this.addData(requestData);
     }
-    console.log(requestData);
   }
 
   updateData(requestData: any) {
