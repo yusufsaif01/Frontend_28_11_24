@@ -709,7 +709,7 @@ export class AdminService {
       httpOptions
     );
   }
-  // /master/player-specialization/parameter/list/:ability_id
+
   getParameterListByAbility(
     context: GetParameterListContext
   ): Observable<GetParameterListResponseContext> {
@@ -731,7 +731,7 @@ export class AdminService {
       httpOptions
     );
   }
-  // /master/player-specialization/parameter/:ability_id/:parameter_id
+
   updateParameterById(
     context: UpdateParameterByIdContext
   ): Observable<UpdateParameterByIdResponseContext> {
