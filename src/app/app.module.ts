@@ -77,6 +77,7 @@ import { AddEditPopupComponent } from './admin/masterdata/player-specialization/
 import { ManageAbilityComponent } from './admin/masterdata/player-specialization/manage-ability/manage-ability.component';
 import { ManageParametersComponent } from './admin/masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
 import { AddpopupComponent } from './admin/masterdata/player-specialization/manage-ability/addpopup/addpopup.component';
+import { RoleGuardService } from './core/authentication/role-guard.service';
 const icons = {
   Camera,
   Heart,
@@ -165,6 +166,7 @@ const icons = {
     // , HomeComponent
   ],
   providers: [
+    RoleGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

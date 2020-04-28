@@ -534,7 +534,7 @@
               <label>Phone Number <span>*</span></label>
               <div class="contact-no">
                 <div class="countrycode">
-                  <input type="text" value="+91" readonly />
+                  <input type="text" value="+91" readonly tabindex="-1" />
                 </div>
 
                 <div class="phonenumber">
@@ -848,7 +848,7 @@
                 <label>Head coach phone number <span>*</span></label>
                 <div class="contact-no">
                   <div class="countrycode">
-                    <input type="text" value="+91" readonly />
+                    <input type="text" value="+91" readonly tabindex="-1" />
                   </div>
                   <div class="phonenumber">
                     <input
@@ -1145,8 +1145,7 @@
                 <mat-error
                   *ngIf="
                     editProfileForm.controls.address.invalid &&
-                    editProfileForm.controls.address.touched &&
-                    member_type === 'academy'
+                    editProfileForm.controls.address.touched
                   "
                 >
                   <span
@@ -1198,7 +1197,7 @@
                 <label>Phone Number <span>*</span></label>
                 <div class="contact-no">
                   <div class="countrycode">
-                    <input type="text" value="+91" readonly />
+                    <input type="text" value="+91" readonly tabindex="-1" />
                   </div>
                   <div class="phonenumber">
                     <input formControlName="phone" type="text" matinput />
@@ -1549,7 +1548,12 @@
                       <label>Phone Number <span>*</span></label>
                       <div class="contact-no">
                         <div class="countrycode">
-                          <input type="text" value="+91" readonly />
+                          <input
+                            type="text"
+                            value="+91"
+                            readonly
+                            tabindex="-1"
+                          />
                         </div>
                         <div class="phonenumber">
                           <input
@@ -1634,7 +1638,7 @@
                       </div>
                     </div>
 
-                    <div class="input-wrapper">
+                    <div class="input-wrapper pb-0">
                       <a (click)="removeContactPerson(i)">Remove</a>
                     </div>
                   </ng-container>

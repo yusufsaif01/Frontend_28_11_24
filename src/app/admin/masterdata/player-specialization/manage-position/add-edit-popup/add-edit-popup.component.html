@@ -1,41 +1,64 @@
 <div class="modal-header">
   <div class="heading">
     <img src="assets/images/icons/plus.png" alt="" />
-    <h4>Edit Position</h4>
+    <h4>{{ options.header }} Position</h4>
   </div>
   <div class="close">
     <img [mat-dialog-close] src="assets/images/icons/close.png" alt="" />
   </div>
 </div>
-<form>
+<form [formGroup]="positionForm">
   <div class="form-wrapper">
     <!-- position -->
     <div class="input__group">
       <label>Position</label>
-      <input type="text" placeholder="Enter Position" />
+      <input formControlName="name" type="text" placeholder="Enter Position" />
+      <mat-error
+        *ngIf="
+          positionForm.controls.name.invalid &&
+          positionForm.controls.name.touched
+        "
+      >
+        <span *ngIf="positionForm.controls.name.errors.required" translate
+          >Position is required
+        </span>
+      </mat-error>
     </div>
 
     <!-- Abbreviation -->
     <div class="input__group">
       <label>Abbreviation</label>
-      <input type="text" matinput placeholder="Enter Abbreviation" />
+      <input
+        formControlName="abbreviation"
+        type="text"
+        matinput
+        placeholder="Enter Abbreviation"
+      />
+      <mat-error
+        *ngIf="
+          positionForm.controls.abbreviation.invalid &&
+          positionForm.controls.abbreviation.touched
+        "
+      >
+        <span
+          *ngIf="positionForm.controls.abbreviation.errors.required"
+          translate
+          >Abbreviation is required
+        </span>
+      </mat-error>
     </div>
   </div>
   <!-- ability -->
   <div class="ability-box">
     <h3>Select Ability</h3>
     <div class="abilities">
-      <span>
-        <mat-checkbox>Physical</mat-checkbox>
-      </span>
-      <span>
-        <mat-checkbox>Goal Keeping</mat-checkbox>
-      </span>
-      <span>
-        <mat-checkbox>Mental</mat-checkbox>
-      </span>
-      <span>
-        <mat-checkbox>Technical</mat-checkbox>
+      <span *ngFor="let ability of abilities">
+        <mat-checkbox
+          (change)="onChangeAbility($event, ability)"
+          [checked]="ability.is_checked"
+          [value]="ability.id"
+          >{{ ability.name }}</mat-checkbox
+        >
       </span>
     </div>
   </div>
@@ -43,8 +66,12 @@
     <button class="cancel" [mat-dialog-close]>
       Cancel
     </button>
-    <button class="update" [mat-dialog-close]>
-      Update
+    <button
+      [disabled]="positionForm.invalid"
+      class="update"
+      (click)="editAddFormValue()"
+    >
+      {{ options.buttonName }}
     </button>
   </div>
 </form>

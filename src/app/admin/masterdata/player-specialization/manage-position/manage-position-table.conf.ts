@@ -3,7 +3,7 @@ import { TableConfig } from '@app/shared/table/TableConfig';
 export class ManagePositionTableConfig extends TableConfig {
   constructor() {
     super();
-    this.allowedColumns = ['serialNo', 'position', 'abbrevation'];
+    this.allowedColumns = ['serialNo', 'name', 'abbreviation'];
 
     this.columns = {
       serialNo: {
@@ -13,18 +13,18 @@ export class ManagePositionTableConfig extends TableConfig {
           return ele[this.columns.serialNo.code];
         }
       },
-      position: {
-        code: 'position',
+      name: {
+        code: 'name',
         text: 'Position',
         getValue: (ele: any) => {
-          return ele[this.columns.position.code];
+          return ele[this.columns.name.code];
         }
       },
-      abbrevation: {
-        code: 'abbrevation',
+      abbreviation: {
+        code: 'abbreviation',
         text: 'Abbreviation',
         getValue: (ele: any) => {
-          return ele[this.columns.abbrevation.code];
+          return ele[this.columns.abbreviation.code];
         }
       },
       action: {
