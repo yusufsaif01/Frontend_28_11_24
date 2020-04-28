@@ -54,7 +54,9 @@ export class AddEditPopupComponent implements OnInit {
   }
   ngOnDestroy() {
     this.abilities = [];
-    this.data.data.abilities = [];
+    if (this.data.data) {
+      this.data.data.abilities = [];
+    }
   }
 
   onChangeAbility(event: any, ability: any) {
