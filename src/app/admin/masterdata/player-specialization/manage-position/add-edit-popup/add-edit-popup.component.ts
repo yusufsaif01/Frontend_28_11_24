@@ -34,30 +34,28 @@ export class AddEditPopupComponent implements OnInit {
 
   ngOnInit() {
     this.options = this.data.options;
-    this.getAbilitiesList();
+    this.abilities = [];
+    this.abilities = this.data.abilities;
+    this.patchValues();
   }
-  getAbilitiesList() {
-    this.positionService.getAbilitiesList().subscribe(
-      response => {
-        this.abilities = response.data.records;
-        if (this.data.id) {
-          this.positionForm.patchValue(this.data);
-          this.selectedAbilities = [];
-          this.abilities.forEach((element: any) => {
-            this.data.abilities.forEach((el: any) => {
-              if (element.id == el.id) {
-                element.is_checked = true;
-                this.selectedAbilities.push(element.id);
-              }
-            });
-          });
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+  patchValues() {
+    if (this.data.data) {
+      this.positionForm.patchValue(this.data.data);
+      this.selectedAbilities = [];
+      this.abilities.forEach((element: any) => {
+        this.data.data.abilities.forEach((el: any) => {
+          if (element.id == el.id) {
+            element.is_checked = true;
+            this.selectedAbilities.push(element.id);
+          } else {
+            element.is_checked = false;
+          }
+        });
+      });
+    }
+    console.log(this.abilities);
   }
+
   onChangeAbility(event: any, ability: any) {
     if (event.checked) {
       if (!this.selectedAbilities.includes(ability.id)) {
@@ -70,6 +68,7 @@ export class AddEditPopupComponent implements OnInit {
         }
       });
     }
+    console.log(this.selectedAbilities);
   }
 
   editAddFormValue() {
@@ -78,7 +77,7 @@ export class AddEditPopupComponent implements OnInit {
     }
     let requestData = this.positionForm.value;
     requestData['abilities'] = this.selectedAbilities;
-    if (this.data.id) {
+    if (this.data.data) {
       this.updateData(requestData);
     } else {
       this.addData(requestData);
@@ -87,18 +86,20 @@ export class AddEditPopupComponent implements OnInit {
   }
 
   updateData(requestData: any) {
-    this.positionService.updatePosition(this.data.id, requestData).subscribe(
-      response => {
-        this.dialogRef.close('refresh');
-        this.toastrService.success(
-          `${response.message}`,
-          'Position Updated Successfully'
-        );
-      },
-      error => {
-        this.toastrService.error(`${error.error.message}`, 'Error');
-      }
-    );
+    this.positionService
+      .updatePosition(this.data.data.id, requestData)
+      .subscribe(
+        response => {
+          this.dialogRef.close('refresh');
+          this.toastrService.success(
+            `${response.message}`,
+            'Position Updated Successfully'
+          );
+        },
+        error => {
+          this.toastrService.error(`${error.error.message}`, 'Error');
+        }
+      );
   }
 
   addData(requestData: any) {

@@ -21,6 +21,7 @@ export class ManagePositionComponent implements OnInit {
   // sidebar
   public sideBarToggle: boolean = true;
   position_count: number;
+  abilities: any[] = [];
   updateSidebar($event: any) {
     this.sideBarToggle = $event;
   }
@@ -34,8 +35,10 @@ export class ManagePositionComponent implements OnInit {
     const dialogRef = this.dialog.open(AddEditPopupComponent, {
       width: '50%',
       data: {
-        options: { header: 'Add', buttonName: 'Save' }
-      }
+        options: { header: 'Add', buttonName: 'Save' },
+        abilities: this.abilities
+      },
+      autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -50,9 +53,11 @@ export class ManagePositionComponent implements OnInit {
     const dialogRef = this.dialog.open(AddEditPopupComponent, {
       width: '50%',
       data: {
-        ...data,
-        options: { header: 'Edit', buttonName: 'Update' }
-      }
+        data,
+        options: { header: 'Edit', buttonName: 'Update' },
+        abilities: this.abilities
+      },
+      autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -64,6 +69,17 @@ export class ManagePositionComponent implements OnInit {
 
   ngOnInit() {
     this.getPositionListing(this.pageSize, this.page_no);
+    this.getAbilitiesList();
+  }
+  getAbilitiesList() {
+    this.positionService.getAbilitiesList().subscribe(
+      response => {
+        this.abilities = response.data.records;
+      },
+      error => {
+        this.toastrService.error(`${error.error.message}`, 'Error');
+      }
+    );
   }
   getPositionListing(page_size: number, page_no: number) {
     this.positionService
