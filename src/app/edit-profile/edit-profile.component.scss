@@ -91,6 +91,7 @@ body {
           margin-bottom: 0px;
           font-size: 1.8rem;
           color: $text-muted;
+          word-break: break-all;
         }
         textarea {
           width: 100%;
@@ -207,7 +208,9 @@ body {
         .from-block,
         .from-block-full {
           width: 48%;
-          margin-bottom: 2rem;
+          padding-bottom: 2rem;
+          position: relative;
+          margin-bottom: 1rem;
           label {
             display: block;
             margin-bottom: 1rem;
@@ -225,6 +228,9 @@ body {
             border-radius: 0.8rem;
             padding: 1.2rem 2rem;
             outline: none;
+            &:focus {
+              border: 1px solid $blue;
+            }
           }
           select {
             appearance: none;
@@ -248,6 +254,7 @@ body {
               color: $blue;
               font-size: 2rem;
               font-weight: 700;
+              text-decoration: none;
             }
           }
           .double-input {
@@ -262,7 +269,7 @@ body {
             }
           }
           .datepicker {
-            position: relative;
+            width: 100%;
             input {
               background: url("../../assets/icons/calendar.svg");
               background-size: 2rem 2rem;
@@ -274,6 +281,9 @@ body {
               top: -0.6rem;
               right: 0.3rem;
               opacity: 0;
+            }
+            .mat-error {
+              bottom: -0rem;
             }
           }
           .radio {
@@ -298,6 +308,11 @@ body {
             display: flex;
             .countrycode {
               width: 20%;
+              input {
+                &:focus {
+                  border: 1px solid $border-color;
+                }
+              }
             }
             .phonenumber {
               width: 80%;
@@ -314,6 +329,9 @@ body {
             border-radius: 0.8rem;
             padding: 1.2rem 2rem;
             outline: none;
+            &:focus {
+              border: 1px solid $blue;
+            }
           }
           select {
             min-width: 30rem;
@@ -362,6 +380,9 @@ body {
               margin-left: 1rem;
               input {
                 width: 100%;
+                &:focus {
+                  border: 1px solid $blue;
+                }
               }
             }
           }
@@ -389,6 +410,9 @@ body {
           .input-wrapper-second,
           .input-wrapper-full {
             margin-right: 2rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+            padding-bottom: 2rem;
             input,
             select {
               min-width: 32rem;
@@ -397,6 +421,9 @@ body {
               border-radius: 0.8rem;
               padding: 1.2rem 2rem;
               outline: none;
+              &:focus {
+                border: 1px solid $blue;
+              }
             }
             select {
               min-width: 32rem;
@@ -426,14 +453,17 @@ body {
               width: 100%;
               min-width: 20rem;
               margin-right: 1rem;
+              &:focus {
+                border: 1px solid $blue;
+              }
             }
           }
 
           .input-wrapper-second {
             width: 40%;
-            &:last-child {
-              width: 10%;
-            }
+            // &:last-child {
+            //   width: 10%;
+            // }
             button {
               margin-top: 0px !important;
             }
@@ -476,16 +506,31 @@ body {
     border-radius: 0.8rem;
     padding: 1.2rem 2rem;
     outline: none;
+    &:focus {
+      border: 1px solid $blue;
+    }
   }
   .contact-no {
     display: flex;
     width: 32rem;
+    position: relative;
     .countrycode {
       width: 30%;
+      input {
+        &:focus {
+          border: 1px solid #eaebec !important;
+        }
+      }
     }
     .phonenumber {
       width: 70%;
       margin-left: 1rem;
+      &:focus {
+        border: 1px solid $blue;
+      }
+    }
+    .mat-error {
+      bottom: -2rem;
     }
   }
 }
@@ -605,4 +650,7 @@ body {
 }
 .wrap {
   flex-wrap: wrap;
+}
+.pb-0 {
+  padding-bottom: 0rem !important;
 }
