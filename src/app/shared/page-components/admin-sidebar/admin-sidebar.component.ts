@@ -134,6 +134,12 @@ export class AdminSidebarComponent implements OnInit {
       )
     );
     this.matIconRegistry.addSvgIcon(
+      'manage-ability',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.environment.mediaUrl + '/assets/images/icons/sidebar/ability.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
       'down-arrow',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         this.environment.mediaUrl +
