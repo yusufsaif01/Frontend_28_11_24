@@ -613,7 +613,7 @@
             </ng-container>
 
             <!-- Upload   -->
-            <div class="from-block w-100">
+            <div class="from-block">
               <label>Upload Adhaar <span>*</span></label>
               <div class="file-wrapper">
                 <input
@@ -621,7 +621,12 @@
                   (change)="uploadAadhar($event.target.files)"
                   type="file"
                 />
-                <a>View Document</a>
+                <a
+                  *ngIf="aadhar_url"
+                  href="{{ aadhar_url ? aadhar_url : '' }}"
+                  target="_blank"
+                  >View Document</a
+                >
               </div>
               <mat-error
                 *ngIf="
@@ -641,7 +646,7 @@
 
             <!-- <div class="from-block">
               <label>Adhaar Number <span>*</span></label>
-              <input formControlName="manager" type="text" matinput />
+              <input type="text" matinput />
             </div> -->
 
             <!-- employee  -->
@@ -653,7 +658,14 @@
                   (change)="uploadEmploymentContract($event.target.files)"
                   type="file"
                 />
-                <a>View Document</a>
+                <a
+                  *ngIf="employment_contract_url"
+                  href="{{
+                    employment_contract_url ? employment_contract_url : ''
+                  }}"
+                  target="_blank"
+                  >View Document</a
+                >
               </div>
 
               <mat-error
@@ -676,7 +688,7 @@
 
             <!-- <div class="from-block">
               <label>Employment Number <span>*</span></label>
-              <input formControlName="manager" type="text" matinput />
+              <input type="text" matinput />
             </div> -->
           </div>
         </div>
@@ -1288,7 +1300,7 @@
 
               <!-- Document -->
               <ng-container *ngIf="member_type === 'academy'">
-                <div class="from-block w-60">
+                <div class="from-block w-100">
                   <label>Document Type</label>
                   <div class="radio">
                     <label
@@ -1328,7 +1340,7 @@
               </ng-container>
 
               <!-- Upload   -->
-              <div class="from-block w-40" *ngIf="member_type === 'club'">
+              <div class="from-block" *ngIf="member_type === 'club'">
                 <label>Upload AIFF accreditation status</label>
                 <div class="file-wrapper">
                   <input
@@ -1336,7 +1348,12 @@
                     formControlName="aiff"
                     (change)="uploadAiff($event.target.files)"
                   />
-                  <a>View Document</a>
+                  <a
+                    *ngIf="aiff_url"
+                    href="{{ aiff_url ? aiff_url : '' }}"
+                    target="_blank"
+                    >View Document</a
+                  >
                 </div>
                 <mat-error
                   *ngIf="
@@ -1354,7 +1371,13 @@
                 </mat-error>
               </div>
 
-              <div class="from-block w-100" *ngIf="member_type === 'academy'">
+              <!-- AIFF number  -->
+              <!-- <div class="from-block" *ngIf="member_type === 'club'">
+                <label>AIFF Number</label>
+                <input type="Text" matinput />
+              </div> -->
+
+              <div class="from-block" *ngIf="member_type === 'academy'">
                 <label>Upload Document</label>
                 <div class="file-wrapper">
                   <input
@@ -1362,7 +1385,12 @@
                     formControlName="document"
                     (change)="uploadDocument($event.target.files)"
                   />
-                  <a>View Document</a>
+                  <a
+                    *ngIf="document_url"
+                    href="{{ document_url ? document_url : '' }}"
+                    target="_blank"
+                    >View Document</a
+                  >
                 </div>
                 <mat-error
                   *ngIf="
@@ -1381,9 +1409,11 @@
                 </mat-error>
               </div>
 
-              <!-- <div class="from-block">
-                <label>Document Number <span>*</span></label>
-                <input formControlName="manager" type="text" matinput />
+              <!-- <div class="from-block" *ngIf="member_type === 'academy'">
+                <label
+                  >Document Number
+                </label>
+                <input type="text" matinput />
               </div> -->
             </div>
           </div>
