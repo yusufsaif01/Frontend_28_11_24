@@ -81,7 +81,7 @@ export class ManageAbilityComponent implements OnInit {
   cancelAbility(user?: any) {
     this.editMode = false;
     this.update = 'cancel';
-    this.getAbilityList();
+    // this.getAbilityList();
   }
   onChange(event: any) {
     if (event.id) {
