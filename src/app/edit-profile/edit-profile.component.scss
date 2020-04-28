@@ -308,6 +308,11 @@ body {
             display: flex;
             .countrycode {
               width: 20%;
+              input {
+                &:focus {
+                  border: 1px solid $border-color;
+                }
+              }
             }
             .phonenumber {
               width: 80%;
@@ -511,6 +516,11 @@ body {
     position: relative;
     .countrycode {
       width: 30%;
+      input {
+        &:focus {
+          border: 1px solid #eaebec !important;
+        }
+      }
     }
     .phonenumber {
       width: 70%;
