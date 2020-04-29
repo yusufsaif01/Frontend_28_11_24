@@ -9,12 +9,13 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { Router } from '@angular/router';
+import { CredentialsService } from '../authentication/credentials.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
+    private credentialService: CredentialsService
   ) {}
 
   intercept(
@@ -24,7 +25,9 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError(err => {
         if (err.status === 401 || err.status === 402) {
-          this.authenticationService.logout();
+          if (this.credentialService.isAuthenticated()) {
+            this.authenticationService.logout();
+          }
         }
         const error = err;
         return throwError(error);
