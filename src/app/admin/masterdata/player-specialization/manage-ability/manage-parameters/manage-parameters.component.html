@@ -30,7 +30,7 @@
       <div class="middle-part">
         <div class="btn-popup">
           <div class="btn-wrapper">
-            <h3>Goalkeeper</h3>
+            <h3>{{ abilityName }}</h3>
             <button class="popup" (click)="openDialog()">Add Parameter</button>
           </div>
         </div>
@@ -41,20 +41,27 @@
             [NumberColumn]="'true'"
             [rows]="dataSource"
             [TableActions]="ListAction"
+            [sortEnabled]="false"
+            [editMode]="editMode"
+            [row]="row"
+            [update]="update"
+            (event)="onChange($event)"
           >
           </app-master-table>
-          <ng-template #ListAction>
-            <div class="action-buttons">
-              <button (click)="openDialog()">
+          <ng-template #ListAction let-id="id" let-name="name">
+            <div class="action-buttons" *ngIf="!editMode || id != parameterId">
+              <button (click)="editParameter(name, id)">
                 <img src=" assets/images/icons/edit.png" alt="Edit" />
               </button>
-              <!-- <button>
+            </div>
+            <!-- <button>
                                 <img src=" assets/images/icons/plus.png" alt="Edit" />
                             </button> -->
-              <button (click)="statusPopup(user_id, status)">
+            <div class="action-buttons" *ngIf="editMode && id == parameterId">
+              <button (click)="updateParameter(name, id)">
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button (click)="deletePopup(user_id, status)">
+              <button (click)="cancelParameter(name, id)">
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>

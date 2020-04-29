@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageAbilityTableConfig } from './manage-ability-table.conf';
-import { AddpopupComponent } from './addpopup/addpopup.component';
+import { AddpopupComponent } from '../addpopup/addpopup.component';
 import { AdminService } from '@app/admin/service/admin.service';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from '@app/admin/service/shared.service';
 @Component({
   selector: 'app-manage-ability',
   templateUrl: './manage-ability.component.html',
@@ -28,12 +29,14 @@ export class ManageAbilityComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private adminService: AdminService,
-    public toastrService: ToastrService
+    public toastrService: ToastrService,
+    private sharedService: SharedService
   ) {}
   openDialog(): void {
     const dialogRef = this.dialog.open(AddpopupComponent, {
       width: '40%',
-      autoFocus: false
+      autoFocus: false,
+      data: { specialization: 'ability' }
     });
 
     this.cancelAbility();
@@ -87,6 +90,9 @@ export class ManageAbilityComponent implements OnInit {
     if (event.id) {
       this.updateAbilityById(event);
     }
+  }
+  changeAbilityName(name: string) {
+    this.sharedService.abilityName = name;
   }
   updateAbilityById(body: any) {
     delete body['serialNumber'];

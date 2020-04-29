@@ -1,0 +1,76 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <div class="title">
+      <img src="assets/images/icons/plus.png" alt="" />
+      <h3
+        [innerText]="
+          data.specialization === 'ability' ? 'Add Abilities' : 'Add Parameter'
+        "
+      >
+        Add Abilities
+      </h3>
+    </div>
+    <div class="close">
+      <img [mat-dialog-close] src="assets/images/icons/close.png" alt="" />
+    </div>
+  </div>
+  <form [formGroup]="addForm">
+    <div class="modal-body">
+      <div class="form-block">
+        <label
+          [innerText]="
+            data.specialization === 'ability' ? 'Abilities' : 'Parameter'
+          "
+          >Abilities</label
+        >
+        <input
+          formControlName="name"
+          type="text"
+          matinput
+          [placeholder]="
+            data.specialization === 'ability'
+              ? 'Enter Ability'
+              : 'Enter Parameter'
+          "
+        />
+        <mat-error
+          *ngIf="addForm.controls.name.invalid && addForm.controls.name.touched"
+        >
+          <span
+            [innerText]="
+              data.specialization === 'ability'
+                ? 'Ability is required'
+                : 'Parameter is required'
+            "
+            *ngIf="addForm.controls.name.errors.required"
+            translate
+          >
+            Ability is required
+          </span>
+          <span
+            [innerText]="
+              data.specialization === 'ability'
+                ? 'Ability format is invalid'
+                : 'Parameter format is invalid'
+            "
+            *ngIf="addForm.controls.name.errors.pattern"
+          >
+            Ability format is invalid
+          </span>
+        </mat-error>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="actions">
+        <button [mat-dialog-close] class="cancel">Cancel</button>
+        <button
+          (click)="addSpecialization()"
+          class="add"
+          [disabled]="!addForm.valid"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
