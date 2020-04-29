@@ -5,6 +5,7 @@ import { ManageAbilityTableConfig } from './manage-ability-table.conf';
 import { AddpopupComponent } from '../addpopup/addpopup.component';
 import { AdminService } from '@app/admin/service/admin.service';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from '@app/admin/service/shared.service';
 @Component({
   selector: 'app-manage-ability',
   templateUrl: './manage-ability.component.html',
@@ -28,7 +29,8 @@ export class ManageAbilityComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private adminService: AdminService,
-    public toastrService: ToastrService
+    public toastrService: ToastrService,
+    private sharedService: SharedService
   ) {}
   openDialog(): void {
     const dialogRef = this.dialog.open(AddpopupComponent, {
@@ -88,6 +90,9 @@ export class ManageAbilityComponent implements OnInit {
     if (event.id) {
       this.updateAbilityById(event);
     }
+  }
+  changeAbilityName(name: string) {
+    this.sharedService.changeAbilityName(name);
   }
   updateAbilityById(body: any) {
     delete body['serialNumber'];

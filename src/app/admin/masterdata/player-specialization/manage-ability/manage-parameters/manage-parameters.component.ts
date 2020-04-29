@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageParameterTableConfig } from './manage-parameter-table-conf';
@@ -6,20 +6,25 @@ import { AddpopupComponent } from '../../addpopup/addpopup.component';
 import { AdminService } from '@app/admin/service/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { SharedService } from '@app/admin/service/shared.service';
+import { pipe, Subscription } from 'rxjs';
+import { map, publishReplay, refCount } from 'rxjs/operators';
 @Component({
   selector: 'app-manage-parameters',
   templateUrl: './manage-parameters.component.html',
   styleUrls: ['./manage-parameters.component.scss']
 })
-export class ManageParametersComponent implements OnInit {
+export class ManageParametersComponent implements OnInit, OnDestroy {
   // table config
   public tableConfig: ManageParameterTableConfig = new ManageParameterTableConfig();
   public dataSource = new MatTableDataSource([]);
   editMode: boolean = false;
   parameterId: any;
   abilityId: string;
+  abilityName: string;
   row: any = {};
   update: any = '';
+  subscription: Subscription;
 
   // sidebar
   public sideBarToggle: boolean = true;
@@ -31,7 +36,8 @@ export class ManageParametersComponent implements OnInit {
     public dialog: MatDialog,
     private adminService: AdminService,
     public toastrService: ToastrService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sharedService: SharedService
   ) {
     this.route.params.subscribe(params => {
       this.abilityId = params['id'];
@@ -52,6 +58,14 @@ export class ManageParametersComponent implements OnInit {
   }
   ngOnInit() {
     this.getParameterListByAbility(this.abilityId);
+    console.log('hi');
+    this.subscription = this.sharedService.getAbilityName().subscribe(name => {
+      console.log('name', name);
+      this.abilityName = name;
+    });
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
   getParameterListByAbility(ability_id: string) {
     this.adminService.getParameterListByAbility({ ability_id }).subscribe(
