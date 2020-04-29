@@ -65,14 +65,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.member_type === 'player') {
-      if (!this.player_type) this.player_type = 'grassroot';
-      if (this.player_type === 'grassroot') {
-        this.awardsArray = this.grassrootsAwardTypeArray;
-      } else if (this.player_type === 'amateur') {
-        this.awardsArray = this.amateursAwardTypeArray;
-      } else if (this.player_type === 'professional') {
-        this.awardsArray = this.professionalsAwardTypeArray;
-      }
+      this.awardsArray = this.playerAwardTypeArray;
     } else if (this.member_type === 'club') {
       this.awardsArray = this.clubAwardTypeArray;
     } else if (this.member_type === 'academy') {
@@ -101,7 +94,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     }
   ];
 
-  grassrootsAwardTypeArray = [
+  playerAwardTypeArray = [
     {
       name: 'School Tournament Certificates',
       value: 'School Tournament Certificates'
@@ -133,76 +126,6 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     {
       name: 'Other Awards',
       value: 'Other Awards'
-    }
-  ];
-
-  amateursAwardTypeArray = [
-    {
-      name: 'School Tournament Certificates',
-      value: 'School Tournament Certificates'
-    },
-    {
-      name: 'Private Tournament Certificates',
-      value: 'Private Tournament Certificates'
-    },
-    {
-      name: 'National Tournaments',
-      value: 'National Tournaments'
-    },
-    {
-      name: 'State Level Tournaments',
-      value: 'State Level Tournaments'
-    },
-    {
-      name: 'Club Level Certificates',
-      value: 'Club Level Certificates'
-    },
-    {
-      name: 'Academy Level Certificates',
-      value: 'Academy Level Certificates'
-    },
-    {
-      name: 'International Tournament Certificates',
-      value: 'International Tournament Certificates'
-    },
-    {
-      name: 'Individual Awards',
-      value: 'Individual Awards'
-    }
-  ];
-
-  professionalsAwardTypeArray = [
-    {
-      name: 'Club Level Competition Certificates',
-      value: 'Club Level Competition Certificates'
-    },
-    {
-      name: 'Academy Level Certificates',
-      value: 'Academy Level Certificates'
-    },
-    {
-      name: 'School Tournament Certificates',
-      value: 'School Tournament Certificates'
-    },
-    {
-      name: 'Private Tournament Certificates',
-      value: 'Private Tournament Certificates'
-    },
-    {
-      name: 'International Tournament Certificates',
-      value: 'International Tournament Certificates'
-    },
-    {
-      name: 'National Tournaments',
-      value: 'National Tournaments'
-    },
-    {
-      name: 'State Level Tournaments ',
-      value: 'State Level Tournaments '
-    },
-    {
-      name: 'Individual Awards',
-      value: 'Individual Awards'
     }
   ];
 
