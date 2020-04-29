@@ -7,9 +7,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./status-confirmation.component.scss']
 })
 export class StatusConfirmationComponent implements OnInit {
-  private message: string = 'Are you sure you want to modify the status?';
-  private acceptText: string = 'Confirm';
-  private rejectText: string = 'Cancel';
+  public message: string = 'Are you sure you want to modify the status?';
+  public acceptText: string = 'Confirm';
+  public rejectText: string = 'Cancel';
 
   constructor(
     private dialogRef: MatDialogRef<any>,
