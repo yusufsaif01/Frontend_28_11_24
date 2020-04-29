@@ -326,6 +326,7 @@
                     "
                   >
                     <span
+                      class="height-required"
                       *ngIf="
                         editProfileForm.controls.height_feet.errors.required;
                         else patternBlock
@@ -335,7 +336,7 @@
                     >
                     <ng-template #patternBlock>
                       <span
-                        class="error-text"
+                        class="error-text format-invalid"
                         *ngIf="
                           editProfileForm.controls.height_feet.errors.pattern;
                           else maxBlock
@@ -346,7 +347,7 @@
                     </ng-template>
                     <ng-template #maxBlock>
                       <span
-                        class="error-text"
+                        class="error-text min-max-height"
                         *ngIf="
                           editProfileForm.controls.height_feet.errors.max ||
                           editProfileForm.controls.height_feet.errors.min
@@ -374,6 +375,7 @@
                     "
                   >
                     <span
+                      class="height-required"
                       *ngIf="
                         editProfileForm.controls.height_inches.errors.required;
                         else patternBlock
@@ -383,7 +385,7 @@
                     >
                     <ng-template #patternBlock>
                       <span
-                        class="error-text"
+                        class="error-text format-invalid"
                         *ngIf="
                           editProfileForm.controls.height_inches.errors.pattern;
                           else maxBlock
@@ -394,7 +396,7 @@
                     </ng-template>
                     <ng-template #maxBlock>
                       <span
-                        class="error-text"
+                        class="error-text min-max-height"
                         *ngIf="
                           editProfileForm.controls.height_inches.errors.max ||
                           editProfileForm.controls.height_inches.errors.min
