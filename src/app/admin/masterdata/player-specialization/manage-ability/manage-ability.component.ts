@@ -92,7 +92,7 @@ export class ManageAbilityComponent implements OnInit {
     }
   }
   changeAbilityName(name: string) {
-    this.sharedService.changeAbilityName(name);
+    this.sharedService.abilityName = name;
   }
   updateAbilityById(body: any) {
     delete body['serialNumber'];
