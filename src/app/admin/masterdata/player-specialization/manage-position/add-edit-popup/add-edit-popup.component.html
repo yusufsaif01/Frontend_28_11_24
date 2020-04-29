@@ -67,11 +67,7 @@
       Cancel
     </button>
     <button
-      [disabled]="
-        positionForm.invalid ||
-        (positionForm.get('abbreviation').pristine &&
-          positionForm.get('name').pristine)
-      "
+      [disabled]="positionForm.invalid"
       class="update"
       (click)="editAddFormValue()"
     >
