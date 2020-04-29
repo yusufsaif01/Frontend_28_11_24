@@ -20,7 +20,7 @@
             matInput
             formControlName="email"
             autocomplete="off"
-            [placeholder]="'' | translate"
+            [placeholder]="'Email' | translate"
             required
             [ngClass]="{
               'error-border':
@@ -48,7 +48,7 @@
             matInput
             formControlName="password"
             autocomplete="off"
-            [placeholder]="'' | translate"
+            [placeholder]="'Password' | translate"
             required
           />
           <mat-error *ngIf="password.invalid && password.touched">
@@ -57,7 +57,7 @@
         </li>
 
         <li class="pb-0 mt-1">
-          <div class="remember-me">
+          <div class="remember-me pb-0">
             <mat-checkbox formControlName="remember" class="remember-me">
               Remember Me
             </mat-checkbox>
@@ -71,7 +71,7 @@
         <!-- <mat-error class="login-error" [hidden]="!error || isLoading" translate>
           Incorrect email or password
         </mat-error> -->
-        <li>
+        <li class="pb-0">
           <button
             type="submit"
             class="btn"
