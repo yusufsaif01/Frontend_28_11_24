@@ -14,49 +14,15 @@ const routes = {
   providedIn: 'root'
 })
 export class PositionService {
-  constructor(
-    private httpClient: HttpClient,
-    private credentialsService: CredentialsService
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
   updatePosition(id: any, data: any): Observable<any> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
-    return this.httpClient.put<any>(
-      routes.updatePosition(id),
-      data,
-      httpOptions
-    );
+    return this.httpClient.put<any>(routes.updatePosition(id), data);
   }
   getAbilitiesList() {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
-    return this.httpClient.get<any>(routes.getAbilitiesList(), httpOptions);
+    return this.httpClient.get<any>(routes.getAbilitiesList());
   }
   getPositionList(filter: any = {}) {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     let query = '?';
     if (filter['page_no']) {
       query += 'page_no=' + filter['page_no'];
@@ -64,21 +30,9 @@ export class PositionService {
     if (filter['page_size']) {
       query += '&page_size=' + filter['page_size'];
     }
-    return this.httpClient.get<any>(
-      routes.getPositionList() + query,
-      httpOptions
-    );
+    return this.httpClient.get<any>(routes.getPositionList() + query);
   }
   addPosition(data: any) {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
-    return this.httpClient.post<any>(routes.addPosition(), data, httpOptions);
+    return this.httpClient.post<any>(routes.addPosition(), data);
   }
 }

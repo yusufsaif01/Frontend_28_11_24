@@ -235,15 +235,6 @@ export class AdminService {
   ) {}
 
   getPlayerList(context: CommonContext): Observable<PlayerListResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     let query = '?';
     if (context['page_no']) {
       query += 'page_no=' + context['page_no'];
@@ -287,21 +278,11 @@ export class AdminService {
     }
 
     return this.httpClient.get<PlayerListResponseContext>(
-      routes.getPlayerList(context) + query,
-      httpOptions
+      routes.getPlayerList(context) + query
     );
   }
 
   getClubList(context: CommonContext): Observable<ClubListResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     let query = '?';
     if (context['page_no']) {
       query += 'page_no=' + context['page_no'];
@@ -338,8 +319,7 @@ export class AdminService {
     }
 
     return this.httpClient.get<ClubListResponseContext>(
-      routes.getClubList(context) + query,
-      httpOptions
+      routes.getClubList(context) + query
     );
   }
 
@@ -349,12 +329,7 @@ export class AdminService {
     let token = this.credentialsService.isAuthenticated()
       ? this.credentialsService.credentials['data']['token']
       : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
+
     let query = '?';
     if (context['page_no']) {
       query += 'page_no=' + context['page_no'];
@@ -391,46 +366,26 @@ export class AdminService {
     }
 
     return this.httpClient.get<AcademyListResponseContext>(
-      routes.getAcademyList(context) + query,
-      httpOptions
+      routes.getAcademyList(context) + query
     );
   }
 
   deleteUser(
     context: DeleteUserContext
   ): Observable<DeleteUserResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     let params = '/';
     if (context['user_id']) {
       params += `${context['user_id']}`;
     }
 
     return this.httpClient.delete<DeleteUserResponseContext>(
-      routes.deleteUser(context) + params,
-      httpOptions
+      routes.deleteUser(context) + params
     );
   }
 
   activeUser(
     context: StatusUserContext
   ): Observable<StatusUserResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     let params = '/';
     if (context['user_id']) {
       params += `${context['user_id']}`;
@@ -438,22 +393,12 @@ export class AdminService {
 
     return this.httpClient.put<StatusUserResponseContext>(
       routes.activeUser(context) + params,
-      context,
-      httpOptions
+      context
     );
   }
   deactivateUser(
     context: StatusUserContext
   ): Observable<StatusUserResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     let params = '/';
     if (context['user_id']) {
       params += `${context['user_id']}`;
@@ -461,98 +406,47 @@ export class AdminService {
 
     return this.httpClient.put<StatusUserResponseContext>(
       routes.deactivateUser(context) + params,
-      context,
-      httpOptions
+      context
     );
   }
   addState(context: AddStateContext): Observable<AddStateResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     // let params = '/';
     // if (context['country_id']) {
     //   params += `${context['country_id']}`;
     // }
     return this.httpClient.post<AddStateResponseContext>(
       routes.addState(context),
-      context,
-      httpOptions
+      context
     );
   }
 
   getLocationStats(): Observable<LocationStatsResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
-
     return this.httpClient.get<LocationStatsResponseContext>(
-      routes.getLocationStats(),
-      httpOptions
+      routes.getLocationStats()
     );
   }
 
   getStateListByCountry(
     context: GetStateListByCountryContext
   ): Observable<GetCityStateListResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     let params = '/';
     if (context['country_id']) {
       params += `${context['country_id']}`;
     }
     return this.httpClient.get<GetCityStateListResponseContext>(
-      routes.getStateListByCountry(context) + params,
-      httpOptions
+      routes.getStateListByCountry(context) + params
     );
   }
 
   addCity(context: AddCityContext): Observable<AddCityResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     return this.httpClient.post<AddCityResponseContext>(
       routes.addCity(context),
-      context,
-      httpOptions
+      context
     );
   }
   getCityListByState(
     context: GetCityListByStateContext
   ): Observable<GetCityStateListResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     let params = '/';
     if (context['country_id']) {
       params += `${context['country_id']}`;
@@ -571,76 +465,34 @@ export class AdminService {
       query += '&search=' + context['search'];
     }
     return this.httpClient.get<GetCityStateListResponseContext>(
-      routes.getCityListByState(context) + params + query,
-      httpOptions
+      routes.getCityListByState(context) + params + query
     );
   }
 
   getMemberTypeList(): Observable<GetMemberTypeListResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
-
     return this.httpClient.get<GetMemberTypeListResponseContext>(
-      routes.getMemberTypeList(),
-      httpOptions
+      routes.getMemberTypeList()
     );
   }
 
   addAbility(
     context: AddAbilityContext
   ): Observable<AddAbilityResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     return this.httpClient.post<AddAbilityResponseContext>(
       routes.addAbility(context),
-      context,
-      httpOptions
+      context
     );
   }
 
   getAbilityList(): Observable<GetAbilityListResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
-
     return this.httpClient.get<GetAbilityListResponseContext>(
-      routes.getAbilityList(),
-      httpOptions
+      routes.getAbilityList()
     );
   }
 
   updateAbilityById(
     context: UpdateAbilityByIdContext
   ): Observable<UpdateAbilityByIdResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     let params = '/';
     if (context['id']) {
       params += `${context['id']}`;
@@ -649,8 +501,7 @@ export class AdminService {
 
     return this.httpClient.put<UpdateAbilityByIdResponseContext>(
       routes.updateAbilityById(context) + params,
-      { name },
-      httpOptions
+      { name }
     );
   }
 }
