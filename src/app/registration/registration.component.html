@@ -48,6 +48,7 @@
                 type="text"
                 matInput
                 required
+                placeholder="First Name"
               />
               <ng-container
                 *ngIf="
@@ -96,6 +97,7 @@
                 formControlName="last_name"
                 type="text"
                 matInput
+                placeholder="Last Name"
                 required
               />
               <ng-container
@@ -136,6 +138,7 @@
                 formControlName="email"
                 type="text"
                 matInput
+                placeholder="Email"
                 autocomplete="off"
               />
               <ng-container
@@ -177,6 +180,7 @@
                     formControlName="phone"
                     type="text"
                     matInput
+                    placeholder="Contact Number"
                     autocomplete="off"
                   />
                 </div>
@@ -332,7 +336,12 @@
               <i-feather name="User" class="icon-size"></i-feather>
               <!-- <img src="assets/icons/user.svg" alt="" /> -->
               <label>Club Name</label>
-              <input formControlName="name" type="text" matInput />
+              <input
+                formControlName="name"
+                type="text"
+                matInput
+                placeholder="Club Name"
+              />
               <ng-container
                 *ngIf="
                   clubRegistrationForm.controls.name.invalid &&
@@ -378,6 +387,7 @@
                 formControlName="email"
                 type="text"
                 matInput
+                placeholder="Email"
                 autocomplete="off"
               />
               <ng-container
@@ -419,6 +429,7 @@
                     formControlName="phone"
                     type="text"
                     matInput
+                    placeholder="Contact Number"
                     autocomplete="off"
                   />
                 </div>
@@ -566,7 +577,13 @@
               <i-feather name="User" class="icon-size"></i-feather>
               <!-- <img src="assets/icons/user.svg" alt="" /> -->
               <label>Academy Name</label>
-              <input formControlName="name" type="text" matInput required />
+              <input
+                formControlName="name"
+                type="text"
+                placeholder="Academy Name"
+                matInput
+                required
+              />
               <ng-container
                 *ngIf="
                   academyRegistrationForm.controls.name.invalid &&
@@ -612,6 +629,7 @@
                 formControlName="email"
                 type="text"
                 matInput
+                placeholder="Email"
                 autocomplete="off"
               />
               <ng-container
@@ -651,6 +669,7 @@
                     formControlName="phone"
                     type="text"
                     matInput
+                    placeholder="Contact Number"
                     autocomplete="off"
                   />
                 </div>
