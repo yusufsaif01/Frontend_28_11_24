@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageParameterTableConfig } from './manage-parameter-table-conf';
-import { AddpopupComponent } from '../addpopup/addpopup.component';
+import { AddpopupComponent } from '../../addpopup/addpopup.component';
 import { AdminService } from '@app/admin/service/admin.service';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-manage-parameters',
   templateUrl: './manage-parameters.component.html',
@@ -16,7 +17,7 @@ export class ManageParametersComponent implements OnInit {
   public dataSource = new MatTableDataSource([]);
   editMode: boolean = false;
   parameterId: any;
-  abilityId: string = '10b56d39-d414-4dcb-9272-1d118a43c5f1';
+  abilityId: string;
   row: any = {};
   update: any = '';
 
@@ -29,11 +30,24 @@ export class ManageParametersComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private adminService: AdminService,
-    public toastrService: ToastrService
-  ) {}
+    public toastrService: ToastrService,
+    private route: ActivatedRoute
+  ) {
+    this.route.params.subscribe(params => {
+      this.abilityId = params['id'];
+    });
+  }
   openDialog(): void {
     const dialogRef = this.dialog.open(AddpopupComponent, {
-      width: '40%'
+      width: '40%',
+      data: { specialization: 'parameter', ability_id: this.abilityId }
+    });
+    this.cancelParameter();
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'refresh') {
+        this.getParameterListByAbility(this.abilityId);
+      }
     });
   }
   ngOnInit() {
