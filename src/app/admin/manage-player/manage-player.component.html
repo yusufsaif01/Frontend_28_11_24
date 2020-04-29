@@ -104,7 +104,7 @@
             <div class="search-box">
               <input
                 matInput
-                placeholder="Search your player"
+                placeholder="Search player"
                 class="search-icon"
                 (keyup)="applyFilter($event)"
               />
@@ -151,7 +151,8 @@
           [totalRows]="players_count"
           [rowsPerPage]="pageSize"
           (onChange)="updatePage($event)"
-        ></app-pagination>
+        >
+        </app-pagination>
       </div>
       <!-- pagination end here -->
     </div>

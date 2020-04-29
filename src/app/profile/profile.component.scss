@@ -8,79 +8,6 @@
   margin: 0 auto;
   display: flex;
   border-radius: 2rem;
-  .left-section {
-    width: 25%;
-    .block-design {
-      margin-top: 3rem;
-      border: 1px solid $border-color;
-      background-color: $color-white;
-      border-radius: 0.8rem;
-      .profile-section {
-        width: 100%;
-        display: block;
-        margin: 0rem auto;
-        padding: 3rem;
-        h3 {
-          font-size: 3rem;
-          text-align: center;
-          margin: 1.5rem auto 1rem;
-        }
-        h6 {
-          font-size: 1.8rem;
-          text-align: center;
-          font-weight: 400;
-          color: $text-muted;
-        }
-        p {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-size: 1.8rem;
-          color: $error;
-          margin: 1rem 0;
-        }
-        img {
-          max-width: 20rem;
-          width: 100%;
-          border-radius: 30rem;
-          margin: 0 auto;
-          display: block;
-        }
-      }
-    }
-
-    .block-middle {
-      display: flex;
-      justify-content: space-between;
-      .part {
-        display: block;
-        text-align: center;
-        width: 50%;
-        padding: 2rem;
-        h4 {
-          width: 100%;
-          font-size: 2rem;
-        }
-        p {
-          width: 100%;
-          font-size: 1.6rem;
-          color: $text-muted;
-        }
-      }
-    }
-    .block-bottom {
-      padding: 2rem;
-      display: block;
-      text-align: center;
-      a {
-        font-size: 2.4rem;
-        color: $blue;
-        font-weight: 700;
-        cursor: pointer;
-        text-decoration: none;
-      }
-    }
-  }
   .middle-section {
     width: 48%;
     margin: 0rem 2rem;
@@ -96,6 +23,8 @@
         display: flex;
         padding: 2rem;
         .content {
+          width: 100%;
+          word-wrap: break-word;
           p {
             font-size: 1.9rem;
             color: $text-muted;

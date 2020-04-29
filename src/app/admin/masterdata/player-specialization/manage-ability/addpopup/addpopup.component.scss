@@ -35,6 +35,8 @@
 .modal-body {
   padding: 2rem 3rem;
   .form-block {
+    position: relative;
+    padding-bottom: 2rem;
     label {
       font-size: 2rem;
       color: $text-color;
