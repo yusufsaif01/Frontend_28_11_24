@@ -11,7 +11,7 @@ export const environment = {
   hmr: false,
   version: env.npm_package_version,
   serverUrl: 'http://yftchain-dev.4thpointer.in/api',
-  mediaUrl: 'http://yftchain-dev.4thpointer.in/',
+  mediaUrl: 'http://yftchain-dev.4thpointer.in',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'fr-FR']
 };
