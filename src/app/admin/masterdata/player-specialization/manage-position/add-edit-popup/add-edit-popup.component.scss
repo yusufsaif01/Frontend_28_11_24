@@ -59,6 +59,8 @@ form {
   .input__group {
     width: 48%;
     // margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 2rem;
     label {
       display: block;
       color: $text-color;

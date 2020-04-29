@@ -260,11 +260,25 @@ body {
           .double-input {
             display: flex;
             .height-input {
-              width: 40%;
+              width: 44%;
               margin-right: 2rem;
+              position: relative;
+              padding-bottom: 2rem;
               select,
               input {
                 width: 100%;
+              }
+              .mat-error {
+                position: static;
+                span {
+                  position: absolute;
+                  width: 100%;
+                  bottom: 0rem;
+                  left: 0rem;
+                }
+                span.min-max-height {
+                  bottom: -2rem;
+                }
               }
             }
           }

@@ -48,6 +48,7 @@
                 type="text"
                 matInput
                 required
+                placeholder="First Name"
               />
               <ng-container
                 *ngIf="
@@ -96,6 +97,7 @@
                 formControlName="last_name"
                 type="text"
                 matInput
+                placeholder="Last Name"
                 required
               />
               <ng-container
@@ -136,6 +138,7 @@
                 formControlName="email"
                 type="text"
                 matInput
+                placeholder="Email"
                 autocomplete="off"
               />
               <ng-container
@@ -173,67 +176,65 @@
                 </div>
                 <div class="contact-number">
                   <i-feather name="phone-call" class="icon-size"></i-feather>
-
                   <input
                     formControlName="phone"
                     type="text"
                     matInput
+                    placeholder="Contact Number"
                     autocomplete="off"
                   />
-                  <ng-container
-                    *ngIf="
-                      playerRegistrationForm.controls.phone.invalid &&
-                      playerRegistrationForm.controls.phone.touched
-                    "
-                  >
-                    <mat-error
-                      class="error-text"
-                      *ngIf="
-                        playerRegistrationForm.controls.phone.errors.required
-                      "
-                    >
-                      Contact Number is required
-                    </mat-error>
-                    <ng-template #lengthBlock>
-                      <mat-error
-                        class="error-text"
-                        *ngIf="
-                          playerRegistrationForm.controls.phone.errors.minlength
-                        "
-                      >
-                        Please provide number upto
-                        {{
-                          playerRegistrationForm.controls.phone.errors.minlength
-                            .requiredLength
-                        }}
-                        digits
-                      </mat-error>
-                      <mat-error
-                        class="error-text"
-                        *ngIf="
-                          playerRegistrationForm.controls.phone.errors.maxlength
-                        "
-                      >
-                        Please provide number upto
-                        {{
-                          playerRegistrationForm.controls.phone.errors.maxlength
-                            .requiredLength
-                        }}
-                        digits
-                      </mat-error>
-                    </ng-template>
-                    <mat-error
-                      class="error-text"
-                      *ngIf="
-                        playerRegistrationForm.controls.phone.errors.pattern;
-                        else lengthBlock
-                      "
-                    >
-                      Contact Number format is invalid
-                    </mat-error>
-                  </ng-container>
                 </div>
               </div>
+              <ng-container
+                *ngIf="
+                  playerRegistrationForm.controls.phone.invalid &&
+                  playerRegistrationForm.controls.phone.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="playerRegistrationForm.controls.phone.errors.required"
+                >
+                  Contact Number is required
+                </mat-error>
+                <ng-template #lengthBlock>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      playerRegistrationForm.controls.phone.errors.minlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      playerRegistrationForm.controls.phone.errors.minlength
+                        .requiredLength
+                    }}
+                    digits
+                  </mat-error>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      playerRegistrationForm.controls.phone.errors.maxlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      playerRegistrationForm.controls.phone.errors.maxlength
+                        .requiredLength
+                    }}
+                    digits
+                  </mat-error>
+                </ng-template>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    playerRegistrationForm.controls.phone.errors.pattern;
+                    else lengthBlock
+                  "
+                >
+                  Contact Number format is invalid
+                </mat-error>
+              </ng-container>
             </div>
           </div>
 
@@ -308,7 +309,7 @@
           </div>
 
           <div class="form-row">
-            <div class="input-wrapper-full">
+            <div class="input-wrapper-full pd-zero">
               <button
                 type="submit"
                 class="btn"
@@ -335,7 +336,12 @@
               <i-feather name="User" class="icon-size"></i-feather>
               <!-- <img src="assets/icons/user.svg" alt="" /> -->
               <label>Club Name</label>
-              <input formControlName="name" type="text" matInput />
+              <input
+                formControlName="name"
+                type="text"
+                matInput
+                placeholder="Club Name"
+              />
               <ng-container
                 *ngIf="
                   clubRegistrationForm.controls.name.invalid &&
@@ -381,6 +387,7 @@
                 formControlName="email"
                 type="text"
                 matInput
+                placeholder="Email"
                 autocomplete="off"
               />
               <ng-container
@@ -422,62 +429,57 @@
                     formControlName="phone"
                     type="text"
                     matInput
+                    placeholder="Contact Number"
                     autocomplete="off"
                   />
-                  <ng-container
-                    *ngIf="
-                      clubRegistrationForm.controls.phone.invalid &&
-                      clubRegistrationForm.controls.phone.touched
-                    "
-                  >
-                    <mat-error
-                      class="error-text"
-                      *ngIf="
-                        clubRegistrationForm.controls.phone.errors.required
-                      "
-                    >
-                      Contact Number is required
-                    </mat-error>
-                    <ng-template #lengthBlock>
-                      <mat-error
-                        class="error-text"
-                        *ngIf="
-                          clubRegistrationForm.controls.phone.errors.minlength
-                        "
-                      >
-                        Please provide number upto
-                        {{
-                          clubRegistrationForm.controls.phone.errors.minlength
-                            .requiredLength
-                        }}
-                        digits
-                      </mat-error>
-                      <mat-error
-                        class="error-text"
-                        *ngIf="
-                          clubRegistrationForm.controls.phone.errors.maxlength
-                        "
-                      >
-                        Please provide number upto
-                        {{
-                          clubRegistrationForm.controls.phone.errors.maxlength
-                            .requiredLength
-                        }}
-                        digits
-                      </mat-error>
-                    </ng-template>
-                    <mat-error
-                      class="error-text"
-                      *ngIf="
-                        clubRegistrationForm.controls.phone.errors.pattern;
-                        else lengthBlock
-                      "
-                    >
-                      Contact Number format is invalid
-                    </mat-error>
-                  </ng-container>
                 </div>
               </div>
+              <ng-container
+                *ngIf="
+                  clubRegistrationForm.controls.phone.invalid &&
+                  clubRegistrationForm.controls.phone.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="clubRegistrationForm.controls.phone.errors.required"
+                >
+                  Contact Number is required
+                </mat-error>
+                <ng-template #lengthBlock>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="clubRegistrationForm.controls.phone.errors.minlength"
+                  >
+                    Please provide number upto
+                    {{
+                      clubRegistrationForm.controls.phone.errors.minlength
+                        .requiredLength
+                    }}
+                    digits
+                  </mat-error>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="clubRegistrationForm.controls.phone.errors.maxlength"
+                  >
+                    Please provide number upto
+                    {{
+                      clubRegistrationForm.controls.phone.errors.maxlength
+                        .requiredLength
+                    }}
+                    digits
+                  </mat-error>
+                </ng-template>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    clubRegistrationForm.controls.phone.errors.pattern;
+                    else lengthBlock
+                  "
+                >
+                  Contact Number format is invalid
+                </mat-error>
+              </ng-container>
             </div>
           </div>
 
@@ -549,7 +551,7 @@
           </div>
 
           <div class="form-row">
-            <div class="input-wrapper-full">
+            <div class="input-wrapper-full pd-zero">
               <button
                 type="submit"
                 class="btn"
@@ -575,7 +577,13 @@
               <i-feather name="User" class="icon-size"></i-feather>
               <!-- <img src="assets/icons/user.svg" alt="" /> -->
               <label>Academy Name</label>
-              <input formControlName="name" type="text" matInput required />
+              <input
+                formControlName="name"
+                type="text"
+                placeholder="Academy Name"
+                matInput
+                required
+              />
               <ng-container
                 *ngIf="
                   academyRegistrationForm.controls.name.invalid &&
@@ -621,6 +629,7 @@
                 formControlName="email"
                 type="text"
                 matInput
+                placeholder="Email"
                 autocomplete="off"
               />
               <ng-container
@@ -660,63 +669,60 @@
                     formControlName="phone"
                     type="text"
                     matInput
+                    placeholder="Contact Number"
                     autocomplete="off"
                   />
-                  <ng-container
-                    *ngIf="
-                      academyRegistrationForm.controls.phone.invalid &&
-                      academyRegistrationForm.controls.phone.touched
-                    "
-                  >
-                    <mat-error
-                      class="error-text"
-                      *ngIf="
-                        academyRegistrationForm.controls.phone.errors.required
-                      "
-                      >Contact Number is required
-                    </mat-error>
-                    <ng-template #lengthBlock>
-                      <mat-error
-                        class="error-text"
-                        *ngIf="
-                          academyRegistrationForm.controls.phone.errors
-                            .minlength
-                        "
-                      >
-                        Please provide number upto
-                        {{
-                          academyRegistrationForm.controls.phone.errors
-                            .minlength.requiredLength
-                        }}
-                        digits
-                      </mat-error>
-                      <mat-error
-                        class="error-text"
-                        *ngIf="
-                          academyRegistrationForm.controls.phone.errors
-                            .maxlength
-                        "
-                      >
-                        Please provide number upto
-                        {{
-                          academyRegistrationForm.controls.phone.errors
-                            .maxlength.requiredLength
-                        }}
-                        digits
-                      </mat-error>
-                    </ng-template>
-                    <mat-error
-                      class="error-text"
-                      *ngIf="
-                        academyRegistrationForm.controls.phone.errors.pattern;
-                        else lengthBlock
-                      "
-                    >
-                      Contact Number format is invalid
-                    </mat-error>
-                  </ng-container>
                 </div>
               </div>
+              <ng-container
+                *ngIf="
+                  academyRegistrationForm.controls.phone.invalid &&
+                  academyRegistrationForm.controls.phone.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="academyRegistrationForm.controls.phone.errors.required"
+                  >Contact Number is required
+                </mat-error>
+                <ng-template #lengthBlock>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      academyRegistrationForm.controls.phone.errors.minlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      academyRegistrationForm.controls.phone.errors.minlength
+                        .requiredLength
+                    }}
+                    digits
+                  </mat-error>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      academyRegistrationForm.controls.phone.errors.maxlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      academyRegistrationForm.controls.phone.errors.maxlength
+                        .requiredLength
+                    }}
+                    digits
+                  </mat-error>
+                </ng-template>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    academyRegistrationForm.controls.phone.errors.pattern;
+                    else lengthBlock
+                  "
+                >
+                  Contact Number format is invalid
+                </mat-error>
+              </ng-container>
             </div>
           </div>
 
@@ -795,7 +801,7 @@
           </div>
 
           <div class="form-row">
-            <div class="input-wrapper-full">
+            <div class="input-wrapper-full pd-zero">
               <button
                 type="submit"
                 class="btn"
