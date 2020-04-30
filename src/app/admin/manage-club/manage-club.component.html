@@ -114,6 +114,7 @@
 
       <!-- pagination -->
       <app-pagination
+        [showData]="true"
         [totalRows]="clubs_count"
         [rowsPerPage]="pageSize"
         (onChange)="updatePage($event)"

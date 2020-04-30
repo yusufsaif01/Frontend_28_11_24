@@ -14,6 +14,7 @@ import {
   styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent implements OnInit {
+  @Input() showData: boolean = true;
   @Input() totalRows: any = 0;
   @Input() rowsPerPage: any = 10;
   selectedPage: any = 1;
