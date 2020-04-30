@@ -6,7 +6,7 @@ import { AddpopupComponent } from '../../addpopup/addpopup.component';
 import { AdminService } from '@app/admin/service/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-import { SharedService } from '@app/admin/service/shared.service';
+
 @Component({
   selector: 'app-manage-parameters',
   templateUrl: './manage-parameters.component.html',
@@ -33,8 +33,7 @@ export class ManageParametersComponent implements OnInit {
     public dialog: MatDialog,
     private adminService: AdminService,
     public toastrService: ToastrService,
-    private route: ActivatedRoute,
-    private sharedService: SharedService
+    private route: ActivatedRoute
   ) {
     this.route.params.subscribe(params => {
       this.abilityId = params['id'];
@@ -55,12 +54,12 @@ export class ManageParametersComponent implements OnInit {
   }
   ngOnInit() {
     this.getParameterListByAbility(this.abilityId);
-    this.abilityName = this.sharedService.abilityName;
   }
 
   getParameterListByAbility(ability_id: string) {
     this.adminService.getParameterListByAbility({ ability_id }).subscribe(
       response => {
+        this.abilityName = response.data.ability;
         let records = response.data.records;
         for (let i = 0; i < records.length; i++) {
           records[i]['serialNumber'] = i + 1;

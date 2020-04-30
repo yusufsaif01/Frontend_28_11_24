@@ -44,6 +44,7 @@ interface GetParameterListResponseContext {
   status: string;
   message: string;
   data: {
+    ability: string;
     total: number;
     records: {
       id: string;
