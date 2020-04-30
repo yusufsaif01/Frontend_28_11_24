@@ -24,12 +24,12 @@ export class FilterDialogClubComponent implements OnInit {
 
   createForm() {
     this.filterForm = this.formBuilder.group({
-      from: [''],
-      to: [''],
-      email: [''],
-      name: [''],
-      email_verified: [''],
-      profile_status: ['']
+      from: [this.data.from],
+      to: [this.data.to],
+      email: [this.data.email],
+      name: [this.data.name],
+      email_verified: [this.data.email_verified],
+      profile_status: [this.data.profile_status]
     });
   }
 }
