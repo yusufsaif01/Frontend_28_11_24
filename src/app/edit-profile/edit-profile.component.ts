@@ -274,6 +274,25 @@ export class EditProfileComponent implements OnInit {
     this._authenticationService.getProfileDetails().subscribe(
       response => {
         this.profile = response.data;
+        if (this.profile.documents.length) {
+          if (this.profile.documents[0].type) {
+            if (this.editProfileForm.controls.reg_number) {
+              this.editProfileForm.controls.aiff.disable();
+              this.editProfileForm.controls.reg_number.setValidators(
+                Validators.required
+              );
+              this.editProfileForm.controls.reg_number.disable();
+            }
+            if (this.editProfileForm.controls.number) {
+              this.editProfileForm.controls.document.disable();
+              this.editProfileForm.controls.document_type.disable();
+              this.editProfileForm.controls.number.setValidators(
+                Validators.required
+              );
+              this.editProfileForm.controls.number.disable();
+            }
+          }
+        }
         this.populateFormFields();
         this.populateDocuments();
 
@@ -698,6 +717,7 @@ export class EditProfileComponent implements OnInit {
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
+        reg_number: ['', Validators.required],
         associated_players: [
           '',
           [Validators.required, Validators.pattern(/^\d+$/)]
@@ -744,6 +764,7 @@ export class EditProfileComponent implements OnInit {
         league: ['', [Validators.required]],
         league_other: ['', [Validators.required]],
         document_type: ['', []],
+        number: [''],
         contact_person: this._formBuilder.array([], []),
         trophies: this._formBuilder.array([], []),
         top_players: this._formBuilder.array([], []),
@@ -840,7 +861,13 @@ export class EditProfileComponent implements OnInit {
       document_type:
         this.profile.documents && this.profile.documents[0]
           ? this.profile.documents[0].type
-          : ''
+          : '',
+      number: this.profile.documents.length
+        ? this.profile.documents[0].document_number
+        : '',
+      reg_number: this.profile.documents.length
+        ? this.profile.documents[0].document_number
+        : ''
     });
 
     if (this.profile.social_profiles) {
@@ -1071,6 +1098,13 @@ export class EditProfileComponent implements OnInit {
           name: ['', []]
         })
       );
+    }
+  }
+
+  onChangeDocumentType(event: any) {
+    if (this.editProfileForm.controls.number) {
+      this.editProfileForm.controls.number.setValidators(Validators.required);
+      this.editProfileForm.controls.number.patchValue('');
     }
   }
 }
