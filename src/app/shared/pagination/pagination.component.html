@@ -1,6 +1,6 @@
 <div class="pagination-wrapper">
-  <div class="showing-data" *ngIf="showData">
-    <p>
+  <div class="showing-data">
+    <p *ngIf="showData">
       <strong>Showing</strong>
       {{ rowsPerPage > showCount ? showCount : rowsPerPage }}
       / {{ totalRows }} Data
