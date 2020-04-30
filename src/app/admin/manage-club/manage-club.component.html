@@ -114,7 +114,9 @@
 
       <!-- pagination -->
       <app-pagination
+        *ngIf="dataSource.data.length !== 0"
         [showData]="true"
+        [showCount]="show_count"
         [totalRows]="clubs_count"
         [rowsPerPage]="pageSize"
         (onChange)="updatePage($event)"

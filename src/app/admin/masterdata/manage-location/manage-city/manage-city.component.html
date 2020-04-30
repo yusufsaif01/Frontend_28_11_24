@@ -152,6 +152,7 @@
 
       <!-- pagination -->
       <app-pagination
+        *ngIf="dataSource.data.length !== 0"
         [showData]="true"
         [showCount]="show_count"
         [totalRows]="total_count"

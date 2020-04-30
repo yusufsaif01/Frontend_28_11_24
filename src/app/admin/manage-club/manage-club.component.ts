@@ -28,6 +28,7 @@ export class ManageClubComponent implements OnInit {
   pageSize: number = 20;
   totalRecords = 10;
   clubs_count: number;
+  show_count: number;
   tzoffset = new Date().getTimezoneOffset() * 60000;
   dialogData: FilterDialogContext;
 
@@ -70,6 +71,7 @@ export class ManageClubComponent implements OnInit {
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
         this.clubs_count = response.data.total;
+        this.show_count = response.data.records.length;
       });
   }
 
