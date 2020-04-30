@@ -338,9 +338,7 @@ export class EditProfileComponent implements OnInit {
               Validators.maxLength(10),
               Validators.pattern(/^\d+$/)
             ]);
-            head_coach_email.setValidators([
-              Validators.pattern(/^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+.com$/)
-            ]);
+            head_coach_email.setValidators([Validators.email]);
             head_coach_name.setValidators([
               Validators.required,
               Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)
@@ -354,9 +352,7 @@ export class EditProfileComponent implements OnInit {
               Validators.maxLength(10),
               Validators.pattern(/^\d+$/)
             ]);
-            head_coach_email.setValidators([
-              Validators.pattern(/^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+.com$/)
-            ]);
+            head_coach_email.setValidators([Validators.email]);
             head_coach_name.setValidators([
               Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)
             ]);
