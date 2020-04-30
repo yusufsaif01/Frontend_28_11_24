@@ -152,6 +152,8 @@
 
       <!-- pagination -->
       <app-pagination
+        [showData]="true"
+        [showCount]="show_count"
         [totalRows]="total_count"
         [rowsPerPage]="pageSize"
         (onChange)="updatePage($event)"

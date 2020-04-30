@@ -15,6 +15,7 @@ import {
 })
 export class PaginationComponent implements OnInit {
   @Input() showData: boolean = true;
+  @Input() showCount: any = 0;
   @Input() totalRows: any = 0;
   @Input() rowsPerPage: any = 10;
   selectedPage: any = 1;
