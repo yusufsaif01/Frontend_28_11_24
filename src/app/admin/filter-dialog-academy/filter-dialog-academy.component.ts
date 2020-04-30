@@ -24,12 +24,12 @@ export class FilterDialogAcademyComponent implements OnInit {
 
   createForm() {
     this.filterForm = this.formBuilder.group({
-      from: [''],
-      to: [''],
-      name: [''],
-      email: [''],
-      email_verified: [''],
-      profile_status: ['']
+      from: [this.data.from],
+      to: [this.data.to],
+      name: [this.data.name],
+      email: [this.data.email],
+      email_verified: [this.data.email_verified],
+      profile_status: [this.data.profile_status]
     });
   }
 }
