@@ -28,6 +28,7 @@ export class ManageAcademyComponent implements OnInit {
   pageSize: number = 20;
   totalRecords = 10;
   acad_count: number;
+  show_count: number;
   tzoffset = new Date().getTimezoneOffset() * 60000;
   dialogData: any = {};
 
@@ -74,6 +75,7 @@ export class ManageAcademyComponent implements OnInit {
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
         this.acad_count = response.data.total;
+        this.show_count = response.data.records.length;
       });
   }
 
