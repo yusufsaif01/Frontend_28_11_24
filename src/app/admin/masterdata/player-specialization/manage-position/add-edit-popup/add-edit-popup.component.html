@@ -1,6 +1,5 @@
 <div class="modal-header">
   <div class="heading">
-    <img src="assets/images/icons/plus.png" alt="" />
     <h4>{{ options.header }} Position</h4>
   </div>
   <div class="close">
@@ -57,7 +56,8 @@
           (change)="onChangeAbility($event, ability)"
           [checked]="ability.is_checked"
           [value]="ability.id"
-          >{{ ability.name }}</mat-checkbox
+        >
+          {{ ability.name }}</mat-checkbox
         >
       </span>
     </div>

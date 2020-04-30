@@ -39,6 +39,7 @@ export class ManagePlayerComponent implements OnInit {
   grassroot_count: number;
   amateur_count: number;
   proff_count: number;
+  show_count: number;
   tzoffset = new Date().getTimezoneOffset() * 60000;
   dialogData: FilterDialogContext;
 
@@ -83,6 +84,7 @@ export class ManagePlayerComponent implements OnInit {
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
         this.players_count = response.data.total;
+        this.show_count = response.data.records.length;
         this.amateur_count = response.data.players_count.amateur;
         this.grassroot_count = response.data.players_count.grassroot;
         this.proff_count = response.data.players_count.professional;
