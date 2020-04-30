@@ -878,6 +878,38 @@
               *ngIf="editProfileForm.controls.associated_club.value === 'yes'"
             >
               <div class="from-block">
+                <label>Head coach name <span>*</span></label>
+                <input
+                  formControlName="head_coach_name"
+                  placeholder="Name"
+                  type="text"
+                  matInput
+                  autocomplete="off"
+                />
+                <mat-error
+                  *ngIf="
+                    editProfileForm.controls.head_coach_name.invalid &&
+                    editProfileForm.controls.head_coach_name.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      editProfileForm.controls.head_coach_name.errors.required
+                    "
+                    translate
+                    >Head Coach Name is required
+                  </span>
+                  <span
+                    *ngIf="
+                      editProfileForm.controls.head_coach_name.errors.pattern
+                    "
+                    translate
+                    >Head Coach Name format is invalid
+                  </span>
+                </mat-error>
+              </div>
+
+              <div class="from-block">
                 <label>Head coach phone number <span>*</span></label>
                 <div class="contact-no">
                   <div class="countrycode">
@@ -950,7 +982,7 @@
 
               <!-- Head coach email number -->
               <div class="from-block">
-                <label>Head coach email <span>*</span></label>
+                <label>Head coach email </label>
                 <input
                   formControlName="head_coach_email"
                   placeholder="Email"
@@ -973,7 +1005,7 @@
                   </span>
                   <span
                     *ngIf="
-                      editProfileForm.controls.head_coach_email.errors.email
+                      editProfileForm.controls.head_coach_email.errors.pattern
                     "
                     translate
                     >Head Coach Email format is invalid
