@@ -113,21 +113,12 @@
       </div>
 
       <!-- pagination -->
-      <div class="pagination-wrapper" *ngIf="dataSource.data.length !== 0">
-        <!-- <div class="showing-data">
-          <p>
-            <strong>Showing</strong>
-            {{ pageSize > clubs_count ? clubs_count : pageSize }}
-            / {{ clubs_count }} Data
-          </p>
-        </div> -->
-        <app-pagination
-          [totalRows]="clubs_count"
-          [rowsPerPage]="pageSize"
-          (onChange)="updatePage($event)"
-        >
-        </app-pagination>
-      </div>
+      <app-pagination
+        [totalRows]="clubs_count"
+        [rowsPerPage]="pageSize"
+        (onChange)="updatePage($event)"
+      >
+      </app-pagination>
       <!-- pagination end here -->
     </div>
   </div>

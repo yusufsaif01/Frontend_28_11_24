@@ -155,21 +155,12 @@
       </div>
 
       <!-- pagination -->
-      <div class="pagination-wrapper" *ngIf="dataSource.data.length !== 0">
-        <div class="showing-data">
-          <p>
-            <strong>Showing</strong>
-            {{ pageSize > city_count ? city_count : pageSize }}
-            / {{ total_count }} Data
-          </p>
-        </div>
-        <app-pagination
-          [totalRows]="total_count"
-          [rowsPerPage]="pageSize"
-          (onChange)="updatePage($event)"
-        >
-        </app-pagination>
-      </div>
+      <app-pagination
+        [totalRows]="total_count"
+        [rowsPerPage]="pageSize"
+        (onChange)="updatePage($event)"
+      >
+      </app-pagination>
     </div>
   </div>
 </mat-drawer-container>

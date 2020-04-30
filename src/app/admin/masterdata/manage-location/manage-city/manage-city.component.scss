@@ -160,24 +160,6 @@
   }
 }
 
-// paginations
-.pagination-wrapper {
-  width: 95%;
-  margin: 3rem auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem;
-  background-color: $color-white;
-  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-  .showing-data {
-    p {
-      font-size: 1.8rem;
-      color: $text-color;
-    }
-  }
-}
-
 .change-icon {
   width: 10rem;
   left: calc(100% - 3rem);
