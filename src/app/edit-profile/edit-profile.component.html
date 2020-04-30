@@ -1932,8 +1932,11 @@
                     </mat-error>
                   </div>
 
-                  <div class="input-wrapper-second">
-                    <label>Other <span>*</span></label>
+                  <div
+                    class="input-wrapper-second"
+                    *ngIf="editProfileForm.controls.league.value === 'Other'"
+                  >
+                    <label>Other </label>
                     <input
                       type="text"
                       matInput
@@ -1948,10 +1951,10 @@
                     >
                       <span
                         *ngIf="
-                          editProfileForm.controls.league_other.errors.required
+                          editProfileForm.controls.league_other.errors.pattern
                         "
                         translate
-                        >Other League is required</span
+                        >Other League format is invalid</span
                       >
                     </mat-error>
                   </div>
