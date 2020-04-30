@@ -215,6 +215,10 @@ export class EditProfileComponent implements OnInit {
     {
       name: 'Hero Sub-Junior Girl’s NFC',
       value: 'Hero Sub-Junior Girl’s NFC'
+    },
+    {
+      name: 'Other',
+      value: 'Other'
     }
   ];
   sampleCityArray = [
@@ -721,7 +725,7 @@ export class EditProfileComponent implements OnInit {
         ],
         stadium_name: ['', []],
         league: ['', [Validators.required]],
-        league_other: ['', [Validators.required]],
+        league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)]],
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
@@ -770,7 +774,7 @@ export class EditProfileComponent implements OnInit {
         ],
         stadium_name: ['', []],
         league: ['', [Validators.required]],
-        league_other: ['', [Validators.required]],
+        league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)]],
         document_type: ['', []],
         number: [''],
         contact_person: this._formBuilder.array([], []),
