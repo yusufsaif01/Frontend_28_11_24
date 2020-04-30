@@ -7,6 +7,15 @@ import { AdminService } from '../service/admin.service';
 import { DeleteConfirmationComponent } from '../../shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from '../../shared/dialog-box/status-confirmation/status-confirmation.component';
 import { ToastrService } from 'ngx-toastr';
+
+interface FilterDialogContext {
+  from: string;
+  to: string;
+  name: string;
+  email: string;
+  email_verified: string;
+  profile_status: string;
+}
 @Component({
   selector: 'app-manage-academy',
   templateUrl: './manage-academy.component.html',
@@ -20,6 +29,7 @@ export class ManageAcademyComponent implements OnInit {
   totalRecords = 10;
   acad_count: number;
   tzoffset = new Date().getTimezoneOffset() * 60000;
+  dialogData: any = {};
 
   public tableConfig: ManageAcademyTableConfig = new ManageAcademyTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -32,10 +42,22 @@ export class ManageAcademyComponent implements OnInit {
 
   ngOnInit() {
     this.getAcademyList(this.pageSize, 1);
+    this.refreshDialogData();
   }
 
   updateSidebar($event: any) {
     this.sideBarToggle = $event;
+  }
+
+  refreshDialogData() {
+    this.dialogData = {
+      from: '',
+      to: '',
+      email: '',
+      name: '',
+      email_verified: '',
+      profile_status: ''
+    };
   }
 
   updatePage(event: any) {
@@ -63,10 +85,13 @@ export class ManageAcademyComponent implements OnInit {
   sampleModel() {
     const dialogRef = this.dialog.open(FilterDialogAcademyComponent, {
       width: '50% ',
-      panelClass: 'filterDialog'
+      panelClass: 'filterDialog',
+      data: this.dialogData
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.dialogData = result;
+
         if (result['from']) {
           result['from'] = new Date(
             result['from'] - this.tzoffset
