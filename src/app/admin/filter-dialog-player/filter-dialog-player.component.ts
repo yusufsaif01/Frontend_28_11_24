@@ -18,24 +18,18 @@ export class FilterDialogPlayerComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.createForm();
-    // this.filterForm = this.formBuilder.group({
-    //   sample: ['']
-    // });
-    // // this.filterForm.patchValue({
-    // //   sample: data.formControlName
-    // // });
   }
 
   createForm() {
     this.filterForm = this.formBuilder.group({
-      from: [''],
-      to: [''],
-      name: [''],
-      type: [''],
-      email: [''],
-      position: [''],
-      email_verified: [''],
-      profile_status: ['']
+      from: [this.data.from],
+      to: [this.data.to],
+      name: [this.data.name],
+      type: [this.data.type],
+      email: [this.data.email],
+      position: [this.data.position],
+      email_verified: [this.data.email_verified],
+      profile_status: [this.data.profile_status]
     });
   }
   // fromDate = new Date(fromDate).toISOString()
