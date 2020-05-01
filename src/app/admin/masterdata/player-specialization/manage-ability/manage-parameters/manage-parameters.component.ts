@@ -19,7 +19,7 @@ export class ManageParametersComponent implements OnInit {
   editMode: boolean = false;
   parameterId: any;
   abilityId: string;
-  abilityName: string;
+  abilityName: string = 'Loading...';
   row: any = {};
   update: any = '';
 
