@@ -421,6 +421,7 @@ export class EditProfileComponent implements OnInit {
       const address = this.editProfileForm.get('address');
       const pincode = this.editProfileForm.get('pincode');
       const trophies = this.editProfileForm.get('trophies');
+      const leagueOther = this.editProfileForm.get('league_other');
 
       if (this.member_type === 'club') {
         trophies.setValidators(null);
@@ -437,6 +438,13 @@ export class EditProfileComponent implements OnInit {
         ]);
       }
 
+      this.editProfileForm.get('league').valueChanges.subscribe(league => {
+        if (league !== 'Other') {
+          leagueOther.setValue('');
+        }
+      });
+
+      leagueOther.updateValueAndValidity();
       trophies.updateValueAndValidity();
       address.updateValueAndValidity();
       pincode.updateValueAndValidity();
@@ -706,7 +714,7 @@ export class EditProfileComponent implements OnInit {
         ],
         stadium_name: ['', []],
         league: ['', [Validators.required]],
-        league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)]],
+        league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
@@ -754,7 +762,7 @@ export class EditProfileComponent implements OnInit {
         ],
         stadium_name: ['', []],
         league: ['', [Validators.required]],
-        league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)]],
+        league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
         document_type: ['', []],
         contact_person: this._formBuilder.array([], []),
         trophies: this._formBuilder.array([], []),

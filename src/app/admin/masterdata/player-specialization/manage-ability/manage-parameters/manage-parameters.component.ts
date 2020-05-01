@@ -19,7 +19,7 @@ export class ManageParametersComponent implements OnInit {
   editMode: boolean = false;
   parameterId: any;
   abilityId: string;
-  abilityName: string;
+  abilityName: string = 'Loading...';
   row: any = {};
   update: any = '';
 
@@ -44,7 +44,8 @@ export class ManageParametersComponent implements OnInit {
       width: '40%',
       data: { specialization: 'parameter', ability_id: this.abilityId }
     });
-    this.cancelParameter();
+    this.editMode = false;
+    this.update = 'cancel';
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'refresh') {
