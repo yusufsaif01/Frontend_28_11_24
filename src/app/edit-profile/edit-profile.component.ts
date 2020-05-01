@@ -253,6 +253,14 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit() {
     this.populateView();
+    this.initValidations();
+  }
+
+  initValidations() {
+    if (this.editProfileForm.controls.number) {
+      this.editProfileForm.controls.document.disable();
+      this.editProfileForm.controls.number.disable();
+    }
   }
 
   // selectTab(tabName: string) {
@@ -734,7 +742,7 @@ export class EditProfileComponent implements OnInit {
           '',
           [Validators.required, Validators.pattern(/^\d+$/)]
         ],
-        aiff: ['', [requiredFileDocument]]
+        aiff: ['', [Validators.required, requiredFileDocument]]
         // onclick upload document [aiff]
       });
     } else if (this.member_type === 'academy') {
@@ -1117,9 +1125,11 @@ export class EditProfileComponent implements OnInit {
   }
 
   onChangeDocumentType(event: any) {
-    if (this.editProfileForm.controls.number) {
-      this.editProfileForm.controls.number.setValidators(Validators.required);
-      this.editProfileForm.controls.number.patchValue('');
-    }
+    this.editProfileForm.controls.number.enable();
+    this.editProfileForm.controls.document.enable();
+    this.editProfileForm.controls.number.setValidators(Validators.required);
+    this.editProfileForm.controls.document.setValidators(Validators.required);
+    this.editProfileForm.controls.number.patchValue('');
+    this.editProfileForm.controls.document.patchValue('');
   }
 }
