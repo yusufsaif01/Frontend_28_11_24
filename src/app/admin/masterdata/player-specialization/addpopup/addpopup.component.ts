@@ -16,7 +16,7 @@ export class AddpopupComponent implements OnInit {
     private adminService: AdminService,
     private toastrService: ToastrService,
     @Inject(MAT_DIALOG_DATA)
-    private data: { specialization: string; ability_id?: string }
+    public data: { specialization: string; ability_id?: string }
   ) {
     this.createForm();
   }
