@@ -18,18 +18,16 @@
       <div class="form-block">
         <label
           [innerText]="
-            data.specialization === 'ability' ? 'Abilities' : 'Parameter'
+            data.specialization === 'ability' ? 'Ability' : 'Parameter'
           "
-          >Abilities</label
+          >Ability</label
         >
         <input
           formControlName="name"
           type="text"
           matinput
           [placeholder]="
-            data.specialization === 'ability'
-              ? 'Enter Ability'
-              : 'Enter Parameter'
+            data.specialization === 'ability' ? 'Ability' : 'Parameter'
           "
         />
         <mat-error
