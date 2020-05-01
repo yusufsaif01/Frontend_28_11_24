@@ -549,7 +549,6 @@
                 <div class="countrycode">
                   <input type="text" value="+91" readonly tabindex="-1" />
                 </div>
-
                 <div class="phonenumber">
                   <input
                     formControlName="phone"
@@ -557,53 +556,56 @@
                     type="text"
                     matInput
                   />
-                  <mat-error
-                    *ngIf="
-                      editProfileForm.controls.phone.invalid &&
-                      editProfileForm.controls.phone.touched
-                    "
-                  >
-                    <span
-                      *ngIf="editProfileForm.controls.phone.errors.required"
-                      translate
-                      >Phone Number is required</span
-                    >
-                    <ng-template #lengthBlock>
-                      <mat-error
-                        class="error-text"
-                        *ngIf="editProfileForm.controls.phone.errors.minlength"
-                      >
-                        Please provide number upto
-                        {{
-                          editProfileForm.controls.phone.errors.minlength
-                            .requiredLength
-                        }}
-                        digits
-                      </mat-error>
-                      <mat-error
-                        class="error-text"
-                        *ngIf="editProfileForm.controls.phone.errors.maxlength"
-                      >
-                        Please provide number upto
-                        {{
-                          editProfileForm.controls.phone.errors.maxlength
-                            .requiredLength
-                        }}
-                        digits
-                      </mat-error>
-                    </ng-template>
-                    <mat-error
-                      class="error-text"
-                      *ngIf="
-                        editProfileForm.controls.phone.errors.pattern;
-                        else lengthBlock
-                      "
-                    >
-                      Phone Number format is invalid
-                    </mat-error>
-                  </mat-error>
                 </div>
               </div>
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.phone.invalid &&
+                  editProfileForm.controls.phone.touched
+                "
+              >
+                <span
+                  *ngIf="editProfileForm.controls.phone.errors.required"
+                  translate
+                  >Phone Number is required</span
+                >
+                <ng-template #lengthBlock>
+                  <span
+                    translate
+                    class="error-text"
+                    *ngIf="editProfileForm.controls.phone.errors.minlength"
+                  >
+                    Please provide number upto
+                    {{
+                      editProfileForm.controls.phone.errors.minlength
+                        .requiredLength
+                    }}
+                    digits
+                  </span>
+                  <span
+                    translate
+                    class="error-text"
+                    *ngIf="editProfileForm.controls.phone.errors.maxlength"
+                  >
+                    Please provide number upto
+                    {{
+                      editProfileForm.controls.phone.errors.maxlength
+                        .requiredLength
+                    }}
+                    digits
+                  </span>
+                </ng-template>
+                <span
+                  class="error-text"
+                  *ngIf="
+                    editProfileForm.controls.phone.errors.pattern;
+                    else lengthBlock
+                  "
+                  translate
+                >
+                  Phone Number format is invalid
+                </span>
+              </mat-error>
             </div>
 
             <!-- current School -->
@@ -923,61 +925,60 @@
                       matInput
                       autocomplete="off"
                     />
-                    <mat-error
-                      *ngIf="
-                        editProfileForm.controls.head_coach_phone.invalid &&
-                        editProfileForm.controls.head_coach_phone.touched
-                      "
-                    >
-                      <span
-                        *ngIf="
-                          editProfileForm.controls.head_coach_phone.errors
-                            .required
-                        "
-                        translate
-                        >Head Coach Phone is required</span
-                      >
-                      <ng-template #lengthBlock>
-                        <span
-                          *ngIf="
-                            editProfileForm.controls.head_coach_phone.errors
-                              .minlength
-                          "
-                        >
-                          Please provide number upto
-                          {{
-                            editProfileForm.controls.head_coach_phone.errors
-                              .minlength.requiredLength
-                          }}
-                          digits
-                        </span>
-                        <span
-                          *ngIf="
-                            editProfileForm.controls.head_coach_phone.errors
-                              .maxlength
-                          "
-                        >
-                          Please provide number upto
-                          {{
-                            editProfileForm.controls.head_coach_phone.errors
-                              .maxlength.requiredLength
-                          }}
-                          digits
-                        </span>
-                      </ng-template>
-                      <mat-error
-                        class="error-text"
-                        *ngIf="
-                          editProfileForm.controls.head_coach_phone.errors
-                            .pattern;
-                          else lengthBlock
-                        "
-                      >
-                        Phone Number format is invalid
-                      </mat-error>
-                    </mat-error>
                   </div>
                 </div>
+                <mat-error
+                  *ngIf="
+                    editProfileForm.controls.head_coach_phone.invalid &&
+                    editProfileForm.controls.head_coach_phone.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      editProfileForm.controls.head_coach_phone.errors.required
+                    "
+                    translate
+                    >Head Coach Phone is required</span
+                  >
+                  <ng-template #lengthBlock>
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.head_coach_phone.errors
+                          .minlength
+                      "
+                    >
+                      Please provide number upto
+                      {{
+                        editProfileForm.controls.head_coach_phone.errors
+                          .minlength.requiredLength
+                      }}
+                      digits
+                    </span>
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.head_coach_phone.errors
+                          .maxlength
+                      "
+                    >
+                      Please provide number upto
+                      {{
+                        editProfileForm.controls.head_coach_phone.errors
+                          .maxlength.requiredLength
+                      }}
+                      digits
+                    </span>
+                  </ng-template>
+                  <span
+                    translate
+                    class="error-text"
+                    *ngIf="
+                      editProfileForm.controls.head_coach_phone.errors.pattern;
+                      else lengthBlock
+                    "
+                  >
+                    Phone Number format is invalid
+                  </span>
+                </mat-error>
               </div>
 
               <!-- Head coach email number -->

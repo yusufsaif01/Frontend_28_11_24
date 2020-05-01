@@ -37,7 +37,8 @@ export class ManageAbilityComponent implements OnInit {
       data: { specialization: 'ability' }
     });
 
-    this.cancelAbility();
+    this.editMode = false;
+    this.update = 'cancel';
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'refresh') {

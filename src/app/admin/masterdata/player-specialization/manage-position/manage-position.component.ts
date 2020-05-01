@@ -45,7 +45,7 @@ export class ManagePositionComponent implements OnInit {
       if (result === 'refresh') {
         this.getPositionListing(this.pageSize, this.page_no);
       }
-      this.getAbilitiesList();
+      // this.getAbilitiesList();
     });
   }
 
