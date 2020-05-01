@@ -215,6 +215,10 @@ export class EditProfileComponent implements OnInit {
     {
       name: 'Hero Sub-Junior Girl’s NFC',
       value: 'Hero Sub-Junior Girl’s NFC'
+    },
+    {
+      name: 'Other',
+      value: 'Other'
     }
   ];
   sampleCityArray = [
@@ -326,6 +330,7 @@ export class EditProfileComponent implements OnInit {
       const height_inches = this.editProfileForm.get('height_inches');
       const head_coach_phone = this.editProfileForm.get('head_coach_phone');
       const head_coach_email = this.editProfileForm.get('head_coach_email');
+      const head_coach_name = this.editProfileForm.get('head_coach_name');
 
       this.editProfileForm
         .get('associated_club')
@@ -337,22 +342,28 @@ export class EditProfileComponent implements OnInit {
               Validators.maxLength(10),
               Validators.pattern(/^\d+$/)
             ]);
-            head_coach_email.setValidators([
+            head_coach_email.setValidators([Validators.email]);
+            head_coach_name.setValidators([
               Validators.required,
-              Validators.email
+              Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)
             ]);
           } else if (associated_club === 'no') {
             head_coach_phone.setValue(''); // setValue use to clear any input provided
             head_coach_email.setValue('');
+            head_coach_name.setValue('');
             head_coach_phone.setValidators([
               Validators.minLength(10),
               Validators.maxLength(10),
               Validators.pattern(/^\d+$/)
             ]);
             head_coach_email.setValidators([Validators.email]);
+            head_coach_name.setValidators([
+              Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)
+            ]);
           }
           head_coach_phone.updateValueAndValidity();
           head_coach_email.updateValueAndValidity();
+          head_coach_name.updateValueAndValidity();
         });
 
       this.editProfileForm
@@ -646,6 +657,7 @@ export class EditProfileComponent implements OnInit {
         strong_foot: ['', []],
         associated_club: ['', []],
         weak_foot: ['', []],
+        head_coach_name: [''],
         head_coach_phone: [
           '',
           [
@@ -654,7 +666,7 @@ export class EditProfileComponent implements OnInit {
             Validators.pattern(/^\d+$/)
           ]
         ],
-        head_coach_email: ['', [Validators.email]],
+        head_coach_email: [''],
         former_club: ['', []]
       });
     } else if (this.member_type === 'club') {
@@ -694,7 +706,7 @@ export class EditProfileComponent implements OnInit {
         ],
         stadium_name: ['', []],
         league: ['', [Validators.required]],
-        league_other: ['', [Validators.required]],
+        league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)]],
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
@@ -742,7 +754,7 @@ export class EditProfileComponent implements OnInit {
         ],
         stadium_name: ['', []],
         league: ['', [Validators.required]],
-        league_other: ['', [Validators.required]],
+        league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)]],
         document_type: ['', []],
         contact_person: this._formBuilder.array([], []),
         trophies: this._formBuilder.array([], []),
@@ -815,6 +827,9 @@ export class EditProfileComponent implements OnInit {
       league_other: this.profile.league_other,
       strong_foot: this.profile.strong_foot ? this.profile.strong_foot : '',
       weak_foot: this.profile.weak_foot ? this.profile.weak_foot : '',
+      head_coach_name: this.profile.club_academy_details
+        ? this.profile.club_academy_details.head_coach_name
+        : '',
       head_coach_phone: this.profile.club_academy_details
         ? this.profile.club_academy_details.head_coach_phone
         : '',

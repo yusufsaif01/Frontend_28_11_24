@@ -156,7 +156,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'masterdata-parameter',
+    path: 'masterdata-parameter/:id',
     component: ManageParametersComponent,
     data: { title: extract('Manage Parameter '), expectedRole: ['admin'] },
     canActivate: [RoleGuardService]

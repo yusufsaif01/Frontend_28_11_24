@@ -77,7 +77,7 @@
             <div class="search-box">
               <input
                 matInput
-                placeholder="Search your academy"
+                placeholder="Search academy"
                 class="search-icon"
                 (keyup)="applyFilter($event)"
               />
@@ -113,20 +113,15 @@
       </div>
 
       <!-- pagination -->
-      <div class="pagination-wrapper" *ngIf="dataSource.data.length !== 0">
-        <div class="showing-data">
-          <p>
-            <strong>Showing</strong>
-            {{ pageSize > acad_count ? acad_count : pageSize }}
-            / {{ acad_count }} Data
-          </p>
-        </div>
-        <app-pagination
-          [totalRows]="acad_count"
-          [rowsPerPage]="pageSize"
-          (onChange)="updatePage($event)"
-        ></app-pagination>
-      </div>
+      <app-pagination
+        *ngIf="dataSource.data.length !== 0"
+        [showData]="true"
+        [showCount]="show_count"
+        [totalRows]="acad_count"
+        [rowsPerPage]="pageSize"
+        (onChange)="updatePage($event)"
+      >
+      </app-pagination>
       <!-- pagination end here -->
     </div>
   </div>

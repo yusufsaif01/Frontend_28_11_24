@@ -27,10 +27,6 @@
 
       <!-- add state form  -->
       <div class="addform">
-        <div class="heading">
-          <img src="assets/images/icons/plus.png" alt="" />
-          <h3>Add City</h3>
-        </div>
         <div class="form-block">
           <form [formGroup]="addCityForm">
             <div class="form-part">
@@ -68,7 +64,7 @@
                   formControlName="name"
                   type="text"
                   matinput
-                  placeholder="Add city"
+                  placeholder="City"
                   #cityInput
                   (keyup.enter)="blurElement()"
                 />
@@ -155,21 +151,15 @@
       </div>
 
       <!-- pagination -->
-      <div class="pagination-wrapper" *ngIf="dataSource.data.length !== 0">
-        <div class="showing-data">
-          <p>
-            <strong>Showing</strong>
-            {{ pageSize > city_count ? city_count : pageSize }}
-            / {{ total_count }} Data
-          </p>
-        </div>
-        <app-pagination
-          [totalRows]="total_count"
-          [rowsPerPage]="pageSize"
-          (onChange)="updatePage($event)"
-        >
-        </app-pagination>
-      </div>
+      <app-pagination
+        *ngIf="dataSource.data.length !== 0"
+        [showData]="true"
+        [showCount]="show_count"
+        [totalRows]="total_count"
+        [rowsPerPage]="pageSize"
+        (onChange)="updatePage($event)"
+      >
+      </app-pagination>
     </div>
   </div>
 </mat-drawer-container>

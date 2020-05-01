@@ -13,6 +13,17 @@ import { AdminService } from '../service/admin.service';
 import { DeleteConfirmationComponent } from '../../shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from '../../shared/dialog-box/status-confirmation/status-confirmation.component';
 import { ToastrService } from 'ngx-toastr';
+
+interface FilterDialogContext {
+  from: string;
+  to: string;
+  name: string;
+  type: string;
+  email: string;
+  position: string;
+  email_verified: string;
+  profile_status: string;
+}
 @Component({
   selector: 'app-manage-player',
   templateUrl: './manage-player.component.html',
@@ -28,7 +39,9 @@ export class ManagePlayerComponent implements OnInit {
   grassroot_count: number;
   amateur_count: number;
   proff_count: number;
+  show_count: number;
   tzoffset = new Date().getTimezoneOffset() * 60000;
+  dialogData: FilterDialogContext;
 
   public tableConfig: ManagePlayerTableConfig = new ManagePlayerTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -41,10 +54,24 @@ export class ManagePlayerComponent implements OnInit {
 
   ngOnInit() {
     this.getPlayerList(this.pageSize, 1);
+    this.refreshDialogData();
   }
 
   updateSidebar($event: any) {
     this.sideBarToggle = $event;
+  }
+
+  refreshDialogData() {
+    this.dialogData = {
+      from: '',
+      to: '',
+      name: '',
+      type: '',
+      email: '',
+      position: '',
+      email_verified: '',
+      profile_status: ''
+    };
   }
 
   getPlayerList(page_size: number, page_no: number, search?: string) {
@@ -57,6 +84,7 @@ export class ManagePlayerComponent implements OnInit {
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
         this.players_count = response.data.total;
+        this.show_count = response.data.records.length;
         this.amateur_count = response.data.players_count.amateur;
         this.grassroot_count = response.data.players_count.grassroot;
         this.proff_count = response.data.players_count.professional;
@@ -76,11 +104,14 @@ export class ManagePlayerComponent implements OnInit {
   sampleModel() {
     const dialogRef = this.dialog.open(FilterDialogPlayerComponent, {
       width: '50% ',
-      panelClass: 'filterDialog'
+      panelClass: 'filterDialog',
+      data: this.dialogData
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.dialogData = result;
+
         if (result['from']) {
           result['from'] = new Date(
             result['from'] - this.tzoffset

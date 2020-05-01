@@ -20,9 +20,47 @@ const routes = {
     '/master/player-specialization/ability/add',
   getAbilityList: () => '/master/player-specialization/ability/list',
   updateAbilityById: (c: UpdateAbilityByIdContext) =>
-    '/master/player-specialization/ability'
+    '/master/player-specialization/ability',
+  addParameter: (c: AddParameterContext) =>
+    '/master/player-specialization/parameter/add',
+  getParameterListByAbility: (c: GetParameterListContext) =>
+    '/master/player-specialization/parameter/list',
+  updateParameterById: (c: UpdateParameterByIdContext) =>
+    '/master/player-specialization/parameter'
 };
 
+interface AddParameterContext {
+  name: string;
+  ability_id: string;
+}
+interface AddParameterResponseContext {
+  status: string;
+  message: string;
+}
+interface GetParameterListContext {
+  ability_id: string;
+}
+interface GetParameterListResponseContext {
+  status: string;
+  message: string;
+  data: {
+    ability: string;
+    total: number;
+    records: {
+      id: string;
+      name: string;
+    }[];
+  };
+}
+interface UpdateParameterByIdContext {
+  name: string;
+  ability_id: string;
+  parameter_id: string;
+}
+interface UpdateParameterByIdResponseContext {
+  status: string;
+  message: string;
+}
 interface GetMemberTypeListResponseContext {
   status: string;
   message: string;
@@ -649,6 +687,75 @@ export class AdminService {
 
     return this.httpClient.put<UpdateAbilityByIdResponseContext>(
       routes.updateAbilityById(context) + params,
+      { name },
+      httpOptions
+    );
+  }
+
+  addParameter(
+    context: AddParameterContext
+  ): Observable<AddParameterResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    return this.httpClient.post<AddParameterResponseContext>(
+      routes.addParameter(context),
+      context,
+      httpOptions
+    );
+  }
+
+  getParameterListByAbility(
+    context: GetParameterListContext
+  ): Observable<GetParameterListResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    let params = '/';
+    if (context['ability_id']) {
+      params += `${context['ability_id']}`;
+    }
+    return this.httpClient.get<GetParameterListResponseContext>(
+      routes.getParameterListByAbility(context) + params,
+      httpOptions
+    );
+  }
+
+  updateParameterById(
+    context: UpdateParameterByIdContext
+  ): Observable<UpdateParameterByIdResponseContext> {
+    let token = this.credentialsService.isAuthenticated()
+      ? this.credentialsService.credentials['data']['token']
+      : '';
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+    let params = '/';
+    if (context['ability_id']) {
+      params += `${context['ability_id']}`;
+    }
+    if (context['parameter_id']) {
+      params += `/${context['parameter_id']}`;
+    }
+    const { name } = context;
+
+    return this.httpClient.put<UpdateParameterByIdResponseContext>(
+      routes.updateParameterById(context) + params,
       { name },
       httpOptions
     );

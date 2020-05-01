@@ -104,7 +104,7 @@
             <div class="search-box">
               <input
                 matInput
-                placeholder="Search your player"
+                placeholder="Search player"
                 class="search-icon"
                 (keyup)="applyFilter($event)"
               />
@@ -139,20 +139,15 @@
       </div>
 
       <!-- pagination -->
-      <div class="pagination-wrapper" *ngIf="dataSource.data.length !== 0">
-        <div class="showing-data">
-          <p>
-            <strong>Showing</strong>
-            {{ pageSize > players_count ? players_count : pageSize }}
-            / {{ players_count }} Data
-          </p>
-        </div>
-        <app-pagination
-          [totalRows]="players_count"
-          [rowsPerPage]="pageSize"
-          (onChange)="updatePage($event)"
-        ></app-pagination>
-      </div>
+      <app-pagination
+        *ngIf="dataSource.data.length !== 0"
+        [showData]="true"
+        [showCount]="show_count"
+        [totalRows]="players_count"
+        [rowsPerPage]="pageSize"
+        (onChange)="updatePage($event)"
+      >
+      </app-pagination>
       <!-- pagination end here -->
     </div>
   </div>
