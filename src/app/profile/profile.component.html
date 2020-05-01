@@ -388,21 +388,25 @@
             </p>
           </div>
         </div>
-
-        <div class="block-middle border-bottom">
+        <div
+          class="block-middle border-bottom"
+          *ngIf="profile.league !== 'Other'; else otherLeague"
+        >
           <div class="full">
             <p><span>League : </span>{{ profile?.league | titlecase }}</p>
           </div>
         </div>
 
-        <div class="block-middle border-bottom">
-          <div class="full">
-            <p>
-              <span>League (Other) : </span
-              >{{ profile?.league_other | titlecase }}
-            </p>
+        <ng-template #otherLeague>
+          <div class="block-middle border-bottom">
+            <div class="full">
+              <p>
+                <span>League (Other) : </span
+                >{{ profile?.league_other | titlecase }}
+              </p>
+            </div>
           </div>
-        </div>
+        </ng-template>
 
         <div
           class="block-middle border-bottom"
