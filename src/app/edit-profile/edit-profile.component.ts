@@ -265,10 +265,8 @@ export class EditProfileComponent implements OnInit {
     const formData = new FormData();
     for (const key of Object.keys(formValue)) {
       const value = formValue[key];
-
-      if (!value) {
-        continue;
-      } else if (!value.length && key != 'bio') {
+      console.log(key, value);
+      if (!value && !value.length && key != 'bio') {
         continue;
       }
       formData.append(key, value);
@@ -847,7 +845,7 @@ export class EditProfileComponent implements OnInit {
       city: this.profile.city ? this.profile.city : '',
       stadium_name: this.profile.stadium_name ? this.profile.stadium_name : '',
       league: this.profile.league ? this.profile.league : '',
-      league_other: this.profile.league_other,
+      league_other: this.profile.league_other ? this.profile.league_other : '',
       strong_foot: this.profile.strong_foot ? this.profile.strong_foot : '',
       weak_foot: this.profile.weak_foot ? this.profile.weak_foot : '',
       head_coach_name: this.profile.club_academy_details
