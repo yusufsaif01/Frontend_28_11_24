@@ -801,7 +801,8 @@ export class EditProfileComponent implements OnInit {
     if (this.profile.member_type === 'player') {
       if (
         this.profile.club_academy_details &&
-        this.profile.club_academy_details.head_coach_phone
+        this.profile.club_academy_details.head_coach_phone &&
+        this.profile.club_academy_details.head_coach_name
       )
         this.editProfileForm.get('associated_club').setValue('yes');
       else this.editProfileForm.get('associated_club').setValue('no');
