@@ -48,15 +48,15 @@
           </app-master-table>
           <ng-template #ListAction let-id="id" let-name="name">
             <div class="action-buttons" *ngIf="!editMode || id != abilityId">
-              <button (click)="editAbility(name, id)">
+              <button matTooltip="Edit" (click)="editAbility(name, id)">
                 <img src=" assets/images/icons/edit.png" alt="Edit" />
               </button>
             </div>
             <div class="action-buttons" *ngIf="editMode && id == abilityId">
-              <button (click)="updateAbility(name, id)">
+              <button matTooltip="Save" (click)="updateAbility(name, id)">
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button (click)="cancelAbility(name, id)">
+              <button matTooltip="Delete" (click)="cancelAbility(name, id)">
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>

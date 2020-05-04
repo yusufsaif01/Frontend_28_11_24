@@ -50,7 +50,10 @@
             let-abilities="abilities"
           >
             <div class="action-buttons">
-              <button (click)="editRow(id, name, abbreviation, abilities)">
+              <button
+                matTooltip="Edit"
+                (click)="editRow(id, name, abbreviation, abilities)"
+              >
                 <img src=" assets/images/icons/edit.png" alt="Edit" />
               </button>
               <!-- <button (click)="statusPopup(user_id, status)">
