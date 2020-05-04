@@ -23,6 +23,7 @@ export class FilterDialogPlayerComponent implements OnInit {
     private toastrService: ToastrService
   ) {
     this.createForm();
+    this.populatePositionList();
   }
 
   createForm() {
@@ -38,9 +39,7 @@ export class FilterDialogPlayerComponent implements OnInit {
     });
   }
   // fromDate = new Date(fromDate).toISOString()
-  ngOnInit() {
-    this.populatePositionList();
-  }
+  ngOnInit() {}
   populatePositionList() {
     this.filterDialogPlayerService.getPositionList().subscribe(
       response => {
