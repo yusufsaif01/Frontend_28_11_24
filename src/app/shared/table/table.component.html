@@ -10,19 +10,44 @@
     <mat-cell *matCellDef="let element; let i = index">
       <div>
         <p
-          [ngClass]="{
-            unverified:
-              element.status === 'unverified' &&
-              (col === 'email' || col === 'status'),
-            verified: element.status === 'verified' && col === 'status'
-          }"
-          *ngIf="col !== 'name' && col !== 'media' && col !== 'type'"
+          *ngIf="
+            col !== 'name' &&
+            col !== 'media' &&
+            col !== 'type' &&
+            col !== 'email' &&
+            col !== 'status'
+          "
         >
           {{ tableConfig.columns[col].getValue(element) }}
         </p>
         <p
           *ngIf="col === 'name' || col === 'type'"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
+        >
+          {{
+            tableConfig.columns[col].getValue(element).length < 18
+              ? tableConfig.columns[col].getValue(element)
+              : (tableConfig.columns[col].getValue(element) | slice: 0:18) +
+                '...'
+          }}
+        </p>
+        <p
+          *ngIf="col === 'email'"
+          [ngClass]="element.is_email_verified === 'true' ? 'black' : 'red'"
+        >
+          {{
+            tableConfig.columns[col].getValue(element).length < 18
+              ? tableConfig.columns[col].getValue(element)
+              : (tableConfig.columns[col].getValue(element) | slice: 0:18) +
+                '...'
+          }}
+        </p>
+        <p
+          *ngIf="col === 'status'"
+          [ngClass]="{
+            red: element.status === 'unverified',
+            black: element.status === 'verified'
+          }"
         >
           {{
             tableConfig.columns[col].getValue(element).length < 18
