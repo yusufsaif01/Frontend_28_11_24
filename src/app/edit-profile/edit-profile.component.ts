@@ -1136,7 +1136,10 @@ export class EditProfileComponent implements OnInit {
     this.editProfileForm.controls.number.enable();
     this.editProfileForm.controls.document.enable();
     this.editProfileForm.controls.number.setValidators(Validators.required);
-    this.editProfileForm.controls.document.setValidators(Validators.required);
+    this.editProfileForm.controls.document.setValidators([
+      Validators.required,
+      requiredFileDocument
+    ]);
     this.editProfileForm.controls.number.patchValue('');
     this.editProfileForm.controls.document.patchValue('');
   }
