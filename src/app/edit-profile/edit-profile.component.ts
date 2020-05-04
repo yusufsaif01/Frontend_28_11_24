@@ -841,8 +841,14 @@ export class EditProfileComponent implements OnInit {
       name: this.profile.name,
       short_name: this.profile.short_name ? this.profile.short_name : '',
       founded_in: this.profile.founded_in,
-      address: this.profile.address ? this.profile.address.full_address : '',
-      pincode: this.profile.address ? this.profile.address.pincode : '',
+      address:
+        this.profile.address && this.profile.address.full_address
+          ? this.profile.address.full_address
+          : '',
+      pincode:
+        this.profile.address && this.profile.address.pincode
+          ? this.profile.address.pincode
+          : '',
       first_name: this.profile.first_name ? this.profile.first_name : '',
       last_name: this.profile.last_name ? this.profile.last_name : '',
       height_feet:
