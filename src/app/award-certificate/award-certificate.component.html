@@ -40,11 +40,12 @@
         >
           <div class="action-buttons">
             <button
+              matTooltip="Edit"
               (click)="openEditDialog(id, media, name, position, type, year)"
             >
               <img src="assets/images/icons/edit01.png" alt="Edit" />
             </button>
-            <button (click)="deletePopup(id)">
+            <button matTooltip="Delete" (click)="deletePopup(id)">
               <img src="assets/images/icons/bin.png" alt="Delete" />
             </button>
           </div>

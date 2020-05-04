@@ -50,7 +50,7 @@
           </app-master-table>
           <ng-template #ListAction let-id="id" let-name="name">
             <div class="action-buttons" *ngIf="!editMode || id != parameterId">
-              <button (click)="editParameter(name, id)">
+              <button matTooltip="Edit" (click)="editParameter(name, id)">
                 <img src=" assets/images/icons/edit.png" alt="Edit" />
               </button>
             </div>
@@ -58,10 +58,10 @@
                                 <img src=" assets/images/icons/plus.png" alt="Edit" />
                             </button> -->
             <div class="action-buttons" *ngIf="editMode && id == parameterId">
-              <button (click)="updateParameter(name, id)">
+              <button matTooltip="Save" (click)="updateParameter(name, id)">
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button (click)="cancelParameter(name, id)">
+              <button matTooltip="Cancel" (click)="cancelParameter(name, id)">
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>

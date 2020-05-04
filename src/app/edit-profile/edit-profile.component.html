@@ -1473,7 +1473,7 @@
 
               <!-- Upload   -->
               <div class="from-block" *ngIf="member_type === 'club'">
-                <label>Document Number</label>
+                <label>Document Number <span>*</span></label>
                 <input
                   formControlName="reg_number"
                   placeholder="Document Number"
@@ -1482,7 +1482,7 @@
                 />
               </div>
               <div class="from-block" *ngIf="member_type === 'club'">
-                <label>Upload AIFF accreditation status</label>
+                <label>Upload AIFF accreditation status <span>*</span></label>
                 <div class="file-wrapper">
                   <input
                     type="file"
