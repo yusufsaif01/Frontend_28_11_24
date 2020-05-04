@@ -56,12 +56,15 @@
               <button matTooltip="Save" (click)="updateAbility(name, id)">
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button matTooltip="Delete" (click)="cancelAbility(name, id)">
+              <button matTooltip="Cancel" (click)="cancelAbility(name, id)">
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>
             <div class="action-buttons">
-              <button routerLink="/masterdata-parameter/{{ id }}">
+              <button
+                matTooltip="Parameters"
+                routerLink="/masterdata-parameter/{{ id }}"
+              >
                 <img src=" assets/images/icons/plus.png" alt="Edit" />
               </button>
             </div>
