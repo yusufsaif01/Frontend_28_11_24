@@ -84,7 +84,7 @@
         <select formControlName="position" matNativeControl required>
           <option value="">Select Position</option>
           <ng-container *ngFor="let position of PositionArray">
-            <option value="{{ position.id }}">{{ position.name }}</option>
+            <option value="{{ position.name }}">{{ position.name }}</option>
           </ng-container>
         </select>
       </div>
