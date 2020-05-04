@@ -42,7 +42,8 @@ export class ManageParametersComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(AddpopupComponent, {
       width: '40%',
-      data: { specialization: 'parameter', ability_id: this.abilityId }
+      data: { specialization: 'parameter', ability_id: this.abilityId },
+      autoFocus: false
     });
     this.editMode = false;
     this.update = 'cancel';
