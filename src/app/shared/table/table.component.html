@@ -33,6 +33,7 @@
         </p>
         <p
           *ngIf="col === 'email'"
+          matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
           [ngClass]="element.is_email_verified === 'true' ? 'black' : 'red'"
         >
           {{
@@ -49,12 +50,7 @@
             black: element.status === 'verified'
           }"
         >
-          {{
-            tableConfig.columns[col].getValue(element).length < 18
-              ? tableConfig.columns[col].getValue(element)
-              : (tableConfig.columns[col].getValue(element) | slice: 0:18) +
-                '...'
-          }}
+          {{ tableConfig.columns[col].getValue(element) }}
         </p>
         <p *ngIf="col === 'media'">
           <img
