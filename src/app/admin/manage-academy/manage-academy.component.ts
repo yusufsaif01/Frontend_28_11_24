@@ -137,6 +137,9 @@ export class ManageAcademyComponent implements OnInit {
   }
 
   statusPopup(user_id: string, status: string) {
+    if (status === 'pending') {
+      return;
+    }
     const dialogRef = this.dialog.open(StatusConfirmationComponent, {
       width: '50% ',
       panelClass: 'filterDialog',
@@ -152,6 +155,7 @@ export class ManageAcademyComponent implements OnInit {
                 `Success`,
                 'Status updated successfully'
               );
+              this.getAcademyList(this.pageSize, 1);
             },
             error => {
               // log.debug(`Login error: ${error}`);
@@ -168,6 +172,7 @@ export class ManageAcademyComponent implements OnInit {
                 `Success`,
                 'Status updated successfully'
               );
+              this.getAcademyList(this.pageSize, 1);
             },
             error => {
               // log.debug(`Login error: ${error}`);
