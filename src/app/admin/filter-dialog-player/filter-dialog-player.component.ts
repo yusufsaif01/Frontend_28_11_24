@@ -13,7 +13,7 @@ export class FilterDialogPlayerComponent implements OnInit {
   @Input() max: Date | null;
   filterForm: FormGroup;
   tomorrow = new Date();
-  PositionArray: any[] = [];
+  positionArray: any[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<FilterDialogPlayerComponent>,
@@ -44,7 +44,7 @@ export class FilterDialogPlayerComponent implements OnInit {
   populatePositionList() {
     this.filterDialogPlayerService.getPositionList().subscribe(
       response => {
-        this.PositionArray = response.data.records;
+        this.positionArray = response.data.records;
       },
       error => {
         this.toastrService.error(error.error.message, 'Error');
