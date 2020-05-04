@@ -749,8 +749,8 @@
                 <label>Position ( Priority {{ i + 1 }} ) <span>*</span></label>
                 <select formControlName="name" matNativeControl required>
                   <option value="">Select Position</option>
-                  <ng-container *ngFor="let position of samplePositionArray">
-                    <option value="{{ position.value }}">{{
+                  <ng-container *ngFor="let position of positionArray">
+                    <option value="{{ position.name }}">{{
                       position.name
                     }}</option>
                   </ng-container>
@@ -805,7 +805,7 @@
                     [checked]="
                       profile?.club_academy_details &&
                       profile.club_academy_details?.head_coach_phone &&
-                      profile.club_academy_details?.head_coach_email
+                      profile.club_academy_details?.head_coach_name
                     "
                   />
                   <span>Yes</span>
@@ -819,7 +819,7 @@
                       !(
                         profile?.club_academy_details &&
                         profile.club_academy_details?.head_coach_phone &&
-                        profile.club_academy_details?.head_coach_email
+                        profile.club_academy_details?.head_coach_name
                       )
                     "
                   />
@@ -1427,6 +1427,7 @@
                         formControlName="document_type"
                         type="radio"
                         value="aiff"
+                        (change)="onChangeDocumentType($event)"
                       />
                       <span>AIFF Status</span>
                     </label>
@@ -1435,6 +1436,7 @@
                         formControlName="document_type"
                         type="radio"
                         value="pan"
+                        (change)="onChangeDocumentType($event)"
                       />
                       <span>Pan Number</span>
                     </label>
@@ -1443,6 +1445,7 @@
                         formControlName="document_type"
                         type="radio"
                         value="tin"
+                        (change)="onChangeDocumentType($event)"
                       />
                       <span>TIN Number</span>
                     </label>
@@ -1451,14 +1454,33 @@
                         formControlName="document_type"
                         type="radio"
                         value="coi"
+                        (change)="onChangeDocumentType($event)"
                       />
                       <span>COI Number</span>
                     </label>
                   </div>
                 </div>
+                <div class="from-block" *ngIf="member_type === 'academy'">
+                  <label>Document Number</label>
+                  <input
+                    formControlName="number"
+                    placeholder="Document Number"
+                    type="text"
+                    matInput
+                  />
+                </div>
               </ng-container>
 
               <!-- Upload   -->
+              <div class="from-block" *ngIf="member_type === 'club'">
+                <label>Document Number</label>
+                <input
+                  formControlName="reg_number"
+                  placeholder="Document Number"
+                  type="text"
+                  matInput
+                />
+              </div>
               <div class="from-block" *ngIf="member_type === 'club'">
                 <label>Upload AIFF accreditation status</label>
                 <div class="file-wrapper">

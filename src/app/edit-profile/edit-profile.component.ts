@@ -7,6 +7,7 @@ import { requiredFileDocument } from '@app/shared/validators/requiredFileDocumen
 import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '@app/shared/page-components/header/header.component';
+import { EditProfileService } from './edit-profile-service';
 
 interface trophyObject {
   name: string;
@@ -69,20 +70,7 @@ export class EditProfileComponent implements OnInit {
   top_players: FormArray;
   position: FormArray;
 
-  samplePositionArray = [
-    {
-      name: 'Volvo',
-      value: 'volvo'
-    },
-    {
-      name: 'Audi',
-      value: 'audi'
-    },
-    {
-      name: 'Mercedes',
-      value: 'mercedes'
-    }
-  ];
+  positionArray: any[] = [];
   strongFootArray = [
     {
       name: 'Left',
@@ -244,7 +232,8 @@ export class EditProfileComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
     private _toastrService: ToastrService,
-    private _router: Router
+    private _router: Router,
+    private editProfileService: EditProfileService
   ) {
     this.createForm();
     this.setCategoryValidators();
@@ -253,6 +242,14 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit() {
     this.populateView();
+    this.initValidations();
+  }
+
+  initValidations() {
+    if (this.editProfileForm.controls.number) {
+      this.editProfileForm.controls.document.disable();
+      this.editProfileForm.controls.number.disable();
+    }
   }
 
   // selectTab(tabName: string) {
@@ -278,6 +275,25 @@ export class EditProfileComponent implements OnInit {
     this._authenticationService.getProfileDetails().subscribe(
       response => {
         this.profile = response.data;
+        if (this.profile.documents.length) {
+          if (this.profile.documents[0].type) {
+            if (this.editProfileForm.controls.reg_number) {
+              this.editProfileForm.controls.aiff.disable();
+              this.editProfileForm.controls.reg_number.setValidators(
+                Validators.required
+              );
+              this.editProfileForm.controls.reg_number.disable();
+            }
+            if (this.editProfileForm.controls.number) {
+              this.editProfileForm.controls.document.disable();
+              this.editProfileForm.controls.document_type.disable();
+              this.editProfileForm.controls.number.setValidators(
+                Validators.required
+              );
+              this.editProfileForm.controls.number.disable();
+            }
+          }
+        }
         this.populateFormFields();
         this.populateDocuments();
 
@@ -292,6 +308,7 @@ export class EditProfileComponent implements OnInit {
         }
 
         if (this.profile.member_type === 'player') {
+          this.getPositionList();
           this.populateDynamicPosition();
         }
 
@@ -316,6 +333,16 @@ export class EditProfileComponent implements OnInit {
           `${error.error.message}`,
           'Failed to load data'
         );
+      }
+    );
+  }
+  getPositionList() {
+    this.editProfileService.getPositionList().subscribe(
+      response => {
+        this.positionArray = response.data.records;
+      },
+      error => {
+        this._toastrService.error(error.error.message, 'Error');
       }
     );
   }
@@ -718,11 +745,12 @@ export class EditProfileComponent implements OnInit {
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
+        reg_number: ['', Validators.required],
         associated_players: [
           '',
           [Validators.required, Validators.pattern(/^\d+$/)]
         ],
-        aiff: ['', [requiredFileDocument]]
+        aiff: ['', [Validators.required, requiredFileDocument]]
         // onclick upload document [aiff]
       });
     } else if (this.member_type === 'academy') {
@@ -764,6 +792,7 @@ export class EditProfileComponent implements OnInit {
         league: ['', [Validators.required]],
         league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
         document_type: ['', []],
+        number: [''],
         contact_person: this._formBuilder.array([], []),
         trophies: this._formBuilder.array([], []),
         top_players: this._formBuilder.array([], []),
@@ -801,7 +830,8 @@ export class EditProfileComponent implements OnInit {
     if (this.profile.member_type === 'player') {
       if (
         this.profile.club_academy_details &&
-        this.profile.club_academy_details.head_coach_phone
+        this.profile.club_academy_details.head_coach_phone &&
+        this.profile.club_academy_details.head_coach_name
       )
         this.editProfileForm.get('associated_club').setValue('yes');
       else this.editProfileForm.get('associated_club').setValue('no');
@@ -812,8 +842,14 @@ export class EditProfileComponent implements OnInit {
       name: this.profile.name,
       short_name: this.profile.short_name ? this.profile.short_name : '',
       founded_in: this.profile.founded_in,
-      address: this.profile.address ? this.profile.address.full_address : '',
-      pincode: this.profile.address ? this.profile.address.pincode : '',
+      address:
+        this.profile.address && this.profile.address.full_address
+          ? this.profile.address.full_address
+          : '',
+      pincode:
+        this.profile.address && this.profile.address.pincode
+          ? this.profile.address.pincode
+          : '',
       first_name: this.profile.first_name ? this.profile.first_name : '',
       last_name: this.profile.last_name ? this.profile.last_name : '',
       height_feet:
@@ -832,7 +868,7 @@ export class EditProfileComponent implements OnInit {
       city: this.profile.city ? this.profile.city : '',
       stadium_name: this.profile.stadium_name ? this.profile.stadium_name : '',
       league: this.profile.league ? this.profile.league : '',
-      league_other: this.profile.league_other,
+      league_other: this.profile.league_other ? this.profile.league_other : '',
       strong_foot: this.profile.strong_foot ? this.profile.strong_foot : '',
       weak_foot: this.profile.weak_foot ? this.profile.weak_foot : '',
       head_coach_name: this.profile.club_academy_details
@@ -863,7 +899,13 @@ export class EditProfileComponent implements OnInit {
       document_type:
         this.profile.documents && this.profile.documents[0]
           ? this.profile.documents[0].type
-          : ''
+          : '',
+      number: this.profile.documents.length
+        ? this.profile.documents[0].document_number
+        : '',
+      reg_number: this.profile.documents.length
+        ? this.profile.documents[0].document_number
+        : ''
     });
 
     if (this.profile.social_profiles) {
@@ -1095,5 +1137,17 @@ export class EditProfileComponent implements OnInit {
         })
       );
     }
+  }
+
+  onChangeDocumentType(event: any) {
+    this.editProfileForm.controls.number.enable();
+    this.editProfileForm.controls.document.enable();
+    this.editProfileForm.controls.number.setValidators(Validators.required);
+    this.editProfileForm.controls.document.setValidators([
+      Validators.required,
+      requiredFileDocument
+    ]);
+    this.editProfileForm.controls.number.patchValue('');
+    this.editProfileForm.controls.document.patchValue('');
   }
 }

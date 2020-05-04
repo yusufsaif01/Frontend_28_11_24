@@ -105,20 +105,12 @@ export class ManageAcademyComponent implements OnInit {
         }
         this.adminService.getAcademyList(result).subscribe(response => {
           this.acad_count = response.data.total;
+          this.show_count = response.data.records.length;
           this.dataSource = new MatTableDataSource(response.data.records);
         });
       } else {
       }
     });
-
-    this.list = [
-      {
-        title: 'Yes',
-        type: 'ABC',
-        quiz_mapped: 'Yes'
-      }
-    ];
-    // this.dataSource = new MatTableDataSource(this.list);
   }
 
   deletePopup(user_id: string) {
@@ -145,6 +137,9 @@ export class ManageAcademyComponent implements OnInit {
   }
 
   statusPopup(user_id: string, status: string) {
+    if (status === 'pending') {
+      return;
+    }
     const dialogRef = this.dialog.open(StatusConfirmationComponent, {
       width: '50% ',
       panelClass: 'filterDialog',
@@ -160,6 +155,7 @@ export class ManageAcademyComponent implements OnInit {
                 `Success`,
                 'Status updated successfully'
               );
+              this.getAcademyList(this.pageSize, 1);
             },
             error => {
               // log.debug(`Login error: ${error}`);
@@ -176,6 +172,7 @@ export class ManageAcademyComponent implements OnInit {
                 `Success`,
                 'Status updated successfully'
               );
+              this.getAcademyList(this.pageSize, 1);
             },
             error => {
               // log.debug(`Login error: ${error}`);

@@ -64,8 +64,8 @@ export class ManagePositionComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'refresh') {
         this.getPositionListing(this.pageSize, this.page_no);
+        this.getAbilitiesList();
       }
-      this.getAbilitiesList();
     });
   }
 

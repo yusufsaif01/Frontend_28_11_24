@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
     player_type: false,
     logout_link: true
   };
+  docNumber: string;
 
   constructor(
     private _authenticationService: AuthenticationService,
@@ -64,6 +65,7 @@ export class ProfileComponent implements OnInit {
               element.type !== 'aadhar'
             ) {
               this.document = fileLink;
+              this.docNumber = element.document_number;
             }
           });
         }
