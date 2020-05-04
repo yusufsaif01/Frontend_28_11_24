@@ -90,15 +90,15 @@
             let-serialNumber="serialNumber"
           >
             <div class="action-buttons" *ngIf="!editMode || id != stateId">
-              <button (click)="editState(name, id)">
+              <button matTooltip="Edit" (click)="editState(name, id)">
                 <img src="assets/images/icons/edit.png" alt="Edit" />
               </button>
             </div>
             <div class="action-buttons" *ngIf="editMode && id == stateId">
-              <button (click)="updateState(name, id)">
+              <button matTooltip="Save" (click)="updateState(name, id)">
                 <img src="assets/images/icons/tick.png" alt="Update" />
               </button>
-              <button (click)="cancelState(name, id)">
+              <button matTooltip="Cancel" (click)="cancelState(name, id)">
                 <img src="assets/images/icons/close01.png" alt="Cancel" />
               </button>
             </div>

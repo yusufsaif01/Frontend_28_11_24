@@ -128,10 +128,13 @@
             let-account_status="account_status"
           >
             <div class="action-buttons">
-              <button>
+              <button matTooltip="View">
                 <img src="assets/images/icons/eyes.png" alt="Edit" />
               </button>
-              <button (click)="statusPopup(user_id, account_status)">
+              <button
+                matTooltip="Activate / Deactivate"
+                (click)="statusPopup(user_id, account_status)"
+              >
                 <img
                   [src]="
                     account_status === 'blocked'
@@ -143,7 +146,7 @@
                   alt="Edit"
                 />
               </button>
-              <button (click)="deletePopup(user_id)">
+              <button (click)="deletePopup(user_id)" matTooltip="Delete">
                 <img src="assets/images/icons/bin.png" alt="Delete" />
               </button>
             </div>
