@@ -105,19 +105,11 @@ export class ManageClubComponent implements OnInit {
         }
         this.adminService.getClubList(result).subscribe(response => {
           this.clubs_count = response.data.total;
+          this.show_count = response.data.records.length;
           this.dataSource = new MatTableDataSource(response.data.records);
         });
       }
     });
-
-    this.list = [
-      {
-        title: 'Yes',
-        type: 'ABC',
-        quiz_mapped: 'Yes'
-      }
-    ];
-    // this.dataSource = new MatTableDataSource(this.list);
   }
 
   deletePopup(user_id: string) {

@@ -7,6 +7,7 @@ import { requiredFileDocument } from '@app/shared/validators/requiredFileDocumen
 import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '@app/shared/page-components/header/header.component';
+import { EditProfileService } from './edit-profile-service';
 
 interface trophyObject {
   name: string;
@@ -69,20 +70,7 @@ export class EditProfileComponent implements OnInit {
   top_players: FormArray;
   position: FormArray;
 
-  samplePositionArray = [
-    {
-      name: 'Volvo',
-      value: 'volvo'
-    },
-    {
-      name: 'Audi',
-      value: 'audi'
-    },
-    {
-      name: 'Mercedes',
-      value: 'mercedes'
-    }
-  ];
+  positionArray: any[] = [];
   strongFootArray = [
     {
       name: 'Left',
@@ -244,7 +232,8 @@ export class EditProfileComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
     private _toastrService: ToastrService,
-    private _router: Router
+    private _router: Router,
+    private editProfileService: EditProfileService
   ) {
     this.createForm();
     this.setCategoryValidators();
@@ -319,6 +308,7 @@ export class EditProfileComponent implements OnInit {
         }
 
         if (this.profile.member_type === 'player') {
+          this.getPositionList();
           this.populateDynamicPosition();
         }
 
@@ -343,6 +333,16 @@ export class EditProfileComponent implements OnInit {
           `${error.error.message}`,
           'Failed to load data'
         );
+      }
+    );
+  }
+  getPositionList() {
+    this.editProfileService.getPositionList().subscribe(
+      response => {
+        this.positionArray = response.data.records;
+      },
+      error => {
+        this._toastrService.error(error.error.message, 'Error');
       }
     );
   }
@@ -830,7 +830,8 @@ export class EditProfileComponent implements OnInit {
     if (this.profile.member_type === 'player') {
       if (
         this.profile.club_academy_details &&
-        this.profile.club_academy_details.head_coach_phone
+        this.profile.club_academy_details.head_coach_phone &&
+        this.profile.club_academy_details.head_coach_name
       )
         this.editProfileForm.get('associated_club').setValue('yes');
       else this.editProfileForm.get('associated_club').setValue('no');

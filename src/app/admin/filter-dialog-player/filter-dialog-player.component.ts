@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { FilterDialogPlayerService } from './filter-dialog-player-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-filter-dialog-player',
@@ -11,11 +13,14 @@ export class FilterDialogPlayerComponent implements OnInit {
   @Input() max: Date | null;
   filterForm: FormGroup;
   tomorrow = new Date();
+  positionArray: any[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<FilterDialogPlayerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private filterDialogPlayerService: FilterDialogPlayerService,
+    private toastrService: ToastrService
   ) {
     this.createForm();
   }
@@ -33,5 +38,17 @@ export class FilterDialogPlayerComponent implements OnInit {
     });
   }
   // fromDate = new Date(fromDate).toISOString()
-  ngOnInit() {}
+  ngOnInit() {
+    this.populatePositionList();
+  }
+  populatePositionList() {
+    this.filterDialogPlayerService.getPositionList().subscribe(
+      response => {
+        this.positionArray = response.data.records;
+      },
+      error => {
+        this.toastrService.error(error.error.message, 'Error');
+      }
+    );
+  }
 }

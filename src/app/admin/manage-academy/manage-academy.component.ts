@@ -105,20 +105,12 @@ export class ManageAcademyComponent implements OnInit {
         }
         this.adminService.getAcademyList(result).subscribe(response => {
           this.acad_count = response.data.total;
+          this.show_count = response.data.records.length;
           this.dataSource = new MatTableDataSource(response.data.records);
         });
       } else {
       }
     });
-
-    this.list = [
-      {
-        title: 'Yes',
-        type: 'ABC',
-        quiz_mapped: 'Yes'
-      }
-    ];
-    // this.dataSource = new MatTableDataSource(this.list);
   }
 
   deletePopup(user_id: string) {
