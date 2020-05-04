@@ -11,10 +11,10 @@
       <div>
         <p
           [ngClass]="{
-            pending:
-              element.status === 'pending' &&
+            unverified:
+              element.status === 'unverified' &&
               (col === 'email' || col === 'status'),
-            active: element.status === 'active' && col === 'status'
+            verified: element.status === 'verified' && col === 'status'
           }"
           *ngIf="col !== 'name' && col !== 'media' && col !== 'type'"
         >
