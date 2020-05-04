@@ -749,7 +749,7 @@
                 <label>Position ( Priority {{ i + 1 }} ) <span>*</span></label>
                 <select formControlName="name" matNativeControl required>
                   <option value="">Select Position</option>
-                  <ng-container *ngFor="let position of samplePositionArray">
+                  <ng-container *ngFor="let position of positionArray">
                     <option value="{{ position.id }}">{{
                       position.name
                     }}</option>

@@ -70,7 +70,7 @@ export class EditProfileComponent implements OnInit {
   top_players: FormArray;
   position: FormArray;
 
-  samplePositionArray: any[] = [];
+  positionArray: any[] = [];
   strongFootArray = [
     {
       name: 'Left',
@@ -339,7 +339,7 @@ export class EditProfileComponent implements OnInit {
   getPositionList() {
     this.editProfileService.getPositionList().subscribe(
       response => {
-        this.samplePositionArray = response.data.records;
+        this.positionArray = response.data.records;
       },
       error => {
         this._toastrService.error(error.error.message, 'Error');
