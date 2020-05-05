@@ -6,15 +6,13 @@
       (sendPlayerType)="getPlayerType($event)"
       (sendMemberType)="getMemberType($event)"
       [options]="panelOptions"
-      [achievements]="awards_count"
+      [achievements]="total_count"
     ></app-left-panel>
   </div>
   <div class="right-section">
     <div class="award-heading">
       <div class="left-part">
-        <h2>
-          <i-feather name="Award"></i-feather> My Awards and Certifications
-        </h2>
+        <h2><i-feather name="Award"></i-feather> My Awards and Certificates</h2>
       </div>
       <div class="right-part">
         <button (click)="openDialog()">Add Awards</button>
@@ -42,11 +40,12 @@
         >
           <div class="action-buttons">
             <button
+              matTooltip="Edit"
               (click)="openEditDialog(id, media, name, position, type, year)"
             >
               <img src="assets/images/icons/edit01.png" alt="Edit" />
             </button>
-            <button (click)="deletePopup(id)">
+            <button matTooltip="Delete" (click)="deletePopup(id)">
               <img src="assets/images/icons/bin.png" alt="Delete" />
             </button>
           </div>
@@ -54,20 +53,14 @@
       </div>
     </div>
     <!-- pagination -->
-    <div class="pagination-wrapper" *ngIf="dataSource.data.length !== 0">
-      <!-- <div class="showing-data">
-        <p>
-          <strong>Showing</strong>
-          {{ pageSize > award_count ? award_count : pageSize }}
-          / {{ total_count }} Data
-        </p>
-      </div> -->
-      <app-pagination
-        [totalRows]="total_count"
-        [rowsPerPage]="pageSize"
-        (onChange)="updatePage($event)"
-      >
-      </app-pagination>
-    </div>
+    <app-pagination
+      *ngIf="dataSource.data.length !== 0"
+      [showData]="false"
+      [showCount]="show_count"
+      [totalRows]="total_count"
+      [rowsPerPage]="pageSize"
+      (onChange)="updatePage($event)"
+    >
+    </app-pagination>
   </div>
 </div>

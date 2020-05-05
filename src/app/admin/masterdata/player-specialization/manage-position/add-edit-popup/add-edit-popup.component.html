@@ -1,6 +1,5 @@
 <div class="modal-header">
   <div class="heading">
-    <img src="assets/images/icons/plus.png" alt="" />
     <h4>{{ options.header }} Position</h4>
   </div>
   <div class="close">
@@ -12,7 +11,7 @@
     <!-- position -->
     <div class="input__group">
       <label>Position</label>
-      <input formControlName="name" type="text" placeholder="Enter Position" />
+      <input formControlName="name" type="text" placeholder="Position" />
       <mat-error
         *ngIf="
           positionForm.controls.name.invalid &&
@@ -32,7 +31,7 @@
         formControlName="abbreviation"
         type="text"
         matinput
-        placeholder="Enter Abbreviation"
+        placeholder="Abbreviation"
       />
       <mat-error
         *ngIf="
@@ -57,7 +56,8 @@
           (change)="onChangeAbility($event, ability)"
           [checked]="ability.is_checked"
           [value]="ability.id"
-          >{{ ability.name }}</mat-checkbox
+        >
+          {{ ability.name }}</mat-checkbox
         >
       </span>
     </div>

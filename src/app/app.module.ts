@@ -76,7 +76,7 @@ import { ManagePositionComponent } from './admin/masterdata/player-specializatio
 import { AddEditPopupComponent } from './admin/masterdata/player-specialization/manage-position/add-edit-popup/add-edit-popup.component';
 import { ManageAbilityComponent } from './admin/masterdata/player-specialization/manage-ability/manage-ability.component';
 import { ManageParametersComponent } from './admin/masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
-import { AddpopupComponent } from './admin/masterdata/player-specialization/manage-ability/addpopup/addpopup.component';
+import { AddpopupComponent } from './admin/masterdata/player-specialization/addpopup/addpopup.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
 import { JwtInterceptor } from './core/http/jwt.interceptor';
 import { ErrorInterceptor } from './core/http/error.interceptor';

@@ -18,7 +18,7 @@
         <div class="breadcrumb">
           <ul>
             <li>Master Data</li>
-            <li>Player Specialization</li>
+            <!-- <li>Player Specialization</li> -->
             <li>Manage Position</li>
           </ul>
         </div>
@@ -50,7 +50,10 @@
             let-abilities="abilities"
           >
             <div class="action-buttons">
-              <button (click)="editRow(id, name, abbreviation, abilities)">
+              <button
+                matTooltip="Edit"
+                (click)="editRow(id, name, abbreviation, abilities)"
+              >
                 <img src=" assets/images/icons/edit.png" alt="Edit" />
               </button>
               <!-- <button (click)="statusPopup(user_id, status)">
@@ -64,20 +67,11 @@
         </div>
       </div>
       <!-- pagination -->
-      <!-- <div class="pagination-wrapper" *ngIf="dataSource.data.length !== 0">
-        <div class="showing-data">
-          <p>
-            <strong>Showing</strong>
-            {{ pageSize > position_count ? position_count : pageSize }}
-            / {{ position_count }} Data
-          </p>
-        </div>
-        <app-pagination
+      <!-- <app-pagination
           [totalRows]="position_count"
           [rowsPerPage]="pageSize"
           (onChange)="updatePage($event)"
-        ></app-pagination>
-      </div> -->
+        ></app-pagination> -->
       <!-- pagination end here -->
     </div>
   </div>

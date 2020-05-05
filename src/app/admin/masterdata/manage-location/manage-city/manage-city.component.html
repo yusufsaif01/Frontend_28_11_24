@@ -27,10 +27,6 @@
 
       <!-- add state form  -->
       <div class="addform">
-        <div class="heading">
-          <img src="assets/images/icons/plus.png" alt="" />
-          <h3>Add City</h3>
-        </div>
         <div class="form-block">
           <form [formGroup]="addCityForm">
             <div class="form-part">
@@ -109,7 +105,7 @@
             <div class="search-box">
               <input
                 matInput
-                placeholder="Search your City"
+                placeholder="Search city"
                 class="search-icon"
                 (keyup)="applyFilter($event)"
               />
@@ -138,15 +134,15 @@
             let-serialNumber="serialNumber"
           >
             <div class="action-buttons" *ngIf="!editMode || id != cityId">
-              <button (click)="editCity(name, id)">
+              <button matTooltip="Edit" (click)="editCity(name, id)">
                 <img src="assets/images/icons/edit.png" alt="Edit" />
               </button>
             </div>
             <div class="action-buttons" *ngIf="editMode && id == cityId">
-              <button (click)="updateCity(name, id)">
+              <button matTooltip="Save" (click)="updateCity(name, id)">
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button (click)="cancelCity(name, id)">
+              <button matTooltip="Cancel" (click)="cancelCity(name, id)">
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>
@@ -155,21 +151,15 @@
       </div>
 
       <!-- pagination -->
-      <div class="pagination-wrapper" *ngIf="dataSource.data.length !== 0">
-        <div class="showing-data">
-          <p>
-            <strong>Showing</strong>
-            {{ pageSize > city_count ? city_count : pageSize }}
-            / {{ total_count }} Data
-          </p>
-        </div>
-        <app-pagination
-          [totalRows]="total_count"
-          [rowsPerPage]="pageSize"
-          (onChange)="updatePage($event)"
-        >
-        </app-pagination>
-      </div>
+      <app-pagination
+        *ngIf="dataSource.data.length !== 0"
+        [showData]="true"
+        [showCount]="show_count"
+        [totalRows]="total_count"
+        [rowsPerPage]="pageSize"
+        (onChange)="updatePage($event)"
+      >
+      </app-pagination>
     </div>
   </div>
 </mat-drawer-container>

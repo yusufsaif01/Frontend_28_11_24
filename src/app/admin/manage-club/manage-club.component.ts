@@ -7,6 +7,15 @@ import { AdminService } from '../service/admin.service';
 import { DeleteConfirmationComponent } from '../../shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from '../../shared/dialog-box/status-confirmation/status-confirmation.component';
 import { ToastrService } from 'ngx-toastr';
+
+interface FilterDialogContext {
+  from: string;
+  to: string;
+  email: string;
+  name: string;
+  email_verified: string;
+  profile_status: string;
+}
 @Component({
   selector: 'app-manage-club',
   templateUrl: './manage-club.component.html',
@@ -19,7 +28,9 @@ export class ManageClubComponent implements OnInit {
   pageSize: number = 20;
   totalRecords = 10;
   clubs_count: number;
+  show_count: number;
   tzoffset = new Date().getTimezoneOffset() * 60000;
+  dialogData: FilterDialogContext;
 
   public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -32,10 +43,22 @@ export class ManageClubComponent implements OnInit {
 
   ngOnInit() {
     this.getClubList(this.pageSize, 1);
+    this.refreshDialogData();
   }
 
   updateSidebar($event: any) {
     this.sideBarToggle = $event;
+  }
+
+  refreshDialogData() {
+    this.dialogData = {
+      from: '',
+      to: '',
+      email: '',
+      name: '',
+      email_verified: '',
+      profile_status: ''
+    };
   }
 
   getClubList(page_size: number, page_no: number, search?: string) {
@@ -48,6 +71,7 @@ export class ManageClubComponent implements OnInit {
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
         this.clubs_count = response.data.total;
+        this.show_count = response.data.records.length;
       });
   }
 
@@ -63,10 +87,13 @@ export class ManageClubComponent implements OnInit {
   sampleModel() {
     const dialogRef = this.dialog.open(FilterDialogClubComponent, {
       width: '50% ',
-      panelClass: 'filterDialog'
+      panelClass: 'filterDialog',
+      data: this.dialogData
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.dialogData = result;
+
         if (result['from']) {
           result['from'] = new Date(
             result['from'] - this.tzoffset
@@ -78,19 +105,11 @@ export class ManageClubComponent implements OnInit {
         }
         this.adminService.getClubList(result).subscribe(response => {
           this.clubs_count = response.data.total;
+          this.show_count = response.data.records.length;
           this.dataSource = new MatTableDataSource(response.data.records);
         });
       }
     });
-
-    this.list = [
-      {
-        title: 'Yes',
-        type: 'ABC',
-        quiz_mapped: 'Yes'
-      }
-    ];
-    // this.dataSource = new MatTableDataSource(this.list);
   }
 
   deletePopup(user_id: string) {
@@ -117,6 +136,9 @@ export class ManageClubComponent implements OnInit {
   }
 
   statusPopup(user_id: string, status: string) {
+    if (status === 'pending') {
+      return;
+    }
     const dialogRef = this.dialog.open(StatusConfirmationComponent, {
       width: '50% ',
       panelClass: 'filterDialog',
@@ -132,6 +154,7 @@ export class ManageClubComponent implements OnInit {
                 `Success`,
                 'Status updated successfully'
               );
+              this.getClubList(this.pageSize, 1);
             },
             error => {
               // log.debug(`Login error: ${error}`);
@@ -148,6 +171,7 @@ export class ManageClubComponent implements OnInit {
                 `Success`,
                 'Status updated successfully'
               );
+              this.getClubList(this.pageSize, 1);
             },
             error => {
               // log.debug(`Login error: ${error}`);

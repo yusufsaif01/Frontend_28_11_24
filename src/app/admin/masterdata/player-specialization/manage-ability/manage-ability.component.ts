@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageAbilityTableConfig } from './manage-ability-table.conf';
-import { AddpopupComponent } from './addpopup/addpopup.component';
+import { AddpopupComponent } from '../addpopup/addpopup.component';
 import { AdminService } from '@app/admin/service/admin.service';
 import { ToastrService } from 'ngx-toastr';
 @Component({
@@ -33,10 +33,12 @@ export class ManageAbilityComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(AddpopupComponent, {
       width: '40%',
-      autoFocus: false
+      autoFocus: false,
+      data: { specialization: 'ability' }
     });
 
-    this.cancelAbility();
+    this.editMode = false;
+    this.update = 'cancel';
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'refresh') {

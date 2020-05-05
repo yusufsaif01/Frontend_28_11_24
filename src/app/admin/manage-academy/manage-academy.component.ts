@@ -7,6 +7,15 @@ import { AdminService } from '../service/admin.service';
 import { DeleteConfirmationComponent } from '../../shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from '../../shared/dialog-box/status-confirmation/status-confirmation.component';
 import { ToastrService } from 'ngx-toastr';
+
+interface FilterDialogContext {
+  from: string;
+  to: string;
+  name: string;
+  email: string;
+  email_verified: string;
+  profile_status: string;
+}
 @Component({
   selector: 'app-manage-academy',
   templateUrl: './manage-academy.component.html',
@@ -19,7 +28,9 @@ export class ManageAcademyComponent implements OnInit {
   pageSize: number = 20;
   totalRecords = 10;
   acad_count: number;
+  show_count: number;
   tzoffset = new Date().getTimezoneOffset() * 60000;
+  dialogData: any = {};
 
   public tableConfig: ManageAcademyTableConfig = new ManageAcademyTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -32,10 +43,22 @@ export class ManageAcademyComponent implements OnInit {
 
   ngOnInit() {
     this.getAcademyList(this.pageSize, 1);
+    this.refreshDialogData();
   }
 
   updateSidebar($event: any) {
     this.sideBarToggle = $event;
+  }
+
+  refreshDialogData() {
+    this.dialogData = {
+      from: '',
+      to: '',
+      email: '',
+      name: '',
+      email_verified: '',
+      profile_status: ''
+    };
   }
 
   updatePage(event: any) {
@@ -52,6 +75,7 @@ export class ManageAcademyComponent implements OnInit {
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
         this.acad_count = response.data.total;
+        this.show_count = response.data.records.length;
       });
   }
 
@@ -63,10 +87,13 @@ export class ManageAcademyComponent implements OnInit {
   sampleModel() {
     const dialogRef = this.dialog.open(FilterDialogAcademyComponent, {
       width: '50% ',
-      panelClass: 'filterDialog'
+      panelClass: 'filterDialog',
+      data: this.dialogData
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.dialogData = result;
+
         if (result['from']) {
           result['from'] = new Date(
             result['from'] - this.tzoffset
@@ -78,20 +105,12 @@ export class ManageAcademyComponent implements OnInit {
         }
         this.adminService.getAcademyList(result).subscribe(response => {
           this.acad_count = response.data.total;
+          this.show_count = response.data.records.length;
           this.dataSource = new MatTableDataSource(response.data.records);
         });
       } else {
       }
     });
-
-    this.list = [
-      {
-        title: 'Yes',
-        type: 'ABC',
-        quiz_mapped: 'Yes'
-      }
-    ];
-    // this.dataSource = new MatTableDataSource(this.list);
   }
 
   deletePopup(user_id: string) {
@@ -118,6 +137,9 @@ export class ManageAcademyComponent implements OnInit {
   }
 
   statusPopup(user_id: string, status: string) {
+    if (status === 'pending') {
+      return;
+    }
     const dialogRef = this.dialog.open(StatusConfirmationComponent, {
       width: '50% ',
       panelClass: 'filterDialog',
@@ -133,6 +155,7 @@ export class ManageAcademyComponent implements OnInit {
                 `Success`,
                 'Status updated successfully'
               );
+              this.getAcademyList(this.pageSize, 1);
             },
             error => {
               // log.debug(`Login error: ${error}`);
@@ -149,6 +172,7 @@ export class ManageAcademyComponent implements OnInit {
                 `Success`,
                 'Status updated successfully'
               );
+              this.getAcademyList(this.pageSize, 1);
             },
             error => {
               // log.debug(`Login error: ${error}`);

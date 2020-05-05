@@ -96,15 +96,31 @@
             [sortEnabled]="true"
           >
           </app-table>
-          <ng-template #ListAction let-user_id="user_id" let-status="status">
+          <ng-template
+            #ListAction
+            let-user_id="user_id"
+            let-account_status="account_status"
+          >
             <div class="action-buttons">
-              <button>
+              <button matTooltip="View">
                 <img src="assets/images/icons/eyes.png" alt="Edit" />
               </button>
-              <button (click)="statusPopup(user_id, status)">
-                <img src="assets/images/icons/change.png" alt="Edit" />
+              <button
+                matTooltip="Activate / Deactivate"
+                (click)="statusPopup(user_id, account_status)"
+              >
+                <img
+                  [src]="
+                    account_status === 'blocked'
+                      ? 'assets/images/icons/close01.png'
+                      : account_status === 'pending'
+                      ? 'assets/images/icons/pending.png'
+                      : 'assets/images/icons/tick.png'
+                  "
+                  alt="Edit"
+                />
               </button>
-              <button (click)="deletePopup(user_id, status)">
+              <button matTooltip="Delete" (click)="deletePopup(user_id)">
                 <img src="assets/images/icons/bin.png" alt="Delete" />
               </button>
             </div>
@@ -113,21 +129,15 @@
       </div>
 
       <!-- pagination -->
-      <div class="pagination-wrapper" *ngIf="dataSource.data.length !== 0">
-        <div class="showing-data">
-          <p>
-            <strong>Showing</strong>
-            {{ pageSize > acad_count ? acad_count : pageSize }}
-            / {{ acad_count }} Data
-          </p>
-        </div>
-        <app-pagination
-          [totalRows]="acad_count"
-          [rowsPerPage]="pageSize"
-          (onChange)="updatePage($event)"
-        >
-        </app-pagination>
-      </div>
+      <app-pagination
+        *ngIf="dataSource.data.length !== 0"
+        [showData]="true"
+        [showCount]="show_count"
+        [totalRows]="acad_count"
+        [rowsPerPage]="pageSize"
+        (onChange)="updatePage($event)"
+      >
+      </app-pagination>
       <!-- pagination end here -->
     </div>
   </div>
