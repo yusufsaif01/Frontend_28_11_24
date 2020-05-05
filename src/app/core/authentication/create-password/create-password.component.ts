@@ -76,12 +76,14 @@ export class CreatePasswordComponent implements OnInit {
         ],
         confirmPassword: [
           '',
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(20),
-          Validators.pattern(
-            /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\~\`\!\@\#\$\%\^\&\*\(\)\-\_\+\=\{\}\[\]\\\|\:\;\'\"\,\.\<\>\/\?])/
-          )
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(20),
+            Validators.pattern(
+              /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\~\`\!\@\#\$\%\^\&\*\(\)\-\_\+\=\{\}\[\]\\\|\:\;\'\"\,\.\<\>\/\?])/
+            )
+          ]
         ]
       },
       {
