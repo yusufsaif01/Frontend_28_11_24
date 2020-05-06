@@ -9,7 +9,6 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  currentRoute: string;
   constructor() {}
 
   intercept(
