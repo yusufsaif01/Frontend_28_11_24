@@ -45,53 +45,23 @@ export class AwardCertificateService {
   ) {}
 
   addAwards(context: any): Observable<DelEditAddAwardResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token
-      })
-    };
     return this.httpClient.post<DelEditAddAwardResponseContext>(
       routes.addAwards(context),
-      context,
-      httpOptions
+      context
     );
   }
 
   updateAwards(id: any, context: any): Observable<any> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token
-      })
-    };
-    return this.httpClient.put<any>(
-      routes.updateAwards(id),
-      context,
-      httpOptions
-    );
+    return this.httpClient.put<any>(routes.updateAwards(id), context);
   }
 
   deleteAward(context: DeleteAwardContext) {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token
-      })
-    };
     let params = '/';
     if (context['id']) {
       params += `${context['id']}`;
     }
     return this.httpClient.delete<DelEditAddAwardResponseContext>(
-      routes.deleteAward(context) + params,
-      httpOptions
+      routes.deleteAward(context) + params
     );
   }
 

@@ -102,21 +102,35 @@ export class AuthenticationService {
   }
 
   resetPassword(context: ResetPasswordContext, token: string): Observable<any> {
-    return this.httpClient.post(routes.resetPassword(context), context);
+    let httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + token
+      })
+    };
+    return this.httpClient.post(
+      routes.resetPassword(context),
+      context,
+      httpOptions
+    );
   }
 
   createPassword(
     context: ResetPasswordContext,
     token: string
   ): Observable<any> {
-    return this.httpClient.post(routes.createPassword(context), context);
+    let httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + token
+      })
+    };
+    return this.httpClient.post(
+      routes.createPassword(context),
+      context,
+      httpOptions
+    );
   }
 
   changePassword(context: ChangePasswordContext): Observable<any> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-
     return this.httpClient.post(routes.changePasssword(context), context);
   }
 
@@ -125,57 +139,19 @@ export class AuthenticationService {
   }
 
   editProfile(context: any): Observable<any> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token
-      })
-    };
-    return this.httpClient.put(
-      routes.editProfile(context),
-      context,
-      httpOptions
-    );
+    return this.httpClient.put(routes.editProfile(context), context);
   }
 
   getProfileDetails(): Observable<any> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-
-    let httpOptions = {
-      headers: new HttpHeaders({
-        // 'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
-    return this.httpClient.get(routes.getProfileDetails(), httpOptions);
+    return this.httpClient.get(routes.getProfileDetails());
   }
 
   updateBio(context: any): Observable<any> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token
-      })
-    };
-    return this.httpClient.put(routes.updateBio(context), context, httpOptions);
+    return this.httpClient.put(routes.updateBio(context), context);
   }
 
   removeAvatar(): Observable<any> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token
-      })
-    };
-    return this.httpClient.delete(routes.removeAvatar(), httpOptions);
+    return this.httpClient.delete(routes.removeAvatar());
   }
 
   emailVerification(token: string): Observable<any> {

@@ -15,7 +15,8 @@ import { CredentialsService } from '../authentication/credentials.service';
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private authenticationService: AuthenticationService,
-    private credentialService: CredentialsService
+    private credentialService: CredentialsService,
+    private router: Router
   ) {}
 
   intercept(
@@ -27,6 +28,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (err.status === 401 || err.status === 402) {
           if (this.credentialService.isAuthenticated()) {
             this.authenticationService.logout();
+          } else {
+            this.router.navigateByUrl('/login');
+            localStorage.clear();
+            sessionStorage.clear();
           }
         }
         const error = err;
