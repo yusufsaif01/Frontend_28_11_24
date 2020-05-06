@@ -34,6 +34,9 @@
           color: $text-muted;
         }
         p {
+          i-feather {
+            margin-right: 1rem;
+          }
           display: flex;
           justify-content: center;
           align-items: center;
@@ -71,6 +74,34 @@
           width: 100%;
           font-size: 1.6rem;
           color: $text-muted;
+        }
+      }
+    }
+    .btn-follow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      width: 100%;
+      border-bottom: 1px solid $border-color;
+      button {
+        border: 1px solid $blue;
+        border-radius: 0.8rem;
+        padding: 1rem 2rem;
+        background: transparent;
+        cursor: pointer;
+        outline: 0px;
+        color: $blue;
+        &:last-child {
+          margin-left: 1rem;
+        }
+        &:hover {
+          background: $blue;
+          color: $color-white;
+        }
+        &.active {
+          background: $blue;
+          color: $color-white;
         }
       }
     }
@@ -119,7 +150,7 @@
 .icon-size {
   width: 2rem !important;
   height: 2rem !important;
-  margin-right: 1rem;
+  // margin-right: 1rem;
 }
 
 .border-top {
