@@ -517,10 +517,7 @@ export class EditProfileComponent implements OnInit {
         this._router.navigate(['/profile']);
       },
       err => {
-        this._toastrService.error(
-          'Error',
-          'An error occured while trying to update profile'
-        );
+        this._toastrService.error('Error', err.error.message);
       }
     );
   }
@@ -560,10 +557,7 @@ export class EditProfileComponent implements OnInit {
           );
         },
         err => {
-          this._toastrService.error(
-            'Error',
-            'An error occured while updating avatar'
-          );
+          this._toastrService.error('Error', err.error.message);
         }
       );
     }
@@ -591,10 +585,7 @@ export class EditProfileComponent implements OnInit {
         );
       },
       err => {
-        this._toastrService.error(
-          'Error',
-          'An error occured while removing avatar'
-        );
+        this._toastrService.error('Error', err.error.message);
       }
     );
   }
@@ -610,10 +601,7 @@ export class EditProfileComponent implements OnInit {
           );
         },
         err => {
-          this._toastrService.error(
-            'Error',
-            'An error occured while updating social profiles'
-          );
+          this._toastrService.error('Error', err.error.message);
         }
       );
   }
@@ -626,10 +614,7 @@ export class EditProfileComponent implements OnInit {
         this._toastrService.success('Successful', 'Bio updated successfully');
       },
       err => {
-        this._toastrService.error(
-          'Error',
-          'An error occured while updating bio'
-        );
+        this._toastrService.error('Error', err.error.message);
       }
     );
   }

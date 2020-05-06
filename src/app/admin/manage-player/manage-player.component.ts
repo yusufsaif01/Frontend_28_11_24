@@ -113,11 +113,13 @@ export class ManagePlayerComponent implements OnInit {
         this.dialogData = result;
 
         if (result['from']) {
+          result['from'] = new Date(result['from']);
           result['from'] = new Date(
             result['from'] - this.tzoffset
           ).toISOString();
         }
         if (result['to']) {
+          result['to'] = new Date(result['to']);
           result['to'] = new Date(result['to']).setHours(23, 59, 59);
           result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
