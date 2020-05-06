@@ -45,7 +45,7 @@ export class RegistrationComponent implements OnInit {
     register.subscribe(
       credentials => {
         this._toastrService.success('Successful', 'Registered');
-        this.playerRegistrationForm.reset();
+        this.resetFormFields();
       },
       error => {
         this._toastrService.error(`${error.error.message}`, 'Failed');
@@ -60,7 +60,7 @@ export class RegistrationComponent implements OnInit {
     register.subscribe(
       credentials => {
         this._toastrService.success('Successful', 'Registered');
-        this.clubRegistrationForm.reset();
+        this.resetFormFields();
       },
       error => {
         this._toastrService.error(`${error.error.message}`, 'Failed');
@@ -75,7 +75,7 @@ export class RegistrationComponent implements OnInit {
     register.subscribe(
       credentials => {
         this._toastrService.success('Successful', 'Registered');
-        this.academyRegistrationForm.reset();
+        this.resetFormFields();
       },
       error => {
         this._toastrService.error(`${error.error.message}`, 'Failed');
