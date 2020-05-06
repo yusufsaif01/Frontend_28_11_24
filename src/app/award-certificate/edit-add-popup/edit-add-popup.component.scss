@@ -23,6 +23,7 @@
     img {
       max-width: 2rem;
       width: 100%;
+      cursor: pointer;
     }
   }
 }
@@ -52,7 +53,9 @@
 // form sections
 .from-block {
   width: 48%;
-  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  position: relative;
+  margin-bottom: 1rem;
   label {
     display: block;
     margin-bottom: 1rem;
@@ -81,9 +84,24 @@
     background-repeat: no-repeat;
     background-position: calc(100% - 1rem) center;
   }
-  input[type="file"] {
-    border: none;
-    padding: 1.2rem 0rem;
+
+  .file-wrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    input[type="file"] {
+      border: none;
+      padding: 1.2rem 0rem;
+      margin-right: 2rem;
+      width: 180px;
+      cursor: pointer;
+    }
+    a {
+      color: $blue;
+      font-size: 2rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
   }
   .datepicker {
     position: relative;
@@ -95,9 +113,19 @@
     }
     .mat-datepicker-toggle {
       position: absolute;
-      top: 1.2rem;
-      right: 0.3rem;
+      top: 2.2rem;
+      right: 0rem;
       opacity: 0;
     }
   }
+}
+
+.w-100 {
+  width: 100%;
+}
+.mat-calendar-period-button {
+  pointer-events: none;
+}
+.mat-calendar-arrow {
+  display: none;
 }

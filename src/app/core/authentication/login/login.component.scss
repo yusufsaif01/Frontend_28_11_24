@@ -56,7 +56,8 @@
         list-style: none;
         li {
           position: relative;
-          margin-bottom: 1.6rem;
+          padding-bottom: 2.5rem;
+          margin-bottom: 1rem;
           label {
             font-size: 1.8rem;
             color: #000;
@@ -121,8 +122,11 @@
 .error-border {
   border-bottom: 0.5rem solid #de5454;
 }
-.mb-0 {
-  margin-bottom: 0px !important;
+.pb-0 {
+  padding-bottom: 0px !important;
+}
+.mt-1 {
+  margin-top: 1rem !important;
 }
 
 .remember-me {

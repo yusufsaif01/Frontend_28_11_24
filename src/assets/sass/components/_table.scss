@@ -1,5 +1,4 @@
 @import "../abstracts/variables";
-
 .mat-table {
   // ::ng-deep{
   .mat-header-row {
@@ -79,6 +78,15 @@
       }
     }
   }
+}
 
-  // }
+.no-data-found {
+  display: block;
+  width: 100%;
+  padding: 3rem;
+  text-align: center;
+  color: $text-color;
+  font-size: 2.4rem;
+  //box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+  background: rgba($border-color, 0.3);
 }

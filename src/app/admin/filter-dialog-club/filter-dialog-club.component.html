@@ -4,11 +4,7 @@
     <h4>Filter</h4>
   </div>
   <div class="close">
-    <img
-      [mat-dialog-close]="filterForm.value"
-      src="assets/images/icons/close.png"
-      alt=""
-    />
+    <img mat-dialog-close src="assets/images/icons/close.png" alt="" />
   </div>
 </div>
 <form [formGroup]="filterForm">
@@ -53,7 +49,7 @@
           formControlName="email"
           type="email"
           matinput
-          placeholder="Enter Your Mail"
+          placeholder="Email"
         />
       </div>
 
@@ -82,7 +78,7 @@
         <select formControlName="profile_status" matNativeControl required>
           <option value="" selected>Select Status</option>
           <option value="verified">Verified</option>
-          <option value="unverified">Unverified</option>
+          <option value="non-verified">Non-Verified</option>
         </select>
       </div>
     </div>

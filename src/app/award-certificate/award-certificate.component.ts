@@ -20,12 +20,12 @@ export class AwardCertificateComponent implements OnInit {
   public tableConfig: AwardCertificateTableConfig = new AwardCertificateTableConfig();
   public dataSource = new MatTableDataSource([]);
   pageSize: number = 10;
+  currentPageNo: number = 1;
   environment = environment;
   player_type: string;
   member_type: string;
-  award_count: number;
+  show_count: number;
   total_count: number;
-  awards_count: number = 0;
 
   panelOptions: object = {
     bio: true,
@@ -50,11 +50,18 @@ export class AwardCertificateComponent implements OnInit {
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
       width: '40%',
       panelClass: 'edit-add-popup',
-      data: { player_type: this.player_type, member_type: this.member_type }
+      data: {
+        player_type: this.player_type,
+        member_type: this.member_type,
+        options: { header: 'Add', buttonName: 'Save' }
+      },
+      autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'refresh') this.getAwardsList(this.pageSize, 1);
+      if (result === 'refresh') {
+        this.getAwardsList(this.pageSize, this.currentPageNo);
+      }
     });
   }
 
@@ -79,16 +86,21 @@ export class AwardCertificateComponent implements OnInit {
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
       width: '40%',
       panelClass: 'edit-add-popup',
-      data: data
+      data: {
+        ...data,
+        options: { header: 'Edit', buttonName: 'Update' }
+      },
+      autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'refresh') this.getAwardsList(this.pageSize, 1);
+      if (result === 'refresh') {
+        this.getAwardsList(this.pageSize, this.currentPageNo);
+      }
     });
   }
 
   getPlayerType(value: string) {
-    console.log(value);
     this.player_type = value;
   }
   getMemberType(value: string) {
@@ -96,6 +108,7 @@ export class AwardCertificateComponent implements OnInit {
   }
 
   updatePage(event: any) {
+    this.currentPageNo = event.selectedPage;
     this.getAwardsList(this.pageSize, event.selectedPage);
   }
 
@@ -103,7 +116,6 @@ export class AwardCertificateComponent implements OnInit {
     this.awardCertificateService
       .getAwardsList({ page_size, page_no })
       .subscribe(response => {
-        console.log('Response LIST', response);
         let records = response.data.records;
         for (let i = 0; i < records.length; i++) {
           if (page_no > 1) {
@@ -115,9 +127,8 @@ export class AwardCertificateComponent implements OnInit {
           records[i]['media'] = environment.mediaUrl + records[i]['media'];
         }
         this.dataSource = new MatTableDataSource(records);
-        this.award_count = response.data.records.length;
+        this.show_count = response.data.records.length;
         this.total_count = response.data.total;
-        this.awards_count = this.total_count;
       });
   }
 
@@ -133,7 +144,6 @@ export class AwardCertificateComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(id);
       if (result === true) {
         this.awardCertificateService.deleteAward({ id }).subscribe(
           response => {
@@ -142,7 +152,7 @@ export class AwardCertificateComponent implements OnInit {
           },
           error => {
             // log.debug(`Login error: ${error}`);
-            console.log('error', error);
+
             this.toastrService.error(`${error.error.message}`, 'Delete Award');
           }
         );

@@ -23,6 +23,10 @@ import { ManageLocationComponent } from './admin/masterdata/manage-location/mana
 import { ManageStateComponent } from './admin/masterdata/manage-location/manage-state/manage-state.component';
 import { ManageCityComponent } from './admin/masterdata/manage-location/manage-city/manage-city.component';
 import { MemberTypeComponent } from './admin/masterdata/member-type/member-type.component';
+import { ManagePositionComponent } from './admin/masterdata/player-specialization/manage-position/manage-position.component';
+import { ManageAbilityComponent } from './admin/masterdata/player-specialization/manage-ability/manage-ability.component';
+import { ManageParametersComponent } from './admin/masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
+import { RoleGuardService } from './core/authentication/role-guard.service';
 const routes: Routes = [
   {
     path: '',
@@ -51,17 +55,29 @@ const routes: Routes = [
   {
     path: 'edit-profile',
     component: EditProfileComponent,
-    data: { title: extract('Edit Profile') }
+    data: {
+      title: extract('Edit Profile'),
+      expectedRole: ['player', 'club', 'academy']
+    },
+    canActivate: [RoleGuardService]
   },
   {
     path: 'profile',
     component: ProfileComponent,
-    data: { title: extract('View Profile') }
+    data: {
+      title: extract('View Profile'),
+      expectedRole: ['player', 'club', 'academy']
+    },
+    canActivate: [RoleGuardService]
   },
   {
     path: 'timeline',
     component: TimelineComponent,
-    data: { title: extract('Timeline') }
+    data: {
+      title: extract('Timeline'),
+      expectedRole: ['player', 'club', 'academy']
+    },
+    canActivate: [RoleGuardService]
   },
   {
     path: 'change-password',
@@ -76,7 +92,8 @@ const routes: Routes = [
   {
     path: 'manage-player',
     component: ManagePlayerComponent,
-    data: { title: extract('Manage Player') }
+    data: { title: extract('Manage Player'), expectedRole: ['admin'] },
+    canActivate: [RoleGuardService]
   },
   {
     path: 'awardcertification',
@@ -86,36 +103,63 @@ const routes: Routes = [
   {
     path: 'manage-club',
     component: ManageClubComponent,
-    data: { title: extract('Manage Club') }
+    data: { title: extract('Manage Club'), expectedRole: ['admin'] },
+    canActivate: [RoleGuardService]
   },
 
   {
     path: 'manage-academy',
     component: ManageAcademyComponent,
-    data: { title: extract('Manage Academy') }
+    data: { title: extract('Manage Academy'), expectedRole: ['admin'] },
+    canActivate: [RoleGuardService]
   },
 
   {
     path: 'masterdata-location',
     component: ManageLocationComponent,
-    data: { title: extract('Manage Location') }
+    data: { title: extract('Manage Location'), expectedRole: ['admin'] },
+    canActivate: [RoleGuardService]
   },
 
   {
-    path: 'masterdata-state',
+    path: 'masterdata-state/:id',
     component: ManageStateComponent,
-    data: { title: extract('Manage State') }
+    data: { title: extract('Manage State'), expectedRole: ['admin'] },
+    canActivate: [RoleGuardService]
   },
   {
-    path: 'masterdata-city',
+    path: 'masterdata-city/:id',
     component: ManageCityComponent,
-    data: { title: extract('Manage City') }
+    data: { title: extract('Manage City'), expectedRole: ['admin'] },
+    canActivate: [RoleGuardService]
   },
 
   {
     path: 'masterdata-membertype',
     component: MemberTypeComponent,
-    data: { title: extract('Member Type ') }
+    data: { title: extract('Member Type '), expectedRole: ['admin'] },
+    canActivate: [RoleGuardService]
+  },
+
+  {
+    path: 'masterdata-position',
+    component: ManagePositionComponent,
+    data: { title: extract('Manage Position '), expectedRole: ['admin'] },
+    canActivate: [RoleGuardService]
+  },
+
+  {
+    path: 'masterdata-ability',
+    component: ManageAbilityComponent,
+    data: { title: extract('Manage Ability '), expectedRole: ['admin'] },
+    canActivate: [RoleGuardService]
+  },
+
+  {
+    path: 'masterdata-parameter/:id',
+    component: ManageParametersComponent,
+    data: { title: extract('Manage Parameter '), expectedRole: ['admin'] },
+    canActivate: [RoleGuardService]
   },
 
   {

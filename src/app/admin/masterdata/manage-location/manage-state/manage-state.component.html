@@ -27,19 +27,40 @@
 
       <!-- add state form  -->
       <div class="addform">
-        <div class="heading">
-          <img src="assets/images/icons/plus.png" alt="" />
-          <h3>Add State</h3>
-        </div>
         <div class="form-block">
-          <form action="">
+          <form [formGroup]="addStateForm">
             <div class="form-part">
               <div class="input-wrapper">
                 <label>State</label>
-                <input type="text" matinput placeholder="Add new state" />
+                <input
+                  formControlName="name"
+                  type="text"
+                  matinput
+                  placeholder="State"
+                  #stateInput
+                  (keyup.enter)="blurElement()"
+                />
+                <mat-error
+                  *ngIf="
+                    addStateForm.controls.name.invalid &&
+                    addStateForm.controls.name.touched
+                  "
+                >
+                  <span
+                    *ngIf="addStateForm.controls.name.errors.required"
+                    translate
+                  >
+                    State is required
+                  </span>
+                  <span *ngIf="addStateForm.controls.name.errors.pattern">
+                    State format is invalid
+                  </span>
+                </mat-error>
               </div>
               <div class="input-wrapper">
-                <button>Add</button>
+                <button (click)="addState()" [disabled]="!addStateForm.valid">
+                  Add
+                </button>
               </div>
             </div>
           </form>
@@ -56,17 +77,29 @@
             [NumberColumn]="'true'"
             [rows]="dataSource"
             [TableActions]="ListAction"
+            [editMode]="editMode"
+            [sortEnabled]="false"
+            [row]="row"
+            [update]="update"
+            (event)="onChange($event)"
           ></app-master-table>
-          <ng-template #ListAction>
-            <div class="action-buttons">
-              <button>
+          <ng-template
+            #ListAction
+            let-name="name"
+            let-id="id"
+            let-serialNumber="serialNumber"
+          >
+            <div class="action-buttons" *ngIf="!editMode || id != stateId">
+              <button matTooltip="Edit" (click)="editState(name, id)">
                 <img src="assets/images/icons/edit.png" alt="Edit" />
               </button>
-              <button (click)="statusPopup(user_id, status)">
-                <img src="assets/images/icons/tick.png" alt="Edit" />
+            </div>
+            <div class="action-buttons" *ngIf="editMode && id == stateId">
+              <button matTooltip="Save" (click)="updateState(name, id)">
+                <img src="assets/images/icons/tick.png" alt="Update" />
               </button>
-              <button (click)="deletePopup(user_id, status)">
-                <img src="assets/images/icons/close01.png" alt="Delete" />
+              <button matTooltip="Cancel" (click)="cancelState(name, id)">
+                <img src="assets/images/icons/close01.png" alt="Cancel" />
               </button>
             </div>
           </ng-template>

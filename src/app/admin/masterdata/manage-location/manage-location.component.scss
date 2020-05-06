@@ -1,4 +1,5 @@
 @import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/components/admin-sidenav";
 
 .admin-wrapper {
   background-color: #fff;
@@ -10,90 +11,6 @@
   .admin-main {
     background-color: $color-white;
     width: calc(100%);
-  }
-}
-.sidenavToogle {
-  padding-left: 7rem;
-}
-
-.mat-drawer-side {
-  visibility: visible !important;
-  transform: translate3d(0, 0, 0) !important;
-  width: 7rem;
-  height: 100%;
-  ::ng-deep {
-    .sidebar__avatar {
-      display: none;
-    }
-    .sidebar__menu ul {
-      li {
-        a {
-          padding-left: 9rem !important;
-          span {
-            .mat-icon {
-              left: 4rem !important;
-              width: 3rem !important;
-            }
-          }
-          span.down-icons {
-            display: none !important;
-          }
-        }
-      }
-      .dropdown {
-        ul {
-          li {
-            a {
-              padding-left: 10rem !important;
-              span {
-                .mat-icon {
-                  left: 2.8em !important;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-.mat-drawer-opened {
-  width: 36rem;
-  height: 100%;
-  ::ng-deep {
-    .sidebar__avatar {
-      display: block !important;
-    }
-    .sidebar__menu ul {
-      li {
-        a {
-          padding-left: 9rem !important;
-          span {
-            .mat-icon {
-              left: 4rem !important;
-              width: 3rem !important;
-            }
-          }
-          span.down-icons {
-            display: block !important;
-          }
-        }
-        .dropdown {
-          ul {
-            li {
-              a {
-                padding-left: 12rem !important;
-                span {
-                  .mat-icon {
-                    left: 8rem !important;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }
 
@@ -128,42 +45,6 @@
     }
   }
 }
-
-// blocks
-.counter-wrapper {
-  width: 95%;
-  margin: 3rem auto;
-  display: flex;
-  justify-content: space-between;
-  .count-block {
-    width: 23%;
-    background-color: $color-white;
-    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    .count-img {
-      width: 40%;
-      padding: 1rem;
-      img {
-        width: 100%;
-      }
-    }
-    .count-details {
-      width: 60%;
-      padding: 1rem;
-      h3 {
-        color: $text-color;
-        font-size: 2.8rem;
-      }
-      h5 {
-        color: $blue;
-        font-size: 4rem;
-      }
-    }
-  }
-}
-
 // table content
 .middle-part {
   width: 95%;
@@ -175,70 +56,12 @@
   box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
 }
 
-// filter
-.filter-wrapper {
-  display: flex;
-  width: 100%;
-  padding: 2rem;
-  justify-content: space-between;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-  .filter {
-    width: 40%;
-    ul {
-      list-style: none;
-      margin-bottom: 0rem;
-      li {
-        margin-right: 1rem;
-        display: inline-block;
-        a {
-          font-size: 1rem;
-          display: inline-flex;
-          justify-content: center;
-          align-items: center;
-          background: $blue;
-          width: 5rem;
-          height: 5rem;
-          border-radius: 4rem;
-          img {
-            width: 2.5rem;
-            height: 2.5rem;
-          }
-        }
-      }
-    }
-  }
-  .search {
-    width: 60%;
-    display: flex;
-    justify-content: flex-end;
-    .search-box {
-      margin-left: 2rem;
-      position: relative;
-      select,
-      input {
-        padding: 1rem;
-        border: 1px solid $text-color;
-        color: $text-color;
-      }
-    }
-  }
-}
-
 .change-icon {
   width: 10rem;
   left: calc(100% - 3rem);
   -webkit-appearance: none;
   appearance: none;
   background-image: url("../../../../assets/images/icons/drowdown-caret.png");
-  background-repeat: no-repeat;
-  background-size: 2rem;
-  background-position: calc(100% - 1rem);
-}
-.search-icon {
-  left: calc(100% - 3rem);
-  -webkit-appearance: none;
-  appearance: none;
-  background-image: url("../../../../assets/images/icons/search.png");
   background-repeat: no-repeat;
   background-size: 2rem;
   background-position: calc(100% - 1rem);
@@ -252,41 +75,12 @@
     .mat-table .mat-header-row {
       background-color: #f8f8f8;
     }
-  }
-}
-
-// paginations
-.pagination-wrapper {
-  width: 95%;
-  margin: 3rem auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem;
-  background-color: $color-white;
-  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-  .showing-data {
-    p {
-      font-size: 1.8rem;
-      color: $text-color;
+    .mat-table .mat-row .mat-cell .action-buttons button:nth-of-type(1) img {
+      margin-top: 0px;
+      height: 2rem;
     }
-  }
-  .pagination {
-    ul {
-      list-style: none;
-      li {
-        display: inline-block;
-        margin: 0 1rem;
-        a {
-          color: $text-color;
-          font-weight: 700;
-          padding: 0.75rem 1.2rem;
-          display: inline-block;
-          font-size: 1.4rem;
-          border-radius: 3rem;
-          box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-        }
-      }
+    .mat-table .mat-row .mat-cell .action-buttons button:nth-of-type(1) {
+      transform: translateY(0px);
     }
   }
 }

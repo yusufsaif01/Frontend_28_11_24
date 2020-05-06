@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
     player_type: false,
     logout_link: true
   };
+  docNumber: string;
 
   constructor(
     private _authenticationService: AuthenticationService,
@@ -40,7 +41,6 @@ export class ProfileComponent implements OnInit {
   populateView() {
     this._authenticationService.getProfileDetails().subscribe(
       response => {
-        console.log('data', response);
         this.profile = response.data;
 
         if (this.profile.avatar_url) {
@@ -65,6 +65,7 @@ export class ProfileComponent implements OnInit {
               element.type !== 'aadhar'
             ) {
               this.document = fileLink;
+              this.docNumber = element.document_number;
             }
           });
         }
@@ -75,7 +76,6 @@ export class ProfileComponent implements OnInit {
         );
       },
       error => {
-        console.log('error', error);
         this._toastrService.error(
           `${error.error.message}`,
           'Failed to load data'

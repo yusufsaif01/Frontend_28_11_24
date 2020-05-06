@@ -5,6 +5,8 @@ import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { AwardCertificateService } from '../award-certificate.service';
 import { ToastrService } from 'ngx-toastr';
+import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
+import { environment } from '../../../environments/environment';
 
 interface ArrayTypeContext {
   name: string;
@@ -26,14 +28,18 @@ const APP_DATE_FORMATS = {
   providers: [{ provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }]
 })
 export class EditAddPopupComponent implements OnInit, OnDestroy {
+  environment = environment;
   editAddForm: FormGroup;
   achievement: File;
   member_type: string = 'player';
   player_type: string = 'amateur';
+  options: any = {};
   awardsArray: ArrayTypeContext[];
 
   minDate: Date = new Date(1970, 0, 1);
   maxDate: Date = new Date();
+
+  achievement_url: String;
 
   constructor(
     public dialogRef: MatDialogRef<EditAddPopupComponent>,
@@ -45,6 +51,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     this.createForm();
     this.player_type = data.player_type;
     this.member_type = data.member_type;
+    this.options = data.options;
   }
 
   closeDatePicker(
@@ -58,14 +65,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.member_type === 'player') {
-      if (!this.player_type) this.player_type = 'grassroot';
-      if (this.player_type === 'grassroot') {
-        this.awardsArray = this.grassrootsAwardTypeArray;
-      } else if (this.player_type === 'amateur') {
-        this.awardsArray = this.amateursAwardTypeArray;
-      } else if (this.player_type === 'professional') {
-        this.awardsArray = this.professionalsAwardTypeArray;
-      }
+      this.awardsArray = this.playerAwardTypeArray;
     } else if (this.member_type === 'club') {
       this.awardsArray = this.clubAwardTypeArray;
     } else if (this.member_type === 'academy') {
@@ -74,6 +74,9 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     if (this.data.id) {
       this.editAddForm.patchValue(this.data);
       this.editAddForm.patchValue({ year: new Date(this.data.year) });
+    }
+    if (this.data.media !== this.environment.mediaUrl) {
+      this.achievement_url = this.data.media;
     }
   }
   ngOnDestroy() {}
@@ -91,7 +94,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     }
   ];
 
-  grassrootsAwardTypeArray = [
+  playerAwardTypeArray = [
     {
       name: 'School Tournament Certificates',
       value: 'School Tournament Certificates'
@@ -126,81 +129,11 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     }
   ];
 
-  amateursAwardTypeArray = [
-    {
-      name: 'School Tournament Certificates',
-      value: 'School Tournament Certificates'
-    },
-    {
-      name: 'Private Tournament Certificates',
-      value: 'Private Tournament Certificates'
-    },
-    {
-      name: 'National Tournaments',
-      value: 'National Tournaments'
-    },
-    {
-      name: 'State Level Tournaments',
-      value: 'State Level Tournaments'
-    },
-    {
-      name: 'Club Level Certificates',
-      value: 'Club Level Certificates'
-    },
-    {
-      name: 'Academy Level Certificates',
-      value: 'Academy Level Certificates'
-    },
-    {
-      name: 'International Tournament Certificates',
-      value: 'International Tournament Certificates'
-    },
-    {
-      name: 'Individual Awards',
-      value: 'Individual Awards'
-    }
-  ];
-
-  professionalsAwardTypeArray = [
-    {
-      name: 'Club Level Competition Certificates',
-      value: 'Club Level Competition Certificates'
-    },
-    {
-      name: 'Academy Level Certificates',
-      value: 'Academy Level Certificates'
-    },
-    {
-      name: 'School Tournament Certificates',
-      value: 'School Tournament Certificates'
-    },
-    {
-      name: 'Private Tournament Certificates',
-      value: 'Private Tournament Certificates'
-    },
-    {
-      name: 'International Tournament Certificates',
-      value: 'International Tournament Certificates'
-    },
-    {
-      name: 'National Tournaments',
-      value: 'National Tournaments'
-    },
-    {
-      name: 'State Level Tournaments ',
-      value: 'State Level Tournaments '
-    },
-    {
-      name: 'Individual Awards',
-      value: 'Individual Awards'
-    }
-  ];
-
   toFormData<T>(formValue: T) {
     const formData = new FormData();
     for (const key of Object.keys(formValue)) {
       const value = formValue[key];
-      console.log(key, value);
+
       if (!value && !value.length) {
         continue;
       }
@@ -223,35 +156,36 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
       position: [
         '',
         [Validators.maxLength(20), Validators.pattern(/^[0-9a-zA-Z]+%?$/)]
-      ]
+      ],
+      achievement: ['', [requiredFileAvatar]]
     });
   }
 
   uploadAchievement(files: FileList) {
     this.achievement = files[0];
-    console.log('achievement', this.achievement);
   }
   updateData(requestData: any) {
-    if (this.achievement) requestData.set('achievement', this.achievement);
     this.awardCertificateService
       .updateAwards(this.data.id, requestData)
       .subscribe(
         response => {
           this.dialogRef.close('refresh');
-          console.log('server response', response);
+
           this.toastrService.success(
             `${response.message}`,
             'Award Updated Successfully'
           );
         },
         error => {
-          console.log('error', error);
           this.toastrService.error(`${error.error.message}`, 'Error');
         }
       );
   }
   editAddFormValue() {
     let requestData = this.toFormData(this.editAddForm.value);
+    if (this.achievement) requestData.set('achievement', this.achievement);
+    this.dateModifier(requestData);
+
     if (this.data.id) {
       this.updateData(requestData);
     } else {
@@ -259,21 +193,24 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     }
   }
   addData(requestData: any) {
-    console.log(this.editAddForm.value);
-    if (this.achievement) requestData.set('achievement', this.achievement);
     this.awardCertificateService.addAwards(requestData).subscribe(
       response => {
         this.dialogRef.close('refresh');
-        console.log('server response', response);
+
         this.toastrService.success(
           `${response.message}`,
           'Award Added Successfully'
         );
       },
       error => {
-        console.log('error', error);
         this.toastrService.error(`${error.error.message}`, 'Error');
       }
     );
+  }
+
+  dateModifier(requestData: any) {
+    let year = this.editAddForm.controls.year.value;
+    year = new Date(year).getFullYear();
+    requestData.set('year', year);
   }
 }

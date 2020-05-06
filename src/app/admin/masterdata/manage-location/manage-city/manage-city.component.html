@@ -27,29 +27,68 @@
 
       <!-- add state form  -->
       <div class="addform">
-        <div class="heading">
-          <img src="assets/images/icons/plus.png" alt="" />
-          <h3>Add City</h3>
-        </div>
         <div class="form-block">
-          <form action="">
+          <form [formGroup]="addCityForm">
             <div class="form-part">
               <div class="input-wrapper">
                 <label>State</label>
-                <select matNativeControl required class="change-icon">
-                  <option value="Uttarpradesh">Select your state</option>
-                  <option value="Uttarpradesh">Uttarpradesh</option>
-                  <option value="kerala">kerala</option>
-                  <option value="Madhya Pradesh">Madhya Pradesh</option>
-                  <option value="Assam">Assam</option>
+                <select
+                  formControlName="state_id"
+                  matNativeControl
+                  required
+                  class="change-icon"
+                  (change)="loadCityList($event.target.value)"
+                >
+                  <option value="">Select State</option>
+                  <ng-container *ngFor="let state of stateArray">
+                    <option value="{{ state.id }}">{{ state.name }}</option>
+                  </ng-container>
                 </select>
+                <mat-error
+                  *ngIf="
+                    addCityForm.controls.state_id.invalid &&
+                    addCityForm.controls.state_id.touched
+                  "
+                >
+                  <span
+                    *ngIf="addCityForm.controls.state_id.errors.required"
+                    translate
+                  >
+                    State is required
+                  </span>
+                </mat-error>
               </div>
               <div class="input-wrapper">
                 <label>City</label>
-                <input type="text" matinput placeholder="Add new city" />
+                <input
+                  formControlName="name"
+                  type="text"
+                  matinput
+                  placeholder="City"
+                  #cityInput
+                  (keyup.enter)="blurElement()"
+                />
+                <mat-error
+                  *ngIf="
+                    addCityForm.controls.name.invalid &&
+                    addCityForm.controls.name.touched
+                  "
+                >
+                  <span
+                    *ngIf="addCityForm.controls.name.errors.required"
+                    translate
+                  >
+                    City is required
+                  </span>
+                  <span *ngIf="addCityForm.controls.name.errors.pattern">
+                    City format is invalid
+                  </span>
+                </mat-error>
               </div>
               <div class="input-wrapper">
-                <button>Add</button>
+                <button (click)="addCity()" [disabled]="!addCityForm.valid">
+                  Add
+                </button>
               </div>
             </div>
           </form>
@@ -66,8 +105,9 @@
             <div class="search-box">
               <input
                 matInput
-                placeholder="Search your City"
+                placeholder="Search city"
                 class="search-icon"
+                (keyup)="applyFilter($event)"
               />
             </div>
           </div>
@@ -81,16 +121,28 @@
             [NumberColumn]="'true'"
             [rows]="dataSource"
             [TableActions]="ListAction"
+            [sortEnabled]="false"
+            [editMode]="editMode"
+            [row]="row"
+            [update]="update"
+            (event)="onChange($event)"
           ></app-master-table>
-          <ng-template #ListAction>
-            <div class="action-buttons">
-              <button>
+          <ng-template
+            #ListAction
+            let-name="name"
+            let-id="id"
+            let-serialNumber="serialNumber"
+          >
+            <div class="action-buttons" *ngIf="!editMode || id != cityId">
+              <button matTooltip="Edit" (click)="editCity(name, id)">
                 <img src="assets/images/icons/edit.png" alt="Edit" />
               </button>
-              <button (click)="statusPopup(user_id, status)">
+            </div>
+            <div class="action-buttons" *ngIf="editMode && id == cityId">
+              <button matTooltip="Save" (click)="updateCity(name, id)">
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button (click)="deletePopup(user_id, status)">
+              <button matTooltip="Cancel" (click)="cancelCity(name, id)">
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>
@@ -98,17 +150,16 @@
         </div>
       </div>
 
-      <!-- paginations -->
       <!-- pagination -->
-      <div class="pagination-wrapper">
-        <div class="showing-data">
-          <p>
-            <strong>Showing</strong>
-            30 / 100 Data
-          </p>
-        </div>
-        <app-pagination> </app-pagination>
-      </div>
+      <app-pagination
+        *ngIf="dataSource.data.length !== 0"
+        [showData]="true"
+        [showCount]="show_count"
+        [totalRows]="total_count"
+        [rowsPerPage]="pageSize"
+        (onChange)="updatePage($event)"
+      >
+      </app-pagination>
     </div>
   </div>
 </mat-drawer-container>

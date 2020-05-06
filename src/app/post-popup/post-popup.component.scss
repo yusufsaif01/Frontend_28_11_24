@@ -23,6 +23,7 @@
     img {
       max-width: 2rem;
       width: 100%;
+      cursor: pointer;
     }
   }
 }
@@ -36,6 +37,7 @@
     min-height: 10rem;
     height: 100%;
     padding: 2rem;
+    resize: none;
   }
 }
 .modal-footer {

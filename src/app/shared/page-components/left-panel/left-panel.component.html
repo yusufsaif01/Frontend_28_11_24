@@ -32,14 +32,20 @@
     </div>
     <div class="part border-left text-center">
       <h4>{{ count.tournaments }}</h4>
-      <p>Tournaments</p>
+      <p
+        [innerText]="
+          profile && profile.member_type === 'player'
+            ? 'Tournaments'
+            : 'Followers'
+        "
+      ></p>
     </div>
   </div>
   <div class="block-bottom">
     <a *ngIf="options.view_profile_link" [routerLink]="['/profile']">
       View my profile</a
     >
-    <a *ngIf="options.logout_link" [routerLink]="['/logout']"> Logout</a>
+    <a *ngIf="options.logout_link" (click)="logout()"> Logout</a>
   </div>
 </div>
 

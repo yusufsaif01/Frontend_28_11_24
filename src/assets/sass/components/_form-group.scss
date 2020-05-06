@@ -61,3 +61,12 @@
     background-position: calc(100% - 2.1rem);
   }
 }
+.mat-error {
+  color: red;
+  position: absolute;
+  left: 0rem;
+  bottom: 0rem;
+}
+select {
+  cursor: pointer;
+}

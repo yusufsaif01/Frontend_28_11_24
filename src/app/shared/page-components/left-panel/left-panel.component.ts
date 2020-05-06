@@ -13,6 +13,7 @@ import {
 } from '@app/core';
 import { TimelineService } from '@app/timeline/timeline.service';
 import { environment } from '../../../../environments/environment';
+import { Router } from '@angular/router';
 
 interface countResponseDataContext {
   achievements: number;
@@ -39,12 +40,18 @@ export class LeftPanelComponent implements OnInit {
 
   constructor(
     private _authenticationService: AuthenticationService,
-    private _timelineService: TimelineService
+    private _timelineService: TimelineService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
     this.getProfileDetails();
     this.getAchievementCount();
+  }
+
+  logout() {
+    this._authenticationService.logout();
+    this._router.navigateByUrl('/login');
   }
 
   getProfileDetails() {
@@ -62,9 +69,7 @@ export class LeftPanelComponent implements OnInit {
         this.sendPlayerType.emit(this.profile.player_type);
         this.sendMemberType.emit(this.profile.member_type);
       },
-      error => {
-        console.log('error', error);
-      }
+      error => {}
     );
   }
 
@@ -74,9 +79,7 @@ export class LeftPanelComponent implements OnInit {
         this.count = response.data;
         this.achievements = response.data.achievements;
       },
-      error => {
-        console.log('error', error);
-      }
+      error => {}
     );
   }
 }

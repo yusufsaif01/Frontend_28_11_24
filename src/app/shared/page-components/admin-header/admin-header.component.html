@@ -1,7 +1,11 @@
 <header class="header">
   <div class="header__logo">
     <a>
-      <img src="assets/images/logo-admin.png" alt="Logo" />
+      <img
+        [routerLink]="['/manage-player']"
+        src="assets/images/logo-admin.png"
+        alt="Logo"
+      />
     </a>
   </div>
   <div class="header__version-text" (click)="toggleSidebar()">
@@ -12,13 +16,13 @@
   <div class="header__options">
     <div class="user-details" (click)="changeDropdown()">
       <img
-        src=" assets/images/avatar.png"
+        src=" assets/images/user-avatar.png"
         alt="Ravi Prakash"
         class="user-pic"
       />
       <div class="text">
-        <span class="name">Ravi Parkash</span>
-        <span class="designation">Production Exective</span>
+        <span class="name">Admin</span>
+        <span class="designation">YFTChain</span>
       </div>
       <div class="dropdown" [hidden]="this.isActive">
         <ul>
