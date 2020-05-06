@@ -132,7 +132,15 @@
                 <img src="assets/images/icons/eyes.png" alt="Edit" />
               </button>
               <button
-                matTooltip="Activate / Deactivate"
+                [matTooltip]="
+                  account_status === 'pending'
+                    ? 'Pending'
+                    : 'Activate / Deactivate'
+                "
+                [ngStyle]="{
+                  cursor:
+                    account_status === 'pending' ? 'not-allowed' : 'pointer'
+                }"
                 (click)="statusPopup(user_id, account_status)"
               >
                 <img
