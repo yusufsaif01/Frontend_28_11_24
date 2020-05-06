@@ -77,6 +77,34 @@
         }
       }
     }
+    .btn-follow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      width: 100%;
+      border-bottom: 1px solid $border-color;
+      button {
+        border: 1px solid $blue;
+        border-radius: 0.8rem;
+        padding: 1rem 2rem;
+        background: transparent;
+        cursor: pointer;
+        outline: 0px;
+        color: $blue;
+        &:last-child {
+          margin-left: 1rem;
+        }
+        &:hover {
+          background: $blue;
+          color: $color-white;
+        }
+        &.active {
+          background: $blue;
+          color: $color-white;
+        }
+      }
+    }
     .achievement {
       a {
         display: block;
