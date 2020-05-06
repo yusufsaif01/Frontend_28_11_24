@@ -29,7 +29,7 @@ header {
       margin-left: 5rem;
       display: flex;
       position: relative;
-      width: 80%;
+      width: 100%;
       input {
         width: 100%;
         background-color: #1d1d1d;
@@ -38,8 +38,11 @@ header {
         border: none;
         outline: none;
         color: $text-muted;
+        &::placeholder {
+          color: $text-muted;
+        }
       }
-      button {
+      span.search-icon {
         position: absolute;
         left: calc(100% - 4rem);
         top: 1rem;
@@ -118,6 +121,7 @@ header {
                 padding: 1rem;
                 i-feather {
                   transform: translateY(2px);
+                  margin-right: 1rem;
                 }
                 &:hover {
                   background-color: #12181b;
@@ -135,4 +139,40 @@ header {
   width: 2rem;
   height: 2rem;
   margin-left: 1rem;
+}
+
+// mat options
+.search-options {
+  ::ng-deep {
+    .mat-option {
+      border-bottom: 1px solid $border-color;
+      &:last-child {
+        border: none;
+      }
+      .mat-option-text {
+        img {
+          width: 25px;
+          height: 25px;
+          border-radius: 25px;
+          transform: translateY(0.7rem);
+        }
+        strong {
+          margin-left: 1rem;
+        }
+        small {
+          margin-left: 1rem;
+        }
+        small.position {
+          color: $blue;
+        }
+      }
+    }
+  }
+}
+::ng-deep {
+  .autocomplete-height {
+    max-height: 550px !important;
+    width: 150% !important;
+    position: absolute !important;
+  }
 }

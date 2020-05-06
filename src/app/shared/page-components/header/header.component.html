@@ -4,10 +4,89 @@
     <div class="header-logo">
       <img [routerLink]="['/timeline']" src="assets/images/logo.png" alt="" />
       <div class="search">
-        <input type="text" matinput placeholder="Search" />
-        <button>
+        <input
+          matInput
+          placeholder="Search"
+          aria-label="Search"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete class="autocomplete-height" #auto="matAutocomplete">
+          <span class="search-options">
+            <mat-option>
+              <img
+                class="dp"
+                aria-hidden
+                src="assets/images/profile-icon.png"
+              />
+              <strong>Gurdeep Singh</strong>
+              <small>Professional</small>
+              <small class="position">Goalkeeper</small>
+            </mat-option>
+            <mat-option>
+              <img
+                class="dp"
+                aria-hidden
+                src="assets/images/profile-icon.png"
+              />
+              <strong>Gurdeep Singh</strong>
+              <small>Professional</small>
+              <small class="position">Goalkeeper</small>
+            </mat-option>
+            <mat-option>
+              <img
+                class="dp"
+                aria-hidden
+                src="assets/images/profile-icon.png"
+              />
+              <strong>Gurdeep Singh</strong>
+              <small>Professional</small>
+              <small class="position">Goalkeeper</small>
+            </mat-option>
+            <mat-option>
+              <img
+                class="dp"
+                aria-hidden
+                src="assets/images/profile-icon.png"
+              />
+              <strong>Gurdeep Singh</strong>
+              <small>Professional</small>
+              <small class="position">Goalkeeper</small>
+            </mat-option>
+            <mat-option>
+              <img
+                class="dp"
+                aria-hidden
+                src="assets/images/profile-icon.png"
+              />
+              <strong>Gurdeep Singh</strong>
+              <small>Professional</small>
+              <small class="position">Goalkeeper</small>
+            </mat-option>
+            <mat-option>
+              <img
+                class="dp"
+                aria-hidden
+                src="assets/images/profile-icon.png"
+              />
+              <strong>Gurdeep Singh</strong>
+              <small>Professional</small>
+              <small class="position">Goalkeeper</small>
+            </mat-option>
+            <mat-option>
+              <img
+                class="dp"
+                aria-hidden
+                src="assets/images/profile-icon.png"
+              />
+              <strong>Gurdeep Singh</strong>
+              <small>Professional</small>
+              <small class="position">Goalkeeper</small>
+            </mat-option>
+          </span>
+        </mat-autocomplete>
+        <span class="search-icon">
           <i-feather name="search" class="icon-size"></i-feather>
-        </button>
+        </span>
       </div>
     </div>
     <!-- header right -->
