@@ -531,7 +531,7 @@
 
             <!-- email -->
             <div class="from-block">
-              <label>Email Address <span>*</span></label>
+              <label>Email <span>*</span></label>
               <input
                 disabled
                 [value]="user_email"
@@ -1292,7 +1292,7 @@
 
               <!-- email -->
               <div class="from-block">
-                <label>Email Address <span>*</span></label>
+                <label>Email <span>*</span></label>
                 <input
                   disabled
                   [value]="user_email"
@@ -1613,6 +1613,7 @@
                         matNativeControl
                         required
                       >
+                        <option value="">Select Designation</option>
                         <ng-container
                           *ngFor="let designation of designationArray"
                         >
