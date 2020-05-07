@@ -1,0 +1,242 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <!-- left Sidebar -->
+  <div class="left-section">
+    <app-left-panel
+      [options]="panelOptions"
+      [achievements]="total_count"
+    ></app-left-panel>
+  </div>
+  <div class="right-section">
+    <div class="heading">
+      <h3>Player You Might Know</h3>
+    </div>
+    <div class="tab-buttons">
+      <a [routerLink]="['/footrequest']" [routerLinkActive]="['active']"
+        >Foot Request <span>234</span></a
+      >
+      <a [routerLink]="['/footmates']" [routerLinkActive]="['active']"
+        >Foot Mates <span>234</span></a
+      >
+    </div>
+    <div class="filter-buttons">
+      <button>
+        Position
+        <i-feather class="icon-size" name="chevron-down"></i-feather>
+      </button>
+      <button>
+        Player Category
+        <i-feather class="icon-size" name="chevron-down"></i-feather>
+      </button>
+      <button>
+        Age
+        <i-feather class="icon-size" name="chevron-down"></i-feather>
+      </button>
+      <button>
+        Location
+        <i-feather class="icon-size" name="chevron-down"></i-feather>
+      </button>
+      <button>
+        Strong Foot
+        <i-feather class="icon-size" name="chevron-down"></i-feather>
+      </button>
+      <button>Clear Filter</button>
+      <!-- postion -->
+      <div class="position">
+        <h3>Select Position</h3>
+        <div class="items">
+          <span>
+            <mat-checkbox>Goalkeeper</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>Center Back</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>Left Back</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>Right Back</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>Left Midfielder</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>Right Midfielder</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>Center Midfielder</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>Left Wing</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>Right Wing</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>Striker</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>Center Defensive Midfielder</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>Center Attacking Midfielder</mat-checkbox>
+          </span>
+        </div>
+      </div>
+      <!-- playercatergory -->
+      <div class="player-category">
+        <h3>Select Player Category</h3>
+        <div class="items">
+          <span>
+            <mat-checkbox>Goalkeeper</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>Center Back</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>Left Back</mat-checkbox>
+          </span>
+        </div>
+      </div>
+      <!-- Age -->
+      <div class="age-part">
+        <h3>Select Age</h3>
+        <div class="items">
+          <span>
+            <mat-checkbox>6-12</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>13-26</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>27-28</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>39-50</mat-checkbox>
+          </span>
+        </div>
+      </div>
+
+      <!-- location -->
+      <div class="location">
+        <h3>Select Location</h3>
+        <div class="wrapper-location">
+          <div class="slt-wrapper">
+            <select>
+              <option>Select Country</option>
+            </select>
+            <i-feather class="icon-size" name="chevron-down"></i-feather>
+          </div>
+          <div class="slt-wrapper">
+            <select>
+              <option>Select State</option>
+            </select>
+            <i-feather class="icon-size" name="chevron-down"></i-feather>
+          </div>
+          <div class="slt-wrapper">
+            <select>
+              <option>Select City</option>
+            </select>
+            <i-feather class="icon-size" name="chevron-down"></i-feather>
+          </div>
+        </div>
+      </div>
+      <!-- strong foot -->
+      <div class="strong-foot">
+        <h3>Select Strong Leg</h3>
+        <div class="items">
+          <span>
+            <mat-checkbox>Left</mat-checkbox>
+          </span>
+          <span>
+            <mat-checkbox>Right</mat-checkbox>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="playerwrapper">
+      <!-- one -->
+      <div class="playerbox">
+        <div class="top">
+          <div class="dp">
+            <img src="assets/images/profile-icon.png" alt="" />
+          </div>
+          <div class="name">
+            <strong>Gurdeep Singh</strong>
+            <p>Center Forward</p>
+          </div>
+        </div>
+        <div class="middle">
+          <h4>Grassroot</h4>
+          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
+        </div>
+      </div>
+      <!-- one -->
+      <div class="playerbox">
+        <div class="top">
+          <div class="dp">
+            <img src="assets/images/profile-icon.png" alt="" />
+          </div>
+          <div class="name">
+            <strong>Gurdeep Singh</strong>
+            <p>Center Forward</p>
+          </div>
+        </div>
+        <div class="middle">
+          <h4>Grassroot</h4>
+          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
+        </div>
+      </div>
+      <!-- one -->
+      <div class="playerbox">
+        <div class="top">
+          <div class="dp">
+            <img src="assets/images/profile-icon.png" alt="" />
+          </div>
+          <div class="name">
+            <strong>Gurdeep Singh</strong>
+            <p>Center Forward</p>
+          </div>
+        </div>
+        <div class="middle">
+          <h4>Grassroot</h4>
+          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
+        </div>
+      </div>
+      <!-- one -->
+      <div class="playerbox">
+        <div class="top">
+          <div class="dp">
+            <img src="assets/images/profile-icon.png" alt="" />
+          </div>
+          <div class="name">
+            <strong>Gurdeep Singh</strong>
+            <p>Center Forward</p>
+          </div>
+        </div>
+        <div class="middle">
+          <h4>Grassroot</h4>
+          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
+        </div>
+      </div>
+      <!-- one -->
+      <div class="playerbox">
+        <div class="top">
+          <div class="dp">
+            <img src="assets/images/profile-icon.png" alt="" />
+          </div>
+          <div class="name">
+            <strong>Gurdeep Singh</strong>
+            <p>Center Forward</p>
+          </div>
+        </div>
+        <div class="middle">
+          <h4>Grassroot</h4>
+          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
+        </div>
+      </div>
+    </div>
+    <!-- pagination -->
+    <app-pagination> </app-pagination>
+  </div>
+</div>

@@ -28,6 +28,7 @@ import { ManageAbilityComponent } from './admin/masterdata/player-specialization
 import { ManageParametersComponent } from './admin/masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
 import { FootrequestComponent } from './footrequest/footrequest.component';
+import { FootmatesComponent } from './footrequest/footmates/footmates.component';
 const routes: Routes = [
   {
     path: '',
@@ -84,6 +85,11 @@ const routes: Routes = [
     path: 'footrequest',
     component: FootrequestComponent,
     data: { title: extract('FootRequest') }
+  },
+  {
+    path: 'footmates',
+    component: FootmatesComponent,
+    data: { title: extract('FootMates') }
   },
   {
     path: 'change-password',

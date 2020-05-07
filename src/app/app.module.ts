@@ -80,6 +80,7 @@ import { AddpopupComponent } from './admin/masterdata/player-specialization/addp
 import { RoleGuardService } from './core/authentication/role-guard.service';
 import { FootrequestComponent } from './footrequest/footrequest.component';
 import { MutualFootmateComponent } from './footrequest/mutual-footmate/mutual-footmate.component';
+import { FootmatesComponent } from './footrequest/footmates/footmates.component';
 const icons = {
   Camera,
   Heart,
@@ -166,7 +167,8 @@ const icons = {
     ManageParametersComponent,
     AddpopupComponent,
     FootrequestComponent,
-    MutualFootmateComponent
+    MutualFootmateComponent,
+    FootmatesComponent
     // , HomeComponent
   ],
   providers: [
