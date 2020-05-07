@@ -78,6 +78,8 @@ import { ManageAbilityComponent } from './admin/masterdata/player-specialization
 import { ManageParametersComponent } from './admin/masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
 import { AddpopupComponent } from './admin/masterdata/player-specialization/addpopup/addpopup.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
+import { FootrequestComponent } from './footrequest/footrequest.component';
+import { MutualFootmateComponent } from './footrequest/mutual-footmate/mutual-footmate.component';
 const icons = {
   Camera,
   Heart,
@@ -162,7 +164,9 @@ const icons = {
     AddEditPopupComponent,
     ManageAbilityComponent,
     ManageParametersComponent,
-    AddpopupComponent
+    AddpopupComponent,
+    FootrequestComponent,
+    MutualFootmateComponent
     // , HomeComponent
   ],
   providers: [
@@ -184,7 +188,8 @@ const icons = {
     StatusConfirmationComponent,
     EditAddPopupComponent,
     AddEditPopupComponent,
-    AddpopupComponent
+    AddpopupComponent,
+    MutualFootmateComponent
   ]
 })
 export class AppModule {}
