@@ -24,7 +24,7 @@ interface GetMemberSearchListResponseContext {
       name: string;
       position: string;
       avatar: string;
-      id: string;
+      user_id: string;
     }[];
   };
 }
