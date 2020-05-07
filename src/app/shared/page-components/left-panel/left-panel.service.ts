@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CredentialsService } from '@app/core';
 
 const routes = {
   followUser: (c: FollowUnfollowUserContext) => '/connection/follow',
@@ -19,46 +18,23 @@ interface FollowUnfollowUserResponseContext {
   providedIn: 'root'
 })
 export class LeftPanelService {
-  constructor(
-    private httpClient: HttpClient,
-    private credentialsService: CredentialsService
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
   followUser(
     context: FollowUnfollowUserContext
   ): Observable<FollowUnfollowUserResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     return this.httpClient.patch<FollowUnfollowUserResponseContext>(
       routes.followUser(context),
-      context,
-      httpOptions
+      context
     );
   }
 
   unfollowUser(
     context: FollowUnfollowUserContext
   ): Observable<FollowUnfollowUserResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     return this.httpClient.patch<FollowUnfollowUserResponseContext>(
       routes.unfollowUser(context),
-      context,
-      httpOptions
+      context
     );
   }
 }
