@@ -14,6 +14,7 @@ import {
 import { TimelineService } from '@app/timeline/timeline.service';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
+import { LeftPanelService } from './left-panel.service';
 
 interface countResponseDataContext {
   achievements: number;
@@ -31,17 +32,20 @@ export class LeftPanelComponent implements OnInit {
     tournaments: 0
   };
   profile: any;
-  @Input() achievements: number = 0;
   environment = environment;
-
+  
+  @Input() achievements: number = 0;
   @Input() options: any;
+  @Input() is_following = false;
+
   @Output() sendPlayerType = new EventEmitter<string>();
   @Output() sendMemberType = new EventEmitter<string>();
 
   constructor(
     private _authenticationService: AuthenticationService,
     private _timelineService: TimelineService,
-    private _router: Router
+    private _router: Router,
+    private leftPanelService: LeftPanelService
   ) {}
 
   ngOnInit() {
@@ -81,5 +85,35 @@ export class LeftPanelComponent implements OnInit {
       },
       error => {}
     );
+  }
+
+  toggleFollow() {
+    if (this.is_following){
+      this.leftPanelService
+        .unfollowUser({
+          to: '72f6f6b7-9b5a-4d77-a58d-aacc0800fee7'
+        })
+        .subscribe(
+          response => {
+            console.log(response);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    } else {
+      this.leftPanelService
+        .followUser({
+          to: '72f6f6b7-9b5a-4d77-a58d-aacc0800fee7'
+        })
+        .subscribe(
+          response => {
+            console.log(response);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    } 
   }
 }
