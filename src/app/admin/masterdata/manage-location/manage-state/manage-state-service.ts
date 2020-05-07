@@ -12,25 +12,12 @@ const routes = {
   providedIn: 'root'
 })
 export class StateService {
-  constructor(
-    private httpClient: HttpClient,
-    private credentialsService: CredentialsService
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
   updateState(state_id: any, country_id: any, data: any): Observable<any> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
     return this.httpClient.put<any>(
       routes.updateState(state_id, country_id),
-      data,
-      httpOptions
+      data
     );
   }
 }

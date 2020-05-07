@@ -60,6 +60,8 @@ export class CredentialsService {
     } else {
       sessionStorage.removeItem(credentialsKey);
       localStorage.removeItem(credentialsKey);
+      localStorage.clear();
+      sessionStorage.clear();
     }
   }
 }
