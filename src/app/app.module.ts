@@ -78,6 +78,8 @@ import { ManageAbilityComponent } from './admin/masterdata/player-specialization
 import { ManageParametersComponent } from './admin/masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
 import { AddpopupComponent } from './admin/masterdata/player-specialization/addpopup/addpopup.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
+import { JwtInterceptor } from './core/http/jwt.interceptor';
+import { ErrorInterceptor } from './core/http/error.interceptor';
 const icons = {
   Camera,
   Heart,
@@ -171,7 +173,13 @@ const icons = {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
       multi: true
-    }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

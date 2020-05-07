@@ -531,7 +531,7 @@
 
             <!-- email -->
             <div class="from-block">
-              <label>Email Address <span>*</span></label>
+              <label>Email <span>*</span></label>
               <input
                 disabled
                 [value]="user_email"
@@ -1292,7 +1292,7 @@
 
               <!-- email -->
               <div class="from-block">
-                <label>Email Address <span>*</span></label>
+                <label>Email <span>*</span></label>
                 <input
                   disabled
                   [value]="user_email"
@@ -1420,7 +1420,14 @@
               <!-- Document -->
               <ng-container *ngIf="member_type === 'academy'">
                 <div class="from-block w-100">
-                  <label>Document Type</label>
+                  <label
+                    [matTooltip]="
+                      editProfileForm.controls.document_type.disabled
+                        ? 'Not allowed to change document type'
+                        : ''
+                    "
+                    >Document Type</label
+                  >
                   <div class="radio">
                     <label
                       ><input
@@ -1461,7 +1468,14 @@
                   </div>
                 </div>
                 <div class="from-block" *ngIf="member_type === 'academy'">
-                  <label>Document Number</label>
+                  <label
+                    [matTooltip]="
+                      editProfileForm.controls.number.disabled
+                        ? 'Not allowed to change document number'
+                        : ''
+                    "
+                    >Document Number</label
+                  >
                   <input
                     formControlName="number"
                     placeholder="Document Number"
@@ -1519,7 +1533,14 @@
               </div> -->
 
               <div class="from-block" *ngIf="member_type === 'academy'">
-                <label>Upload Document</label>
+                <label
+                  [matTooltip]="
+                    editProfileForm.controls.number.disabled
+                      ? 'Not allowed to change document'
+                      : ''
+                  "
+                  >Upload Document</label
+                >
                 <div class="file-wrapper">
                   <input
                     type="file"
@@ -1592,6 +1613,7 @@
                         matNativeControl
                         required
                       >
+                        <option value="">Select Designation</option>
                         <ng-container
                           *ngFor="let designation of designationArray"
                         >
