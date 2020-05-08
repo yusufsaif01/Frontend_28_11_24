@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { MutualFootmateComponent } from './mutual-footmate/mutual-footmate.component';
+import { MutualFootmateComponent } from '../mutual-footmate/mutual-footmate.component';
 
 @Component({
-  selector: 'app-footrequest',
-  templateUrl: './footrequest.component.html',
-  styleUrls: ['./footrequest.component.scss']
+  selector: 'app-footmates',
+  templateUrl: './foot-mates.component.html',
+  styleUrls: ['./foot-mates.component.scss']
 })
-export class FootrequestComponent implements OnInit {
+export class FootMatesComponent implements OnInit {
   panelOptions: object = {
     bio: true,
     member_type: true,
@@ -25,5 +25,6 @@ export class FootrequestComponent implements OnInit {
       panelClass: 'MatualFootmate'
     });
   }
+
   ngOnInit() {}
 }

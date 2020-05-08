@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FootmatesComponent } from './footmates.component';
+import { FootRequestComponent } from './foot-request.component';
 
-describe('FootmatesComponent', () => {
-  let component: FootmatesComponent;
-  let fixture: ComponentFixture<FootmatesComponent>;
+describe('FootRequestComponent', () => {
+  let component: FootRequestComponent;
+  let fixture: ComponentFixture<FootRequestComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FootmatesComponent]
+      declarations: [FootRequestComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FootmatesComponent);
+    fixture = TestBed.createComponent(FootRequestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

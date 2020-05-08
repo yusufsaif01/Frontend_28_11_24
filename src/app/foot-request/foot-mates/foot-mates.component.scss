@@ -101,7 +101,7 @@
         left: 0px;
         background-color: $color-white;
         padding: 2rem;
-        box-shadow: 0rem 0rem 0.5rem 0rem rgba(0, 0, 0, 0.2);
+        box-shadow: 0rem 0rem 1rem 0rem rgba(0, 0, 0, 0.1);
         h3 {
           font-size: 2rem;
           margin-bottom: 1rem;
@@ -122,18 +122,15 @@
         }
       }
       .age-part {
-        // display: block !important;
         max-width: 70rem;
         left: 30rem;
-        display: none;
       }
       .strong-foot {
-        display: block !important;
         max-width: 38rem;
         left: 50rem;
-        display: none;
       }
       .location {
+        display: block;
         .wrapper-location {
           display: flex;
           justify-content: space-between;

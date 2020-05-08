@@ -27,8 +27,8 @@ import { ManagePositionComponent } from './admin/masterdata/player-specializatio
 import { ManageAbilityComponent } from './admin/masterdata/player-specialization/manage-ability/manage-ability.component';
 import { ManageParametersComponent } from './admin/masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
-import { FootrequestComponent } from './footrequest/footrequest.component';
-import { FootmatesComponent } from './footrequest/footmates/footmates.component';
+import { FootRequestComponent } from './foot-request/foot-request.component';
+import { FootMatesComponent } from './foot-request/foot-mates/foot-mates.component';
 const routes: Routes = [
   {
     path: '',
@@ -83,12 +83,12 @@ const routes: Routes = [
   },
   {
     path: 'footrequest',
-    component: FootrequestComponent,
+    component: FootRequestComponent,
     data: { title: extract('FootRequest') }
   },
   {
     path: 'footmates',
-    component: FootmatesComponent,
+    component: FootMatesComponent,
     data: { title: extract('FootMates') }
   },
   {
