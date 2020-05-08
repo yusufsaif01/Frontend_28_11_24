@@ -33,7 +33,7 @@ export class LeftPanelComponent implements OnInit {
   };
   profile: any;
   environment = environment;
-  
+
   @Input() achievements: number = 0;
   @Input() options: any;
   @Input() is_following = false;
@@ -88,7 +88,7 @@ export class LeftPanelComponent implements OnInit {
   }
 
   toggleFollow() {
-    if (this.is_following){
+    if (this.is_following) {
       this.leftPanelService
         .unfollowUser({
           to: '72f6f6b7-9b5a-4d77-a58d-aacc0800fee7'
@@ -96,6 +96,7 @@ export class LeftPanelComponent implements OnInit {
         .subscribe(
           response => {
             console.log(response);
+            this.is_following = false;
           },
           error => {
             console.log(error);
@@ -108,12 +109,13 @@ export class LeftPanelComponent implements OnInit {
         })
         .subscribe(
           response => {
+            this.is_following = true;
             console.log(response);
           },
           error => {
             console.log(error);
           }
         );
-    } 
+    }
   }
 }
