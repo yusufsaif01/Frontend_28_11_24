@@ -28,7 +28,7 @@ import { ManageAbilityComponent } from './admin/masterdata/player-specialization
 import { ManageParametersComponent } from './admin/masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
 import { FootRequestComponent } from './foot-request/foot-request.component';
-import { FootMatesComponent } from './foot-request/foot-mates/foot-mates.component';
+import { FootMatesComponent } from './foot-mates/foot-mates.component';
 const routes: Routes = [
   {
     path: '',

@@ -80,7 +80,7 @@ import { AddpopupComponent } from './admin/masterdata/player-specialization/addp
 import { RoleGuardService } from './core/authentication/role-guard.service';
 import { FootRequestComponent } from './foot-request/foot-request.component';
 import { MutualFootmateComponent } from './foot-request/mutual-footmate/mutual-footmate.component';
-import { FootMatesComponent } from './foot-request/foot-mates/foot-mates.component';
+import { FootMatesComponent } from './foot-mates/foot-mates.component';
 import { JwtInterceptor } from './core/http/jwt.interceptor';
 import { ErrorInterceptor } from './core/http/error.interceptor';
 const icons = {

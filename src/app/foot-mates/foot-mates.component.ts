@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { MutualFootmateComponent } from '../mutual-footmate/mutual-footmate.component';
+import { MutualFootmateComponent } from '@app/foot-request/mutual-footmate/mutual-footmate.component';
 
 @Component({
   selector: 'app-footmates',
