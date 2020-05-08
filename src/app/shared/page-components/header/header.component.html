@@ -9,79 +9,29 @@
           placeholder="Search"
           aria-label="Search"
           [matAutocomplete]="auto"
+          (keyup)="getMemberSearchList($event.target.value)"
         />
+
         <mat-autocomplete class="autocomplete-height" #auto="matAutocomplete">
           <span class="search-options">
-            <mat-option>
-              <img
-                class="dp"
-                aria-hidden
-                src="assets/images/profile-icon.png"
-              />
-              <strong>Gurdeep Singh</strong>
-              <small>Professional</small>
-              <small class="position">Goalkeeper</small>
+            <mat-option
+              *ngFor="let member of memberList"
+              [routerLink]="member.avatar"
+            >
+              <img class="dp" aria-hidden [src]="member.avatar" />
+              <strong>{{ member.name | titlecase }}</strong>
+              <small>{{
+                member.player_type || member.member_type | titlecase
+              }}</small>
+              <small class="position">{{ member.position | titlecase }}</small>
             </mat-option>
-            <mat-option>
-              <img
-                class="dp"
-                aria-hidden
-                src="assets/images/profile-icon.png"
-              />
-              <strong>Gurdeep Singh</strong>
-              <small>Professional</small>
-              <small class="position">Goalkeeper</small>
-            </mat-option>
-            <mat-option>
-              <img
-                class="dp"
-                aria-hidden
-                src="assets/images/profile-icon.png"
-              />
-              <strong>Gurdeep Singh</strong>
-              <small>Professional</small>
-              <small class="position">Goalkeeper</small>
-            </mat-option>
-            <mat-option>
-              <img
-                class="dp"
-                aria-hidden
-                src="assets/images/profile-icon.png"
-              />
-              <strong>Gurdeep Singh</strong>
-              <small>Professional</small>
-              <small class="position">Goalkeeper</small>
-            </mat-option>
-            <mat-option>
-              <img
-                class="dp"
-                aria-hidden
-                src="assets/images/profile-icon.png"
-              />
-              <strong>Gurdeep Singh</strong>
-              <small>Professional</small>
-              <small class="position">Goalkeeper</small>
-            </mat-option>
-            <mat-option>
-              <img
-                class="dp"
-                aria-hidden
-                src="assets/images/profile-icon.png"
-              />
-              <strong>Gurdeep Singh</strong>
-              <small>Professional</small>
-              <small class="position">Goalkeeper</small>
-            </mat-option>
-            <mat-option>
-              <img
-                class="dp"
-                aria-hidden
-                src="assets/images/profile-icon.png"
-              />
-              <strong>Gurdeep Singh</strong>
-              <small>Professional</small>
-              <small class="position">Goalkeeper</small>
-            </mat-option>
+            <ng-container
+              *ngIf="searchText.length >= 3 && memberList.length === 0"
+            >
+              <mat-option>
+                No results found
+              </mat-option>
+            </ng-container>
           </span>
         </mat-autocomplete>
         <span class="search-icon">
@@ -93,7 +43,7 @@
     <div class="header-menu">
       <ul>
         <li>
-          <a matTooltip="FootMates">
+          <a matTooltip="FootMates" [routerLink]="['/foot-mates']">
             <span>
               <i-feather name="Users" class="icon-size"></i-feather>
             </span>

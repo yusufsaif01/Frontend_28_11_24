@@ -57,10 +57,8 @@
     <button>Pending</button>
   </div> -->
 
-  <div class="block-bottom">
-    <a *ngIf="options.view_profile_link" [routerLink]="['/profile']">
-      View my profile</a
-    >
+  <div class="block-bottom" *ngIf="options.view_profile_link">
+    <a [routerLink]="['/profile']"> View my profile</a>
     <a *ngIf="options.logout_link" (click)="logout()"> Logout</a>
   </div>
 </div>
