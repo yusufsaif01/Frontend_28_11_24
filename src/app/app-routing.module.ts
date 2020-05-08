@@ -82,14 +82,14 @@ const routes: Routes = [
     canActivate: [RoleGuardService]
   },
   {
-    path: 'footrequest',
+    path: 'foot-requests',
     component: FootRequestComponent,
-    data: { title: extract('FootRequest') }
+    data: { title: extract('Foot Requests') }
   },
   {
-    path: 'footmates',
+    path: 'foot-mates',
     component: FootMatesComponent,
-    data: { title: extract('FootMates') }
+    data: { title: extract('Foot Mates') }
   },
   {
     path: 'change-password',
