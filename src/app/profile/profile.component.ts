@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { PanelOptions } from '@app/shared/models/panel-options.model';
 
 @Component({
   selector: 'app-profile',
@@ -16,17 +17,27 @@ export class ProfileComponent implements OnInit {
   aadhar: string;
   employment_contract: string;
   document: string;
-  panelOptions: object = {
+  panelOptions: Partial<PanelOptions> = {
     player_type: false,
-    logout_link: true
+    logout_link: true,
+    is_public: false
   };
   docNumber: string;
+  isPublic: boolean = true;
 
   constructor(
     private _authenticationService: AuthenticationService,
     private _toastrService: ToastrService,
-    private _router: Router
-  ) {}
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
+  ) {
+    this._activatedRoute.params.subscribe(params => {
+      if (params['handle']) {
+        this.panelOptions.is_public = true;
+        this.isPublic = false;
+      }
+    });
+  }
 
   ngOnInit() {
     this.populateView();
