@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
     is_public: false
   };
   docNumber: string;
-  isPublic: boolean = true;
+  isPublic: boolean = false;
 
   constructor(
     private _authenticationService: AuthenticationService,
@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
     this._activatedRoute.params.subscribe(params => {
       if (params['handle']) {
         this.panelOptions.is_public = true;
-        this.isPublic = false;
+        this.isPublic = true;
       }
     });
   }

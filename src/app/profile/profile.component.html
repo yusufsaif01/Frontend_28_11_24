@@ -67,7 +67,7 @@
           </div>
         </div>
 
-        <ng-container *ngIf="isPublic">
+        <ng-container *ngIf="!isPublic">
           <div class="block-middle border-bottom">
             <div class="half">
               <p><span>Email :</span> {{ profile.email }}</p>
@@ -117,7 +117,7 @@
           </div>
         </div>
 
-        <ng-container *ngIf="isPublic">
+        <ng-container *ngIf="!isPublic">
           <div class="block-middle border-bottom">
             <div class="full">
               <p>
@@ -133,7 +133,7 @@
           </div>
         </ng-container>
 
-        <ng-container *ngIf="isPublic">
+        <ng-container *ngIf="!isPublic">
           <div
             class="block-middle border-bottom"
             *ngIf="profile.player_type === 'professional'"
@@ -342,7 +342,7 @@
           <div class="half">
             <p><span>Zipcode/Pincode :</span> {{ profile.address?.pincode }}</p>
           </div>
-          <ng-container *ngIf="isPublic">
+          <ng-container *ngIf="!isPublic">
             <div class="half">
               <p><span>Email :</span> {{ profile.email }}</p>
             </div>
@@ -350,7 +350,7 @@
         </div>
 
         <div class="block-middle border-bottom">
-          <ng-container *ngIf="isPublic">
+          <ng-container *ngIf="!isPublic">
             <div class="half">
               <p><span>Phone :</span> +91 {{ profile.phone }}</p>
             </div>
@@ -369,7 +369,7 @@
           </div>
         </div>
 
-        <ng-container *ngIf="isPublic">
+        <ng-container *ngIf="!isPublic">
           <div class="block-middle border-bottom">
             <div class="half">
               <p>
