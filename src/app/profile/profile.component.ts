@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
+import { ProfileService } from './profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -27,6 +28,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private _authenticationService: AuthenticationService,
+    private _profileService: ProfileService,
     private _toastrService: ToastrService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute
@@ -35,12 +37,14 @@ export class ProfileComponent implements OnInit {
       if (params['handle']) {
         this.panelOptions.is_public = true;
         this.isPublic = true;
+        this.populatePublicProfile(params['handle']);
+      } else {
+        this.populateMyProfile();
       }
     });
   }
 
   ngOnInit() {
-    this.populateView();
     this.numbers = [1, 2, 3, 4, 5];
   }
 
@@ -49,8 +53,35 @@ export class ProfileComponent implements OnInit {
     this._router.navigateByUrl('/login');
   }
 
-  populateView() {
-    this._authenticationService.getProfileDetails().subscribe(
+  populatePublicProfile(handleName: string) {
+    this._profileService.getPublicProfileDetails(handleName).subscribe(
+      response => {
+        this.profile = response.data;
+
+        if (this.profile.avatar_url) {
+          this.profile.avatar_url =
+            this.environment.mediaUrl + this.profile.avatar_url;
+        } else {
+          this.profile.avatar_url =
+            this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
+        }
+
+        this._toastrService.success(
+          'Successful',
+          'Data retrieved successfully'
+        );
+      },
+      error => {
+        this._toastrService.error(
+          `${error.error.message}`,
+          'Failed to load data'
+        );
+      }
+    );
+  }
+
+  populateMyProfile() {
+    this._profileService.getProfileDetails().subscribe(
       response => {
         this.profile = response.data;
 

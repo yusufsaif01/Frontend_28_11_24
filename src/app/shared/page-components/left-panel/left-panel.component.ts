@@ -14,6 +14,7 @@ import {
 import { TimelineService } from '@app/timeline/timeline.service';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
+import { ProfileService } from '@app/profile/profile.service';
 
 interface countResponseDataContext {
   achievements: number;
@@ -40,6 +41,7 @@ export class LeftPanelComponent implements OnInit {
 
   constructor(
     private _authenticationService: AuthenticationService,
+    private _profileService: ProfileService,
     private _timelineService: TimelineService,
     private _router: Router
   ) {}
@@ -55,7 +57,7 @@ export class LeftPanelComponent implements OnInit {
   }
 
   getProfileDetails() {
-    this._authenticationService.getProfileDetails().subscribe(
+    this._profileService.getProfileDetails().subscribe(
       response => {
         this.profile = response.data;
 

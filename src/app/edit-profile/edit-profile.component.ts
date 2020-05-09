@@ -8,6 +8,7 @@ import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '@app/shared/page-components/header/header.component';
 import { EditProfileService } from './edit-profile-service';
+import { ProfileService } from '../profile/profile.service';
 
 interface trophyObject {
   name: string;
@@ -230,7 +231,8 @@ export class EditProfileComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _authenticationService: AuthenticationService,
+    private _profileService: ProfileService,
+    private _editProfileService: EditProfileService,
     private _toastrService: ToastrService,
     private _router: Router,
     private editProfileService: EditProfileService
@@ -272,7 +274,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   populateView() {
-    this._authenticationService.getProfileDetails().subscribe(
+    this._profileService.getProfileDetails().subscribe(
       response => {
         this.profile = response.data;
         if (this.profile.documents.length) {
@@ -508,7 +510,7 @@ export class EditProfileComponent implements OnInit {
         this.setRequestDataObject(requestData, 'top_players');
     }
 
-    this._authenticationService.editProfile(requestData).subscribe(
+    this._editProfileService.editProfile(requestData).subscribe(
       res => {
         this._toastrService.success(
           'Successful',
@@ -540,7 +542,7 @@ export class EditProfileComponent implements OnInit {
     requestData.set('avatar', this.avatar);
 
     if (this.aboutForm.valid) {
-      this._authenticationService.updateBio(requestData).subscribe(
+      this._editProfileService.updateBio(requestData).subscribe(
         res => {
           if (res.data.avatar_url) {
             this.profile.avatar_url =
@@ -568,7 +570,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   removeAvatar() {
-    this._authenticationService.removeAvatar().subscribe(
+    this._editProfileService.removeAvatar().subscribe(
       res => {
         if (res.data.avatar_url) {
           this.profile.avatar_url =
@@ -591,25 +593,23 @@ export class EditProfileComponent implements OnInit {
   }
 
   socialProfile() {
-    this._authenticationService
-      .updateBio(this.socialProfileForm.value)
-      .subscribe(
-        res => {
-          this._toastrService.success(
-            'Successful',
-            'Social profiles updated successfully'
-          );
-        },
-        err => {
-          this._toastrService.error('Error', err.error.message);
-        }
-      );
+    this._editProfileService.updateBio(this.socialProfileForm.value).subscribe(
+      res => {
+        this._toastrService.success(
+          'Successful',
+          'Social profiles updated successfully'
+        );
+      },
+      err => {
+        this._toastrService.error('Error', err.error.message);
+      }
+    );
   }
   about() {
     let requestData = this.toFormData(this.aboutForm.value);
     if (this.avatar) requestData.set('avatar', this.avatar);
 
-    this._authenticationService.updateBio(requestData).subscribe(
+    this._editProfileService.updateBio(requestData).subscribe(
       res => {
         this._toastrService.success('Successful', 'Bio updated successfully');
       },
