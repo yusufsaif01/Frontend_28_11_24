@@ -89,67 +89,6 @@
           }
         }
       }
-      .position,
-      .player-category,
-      .age-part,
-      .location,
-      .strong-foot {
-        display: none;
-        position: absolute;
-        width: 100%;
-        top: 8rem;
-        left: 0px;
-        background-color: $color-white;
-        padding: 2rem;
-        box-shadow: 0rem 0rem 1rem 0rem rgba(0, 0, 0, 0.1);
-        h3 {
-          font-size: 2rem;
-          margin-bottom: 1rem;
-        }
-        .items {
-          span {
-            display: inline-block;
-            font-size: 2rem;
-            margin: 1rem 2rem 1rem 0rem;
-            padding: 1.5rem 3rem;
-            box-shadow: 0rem 0rem 0.5rem 0rem rgba(0, 0, 0, 0.2);
-            ::ng-deep {
-              .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-                background: $blue !important;
-              }
-            }
-          }
-        }
-      }
-      .age-part {
-        max-width: 70rem;
-        left: 30rem;
-      }
-      .strong-foot {
-        max-width: 38rem;
-        left: 50rem;
-      }
-      .location {
-        display: block;
-        .wrapper-location {
-          display: flex;
-          justify-content: space-between;
-          .slt-wrapper {
-            width: 32%;
-            position: relative;
-            select {
-              width: 100%;
-              padding: 1rem;
-              appearance: none;
-            }
-            i-feather {
-              position: absolute;
-              left: calc(100% - 3rem);
-              top: 1rem;
-            }
-          }
-        }
-      }
     }
 
     // players
@@ -196,6 +135,54 @@
             a {
               color: $blue;
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+// mega dropdown
+::ng-deep {
+  .mat-menu-panel {
+    max-width: 100rem !important;
+    width: 100% !important;
+    padding: 2rem;
+    .mat-menu-content {
+      h3 {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+      }
+      .items {
+        span.chk-box {
+          display: inline-block;
+          font-size: 1.8rem;
+          margin: 1rem 2rem 1rem 0rem;
+          padding: 1rem 2rem;
+          box-shadow: 0rem 0rem 0.5rem 0rem rgba(0, 0, 0, 0.2);
+          ::ng-deep {
+            .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+              background: $blue !important;
+            }
+          }
+        }
+      }
+      .wrapper-location {
+        display: flex;
+        justify-content: space-between;
+        .slt-wrapper {
+          width: 25rem;
+          position: relative;
+          margin: 0 1rem;
+          select {
+            width: 100%;
+            padding: 1rem;
+            appearance: none;
+          }
+          i-feather {
+            position: absolute;
+            left: calc(100% - 3rem);
+            top: 1rem;
           }
         }
       }
