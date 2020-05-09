@@ -8,6 +8,16 @@ import { MutualFootmateComponent } from '@app/foot-request/mutual-footmate/mutua
   styleUrls: ['./foot-mates.component.scss']
 })
 export class FootMatesComponent implements OnInit {
+  public active: boolean;
+
+  menuOpened() {
+    if (this.active) {
+      this.active = false;
+    } else {
+      this.active = true;
+    }
+  }
+
   panelOptions: object = {
     bio: true,
     member_type: true,
