@@ -11,6 +11,8 @@ import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confi
 import { AwardCertificateService } from './award-certificate.service';
 import { environment } from '../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
+import { PanelOptions } from '@app/shared/models/panel-options.model';
 @Component({
   selector: 'app-award-certificate',
   templateUrl: './award-certificate.component.html',
@@ -27,18 +29,28 @@ export class AwardCertificateComponent implements OnInit {
   show_count: number;
   total_count: number;
 
-  panelOptions: object = {
+  panelOptions: Partial<PanelOptions> = {
     bio: true,
     member_type: true,
     my_achievements: false,
-    view_profile_link: true
+    view_profile_link: true,
+    is_public: false
   };
+  isPublic: boolean = false;
 
   constructor(
     public dialog: MatDialog,
     private awardCertificateService: AwardCertificateService,
-    private toastrService: ToastrService
-  ) {}
+    private toastrService: ToastrService,
+    private _activatedRoute: ActivatedRoute
+  ) {
+    this._activatedRoute.params.subscribe(params => {
+      if (params['handle']) {
+        this.panelOptions.is_public = true;
+        this.isPublic = true;
+      }
+    });
+  }
 
   // dialog box open
   ngOnInit() {

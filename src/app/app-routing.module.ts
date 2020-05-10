@@ -122,6 +122,11 @@ const routes: Routes = [
     data: { title: extract('Awards and Certification') }
   },
   {
+    path: 'awardcertification/:handle',
+    component: AwardCertificateComponent,
+    data: { title: extract('Awards and Certification') }
+  },
+  {
     path: 'manage-club',
     component: ManageClubComponent,
     data: { title: extract('Manage Club'), expectedRole: ['admin'] },
