@@ -53,18 +53,11 @@ export class ProfileComponent implements OnInit {
     this._router.navigateByUrl('/login');
   }
 
-  populatePublicProfile(handleName: string) {
-    this._profileService.getPublicProfileDetails(handleName).subscribe(
+  populatePublicProfile(user_id: string) {
+    this._profileService.getPublicProfileDetails({ user_id }).subscribe(
       response => {
         this.profile = response.data;
-
-        if (this.profile.avatar_url) {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + this.profile.avatar_url;
-        } else {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
-        }
+        this.setAvatar();
 
         this._toastrService.success(
           'Successful',
@@ -84,33 +77,8 @@ export class ProfileComponent implements OnInit {
     this._profileService.getProfileDetails().subscribe(
       response => {
         this.profile = response.data;
-
-        if (this.profile.avatar_url) {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + this.profile.avatar_url;
-        } else {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
-        }
-
-        if (this.profile.documents.length !== 0) {
-          this.profile.documents.forEach((element: any) => {
-            let fileLink = this.environment.mediaUrl + element.link;
-            if (element.type === 'aadhar') {
-              this.aadhar = fileLink;
-            }
-            if (element.type === 'employment_contract') {
-              this.employment_contract = fileLink;
-            }
-            if (
-              element.type !== 'employment_contract' &&
-              element.type !== 'aadhar'
-            ) {
-              this.document = fileLink;
-              this.docNumber = element.document_number;
-            }
-          });
-        }
+        this.setAvatar();
+        this.setDocuments();
 
         this._toastrService.success(
           'Successful',
@@ -124,5 +92,36 @@ export class ProfileComponent implements OnInit {
         );
       }
     );
+  }
+
+  setDocuments() {
+    if (this.profile.documents.length !== 0) {
+      this.profile.documents.forEach((element: any) => {
+        let fileLink = this.environment.mediaUrl + element.link;
+        if (element.type === 'aadhar') {
+          this.aadhar = fileLink;
+        }
+        if (element.type === 'employment_contract') {
+          this.employment_contract = fileLink;
+        }
+        if (
+          element.type !== 'employment_contract' &&
+          element.type !== 'aadhar'
+        ) {
+          this.document = fileLink;
+          this.docNumber = element.document_number;
+        }
+      });
+    }
+  }
+
+  setAvatar() {
+    if (this.profile.avatar_url) {
+      this.profile.avatar_url =
+        this.environment.mediaUrl + this.profile.avatar_url;
+    } else {
+      this.profile.avatar_url =
+        this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
+    }
   }
 }
