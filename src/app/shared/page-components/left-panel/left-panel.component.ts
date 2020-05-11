@@ -47,8 +47,13 @@ export class LeftPanelComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getProfileDetails();
-    this.getAchievementCount();
+    if (this.options.is_public) {
+      // this.getPublicProfileDetails();
+      this.getAchievementCount();
+    } else {
+      this.getProfileDetails();
+      this.getAchievementCount();
+    }
   }
 
   logout() {
@@ -56,18 +61,25 @@ export class LeftPanelComponent implements OnInit {
     this._router.navigateByUrl('/login');
   }
 
+  getPublicProfileDetails(user_id: string) {
+    this._profileService.getPublicProfileDetails({ user_id }).subscribe(
+      response => {
+        this.profile = response.data;
+        this.setAvatar();
+
+        this.sendPlayerType.emit(this.profile.player_type);
+        this.sendMemberType.emit(this.profile.member_type);
+      },
+      error => {}
+    );
+  }
+
   getProfileDetails() {
     this._profileService.getProfileDetails().subscribe(
       response => {
         this.profile = response.data;
+        this.setAvatar();
 
-        if (this.profile.avatar_url) {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + this.profile.avatar_url;
-        } else {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
-        }
         this.sendPlayerType.emit(this.profile.player_type);
         this.sendMemberType.emit(this.profile.member_type);
       },
@@ -83,5 +95,15 @@ export class LeftPanelComponent implements OnInit {
       },
       error => {}
     );
+  }
+
+  setAvatar() {
+    if (this.profile.avatar_url) {
+      this.profile.avatar_url =
+        this.environment.mediaUrl + this.profile.avatar_url;
+    } else {
+      this.profile.avatar_url =
+        this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
+    }
   }
 }
