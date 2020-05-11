@@ -55,9 +55,10 @@
     >
       Make FootMate
     </button>
+    <ng-container *ngIf="following$ | async"></ng-container>
     <button
       *ngIf="is_footmate !== 'Pending'"
-      [innerText]="(following$ | async) || 'Follow'"
+      [innerText]="is_following ? 'UnFollow' : 'Follow'"
       (click)="toggleFollow()"
       class="active"
     >

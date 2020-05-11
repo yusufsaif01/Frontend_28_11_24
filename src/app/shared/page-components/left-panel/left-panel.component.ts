@@ -76,7 +76,8 @@ export class LeftPanelComponent implements OnInit {
       response => {
         this.profile = response.data;
         this.setAvatar();
-
+        this.is_following = this.profile.is_followed;
+        this.is_footmate = this.profile.footmate_status;
         this.sendPlayerType.emit(this.profile.player_type);
         this.sendMemberType.emit(this.profile.member_type);
         this.sendProfileData.emit(this.profile);
@@ -115,6 +116,7 @@ export class LeftPanelComponent implements OnInit {
         .pipe(
           map(resp => {
             console.log(resp);
+            this.is_following = false;
           }),
           catchError(err => {
             this.toastrService.error('Error', err.error.message);
@@ -129,6 +131,7 @@ export class LeftPanelComponent implements OnInit {
         .pipe(
           map(resp => {
             console.log(resp);
+            this.is_following = true;
           }),
           catchError(err => {
             this.toastrService.error('Error', err.error.message);
