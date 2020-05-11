@@ -42,16 +42,20 @@
     </div>
   </div>
   <!-- make footmate unfollow -->
-  <ng-container *ngIf="options.follows_buttons">
-    <div class="btn-follow">
-      <button>Make FootMate</button>
-      <button class="active">Follow</button>
-    </div>
-    <!-- pending btn -->
-    <!-- <div class="btn-follow">
+  <div class="btn-follow">
+    <button>Make FootMate</button>
+    <button
+      [innerText]="(following$ | async) || 'Follow'"
+      (click)="toggleFollow()"
+      class="active"
+    >
+      Follow
+    </button>
+  </div>
+  <!-- pending btn -->
+  <!-- <div class="btn-follow">
     <button>Pending</button>
   </div> -->
-  </ng-container>
 
   <div class="block-bottom" *ngIf="options.view_profile_link">
     <a [routerLink]="['/profile']"> View my profile</a>

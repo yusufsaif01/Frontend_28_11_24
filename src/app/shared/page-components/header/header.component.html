@@ -21,11 +21,9 @@
               <img class="dp" aria-hidden [src]="member.avatar" />
               <strong>{{ member.name | titlecase }}</strong>
               <small>{{
-                (member.player_type || member.member_type) | titlecase
+                member.player_type || member.member_type | titlecase
               }}</small>
-              <small class="position">{{
-                member.position | titlecase
-              }}</small>
+              <small class="position">{{ member.position | titlecase }}</small>
             </mat-option>
             <ng-container
               *ngIf="searchText.length >= 3 && memberList.length === 0"
