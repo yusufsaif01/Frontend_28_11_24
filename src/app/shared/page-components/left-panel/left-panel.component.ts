@@ -14,6 +14,10 @@ import {
 import { TimelineService } from '@app/timeline/timeline.service';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
+import { LeftPanelService } from './left-panel.service';
+import { Observable, Subject } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 interface countResponseDataContext {
   achievements: number;
@@ -31,17 +35,23 @@ export class LeftPanelComponent implements OnInit {
     tournaments: 0
   };
   profile: any;
-  @Input() achievements: number = 0;
   environment = environment;
 
+  @Input() achievements: number = 0;
   @Input() options: any;
+  @Input() is_following = false;
+  @Input() is_footmate = 'Not_footmate';
+
   @Output() sendPlayerType = new EventEmitter<string>();
   @Output() sendMemberType = new EventEmitter<string>();
+  following$: Observable<any>;
 
   constructor(
     private _authenticationService: AuthenticationService,
     private _timelineService: TimelineService,
-    private _router: Router
+    private _router: Router,
+    private leftPanelService: LeftPanelService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -81,5 +91,64 @@ export class LeftPanelComponent implements OnInit {
       },
       error => {}
     );
+  }
+
+  toggleFollow() {
+    if (this.is_following) {
+      this.following$ = this.leftPanelService
+        .unfollowUser({
+          to: '72f6f6b7-9b5a-4d77-a58d-aacc0800fee7'
+        })
+        .pipe(
+          map(resp => {
+            console.log(resp);
+          }),
+          catchError(err => {
+            this.toastrService.error('Error', err.error.message);
+            throw err;
+          })
+        );
+    } else {
+      this.following$ = this.leftPanelService
+        .followUser({
+          to: '72f6f6b7-9b5a-4d77-a58d-aacc0800fee7'
+        })
+        .pipe(
+          map(resp => {
+            console.log(resp);
+          }),
+          catchError(err => {
+            this.toastrService.error('Error', err.error.message);
+            throw err;
+          })
+        );
+    }
+  }
+
+  toggleFootMate() {
+    if (this.is_footmate === 'Not_footmate') {
+      this.leftPanelService
+        .sendFootMate({
+          to: '8426445c-4f52-4d54-b882-f22dd473dbd8'
+        })
+        .subscribe(
+          response => {
+            this.is_footmate = 'Pending';
+          },
+          error => {}
+        );
+    } else if (this.is_footmate === 'Accepted') {
+      this.leftPanelService
+        .cancelFootMate({
+          to: '8426445c-4f52-4d54-b882-f22dd473dbd8'
+        })
+        .subscribe(
+          response => {
+            this.is_footmate = 'Not_footmate';
+            this.is_following = false;
+          },
+          error => {}
+        );
+    }
   }
 }
