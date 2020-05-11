@@ -274,7 +274,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   populateView() {
-    this._profileService.getProfileDetails().subscribe(
+    this._profileService.getProfileDetails({}).subscribe(
       response => {
         this.profile = response.data;
         if (this.profile.documents.length) {

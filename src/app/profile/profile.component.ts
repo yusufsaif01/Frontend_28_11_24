@@ -54,6 +54,7 @@ export class ProfileComponent implements OnInit {
   getProfile(data: object) {
     this.profile = data;
     if (!this.isPublic && this.profile) this.setDocuments();
+    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   setDocuments() {

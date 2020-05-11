@@ -80,6 +80,7 @@ export class LeftPanelComponent implements OnInit {
         this.sendPlayerType.emit(this.profile.player_type);
         this.sendMemberType.emit(this.profile.member_type);
         this.sendProfileData.emit(this.profile);
+        this._router.routeReuseStrategy.shouldReuseRoute = () => false;
       },
       error => {}
     );
