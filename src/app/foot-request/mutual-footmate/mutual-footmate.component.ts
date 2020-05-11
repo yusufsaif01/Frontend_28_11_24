@@ -24,15 +24,13 @@ export class MutualFootmateComponent implements OnInit {
   ngOnInit() {}
 
   getMutualFootmateList() {
-    this.mutualFootmateService
-      .getMutualFootmateList('6ff5a3fd-f56d-4417-bf38-afebf4efade6')
-      .subscribe(
-        response => {
-          console.log('Mutual Footmates', response);
-        },
-        error => {
-          console.log(error);
-        }
-      );
+    this.mutualFootmateService.getMutualFootmateList(this.data.id).subscribe(
+      response => {
+        console.log('Mutual Footmates', response);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 }
