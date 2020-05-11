@@ -22,7 +22,8 @@ export class FootRequestComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(MutualFootmateComponent, {
       width: '40%',
-      panelClass: 'MatualFootmate'
+      panelClass: 'MatualFootmate',
+      data: { id: '6ff5a3fd-f56d-4417-bf38-afebf4efade6' }
     });
   }
   ngOnInit() {}
