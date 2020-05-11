@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
-import { ProfileService } from './profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -25,10 +24,10 @@ export class ProfileComponent implements OnInit {
   };
   docNumber: string;
   isPublic: boolean = false;
+  userId: string;
 
   constructor(
     private _authenticationService: AuthenticationService,
-    private _profileService: ProfileService,
     private _toastrService: ToastrService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute
@@ -37,15 +36,14 @@ export class ProfileComponent implements OnInit {
       if (params['handle']) {
         this.panelOptions.is_public = true;
         this.isPublic = true;
-        this.populatePublicProfile(params['handle']);
-      } else {
-        this.populateMyProfile();
+        this.userId = params['handle'];
       }
     });
   }
 
   ngOnInit() {
     this.numbers = [1, 2, 3, 4, 5];
+    this.getProfile({});
   }
 
   logout() {
@@ -53,49 +51,13 @@ export class ProfileComponent implements OnInit {
     this._router.navigateByUrl('/login');
   }
 
-  populatePublicProfile(user_id: string) {
-    this._profileService.getPublicProfileDetails({ user_id }).subscribe(
-      response => {
-        this.profile = response.data;
-        this.setAvatar();
-
-        this._toastrService.success(
-          'Successful',
-          'Data retrieved successfully'
-        );
-      },
-      error => {
-        this._toastrService.error(
-          `${error.error.message}`,
-          'Failed to load data'
-        );
-      }
-    );
-  }
-
-  populateMyProfile() {
-    this._profileService.getProfileDetails().subscribe(
-      response => {
-        this.profile = response.data;
-        this.setAvatar();
-        this.setDocuments();
-
-        this._toastrService.success(
-          'Successful',
-          'Data retrieved successfully'
-        );
-      },
-      error => {
-        this._toastrService.error(
-          `${error.error.message}`,
-          'Failed to load data'
-        );
-      }
-    );
+  getProfile(data: object) {
+    this.profile = data;
+    if (!this.isPublic && this.profile) this.setDocuments();
   }
 
   setDocuments() {
-    if (this.profile.documents.length !== 0) {
+    if (this.profile.documents && this.profile.documents.length !== 0) {
       this.profile.documents.forEach((element: any) => {
         let fileLink = this.environment.mediaUrl + element.link;
         if (element.type === 'aadhar') {
@@ -112,16 +74,6 @@ export class ProfileComponent implements OnInit {
           this.docNumber = element.document_number;
         }
       });
-    }
-  }
-
-  setAvatar() {
-    if (this.profile.avatar_url) {
-      this.profile.avatar_url =
-        this.environment.mediaUrl + this.profile.avatar_url;
-    } else {
-      this.profile.avatar_url =
-        this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
     }
   }
 }

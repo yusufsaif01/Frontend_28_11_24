@@ -15,17 +15,17 @@ interface GetPublicProfileContext {
 export class ProfileService {
   constructor(private httpClient: HttpClient) {}
 
-  getProfileDetails(): Observable<any> {
-    return this.httpClient.get(routes.getProfileDetails());
-  }
-
-  getPublicProfileDetails(context: GetPublicProfileContext): Observable<any> {
+  getProfileDetails(
+    context: Partial<GetPublicProfileContext>
+  ): Observable<any> {
     let params = '/';
     if (context['user_id']) {
       params += `${context['user_id']}`;
+      return this.httpClient.get<GetPublicProfileContext>(
+        routes.getPublicProfileDetails() + params
+      );
     }
-    return this.httpClient.get<GetPublicProfileContext>(
-      routes.getPublicProfileDetails() + params
-    );
+
+    return this.httpClient.get(routes.getProfileDetails());
   }
 }

@@ -40,11 +40,13 @@ export class LeftPanelComponent implements OnInit {
 
   @Input() achievements: number = 0;
   @Input() options: any;
+  @Input() userId: string;
   @Input() is_following = false;
   @Input() is_footmate = 'Not_footmate';
 
   @Output() sendPlayerType = new EventEmitter<string>();
   @Output() sendMemberType = new EventEmitter<string>();
+  @Output() sendProfileData = new EventEmitter<object>();
   following$: Observable<any>;
 
   constructor(
@@ -57,13 +59,8 @@ export class LeftPanelComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.options.is_public) {
-      // this.getPublicProfileDetails();
-      this.getAchievementCount();
-    } else {
-      this.getProfileDetails();
-      this.getAchievementCount();
-    }
+    this.getProfileDetails();
+    this.getAchievementCount();
   }
 
   logout() {
@@ -71,27 +68,18 @@ export class LeftPanelComponent implements OnInit {
     this._router.navigateByUrl('/login');
   }
 
-  getPublicProfileDetails(user_id: string) {
-    this._profileService.getPublicProfileDetails({ user_id }).subscribe(
-      response => {
-        this.profile = response.data;
-        this.setAvatar();
-
-        this.sendPlayerType.emit(this.profile.player_type);
-        this.sendMemberType.emit(this.profile.member_type);
-      },
-      error => {}
-    );
-  }
-
   getProfileDetails() {
-    this._profileService.getProfileDetails().subscribe(
+    let data = {};
+    if (this.userId) data = { user_id: this.userId };
+
+    this._profileService.getProfileDetails(data).subscribe(
       response => {
         this.profile = response.data;
         this.setAvatar();
 
         this.sendPlayerType.emit(this.profile.player_type);
         this.sendMemberType.emit(this.profile.member_type);
+        this.sendProfileData.emit(this.profile);
       },
       error => {}
     );
@@ -121,7 +109,7 @@ export class LeftPanelComponent implements OnInit {
     if (this.is_following) {
       this.following$ = this.leftPanelService
         .unfollowUser({
-          to: '72f6f6b7-9b5a-4d77-a58d-aacc0800fee7'
+          to: this.userId
         })
         .pipe(
           map(resp => {
@@ -135,7 +123,7 @@ export class LeftPanelComponent implements OnInit {
     } else {
       this.following$ = this.leftPanelService
         .followUser({
-          to: '72f6f6b7-9b5a-4d77-a58d-aacc0800fee7'
+          to: this.userId
         })
         .pipe(
           map(resp => {
@@ -153,7 +141,7 @@ export class LeftPanelComponent implements OnInit {
     if (this.is_footmate === 'Not_footmate') {
       this.leftPanelService
         .sendFootMate({
-          to: '8426445c-4f52-4d54-b882-f22dd473dbd8'
+          to: this.userId
         })
         .subscribe(
           response => {
@@ -164,7 +152,7 @@ export class LeftPanelComponent implements OnInit {
     } else if (this.is_footmate === 'Accepted') {
       this.leftPanelService
         .cancelFootMate({
-          to: '8426445c-4f52-4d54-b882-f22dd473dbd8'
+          to: this.userId
         })
         .subscribe(
           response => {
