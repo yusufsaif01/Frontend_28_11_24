@@ -73,6 +73,15 @@ const routes: Routes = [
     canActivate: [RoleGuardService]
   },
   {
+    path: 'profile/:handle',
+    component: ProfileComponent,
+    data: {
+      title: extract('View Profile'),
+      expectedRole: ['player', 'club', 'academy']
+    },
+    canActivate: [RoleGuardService]
+  },
+  {
     path: 'timeline',
     component: TimelineComponent,
     data: {
@@ -109,6 +118,11 @@ const routes: Routes = [
   },
   {
     path: 'awardcertification',
+    component: AwardCertificateComponent,
+    data: { title: extract('Awards and Certification') }
+  },
+  {
+    path: 'awardcertification/:handle',
     component: AwardCertificateComponent,
     data: { title: extract('Awards and Certification') }
   },
