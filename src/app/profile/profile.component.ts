@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   panelOptions: Partial<PanelOptions> = {
     player_type: false,
     logout_link: true,
+    achievements: true,
     is_public: false
   };
   docNumber: string;

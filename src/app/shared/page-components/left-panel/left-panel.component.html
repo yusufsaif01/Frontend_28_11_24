@@ -42,7 +42,7 @@
     </div>
   </div>
   <!-- make footmate unfollow -->
-  <div class="btn-follow">
+  <div class="btn-follow" *ngIf="options.is_public">
     <button
       (click)="toggleFootMate()"
       [innerText]="
@@ -69,14 +69,20 @@
     <button>Pending</button>
   </div> -->
 
-  <div class="block-bottom">
-    <a *ngIf="options.view_profile_link" [routerLink]="['/profile']">
-      View my profile</a
-    >
-    <a *ngIf="options.logout_link && !options.is_public" (click)="logout()">
-      Logout</a
-    >
-  </div>
+  <ng-container
+    *ngIf="
+      options.view_profile_link || (options.logout_link && !options.is_public)
+    "
+  >
+    <div class="block-bottom">
+      <a *ngIf="options.view_profile_link" [routerLink]="['/profile']">
+        View my profile</a
+      >
+      <a *ngIf="options.logout_link && !options.is_public" (click)="logout()">
+        Logout</a
+      >
+    </div>
+  </ng-container>
 </div>
 
 <!-- player type -->
@@ -99,6 +105,14 @@
   <div class="block-design">
     <div class="achievement">
       <a [routerLink]="['/awardcertification']">My Achievements</a>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="options.achievements && options.is_public">
+  <div class="block-design">
+    <div class="achievement">
+      <a [routerLink]="['/awardcertification', userId]">Achievements</a>
     </div>
   </div>
 </ng-container>
