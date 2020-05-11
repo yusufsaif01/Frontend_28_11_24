@@ -14,6 +14,7 @@ import {
 import { TimelineService } from '@app/timeline/timeline.service';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
+import { ProfileService } from '@app/profile/profile.service';
 import { LeftPanelService } from './left-panel.service';
 import { Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -39,15 +40,18 @@ export class LeftPanelComponent implements OnInit {
 
   @Input() achievements: number = 0;
   @Input() options: any;
+  @Input() userId: string;
   @Input() is_following = false;
   @Input() is_footmate = 'Not_footmate';
 
   @Output() sendPlayerType = new EventEmitter<string>();
   @Output() sendMemberType = new EventEmitter<string>();
+  @Output() sendProfileData = new EventEmitter<object>();
   following$: Observable<any>;
 
   constructor(
     private _authenticationService: AuthenticationService,
+    private _profileService: ProfileService,
     private _timelineService: TimelineService,
     private _router: Router,
     private leftPanelService: LeftPanelService,
@@ -65,19 +69,19 @@ export class LeftPanelComponent implements OnInit {
   }
 
   getProfileDetails() {
-    this._authenticationService.getProfileDetails().subscribe(
+    let data = {};
+    if (this.userId) data = { user_id: this.userId };
+
+    this._profileService.getProfileDetails(data).subscribe(
       response => {
         this.profile = response.data;
-
-        if (this.profile.avatar_url) {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + this.profile.avatar_url;
-        } else {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
-        }
+        this.setAvatar();
+        this.is_following = this.profile.is_followed;
+        this.is_footmate = this.profile.footmate_status;
         this.sendPlayerType.emit(this.profile.player_type);
         this.sendMemberType.emit(this.profile.member_type);
+        this.sendProfileData.emit(this.profile);
+        this._router.routeReuseStrategy.shouldReuseRoute = () => false;
       },
       error => {}
     );
@@ -93,15 +97,26 @@ export class LeftPanelComponent implements OnInit {
     );
   }
 
+  setAvatar() {
+    if (this.profile.avatar_url) {
+      this.profile.avatar_url =
+        this.environment.mediaUrl + this.profile.avatar_url;
+    } else {
+      this.profile.avatar_url =
+        this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
+    }
+  }
+
   toggleFollow() {
     if (this.is_following) {
       this.following$ = this.leftPanelService
         .unfollowUser({
-          to: '72f6f6b7-9b5a-4d77-a58d-aacc0800fee7'
+          to: this.userId
         })
         .pipe(
           map(resp => {
             console.log(resp);
+            this.is_following = false;
           }),
           catchError(err => {
             this.toastrService.error('Error', err.error.message);
@@ -111,11 +126,12 @@ export class LeftPanelComponent implements OnInit {
     } else {
       this.following$ = this.leftPanelService
         .followUser({
-          to: '72f6f6b7-9b5a-4d77-a58d-aacc0800fee7'
+          to: this.userId
         })
         .pipe(
           map(resp => {
             console.log(resp);
+            this.is_following = true;
           }),
           catchError(err => {
             this.toastrService.error('Error', err.error.message);
@@ -129,7 +145,7 @@ export class LeftPanelComponent implements OnInit {
     if (this.is_footmate === 'Not_footmate') {
       this.leftPanelService
         .sendFootMate({
-          to: '8426445c-4f52-4d54-b882-f22dd473dbd8'
+          to: this.userId
         })
         .subscribe(
           response => {
@@ -140,7 +156,7 @@ export class LeftPanelComponent implements OnInit {
     } else if (this.is_footmate === 'Accepted') {
       this.leftPanelService
         .cancelFootMate({
-          to: '8426445c-4f52-4d54-b882-f22dd473dbd8'
+          to: this.userId
         })
         .subscribe(
           response => {

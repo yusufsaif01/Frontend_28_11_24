@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private _authenticationService: AuthenticationService,
-    private headerService: HeaderService
+    private _headerService: HeaderService
   ) {}
 
   ngOnInit(): void {}
@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
     this.searchText = value;
     if (value.length === 0) this.memberList = [];
     if (value.length < 3) return;
-    this.headerService.getMemberSearchList({ search: value }).subscribe(
+    this._headerService.getMemberSearchList({ search: value }).subscribe(
       response => {
         let records = response.data.records;
         for (let i = 0; i < records.length; i++) {
