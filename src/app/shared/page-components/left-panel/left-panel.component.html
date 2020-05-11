@@ -43,8 +43,20 @@
   </div>
   <!-- make footmate unfollow -->
   <div class="btn-follow">
-    <button>Make FootMate</button>
     <button
+      (click)="toggleFootMate()"
+      [innerText]="
+        is_footmate === 'Accepted'
+          ? 'Cancel FootMate'
+          : is_footmate === 'Not_footmate'
+          ? 'Make FootMate'
+          : 'Pending'
+      "
+    >
+      Make FootMate
+    </button>
+    <button
+      *ngIf="is_footmate !== 'Pending'"
       [innerText]="(following$ | async) || 'Follow'"
       (click)="toggleFollow()"
       class="active"

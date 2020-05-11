@@ -40,6 +40,7 @@ export class LeftPanelComponent implements OnInit {
   @Input() achievements: number = 0;
   @Input() options: any;
   @Input() is_following = false;
+  @Input() is_footmate = 'Not_footmate';
 
   @Output() sendPlayerType = new EventEmitter<string>();
   @Output() sendMemberType = new EventEmitter<string>();
@@ -120,6 +121,33 @@ export class LeftPanelComponent implements OnInit {
             this.toastrService.error('Error', err.error.message);
             throw err;
           })
+        );
+    }
+  }
+
+  toggleFootMate() {
+    if (this.is_footmate === 'Not_footmate') {
+      this.leftPanelService
+        .sendFootMate({
+          to: '8426445c-4f52-4d54-b882-f22dd473dbd8'
+        })
+        .subscribe(
+          response => {
+            this.is_footmate = 'Pending';
+          },
+          error => {}
+        );
+    } else if (this.is_footmate === 'Accepted') {
+      this.leftPanelService
+        .cancelFootMate({
+          to: '8426445c-4f52-4d54-b882-f22dd473dbd8'
+        })
+        .subscribe(
+          response => {
+            this.is_footmate = 'Not_footmate';
+            this.is_following = false;
+          },
+          error => {}
         );
     }
   }
