@@ -57,7 +57,7 @@
     </button>
     <button
       *ngIf="is_footmate !== 'Pending'"
-      [innerText]="is_following ? 'Unfollow' : 'Follow'"
+      [innerText]="(following$ | async) || 'Follow'"
       (click)="toggleFollow()"
       class="active"
     >
