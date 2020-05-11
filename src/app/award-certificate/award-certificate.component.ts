@@ -37,6 +37,7 @@ export class AwardCertificateComponent implements OnInit {
     is_public: false
   };
   isPublic: boolean = false;
+  userId: string;
 
   constructor(
     public dialog: MatDialog,
@@ -48,6 +49,7 @@ export class AwardCertificateComponent implements OnInit {
       if (params['handle']) {
         this.panelOptions.is_public = true;
         this.isPublic = true;
+        this.userId = params['handle'];
       }
     });
   }
@@ -125,23 +127,43 @@ export class AwardCertificateComponent implements OnInit {
   }
 
   getAwardsList(page_size: number, page_no: number) {
-    this.awardCertificateService
-      .getAwardsList({ page_size, page_no })
-      .subscribe(response => {
-        let records = response.data.records;
-        for (let i = 0; i < records.length; i++) {
-          if (page_no > 1) {
-            records[i]['serialnumber'] =
-              i + 1 + page_size * page_no - page_size;
-          } else {
-            records[i]['serialnumber'] = i + 1;
+    if (this.isPublic) {
+      this.awardCertificateService
+        .getPublicAwardsList(this.userId, { page_size, page_no })
+        .subscribe(response => {
+          let records = response.data.records;
+          for (let i = 0; i < records.length; i++) {
+            if (page_no > 1) {
+              records[i]['serialnumber'] =
+                i + 1 + page_size * page_no - page_size;
+            } else {
+              records[i]['serialnumber'] = i + 1;
+            }
+            records[i]['media'] = environment.mediaUrl + records[i]['media'];
           }
-          records[i]['media'] = environment.mediaUrl + records[i]['media'];
-        }
-        this.dataSource = new MatTableDataSource(records);
-        this.show_count = response.data.records.length;
-        this.total_count = response.data.total;
-      });
+          this.dataSource = new MatTableDataSource(records);
+          this.show_count = response.data.records.length;
+          this.total_count = response.data.total;
+        });
+    } else {
+      this.awardCertificateService
+        .getAwardsList({ page_size, page_no })
+        .subscribe(response => {
+          let records = response.data.records;
+          for (let i = 0; i < records.length; i++) {
+            if (page_no > 1) {
+              records[i]['serialnumber'] =
+                i + 1 + page_size * page_no - page_size;
+            } else {
+              records[i]['serialnumber'] = i + 1;
+            }
+            records[i]['media'] = environment.mediaUrl + records[i]['media'];
+          }
+          this.dataSource = new MatTableDataSource(records);
+          this.show_count = response.data.records.length;
+          this.total_count = response.data.total;
+        });
+    }
   }
 
   // delete
