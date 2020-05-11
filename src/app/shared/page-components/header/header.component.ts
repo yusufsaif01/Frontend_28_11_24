@@ -9,7 +9,7 @@ interface MemberListContext {
   name: string;
   position: string;
   avatar: string;
-  id: string;
+  user_id: string;
 }
 @Component({
   selector: 'app-header',

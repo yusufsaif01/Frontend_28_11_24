@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CredentialsService } from '@app/core';
 
 const routes = {
   getMemberSearchList: (c: GetMemberSearchListContext) => '/member/search'
@@ -24,7 +23,7 @@ interface GetMemberSearchListResponseContext {
       name: string;
       position: string;
       avatar: string;
-      id: string;
+      user_id: string;
     }[];
   };
 }
@@ -33,22 +32,11 @@ interface GetMemberSearchListResponseContext {
   providedIn: 'root'
 })
 export class HeaderService {
-  constructor(
-    private httpClient: HttpClient,
-    private credentialsService: CredentialsService
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
   getMemberSearchList(
     context: GetMemberSearchListContext
   ): Observable<GetMemberSearchListResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token
-      })
-    };
     let query = '?';
     if (context['search']) {
       query += 'search=' + context['search'];
@@ -61,8 +49,7 @@ export class HeaderService {
       query += '&page_size=' + context['page_size'];
     }
     return this.httpClient.get<GetMemberSearchListResponseContext>(
-      routes.getMemberSearchList(context) + query,
-      httpOptions
+      routes.getMemberSearchList(context) + query
     );
   }
 }

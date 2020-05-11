@@ -78,6 +78,9 @@ import { ManageAbilityComponent } from './admin/masterdata/player-specialization
 import { ManageParametersComponent } from './admin/masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
 import { AddpopupComponent } from './admin/masterdata/player-specialization/addpopup/addpopup.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
+import { FootRequestComponent } from './foot-request/foot-request.component';
+import { MutualFootmateComponent } from './foot-request/mutual-footmate/mutual-footmate.component';
+import { FootMatesComponent } from './foot-mates/foot-mates.component';
 import { JwtInterceptor } from './core/http/jwt.interceptor';
 import { ErrorInterceptor } from './core/http/error.interceptor';
 const icons = {
@@ -164,7 +167,10 @@ const icons = {
     AddEditPopupComponent,
     ManageAbilityComponent,
     ManageParametersComponent,
-    AddpopupComponent
+    AddpopupComponent,
+    FootRequestComponent,
+    MutualFootmateComponent,
+    FootMatesComponent
     // , HomeComponent
   ],
   providers: [
@@ -192,7 +198,8 @@ const icons = {
     StatusConfirmationComponent,
     EditAddPopupComponent,
     AddEditPopupComponent,
-    AddpopupComponent
+    AddpopupComponent,
+    MutualFootmateComponent
   ]
 })
 export class AppModule {}
