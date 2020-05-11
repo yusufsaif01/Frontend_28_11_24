@@ -43,7 +43,9 @@ import {
   ChevronDown,
   Search,
   Award,
-  Home
+  Home,
+  UserCheck,
+  UserX
 } from 'angular-feather/icons';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LinkExpiredComponent } from './link-expired/link-expired.component';
@@ -83,7 +85,9 @@ const icons = {
   ChevronDown,
   Search,
   Award,
-  Home
+  Home,
+  UserCheck,
+  UserX
 };
 
 @NgModule({

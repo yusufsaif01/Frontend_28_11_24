@@ -1,0 +1,120 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <!-- left Sidebar -->
+  <div class="left-section">
+    <app-left-panel
+      [options]="panelOptions"
+      [achievements]="total_count"
+    ></app-left-panel>
+  </div>
+  <div class="right-section">
+    <div class="heading">
+      <h3>Player You Might Know</h3>
+    </div>
+    <div class="tab-buttons">
+      <a [routerLink]="['/foot-requests']" [routerLinkActive]="['active']"
+        >Foot Request <span>234</span></a
+      >
+      <a [routerLink]="['/foot-mates']" [routerLinkActive]="['active']"
+        >Foot Mates <span>234</span></a
+      >
+    </div>
+    <div class="playerwrapper">
+      <!-- one -->
+      <div class="playerbox">
+        <div class="top">
+          <div class="dp">
+            <img src="assets/images/profile-icon.png" alt="" />
+          </div>
+          <div class="name">
+            <strong>Gurdeep Singh</strong>
+            <p>Center Forward</p>
+          </div>
+        </div>
+        <div class="middle">
+          <h4>Grassroot</h4>
+          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
+        </div>
+        <div class="bottom">
+          <button class="accepted">
+            <i-feather class="icon-size" name="user-check"></i-feather> Accept
+          </button>
+          <button class="rejected">
+            <i-feather class="icon-size" name="user-x"></i-feather>Reject
+          </button>
+        </div>
+      </div>
+
+      <!-- Two -->
+      <div class="playerbox">
+        <div class="top">
+          <div class="dp">
+            <img src="assets/images/profile-icon.png" alt="" />
+          </div>
+          <div class="name">
+            <strong>Gurdeep Singh</strong>
+            <p>Center Forward</p>
+          </div>
+        </div>
+        <div class="middle">
+          <h4>Grassroot</h4>
+          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
+        </div>
+        <div class="bottom">
+          <button class="accepted">
+            <i-feather class="icon-size" name="user-check"></i-feather> Accept
+          </button>
+          <button class="rejected">
+            <i-feather class="icon-size" name="user-x"></i-feather>Reject
+          </button>
+        </div>
+      </div>
+
+      <!-- three -->
+      <div class="playerbox">
+        <div class="top">
+          <div class="dp">
+            <img src="assets/images/profile-icon.png" alt="" />
+          </div>
+          <div class="name">
+            <strong>Gurdeep Singh</strong>
+            <p>Center Forward</p>
+          </div>
+        </div>
+        <div class="middle">
+          <h4>Grassroot</h4>
+          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
+        </div>
+        <div class="bottom">
+          <button class="accepted active">
+            <i-feather class="icon-size" name="user-check"></i-feather> Accepted
+          </button>
+        </div>
+      </div>
+
+      <!-- four -->
+      <div class="playerbox">
+        <div class="top">
+          <div class="dp">
+            <img src="assets/images/profile-icon.png" alt="" />
+          </div>
+          <div class="name">
+            <strong>Gurdeep Singh</strong>
+            <p>Center Forward</p>
+          </div>
+        </div>
+        <div class="middle">
+          <h4>Grassroot</h4>
+          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
+        </div>
+        <div class="bottom">
+          <button class="rejected active">
+            <i-feather class="icon-size" name="user-x"></i-feather>Rejected
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- pagination -->
+    <app-pagination> </app-pagination>
+  </div>
+</div>
