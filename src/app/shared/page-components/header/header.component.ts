@@ -52,8 +52,45 @@ export class HeaderComponent implements OnInit {
           records[i].avatar = environment.mediaUrl + records[i].avatar;
         }
         this.memberList = records;
+        document
+          .getElementById('mat-autocomplete-0')
+          .setAttribute('infiniteScroll', '');
+        document
+          .getElementById('mat-autocomplete-0')
+          .setAttribute('infiniteScrollUpDistance', '1.5');
+        document
+          .getElementById('mat-autocomplete-0')
+          .setAttribute('infiniteScrollDistance', '2');
+        document
+          .getElementById('mat-autocomplete-0')
+          .setAttribute('infiniteScrollThrottle', '50');
+        document
+          .getElementById('mat-autocomplete-0')
+          .setAttribute('scrollWindow', 'false');
+        document
+          .getElementById('mat-autocomplete-0')
+          .setAttribute('fromRoot', 'true');
+        document
+          .getElementById('mat-autocomplete-0')
+          .setAttribute(
+            'infiniteScrollContainer',
+            document.getElementById('mat-autocomplete-0').toString()
+          );
+        document
+          .getElementById('mat-autocomplete-0')
+          .addEventListener('scrolled', this.onScrollDown);
+        document
+          .getElementById('mat-autocomplete-0')
+          .addEventListener('scrolledUp', this.onScrollUp);
+        console.log(document.getElementById('mat-autocomplete-0'));
       },
       error => {}
     );
+  }
+  onScrollDown() {
+    console.log('Scrolled down');
+  }
+  onScrollUp() {
+    console.log('Scrolled Up');
   }
 }

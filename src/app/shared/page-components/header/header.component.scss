@@ -176,3 +176,9 @@ header {
     position: absolute !important;
   }
 }
+::ng-deep {
+  .mat-autocomplete-panel.mat-autocomplete-visible {
+    height: 480px !important;
+    overflow: scroll !important;
+  }
+}
