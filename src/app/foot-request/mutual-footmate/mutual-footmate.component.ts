@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MutualFootmateService } from './mutual-footmate-service';
+import { environment } from '../../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-mutual-footmate',
@@ -7,11 +10,32 @@ import { MatDialogRef } from '@angular/material';
   styleUrls: ['./mutual-footmate.component.scss']
 })
 export class MutualFootmateComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<MutualFootmateComponent>) {}
+  mutualFootmate: any[] = [];
+  baseUrl: string = '';
+  constructor(
+    public dialogRef: MatDialogRef<MutualFootmateComponent>,
+    private mutualFootmateService: MutualFootmateService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private toastrService: ToastrService
+  ) {
+    this.baseUrl = environment.mediaUrl;
+    this.getMutualFootmateList();
+  }
 
   // dailog Box close
   onNoClick(): void {
     this.dialogRef.close();
   }
   ngOnInit() {}
+
+  getMutualFootmateList() {
+    this.mutualFootmateService.getMutualFootmateList(this.data.id).subscribe(
+      response => {
+        this.mutualFootmate = response.data.records;
+      },
+      error => {
+        this.toastrService.error('Error', error.error.message);
+      }
+    );
+  }
 }
