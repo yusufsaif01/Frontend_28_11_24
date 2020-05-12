@@ -2216,6 +2216,38 @@
                   </mat-error>
                 </div>
               </div>
+
+              <div class="form-block-clubs">
+                <div class="input-wrapper-second">
+                  <label
+                    >Type of {{ member_type === 'club' ? 'Club' : 'Academy' }}
+                    <span>*</span></label
+                  >
+                  <select matNativeControl formControlName="type" required>
+                    <option value="">Select Type</option>
+                    <ng-container *ngFor="let type of clubAcadTypeArray">
+                      <option value="{{ type.value }}">{{ type.name }}</option>
+                    </ng-container>
+                  </select>
+                  <mat-error
+                    *ngIf="
+                      editProfileForm.controls.type.invalid &&
+                      editProfileForm.controls.type.touched
+                    "
+                  >
+                    <span
+                      [innerText]="
+                        member_type === 'club'
+                          ? 'Type of Club is required'
+                          : 'Type of Academy is required'
+                      "
+                      *ngIf="editProfileForm.controls.type.errors.required"
+                      translate
+                      >Type of Club is required</span
+                    >
+                  </mat-error>
+                </div>
+              </div>
             </div>
           </div>
         </div>
