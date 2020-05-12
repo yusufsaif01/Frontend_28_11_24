@@ -180,7 +180,7 @@
           </div>
           <div class="middle">
             <h4>{{ footMate.player_type }}</h4>
-            <h4>
+            <h4 *ngIf="footMate.mutuals">
               <a (click)="openDialog()"
                 >{{ footMate.mutuals }} Mutual Footmates</a
               >
