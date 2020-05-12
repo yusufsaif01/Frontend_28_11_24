@@ -9,6 +9,7 @@ import { MutualFootmateComponent } from '@app/foot-request/mutual-footmate/mutua
 })
 export class FootMatesComponent implements OnInit {
   public active: boolean;
+  total_count: number = 0;
 
   menuOpened() {
     if (this.active) {
