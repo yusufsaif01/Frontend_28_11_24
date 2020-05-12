@@ -13,108 +13,70 @@
     </div>
     <div class="tab-buttons">
       <a [routerLink]="['/foot-requests']" [routerLinkActive]="['active']"
-        >Foot Request <span>234</span></a
+        >Foot Request <span>{{ foot_request_count }}</span></a
       >
       <a [routerLink]="['/foot-mates']" [routerLinkActive]="['active']"
-        >Foot Mates <span>234</span></a
+        >Foot Mates <span>{{ foot_mate_count }}</span></a
       >
     </div>
     <div class="playerwrapper">
-      <!-- one -->
-      <div class="playerbox">
-        <div class="top">
-          <div class="dp">
-            <img src="assets/images/profile-icon.png" alt="" />
+      <ng-container *ngFor="let footRequest of footRequestList">
+        <div class="playerbox">
+          <div class="top">
+            <div class="dp">
+              <img [src]="footRequest.avatar" alt="" />
+            </div>
+            <div class="name">
+              <strong [routerLink]="['/profile', footRequest.user_id]">{{
+                footRequest.name
+              }}</strong>
+              <p>{{ footRequest.position }}</p>
+            </div>
           </div>
-          <div class="name">
-            <strong>Gurdeep Singh</strong>
-            <p>Center Forward</p>
+          <div class="middle">
+            <h4>{{ footRequest.player_type }}</h4>
+            <h4>
+              <a (click)="openDialog()"
+                >{{ footRequest.mutuals }} Mutual Footmates</a
+              >
+            </h4>
           </div>
-        </div>
-        <div class="middle">
-          <h4>Grassroot</h4>
-          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
-        </div>
-        <div class="bottom">
-          <button class="accepted">
-            <i-feather class="icon-size" name="user-check"></i-feather> Accept
-          </button>
-          <button class="rejected">
-            <i-feather class="icon-size" name="user-x"></i-feather>Reject
-          </button>
-        </div>
-      </div>
-
-      <!-- Two -->
-      <div class="playerbox">
-        <div class="top">
-          <div class="dp">
-            <img src="assets/images/profile-icon.png" alt="" />
-          </div>
-          <div class="name">
-            <strong>Gurdeep Singh</strong>
-            <p>Center Forward</p>
-          </div>
-        </div>
-        <div class="middle">
-          <h4>Grassroot</h4>
-          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
-        </div>
-        <div class="bottom">
-          <button class="accepted">
-            <i-feather class="icon-size" name="user-check"></i-feather> Accept
-          </button>
-          <button class="rejected">
-            <i-feather class="icon-size" name="user-x"></i-feather>Reject
-          </button>
-        </div>
-      </div>
-
-      <!-- three -->
-      <div class="playerbox">
-        <div class="top">
-          <div class="dp">
-            <img src="assets/images/profile-icon.png" alt="" />
-          </div>
-          <div class="name">
-            <strong>Gurdeep Singh</strong>
-            <p>Center Forward</p>
+          <div class="bottom">
+            <ng-container *ngIf="footRequest.hide !== true">
+              <button (click)="acceptFootRequest(footRequest)" class="accepted">
+                <i-feather class="icon-size" name="user-check"></i-feather>
+                Accept
+              </button>
+              <button (click)="rejectFootRequest(footRequest)" class="rejected">
+                <i-feather class="icon-size" name="user-x"></i-feather>Reject
+              </button>
+            </ng-container>
+            <ng-container *ngIf="footRequest.hide === true">
+              <button
+                [ngClass]="{
+                  accepted: footRequest.accepted,
+                  rejected: !footRequest.accepted
+                }"
+              >
+                <i-feather
+                  class="icon-size"
+                  [name]="footRequest.accepted ? 'user-check' : 'user-x'"
+                ></i-feather>
+                {{ footRequest.accepted ? 'Accepted' : 'Rejected' }}
+              </button>
+            </ng-container>
           </div>
         </div>
-        <div class="middle">
-          <h4>Grassroot</h4>
-          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
-        </div>
-        <div class="bottom">
-          <button class="accepted active">
-            <i-feather class="icon-size" name="user-check"></i-feather> Accepted
-          </button>
-        </div>
-      </div>
-
-      <!-- four -->
-      <div class="playerbox">
-        <div class="top">
-          <div class="dp">
-            <img src="assets/images/profile-icon.png" alt="" />
-          </div>
-          <div class="name">
-            <strong>Gurdeep Singh</strong>
-            <p>Center Forward</p>
-          </div>
-        </div>
-        <div class="middle">
-          <h4>Grassroot</h4>
-          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
-        </div>
-        <div class="bottom">
-          <button class="rejected active">
-            <i-feather class="icon-size" name="user-x"></i-feather>Rejected
-          </button>
-        </div>
-      </div>
+      </ng-container>
     </div>
     <!-- pagination -->
-    <app-pagination> </app-pagination>
+    <app-pagination
+      [showData]="false"
+      [showCount]="show_count"
+      [totalRows]="total_count"
+      [rowsPerPage]="pageSize"
+      (onChange)="updatePage($event)"
+    >
+    </app-pagination>
   </div>
 </div>
