@@ -7,6 +7,8 @@ const routes = {
   addAwards: (c: any) => '/achievement/add',
   updateAwards: (id: any) => `/achievement/${id}`,
   getAwardsList: (c: CommonContext) => '/achievement/list',
+  getPublicAwardsList: (user_id: any, c: CommonContext) =>
+    `/member/public/achievement/${user_id}`,
   deleteAward: (c: DeleteAwardContext) => '/achievement'
 };
 
@@ -76,6 +78,22 @@ export class AwardCertificateService {
     }
     return this.httpClient.get<AwardsListResponseContext>(
       routes.getAwardsList(context) + query
+    );
+  }
+
+  getPublicAwardsList(
+    user_id: string,
+    context: CommonContext
+  ): Observable<AwardsListResponseContext> {
+    let query = '?';
+    if (context['page_no']) {
+      query += 'page_no=' + context['page_no'];
+    }
+    if (context['page_size']) {
+      query += '&page_size=' + context['page_size'];
+    }
+    return this.httpClient.get<AwardsListResponseContext>(
+      routes.getPublicAwardsList(user_id, context) + query
     );
   }
 }

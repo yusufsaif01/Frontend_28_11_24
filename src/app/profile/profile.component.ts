@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { PanelOptions } from '@app/shared/models/panel-options.model';
 
 @Component({
   selector: 'app-profile',
@@ -16,21 +17,34 @@ export class ProfileComponent implements OnInit {
   aadhar: string;
   employment_contract: string;
   document: string;
-  panelOptions: object = {
+  panelOptions: Partial<PanelOptions> = {
     player_type: false,
-    logout_link: true
+    logout_link: true,
+    achievements: true,
+    is_public: false
   };
   docNumber: string;
+  isPublic: boolean = false;
+  userId: string;
 
   constructor(
     private _authenticationService: AuthenticationService,
     private _toastrService: ToastrService,
-    private _router: Router
-  ) {}
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
+  ) {
+    this._activatedRoute.params.subscribe(params => {
+      if (params['handle']) {
+        this.panelOptions.is_public = true;
+        this.isPublic = true;
+        this.userId = params['handle'];
+      }
+    });
+  }
 
   ngOnInit() {
-    this.populateView();
     this.numbers = [1, 2, 3, 4, 5];
+    this.getProfile({});
   }
 
   logout() {
@@ -38,49 +52,30 @@ export class ProfileComponent implements OnInit {
     this._router.navigateByUrl('/login');
   }
 
-  populateView() {
-    this._authenticationService.getProfileDetails().subscribe(
-      response => {
-        this.profile = response.data;
+  getProfile(data: object) {
+    this.profile = data;
+    if (!this.isPublic && this.profile) this.setDocuments();
+    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
-        if (this.profile.avatar_url) {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + this.profile.avatar_url;
-        } else {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
+  setDocuments() {
+    if (this.profile.documents && this.profile.documents.length !== 0) {
+      this.profile.documents.forEach((element: any) => {
+        let fileLink = this.environment.mediaUrl + element.link;
+        if (element.type === 'aadhar') {
+          this.aadhar = fileLink;
         }
-
-        if (this.profile.documents.length !== 0) {
-          this.profile.documents.forEach((element: any) => {
-            let fileLink = this.environment.mediaUrl + element.link;
-            if (element.type === 'aadhar') {
-              this.aadhar = fileLink;
-            }
-            if (element.type === 'employment_contract') {
-              this.employment_contract = fileLink;
-            }
-            if (
-              element.type !== 'employment_contract' &&
-              element.type !== 'aadhar'
-            ) {
-              this.document = fileLink;
-              this.docNumber = element.document_number;
-            }
-          });
+        if (element.type === 'employment_contract') {
+          this.employment_contract = fileLink;
         }
-
-        this._toastrService.success(
-          'Successful',
-          'Data retrieved successfully'
-        );
-      },
-      error => {
-        this._toastrService.error(
-          `${error.error.message}`,
-          'Failed to load data'
-        );
-      }
-    );
+        if (
+          element.type !== 'employment_contract' &&
+          element.type !== 'aadhar'
+        ) {
+          this.document = fileLink;
+          this.docNumber = element.document_number;
+        }
+      });
+    }
   }
 }

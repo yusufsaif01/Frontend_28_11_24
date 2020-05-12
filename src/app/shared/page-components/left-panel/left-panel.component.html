@@ -42,8 +42,9 @@
     </div>
   </div>
   <!-- make footmate unfollow -->
-  <div class="btn-follow">
+  <div class="btn-follow" *ngIf="options.is_public">
     <button
+      *ngIf="profile.member_type === 'player'"
       (click)="toggleFootMate()"
       [innerText]="
         is_footmate === 'Accepted'
@@ -55,9 +56,10 @@
     >
       Make FootMate
     </button>
+    <ng-container *ngIf="following$ | async"></ng-container>
     <button
       *ngIf="is_footmate !== 'Pending'"
-      [innerText]="(following$ | async) || 'Follow'"
+      [innerText]="is_following ? 'Unfollow' : 'Follow'"
       (click)="toggleFollow()"
       class="active"
     >
@@ -69,10 +71,20 @@
     <button>Pending</button>
   </div> -->
 
-  <div class="block-bottom" *ngIf="options.view_profile_link">
-    <a [routerLink]="['/profile']"> View my profile</a>
-    <a *ngIf="options.logout_link" (click)="logout()"> Logout</a>
-  </div>
+  <ng-container
+    *ngIf="
+      options.view_profile_link || (options.logout_link && !options.is_public)
+    "
+  >
+    <div class="block-bottom">
+      <a *ngIf="options.view_profile_link" [routerLink]="['/profile']">
+        View my profile</a
+      >
+      <a *ngIf="options.logout_link && !options.is_public" (click)="logout()">
+        Logout</a
+      >
+    </div>
+  </ng-container>
 </div>
 
 <!-- player type -->
@@ -95,6 +107,14 @@
   <div class="block-design">
     <div class="achievement">
       <a [routerLink]="['/awardcertification']">My Achievements</a>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="options.achievements && options.is_public">
+  <div class="block-design">
+    <div class="achievement">
+      <a [routerLink]="['/awardcertification', userId]">Achievements</a>
     </div>
   </div>
 </ng-container>
