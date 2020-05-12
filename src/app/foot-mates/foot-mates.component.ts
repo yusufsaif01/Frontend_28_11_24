@@ -1,6 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { MutualFootmateComponent } from '@app/foot-request/mutual-footmate/mutual-footmate.component';
+import { FootMatesService } from './foot-mates.service';
+import { environment } from '../../environments/environment';
+import { FootRequestService } from '@app/foot-request/foot-request.service';
+
+interface FootMatesContext {
+  name: string;
+  position: string;
+  player_type: string;
+  avatar: string;
+  user_id: string;
+  mutuals: number;
+}
 
 @Component({
   selector: 'app-footmates',
@@ -9,7 +21,6 @@ import { MutualFootmateComponent } from '@app/foot-request/mutual-footmate/mutua
 })
 export class FootMatesComponent implements OnInit {
   public active: boolean;
-  total_count: number = 0;
 
   menuOpened() {
     if (this.active) {
@@ -27,16 +38,55 @@ export class FootMatesComponent implements OnInit {
     player_type: true,
     follows_buttons: false
   };
-
-  constructor(public dialog: MatDialog) {}
+  foot_request_count = 0;
+  foot_mate_count = 0;
+  pageSize: number = 20;
+  show_count: number = 0;
+  total_count: number = 0;
+  footMatesList: FootMatesContext[] = [];
+  constructor(
+    public dialog: MatDialog,
+    private footMatesService: FootMatesService,
+    private footRequestService: FootRequestService
+  ) {}
   // MatualFootmates
-  openDialog(): void {
+  openDialog(foot_mate: any): void {
     const dialogRef = this.dialog.open(MutualFootmateComponent, {
       width: '40%',
       panelClass: 'MatualFootmate',
-      data: { id: 'fa81436f-0074-4e04-a7e0-aed2a0254460' }
+      data: { id: foot_mate.user_id }
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getFootMateList(this.pageSize, 1);
+    this.connectionStats();
+  }
+  getFootMateList(page_size: number, page_no: number) {
+    this.footMatesService.getFootMateList({ page_size, page_no }).subscribe(
+      response => {
+        let records = response.data.records;
+        for (let i = 0; i < records.length; i++) {
+          records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
+        }
+        this.footMatesList = records;
+        this.show_count = response.data.records.length;
+      },
+      error => {}
+    );
+  }
+  updatePage(event: any) {
+    this.getFootMateList(this.pageSize, event.selectedPage);
+  }
+
+  connectionStats() {
+    this.footRequestService.connectionStats().subscribe(
+      response => {
+        this.foot_mate_count = response.data.footmates;
+        this.foot_request_count = response.data.footmate_requests;
+        this.total_count = response.data.footmates;
+      },
+      error => {}
+    );
+  }
 }
