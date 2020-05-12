@@ -69,8 +69,14 @@
         </div>
       </ng-container>
     </div>
+    <ng-container *ngIf="footRequestList.length === 0">
+      <span class="no-data-found">
+        No foot requests found
+      </span>
+    </ng-container>
     <!-- pagination -->
     <app-pagination
+      *ngIf="footRequestList.length !== 0"
       [showData]="false"
       [showCount]="show_count"
       [totalRows]="total_count"

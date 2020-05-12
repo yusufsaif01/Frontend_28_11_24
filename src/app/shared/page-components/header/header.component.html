@@ -42,8 +42,8 @@
     <!-- header right -->
     <div class="header-menu">
       <ul>
-        <li>
-          <a matTooltip="FootRequests" [routerLink]="['/foot-requests']">
+        <li *ngIf="member_type === 'player'">
+          <a matTooltip="FootMates" [routerLink]="['/foot-requests']">
             <span>
               <i-feather name="Users" class="icon-size"></i-feather>
             </span>
