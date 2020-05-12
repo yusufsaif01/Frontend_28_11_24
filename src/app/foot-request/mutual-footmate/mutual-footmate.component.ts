@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MutualFootmateService } from './mutual-footmate-service';
-import { environment } from '@env/environment.prod';
+import { environment } from '../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
