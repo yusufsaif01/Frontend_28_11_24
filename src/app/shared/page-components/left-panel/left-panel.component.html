@@ -44,7 +44,7 @@
   <!-- make footmate unfollow -->
   <div class="btn-follow" *ngIf="options.is_public">
     <button
-      *ngIf="profile.member_type === 'player'"
+      *ngIf="profile.member_type === 'player' && member_type === 'player'"
       (click)="toggleFootMate()"
       [innerText]="
         is_footmate === 'Accepted'
