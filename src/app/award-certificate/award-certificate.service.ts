@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CredentialsService } from '@app/core';
 
 const routes = {
   addAwards: (c: any) => '/achievement/add',
@@ -41,10 +40,7 @@ interface DelEditAddAwardResponseContext {
   providedIn: 'root'
 })
 export class AwardCertificateService {
-  constructor(
-    private httpClient: HttpClient,
-    private credentialsService: CredentialsService
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
   addAwards(context: any): Observable<DelEditAddAwardResponseContext> {
     return this.httpClient.post<DelEditAddAwardResponseContext>(

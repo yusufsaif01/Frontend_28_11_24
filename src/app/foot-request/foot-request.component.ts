@@ -31,8 +31,9 @@ export class FootRequestComponent implements OnInit {
     follows_buttons: false
   };
 
-  foot_request_count = 0;
-  foot_mate_count = 0;
+  // foot_request_count = 0;
+  // foot_mate_count = 0;
+  foot_data: any;
   pageSize: number = 12;
   show_count: number = 0;
   total_count: number = 0;
@@ -53,7 +54,7 @@ export class FootRequestComponent implements OnInit {
   }
   ngOnInit() {
     this.getFootRequestList(this.pageSize, 1);
-    this.connectionStats();
+    this.getConnectionStats({});
   }
 
   getFootRequestList(page_size: number, page_no: number) {
@@ -98,14 +99,7 @@ export class FootRequestComponent implements OnInit {
     this.getFootRequestList(this.pageSize, event.selectedPage);
   }
 
-  connectionStats() {
-    this.footRequestService.connectionStats().subscribe(
-      response => {
-        this.foot_mate_count = response.data.footmates;
-        this.foot_request_count = response.data.footmate_requests;
-        this.total_count = response.data.footmate_requests;
-      },
-      error => {}
-    );
+  getConnectionStats(data: object) {
+    this.foot_data = data;
   }
 }

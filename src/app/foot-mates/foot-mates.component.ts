@@ -38,8 +38,9 @@ export class FootMatesComponent implements OnInit {
     player_type: true,
     follows_buttons: false
   };
-  foot_request_count = 0;
-  foot_mate_count = 0;
+  // foot_request_count = 0;
+  // foot_mate_count = 0;
+  foot_data: any;
   pageSize: number = 20;
   show_count: number = 0;
   total_count: number = 0;
@@ -60,7 +61,7 @@ export class FootMatesComponent implements OnInit {
 
   ngOnInit() {
     this.getFootMateList(this.pageSize, 1);
-    this.connectionStats();
+    this.getConnectionStats({});
   }
   getFootMateList(page_size: number, page_no: number) {
     this.footMatesService.getFootMateList({ page_size, page_no }).subscribe(
@@ -79,14 +80,7 @@ export class FootMatesComponent implements OnInit {
     this.getFootMateList(this.pageSize, event.selectedPage);
   }
 
-  connectionStats() {
-    this.footRequestService.connectionStats().subscribe(
-      response => {
-        this.foot_mate_count = response.data.footmates;
-        this.foot_request_count = response.data.footmate_requests;
-        this.total_count = response.data.footmates;
-      },
-      error => {}
-    );
+  getConnectionStats(data: object) {
+    this.foot_data = data;
   }
 }
