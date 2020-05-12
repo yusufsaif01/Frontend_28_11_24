@@ -31,16 +31,7 @@ interface GetFootMateListResponseContext {
     }[];
   };
 }
-interface ConnectionStatsResponseContext {
-  status: string;
-  message: string;
-  data: {
-    footmate_requests: number;
-    footmates: number;
-    followers: number;
-    followings: number;
-  };
-}
+
 @Injectable({
   providedIn: 'root'
 })
