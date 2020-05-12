@@ -50,11 +50,11 @@ export class FootMatesComponent implements OnInit {
     private footRequestService: FootRequestService
   ) {}
   // MatualFootmates
-  openDialog(): void {
+  openDialog(foot_mate: any): void {
     const dialogRef = this.dialog.open(MutualFootmateComponent, {
       width: '40%',
       panelClass: 'MatualFootmate',
-      data: { id: 'fa81436f-0074-4e04-a7e0-aed2a0254460' }
+      data: { id: foot_mate.user_id }
     });
   }
 
