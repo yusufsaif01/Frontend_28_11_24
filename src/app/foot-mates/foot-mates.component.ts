@@ -32,7 +32,8 @@ export class FootMatesComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(MutualFootmateComponent, {
       width: '40%',
-      panelClass: 'MatualFootmate'
+      panelClass: 'MatualFootmate',
+      data: { id: 'fa81436f-0074-4e04-a7e0-aed2a0254460' }
     });
   }
 
