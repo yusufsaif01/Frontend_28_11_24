@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 // /connection/list?page_no=1&page_size=20&position=<positions>&player_category=<player_category>&age=<age_range>&country=<country>&city=<city>&state=<state>&strong_foot=<strong_foot>
 const routes = {
-  getFootMateList: (c: GetFootMateListContext) => '/connection/list',
-  connectionStats: () => '/connection/stats'
+  getFootMateList: (c: GetFootMateListContext) => '/connection/list'
 };
 interface GetFootMateListContext {
   page_no?: number;
@@ -60,11 +59,6 @@ export class FootMatesService {
     }
     return this.httpClient.get<GetFootMateListResponseContext>(
       routes.getFootMateList(context) + query
-    );
-  }
-  connectionStats(): Observable<ConnectionStatsResponseContext> {
-    return this.httpClient.get<ConnectionStatsResponseContext>(
-      routes.connectionStats()
     );
   }
 }

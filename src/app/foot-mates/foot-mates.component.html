@@ -172,7 +172,9 @@
               <img [src]="footMate.avatar" alt="" />
             </div>
             <div class="name">
-              <strong>{{ footMate.name }}</strong>
+              <strong [routerLink]="['/profile', footMate.user_id]">{{
+                footMate.name
+              }}</strong>
               <p>{{ footMate.position }}</p>
             </div>
           </div>

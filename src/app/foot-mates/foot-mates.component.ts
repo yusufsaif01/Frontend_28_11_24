@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { MutualFootmateComponent } from '@app/foot-request/mutual-footmate/mutual-footmate.component';
 import { FootMatesService } from './foot-mates.service';
 import { environment } from '../../environments/environment';
+import { FootRequestService } from '@app/foot-request/foot-request.service';
 
 interface FootMatesContext {
   name: string;
@@ -45,7 +46,8 @@ export class FootMatesComponent implements OnInit {
   footMatesList: FootMatesContext[] = [];
   constructor(
     public dialog: MatDialog,
-    private footMatesService: FootMatesService
+    private footMatesService: FootMatesService,
+    private footRequestService: FootRequestService
   ) {}
   // MatualFootmates
   openDialog(): void {
@@ -72,9 +74,12 @@ export class FootMatesComponent implements OnInit {
       error => {}
     );
   }
+  updatePage(event: any) {
+    this.getFootMateList(this.pageSize, event.selectedPage);
+  }
 
   connectionStats() {
-    this.footMatesService.connectionStats().subscribe(
+    this.footRequestService.connectionStats().subscribe(
       response => {
         this.foot_mate_count = response.data.footmates;
         this.foot_request_count = response.data.footmate_requests;
