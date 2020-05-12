@@ -89,7 +89,10 @@ export class LeftPanelComponent implements OnInit {
   }
 
   getAchievementCount() {
-    this._timelineService.getAchievementCount().subscribe(
+    let data = {};
+    if (this.userId) data = { user_id: this.userId };
+
+    this._timelineService.getAchievementCount(data).subscribe(
       response => {
         this.count = response.data;
         this.achievements = response.data.achievements;
