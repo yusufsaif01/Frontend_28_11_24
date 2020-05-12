@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MutualFootmateService } from './mutual-footmate-service';
+import { environment } from '@env/environment.prod';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-mutual-footmate',
@@ -9,11 +11,14 @@ import { MutualFootmateService } from './mutual-footmate-service';
 })
 export class MutualFootmateComponent implements OnInit {
   mutualFootmate: any[] = [];
+  baseUrl: string = '';
   constructor(
     public dialogRef: MatDialogRef<MutualFootmateComponent>,
     private mutualFootmateService: MutualFootmateService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private toastrService: ToastrService
   ) {
+    this.baseUrl = environment.mediaUrl;
     this.getMutualFootmateList();
   }
 
@@ -26,10 +31,10 @@ export class MutualFootmateComponent implements OnInit {
   getMutualFootmateList() {
     this.mutualFootmateService.getMutualFootmateList(this.data.id).subscribe(
       response => {
-        console.log('Mutual Footmates', response);
+        this.mutualFootmate = response.data.records;
       },
       error => {
-        console.log(error);
+        this.toastrService.error('Error', error.error.message);
       }
     );
   }

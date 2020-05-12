@@ -13,84 +13,20 @@
   </div>
   <div class="modal-body">
     <div class="footmates-wrapper">
-      <div class="footmate-block">
+      <div class="footmate-block" *ngFor="let footmate of mutualFootmate">
         <div class="dp">
-          <img src="assets/images/profile-icon.png" alt="profile-icon" />
+          <img [src]="footmate.avatar" alt="profile-icon" />
         </div>
         <div class="details">
-          <h3><a>Jeorge Balley</a></h3>
-          <h5>Professional</h5>
-          <p>Center Midfielder</p>
-        </div>
-      </div>
-      <div class="footmate-block">
-        <div class="dp">
-          <img src="assets/images/profile-icon.png" alt="profile-icon" />
-        </div>
-        <div class="details">
-          <h3><a>Jeorge Balley</a></h3>
-          <h5>Professional</h5>
-          <p>Center Midfielder</p>
-        </div>
-      </div>
-      <div class="footmate-block">
-        <div class="dp">
-          <img src="assets/images/profile-icon.png" alt="profile-icon" />
-        </div>
-        <div class="details">
-          <h3><a>Jeorge Balley</a></h3>
-          <h5>Professional</h5>
-          <p>Center Midfielder</p>
-        </div>
-      </div>
-      <div class="footmate-block">
-        <div class="dp">
-          <img src="assets/images/profile-icon.png" alt="profile-icon" />
-        </div>
-        <div class="details">
-          <h3><a>Jeorge Balley</a></h3>
-          <h5>Professional</h5>
-          <p>Center Midfielder</p>
-        </div>
-      </div>
-      <div class="footmate-block">
-        <div class="dp">
-          <img src="assets/images/profile-icon.png" alt="profile-icon" />
-        </div>
-        <div class="details">
-          <h3><a>Jeorge Balley</a></h3>
-          <h5>Professional</h5>
-          <p>Center Midfielder</p>
-        </div>
-      </div>
-      <div class="footmate-block">
-        <div class="dp">
-          <img src="assets/images/profile-icon.png" alt="profile-icon" />
-        </div>
-        <div class="details">
-          <h3><a>Jeorge Balley</a></h3>
-          <h5>Professional</h5>
-          <p>Center Midfielder</p>
-        </div>
-      </div>
-      <div class="footmate-block">
-        <div class="dp">
-          <img src="assets/images/profile-icon.png" alt="profile-icon" />
-        </div>
-        <div class="details">
-          <h3><a>Jeorge Balley</a></h3>
-          <h5>Professional</h5>
-          <p>Center Midfielder</p>
-        </div>
-      </div>
-      <div class="footmate-block">
-        <div class="dp">
-          <img src="assets/images/profile-icon.png" alt="profile-icon" />
-        </div>
-        <div class="details">
-          <h3><a>Jeorge Balley</a></h3>
-          <h5>Professional</h5>
-          <p>Center Midfielder</p>
+          <h3>
+            <a
+              target="_blank"
+              [href]="baseUrl + '/profile/' + footmate.user_id"
+              >{{ footmate.name }}</a
+            >
+          </h3>
+          <h5>{{ footmate.player_type }}</h5>
+          <p>{{ footmate.position }}</p>
         </div>
       </div>
     </div>

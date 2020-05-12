@@ -44,11 +44,11 @@ export class FootRequestComponent implements OnInit {
     private footRequestService: FootRequestService
   ) {}
   // MatualFootmates
-  openDialog(): void {
+  openDialog(foot_request: any): void {
     const dialogRef = this.dialog.open(MutualFootmateComponent, {
       width: '40%',
       panelClass: 'MatualFootmate',
-      data: { id: '6ff5a3fd-f56d-4417-bf38-afebf4efade6' }
+      data: { id: foot_request.user_id }
     });
   }
   ngOnInit() {
