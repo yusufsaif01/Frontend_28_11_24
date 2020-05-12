@@ -393,17 +393,6 @@
             </div>
           </div>
         </ng-container>
-        <div class="block-middle border-bottom">
-          <div class="half">
-            <p>
-              <span>
-                Type of
-                {{ profile.member_type === 'club' ? 'Club' : 'Academy' }} :
-              </span>
-              {{ profile.type }}
-            </p>
-          </div>
-        </div>
       </div>
 
       <!-- perfessional details -->
@@ -497,6 +486,22 @@
             <p>
               <span>Number of associated players : </span
               >{{ profile?.associated_players }}
+            </p>
+          </div>
+        </div>
+        <div
+          class="block-middle border-bottom"
+          *ngIf="
+            profile.member_type === 'academy' || profile.member_type === 'club'
+          "
+        >
+          <div class="full">
+            <p>
+              <span>
+                Type of
+                {{ profile.member_type === 'club' ? 'Club' : 'Academy' }} :
+              </span>
+              {{ profile.type }}
             </p>
           </div>
         </div>
