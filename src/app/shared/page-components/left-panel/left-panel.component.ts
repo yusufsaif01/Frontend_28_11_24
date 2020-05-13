@@ -39,6 +39,7 @@ export class LeftPanelComponent implements OnInit {
   profile: any;
   environment = environment;
   member_type: string = localStorage.getItem('member_type');
+  loggedin_userid: string = localStorage.getItem('user_id');
 
   @Input() achievements: number = 0;
   @Input() options: any;

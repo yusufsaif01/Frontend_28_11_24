@@ -21,7 +21,7 @@
       }}
     </h6>
     <p>
-      <i-feather name=" " class="icon-size"></i-feather>
+      <i-feather name="alert-circle" class="icon-size"></i-feather>
       Not Verified
     </p>
   </div>
@@ -48,7 +48,10 @@
     </ng-container>
   </div>
   <!-- make footmate unfollow -->
-  <div class="btn-follow" *ngIf="options.is_public">
+  <div
+    class="btn-follow"
+    *ngIf="options.is_public && userId !== loggedin_userid"
+  >
     <button
       *ngIf="profile.member_type === 'player' && member_type === 'player'"
       (click)="toggleFootMate()"
