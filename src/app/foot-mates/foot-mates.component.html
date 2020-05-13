@@ -21,23 +21,43 @@
       >
     </div>
     <div class="filter-buttons">
-      <button [matMenuTriggerFor]="position" class="active">
+      <button
+        (click)="addActiveClass('activePosition')"
+        [matMenuTriggerFor]="position"
+        [ngClass]="{ active: activePosition }"
+      >
         Position
         <i-feather class="icon-size" name="chevron-down"></i-feather>
       </button>
-      <button [matMenuTriggerFor]="playercategory">
+      <button
+        (click)="addActiveClass('activePlayerCategory')"
+        [matMenuTriggerFor]="playercategory"
+        [ngClass]="{ active: activePlayerCategory }"
+      >
         Player Category
         <i-feather class="icon-size" name="chevron-down"></i-feather>
       </button>
-      <button [matMenuTriggerFor]="age">
+      <button
+        (click)="addActiveClass('activeAge')"
+        [matMenuTriggerFor]="age"
+        [ngClass]="{ active: activeAge }"
+      >
         Age
         <i-feather class="icon-size" name="chevron-down"></i-feather>
       </button>
-      <button [matMenuTriggerFor]="location">
+      <button
+        (click)="addActiveClass('activeLocation')"
+        [matMenuTriggerFor]="location"
+        [ngClass]="{ active: activeLocation }"
+      >
         Location
         <i-feather class="icon-size" name="chevron-down"></i-feather>
       </button>
-      <button [matMenuTriggerFor]="strongfoot">
+      <button
+        (click)="addActiveClass('activeStrongFoot')"
+        [matMenuTriggerFor]="strongfoot"
+        [ngClass]="{ active: activeStrongFoot }"
+      >
         Strong Foot
         <i-feather class="icon-size" name="chevron-down"></i-feather>
       </button>

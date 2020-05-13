@@ -41,6 +41,11 @@ export class FootMatesComponent implements OnInit {
   checkPlayerTypeFilters: boolean | undefined = undefined;
   checkAgeRangeFilters: boolean | undefined = undefined;
   checkStrongFootFilters: boolean | undefined = undefined;
+  activePosition: boolean = false;
+  activePlayerCategory: boolean = false;
+  activeAge: boolean = false;
+  activeLocation: boolean = false;
+  activeStrongFoot: boolean = false;
 
   menuOpened() {
     if (this.active) {
@@ -215,6 +220,7 @@ export class FootMatesComponent implements OnInit {
     this.filter.page_size = this.pageSize;
     this.filter.page_no = this.pageNo;
     this.getFootMateList();
+    this.deactivateAll();
     this.checkFilters = false;
     this.checkPlayerTypeFilters = false;
     this.checkAgeRangeFilters = false;
@@ -313,6 +319,18 @@ export class FootMatesComponent implements OnInit {
 
   getConnectionStats(data: object) {
     this.foot_data = data;
+  }
+
+  addActiveClass(className: any) {
+    this.deactivateAll();
+    this[className] = true;
+  }
+  deactivateAll() {
+    this.activePosition = false;
+    this.activePlayerCategory = false;
+    this.activeAge = false;
+    this.activeLocation = false;
+    this.activeStrongFoot = false;
   }
   ngOnDestroy() {}
 }
