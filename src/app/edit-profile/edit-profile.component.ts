@@ -228,8 +228,18 @@ export class EditProfileComponent implements OnInit {
       value: 'city4'
     }
   ];
+  clubAcadTypeArray = [
+    {
+      name: 'Residential',
+      value: 'Residential'
+    },
+    {
+      name: 'Non-Residential',
+      value: 'Non-Residential'
+    }
+  ];
 
-  StateAssociationArray = [
+  stateAssociationArray = [
     {
       name: 'All Manipur Football Association',
       value: 'All Manipur Football Association'
@@ -885,7 +895,8 @@ export class EditProfileComponent implements OnInit {
           '',
           [Validators.required, Validators.pattern(/^\d+$/)]
         ],
-        aiff: ['', [Validators.required, requiredFileDocument]]
+        aiff: ['', [Validators.required, requiredFileDocument]],
+        type: ['', [Validators.required]]
         // onclick upload document [aiff]
       });
     } else if (this.member_type === 'academy') {
@@ -937,7 +948,8 @@ export class EditProfileComponent implements OnInit {
           '',
           [Validators.required, Validators.pattern(/^\d+$/)]
         ],
-        document: ['', [requiredFileDocument]]
+        document: ['', [requiredFileDocument]],
+        type: ['', [Validators.required]]
         //onclick upload documenet aiff / pan card/tin / coi
       });
     }
@@ -1005,6 +1017,7 @@ export class EditProfileComponent implements OnInit {
       city: this.profile.city ? this.profile.city : '',
       stadium_name: this.profile.stadium_name ? this.profile.stadium_name : '',
       league: this.profile.league ? this.profile.league : '',
+      type: this.profile.type ? this.profile.type : '',
       league_other: this.profile.league_other ? this.profile.league_other : '',
       association: this.profile.association ? this.profile.association : '',
       association_other: this.profile.association_other
