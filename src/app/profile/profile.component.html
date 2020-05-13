@@ -489,6 +489,44 @@
             </p>
           </div>
         </div>
+        <div
+          class="block-middle border-bottom"
+          *ngIf="
+            profile.member_type === 'academy' || profile.member_type === 'club'
+          "
+        >
+          <div class="full">
+            <p>
+              <span>
+                Type of
+                {{ profile.member_type === 'club' ? 'Club' : 'Academy' }} :
+              </span>
+              {{ profile?.type }}
+            </p>
+          </div>
+        </div>
+        <div
+          class="block-middle border-bottom"
+          *ngIf="profile.association !== 'Others'; else otherAssociation"
+        >
+          <div class="full">
+            <p>
+              <span>State association affiliated under : </span
+              >{{ profile?.association | titlecase }}
+            </p>
+          </div>
+        </div>
+
+        <ng-template #otherAssociation>
+          <div class="block-middle border-bottom">
+            <div class="full">
+              <p>
+                <span>State association affiliated under (Other) : </span
+                >{{ profile?.association_other | titlecase }}
+              </p>
+            </div>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>
