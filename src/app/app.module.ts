@@ -55,12 +55,6 @@ import {
   Edit
 } from 'angular-feather/icons';
 import { from } from 'rxjs';
-import { ManagePlayerComponent } from './admin/manage-player/manage-player.component';
-import { FilterDialogPlayerComponent } from './admin/filter-dialog-player/filter-dialog-player.component';
-import { ManageClubComponent } from './admin/manage-club/manage-club.component';
-import { FilterDialogClubComponent } from './admin/filter-dialog-club/filter-dialog-club.component';
-import { ManageAcademyComponent } from './admin/manage-academy/manage-academy.component';
-import { FilterDialogAcademyComponent } from './admin/filter-dialog-academy/filter-dialog-academy.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { PostPopupComponent } from './post-popup/post-popup.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
@@ -68,14 +62,7 @@ import { DeleteConfirmationComponent } from './shared/dialog-box/delete-confirma
 import { StatusConfirmationComponent } from './shared/dialog-box/status-confirmation/status-confirmation.component';
 import { AwardCertificateComponent } from './award-certificate/award-certificate.component';
 import { EditAddPopupComponent } from './award-certificate/edit-add-popup/edit-add-popup.component';
-import { ManageLocationComponent } from './admin/masterdata/manage-location/manage-location.component';
-import { ManageStateComponent } from './admin/masterdata/manage-location/manage-state/manage-state.component';
-import { ManageCityComponent } from './admin/masterdata/manage-location/manage-city/manage-city.component';
-import { MemberTypeComponent } from './admin/masterdata/member-type/member-type.component';
-import { ManagePositionComponent } from './admin/masterdata/player-specialization/manage-position/manage-position.component';
 import { AddEditPopupComponent } from './admin/masterdata/player-specialization/manage-position/add-edit-popup/add-edit-popup.component';
-import { ManageAbilityComponent } from './admin/masterdata/player-specialization/manage-ability/manage-ability.component';
-import { ManageParametersComponent } from './admin/masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
 import { AddpopupComponent } from './admin/masterdata/player-specialization/addpopup/addpopup.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
 import { FootRequestComponent } from './foot-request/foot-request.component';
@@ -147,31 +134,17 @@ const icons = {
     ChangePasswordComponent,
     CreatePasswordComponent,
     ProfileComponent,
-    ManagePlayerComponent,
-    FilterDialogPlayerComponent,
-    ManageClubComponent,
-    FilterDialogClubComponent,
-    ManageAcademyComponent,
-    FilterDialogAcademyComponent,
     TimelineComponent,
     PostPopupComponent,
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
     AwardCertificateComponent,
     EditAddPopupComponent,
-    ManageLocationComponent,
-    ManageStateComponent,
-    ManageCityComponent,
-    MemberTypeComponent,
-    ManagePositionComponent,
     AddEditPopupComponent,
-    ManageAbilityComponent,
-    ManageParametersComponent,
     AddpopupComponent,
     FootRequestComponent,
     MutualFootmateComponent,
     FootMatesComponent
-    // , HomeComponent
   ],
   providers: [
     RoleGuardService,
@@ -190,9 +163,6 @@ const icons = {
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
-    FilterDialogPlayerComponent,
-    FilterDialogClubComponent,
-    FilterDialogAcademyComponent,
     PostPopupComponent,
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
