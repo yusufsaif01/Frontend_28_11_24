@@ -2216,6 +2216,72 @@
                   </mat-error>
                 </div>
               </div>
+
+              <div class="form-block-clubs">
+                <div class="input-wrapper-second">
+                  <label
+                    >State association affiliated under<span>*</span></label
+                  >
+                  <select
+                    matNativeControl
+                    formControlName="association"
+                    required
+                  >
+                    <option value="">Select Association</option>
+                    <ng-container
+                      *ngFor="let association of StateAssociationArray"
+                    >
+                      <option value="{{ association.value }}">{{
+                        association.name
+                      }}</option>
+                    </ng-container>
+                  </select>
+                  <mat-error
+                    *ngIf="
+                      editProfileForm.controls.association.invalid &&
+                      editProfileForm.controls.association.touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.association.errors.required
+                      "
+                      translate
+                      >Association is required</span
+                    >
+                  </mat-error>
+                </div>
+
+                <div
+                  class="input-wrapper-second"
+                  *ngIf="
+                    editProfileForm.controls.association.value === 'Others'
+                  "
+                >
+                  <label>Other </label>
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="Other Association Name"
+                    formControlName="association_other"
+                  />
+                  <mat-error
+                    *ngIf="
+                      editProfileForm.controls.association_other.invalid &&
+                      editProfileForm.controls.association_other.touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.association_other.errors
+                          .pattern
+                      "
+                      translate
+                      >Other Association format is invalid</span
+                    >
+                  </mat-error>
+                </div>
+              </div>
             </div>
           </div>
         </div>

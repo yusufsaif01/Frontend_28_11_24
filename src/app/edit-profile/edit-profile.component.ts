@@ -229,6 +229,145 @@ export class EditProfileComponent implements OnInit {
     }
   ];
 
+  StateAssociationArray = [
+    {
+      name: 'All Manipur Football Association',
+      value: 'All Manipur Football Association'
+    },
+    {
+      name: 'Andaman & Nicobar Football Association',
+      value: 'Andaman & Nicobar Football Association'
+    },
+    {
+      name: 'Andhra Pradesh Football Association',
+      value: 'Andhra Pradesh Football Association'
+    },
+    {
+      name: 'Arunachal Pradesh Football Association',
+      value: 'Arunachal Pradesh Football Association'
+    },
+    { name: 'Assam Football Association', value: 'Assam Football Association' },
+    { name: 'Bihar Football Association', value: 'Bihar Football Association' },
+    {
+      name: 'Chandigarh Football Association',
+      value: 'Chandigarh Football Association'
+    },
+    {
+      name: 'Chhattisgarh Football Association',
+      value: 'Chhattisgarh Football Association'
+    },
+    {
+      name: 'Dadra and Nagar Haveli Football Association',
+      value: 'Dadra and Nagar Haveli Football Association'
+    },
+    {
+      name: 'Daman and Diu Football Association',
+      value: 'Daman and Diu Football Association'
+    },
+    {
+      name: 'Delhi Soccer Association (Football Delhi)',
+      value: 'Delhi Soccer Association (Football Delhi)'
+    },
+    {
+      name: 'Football Association of Odisha',
+      value: 'Football Association of Odisha'
+    },
+    { name: 'Goa Football Association', value: 'Goa Football Association' },
+    {
+      name: 'Gujarat State Football Association',
+      value: 'Gujarat State Football Association'
+    },
+    {
+      name: 'Haryana Football Association',
+      value: 'Haryana Football Association'
+    },
+    {
+      name: 'Himachal Pradesh Football Association',
+      value: 'Himachal Pradesh Football Association'
+    },
+    {
+      name: 'Indian Football Association - Kolkata',
+      value: 'Indian Football Association - Kolkata'
+    },
+    {
+      name: 'Jammu & Kashmir Football Association',
+      value: 'Jammu & Kashmir Football Association'
+    },
+    {
+      name: 'Jharkhand Football Association',
+      value: 'Jharkhand Football Association'
+    },
+    {
+      name: 'Karnataka State Football Association',
+      value: 'Karnataka State Football Association'
+    },
+    {
+      name: 'Kerala Football Association',
+      value: 'Kerala Football Association'
+    },
+    {
+      name: 'Lakshadweep Football Association',
+      value: 'Lakshadweep Football Association'
+    },
+    {
+      name: 'Madhya Pradesh Football Association',
+      value: 'Madhya Pradesh Football Association'
+    },
+    {
+      name: 'Meghalaya Football Association',
+      value: 'Meghalaya Football Association'
+    },
+    {
+      name: 'Pondicherry Football Association',
+      value: 'Pondicherry Football Association'
+    },
+    {
+      name: 'Nagaland Football Association',
+      value: 'Nagaland Football Association'
+    },
+    {
+      name: 'Mizoram Football Association',
+      value: 'Mizoram Football Association'
+    },
+    {
+      name: 'Punjab Football Association',
+      value: 'Punjab Football Association'
+    },
+    {
+      name: 'Rajasthan Football Association',
+      value: 'Rajasthan Football Association'
+    },
+    {
+      name: 'Sikkim Football Association',
+      value: 'Sikkim Football Association'
+    },
+    {
+      name: 'Tripura Football Association',
+      value: 'Tripura Football Association'
+    },
+    {
+      name: 'Telangana Football Association',
+      value: 'Telangana Football Association'
+    },
+    {
+      name: 'Tamil Nadu Football Association',
+      value: 'Tamil Nadu Football Association'
+    },
+    {
+      name: 'Uttar Pradesh Football Sangh',
+      value: 'Uttar Pradesh Football Sangh'
+    },
+    {
+      name: 'Uttarakhand State Football Association',
+      value: 'Uttarakhand State Football Association'
+    },
+    {
+      name: 'Western India Football Association - Maharastra',
+      value: 'Western India Football Association - Maharastra'
+    },
+    { name: 'Others', value: 'Others' }
+  ];
+
   constructor(
     private _formBuilder: FormBuilder,
     private _profileService: ProfileService,
@@ -451,6 +590,7 @@ export class EditProfileComponent implements OnInit {
       const pincode = this.editProfileForm.get('pincode');
       const trophies = this.editProfileForm.get('trophies');
       const leagueOther = this.editProfileForm.get('league_other');
+      const associationOther = this.editProfileForm.get('association_other');
 
       if (this.member_type === 'club') {
         trophies.setValidators(null);
@@ -467,12 +607,20 @@ export class EditProfileComponent implements OnInit {
         ]);
       }
 
+      this.editProfileForm
+        .get('association')
+        .valueChanges.subscribe(association => {
+          if (association !== 'Others') {
+            associationOther.setValue('');
+          }
+        });
       this.editProfileForm.get('league').valueChanges.subscribe(league => {
         if (league !== 'Other') {
           leagueOther.setValue('');
         }
       });
 
+      associationOther.updateValueAndValidity();
       leagueOther.updateValueAndValidity();
       trophies.updateValueAndValidity();
       address.updateValueAndValidity();
@@ -727,6 +875,8 @@ export class EditProfileComponent implements OnInit {
         stadium_name: ['', []],
         league: ['', [Validators.required]],
         league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
+        association: ['', [Validators.required]],
+        association_other: [],
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
@@ -776,6 +926,8 @@ export class EditProfileComponent implements OnInit {
         stadium_name: ['', []],
         league: ['', [Validators.required]],
         league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
+        association: ['', [Validators.required]],
+        association_other: [],
         document_type: ['', []],
         number: [''],
         contact_person: this._formBuilder.array([], []),
@@ -854,6 +1006,10 @@ export class EditProfileComponent implements OnInit {
       stadium_name: this.profile.stadium_name ? this.profile.stadium_name : '',
       league: this.profile.league ? this.profile.league : '',
       league_other: this.profile.league_other ? this.profile.league_other : '',
+      association: this.profile.association ? this.profile.association : '',
+      association_other: this.profile.association_other
+        ? this.profile.association_other
+        : '',
       strong_foot: this.profile.strong_foot ? this.profile.strong_foot : '',
       weak_foot: this.profile.weak_foot ? this.profile.weak_foot : '',
       head_coach_name: this.profile.club_academy_details
