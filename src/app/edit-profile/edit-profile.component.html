@@ -2297,21 +2297,6 @@
                     placeholder="Other"
                     formControlName="association_other"
                   />
-                  <mat-error
-                    *ngIf="
-                      editProfileForm.controls.association_other.invalid &&
-                      editProfileForm.controls.association_other.touched
-                    "
-                  >
-                    <span
-                      *ngIf="
-                        editProfileForm.controls.association_other.errors
-                          .pattern
-                      "
-                      translate
-                      >Other Association format is invalid</span
-                    >
-                  </mat-error>
                 </div>
               </div>
             </div>
