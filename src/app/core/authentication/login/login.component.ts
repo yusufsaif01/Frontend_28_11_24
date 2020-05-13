@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           // this.router.navigate(['/reset-password'])
           this.credentialsService.setCredentials(
             credentials,
-            this.loginForm.value.remember
+            true //this.loginForm.value.remember
           );
         },
         error => {
