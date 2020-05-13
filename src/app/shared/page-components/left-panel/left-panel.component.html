@@ -30,23 +30,70 @@
       <h4>{{ achievements }}</h4>
       <p>Achievements</p>
     </div>
-    <div class="part border-left text-center">
-      <h4>{{ count.tournaments }}</h4>
-      <p
-        [innerText]="
-          profile && profile.member_type === 'player'
-            ? 'Tournaments'
-            : 'Followers'
-        "
-      ></p>
-    </div>
+    <ng-container *ngIf="profile">
+      <div
+        class="part border-left text-center"
+        *ngIf="profile.member_type === 'player'"
+      >
+        <h4>{{ count.tournaments }}</h4>
+        <p>Tournaments</p>
+      </div>
+      <div
+        class="part border-left text-center"
+        *ngIf="profile.member_type !== 'player'"
+      >
+        <h4>{{ followers }}</h4>
+        <p>Followers</p>
+      </div>
+    </ng-container>
   </div>
-  <div class="block-bottom">
-    <a *ngIf="options.view_profile_link" [routerLink]="['/profile']">
-      View my profile</a
+  <!-- make footmate unfollow -->
+  <div
+    class="btn-follow"
+    *ngIf="options.is_public && userId !== loggedin_userid"
+  >
+    <button
+      *ngIf="profile.member_type === 'player' && member_type === 'player'"
+      (click)="toggleFootMate()"
+      [innerText]="
+        is_footmate === 'Accepted'
+          ? 'Cancel FootMate'
+          : is_footmate === 'Not_footmate'
+          ? 'Make FootMate'
+          : 'Pending'
+      "
     >
-    <a *ngIf="options.logout_link" (click)="logout()"> Logout</a>
+      Make FootMate
+    </button>
+    <ng-container *ngIf="following$ | async"></ng-container>
+    <button
+      *ngIf="is_footmate !== 'Pending'"
+      [innerText]="is_following ? 'Unfollow' : 'Follow'"
+      (click)="toggleFollow()"
+      class="active"
+    >
+      Follow
+    </button>
   </div>
+  <!-- pending btn -->
+  <!-- <div class="btn-follow">
+    <button>Pending</button>
+  </div> -->
+
+  <ng-container
+    *ngIf="
+      options.view_profile_link || (options.logout_link && !options.is_public)
+    "
+  >
+    <div class="block-bottom">
+      <a *ngIf="options.view_profile_link" [routerLink]="['/profile']">
+        View my profile</a
+      >
+      <a *ngIf="options.logout_link && !options.is_public" (click)="logout()">
+        Logout</a
+      >
+    </div>
+  </ng-container>
 </div>
 
 <!-- player type -->
@@ -69,6 +116,14 @@
   <div class="block-design">
     <div class="achievement">
       <a [routerLink]="['/awardcertification']">My Achievements</a>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="options.achievements && options.is_public">
+  <div class="block-design">
+    <div class="achievement">
+      <a [routerLink]="['/awardcertification', userId]">Achievements</a>
     </div>
   </div>
 </ng-container>

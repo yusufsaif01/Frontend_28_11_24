@@ -27,6 +27,8 @@ import { ManagePositionComponent } from './admin/masterdata/player-specializatio
 import { ManageAbilityComponent } from './admin/masterdata/player-specialization/manage-ability/manage-ability.component';
 import { ManageParametersComponent } from './admin/masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
+import { FootRequestComponent } from './foot-request/foot-request.component';
+import { FootMatesComponent } from './foot-mates/foot-mates.component';
 const routes: Routes = [
   {
     path: '',
@@ -71,6 +73,15 @@ const routes: Routes = [
     canActivate: [RoleGuardService]
   },
   {
+    path: 'profile/:handle',
+    component: ProfileComponent,
+    data: {
+      title: extract('View Profile'),
+      expectedRole: ['player', 'club', 'academy']
+    },
+    canActivate: [RoleGuardService]
+  },
+  {
     path: 'timeline',
     component: TimelineComponent,
     data: {
@@ -78,6 +89,16 @@ const routes: Routes = [
       expectedRole: ['player', 'club', 'academy']
     },
     canActivate: [RoleGuardService]
+  },
+  {
+    path: 'foot-requests',
+    component: FootRequestComponent,
+    data: { title: extract('Foot Requests') }
+  },
+  {
+    path: 'foot-mates',
+    component: FootMatesComponent,
+    data: { title: extract('Foot Mates') }
   },
   {
     path: 'change-password',
@@ -97,6 +118,11 @@ const routes: Routes = [
   },
   {
     path: 'awardcertification',
+    component: AwardCertificateComponent,
+    data: { title: extract('Awards and Certification') }
+  },
+  {
+    path: 'awardcertification/:handle',
     component: AwardCertificateComponent,
     data: { title: extract('Awards and Certification') }
   },

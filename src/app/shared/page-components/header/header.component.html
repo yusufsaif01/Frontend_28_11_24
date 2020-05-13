@@ -4,17 +4,46 @@
     <div class="header-logo">
       <img [routerLink]="['/timeline']" src="assets/images/logo.png" alt="" />
       <div class="search">
-        <input type="text" matinput placeholder="Search" />
-        <button>
+        <input
+          matInput
+          placeholder="Search"
+          aria-label="Search"
+          [matAutocomplete]="auto"
+          (keyup)="getMemberSearchList($event.target.value)"
+        />
+
+        <mat-autocomplete class="autocomplete-height" #auto="matAutocomplete">
+          <span class="search-options">
+            <mat-option
+              *ngFor="let member of memberList"
+              (click)="openPublicProfile(member.user_id)"
+            >
+              <img class="dp" aria-hidden [src]="member.avatar" />
+              <strong>{{ member.name | titlecase }}</strong>
+              <small>{{
+                member.player_type || member.member_type | titlecase
+              }}</small>
+              <small class="position">{{ member.position | titlecase }}</small>
+            </mat-option>
+            <ng-container
+              *ngIf="searchText.length >= 3 && memberList.length === 0"
+            >
+              <mat-option>
+                No results found
+              </mat-option>
+            </ng-container>
+          </span>
+        </mat-autocomplete>
+        <span class="search-icon">
           <i-feather name="search" class="icon-size"></i-feather>
-        </button>
+        </span>
       </div>
     </div>
     <!-- header right -->
     <div class="header-menu">
       <ul>
-        <li>
-          <a matTooltip="FootMates">
+        <li *ngIf="member_type === 'player'">
+          <a matTooltip="FootMates" [routerLink]="['/foot-requests']">
             <span>
               <i-feather name="Users" class="icon-size"></i-feather>
             </span>

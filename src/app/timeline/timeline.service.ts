@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CredentialsService } from '@app/core';
 
 const routes = {
-  getAchievementCount: () => '/timeline/achievement/stats'
+  getAchievementCount: () => '/achievement/stats'
 };
 
 interface countResponseContext {
@@ -13,29 +12,28 @@ interface countResponseContext {
     tournaments: number;
   };
 }
+interface achievementCountContext {
+  user_id: string;
+}
 @Injectable({
   providedIn: 'root'
 })
 export class TimelineService {
-  constructor(
-    private httpClient: HttpClient,
-    private credentialsService: CredentialsService
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
-  getAchievementCount(): Observable<countResponseContext> {
-    let token = this.credentialsService.isAuthenticated()
-      ? this.credentialsService.credentials['data']['token']
-      : '';
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      })
-    };
+  getAchievementCount(
+    context: Partial<achievementCountContext>
+  ): Observable<countResponseContext> {
+    let query = '?';
+    if (context['user_id']) {
+      query += 'user_id=' + context['user_id'];
+      return this.httpClient.get<countResponseContext>(
+        routes.getAchievementCount() + query
+      );
+    }
 
     return this.httpClient.get<countResponseContext>(
-      routes.getAchievementCount(),
-      httpOptions
+      routes.getAchievementCount()
     );
   }
 }
