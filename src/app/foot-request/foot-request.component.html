@@ -5,18 +5,19 @@
     <app-left-panel
       [options]="panelOptions"
       [achievements]="total_count"
+      (sendFootData)="getConnectionStats($event)"
     ></app-left-panel>
   </div>
   <div class="right-section">
     <div class="heading">
-      <h3>Player You Might Know</h3>
+      <h3>Players You Might Know</h3>
     </div>
     <div class="tab-buttons">
       <a [routerLink]="['/foot-requests']" [routerLinkActive]="['active']"
-        >Foot Request <span>{{ foot_request_count }}</span></a
+        >Foot Requests <span>{{ foot_data.footmate_requests }}</span></a
       >
       <a [routerLink]="['/foot-mates']" [routerLinkActive]="['active']"
-        >Foot Mates <span>{{ foot_mate_count }}</span></a
+        >FootMates <span>{{ foot_data.footmates }}</span></a
       >
     </div>
     <div class="playerwrapper">

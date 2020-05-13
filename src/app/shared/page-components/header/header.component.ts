@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
   memberList: MemberListContext[] = [];
   searchText = '';
   constructor(
-    private router: Router,
+    private _router: Router,
     private _authenticationService: AuthenticationService,
     private _headerService: HeaderService
   ) {}
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this._authenticationService.logout();
-    this.router.navigateByUrl('/login');
+    this._router.navigateByUrl('/login');
   }
   changeDropdown() {
     if (this.isActive) {
@@ -56,5 +56,11 @@ export class HeaderComponent implements OnInit {
       },
       error => {}
     );
+  }
+
+  openPublicProfile(user_id: string) {
+    this._router.navigate([]).then(result => {
+      window.open(`profile/${user_id}`, '_blank');
+    });
   }
 }
