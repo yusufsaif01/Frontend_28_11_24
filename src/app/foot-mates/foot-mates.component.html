@@ -5,18 +5,19 @@
     <app-left-panel
       [options]="panelOptions"
       [achievements]="total_count"
+      (sendFootData)="getConnectionStats($event)"
     ></app-left-panel>
   </div>
   <div class="right-section">
     <div class="heading">
-      <h3>Player You Might Know</h3>
+      <h3>Players You Might Know</h3>
     </div>
     <div class="tab-buttons">
       <a [routerLink]="['/foot-requests']" [routerLinkActive]="['active']"
-        >Foot Request <span>234</span></a
+        >Foot Requests <span>{{ foot_data.footmate_requests }}</span></a
       >
       <a [routerLink]="['/foot-mates']" [routerLinkActive]="['active']"
-        >Foot Mates <span>234</span></a
+        >FootMates <span>{{ foot_data.footmates }}</span></a
       >
     </div>
     <div class="filter-buttons">
@@ -165,87 +166,44 @@
     </div>
     <div class="playerwrapper">
       <!-- one -->
-      <div class="playerbox">
-        <div class="top">
-          <div class="dp">
-            <img src="assets/images/profile-icon.png" alt="" />
+      <ng-container *ngFor="let footMate of footMatesList">
+        <div class="playerbox">
+          <div class="top">
+            <div class="dp">
+              <img [src]="footMate.avatar" alt="" />
+            </div>
+            <div class="name">
+              <strong [routerLink]="['/profile', footMate.user_id]">{{
+                footMate.name
+              }}</strong>
+              <p>{{ footMate.position }}</p>
+            </div>
           </div>
-          <div class="name">
-            <strong>Gurdeep Singh</strong>
-            <p>Center Forward</p>
-          </div>
-        </div>
-        <div class="middle">
-          <h4>Grassroot</h4>
-          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
-        </div>
-      </div>
-      <!-- one -->
-      <div class="playerbox">
-        <div class="top">
-          <div class="dp">
-            <img src="assets/images/profile-icon.png" alt="" />
-          </div>
-          <div class="name">
-            <strong>Gurdeep Singh</strong>
-            <p>Center Forward</p>
+          <div class="middle">
+            <h4>{{ footMate.player_type }}</h4>
+            <h4 *ngIf="footMate.mutuals">
+              <a (click)="openDialog(footMate)"
+                >{{ footMate.mutuals }} Mutual Footmates</a
+              >
+            </h4>
           </div>
         </div>
-        <div class="middle">
-          <h4>Grassroot</h4>
-          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
-        </div>
-      </div>
-      <!-- one -->
-      <div class="playerbox">
-        <div class="top">
-          <div class="dp">
-            <img src="assets/images/profile-icon.png" alt="" />
-          </div>
-          <div class="name">
-            <strong>Gurdeep Singh</strong>
-            <p>Center Forward</p>
-          </div>
-        </div>
-        <div class="middle">
-          <h4>Grassroot</h4>
-          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
-        </div>
-      </div>
-      <!-- one -->
-      <div class="playerbox">
-        <div class="top">
-          <div class="dp">
-            <img src="assets/images/profile-icon.png" alt="" />
-          </div>
-          <div class="name">
-            <strong>Gurdeep Singh</strong>
-            <p>Center Forward</p>
-          </div>
-        </div>
-        <div class="middle">
-          <h4>Grassroot</h4>
-          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
-        </div>
-      </div>
-      <!-- one -->
-      <div class="playerbox">
-        <div class="top">
-          <div class="dp">
-            <img src="assets/images/profile-icon.png" alt="" />
-          </div>
-          <div class="name">
-            <strong>Gurdeep Singh</strong>
-            <p>Center Forward</p>
-          </div>
-        </div>
-        <div class="middle">
-          <h4>Grassroot</h4>
-          <h4><a (click)="openDialog()">2 Mutual Footmates</a></h4>
-        </div>
-      </div>
+      </ng-container>
     </div>
+    <ng-container *ngIf="footMatesList.length === 0">
+      <span class="no-data-found">
+        No foot mates found
+      </span>
+    </ng-container>
     <!-- pagination -->
-    <app-pagination> </app-pagination>
+    <app-pagination
+      *ngIf="footMatesList.length !== 0"
+      [showData]="false"
+      [showCount]="show_count"
+      [totalRows]="total_count"
+      [rowsPerPage]="pageSize"
+      (onChange)="updatePage($event)"
+    >
+    </app-pagination>
   </div>
 </div>

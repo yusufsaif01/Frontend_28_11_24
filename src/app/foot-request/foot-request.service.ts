@@ -21,7 +21,9 @@ interface ConnectionStatsResponseContext {
     followings: number;
   };
 }
-
+interface ConnectionStatsRequestContext {
+  user_id: string;
+}
 interface AcceptFootRequest {
   request_id: string;
 }
@@ -90,6 +92,7 @@ export class FootRequestService {
       context
     );
   }
+
   rejectFootRequest(
     context: RejectFootRequest
   ): Observable<CommonResponseContext> {
@@ -102,7 +105,18 @@ export class FootRequestService {
       context
     );
   }
-  connectionStats(): Observable<ConnectionStatsResponseContext> {
+
+  connectionStats(
+    context: Partial<ConnectionStatsRequestContext>
+  ): Observable<ConnectionStatsResponseContext> {
+    let params = '/';
+    if (context['user_id']) {
+      params += `${context['user_id']}`;
+      return this.httpClient.get<ConnectionStatsResponseContext>(
+        routes.connectionStats() + params
+      );
+    }
+
     return this.httpClient.get<ConnectionStatsResponseContext>(
       routes.connectionStats()
     );

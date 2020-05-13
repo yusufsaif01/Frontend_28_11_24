@@ -12,6 +12,7 @@ import {
   CredentialsService
 } from '@app/core';
 import { TimelineService } from '@app/timeline/timeline.service';
+import { FootRequestService } from '@app/foot-request/foot-request.service';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import { ProfileService } from '@app/profile/profile.service';
@@ -38,30 +39,35 @@ export class LeftPanelComponent implements OnInit {
   profile: any;
   environment = environment;
   member_type: string = localStorage.getItem('member_type');
+  loggedin_userid: string = localStorage.getItem('user_id');
 
   @Input() achievements: number = 0;
   @Input() options: any;
   @Input() userId: string;
   @Input() is_following = false;
   @Input() is_footmate = 'Not_footmate';
+  followers: number = 0;
 
   @Output() sendPlayerType = new EventEmitter<string>();
   @Output() sendMemberType = new EventEmitter<string>();
   @Output() sendProfileData = new EventEmitter<object>();
+  @Output() sendFootData = new EventEmitter<object>();
   following$: Observable<any>;
 
   constructor(
     private _authenticationService: AuthenticationService,
     private _profileService: ProfileService,
     private _timelineService: TimelineService,
+    private _footRequestService: FootRequestService,
     private _router: Router,
-    private leftPanelService: LeftPanelService,
-    private toastrService: ToastrService
+    private _leftPanelService: LeftPanelService,
+    private _toastrService: ToastrService
   ) {}
 
   ngOnInit() {
     this.getProfileDetails();
     this.getAchievementCount();
+    this.getConnectionStats();
   }
 
   logout() {
@@ -101,6 +107,19 @@ export class LeftPanelComponent implements OnInit {
     );
   }
 
+  getConnectionStats() {
+    let data = {};
+    if (this.userId) data = { user_id: this.userId };
+
+    this._footRequestService.connectionStats(data).subscribe(
+      response => {
+        this.followers = response.data.followers;
+        this.sendFootData.emit(response.data);
+      },
+      error => {}
+    );
+  }
+
   setAvatar() {
     if (this.profile.avatar_url) {
       this.profile.avatar_url =
@@ -113,7 +132,7 @@ export class LeftPanelComponent implements OnInit {
 
   toggleFollow() {
     if (this.is_following) {
-      this.following$ = this.leftPanelService
+      this.following$ = this._leftPanelService
         .unfollowUser({
           to: this.userId
         })
@@ -123,12 +142,12 @@ export class LeftPanelComponent implements OnInit {
             this.is_following = false;
           }),
           catchError(err => {
-            this.toastrService.error('Error', err.error.message);
+            this._toastrService.error('Error', err.error.message);
             throw err;
           })
         );
     } else {
-      this.following$ = this.leftPanelService
+      this.following$ = this._leftPanelService
         .followUser({
           to: this.userId
         })
@@ -138,7 +157,7 @@ export class LeftPanelComponent implements OnInit {
             this.is_following = true;
           }),
           catchError(err => {
-            this.toastrService.error('Error', err.error.message);
+            this._toastrService.error('Error', err.error.message);
             throw err;
           })
         );
@@ -147,7 +166,7 @@ export class LeftPanelComponent implements OnInit {
 
   toggleFootMate() {
     if (this.is_footmate === 'Not_footmate') {
-      this.leftPanelService
+      this._leftPanelService
         .sendFootMate({
           to: this.userId
         })
@@ -158,7 +177,7 @@ export class LeftPanelComponent implements OnInit {
           error => {}
         );
     } else if (this.is_footmate === 'Accepted') {
-      this.leftPanelService
+      this._leftPanelService
         .cancelFootMate({
           to: this.userId
         })
