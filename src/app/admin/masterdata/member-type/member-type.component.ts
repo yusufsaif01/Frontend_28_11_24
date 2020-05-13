@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MemberTypeTableConfig } from './member-type-table-conf';
-import { AdminService } from '@app/admin/service/admin.service';
+import { AdminService } from '@app/admin/admin.service';
 @Component({
   selector: 'app-member-type',
   templateUrl: './member-type.component.html',
