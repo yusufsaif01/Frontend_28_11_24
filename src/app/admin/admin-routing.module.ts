@@ -45,49 +45,42 @@ const appRoutes: Routes = [
       {
         path: 'masterdata-location',
         component: ManageLocationComponent,
-        data: { title: extract('Manage Location') },
-        canActivate: [RoleGuardService]
+        data: { title: extract('Manage Location') }
       },
 
       {
         path: 'masterdata-state/:id',
         component: ManageStateComponent,
-        data: { title: extract('Manage State') },
-        canActivate: [RoleGuardService]
+        data: { title: extract('Manage State') }
       },
       {
         path: 'masterdata-city/:id',
         component: ManageCityComponent,
-        data: { title: extract('Manage City') },
-        canActivate: [RoleGuardService]
+        data: { title: extract('Manage City') }
       },
 
       {
         path: 'masterdata-membertype',
         component: MemberTypeComponent,
-        data: { title: extract('Member Type') },
-        canActivate: [RoleGuardService]
+        data: { title: extract('Member Type') }
       },
 
       {
         path: 'masterdata-position',
         component: ManagePositionComponent,
-        data: { title: extract('Manage Position') },
-        canActivate: [RoleGuardService]
+        data: { title: extract('Manage Position') }
       },
 
       {
         path: 'masterdata-ability',
         component: ManageAbilityComponent,
-        data: { title: extract('Manage Ability') },
-        canActivate: [RoleGuardService]
+        data: { title: extract('Manage Ability') }
       },
 
       {
         path: 'masterdata-parameter/:id',
         component: ManageParametersComponent,
-        data: { title: extract('Manage Parameter') },
-        canActivate: [RoleGuardService]
+        data: { title: extract('Manage Parameter') }
       },
       { path: '**', component: ManagePlayerComponent }
     ]

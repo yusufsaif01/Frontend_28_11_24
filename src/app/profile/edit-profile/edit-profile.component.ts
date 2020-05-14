@@ -673,7 +673,7 @@ export class EditProfileComponent implements OnInit {
           'Successful',
           'Profile updated successfully'
         );
-        this._router.navigate(['/profile']);
+        this._router.navigate(['/profile/view']);
       },
       err => {
         this._toastrService.error('Error', err.error.message);
