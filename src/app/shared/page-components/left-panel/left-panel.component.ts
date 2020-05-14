@@ -12,10 +12,10 @@ import {
   CredentialsService
 } from '@app/core';
 import { TimelineService } from '@app/timeline/timeline.service';
-import { FootRequestService } from '@app/foot-request/foot-request.service';
+import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
-import { ProfileService } from '@app/profile/profile.service';
+import { ViewProfileService } from '@app/profile/view-profile/view-profile.service';
 import { LeftPanelService } from './left-panel.service';
 import { Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -57,7 +57,7 @@ export class LeftPanelComponent implements OnInit {
 
   constructor(
     private _authenticationService: AuthenticationService,
-    private _profileService: ProfileService,
+    private _profileService: ViewProfileService,
     private _timelineService: TimelineService,
     private _footRequestService: FootRequestService,
     private _router: Router,

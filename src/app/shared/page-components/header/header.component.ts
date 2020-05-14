@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit {
 
   openPublicProfile(user_id: string) {
     this._router.navigate([]).then(result => {
-      window.open(`profile/${user_id}`, '_blank');
+      window.open(`/member/profile/view/${user_id}`, '_blank');
     });
   }
 }

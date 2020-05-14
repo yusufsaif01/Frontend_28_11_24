@@ -6,7 +6,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA
 } from '@angular/material/dialog';
-import { PostPopupComponent } from '@app/post-popup/post-popup.component';
+import { PostPopupComponent } from '@app/timeline/post-popup/post-popup.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
 

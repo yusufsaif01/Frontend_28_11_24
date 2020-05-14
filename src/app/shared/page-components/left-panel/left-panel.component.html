@@ -89,7 +89,7 @@
     <div class="block-bottom">
       <a
         *ngIf="options.view_profile_link && !options.is_public"
-        [routerLink]="['/profile']"
+        [routerLink]="['/member/profile/view']"
       >
         View my profile</a
       >
@@ -119,7 +119,7 @@
 <ng-container *ngIf="options.my_achievements">
   <div class="block-design">
     <div class="achievement">
-      <a [routerLink]="['/awardcertification']">My Achievements</a>
+      <a [routerLink]="['/member/awardcertification']">My Achievements</a>
     </div>
   </div>
 </ng-container>
@@ -127,7 +127,7 @@
 <ng-container *ngIf="options.achievements && options.is_public">
   <div class="block-design">
     <div class="achievement">
-      <a [routerLink]="['/awardcertification', userId]">Achievements</a>
+      <a [routerLink]="['/member/awardcertification', userId]">Achievements</a>
     </div>
   </div>
 </ng-container>
