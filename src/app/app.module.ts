@@ -55,9 +55,6 @@ import {
   Edit
 } from 'angular-feather/icons';
 import { from } from 'rxjs';
-import { TimelineComponent } from './timeline/timeline.component';
-import { PostPopupComponent } from './post-popup/post-popup.component';
-import { CarouselModule } from 'ngx-owl-carousel-o';
 import { DeleteConfirmationComponent } from './shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from './shared/dialog-box/status-confirmation/status-confirmation.component';
 import { AddEditPopupComponent } from './admin/masterdata/player-specialization/manage-position/add-edit-popup/add-edit-popup.component';
@@ -101,7 +98,6 @@ const icons = {
     HttpClientModule,
     TranslateModule.forRoot(),
     BrowserAnimationsModule,
-    CarouselModule,
     CoreModule,
     SharedModule,
     MaterialModule,
@@ -132,8 +128,6 @@ const icons = {
     ChangePasswordComponent,
     CreatePasswordComponent,
     ProfileComponent,
-    TimelineComponent,
-    PostPopupComponent,
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
     AddEditPopupComponent,
@@ -159,7 +153,6 @@ const icons = {
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
-    PostPopupComponent,
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
     AddEditPopupComponent,

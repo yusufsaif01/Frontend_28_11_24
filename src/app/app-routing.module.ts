@@ -12,7 +12,6 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { CreatePasswordComponent } from './core/authentication/create-password/create-password.component';
 import { ProfileComponent } from './profile/profile.component';
-import { TimelineComponent } from './timeline/timeline.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
 import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
@@ -33,9 +32,13 @@ const routes: Routes = [
     loadChildren: './admin/admin.module#AdminModule'
   },
   {
-    path: 'member',
+    path: 'member/awardcertification',
     loadChildren:
       './award-certificate/award-certificate.module#AwardCertificateModule'
+  },
+  {
+    path: 'member/timeline',
+    loadChildren: './timeline/timeline.module#TimelineModule'
   },
   {
     path: 'forgot-password',
@@ -75,15 +78,6 @@ const routes: Routes = [
     component: ProfileComponent,
     data: {
       title: extract('View Profile'),
-      expectedRole: ['player', 'club', 'academy']
-    },
-    canActivate: [RoleGuardService]
-  },
-  {
-    path: 'timeline',
-    component: TimelineComponent,
-    data: {
-      title: extract('Timeline'),
       expectedRole: ['player', 'club', 'academy']
     },
     canActivate: [RoleGuardService]
