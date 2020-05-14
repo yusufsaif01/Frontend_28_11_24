@@ -82,14 +82,20 @@
 
   <ng-container
     *ngIf="
-      options.view_profile_link || (options.logout_link && !options.is_public)
+      (options.view_profile_link && !options.is_public) ||
+      (options.logout_link && !options.is_public)
     "
   >
-    <div class="block-bottom" *ngIf="!options.is_public">
-      <a *ngIf="options.view_profile_link" [routerLink]="['/profile']">
+    <div class="block-bottom">
+      <a
+        *ngIf="options.view_profile_link && !options.is_public"
+        [routerLink]="['/profile']"
+      >
         View my profile</a
       >
-      <a *ngIf="options.logout_link" (click)="logout()"> Logout</a>
+      <a *ngIf="options.logout_link && !options.is_public" (click)="logout()">
+        Logout</a
+      >
     </div>
   </ng-container>
 </div>
