@@ -15,7 +15,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
 import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
-import { AwardCertificateComponent } from './award-certificate/award-certificate.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
 import { FootRequestComponent } from './foot-request/foot-request.component';
 import { FootMatesComponent } from './foot-mates/foot-mates.component';
@@ -32,6 +31,11 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule'
+  },
+  {
+    path: 'member',
+    loadChildren:
+      './award-certificate/award-certificate.module#AwardCertificateModule'
   },
   {
     path: 'forgot-password',
@@ -103,16 +107,6 @@ const routes: Routes = [
     path: 'create-password',
     component: CreatePasswordComponent,
     data: { title: extract('Create Password') }
-  },
-  {
-    path: 'awardcertification',
-    component: AwardCertificateComponent,
-    data: { title: extract('Awards and Certification') }
-  },
-  {
-    path: 'awardcertification/:handle',
-    component: AwardCertificateComponent,
-    data: { title: extract('Awards and Certification') }
   },
   {
     path: 'link-expired',

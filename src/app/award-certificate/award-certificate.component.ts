@@ -45,7 +45,8 @@ export class AwardCertificateComponent implements OnInit {
     private toastrService: ToastrService,
     private _activatedRoute: ActivatedRoute
   ) {
-    this._activatedRoute.params.subscribe(params => {
+    this._activatedRoute.firstChild.params.subscribe(params => {
+      console.log('Router params', params);
       if (params['handle']) {
         this.panelOptions.is_public = true;
         this.isPublic = true;

@@ -60,8 +60,6 @@ import { PostPopupComponent } from './post-popup/post-popup.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { DeleteConfirmationComponent } from './shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from './shared/dialog-box/status-confirmation/status-confirmation.component';
-import { AwardCertificateComponent } from './award-certificate/award-certificate.component';
-import { EditAddPopupComponent } from './award-certificate/edit-add-popup/edit-add-popup.component';
 import { AddEditPopupComponent } from './admin/masterdata/player-specialization/manage-position/add-edit-popup/add-edit-popup.component';
 import { AddpopupComponent } from './admin/masterdata/player-specialization/addpopup/addpopup.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
@@ -138,8 +136,6 @@ const icons = {
     PostPopupComponent,
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
-    AwardCertificateComponent,
-    EditAddPopupComponent,
     AddEditPopupComponent,
     AddpopupComponent,
     FootRequestComponent,
@@ -166,7 +162,6 @@ const icons = {
     PostPopupComponent,
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
-    EditAddPopupComponent,
     AddEditPopupComponent,
     AddpopupComponent,
     MutualFootmateComponent
