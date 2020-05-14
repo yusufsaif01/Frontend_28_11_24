@@ -24,11 +24,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 // import { FrontendModule } from './frontend/frontend.module';
 import { ToastrModule } from 'ngx-toastr';
 import { RegistrationComponent } from './registration/registration.component';
-import { ForgotPasswordComponent } from './core/authentication/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './core/authentication/reset-password/reset-password.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { CreatePasswordComponent } from './core/authentication/create-password/create-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MatSortModule } from '@angular/material/sort';
 import { FeatherModule } from 'angular-feather';
@@ -122,11 +119,8 @@ const icons = {
     AppComponent,
     RegistrationComponent,
     EditProfileComponent,
-    ForgotPasswordComponent,
-    ResetPasswordComponent,
     EditProfileComponent,
     ChangePasswordComponent,
-    CreatePasswordComponent,
     ProfileComponent,
     DeleteConfirmationComponent,
     StatusConfirmationComponent,

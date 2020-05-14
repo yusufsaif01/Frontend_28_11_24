@@ -6,11 +6,8 @@ import {
 } from '@angular/router';
 import { extract } from '@app/core';
 import { RegistrationComponent } from './registration/registration.component';
-import { ForgotPasswordComponent } from './core/authentication/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './core/authentication/reset-password/reset-password.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { CreatePasswordComponent } from './core/authentication/create-password/create-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
 import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
@@ -42,13 +39,13 @@ const routes: Routes = [
   },
   {
     path: 'forgot-password',
-    component: ForgotPasswordComponent,
-    data: { title: extract('Forgot Password') }
+    loadChildren:
+      './core/authentication/forgot-password/forgot-password.module#ForgotPasswordModule'
   },
   {
     path: 'reset-password',
-    component: ResetPasswordComponent,
-    data: { title: extract('Reset Password') }
+    loadChildren:
+      './core/authentication/reset-password/reset-password.module#ResetPasswordModule'
   },
   {
     path: 'register',
@@ -99,8 +96,8 @@ const routes: Routes = [
   },
   {
     path: 'create-password',
-    component: CreatePasswordComponent,
-    data: { title: extract('Create Password') }
+    loadChildren:
+      './core/authentication/create-password/create-password.module#CreatePasswordModule'
   },
   {
     path: 'link-expired',
