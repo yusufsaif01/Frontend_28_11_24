@@ -45,7 +45,8 @@ export class AwardCertificateComponent implements OnInit {
     private toastrService: ToastrService,
     private _activatedRoute: ActivatedRoute
   ) {
-    this._activatedRoute.params.subscribe(params => {
+    this._activatedRoute.firstChild.params.subscribe(params => {
+      console.log('Router params', params);
       if (params['handle']) {
         this.panelOptions.is_public = true;
         this.isPublic = true;
@@ -120,6 +121,9 @@ export class AwardCertificateComponent implements OnInit {
   getMemberType(value: string) {
     this.member_type = value;
   }
+  getAchievementCount(value: number) {
+    this.total_count = value;
+  }
 
   updatePage(event: any) {
     this.currentPageNo = event.selectedPage;
@@ -143,7 +147,6 @@ export class AwardCertificateComponent implements OnInit {
           }
           this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
-          this.total_count = response.data.total;
         });
     } else {
       this.awardCertificateService
@@ -161,7 +164,6 @@ export class AwardCertificateComponent implements OnInit {
           }
           this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
-          this.total_count = response.data.total;
         });
     }
   }

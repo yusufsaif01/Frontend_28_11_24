@@ -4,7 +4,6 @@
   <div class="left-section">
     <app-left-panel
       [options]="panelOptions"
-      [achievements]="total_count"
       (sendFootData)="getConnectionStats($event)"
     ></app-left-panel>
   </div>
@@ -13,10 +12,14 @@
       <h3>Players You Might Know</h3>
     </div>
     <div class="tab-buttons">
-      <a [routerLink]="['/foot-requests']" [routerLinkActive]="['active']"
+      <a
+        [routerLink]="['/member/manage/foot-requests']"
+        [routerLinkActive]="['active']"
         >Foot Requests <span>{{ foot_data.footmate_requests }}</span></a
       >
-      <a [routerLink]="['/foot-mates']" [routerLinkActive]="['active']"
+      <a
+        [routerLink]="['/member/manage/foot-mates']"
+        [routerLinkActive]="['active']"
         >FootMates <span>{{ foot_data.footmates }}</span></a
       >
     </div>
@@ -255,7 +258,7 @@
       *ngIf="footMatesList.length !== 0"
       [showData]="false"
       [showCount]="show_count"
-      [totalRows]="total_count"
+      [totalRows]="foot_data.footmates"
       [rowsPerPage]="pageSize"
       (onChange)="updatePage($event)"
     >

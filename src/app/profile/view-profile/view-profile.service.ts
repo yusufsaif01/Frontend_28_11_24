@@ -12,7 +12,7 @@ interface GetPublicProfileContext {
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileService {
+export class ViewProfileService {
   constructor(private httpClient: HttpClient) {}
 
   getProfileDetails(

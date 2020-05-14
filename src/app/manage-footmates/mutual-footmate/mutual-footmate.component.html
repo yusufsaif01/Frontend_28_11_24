@@ -21,7 +21,7 @@
           <h3>
             <a
               target="_blank"
-              [href]="baseUrl + '/profile/' + footmate.user_id"
+              [routerLink]="['/member/profile/view/' + footmate.user_id]"
               >{{ footmate.name }}</a
             >
           </h3>

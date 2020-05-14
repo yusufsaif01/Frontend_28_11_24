@@ -12,10 +12,10 @@ import {
   CredentialsService
 } from '@app/core';
 import { TimelineService } from '@app/timeline/timeline.service';
-import { FootRequestService } from '@app/foot-request/foot-request.service';
+import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
-import { ProfileService } from '@app/profile/profile.service';
+import { ViewProfileService } from '@app/profile/view-profile/view-profile.service';
 import { LeftPanelService } from './left-panel.service';
 import { Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -40,8 +40,8 @@ export class LeftPanelComponent implements OnInit {
   environment = environment;
   member_type: string = localStorage.getItem('member_type');
   loggedin_userid: string = localStorage.getItem('user_id');
+  achievements: number = 0;
 
-  @Input() achievements: number = 0;
   @Input() options: any;
   @Input() userId: string;
   @Input() is_following = false;
@@ -52,11 +52,12 @@ export class LeftPanelComponent implements OnInit {
   @Output() sendMemberType = new EventEmitter<string>();
   @Output() sendProfileData = new EventEmitter<object>();
   @Output() sendFootData = new EventEmitter<object>();
+  @Output() sendAchievementCount = new EventEmitter<number>();
   following$: Observable<any>;
 
   constructor(
     private _authenticationService: AuthenticationService,
-    private _profileService: ProfileService,
+    private _profileService: ViewProfileService,
     private _timelineService: TimelineService,
     private _footRequestService: FootRequestService,
     private _router: Router,
@@ -102,6 +103,7 @@ export class LeftPanelComponent implements OnInit {
       response => {
         this.count = response.data;
         this.achievements = response.data.achievements;
+        this.sendAchievementCount.emit(this.achievements);
       },
       error => {}
     );

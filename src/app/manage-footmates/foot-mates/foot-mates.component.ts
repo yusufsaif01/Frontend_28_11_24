@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { MutualFootmateComponent } from '@app/foot-request/mutual-footmate/mutual-footmate.component';
-import { FootMatesService } from './foot-mates.service';
-import { environment } from '../../environments/environment';
+import { MutualFootmateComponent } from '@app/manage-footmates/mutual-footmate/mutual-footmate.component';
+import { FootMatesService } from '@app/manage-footmates/foot-mates/foot-mates.service';
 import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../environments/environment';
+import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
 
 interface FootMatesContext {
   name: string;
@@ -68,7 +69,7 @@ export class FootMatesComponent implements OnInit {
   foot_data: any;
   pageSize: number = 20;
   show_count: number = 0;
-  total_count: number = 0;
+
   footMatesList: FootMatesContext[] = [];
   constructor(
     public dialog: MatDialog,
