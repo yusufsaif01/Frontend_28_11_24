@@ -40,8 +40,8 @@ export class LeftPanelComponent implements OnInit {
   environment = environment;
   member_type: string = localStorage.getItem('member_type');
   loggedin_userid: string = localStorage.getItem('user_id');
+  achievements: number = 0;
 
-  @Input() achievements: number = 0;
   @Input() options: any;
   @Input() userId: string;
   @Input() is_following = false;
@@ -52,6 +52,7 @@ export class LeftPanelComponent implements OnInit {
   @Output() sendMemberType = new EventEmitter<string>();
   @Output() sendProfileData = new EventEmitter<object>();
   @Output() sendFootData = new EventEmitter<object>();
+  @Output() sendAchievementCount = new EventEmitter<number>();
   following$: Observable<any>;
 
   constructor(
@@ -102,6 +103,7 @@ export class LeftPanelComponent implements OnInit {
       response => {
         this.count = response.data;
         this.achievements = response.data.achievements;
+        this.sendAchievementCount.emit(this.achievements);
       },
       error => {}
     );

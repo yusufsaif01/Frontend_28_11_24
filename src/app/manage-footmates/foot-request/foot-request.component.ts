@@ -36,7 +36,6 @@ export class FootRequestComponent implements OnInit {
   foot_data: any;
   pageSize: number = 12;
   show_count: number = 0;
-  total_count: number = 0;
 
   footRequestList: FootRequestContext[] = [];
 

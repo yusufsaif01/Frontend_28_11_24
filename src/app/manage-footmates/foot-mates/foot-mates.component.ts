@@ -43,7 +43,7 @@ export class FootMatesComponent implements OnInit {
   foot_data: any;
   pageSize: number = 20;
   show_count: number = 0;
-  total_count: number = 0;
+
   footMatesList: FootMatesContext[] = [];
   constructor(
     public dialog: MatDialog,
