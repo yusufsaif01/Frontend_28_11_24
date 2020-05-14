@@ -120,6 +120,9 @@ export class AwardCertificateComponent implements OnInit {
   getMemberType(value: string) {
     this.member_type = value;
   }
+  getAchievementCount(value: number) {
+    this.total_count = value;
+  }
 
   updatePage(event: any) {
     this.currentPageNo = event.selectedPage;
@@ -143,7 +146,6 @@ export class AwardCertificateComponent implements OnInit {
           }
           this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
-          this.total_count = response.data.total;
         });
     } else {
       this.awardCertificateService
@@ -161,7 +163,6 @@ export class AwardCertificateComponent implements OnInit {
           }
           this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
-          this.total_count = response.data.total;
         });
     }
   }
