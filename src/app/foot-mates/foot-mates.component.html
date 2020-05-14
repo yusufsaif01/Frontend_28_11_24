@@ -4,7 +4,6 @@
   <div class="left-section">
     <app-left-panel
       [options]="panelOptions"
-      [achievements]="total_count"
       (sendFootData)="getConnectionStats($event)"
     ></app-left-panel>
   </div>
@@ -200,7 +199,7 @@
       *ngIf="footMatesList.length !== 0"
       [showData]="false"
       [showCount]="show_count"
-      [totalRows]="total_count"
+      [totalRows]="foot_data.footmates"
       [rowsPerPage]="pageSize"
       (onChange)="updatePage($event)"
     >
