@@ -12,7 +12,7 @@ import {
   CredentialsService
 } from '@app/core';
 import { TimelineService } from '@app/timeline/timeline.service';
-import { FootRequestService } from '@app/foot-request/foot-request.service';
+import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import { ViewProfileService } from '@app/profile/view-profile/view-profile.service';

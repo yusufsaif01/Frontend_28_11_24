@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { MutualFootmateComponent } from '@app/foot-request/mutual-footmate/mutual-footmate.component';
+import { MutualFootmateComponent } from '@app/manage-footmates/mutual-footmate/mutual-footmate.component';
 import { FootMatesService } from './foot-mates.service';
-import { environment } from '../../environments/environment';
-import { FootRequestService } from '@app/foot-request/foot-request.service';
+import { environment } from '../../../environments/environment';
+import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
 
 interface FootMatesContext {
   name: string;

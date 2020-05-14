@@ -6,14 +6,9 @@ import {
 } from '@angular/router';
 import { extract } from '@app/core';
 import { RegistrationComponent } from './registration/registration.component';
-// import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-// import { ViewProfileComponent } from './profile/view-profile/view-profile.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
 import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
-import { RoleGuardService } from './core/authentication/role-guard.service';
-import { FootRequestComponent } from './foot-request/foot-request.component';
-import { FootMatesComponent } from './foot-mates/foot-mates.component';
 const routes: Routes = [
   {
     path: '',
@@ -52,19 +47,14 @@ const routes: Routes = [
     loadChildren: './profile/profile.module#ProfileModule'
   },
   {
+    path: 'member/manage',
+    loadChildren:
+      './manage-footmates/manage-footmates.module#ManageFootmatesModule'
+  },
+  {
     path: 'register',
     component: RegistrationComponent,
     data: { title: extract('Registration') }
-  },
-  {
-    path: 'foot-requests',
-    component: FootRequestComponent,
-    data: { title: extract('Foot Requests') }
-  },
-  {
-    path: 'foot-mates',
-    component: FootMatesComponent,
-    data: { title: extract('Foot Mates') }
   },
   {
     path: 'change-password',
