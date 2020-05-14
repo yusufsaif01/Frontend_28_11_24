@@ -1,14 +1,13 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { AuthenticationService } from '../core/authentication/authentication.service';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
 import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '@app/shared/page-components/header/header.component';
 import { EditProfileService } from './edit-profile-service';
-import { ProfileService } from '../profile/profile.service';
+import { ViewProfileService } from '../view-profile/view-profile.service';
 
 interface trophyObject {
   name: string;
@@ -380,7 +379,7 @@ export class EditProfileComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _profileService: ProfileService,
+    private _viewProfileService: ViewProfileService,
     private _editProfileService: EditProfileService,
     private _toastrService: ToastrService,
     private _router: Router,
@@ -423,7 +422,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   populateView() {
-    this._profileService.getProfileDetails({}).subscribe(
+    this._viewProfileService.getProfileDetails({}).subscribe(
       response => {
         this.profile = response.data;
         if (this.profile.documents.length) {

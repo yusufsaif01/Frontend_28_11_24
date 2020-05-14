@@ -24,9 +24,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 // import { FrontendModule } from './frontend/frontend.module';
 import { ToastrModule } from 'ngx-toastr';
 import { RegistrationComponent } from './registration/registration.component';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { ProfileComponent } from './profile/profile.component';
 import { MatSortModule } from '@angular/material/sort';
 import { FeatherModule } from 'angular-feather';
 
@@ -118,10 +116,7 @@ const icons = {
   declarations: [
     AppComponent,
     RegistrationComponent,
-    EditProfileComponent,
-    EditProfileComponent,
     ChangePasswordComponent,
-    ProfileComponent,
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
     AddEditPopupComponent,

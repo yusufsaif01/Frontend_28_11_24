@@ -1,0 +1,709 @@
+<app-header></app-header>
+<div class="site-wrapper" *ngIf="profile">
+  <!-- Left section -->
+  <div class="left-section">
+    <app-left-panel
+      [options]="panelOptions"
+      [userId]="userId"
+      (sendProfileData)="getProfile($event)"
+    ></app-left-panel>
+  </div>
+  <!-- middle -->
+  <div class="middle-section">
+    <div class="block">
+      <div class="block-heading border-bottom">
+        <h2>About</h2>
+      </div>
+      <div class="block-middle">
+        <div class="content">
+          <p>
+            {{ profile.bio }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- player section -->
+    <div class="players" *ngIf="profile.member_type === 'player'">
+      <!-- personal details -->
+      <div class="block">
+        <div class="block-heading border-bottom">
+          <h2>Personal Details</h2>
+        </div>
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p><span>Date of Birth :</span> {{ profile.dob | date }}</p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Height :</span>
+              {{
+                profile.height && profile.height.feet
+                  ? profile.height.feet + 'ft'
+                  : ''
+              }}
+              {{
+                profile.height && profile.height.inches
+                  ? profile.height.inches + 'inches'
+                  : ''
+              }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Weight :</span>
+              {{ profile.weight ? profile.weight + 'kg' : '' }}
+            </p>
+          </div>
+          <div class="half">
+            <p><span>Nationality :</span> {{ profile.country | titlecase }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p><span>State :</span> {{ profile.state | titlecase }}</p>
+          </div>
+          <div class="half">
+            <p><span>Current City :</span> {{ profile.city | titlecase }}</p>
+          </div>
+        </div>
+
+        <ng-container *ngIf="!isPublic">
+          <div class="block-middle border-bottom">
+            <div class="half">
+              <p><span>Email :</span> {{ profile.email }}</p>
+            </div>
+            <div class="half">
+              <p><span>Phone :</span> +91 {{ profile.phone }}</p>
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Current School Name :</span>
+              {{ profile?.institute?.school | titlecase }}
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="block-middle border-bottom"
+          *ngIf="
+            profile.player_type === 'professional' ||
+            profile.player_type === 'amateur'
+          "
+        >
+          <div class="full">
+            <p>
+              <span>Current University Name :</span>
+              {{ profile?.institute?.university | titlecase }}
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="block-middle border-bottom"
+          *ngIf="
+            profile.player_type === 'professional' ||
+            profile.player_type === 'amateur'
+          "
+        >
+          <div class="full">
+            <p>
+              <span>Current College Name :</span>
+              {{ profile?.institute?.college | titlecase }}
+            </p>
+          </div>
+        </div>
+
+        <ng-container *ngIf="!isPublic">
+          <div class="block-middle border-bottom">
+            <div class="full">
+              <p>
+                <span>View Adhaar : </span>
+                <a
+                  *ngIf="aadhar"
+                  href="{{ aadhar ? aadhar : '' }}"
+                  target="_blank"
+                  >Document</a
+                >
+              </p>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="!isPublic">
+          <div
+            class="block-middle border-bottom"
+            *ngIf="profile.player_type === 'professional'"
+          >
+            <div class="full">
+              <p>
+                <span>View Employment : </span>
+                <a
+                  *ngIf="employment_contract"
+                  href="{{ employment_contract ? employment_contract : '' }}"
+                  target="_blank"
+                  >Document</a
+                >
+              </p>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- perfessional details -->
+      <div class="block">
+        <div class="block-heading border-bottom">
+          <h2>Professional Details</h2>
+        </div>
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Positions (First) :</span>
+              {{
+                (profile.position && profile.position[0]
+                  ? profile.position[0].name
+                  : ''
+                ) | titlecase
+              }}
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Positions (Second) :</span>
+              {{
+                (profile.position && profile.position[1]
+                  ? profile.position[1].name
+                  : ''
+                ) | titlecase
+              }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Positions (Third) :</span>
+              {{
+                (profile.position && profile.position[2]
+                  ? profile.position[2].name
+                  : ''
+                ) | titlecase
+              }}
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Strong Foot :</span> {{ profile.strong_foot | titlecase }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Weak Foot : </span>
+              <ng-container *ngFor="let number of numbers">
+                <ng-container *ngIf="number <= profile.weak_foot">
+                  <i-feather name="star" class="icon-size active"></i-feather>
+                </ng-container>
+                <ng-container *ngIf="number > profile.weak_foot">
+                  <i-feather name="star" class="icon-size"></i-feather>
+                </ng-container>
+              </ng-container>
+            </p>
+          </div>
+          <div class="half" *ngIf="profile.player_type !== 'grassroot'">
+            <p><span>Former Clubs :</span> {{ profile.former_club }}</p>
+          </div>
+        </div>
+
+        <ng-container
+          *ngIf="
+            profile.club_academy_details &&
+            profile.club_academy_details.head_coach_phone
+          "
+        >
+          <div class="block-middle border-bottom">
+            <div class="full">
+              <p>
+                <span>Head Coach Name : </span>
+                {{ profile.club_academy_details?.head_coach_name }}
+              </p>
+            </div>
+          </div>
+          <!-- <ng-container *ngFor="let details of profile.club_academy_details"> -->
+          <div class="block-middle border-bottom">
+            <div class="full">
+              <p>
+                <span>Head Coach Phone Number : </span>
+                +91 {{ profile.club_academy_details?.head_coach_phone }}
+              </p>
+            </div>
+          </div>
+
+          <div class="block-middle border-bottom">
+            <div class="full">
+              <p>
+                <span>Head Coach Email : </span>
+                {{ profile.club_academy_details?.head_coach_email }}
+              </p>
+            </div>
+          </div>
+          <!-- </ng-container> -->
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- clubs and academy -->
+    <div
+      class="clubs"
+      *ngIf="
+        profile.member_type === 'club' || profile.member_type === 'academy'
+      "
+    >
+      <!-- contact details -->
+      <div class="block">
+        <ng-container *ngIf="profile.contact_person">
+          <ng-container *ngFor="let person of profile.contact_person">
+            <div class="block-heading border-bottom">
+              <h2>Contact Details</h2>
+            </div>
+            <div class="block-middle border-bottom">
+              <div class="half">
+                <p>
+                  <span>Designation :</span>
+                  {{ person?.designation | titlecase }}
+                </p>
+              </div>
+              <div class="half">
+                <p><span> Name :</span> {{ person?.name | titlecase }}</p>
+              </div>
+            </div>
+
+            <div class="block-middle border-bottom">
+              <div class="half">
+                <p><span>Email :</span> {{ person?.email }}</p>
+              </div>
+              <div class="half">
+                <p>
+                  <span> Phone Number :</span> +91 {{ person?.phone_number }}
+                </p>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+      <!-- personal details -->
+      <div class="block">
+        <div class="block-heading border-bottom">
+          <h2 *ngIf="profile.member_type === 'club'">Club Details</h2>
+          <h2 *ngIf="profile.member_type === 'academy'">Academy Details</h2>
+        </div>
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p><span>Founded (Year) :</span> {{ profile.founded_in }}</p>
+          </div>
+          <div class="half">
+            <p>
+              <span *ngIf="profile.member_type === 'club'"
+                >Short Club Name :</span
+              >
+              <span *ngIf="profile.member_type === 'academy'"
+                >Short Academy Name :</span
+              >
+              {{ profile.short_name | titlecase }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p><span>Country :</span> {{ profile.country | titlecase }}</p>
+          </div>
+          <div class="half">
+            <p><span>City :</span> {{ profile.city | titlecase }}</p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Office address :</span>
+              {{ profile.address?.full_address | titlecase }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p><span>Zipcode/Pincode :</span> {{ profile.address?.pincode }}</p>
+          </div>
+          <ng-container *ngIf="!isPublic">
+            <div class="half">
+              <p><span>Email :</span> {{ profile.email }}</p>
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <ng-container *ngIf="!isPublic">
+            <div class="half">
+              <p><span>Phone :</span> +91 {{ profile.phone }}</p>
+            </div>
+          </ng-container>
+          <div
+            class="half"
+            *ngIf="
+              profile.member_type === 'club' ||
+              profile.member_type === 'academy'
+            "
+          >
+            <p>
+              <span>Stadium Name :</span>
+              {{ profile?.stadium_name | titlecase }}
+            </p>
+          </div>
+        </div>
+
+        <ng-container *ngIf="!isPublic">
+          <div class="block-middle border-bottom">
+            <div class="half">
+              <p>
+                <span>View Document Status : </span>
+                <a
+                  *ngIf="document"
+                  href="{{ document ? document : '' }}"
+                  target="_blank"
+                  >Document</a
+                >
+              </p>
+            </div>
+            <div class="half">
+              <p>
+                <span>Document Number : </span>{{ docNumber ? docNumber : '' }}
+              </p>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- perfessional details -->
+      <div class="block">
+        <div class="block-heading border-bottom">
+          <h2>Professional Details</h2>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Major trophies won : </span>
+              <ng-container *ngIf="profile.trophies">
+                <ng-container
+                  *ngFor="let trophies of profile.trophies; let isLast = last"
+                >
+                  Name : {{ trophies.name | titlecase }} Year :
+                  {{ trophies.year }} Position Secured :
+                  {{ trophies.position | titlecase }}{{ isLast ? '' : ', ' }}
+                </ng-container>
+              </ng-container>
+            </p>
+          </div>
+        </div>
+        <div
+          class="block-middle border-bottom"
+          *ngIf="profile.league !== 'Other'; else otherLeague"
+        >
+          <div class="full">
+            <p><span>League : </span>{{ profile?.league | titlecase }}</p>
+          </div>
+        </div>
+
+        <ng-template #otherLeague>
+          <div class="block-middle border-bottom">
+            <div class="full">
+              <p>
+                <span>League (Other) : </span
+                >{{ profile?.league_other | titlecase }}
+              </p>
+            </div>
+          </div>
+        </ng-template>
+
+        <div
+          class="block-middle border-bottom"
+          *ngIf="profile.member_type === 'club'"
+        >
+          <div class="full">
+            <p>
+              <span>Top Signings : </span>
+              <ng-container *ngIf="profile.top_signings">
+                <ng-container
+                  *ngFor="
+                    let signings of profile.top_signings;
+                    let isLast = last
+                  "
+                >
+                  {{ signings.name | titlecase }}{{ isLast ? '' : ', ' }}
+                </ng-container>
+              </ng-container>
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="block-middle border-bottom"
+          *ngIf="profile.member_type === 'academy'"
+        >
+          <div class="full">
+            <p>
+              <span>Top Academy Players : </span>
+              <ng-container *ngIf="profile.top_players">
+                <ng-container
+                  *ngFor="let players of profile.top_players; let isLast = last"
+                >
+                  {{ players.name | titlecase }}{{ isLast ? '' : ', ' }}
+                </ng-container>
+              </ng-container>
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="block-middle border-bottom"
+          *ngIf="
+            profile.member_type === 'academy' || profile.member_type === 'club'
+          "
+        >
+          <div class="full">
+            <p>
+              <span>Number of associated players : </span
+              >{{ profile?.associated_players }}
+            </p>
+          </div>
+        </div>
+        <div
+          class="block-middle border-bottom"
+          *ngIf="
+            profile.member_type === 'academy' || profile.member_type === 'club'
+          "
+        >
+          <div class="full">
+            <p>
+              <span>
+                Type of
+                {{ profile.member_type === 'club' ? 'Club' : 'Academy' }} :
+              </span>
+              {{ profile?.type }}
+            </p>
+          </div>
+        </div>
+        <div
+          class="block-middle border-bottom"
+          *ngIf="profile.association !== 'Others'; else otherAssociation"
+        >
+          <div class="full">
+            <p>
+              <span>State association affiliated under : </span
+              >{{ profile?.association | titlecase }}
+            </p>
+          </div>
+        </div>
+
+        <ng-template #otherAssociation>
+          <div class="block-middle border-bottom">
+            <div class="full">
+              <p>
+                <span>State association affiliated under (Other) : </span
+                >{{ profile?.association_other | titlecase }}
+              </p>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right seciton -->
+  <div class="right-section">
+    <div class="block">
+      <div class="block-heading border-bottom">
+        <h2>Who viewed your profile</h2>
+      </div>
+      <div class="block-middle">
+        <!-- one -->
+        <div class="profile-list">
+          <div class="profile-icon">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h5>Sophia Lee</h5>
+            <h6>Wide midfield</h6>
+          </div>
+          <div class="profile-btn">
+            <button>Connect</button>
+          </div>
+        </div>
+        <!-- two -->
+        <div class="profile-list">
+          <div class="profile-icon">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h5>Sophia Lee</h5>
+            <h6>Wide midfield</h6>
+          </div>
+          <div class="profile-btn">
+            <button>Connect</button>
+          </div>
+        </div>
+        <!-- three -->
+        <div class="profile-list">
+          <div class="profile-icon">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h5>Sophia Lee</h5>
+            <h6>Wide midfield</h6>
+          </div>
+          <div class="profile-btn">
+            <button>Connect</button>
+          </div>
+        </div>
+        <!-- four -->
+        <div class="profile-list">
+          <div class="profile-icon">
+            <img src="assets/images/profile-icon.png" alt="" />
+            <span></span>
+          </div>
+          <div class="profile-details">
+            <h5>Sophia Lee</h5>
+            <h6>Wide midfield</h6>
+          </div>
+          <div class="profile-btn">
+            <button>Connect</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- yft chain premium -->
+    <div class="block">
+      <div class="block-img">
+        <img src="assets/images/ads.png" alt="" />
+      </div>
+      <div class="block-middle border-bottom">
+        <div class="premium">
+          <h4>YFTChain Premium</h4>
+          <p>Grow & nurture your network</p>
+        </div>
+      </div>
+      <div class="block-bottom">
+        <button>Activate</button>
+      </div>
+    </div>
+
+    <!-- Some Player -->
+    <div class="block">
+      <div class="post">
+        <a>
+          <div class="block-heading border-bottom">
+            <div class="left-part">
+              <h4>Center back</h4>
+              <h6>Barcelona</h6>
+              <p>
+                <i-feather name="map-pin" class="icon-size"></i-feather> India,
+                Punjab
+              </p>
+            </div>
+
+            <div class="right-part">
+              <img src="assets/images/profile-icon.png" alt="" />
+            </div>
+          </div>
+
+          <div class="block-middle border-bottom">
+            <div class="middle">
+              <div class="left-part">
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+              </div>
+              <div class="right-part">
+                <h4>Connections</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="block-bottom">
+            <div class="post-date">
+              <p>
+                <i-feather name="clock" class="icon-size"></i-feather>
+                Post 3 days ago
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- two -->
+    <div class="block">
+      <div class="post">
+        <a>
+          <div class="block-heading border-bottom">
+            <div class="left-part">
+              <h4>Center back</h4>
+              <h6>Barcelona</h6>
+              <p>
+                <i-feather name="map-pin" class="icon-size"></i-feather> India,
+                Punjab
+              </p>
+            </div>
+
+            <div class="right-part">
+              <img src="assets/images/profile-icon.png" alt="" />
+            </div>
+          </div>
+
+          <div class="block-middle border-bottom">
+            <div class="middle">
+              <div class="left-part">
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+                <img src="assets/images/profile-icon.png" alt="" />
+              </div>
+              <div class="right-part">
+                <h4>Connections</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="block-bottom">
+            <div class="post-date">
+              <p>
+                <i-feather name="clock" class="icon-size"></i-feather>
+                Post 3 days ago
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading> Loading </ng-template>

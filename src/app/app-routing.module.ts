@@ -6,9 +6,9 @@ import {
 } from '@angular/router';
 import { extract } from '@app/core';
 import { RegistrationComponent } from './registration/registration.component';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
+// import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { ProfileComponent } from './profile/profile.component';
+// import { ViewProfileComponent } from './profile/view-profile/view-profile.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
 import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
@@ -48,36 +48,13 @@ const routes: Routes = [
       './core/authentication/reset-password/reset-password.module#ResetPasswordModule'
   },
   {
+    path: 'member/profile',
+    loadChildren: './profile/profile.module#ProfileModule'
+  },
+  {
     path: 'register',
     component: RegistrationComponent,
     data: { title: extract('Registration') }
-  },
-  {
-    path: 'edit-profile',
-    component: EditProfileComponent,
-    data: {
-      title: extract('Edit Profile'),
-      expectedRole: ['player', 'club', 'academy']
-    },
-    canActivate: [RoleGuardService]
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-    data: {
-      title: extract('View Profile'),
-      expectedRole: ['player', 'club', 'academy']
-    },
-    canActivate: [RoleGuardService]
-  },
-  {
-    path: 'profile/:handle',
-    component: ProfileComponent,
-    data: {
-      title: extract('View Profile'),
-      expectedRole: ['player', 'club', 'academy']
-    },
-    canActivate: [RoleGuardService]
   },
   {
     path: 'foot-requests',
