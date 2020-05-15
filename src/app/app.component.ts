@@ -1,12 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
-import { merge } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
-
 import { environment } from '@env/environment';
-import { Logger, I18nService, untilDestroyed } from '@app/core';
+import { Logger, I18nService } from '@app/core';
 
 const log = new Logger('App');
 
@@ -17,12 +13,21 @@ const log = new Logger('App');
 })
 export class AppComponent implements OnInit, OnDestroy {
   constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
     private titleService: Title,
-    private translateService: TranslateService,
-    private i18nService: I18nService
-  ) {}
+    private i18nService: I18nService,
+    private router: Router
+  ) {
+    router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        var title = this.getTitle(
+          router.routerState,
+          router.routerState.root
+        ).join('-');
+        console.log('title', title);
+        this.titleService.setTitle(title);
+      }
+    });
+  }
 
   ngOnInit() {
     // Setup logger
@@ -37,31 +42,18 @@ export class AppComponent implements OnInit, OnDestroy {
       environment.defaultLanguage,
       environment.supportedLanguages
     );
+  }
+  // collect that title data properties from all child routes
+  getTitle(state: any, parent: any): any {
+    let data = [];
+    if (parent && parent.snapshot.data && parent.snapshot.data.title) {
+      data.push(parent.snapshot.data.title);
+    }
 
-    const onNavigationEnd = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    );
-
-    // Change page title on navigation or language change, based on route data
-    merge(this.translateService.onLangChange, onNavigationEnd)
-      .pipe(
-        map(() => {
-          let route = this.activatedRoute;
-          while (route.firstChild) {
-            route = route.firstChild;
-          }
-          return route;
-        }),
-        filter(route => route.outlet === 'primary'),
-        switchMap(route => route.data),
-        untilDestroyed(this)
-      )
-      .subscribe(event => {
-        const title = event.title;
-        if (title) {
-          this.titleService.setTitle(this.translateService.instant(title));
-        }
-      });
+    if (state && parent) {
+      data.push(...this.getTitle(state, state.firstChild(parent)));
+    }
+    return data;
   }
 
   ngOnDestroy() {
