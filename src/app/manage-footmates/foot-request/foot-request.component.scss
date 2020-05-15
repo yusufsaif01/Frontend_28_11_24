@@ -68,6 +68,11 @@
         width: 31%;
         border-radius: 0.5rem;
         margin: 1rem;
+        box-shadow: 0px 0px 4px 0px rgba($color-black, 0.1);
+        &:hover {
+          box-shadow: 0px 0px 0px 0px rgba($color-black, 0.1);
+          cursor: pointer;
+        }
         .top {
           display: flex;
           padding: 2rem;
@@ -80,9 +85,14 @@
             }
           }
           .name {
-            margin-left: 2rem;
+            margin-left: 1rem;
             strong {
-              font-size: 2rem;
+              font-size: 1.9rem;
+              user-select: none;
+              &:hover {
+                color: $blue;
+                cursor: pointer;
+              }
             }
             p {
               font-size: 1.6rem;
