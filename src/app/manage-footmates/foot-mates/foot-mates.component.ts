@@ -265,88 +265,108 @@ export class FootMatesComponent implements OnInit {
     this.locationData.cityValue = '';
   }
 
-  onChangePosition(event: any) {
-    let positionName: any = event.source.value;
+  onChangeChecker(event: any, filterArray: any, type: string) {
+    let entityName: any = event.source.value;
     if (event.checked) {
       if (this.checkFilters === false) this.checkFilters = undefined;
-      if (!this.locationRangeFilters.positionsArray.includes(positionName)) {
-        this.locationRangeFilters.positionsArray.push(positionName);
+      if (!filterArray.includes(entityName)) {
+        filterArray.push(entityName);
       }
     } else {
-      this.locationRangeFilters.positionsArray.forEach(
-        (element: any, index) => {
-          if (element == positionName) {
-            this.locationRangeFilters.positionsArray.splice(index, 1);
-          }
-        }
-      );
-    }
-    let positionString = this.locationRangeFilters.positionsArray.join(',');
-    this.filter.position = positionString;
-    this.getFootMateList();
-  }
-
-  onChangePlayerType(event: any) {
-    let playerType: any = event.source.value;
-    if (event.checked) {
-      if (this.checkFilters === false) this.checkFilters = undefined;
-      if (!this.locationRangeFilters.playerTypeArray.includes(playerType)) {
-        this.locationRangeFilters.playerTypeArray.push(playerType);
-      }
-    } else {
-      this.locationRangeFilters.playerTypeArray.forEach(
-        (element: any, index) => {
-          if (element == playerType) {
-            this.locationRangeFilters.playerTypeArray.splice(index, 1);
-          }
-        }
-      );
-    }
-    let playerTypeStrint = this.locationRangeFilters.playerTypeArray.join(',');
-    this.filter.player_category = playerTypeStrint;
-    this.getFootMateList();
-  }
-
-  onChangeRange(event: any) {
-    let ageRange: any = event.source.value;
-    if (event.checked) {
-      if (this.checkFilters === false) this.checkFilters = undefined;
-      if (!this.locationRangeFilters.ageRangeArray.includes(ageRange)) {
-        this.locationRangeFilters.ageRangeArray.push(ageRange);
-      }
-    } else {
-      this.locationRangeFilters.ageRangeArray.forEach((element: any, index) => {
-        if (element == ageRange) {
-          this.locationRangeFilters.ageRangeArray.splice(index, 1);
+      filterArray.forEach((element: any, index: number) => {
+        if (element == entityName) {
+          filterArray.splice(index, 1);
         }
       });
     }
-    let ageRangeString = this.locationRangeFilters.ageRangeArray.join(',');
-    this.filter.age = ageRangeString;
+    this.filter[type] = filterArray.join(',');
     this.getFootMateList();
   }
 
-  onChangeFoot(event: any) {
-    let strongFoot: any = event.source.value;
-    if (event.checked) {
-      if (this.checkFilters === false) this.checkFilters = undefined;
-      if (!this.locationRangeFilters.strongFootArray.includes(strongFoot)) {
-        this.locationRangeFilters.strongFootArray.push(strongFoot);
-      }
-    } else {
-      this.locationRangeFilters.strongFootArray.forEach(
-        (element: any, index) => {
-          if (element == strongFoot) {
-            this.locationRangeFilters.strongFootArray.splice(index, 1);
-          }
-        }
-      );
-    }
-    let strontFootString = this.locationRangeFilters.strongFootArray.join(',');
-    this.filter.strong_foot = strontFootString;
-    console.log(strontFootString);
-    this.getFootMateList();
-  }
+  // onChangePosition(event: any) {
+
+  //   this.onChangeChecker(event, this.locationRangeFilters.positionsArray)
+  //   let positionName: any = event.source.value;
+  //   if (event.checked) {
+  //     if (this.checkFilters === false) this.checkFilters = undefined;
+  //     if (!this.locationRangeFilters.positionsArray.includes(positionName)) {
+  //       this.locationRangeFilters.positionsArray.push(positionName);
+  //     }
+  //   } else {
+  //     this.locationRangeFilters.positionsArray.forEach(
+  //       (element: any, index) => {
+  //         if (element == positionName) {
+  //           this.locationRangeFilters.positionsArray.splice(index, 1);
+  //         }
+  //       }
+  //     );
+  //   }
+  //   let positionString = this.locationRangeFilters.positionsArray.join(',');
+  //   this.filter.position = positionString;
+  //   this.getFootMateList();
+  // }
+
+  // onChangePlayerType(event: any) {
+  //   let playerType: any = event.source.value;
+  //   if (event.checked) {
+  //     if (this.checkFilters === false) this.checkFilters = undefined;
+  //     if (!this.locationRangeFilters.playerTypeArray.includes(playerType)) {
+  //       this.locationRangeFilters.playerTypeArray.push(playerType);
+  //     }
+  //   } else {
+  //     this.locationRangeFilters.playerTypeArray.forEach(
+  //       (element: any, index) => {
+  //         if (element == playerType) {
+  //           this.locationRangeFilters.playerTypeArray.splice(index, 1);
+  //         }
+  //       }
+  //     );
+  //   }
+  //   let playerTypeStrint = this.locationRangeFilters.playerTypeArray.join(',');
+  //   this.filter.player_category = playerTypeStrint;
+  //   this.getFootMateList();
+  // }
+
+  // onChangeRange(event: any) {
+  //   let ageRange: any = event.source.value;
+  //   if (event.checked) {
+  //     if (this.checkFilters === false) this.checkFilters = undefined;
+  //     if (!this.locationRangeFilters.ageRangeArray.includes(ageRange)) {
+  //       this.locationRangeFilters.ageRangeArray.push(ageRange);
+  //     }
+  //   } else {
+  //     this.locationRangeFilters.ageRangeArray.forEach((element: any, index) => {
+  //       if (element == ageRange) {
+  //         this.locationRangeFilters.ageRangeArray.splice(index, 1);
+  //       }
+  //     });
+  //   }
+  //   let ageRangeString = this.locationRangeFilters.ageRangeArray.join(',');
+  //   this.filter.age = ageRangeString;
+  //   this.getFootMateList();
+  // }
+
+  // onChangeFoot(event: any) {
+  //   let strongFoot: any = event.source.value;
+  //   if (event.checked) {
+  //     if (this.checkFilters === false) this.checkFilters = undefined;
+  //     if (!this.locationRangeFilters.strongFootArray.includes(strongFoot)) {
+  //       this.locationRangeFilters.strongFootArray.push(strongFoot);
+  //     }
+  //   } else {
+  //     this.locationRangeFilters.strongFootArray.forEach(
+  //       (element: any, index) => {
+  //         if (element == strongFoot) {
+  //           this.locationRangeFilters.strongFootArray.splice(index, 1);
+  //         }
+  //       }
+  //     );
+  //   }
+  //   let strontFootString = this.locationRangeFilters.strongFootArray.join(',');
+  //   this.filter.strong_foot = strontFootString;
+  //   console.log(strontFootString);
+  //   this.getFootMateList();
+  // }
 
   updatePage(event: any) {
     this.pageNo = event.selectedPage;

@@ -76,7 +76,13 @@
             >
               <mat-checkbox
                 [value]="position.name"
-                (change)="onChangePosition($event)"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.positionsArray,
+                    'position'
+                  )
+                "
                 [checked]="checkFilters"
                 >{{ position.name }}</mat-checkbox
               >
@@ -93,7 +99,13 @@
               <mat-checkbox
                 value="Grassroot"
                 [checked]="checkFilters"
-                (change)="onChangePlayerType($event)"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.playerTypeArray,
+                    'player_category'
+                  )
+                "
                 >Grassroot</mat-checkbox
               >
             </span>
@@ -101,7 +113,13 @@
               <mat-checkbox
                 value="Amateur"
                 [checked]="checkFilters"
-                (change)="onChangePlayerType($event)"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.playerTypeArray,
+                    'player_category'
+                  )
+                "
                 >Amateur</mat-checkbox
               >
             </span>
@@ -109,7 +127,13 @@
               <mat-checkbox
                 value="Professional"
                 [checked]="checkFilters"
-                (change)="onChangePlayerType($event)"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.playerTypeArray,
+                    'player_category'
+                  )
+                "
                 >Professional</mat-checkbox
               >
             </span>
@@ -125,7 +149,13 @@
               <mat-checkbox
                 value="6-12"
                 [checked]="checkFilters"
-                (change)="onChangeRange($event)"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.ageRangeArray,
+                    'age'
+                  )
+                "
                 >6-12</mat-checkbox
               >
             </span>
@@ -133,7 +163,13 @@
               <mat-checkbox
                 value="13-26"
                 [checked]="checkFilters"
-                (change)="onChangeRange($event)"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.ageRangeArray,
+                    'age'
+                  )
+                "
                 >13-26</mat-checkbox
               >
             </span>
@@ -141,7 +177,13 @@
               <mat-checkbox
                 value="27-28"
                 [checked]="checkFilters"
-                (change)="onChangeRange($event)"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.ageRangeArray,
+                    'age'
+                  )
+                "
                 >27-28</mat-checkbox
               >
             </span>
@@ -149,7 +191,13 @@
               <mat-checkbox
                 value="39-50"
                 [checked]="checkFilters"
-                (change)="onChangeRange($event)"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.ageRangeArray,
+                    'age'
+                  )
+                "
                 >39-50</mat-checkbox
               >
             </span>
@@ -215,7 +263,13 @@
               <mat-checkbox
                 value="Left"
                 [checked]="checkFilters"
-                (change)="onChangeFoot($event)"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.strongFootArray,
+                    'strong_foot'
+                  )
+                "
                 >Left</mat-checkbox
               >
             </span>
@@ -223,7 +277,13 @@
               <mat-checkbox
                 value="Right"
                 [checked]="checkFilters"
-                (change)="onChangeFoot($event)"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.strongFootArray,
+                    'strong_foot'
+                  )
+                "
                 >Right</mat-checkbox
               >
             </span>
