@@ -5,7 +5,6 @@ import { FootMatesService } from '@app/manage-footmates/foot-mates/foot-mates.se
 import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
-import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
 
 interface FootMatesContext {
   name: string;
@@ -16,6 +15,33 @@ interface FootMatesContext {
   mutuals: number;
 }
 
+interface ActiveClass {
+  activePosition: boolean;
+  activePlayerCategory: boolean;
+  activeAge: boolean;
+  activeLocation: boolean;
+  activeStrongFoot: boolean;
+}
+
+interface LocationRangeFilters {
+  countryData: any[];
+  positions: any[];
+  states: any[];
+  cities: any[];
+  positionsArray: any[];
+  playerTypeArray: any[];
+  ageRangeArray: any[];
+  strongFootArray: any[];
+}
+
+interface LocationsIds {
+  countryID: string;
+  stateID: string;
+  countryValue: string;
+  stateValue: string;
+  cityValue: string;
+}
+
 @Component({
   selector: 'app-footmates',
   templateUrl: './foot-mates.component.html',
@@ -23,30 +49,12 @@ interface FootMatesContext {
 })
 export class FootMatesComponent implements OnInit {
   filter: any = {};
-  pageNo: number = 1;
-  countryData: any[] = [];
-  positions: any[] = [];
-  states: any[] = [];
-  cities: any[] = [];
+  switchClass: ActiveClass;
+  locationRangeFilters: LocationRangeFilters;
+  locationData: LocationsIds;
   checkFilters: boolean | undefined = undefined;
-  positionsArray: any[] = [];
-  playerTypeArray: any[] = [];
-  ageRangeArray: any[] = [];
-  strongFootArray: any[] = [];
-  countryID: string = '';
-  stateID: string = '';
-  countryValue: string = '';
-  stateValue: string = '';
-  cityValue: string = '';
+
   public active: boolean;
-  checkPlayerTypeFilters: boolean | undefined = undefined;
-  checkAgeRangeFilters: boolean | undefined = undefined;
-  checkStrongFootFilters: boolean | undefined = undefined;
-  activePosition: boolean = false;
-  activePlayerCategory: boolean = false;
-  activeAge: boolean = false;
-  activeLocation: boolean = false;
-  activeStrongFoot: boolean = false;
 
   menuOpened() {
     if (this.active) {
@@ -68,6 +76,7 @@ export class FootMatesComponent implements OnInit {
   // foot_mate_count = 0;
   foot_data: any;
   pageSize: number = 20;
+  pageNo: number = 1;
   show_count: number = 0;
 
   footMatesList: FootMatesContext[] = [];
@@ -86,12 +95,33 @@ export class FootMatesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initialize();
     this.filter.page_size = this.pageSize;
     this.filter.page_no = 1;
+    this.deactivateAll();
     this.getLocationStats();
     this.getFootMateList();
     this.getConnectionStats({});
     this.getPositionsListing();
+  }
+  initialize() {
+    this.locationRangeFilters = {
+      countryData: [],
+      positions: [],
+      states: [],
+      cities: [],
+      positionsArray: [],
+      playerTypeArray: [],
+      ageRangeArray: [],
+      strongFootArray: []
+    };
+    this.locationData = {
+      countryID: '',
+      stateID: '',
+      countryValue: '',
+      stateValue: '',
+      cityValue: ''
+    };
   }
   getLocationStats() {
     this.footMatesService
@@ -99,7 +129,7 @@ export class FootMatesComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
-          this.countryData = response.data;
+          this.locationRangeFilters.countryData = response.data;
         },
         error => {
           this.toastrService.error('Error', error.error.message);
@@ -112,7 +142,7 @@ export class FootMatesComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
-          this.cities = response.data.records;
+          this.locationRangeFilters.cities = response.data.records;
         },
         error => {
           this.toastrService.error('Error', error.error.message);
@@ -125,7 +155,7 @@ export class FootMatesComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
-          this.states = response.data.records;
+          this.locationRangeFilters.states = response.data.records;
         },
         error => {
           this.toastrService.error('Error', error.error.message);
@@ -138,7 +168,7 @@ export class FootMatesComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
-          this.positions = response.data.records;
+          this.locationRangeFilters.positions = response.data.records;
         },
         error => {
           this.toastrService.error('Error', error.error.message);
@@ -162,12 +192,12 @@ export class FootMatesComponent implements OnInit {
   onSelectCountry(event: any) {
     if (event.target.value) {
       let countryData = JSON.parse(event.target.value);
-      this.countryID = countryData.country_id;
-      this.getStatesListing(this.countryID);
+      this.locationData.countryID = countryData.country_id;
+      this.getStatesListing(this.locationData.countryID);
       this.filter.country = countryData.country;
     } else {
-      this.cities = [];
-      this.states = [];
+      this.locationRangeFilters.cities = [];
+      this.locationRangeFilters.states = [];
       delete this.filter.country;
       delete this.filter.state;
       delete this.filter.city;
@@ -196,11 +226,14 @@ export class FootMatesComponent implements OnInit {
   onSelectState(event: any) {
     if (event.target.value) {
       let stateData = JSON.parse(event.target.value);
-      this.stateID = stateData.id;
-      this.getCitiesListing(this.countryID, this.stateID);
+      this.locationData.stateID = stateData.id;
+      this.getCitiesListing(
+        this.locationData.countryID,
+        this.locationData.stateID
+      );
       this.filter.state = stateData.name;
     } else {
-      this.cities = [];
+      this.locationRangeFilters.cities = [];
       delete this.filter.state;
     }
     this.getFootMateList();
@@ -223,33 +256,32 @@ export class FootMatesComponent implements OnInit {
     this.getFootMateList();
     this.deactivateAll();
     this.checkFilters = false;
-    this.checkPlayerTypeFilters = false;
-    this.checkAgeRangeFilters = false;
-    this.checkStrongFootFilters = false;
-    this.positionsArray = [];
-    this.playerTypeArray = [];
-    this.ageRangeArray = [];
-    this.strongFootArray = [];
-    this.countryValue = '';
-    this.stateValue = '';
-    this.cityValue = '';
+    this.locationRangeFilters.positionsArray = [];
+    this.locationRangeFilters.playerTypeArray = [];
+    this.locationRangeFilters.ageRangeArray = [];
+    this.locationRangeFilters.strongFootArray = [];
+    this.locationData.countryValue = '';
+    this.locationData.stateValue = '';
+    this.locationData.cityValue = '';
   }
 
   onChangePosition(event: any) {
     let positionName: any = event.source.value;
     if (event.checked) {
-      this.checkFilters = undefined;
-      if (!this.positionsArray.includes(positionName)) {
-        this.positionsArray.push(positionName);
+      if (this.checkFilters === false) this.checkFilters = undefined;
+      if (!this.locationRangeFilters.positionsArray.includes(positionName)) {
+        this.locationRangeFilters.positionsArray.push(positionName);
       }
     } else {
-      this.positionsArray.forEach((element: any, index) => {
-        if (element == positionName) {
-          this.positionsArray.splice(index, 1);
+      this.locationRangeFilters.positionsArray.forEach(
+        (element: any, index) => {
+          if (element == positionName) {
+            this.locationRangeFilters.positionsArray.splice(index, 1);
+          }
         }
-      });
+      );
     }
-    let positionString = this.positionsArray.join(',');
+    let positionString = this.locationRangeFilters.positionsArray.join(',');
     this.filter.position = positionString;
     this.getFootMateList();
   }
@@ -257,18 +289,20 @@ export class FootMatesComponent implements OnInit {
   onChangePlayerType(event: any) {
     let playerType: any = event.source.value;
     if (event.checked) {
-      this.checkPlayerTypeFilters = undefined;
-      if (!this.playerTypeArray.includes(playerType)) {
-        this.playerTypeArray.push(playerType);
+      if (this.checkFilters === false) this.checkFilters = undefined;
+      if (!this.locationRangeFilters.playerTypeArray.includes(playerType)) {
+        this.locationRangeFilters.playerTypeArray.push(playerType);
       }
     } else {
-      this.playerTypeArray.forEach((element: any, index) => {
-        if (element == playerType) {
-          this.playerTypeArray.splice(index, 1);
+      this.locationRangeFilters.playerTypeArray.forEach(
+        (element: any, index) => {
+          if (element == playerType) {
+            this.locationRangeFilters.playerTypeArray.splice(index, 1);
+          }
         }
-      });
+      );
     }
-    let playerTypeStrint = this.playerTypeArray.join(',');
+    let playerTypeStrint = this.locationRangeFilters.playerTypeArray.join(',');
     this.filter.player_category = playerTypeStrint;
     this.getFootMateList();
   }
@@ -276,18 +310,18 @@ export class FootMatesComponent implements OnInit {
   onChangeRange(event: any) {
     let ageRange: any = event.source.value;
     if (event.checked) {
-      this.checkAgeRangeFilters = undefined;
-      if (!this.ageRangeArray.includes(ageRange)) {
-        this.ageRangeArray.push(ageRange);
+      if (this.checkFilters === false) this.checkFilters = undefined;
+      if (!this.locationRangeFilters.ageRangeArray.includes(ageRange)) {
+        this.locationRangeFilters.ageRangeArray.push(ageRange);
       }
     } else {
-      this.ageRangeArray.forEach((element: any, index) => {
+      this.locationRangeFilters.ageRangeArray.forEach((element: any, index) => {
         if (element == ageRange) {
-          this.ageRangeArray.splice(index, 1);
+          this.locationRangeFilters.ageRangeArray.splice(index, 1);
         }
       });
     }
-    let ageRangeString = this.ageRangeArray.join(',');
+    let ageRangeString = this.locationRangeFilters.ageRangeArray.join(',');
     this.filter.age = ageRangeString;
     this.getFootMateList();
   }
@@ -295,18 +329,20 @@ export class FootMatesComponent implements OnInit {
   onChangeFoot(event: any) {
     let strongFoot: any = event.source.value;
     if (event.checked) {
-      this.checkStrongFootFilters = undefined;
-      if (!this.strongFootArray.includes(strongFoot)) {
-        this.strongFootArray.push(strongFoot);
+      if (this.checkFilters === false) this.checkFilters = undefined;
+      if (!this.locationRangeFilters.strongFootArray.includes(strongFoot)) {
+        this.locationRangeFilters.strongFootArray.push(strongFoot);
       }
     } else {
-      this.strongFootArray.forEach((element: any, index) => {
-        if (element == strongFoot) {
-          this.strongFootArray.splice(index, 1);
+      this.locationRangeFilters.strongFootArray.forEach(
+        (element: any, index) => {
+          if (element == strongFoot) {
+            this.locationRangeFilters.strongFootArray.splice(index, 1);
+          }
         }
-      });
+      );
     }
-    let strontFootString = this.strongFootArray.join(',');
+    let strontFootString = this.locationRangeFilters.strongFootArray.join(',');
     this.filter.strong_foot = strontFootString;
     console.log(strontFootString);
     this.getFootMateList();
@@ -324,14 +360,16 @@ export class FootMatesComponent implements OnInit {
 
   addActiveClass(className: any) {
     this.deactivateAll();
-    this[className] = true;
+    this.switchClass[className] = true;
   }
   deactivateAll() {
-    this.activePosition = false;
-    this.activePlayerCategory = false;
-    this.activeAge = false;
-    this.activeLocation = false;
-    this.activeStrongFoot = false;
+    this.switchClass = {
+      activePosition: false,
+      activePlayerCategory: false,
+      activeAge: false,
+      activeLocation: false,
+      activeStrongFoot: false
+    };
   }
   ngOnDestroy() {}
 }
