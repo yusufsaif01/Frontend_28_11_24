@@ -1,15 +1,16 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MutualFootmateService } from './mutual-footmate-service';
 import { environment } from '../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { untilDestroyed } from '@app/core';
 
 @Component({
   selector: 'app-mutual-footmate',
   templateUrl: './mutual-footmate.component.html',
   styleUrls: ['./mutual-footmate.component.scss']
 })
-export class MutualFootmateComponent implements OnInit {
+export class MutualFootmateComponent implements OnInit, OnDestroy {
   mutualFootmate: any[] = [];
   baseUrl: string = '';
   constructor(
@@ -22,6 +23,8 @@ export class MutualFootmateComponent implements OnInit {
     this.getMutualFootmateList();
   }
 
+  ngOnDestroy() {}
+
   // dailog Box close
   onNoClick(): void {
     this.dialogRef.close();
@@ -29,13 +32,16 @@ export class MutualFootmateComponent implements OnInit {
   ngOnInit() {}
 
   getMutualFootmateList() {
-    this.mutualFootmateService.getMutualFootmateList(this.data.id).subscribe(
-      response => {
-        this.mutualFootmate = response.data.records;
-      },
-      error => {
-        this.toastrService.error('Error', error.error.message);
-      }
-    );
+    this.mutualFootmateService
+      .getMutualFootmateList(this.data.id)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.mutualFootmate = response.data.records;
+        },
+        error => {
+          this.toastrService.error('Error', error.error.message);
+        }
+      );
   }
 }

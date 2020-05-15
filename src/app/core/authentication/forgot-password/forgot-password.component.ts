@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
+import { untilDestroyed } from '@app/core';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit, OnDestroy {
   forgetPasswordForm: FormGroup;
 
   constructor(
@@ -17,12 +18,14 @@ export class ForgotPasswordComponent implements OnInit {
   ) {
     this.createForm();
   }
+  ngOnDestroy() {}
 
   ngOnInit() {}
 
   forgetPassword() {
     this._authenticationService
       .forgetPassword(this.forgetPasswordForm.value)
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this._toastrService.success('Successful', 'Reset Link Sent');

@@ -1,15 +1,16 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit, Inject, Input, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { FilterDialogPlayerService } from './filter-dialog-player-service';
 import { ToastrService } from 'ngx-toastr';
+import { untilDestroyed } from '@app/core';
 
 @Component({
   selector: 'app-filter-dialog-player',
   templateUrl: './filter-dialog-player.component.html',
   styleUrls: ['./filter-dialog-player.component.scss']
 })
-export class FilterDialogPlayerComponent implements OnInit {
+export class FilterDialogPlayerComponent implements OnInit, OnDestroy {
   @Input() max: Date | null;
   filterForm: FormGroup;
   tomorrow = new Date();
@@ -26,6 +27,8 @@ export class FilterDialogPlayerComponent implements OnInit {
     this.populatePositionList();
   }
 
+  ngOnDestroy() {}
+
   createForm() {
     this.filterForm = this.formBuilder.group({
       from: [this.data.from],
@@ -41,13 +44,16 @@ export class FilterDialogPlayerComponent implements OnInit {
   // fromDate = new Date(fromDate).toISOString()
   ngOnInit() {}
   populatePositionList() {
-    this.filterDialogPlayerService.getPositionList().subscribe(
-      response => {
-        this.positionArray = response.data.records;
-      },
-      error => {
-        this.toastrService.error(error.error.message, 'Error');
-      }
-    );
+    this.filterDialogPlayerService
+      .getPositionList()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.positionArray = response.data.records;
+        },
+        error => {
+          this.toastrService.error(error.error.message, 'Error');
+        }
+      );
   }
 }

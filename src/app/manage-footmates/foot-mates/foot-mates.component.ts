@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { MutualFootmateComponent } from '@app/manage-footmates/mutual-footmate/mutual-footmate.component';
 import { FootMatesService } from './foot-mates.service';
 import { environment } from '../../../environments/environment';
 import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
+import { untilDestroyed } from '@app/core';
 
 interface FootMatesContext {
   name: string;
@@ -19,7 +20,7 @@ interface FootMatesContext {
   templateUrl: './foot-mates.component.html',
   styleUrls: ['./foot-mates.component.scss']
 })
-export class FootMatesComponent implements OnInit {
+export class FootMatesComponent implements OnInit, OnDestroy {
   public active: boolean;
 
   menuOpened() {
@@ -50,6 +51,9 @@ export class FootMatesComponent implements OnInit {
     private footMatesService: FootMatesService,
     private footRequestService: FootRequestService
   ) {}
+
+  ngOnDestroy() {}
+
   // MatualFootmates
   openDialog(foot_mate: any): void {
     const dialogRef = this.dialog.open(MutualFootmateComponent, {
@@ -64,17 +68,20 @@ export class FootMatesComponent implements OnInit {
     this.getConnectionStats({});
   }
   getFootMateList(page_size: number, page_no: number) {
-    this.footMatesService.getFootMateList({ page_size, page_no }).subscribe(
-      response => {
-        let records = response.data.records;
-        for (let i = 0; i < records.length; i++) {
-          records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
-        }
-        this.footMatesList = records;
-        this.show_count = response.data.records.length;
-      },
-      error => {}
-    );
+    this.footMatesService
+      .getFootMateList({ page_size, page_no })
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let records = response.data.records;
+          for (let i = 0; i < records.length; i++) {
+            records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
+          }
+          this.footMatesList = records;
+          this.show_count = response.data.records.length;
+        },
+        error => {}
+      );
   }
   updatePage(event: any) {
     this.getFootMateList(this.pageSize, event.selectedPage);

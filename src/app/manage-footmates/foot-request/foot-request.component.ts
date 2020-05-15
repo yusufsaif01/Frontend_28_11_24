@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { MutualFootmateComponent } from '../mutual-footmate/mutual-footmate.component';
 import { FootRequestService } from './foot-request.service';
 import { environment } from '../../../environments/environment';
+import { untilDestroyed } from '@app/core';
 
 interface FootRequestContext {
   name: string;
@@ -21,7 +22,7 @@ interface FootRequestContext {
   templateUrl: './foot-request.component.html',
   styleUrls: ['./foot-request.component.scss']
 })
-export class FootRequestComponent implements OnInit {
+export class FootRequestComponent implements OnInit, OnDestroy {
   panelOptions: object = {
     bio: true,
     member_type: true,
@@ -43,6 +44,9 @@ export class FootRequestComponent implements OnInit {
     public dialog: MatDialog,
     private footRequestService: FootRequestService
   ) {}
+
+  ngOnDestroy() {}
+
   // MatualFootmates
   openDialog(foot_request: any): void {
     const dialogRef = this.dialog.open(MutualFootmateComponent, {
@@ -59,6 +63,7 @@ export class FootRequestComponent implements OnInit {
   getFootRequestList(page_size: number, page_no: number) {
     this.footRequestService
       .getFootRequestList({ page_size, page_no })
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           let records = response.data.records;
@@ -75,6 +80,7 @@ export class FootRequestComponent implements OnInit {
   acceptFootRequest(footRequest: FootRequestContext) {
     this.footRequestService
       .acceptFootRequest({ request_id: footRequest.request_id })
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           footRequest.hide = true;
@@ -86,6 +92,7 @@ export class FootRequestComponent implements OnInit {
   rejectFootRequest(footRequest: FootRequestContext) {
     this.footRequestService
       .rejectFootRequest({ request_id: footRequest.request_id })
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           footRequest.hide = true;
