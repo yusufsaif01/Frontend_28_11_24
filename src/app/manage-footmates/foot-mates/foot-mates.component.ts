@@ -26,6 +26,9 @@ interface ActiveClass {
 interface LocationRangeFilters {
   countryData: any[];
   positions: any[];
+  playerType: any[];
+  ageRange: any[];
+  strongFoot: any[];
   states: any[];
   cities: any[];
   positionsArray: any[];
@@ -102,12 +105,14 @@ export class FootMatesComponent implements OnInit {
     this.getLocationStats();
     this.getFootMateList();
     this.getConnectionStats({});
-    this.getPositionsListing();
   }
   initialize() {
     this.locationRangeFilters = {
       countryData: [],
       positions: [],
+      playerType: [],
+      ageRange: [],
+      strongFoot: [],
       states: [],
       cities: [],
       positionsArray: [],
@@ -122,7 +127,57 @@ export class FootMatesComponent implements OnInit {
       stateValue: '',
       cityValue: ''
     };
+    this.setDefaultValues();
   }
+
+  setDefaultValues() {
+    this.locationRangeFilters.strongFoot = [
+      {
+        name: 'Left',
+        value: 'left'
+      },
+      {
+        name: 'Right',
+        value: 'right'
+      }
+    ];
+
+    this.locationRangeFilters.ageRange = [
+      {
+        name: '6-12',
+        value: '6-12'
+      },
+      {
+        name: '13-26',
+        value: '13-26'
+      },
+      {
+        name: '27-38',
+        value: '27-38'
+      },
+      {
+        name: '39-50',
+        value: '39-50'
+      }
+    ];
+
+    this.locationRangeFilters.playerType = [
+      {
+        name: 'Grassroot',
+        value: 'Grassroot'
+      },
+      {
+        name: 'Amateur',
+        value: 'Amateur'
+      },
+      {
+        name: 'Professional',
+        value: 'Professional'
+      }
+    ];
+    this.getPositionsListing();
+  }
+
   getLocationStats() {
     this.footMatesService
       .getLocationStats()
