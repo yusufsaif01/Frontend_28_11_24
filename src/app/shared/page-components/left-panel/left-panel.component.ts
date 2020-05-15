@@ -154,6 +154,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
           map(resp => {
             console.log(resp);
             this.is_following = false;
+            this.getConnectionStats();
           }),
           catchError(err => {
             this._toastrService.error('Error', err.error.message);
@@ -170,6 +171,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
           map(resp => {
             console.log(resp);
             this.is_following = true;
+            this.getConnectionStats();
           }),
           catchError(err => {
             this._toastrService.error('Error', err.error.message);
