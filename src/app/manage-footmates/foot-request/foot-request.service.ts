@@ -109,11 +109,11 @@ export class FootRequestService {
   connectionStats(
     context: Partial<ConnectionStatsRequestContext>
   ): Observable<ConnectionStatsResponseContext> {
-    let params = '/';
+    let query = '?';
     if (context['user_id']) {
-      params += `${context['user_id']}`;
+      query += 'user_id=' + context['user_id'];
       return this.httpClient.get<ConnectionStatsResponseContext>(
-        routes.connectionStats() + params
+        routes.connectionStats() + query
       );
     }
 
