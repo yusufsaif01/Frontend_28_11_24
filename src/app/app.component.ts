@@ -23,7 +23,6 @@ export class AppComponent implements OnInit, OnDestroy {
           router.routerState,
           router.routerState.root
         ).join('-');
-        console.log('title', title);
         this.titleService.setTitle(title);
       }
     });
