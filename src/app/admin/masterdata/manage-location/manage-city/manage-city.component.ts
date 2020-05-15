@@ -4,7 +4,7 @@ import { ManageCityTableConfig } from './manage-city-table-conf';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-import { AdminService } from '@app/admin/service/admin.service';
+import { AdminService } from '@app/admin/admin.service';
 import { CityService } from './manage-city-service';
 @Component({
   selector: 'app-manage-city',

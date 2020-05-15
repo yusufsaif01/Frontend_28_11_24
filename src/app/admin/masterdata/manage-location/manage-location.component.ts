@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ManageLocationTableConfig } from './manage-location-table-conf';
-import { AdminService } from '@app/admin/service/admin.service';
+import { AdminService } from '@app/admin/admin.service';
 @Component({
   selector: 'app-manage-location',
   templateUrl: './manage-location.component.html',

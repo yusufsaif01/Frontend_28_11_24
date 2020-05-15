@@ -13,10 +13,6 @@ const routes = {
   changePasssword: (c: ChangePasswordContext) => '/change-password',
   forgetPassword: (c: ForgotPasswordContext) => '/forgot-password',
   createPassword: (c: ResetPasswordContext) => '/create-password',
-  editProfile: (c: any) => '/update-details',
-  updateBio: (a: any) => '/update-bio',
-  getProfileDetails: () => '/profile',
-  removeAvatar: () => '/avatar',
   emailVerification: () => '/activate',
   resetLinkStatus: () => '/link/status'
 };
@@ -136,22 +132,6 @@ export class AuthenticationService {
 
   forgetPassword(context: ForgotPasswordContext): Observable<any> {
     return this.httpClient.post(routes.forgetPassword(context), context);
-  }
-
-  editProfile(context: any): Observable<any> {
-    return this.httpClient.put(routes.editProfile(context), context);
-  }
-
-  getProfileDetails(): Observable<any> {
-    return this.httpClient.get(routes.getProfileDetails());
-  }
-
-  updateBio(context: any): Observable<any> {
-    return this.httpClient.put(routes.updateBio(context), context);
-  }
-
-  removeAvatar(): Observable<any> {
-    return this.httpClient.delete(routes.removeAvatar());
   }
 
   emailVerification(token: string): Observable<any> {

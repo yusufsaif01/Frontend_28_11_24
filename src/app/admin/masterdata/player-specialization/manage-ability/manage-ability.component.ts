@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageAbilityTableConfig } from './manage-ability-table.conf';
 import { AddpopupComponent } from '../addpopup/addpopup.component';
-import { AdminService } from '@app/admin/service/admin.service';
+import { AdminService } from '@app/admin/admin.service';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-manage-ability',

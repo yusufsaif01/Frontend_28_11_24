@@ -19,19 +19,20 @@ interface MemberListContext {
 export class HeaderComponent implements OnInit {
   public isActive: boolean = true;
   public avatar_url: string = localStorage.getItem('avatar_url');
+  public member_type: string = localStorage.getItem('member_type');
   memberList: MemberListContext[] = [];
   searchText = '';
   constructor(
-    private router: Router,
+    private _router: Router,
     private _authenticationService: AuthenticationService,
-    private headerService: HeaderService
+    private _headerService: HeaderService
   ) {}
 
   ngOnInit(): void {}
 
   logout() {
     this._authenticationService.logout();
-    this.router.navigateByUrl('/login');
+    this._router.navigateByUrl('/login');
   }
   changeDropdown() {
     if (this.isActive) {
@@ -45,7 +46,7 @@ export class HeaderComponent implements OnInit {
     this.searchText = value;
     if (value.length === 0) this.memberList = [];
     if (value.length < 3) return;
-    this.headerService.getMemberSearchList({ search: value }).subscribe(
+    this._headerService.getMemberSearchList({ search: value }).subscribe(
       response => {
         let records = response.data.records;
         for (let i = 0; i < records.length; i++) {
@@ -92,5 +93,11 @@ export class HeaderComponent implements OnInit {
   }
   onScrollUp() {
     console.log('Scrolled Up');
+  }
+
+  openPublicProfile(user_id: string) {
+    this._router.navigate([]).then(result => {
+      window.open(`/member/profile/view/${user_id}`, '_blank');
+    });
   }
 }

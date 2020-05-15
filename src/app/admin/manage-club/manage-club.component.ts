@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageClubTableConfig } from './manage-club-table-conf';
 import { FilterDialogClubComponent } from '../filter-dialog-club/filter-dialog-club.component';
-import { AdminService } from '../service/admin.service';
+import { AdminService } from '../admin.service';
 import { DeleteConfirmationComponent } from '../../shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from '../../shared/dialog-box/status-confirmation/status-confirmation.component';
 import { ToastrService } from 'ngx-toastr';
