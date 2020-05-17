@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '@app/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { matchingPassword } from '@app/shared/validators/matchingPassword';
+import { untilDestroyed } from '@app/core';
 
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit, OnDestroy {
   resetPasswordForm: FormGroup;
   token: string;
   isLinkExpired: boolean = false;
@@ -28,23 +29,29 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {}
+
   ngOnInit() {
-    this._authenticationService.resetLinkStatus(this.token).subscribe(
-      response => {
-        if (response.status === 'success') {
-          this.isLinkExpired = true;
+    this._authenticationService
+      .resetLinkStatus(this.token)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          if (response.status === 'success') {
+            this.isLinkExpired = true;
+          }
+        },
+        error => {
+          // if (error.error.code === 'LINK_EXPIRED' || error.error.code === 'INVALID_TOKEN')
+          this._router.navigate(['/link-expired']);
         }
-      },
-      error => {
-        // if (error.error.code === 'LINK_EXPIRED' || error.error.code === 'INVALID_TOKEN')
-        this._router.navigate(['/link-expired']);
-      }
-    );
+      );
   }
 
   resetPassword() {
     this._authenticationService
       .resetPassword(this.resetPasswordForm.value, this.token)
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this._toastrService.success('Successful', 'Password Reset');

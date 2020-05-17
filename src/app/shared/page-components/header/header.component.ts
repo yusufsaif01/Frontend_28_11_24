@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/core/authentication/authentication.service';
 import { HeaderService } from './header.service';
 import { environment } from '../../../../environments/environment';
+import { untilDestroyed } from '@app/core';
 interface MemberListContext {
   member_type: string;
   player_type: string;
@@ -16,7 +17,7 @@ interface MemberListContext {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   public isActive: boolean = true;
   public avatar_url: string = localStorage.getItem('avatar_url');
   public member_type: string = localStorage.getItem('member_type');
@@ -27,6 +28,8 @@ export class HeaderComponent implements OnInit {
     private _authenticationService: AuthenticationService,
     private _headerService: HeaderService
   ) {}
+
+  ngOnDestroy() {}
 
   ngOnInit(): void {}
 
@@ -48,16 +51,19 @@ export class HeaderComponent implements OnInit {
     this.searchText = value;
     if (value.length === 0) this.memberList = [];
     if (value.length < 3) return;
-    this._headerService.getMemberSearchList({ search: value }).subscribe(
-      response => {
-        let records = response.data.records;
-        for (let i = 0; i < records.length; i++) {
-          records[i].avatar = environment.mediaUrl + records[i].avatar;
-        }
-        this.memberList = records;
-      },
-      error => {}
-    );
+    this._headerService
+      .getMemberSearchList({ search: value })
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let records = response.data.records;
+          for (let i = 0; i < records.length; i++) {
+            records[i].avatar = environment.mediaUrl + records[i].avatar;
+          }
+          this.memberList = records;
+        },
+        error => {}
+      );
   }
 
   openPublicProfile(user_id: string) {

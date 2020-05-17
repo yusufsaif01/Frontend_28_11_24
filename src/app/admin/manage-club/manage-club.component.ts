@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageClubTableConfig } from './manage-club-table-conf';
@@ -7,6 +7,7 @@ import { AdminService } from '../admin.service';
 import { DeleteConfirmationComponent } from '../../shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from '../../shared/dialog-box/status-confirmation/status-confirmation.component';
 import { ToastrService } from 'ngx-toastr';
+import { untilDestroyed } from '@app/core';
 
 interface FilterDialogContext {
   from: string;
@@ -21,7 +22,7 @@ interface FilterDialogContext {
   templateUrl: './manage-club.component.html',
   styleUrls: ['./manage-club.component.scss']
 })
-export class ManageClubComponent implements OnInit {
+export class ManageClubComponent implements OnInit, OnDestroy {
   public sideBarToggle: boolean = true;
   showFiller = false;
   list: any;
@@ -40,6 +41,8 @@ export class ManageClubComponent implements OnInit {
     public adminService: AdminService,
     public toastrService: ToastrService
   ) {}
+
+  ngOnDestroy() {}
 
   ngOnInit() {
     this.getClubList(this.pageSize, 1);
@@ -68,6 +71,7 @@ export class ManageClubComponent implements OnInit {
         page_size: page_size,
         search: search
       })
+      .pipe(untilDestroyed(this))
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
         this.clubs_count = response.data.total;
@@ -105,11 +109,14 @@ export class ManageClubComponent implements OnInit {
           result['to'] = new Date(result['to']).setHours(23, 59, 59);
           result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
-        this.adminService.getClubList(result).subscribe(response => {
-          this.clubs_count = response.data.total;
-          this.show_count = response.data.records.length;
-          this.dataSource = new MatTableDataSource(response.data.records);
-        });
+        this.adminService
+          .getClubList(result)
+          .pipe(untilDestroyed(this))
+          .subscribe(response => {
+            this.clubs_count = response.data.total;
+            this.show_count = response.data.records.length;
+            this.dataSource = new MatTableDataSource(response.data.records);
+          });
       }
     });
   }
@@ -124,15 +131,21 @@ export class ManageClubComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.adminService.deleteUser({ user_id: user_id }).subscribe(
-          response => {
-            this.toastrService.success(`Success`, 'User deleted successfully');
-          },
-          error => {
-            // log.debug(`Login error: ${error}`);
-            this.toastrService.error(`${error.error.message}`, 'Delete User');
-          }
-        );
+        this.adminService
+          .deleteUser({ user_id: user_id })
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this.toastrService.success(
+                `Success`,
+                'User deleted successfully'
+              );
+            },
+            error => {
+              // log.debug(`Login error: ${error}`);
+              this.toastrService.error(`${error.error.message}`, 'Delete User');
+            }
+          );
       }
     });
   }
@@ -150,39 +163,45 @@ export class ManageClubComponent implements OnInit {
       // deactive user not implemented
       if (result === true) {
         if (status === 'active') {
-          this.adminService.deactivateUser({ user_id: user_id }).subscribe(
-            response => {
-              this.toastrService.success(
-                `Success`,
-                'Status updated successfully'
-              );
-              this.getClubList(this.pageSize, 1);
-            },
-            error => {
-              // log.debug(`Login error: ${error}`);
-              this.toastrService.error(
-                `${error.error.message}`,
-                'Status update'
-              );
-            }
-          );
+          this.adminService
+            .deactivateUser({ user_id: user_id })
+            .pipe(untilDestroyed(this))
+            .subscribe(
+              response => {
+                this.toastrService.success(
+                  `Success`,
+                  'Status updated successfully'
+                );
+                this.getClubList(this.pageSize, 1);
+              },
+              error => {
+                // log.debug(`Login error: ${error}`);
+                this.toastrService.error(
+                  `${error.error.message}`,
+                  'Status update'
+                );
+              }
+            );
         } else if (status === 'blocked') {
-          this.adminService.activeUser({ user_id: user_id }).subscribe(
-            response => {
-              this.toastrService.success(
-                `Success`,
-                'Status updated successfully'
-              );
-              this.getClubList(this.pageSize, 1);
-            },
-            error => {
-              // log.debug(`Login error: ${error}`);
-              this.toastrService.error(
-                `${error.error.message}`,
-                'Status update'
-              );
-            }
-          );
+          this.adminService
+            .activeUser({ user_id: user_id })
+            .pipe(untilDestroyed(this))
+            .subscribe(
+              response => {
+                this.toastrService.success(
+                  `Success`,
+                  'Status updated successfully'
+                );
+                this.getClubList(this.pageSize, 1);
+              },
+              error => {
+                // log.debug(`Login error: ${error}`);
+                this.toastrService.error(
+                  `${error.error.message}`,
+                  'Status update'
+                );
+              }
+            );
         }
       }
     });

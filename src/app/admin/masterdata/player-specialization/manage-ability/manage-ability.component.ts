@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageAbilityTableConfig } from './manage-ability-table.conf';
 import { AddpopupComponent } from '../addpopup/addpopup.component';
 import { AdminService } from '@app/admin/admin.service';
 import { ToastrService } from 'ngx-toastr';
+import { untilDestroyed } from '@app/core';
 @Component({
   selector: 'app-manage-ability',
   templateUrl: './manage-ability.component.html',
   styleUrls: ['./manage-ability.component.scss']
 })
-export class ManageAbilityComponent implements OnInit {
+export class ManageAbilityComponent implements OnInit, OnDestroy {
   // table config
   public tableConfig: ManageAbilityTableConfig = new ManageAbilityTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -30,6 +31,9 @@ export class ManageAbilityComponent implements OnInit {
     private adminService: AdminService,
     public toastrService: ToastrService
   ) {}
+
+  ngOnDestroy() {}
+
   openDialog(): void {
     const dialogRef = this.dialog.open(AddpopupComponent, {
       width: '40%',
@@ -50,17 +54,21 @@ export class ManageAbilityComponent implements OnInit {
   ngOnInit() {
     this.getAbilityList();
   }
+
   getAbilityList() {
-    this.adminService.getAbilityList().subscribe(
-      response => {
-        let records = response.data.records;
-        for (let i = 0; i < records.length; i++) {
-          records[i]['serialNumber'] = i + 1;
-        }
-        this.dataSource = new MatTableDataSource(records);
-      },
-      error => {}
-    );
+    this.adminService
+      .getAbilityList()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let records = response.data.records;
+          for (let i = 0; i < records.length; i++) {
+            records[i]['serialNumber'] = i + 1;
+          }
+          this.dataSource = new MatTableDataSource(records);
+        },
+        error => {}
+      );
   }
 
   editAbility(name: any, id: any) {
@@ -92,18 +100,21 @@ export class ManageAbilityComponent implements OnInit {
   }
   updateAbilityById(body: any) {
     delete body['serialNumber'];
-    this.adminService.updateAbilityById(body).subscribe(
-      data => {
-        this.toastrService.success(
-          `${data.message}`,
-          'Ability Updated Successfully'
-        );
-        this.getAbilityList();
-      },
-      error => {
-        this.toastrService.error(`${error.error.message}`, 'Error');
-        this.getAbilityList();
-      }
-    );
+    this.adminService
+      .updateAbilityById(body)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        data => {
+          this.toastrService.success(
+            `${data.message}`,
+            'Ability Updated Successfully'
+          );
+          this.getAbilityList();
+        },
+        error => {
+          this.toastrService.error(`${error.error.message}`, 'Error');
+          this.getAbilityList();
+        }
+      );
   }
 }

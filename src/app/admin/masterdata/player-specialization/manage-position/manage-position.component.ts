@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManagePositionTableConfig } from './manage-position-table.conf';
 import { AddEditPopupComponent } from './add-edit-popup/add-edit-popup.component';
 import { PositionService } from './manage-position-service';
 import { ToastrService } from 'ngx-toastr';
+import { untilDestroyed } from '@app/core';
 
 @Component({
   selector: 'app-manage-position',
   templateUrl: './manage-position.component.html',
   styleUrls: ['./manage-position.component.scss']
 })
-export class ManagePositionComponent implements OnInit {
+export class ManagePositionComponent implements OnInit, OnDestroy {
   // table config
   public tableConfig: ManagePositionTableConfig = new ManagePositionTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -31,6 +32,9 @@ export class ManagePositionComponent implements OnInit {
     private positionService: PositionService,
     private toastrService: ToastrService
   ) {}
+
+  ngOnDestroy() {}
+
   openDialog(): void {
     const dialogRef = this.dialog.open(AddEditPopupComponent, {
       width: '50%',
@@ -74,14 +78,17 @@ export class ManagePositionComponent implements OnInit {
     this.getAbilitiesList();
   }
   getAbilitiesList() {
-    this.positionService.getAbilitiesList().subscribe(
-      response => {
-        this.abilities = response.data.records;
-      },
-      error => {
-        this.toastrService.error(`${error.error.message}`, 'Error');
-      }
-    );
+    this.positionService
+      .getAbilitiesList()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.abilities = response.data.records;
+        },
+        error => {
+          this.toastrService.error(`${error.error.message}`, 'Error');
+        }
+      );
   }
   getPositionListing(page_size: number, page_no: number) {
     this.positionService
@@ -89,6 +96,7 @@ export class ManagePositionComponent implements OnInit {
         page_no: page_no,
         page_size: page_size
       })
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           let records = response.data.records;

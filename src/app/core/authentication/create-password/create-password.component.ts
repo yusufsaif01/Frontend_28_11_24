@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '@app/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { matchingPassword } from '@app/shared/validators/matchingPassword';
+import { untilDestroyed } from '@app/core';
 
 @Component({
   selector: 'app-reset-password',
   templateUrl: './create-password.component.html',
   styleUrls: ['./create-password.component.scss']
 })
-export class CreatePasswordComponent implements OnInit {
+export class CreatePasswordComponent implements OnInit, OnDestroy {
   createPasswordForm: FormGroup;
   token: string;
   isLinkExpired: boolean = false;
@@ -28,27 +29,33 @@ export class CreatePasswordComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {}
+
   ngOnInit() {
-    this._authenticationService.emailVerification(this.token).subscribe(
-      response => {
-        if (response.status === 'success') {
-          this.isLinkExpired = true;
-          this._toastrService.success(
-            'Successful',
-            'Email verified successfully'
-          );
+    this._authenticationService
+      .emailVerification(this.token)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          if (response.status === 'success') {
+            this.isLinkExpired = true;
+            this._toastrService.success(
+              'Successful',
+              'Email verified successfully'
+            );
+          }
+        },
+        error => {
+          // if (error.error.code === 'LINK_EXPIRED' || error.error.code === 'INVALID_TOKEN')
+          this._router.navigate(['/link-expired']);
         }
-      },
-      error => {
-        // if (error.error.code === 'LINK_EXPIRED' || error.error.code === 'INVALID_TOKEN')
-        this._router.navigate(['/link-expired']);
-      }
-    );
+      );
   }
 
   createPassword() {
     this._authenticationService
       .createPassword(this.createPasswordForm.value, this.token)
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this._toastrService.success('Successful', 'Password Creation');
