@@ -45,7 +45,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  getMemberSearchList(value: string) {
+  getMemberSearchList(value: string, keyCode: number) {
+    if (keyCode == 40 || keyCode == 37 || keyCode == 39 || keyCode == 38)
+      return;
     this.searchText = value;
     if (value.length === 0) this.memberList = [];
     if (value.length < 3) return;
