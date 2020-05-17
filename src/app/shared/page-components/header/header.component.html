@@ -13,7 +13,7 @@
           placeholder="Search"
           aria-label="Search"
           [matAutocomplete]="auto"
-          (keyup)="getMemberSearchList($event.target.value)"
+          (keyup)="getMemberSearchList($event.target.value, $event.keyCode)"
         />
         <mat-autocomplete class="autocomplete-height" #auto="matAutocomplete">
           <div

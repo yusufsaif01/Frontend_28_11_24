@@ -1,15 +1,16 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PositionService } from '../manage-position-service';
 import { ToastrService } from 'ngx-toastr';
+import { untilDestroyed } from '@app/core';
 
 @Component({
   selector: 'app-add-edit-popup',
   templateUrl: './add-edit-popup.component.html',
   styleUrls: ['./add-edit-popup.component.scss']
 })
-export class AddEditPopupComponent implements OnInit {
+export class AddEditPopupComponent implements OnInit, OnDestroy {
   options: any = {};
   abilities: any[] = [];
   selectedAbilities: any[] = [];
@@ -89,6 +90,7 @@ export class AddEditPopupComponent implements OnInit {
   updateData(requestData: any) {
     this.positionService
       .updatePosition(this.data.data.id, requestData)
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this.dialogRef.close('refresh');
@@ -104,17 +106,20 @@ export class AddEditPopupComponent implements OnInit {
   }
 
   addData(requestData: any) {
-    this.positionService.addPosition(requestData).subscribe(
-      response => {
-        this.dialogRef.close('refresh');
-        this.toastrService.success(
-          `${response.message}`,
-          'Position Added Successfully'
-        );
-      },
-      error => {
-        this.toastrService.error(`${error.error.message}`, 'Error');
-      }
-    );
+    this.positionService
+      .addPosition(requestData)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.dialogRef.close('refresh');
+          this.toastrService.success(
+            `${response.message}`,
+            'Position Added Successfully'
+          );
+        },
+        error => {
+          this.toastrService.error(`${error.error.message}`, 'Error');
+        }
+      );
   }
 }

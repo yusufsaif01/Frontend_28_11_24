@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/core/authentication/authentication.service';
 import { HeaderService } from './header.service';
 import { environment } from '../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { untilDestroyed } from '@app/core';
 interface MemberListContext {
   member_type: string;
   player_type: string;
@@ -17,7 +18,7 @@ interface MemberListContext {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   public isActive: boolean = true;
   public avatar_url: string = localStorage.getItem('avatar_url');
   public member_type: string = localStorage.getItem('member_type');
@@ -26,12 +27,15 @@ export class HeaderComponent implements OnInit {
   searchText = '';
   pageNo: number = 1;
   pageSize: number = 10;
+  keyCode: number;
   constructor(
     private _router: Router,
     private _authenticationService: AuthenticationService,
     private _headerService: HeaderService,
     private _toastrService: ToastrService
   ) {}
+
+  ngOnDestroy() {}
 
   ngOnInit(): void {}
 
@@ -47,7 +51,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  getMemberSearchList(value: string) {
+  getMemberSearchList(value: string, keyCode: number) {
+    this.keyCode = keyCode;
+    if (keyCode == 40 || keyCode == 37 || keyCode == 39 || keyCode == 38)
+      return;
     this.searchText = value;
     if (value.length === 0) {
       this.memberList = [];
@@ -64,6 +71,7 @@ export class HeaderComponent implements OnInit {
         page_no: this.pageNo,
         page_size: this.pageSize
       })
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           let records = response.data.records;
@@ -91,7 +99,7 @@ export class HeaderComponent implements OnInit {
   onScrollDown() {
     console.log('Scrolled down');
     this.pageNo++;
-    this.getMemberSearchList(this.searchText);
+    this.getMemberSearchList(this.searchText, this.keyCode);
   }
   onScrollUp() {
     console.log('Scrolled Up');
