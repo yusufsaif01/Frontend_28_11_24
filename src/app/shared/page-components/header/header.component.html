@@ -15,37 +15,40 @@
           [matAutocomplete]="auto"
           (keyup)="getMemberSearchList($event.target.value)"
         />
-        <mat-autocomplete
-          infiniteScroll
-          [infiniteScrollUpDistance]="1.5"
-          [infiniteScrollDistance]="2"
-          [infiniteScrollThrottle]="50"
-          (scrolled)="onScrollDown()"
-          (scrolledUp)="onScrollUp()"
-          [scrollWindow]="false"
-          class="autocomplete-height"
-          #auto="matAutocomplete"
-        >
-          <span class="search-options">
-            <mat-option
-              *ngFor="let member of memberList"
-              (click)="openPublicProfile(member.user_id)"
-            >
-              <img class="dp" aria-hidden [src]="member.avatar" />
-              <strong>{{ member.name | titlecase }}</strong>
-              <small>{{
-                member.player_type || member.member_type | titlecase
-              }}</small>
-              <small class="position">{{ member.position | titlecase }}</small>
-            </mat-option>
-            <ng-container
-              *ngIf="searchText.length >= 3 && memberList.length === 0"
-            >
-              <mat-option>
-                No results found
+        <mat-autocomplete class="autocomplete-height" #auto="matAutocomplete">
+          <div
+            *ngIf="searchText.length > 2"
+            infiniteScroll
+            [infiniteScrollUpDistance]="1.5"
+            [infiniteScrollDistance]="2"
+            [infiniteScrollThrottle]="50"
+            (scrolled)="onScrollDown()"
+            (scrolledUp)="onScrollUp()"
+            [scrollWindow]="false"
+          >
+            <span class="search-options">
+              <mat-option
+                *ngFor="let member of memberList"
+                (click)="openPublicProfile(member.user_id)"
+              >
+                <img class="dp" aria-hidden [src]="member.avatar" />
+                <strong>{{ member.name | titlecase }}</strong>
+                <small>{{
+                  member.player_type || member.member_type | titlecase
+                }}</small>
+                <small class="position">{{
+                  member.position | titlecase
+                }}</small>
               </mat-option>
-            </ng-container>
-          </span>
+              <ng-container
+                *ngIf="searchText.length >= 3 && memberList.length === 0"
+              >
+                <mat-option>
+                  No results found
+                </mat-option>
+              </ng-container>
+            </span>
+          </div>
         </mat-autocomplete>
         <span class="search-icon">
           <i-feather name="search" class="icon-size"></i-feather>

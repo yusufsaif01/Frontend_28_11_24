@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/core/authentication/authentication.service';
 import { HeaderService } from './header.service';
 import { environment } from '../../../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
 interface MemberListContext {
   member_type: string;
   player_type: string;
@@ -21,11 +22,15 @@ export class HeaderComponent implements OnInit {
   public avatar_url: string = localStorage.getItem('avatar_url');
   public member_type: string = localStorage.getItem('member_type');
   memberList: MemberListContext[] = [];
+  memberBackupList: MemberListContext[] = [];
   searchText = '';
+  pageNo: number = 1;
+  pageSize: number = 10;
   constructor(
     private _router: Router,
     private _authenticationService: AuthenticationService,
-    private _headerService: HeaderService
+    private _headerService: HeaderService,
+    private _toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {}
@@ -44,52 +49,49 @@ export class HeaderComponent implements OnInit {
 
   getMemberSearchList(value: string) {
     this.searchText = value;
-    if (value.length === 0) this.memberList = [];
-    if (value.length < 3) return;
-    this._headerService.getMemberSearchList({ search: value }).subscribe(
-      response => {
-        let records = response.data.records;
-        for (let i = 0; i < records.length; i++) {
-          records[i].avatar = environment.mediaUrl + records[i].avatar;
+    if (value.length === 0) {
+      this.memberList = [];
+      this.pageNo = 1;
+    }
+    if (value.length < 3) {
+      this.memberList = [];
+      this.pageNo = 1;
+      return;
+    }
+    this._headerService
+      .getMemberSearchList({
+        search: value,
+        page_no: this.pageNo,
+        page_size: this.pageSize
+      })
+      .subscribe(
+        response => {
+          let records = response.data.records;
+          for (let i = 0; i < records.length; i++) {
+            records[i].avatar = environment.mediaUrl + records[i].avatar;
+          }
+          // this.memberList = records;
+          // console.log(this.memberList);
+          let res = records;
+          this.onSuccess(res);
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
         }
-        this.memberList = records;
-        document
-          .getElementById('mat-autocomplete-0')
-          .setAttribute('infiniteScroll', '');
-        document
-          .getElementById('mat-autocomplete-0')
-          .setAttribute('infiniteScrollUpDistance', '1.5');
-        document
-          .getElementById('mat-autocomplete-0')
-          .setAttribute('infiniteScrollDistance', '2');
-        document
-          .getElementById('mat-autocomplete-0')
-          .setAttribute('infiniteScrollThrottle', '50');
-        document
-          .getElementById('mat-autocomplete-0')
-          .setAttribute('scrollWindow', 'false');
-        document
-          .getElementById('mat-autocomplete-0')
-          .setAttribute('fromRoot', 'true');
-        document
-          .getElementById('mat-autocomplete-0')
-          .setAttribute(
-            'infiniteScrollContainer',
-            document.getElementById('mat-autocomplete-0').toString()
-          );
-        document
-          .getElementById('mat-autocomplete-0')
-          .addEventListener('scrolled', this.onScrollDown);
-        document
-          .getElementById('mat-autocomplete-0')
-          .addEventListener('scrolledUp', this.onScrollUp);
-        console.log(document.getElementById('mat-autocomplete-0'));
-      },
-      error => {}
-    );
+      );
+  }
+  onSuccess(res: any[]) {
+    res.forEach((el: any) => {
+      if (!this.memberList.includes(el)) {
+        this.memberList.push(el);
+      }
+    });
+    console.log(this.memberList);
   }
   onScrollDown() {
     console.log('Scrolled down');
+    this.pageNo++;
+    this.getMemberSearchList(this.searchText);
   }
   onScrollUp() {
     console.log('Scrolled Up');
