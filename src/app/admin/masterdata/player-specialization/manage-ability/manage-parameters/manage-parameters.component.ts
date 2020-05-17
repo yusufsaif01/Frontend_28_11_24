@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageParameterTableConfig } from './manage-parameter-table-conf';
@@ -6,13 +6,14 @@ import { AddpopupComponent } from '../../addpopup/addpopup.component';
 import { AdminService } from '@app/admin/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { untilDestroyed } from '@app/core';
 
 @Component({
   selector: 'app-manage-parameters',
   templateUrl: './manage-parameters.component.html',
   styleUrls: ['./manage-parameters.component.scss']
 })
-export class ManageParametersComponent implements OnInit {
+export class ManageParametersComponent implements OnInit, OnDestroy {
   // table config
   public tableConfig: ManageParameterTableConfig = new ManageParameterTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -39,6 +40,9 @@ export class ManageParametersComponent implements OnInit {
       this.abilityId = params['id'];
     });
   }
+
+  ngOnDestroy() {}
+
   openDialog(): void {
     const dialogRef = this.dialog.open(AddpopupComponent, {
       width: '40%',
@@ -59,17 +63,20 @@ export class ManageParametersComponent implements OnInit {
   }
 
   getParameterListByAbility(ability_id: string) {
-    this.adminService.getParameterListByAbility({ ability_id }).subscribe(
-      response => {
-        this.abilityName = response.data.ability;
-        let records = response.data.records;
-        for (let i = 0; i < records.length; i++) {
-          records[i]['serialNumber'] = i + 1;
-        }
-        this.dataSource = new MatTableDataSource(records);
-      },
-      error => {}
-    );
+    this.adminService
+      .getParameterListByAbility({ ability_id })
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.abilityName = response.data.ability;
+          let records = response.data.records;
+          for (let i = 0; i < records.length; i++) {
+            records[i]['serialNumber'] = i + 1;
+          }
+          this.dataSource = new MatTableDataSource(records);
+        },
+        error => {}
+      );
   }
   editParameter(name: any, id: any) {
     let obj = { name, id };
@@ -107,6 +114,7 @@ export class ManageParametersComponent implements OnInit {
         ability_id: this.abilityId,
         parameter_id: id
       })
+      .pipe(untilDestroyed(this))
       .subscribe(
         data => {
           this.toastrService.success(

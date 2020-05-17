@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ManageCityTableConfig } from './manage-city-table-conf';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,12 +12,13 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { AdminService } from '@app/admin/admin.service';
 import { CityService } from './manage-city-service';
+import { untilDestroyed } from '@app/core';
 @Component({
   selector: 'app-manage-city',
   templateUrl: './manage-city.component.html',
   styleUrls: ['./manage-city.component.scss']
 })
-export class ManageCityComponent implements OnInit {
+export class ManageCityComponent implements OnInit, OnDestroy {
   // table config
   @ViewChild('cityInput', { static: false }) cityInput: ElementRef;
   public tableConfig: ManageCityTableConfig = new ManageCityTableConfig();
@@ -47,6 +54,8 @@ export class ManageCityComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {}
+
   ngOnInit() {
     this.getStateListByCountry();
   }
@@ -59,6 +68,7 @@ export class ManageCityComponent implements OnInit {
     this.cancelCity();
     this.adminService
       .addCity({ ...this.addCityForm.value, country_id: this.country_id })
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this.toastrService.success(
@@ -80,6 +90,7 @@ export class ManageCityComponent implements OnInit {
   getStateListByCountry() {
     this.adminService
       .getStateListByCountry({ country_id: this.country_id })
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this.stateArray = response.data.records;
@@ -107,6 +118,7 @@ export class ManageCityComponent implements OnInit {
         page_size,
         search
       })
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           let records = response.data.records;
@@ -177,6 +189,7 @@ export class ManageCityComponent implements OnInit {
     delete body['serialNumber'];
     this.cityService
       .updateCity(this.state_id, city_id, this.country_id, body)
+      .pipe(untilDestroyed(this))
       .subscribe(
         data => {
           this.toastrService.success(

@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ManageStateTableConfig } from './manage-state-table-conf';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -6,12 +12,13 @@ import { AdminService } from '@app/admin/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { StateService } from './manage-state-service';
+import { untilDestroyed } from '@app/core';
 @Component({
   selector: 'app-manage-state',
   templateUrl: './manage-state.component.html',
   styleUrls: ['./manage-state.component.scss']
 })
-export class ManageStateComponent implements OnInit {
+export class ManageStateComponent implements OnInit, OnDestroy {
   // table config
   @ViewChild('stateInput', { static: false }) stateInput: ElementRef;
 
@@ -41,6 +48,9 @@ export class ManageStateComponent implements OnInit {
       this.country_id = params['id'];
     });
   }
+
+  ngOnDestroy() {}
+
   ngOnInit() {
     this.getStateListByCountry(this.country_id);
   }
@@ -53,6 +63,7 @@ export class ManageStateComponent implements OnInit {
     this.cancelState();
     this.adminService
       .addState({ ...this.addStateForm.value, country_id: this.country_id })
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this.toastrService.success(
@@ -68,16 +79,19 @@ export class ManageStateComponent implements OnInit {
       );
   }
   getStateListByCountry(country_id: string) {
-    this.adminService.getStateListByCountry({ country_id }).subscribe(
-      response => {
-        let records = response.data.records;
-        for (let i = 0; i < records.length; i++) {
-          records[i]['serialNumber'] = i + 1;
-        }
-        this.dataSource = new MatTableDataSource(records);
-      },
-      error => {}
-    );
+    this.adminService
+      .getStateListByCountry({ country_id })
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let records = response.data.records;
+          for (let i = 0; i < records.length; i++) {
+            records[i]['serialNumber'] = i + 1;
+          }
+          this.dataSource = new MatTableDataSource(records);
+        },
+        error => {}
+      );
   }
 
   createForm() {
@@ -117,18 +131,21 @@ export class ManageStateComponent implements OnInit {
     let state_id = body.id;
     delete body['id'];
     delete body['serialNumber'];
-    this.service.updateState(state_id, this.country_id, body).subscribe(
-      data => {
-        this.toastrService.success(
-          `${data.message}`,
-          'State Updated Successfully'
-        );
-        this.getStateListByCountry(this.country_id);
-      },
-      error => {
-        this.toastrService.error(`${error.error.message}`, 'Error');
-        this.getStateListByCountry(this.country_id);
-      }
-    );
+    this.service
+      .updateState(state_id, this.country_id, body)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        data => {
+          this.toastrService.success(
+            `${data.message}`,
+            'State Updated Successfully'
+          );
+          this.getStateListByCountry(this.country_id);
+        },
+        error => {
+          this.toastrService.error(`${error.error.message}`, 'Error');
+          this.getStateListByCountry(this.country_id);
+        }
+      );
   }
 }

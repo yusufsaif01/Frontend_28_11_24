@@ -7,6 +7,7 @@ import { AwardCertificateService } from '../award-certificate.service';
 import { ToastrService } from 'ngx-toastr';
 import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 import { environment } from '../../../environments/environment';
+import { untilDestroyed } from '@app/core';
 
 interface ArrayTypeContext {
   name: string;
@@ -79,6 +80,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
       this.achievement_url = this.data.media;
     }
   }
+
   ngOnDestroy() {}
 
   clubAwardTypeArray = [
@@ -167,6 +169,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   updateData(requestData: any) {
     this.awardCertificateService
       .updateAwards(this.data.id, requestData)
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this.dialogRef.close('refresh');
@@ -193,19 +196,22 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     }
   }
   addData(requestData: any) {
-    this.awardCertificateService.addAwards(requestData).subscribe(
-      response => {
-        this.dialogRef.close('refresh');
+    this.awardCertificateService
+      .addAwards(requestData)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.dialogRef.close('refresh');
 
-        this.toastrService.success(
-          `${response.message}`,
-          'Award Added Successfully'
-        );
-      },
-      error => {
-        this.toastrService.error(`${error.error.message}`, 'Error');
-      }
-    );
+          this.toastrService.success(
+            `${response.message}`,
+            'Award Added Successfully'
+          );
+        },
+        error => {
+          this.toastrService.error(`${error.error.message}`, 'Error');
+        }
+      );
   }
 
   dateModifier(requestData: any) {

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '@app/core';
+import { AuthenticationService, untilDestroyed } from '@app/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { matchingPassword } from '@app/shared/validators/matchingPassword';
@@ -10,7 +10,7 @@ import { matchingPassword } from '@app/shared/validators/matchingPassword';
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss']
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent implements OnInit, OnDestroy {
   changePasswordForm: FormGroup;
 
   constructor(
@@ -21,6 +21,8 @@ export class ChangePasswordComponent implements OnInit {
   ) {
     this.createForm();
   }
+
+  ngOnDestroy() {}
 
   ngOnInit() {}
 
@@ -33,6 +35,7 @@ export class ChangePasswordComponent implements OnInit {
     if (new_password === confirm_password) {
       this._authenticationService
         .changePassword(this.changePasswordForm.value)
+        .pipe(untilDestroyed(this))
         .subscribe(
           response => {
             this._toastrService.success(
