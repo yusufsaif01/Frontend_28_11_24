@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '@app/core';
+import { AuthenticationService, untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, OnDestroy {
   activeForm: string = 'player';
 
   playerRegistrationForm: FormGroup;
@@ -22,6 +22,8 @@ export class RegistrationComponent implements OnInit {
   ) {
     this.createForm();
   }
+
+  ngOnDestroy() {}
 
   ngOnInit() {}
 
@@ -41,46 +43,52 @@ export class RegistrationComponent implements OnInit {
     let form_data = this.playerRegistrationForm.value;
     form_data.member_type = this.activeForm;
 
-    const register = this._authenticationService.register(form_data);
-    register.subscribe(
-      credentials => {
-        this._toastrService.success('Successful', 'Registered');
-        this.resetFormFields();
-      },
-      error => {
-        this._toastrService.error(`${error.error.message}`, 'Failed');
-      }
-    );
+    this._authenticationService
+      .register(form_data)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        credentials => {
+          this._toastrService.success('Successful', 'Registered');
+          this.resetFormFields();
+        },
+        error => {
+          this._toastrService.error(`${error.error.message}`, 'Failed');
+        }
+      );
   }
   clubRegister() {
     let form_data = this.clubRegistrationForm.value;
     form_data.member_type = this.activeForm;
 
-    const register = this._authenticationService.register(form_data);
-    register.subscribe(
-      credentials => {
-        this._toastrService.success('Successful', 'Registered');
-        this.resetFormFields();
-      },
-      error => {
-        this._toastrService.error(`${error.error.message}`, 'Failed');
-      }
-    );
+    this._authenticationService
+      .register(form_data)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        credentials => {
+          this._toastrService.success('Successful', 'Registered');
+          this.resetFormFields();
+        },
+        error => {
+          this._toastrService.error(`${error.error.message}`, 'Failed');
+        }
+      );
   }
   academyRegister() {
     let form_data = this.academyRegistrationForm.value;
     form_data.member_type = this.activeForm;
 
-    const register = this._authenticationService.register(form_data);
-    register.subscribe(
-      credentials => {
-        this._toastrService.success('Successful', 'Registered');
-        this.resetFormFields();
-      },
-      error => {
-        this._toastrService.error(`${error.error.message}`, 'Failed');
-      }
-    );
+    this._authenticationService
+      .register(form_data)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        credentials => {
+          this._toastrService.success('Successful', 'Registered');
+          this.resetFormFields();
+        },
+        error => {
+          this._toastrService.error(`${error.error.message}`, 'Failed');
+        }
+      );
   }
 
   private createForm() {

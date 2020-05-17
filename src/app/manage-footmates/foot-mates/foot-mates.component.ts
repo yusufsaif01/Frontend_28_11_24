@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { MutualFootmateComponent } from '@app/manage-footmates/mutual-footmate/mutual-footmate.component';
 import { FootMatesService } from '@app/manage-footmates/foot-mates/foot-mates.service';
 import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
+import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
 
 interface FootMatesContext {
   name: string;
@@ -50,13 +51,12 @@ interface LocationsIds {
   templateUrl: './foot-mates.component.html',
   styleUrls: ['./foot-mates.component.scss']
 })
-export class FootMatesComponent implements OnInit {
+export class FootMatesComponent implements OnInit, OnDestroy {
   filter: any = {};
   switchClass: ActiveClass;
   locationRangeFilters: LocationRangeFilters;
   locationData: LocationsIds;
   checkFilters: boolean | undefined = undefined;
-
   public active: boolean;
 
   menuOpened() {
@@ -88,6 +88,9 @@ export class FootMatesComponent implements OnInit {
     private footMatesService: FootMatesService,
     private toastrService: ToastrService
   ) {}
+
+  ngOnDestroy() {}
+
   // MatualFootmates
   openDialog(foot_mate: any): void {
     const dialogRef = this.dialog.open(MutualFootmateComponent, {
@@ -103,9 +106,10 @@ export class FootMatesComponent implements OnInit {
     this.filter.page_no = 1;
     this.deactivateAll();
     this.getLocationStats();
-    this.getFootMateList();
+    this.getFootMateList(this.pageSize, 1);
     this.getConnectionStats({});
   }
+
   initialize() {
     this.locationRangeFilters = {
       countryData: [],
@@ -230,18 +234,22 @@ export class FootMatesComponent implements OnInit {
         }
       );
   }
-  getFootMateList() {
-    this.footMatesService.getFootMateList(this.filter).subscribe(
-      response => {
-        let records = response.data.records;
-        for (let i = 0; i < records.length; i++) {
-          records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
-        }
-        this.footMatesList = records;
-        this.show_count = response.data.records.length;
-      },
-      error => {}
-    );
+
+  getFootMateList(page_size: number, page_no: number) {
+    this.footMatesService
+      .getFootMateList({ page_size, page_no, ...this.filter })
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let records = response.data.records;
+          for (let i = 0; i < records.length; i++) {
+            records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
+          }
+          this.footMatesList = records;
+          this.show_count = response.data.records.length;
+        },
+        error => {}
+      );
   }
 
   onSelectCountry(event: any) {
@@ -257,7 +265,7 @@ export class FootMatesComponent implements OnInit {
       delete this.filter.state;
       delete this.filter.city;
     }
-    this.getFootMateList();
+    this.getFootMateList(this.pageSize, 1);
   }
 
   getCountryValue(country: any) {
@@ -291,7 +299,7 @@ export class FootMatesComponent implements OnInit {
       this.locationRangeFilters.cities = [];
       delete this.filter.state;
     }
-    this.getFootMateList();
+    this.getFootMateList(this.pageSize, 1);
   }
 
   onSelectCity(event: any) {
@@ -301,14 +309,14 @@ export class FootMatesComponent implements OnInit {
     } else {
       delete this.filter.city;
     }
-    this.getFootMateList();
+    this.getFootMateList(this.pageSize, 1);
   }
 
   clearFilters() {
     this.filter = {};
     this.filter.page_size = this.pageSize;
     this.filter.page_no = this.pageNo;
-    this.getFootMateList();
+    this.getFootMateList(this.pageSize, 1);
     this.deactivateAll();
     this.checkFilters = false;
     this.locationRangeFilters.positionsArray = [];
@@ -335,98 +343,13 @@ export class FootMatesComponent implements OnInit {
       });
     }
     this.filter[type] = filterArray.join(',');
-    this.getFootMateList();
+    this.getFootMateList(this.pageSize, 1);
   }
-
-  // onChangePosition(event: any) {
-
-  //   this.onChangeChecker(event, this.locationRangeFilters.positionsArray)
-  //   let positionName: any = event.source.value;
-  //   if (event.checked) {
-  //     if (this.checkFilters === false) this.checkFilters = undefined;
-  //     if (!this.locationRangeFilters.positionsArray.includes(positionName)) {
-  //       this.locationRangeFilters.positionsArray.push(positionName);
-  //     }
-  //   } else {
-  //     this.locationRangeFilters.positionsArray.forEach(
-  //       (element: any, index) => {
-  //         if (element == positionName) {
-  //           this.locationRangeFilters.positionsArray.splice(index, 1);
-  //         }
-  //       }
-  //     );
-  //   }
-  //   let positionString = this.locationRangeFilters.positionsArray.join(',');
-  //   this.filter.position = positionString;
-  //   this.getFootMateList();
-  // }
-
-  // onChangePlayerType(event: any) {
-  //   let playerType: any = event.source.value;
-  //   if (event.checked) {
-  //     if (this.checkFilters === false) this.checkFilters = undefined;
-  //     if (!this.locationRangeFilters.playerTypeArray.includes(playerType)) {
-  //       this.locationRangeFilters.playerTypeArray.push(playerType);
-  //     }
-  //   } else {
-  //     this.locationRangeFilters.playerTypeArray.forEach(
-  //       (element: any, index) => {
-  //         if (element == playerType) {
-  //           this.locationRangeFilters.playerTypeArray.splice(index, 1);
-  //         }
-  //       }
-  //     );
-  //   }
-  //   let playerTypeStrint = this.locationRangeFilters.playerTypeArray.join(',');
-  //   this.filter.player_category = playerTypeStrint;
-  //   this.getFootMateList();
-  // }
-
-  // onChangeRange(event: any) {
-  //   let ageRange: any = event.source.value;
-  //   if (event.checked) {
-  //     if (this.checkFilters === false) this.checkFilters = undefined;
-  //     if (!this.locationRangeFilters.ageRangeArray.includes(ageRange)) {
-  //       this.locationRangeFilters.ageRangeArray.push(ageRange);
-  //     }
-  //   } else {
-  //     this.locationRangeFilters.ageRangeArray.forEach((element: any, index) => {
-  //       if (element == ageRange) {
-  //         this.locationRangeFilters.ageRangeArray.splice(index, 1);
-  //       }
-  //     });
-  //   }
-  //   let ageRangeString = this.locationRangeFilters.ageRangeArray.join(',');
-  //   this.filter.age = ageRangeString;
-  //   this.getFootMateList();
-  // }
-
-  // onChangeFoot(event: any) {
-  //   let strongFoot: any = event.source.value;
-  //   if (event.checked) {
-  //     if (this.checkFilters === false) this.checkFilters = undefined;
-  //     if (!this.locationRangeFilters.strongFootArray.includes(strongFoot)) {
-  //       this.locationRangeFilters.strongFootArray.push(strongFoot);
-  //     }
-  //   } else {
-  //     this.locationRangeFilters.strongFootArray.forEach(
-  //       (element: any, index) => {
-  //         if (element == strongFoot) {
-  //           this.locationRangeFilters.strongFootArray.splice(index, 1);
-  //         }
-  //       }
-  //     );
-  //   }
-  //   let strontFootString = this.locationRangeFilters.strongFootArray.join(',');
-  //   this.filter.strong_foot = strontFootString;
-  //   console.log(strontFootString);
-  //   this.getFootMateList();
-  // }
 
   updatePage(event: any) {
     this.pageNo = event.selectedPage;
     this.filter.page_no = this.pageNo;
-    this.getFootMateList();
+    this.getFootMateList(this.pageSize, 1);
   }
 
   getConnectionStats(data: object) {
@@ -446,5 +369,4 @@ export class FootMatesComponent implements OnInit {
       activeStrongFoot: false
     };
   }
-  ngOnDestroy() {}
 }
