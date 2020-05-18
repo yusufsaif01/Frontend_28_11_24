@@ -126,6 +126,10 @@
                 color: $blue;
               }
             }
+            a {
+              text-decoration: none;
+              color: $color-black;
+            }
             p {
               font-size: 1.6rem;
               color: $text-muted;
