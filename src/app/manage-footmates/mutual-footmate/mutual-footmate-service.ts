@@ -12,7 +12,14 @@ const routes = {
 export class MutualFootmateService {
   constructor(private httpClient: HttpClient) {}
 
-  getMutualFootmateList(id: any): Observable<any> {
-    return this.httpClient.get<any>(routes.getMutualFootmateList(id));
+  getMutualFootmateList(id: any, context: any): Observable<any> {
+    let query = '?';
+    if (context['page_no']) {
+      query += 'page_no=' + context['page_no'];
+    }
+    if (context['page_size']) {
+      query += '&page_size=' + context['page_size'];
+    }
+    return this.httpClient.get<any>(routes.getMutualFootmateList(id) + query);
   }
 }

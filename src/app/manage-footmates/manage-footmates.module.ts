@@ -6,6 +6,7 @@ import { FootRequestComponent } from './foot-request/foot-request.component';
 import { MutualFootmateComponent } from './mutual-footmate/mutual-footmate.component';
 import { ManageFootmatesComponent } from './manage-footmates.component';
 import { ManageFootmatesRoutingModule } from './manage-footmates-routing.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,12 @@ import { ManageFootmatesRoutingModule } from './manage-footmates-routing.module'
     MutualFootmateComponent,
     ManageFootmatesComponent
   ],
-  imports: [CommonModule, SharedModule, ManageFootmatesRoutingModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    ManageFootmatesRoutingModule,
+    InfiniteScrollModule
+  ],
   entryComponents: [MutualFootmateComponent]
 })
 export class ManageFootmatesModule {}
