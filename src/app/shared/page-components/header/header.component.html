@@ -23,7 +23,7 @@
               (onSelectionChange)="openPublicProfile(member.user_id)"
             >
               <img class="dp" aria-hidden [src]="member.avatar" />
-              <strong>{{ member.name | titlecase }}</strong>
+              <strong>{{ member.name }}</strong>
               <small>{{
                 member.player_type || member.member_type | titlecase
               }}</small>

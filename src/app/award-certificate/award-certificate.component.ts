@@ -151,6 +151,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
           }
           this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
+          this.total_count = response.data.total;
         });
     } else {
       this.awardCertificateService
@@ -169,6 +170,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
           }
           this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
+          this.total_count = response.data.total;
         });
     }
   }
