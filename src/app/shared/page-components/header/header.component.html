@@ -13,9 +13,7 @@
           placeholder="Search"
           aria-label="Search"
           [matAutocomplete]="auto"
-          (onSelectionChange)="
-            getMemberSearchList($event.target.value, $event.keyCode)
-          "
+          (keyup)="getMemberSearchList($event.target.value, $event.keyCode)"
         />
         <mat-autocomplete class="autocomplete-height" #auto="matAutocomplete">
           <div
@@ -31,7 +29,7 @@
             <span class="search-options">
               <mat-option
                 *ngFor="let member of memberList"
-                (click)="openPublicProfile(member.user_id)"
+                (onSelectionChange)="openPublicProfile(member.user_id)"
               >
                 <img class="dp" aria-hidden [src]="member.avatar" />
                 <strong>{{ member.name }}</strong>
