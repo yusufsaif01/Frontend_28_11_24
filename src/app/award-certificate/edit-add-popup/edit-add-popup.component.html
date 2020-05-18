@@ -189,9 +189,11 @@
           >
             <span
               class="align-center"
-              *ngIf="editAddForm.controls.achievement.errors.requiredFileAvatar"
+              *ngIf="
+                editAddForm.controls.achievement.errors.requiredFileDocument
+              "
               translate
-              >Image must be of type JPEG / JPG / PNG</span
+              >Image must be of type JPEG / JPG / PNG / PDF</span
             >
           </mat-error>
         </div>

@@ -5,7 +5,7 @@ import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { AwardCertificateService } from '../award-certificate.service';
 import { ToastrService } from 'ngx-toastr';
-import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
+import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
 import { environment } from '../../../environments/environment';
 import { untilDestroyed } from '@app/core';
 
@@ -87,12 +87,20 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     {
       name: 'Club Level Competition Certificates',
       value: 'Club Level Competition Certificates'
+    },
+    {
+      name: 'Other Awards',
+      value: 'Other Awards'
     }
   ];
   academyAwardTypeArray = [
     {
       name: 'Private Tournament Certificates',
       value: 'Private Tournament Certificates'
+    },
+    {
+      name: 'Other Awards',
+      value: 'Other Awards'
     }
   ];
 
@@ -159,7 +167,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
         '',
         [Validators.maxLength(20), Validators.pattern(/^[0-9a-zA-Z]+%?$/)]
       ],
-      achievement: ['', [requiredFileAvatar]]
+      achievement: ['', [requiredFileDocument]]
     });
   }
 
