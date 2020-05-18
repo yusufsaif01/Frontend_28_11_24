@@ -3,16 +3,18 @@ import {
   OnInit,
   EventEmitter,
   Output,
-  ViewChild
+  ViewChild,
+  OnDestroy
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManagePlayerTableConfig } from './manage-player-table-conf';
 import { FilterDialogPlayerComponent } from '../filter-dialog-player/filter-dialog-player.component';
-import { AdminService } from '../service/admin.service';
+import { AdminService } from '../admin.service';
 import { DeleteConfirmationComponent } from '../../shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from '../../shared/dialog-box/status-confirmation/status-confirmation.component';
 import { ToastrService } from 'ngx-toastr';
+import { untilDestroyed } from '@app/core';
 
 interface FilterDialogContext {
   from: string;
@@ -29,7 +31,7 @@ interface FilterDialogContext {
   templateUrl: './manage-player.component.html',
   styleUrls: ['./manage-player.component.scss']
 })
-export class ManagePlayerComponent implements OnInit {
+export class ManagePlayerComponent implements OnInit, OnDestroy {
   public sideBarToggle: boolean = true;
   showFiller = false;
   list: any;
@@ -51,6 +53,8 @@ export class ManagePlayerComponent implements OnInit {
     public adminService: AdminService,
     public toastrService: ToastrService
   ) {}
+
+  ngOnDestroy() {}
 
   ngOnInit() {
     this.getPlayerList(this.pageSize, 1);
@@ -81,6 +85,7 @@ export class ManagePlayerComponent implements OnInit {
         page_size: page_size,
         search: search
       })
+      .pipe(untilDestroyed(this))
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
         this.players_count = response.data.total;
@@ -123,11 +128,14 @@ export class ManagePlayerComponent implements OnInit {
           result['to'] = new Date(result['to']).setHours(23, 59, 59);
           result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
-        this.adminService.getPlayerList(result).subscribe(response => {
-          this.players_count = response.data.total;
-          this.show_count = response.data.records.length;
-          this.dataSource = new MatTableDataSource(response.data.records);
-        });
+        this.adminService
+          .getPlayerList(result)
+          .pipe(untilDestroyed(this))
+          .subscribe(response => {
+            this.players_count = response.data.total;
+            this.show_count = response.data.records.length;
+            this.dataSource = new MatTableDataSource(response.data.records);
+          });
       }
     });
   }
@@ -142,15 +150,21 @@ export class ManagePlayerComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.adminService.deleteUser({ user_id: user_id }).subscribe(
-          response => {
-            this.toastrService.success(`Success`, 'User deleted successfully');
-          },
-          error => {
-            // log.debug(`Login error: ${error}`);
-            this.toastrService.error(`${error.error.message}`, 'Delete User');
-          }
-        );
+        this.adminService
+          .deleteUser({ user_id: user_id })
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this.toastrService.success(
+                `Success`,
+                'User deleted successfully'
+              );
+            },
+            error => {
+              // log.debug(`Login error: ${error}`);
+              this.toastrService.error(`${error.error.message}`, 'Delete User');
+            }
+          );
       }
     });
   }
@@ -168,39 +182,45 @@ export class ManagePlayerComponent implements OnInit {
       // deactive user not implemented
       if (result === true) {
         if (status === 'active') {
-          this.adminService.deactivateUser({ user_id: user_id }).subscribe(
-            response => {
-              this.toastrService.success(
-                `Success`,
-                'Status updated successfully'
-              );
-              this.getPlayerList(this.pageSize, 1);
-            },
-            error => {
-              // log.debug(`Login error: ${error}`);
-              this.toastrService.error(
-                `${error.error.message}`,
-                'Status update'
-              );
-            }
-          );
+          this.adminService
+            .deactivateUser({ user_id: user_id })
+            .pipe(untilDestroyed(this))
+            .subscribe(
+              response => {
+                this.toastrService.success(
+                  `Success`,
+                  'Status updated successfully'
+                );
+                this.getPlayerList(this.pageSize, 1);
+              },
+              error => {
+                // log.debug(`Login error: ${error}`);
+                this.toastrService.error(
+                  `${error.error.message}`,
+                  'Status update'
+                );
+              }
+            );
         } else if (status === 'blocked') {
-          this.adminService.activeUser({ user_id: user_id }).subscribe(
-            response => {
-              this.toastrService.success(
-                `Success`,
-                'Status updated successfully'
-              );
-              this.getPlayerList(this.pageSize, 1);
-            },
-            error => {
-              // log.debug(`Login error: ${error}`);
-              this.toastrService.error(
-                `${error.error.message}`,
-                'Status update'
-              );
-            }
-          );
+          this.adminService
+            .activeUser({ user_id: user_id })
+            .pipe(untilDestroyed(this))
+            .subscribe(
+              response => {
+                this.toastrService.success(
+                  `Success`,
+                  'Status updated successfully'
+                );
+                this.getPlayerList(this.pageSize, 1);
+              },
+              error => {
+                // log.debug(`Login error: ${error}`);
+                this.toastrService.error(
+                  `${error.error.message}`,
+                  'Status update'
+                );
+              }
+            );
         }
       }
     });

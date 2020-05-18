@@ -5,8 +5,10 @@
     <app-left-panel
       (sendPlayerType)="getPlayerType($event)"
       (sendMemberType)="getMemberType($event)"
-      [options]="panelOptions"
+      (sendAchievementCount)="getAchievementCount($event)"
       [achievements]="total_count"
+      [options]="panelOptions"
+      [userId]="userId"
     ></app-left-panel>
   </div>
   <div class="right-section">
@@ -14,7 +16,7 @@
       <div class="left-part">
         <h2><i-feather name="Award"></i-feather> My Awards and Certificates</h2>
       </div>
-      <div class="right-part">
+      <div class="right-part" *ngIf="!isPublic">
         <button (click)="openDialog()">Add Awards</button>
       </div>
     </div>
@@ -25,7 +27,7 @@
           [tableConfig]="tableConfig"
           [NumberColumn]="'true'"
           [rows]="dataSource"
-          [TableActions]="ListAction"
+          [TableActions]="!isPublic ? ListAction : false"
           [sortEnabled]="false"
         >
         </app-table>

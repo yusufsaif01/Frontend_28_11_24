@@ -14,7 +14,7 @@
       <li *ngFor="let val of pages()">
         <a
           [ngClass]="val == selectedPage ? 'active' : ''"
-          (click)="goToPage(val)"
+          (click)="val != selectedPage && goToPage(val)"
           >{{ val }}</a
         >
       </li>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {
   MatDialog,
@@ -11,12 +11,15 @@ import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confi
 import { AwardCertificateService } from './award-certificate.service';
 import { environment } from '../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
+import { PanelOptions } from '@app/shared/models/panel-options.model';
+import { untilDestroyed } from '@app/core';
 @Component({
   selector: 'app-award-certificate',
   templateUrl: './award-certificate.component.html',
   styleUrls: ['./award-certificate.component.scss']
 })
-export class AwardCertificateComponent implements OnInit {
+export class AwardCertificateComponent implements OnInit, OnDestroy {
   public tableConfig: AwardCertificateTableConfig = new AwardCertificateTableConfig();
   public dataSource = new MatTableDataSource([]);
   pageSize: number = 10;
@@ -27,18 +30,33 @@ export class AwardCertificateComponent implements OnInit {
   show_count: number;
   total_count: number;
 
-  panelOptions: object = {
+  panelOptions: Partial<PanelOptions> = {
     bio: true,
     member_type: true,
     my_achievements: false,
-    view_profile_link: true
+    view_profile_link: true,
+    is_public: false
   };
+  isPublic: boolean = false;
+  userId: string;
 
   constructor(
     public dialog: MatDialog,
     private awardCertificateService: AwardCertificateService,
-    private toastrService: ToastrService
-  ) {}
+    private toastrService: ToastrService,
+    private _activatedRoute: ActivatedRoute
+  ) {
+    this._activatedRoute.firstChild.params.subscribe(params => {
+      console.log('Router params', params);
+      if (params['handle']) {
+        this.panelOptions.is_public = true;
+        this.isPublic = true;
+        this.userId = params['handle'];
+      }
+    });
+  }
+
+  ngOnDestroy() {}
 
   // dialog box open
   ngOnInit() {
@@ -106,6 +124,9 @@ export class AwardCertificateComponent implements OnInit {
   getMemberType(value: string) {
     this.member_type = value;
   }
+  getAchievementCount(value: number) {
+    this.total_count = value;
+  }
 
   updatePage(event: any) {
     this.currentPageNo = event.selectedPage;
@@ -113,23 +134,45 @@ export class AwardCertificateComponent implements OnInit {
   }
 
   getAwardsList(page_size: number, page_no: number) {
-    this.awardCertificateService
-      .getAwardsList({ page_size, page_no })
-      .subscribe(response => {
-        let records = response.data.records;
-        for (let i = 0; i < records.length; i++) {
-          if (page_no > 1) {
-            records[i]['serialnumber'] =
-              i + 1 + page_size * page_no - page_size;
-          } else {
-            records[i]['serialnumber'] = i + 1;
+    if (this.isPublic) {
+      this.awardCertificateService
+        .getPublicAwardsList(this.userId, { page_size, page_no })
+        .pipe(untilDestroyed(this))
+        .subscribe(response => {
+          let records = response.data.records;
+          for (let i = 0; i < records.length; i++) {
+            if (page_no > 1) {
+              records[i]['serialnumber'] =
+                i + 1 + page_size * page_no - page_size;
+            } else {
+              records[i]['serialnumber'] = i + 1;
+            }
+            records[i]['media'] = environment.mediaUrl + records[i]['media'];
           }
-          records[i]['media'] = environment.mediaUrl + records[i]['media'];
-        }
-        this.dataSource = new MatTableDataSource(records);
-        this.show_count = response.data.records.length;
-        this.total_count = response.data.total;
-      });
+          this.dataSource = new MatTableDataSource(records);
+          this.show_count = response.data.records.length;
+          this.total_count = response.data.total;
+        });
+    } else {
+      this.awardCertificateService
+        .getAwardsList({ page_size, page_no })
+        .pipe(untilDestroyed(this))
+        .subscribe(response => {
+          let records = response.data.records;
+          for (let i = 0; i < records.length; i++) {
+            if (page_no > 1) {
+              records[i]['serialnumber'] =
+                i + 1 + page_size * page_no - page_size;
+            } else {
+              records[i]['serialnumber'] = i + 1;
+            }
+            records[i]['media'] = environment.mediaUrl + records[i]['media'];
+          }
+          this.dataSource = new MatTableDataSource(records);
+          this.show_count = response.data.records.length;
+          this.total_count = response.data.total;
+        });
+    }
   }
 
   // delete
@@ -145,17 +188,26 @@ export class AwardCertificateComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.awardCertificateService.deleteAward({ id }).subscribe(
-          response => {
-            this.toastrService.success(`Success`, 'Award deleted successfully');
-            this.getAwardsList(this.pageSize, 1);
-          },
-          error => {
-            // log.debug(`Login error: ${error}`);
+        this.awardCertificateService
+          .deleteAward({ id })
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this.toastrService.success(
+                `Success`,
+                'Award deleted successfully'
+              );
+              this.getAwardsList(this.pageSize, 1);
+            },
+            error => {
+              // log.debug(`Login error: ${error}`);
 
-            this.toastrService.error(`${error.error.message}`, 'Delete Award');
-          }
-        );
+              this.toastrService.error(
+                `${error.error.message}`,
+                'Delete Award'
+              );
+            }
+          );
       }
     });
   }

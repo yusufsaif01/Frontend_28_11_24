@@ -2,86 +2,40 @@
   <div class="header">
     <!-- header logo -->
     <div class="header-logo">
-      <img [routerLink]="['/timeline']" src="assets/images/logo.png" alt="" />
+      <img
+        [routerLink]="['/member/timeline']"
+        src="assets/images/logo.png"
+        alt=""
+      />
       <div class="search">
         <input
           matInput
           placeholder="Search"
           aria-label="Search"
           [matAutocomplete]="auto"
+          (keyup)="getMemberSearchList($event.target.value, $event.keyCode)"
         />
+
         <mat-autocomplete class="autocomplete-height" #auto="matAutocomplete">
           <span class="search-options">
-            <mat-option>
-              <img
-                class="dp"
-                aria-hidden
-                src="assets/images/profile-icon.png"
-              />
-              <strong>Gurdeep Singh</strong>
-              <small>Professional</small>
-              <small class="position">Goalkeeper</small>
+            <mat-option
+              *ngFor="let member of memberList"
+              (onSelectionChange)="openPublicProfile(member.user_id)"
+            >
+              <img class="dp" aria-hidden [src]="member.avatar" />
+              <strong>{{ member.name }}</strong>
+              <small>{{
+                member.player_type || member.member_type | titlecase
+              }}</small>
+              <small class="position">{{ member.position | titlecase }}</small>
             </mat-option>
-            <mat-option>
-              <img
-                class="dp"
-                aria-hidden
-                src="assets/images/profile-icon.png"
-              />
-              <strong>Gurdeep Singh</strong>
-              <small>Professional</small>
-              <small class="position">Goalkeeper</small>
-            </mat-option>
-            <mat-option>
-              <img
-                class="dp"
-                aria-hidden
-                src="assets/images/profile-icon.png"
-              />
-              <strong>Gurdeep Singh</strong>
-              <small>Professional</small>
-              <small class="position">Goalkeeper</small>
-            </mat-option>
-            <mat-option>
-              <img
-                class="dp"
-                aria-hidden
-                src="assets/images/profile-icon.png"
-              />
-              <strong>Gurdeep Singh</strong>
-              <small>Professional</small>
-              <small class="position">Goalkeeper</small>
-            </mat-option>
-            <mat-option>
-              <img
-                class="dp"
-                aria-hidden
-                src="assets/images/profile-icon.png"
-              />
-              <strong>Gurdeep Singh</strong>
-              <small>Professional</small>
-              <small class="position">Goalkeeper</small>
-            </mat-option>
-            <mat-option>
-              <img
-                class="dp"
-                aria-hidden
-                src="assets/images/profile-icon.png"
-              />
-              <strong>Gurdeep Singh</strong>
-              <small>Professional</small>
-              <small class="position">Goalkeeper</small>
-            </mat-option>
-            <mat-option>
-              <img
-                class="dp"
-                aria-hidden
-                src="assets/images/profile-icon.png"
-              />
-              <strong>Gurdeep Singh</strong>
-              <small>Professional</small>
-              <small class="position">Goalkeeper</small>
-            </mat-option>
+            <ng-container
+              *ngIf="searchText.length >= 3 && memberList.length === 0"
+            >
+              <mat-option>
+                No results found
+              </mat-option>
+            </ng-container>
           </span>
         </mat-autocomplete>
         <span class="search-icon">
@@ -92,8 +46,11 @@
     <!-- header right -->
     <div class="header-menu">
       <ul>
-        <li>
-          <a matTooltip="FootMates">
+        <li *ngIf="member_type === 'player'">
+          <a
+            matTooltip="FootMates"
+            [routerLink]="['/member/manage/foot-requests']"
+          >
             <span>
               <i-feather name="Users" class="icon-size"></i-feather>
             </span>
@@ -125,17 +82,17 @@
         <div class="dropdown" [hidden]="this.isActive">
           <ul>
             <li>
-              <a [routerLink]="['/timeline']">
+              <a [routerLink]="['/member/timeline']">
                 <i-feather name="home" class="icon-size"></i-feather> Home
               </a>
             </li>
             <li>
-              <a [routerLink]="['/profile']">
+              <a [routerLink]="['/member/profile/view']">
                 <i-feather name="user" class="icon-size"></i-feather> My Profile
               </a>
             </li>
             <li>
-              <a [routerLink]="['/edit-profile']">
+              <a [routerLink]="['/member/profile/edit']">
                 <i-feather name="edit" class="icon-size"></i-feather> Edit
                 Profile
               </a>

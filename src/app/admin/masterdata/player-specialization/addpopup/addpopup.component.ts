@@ -1,14 +1,15 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { AdminService } from '@app/admin/service/admin.service';
+import { AdminService } from '@app/admin/admin.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { untilDestroyed } from '@app/core';
 @Component({
   selector: 'app-addpopup',
   templateUrl: './addpopup.component.html',
   styleUrls: ['./addpopup.component.scss']
 })
-export class AddpopupComponent implements OnInit {
+export class AddpopupComponent implements OnInit, OnDestroy {
   addForm: FormGroup;
   constructor(
     public dialogRef: MatDialogRef<AddpopupComponent>,
@@ -21,7 +22,10 @@ export class AddpopupComponent implements OnInit {
     this.createForm();
   }
 
+  ngOnDestroy() {}
+
   ngOnInit() {}
+
   addSpecialization() {
     if (this.data.specialization === 'ability') {
       this.addAbility();
@@ -29,24 +33,30 @@ export class AddpopupComponent implements OnInit {
       this.addParameter();
     }
   }
-  addAbility() {
-    this.adminService.addAbility(this.addForm.value).subscribe(
-      response => {
-        this.dialogRef.close('refresh');
 
-        this.toastrService.success(
-          `${response.message}`,
-          'Ability Added Successfully'
-        );
-      },
-      error => {
-        this.toastrService.error(`${error.error.message}`, 'Error');
-      }
-    );
+  addAbility() {
+    this.adminService
+      .addAbility(this.addForm.value)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.dialogRef.close('refresh');
+
+          this.toastrService.success(
+            `${response.message}`,
+            'Ability Added Successfully'
+          );
+        },
+        error => {
+          this.toastrService.error(`${error.error.message}`, 'Error');
+        }
+      );
   }
+
   addParameter() {
     this.adminService
       .addParameter({ ...this.addForm.value, ability_id: this.data.ability_id })
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this.dialogRef.close('refresh');
@@ -61,6 +71,7 @@ export class AddpopupComponent implements OnInit {
         }
       );
   }
+
   createForm() {
     this.addForm = this.formBuilder.group({
       name: [

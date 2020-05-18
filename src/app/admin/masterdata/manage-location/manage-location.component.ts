@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ManageLocationTableConfig } from './manage-location-table-conf';
-import { AdminService } from '@app/admin/service/admin.service';
+import { AdminService } from '@app/admin/admin.service';
+import { untilDestroyed } from '@app/core';
 @Component({
   selector: 'app-manage-location',
   templateUrl: './manage-location.component.html',
   styleUrls: ['./manage-location.component.scss']
 })
-export class ManageLocationComponent implements OnInit {
+export class ManageLocationComponent implements OnInit, OnDestroy {
   // table config
   public tableConfig: ManageLocationTableConfig = new ManageLocationTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -19,22 +20,28 @@ export class ManageLocationComponent implements OnInit {
     this.sideBarToggle = $event;
   }
   constructor(public adminService: AdminService) {}
+
+  ngOnDestroy() {}
+
   ngOnInit() {
     this.getLocationStats();
   }
 
   getLocationStats() {
-    this.adminService.getLocationStats().subscribe(
-      response => {
-        let records = response.data;
-        for (let i = 0; i < records.length; i++) {
-          records[i]['serialNo'] = i + 1;
-        }
-        let country_id = response.data[0].country_id;
-        this.TableOptions = { country_id };
-        this.dataSource = new MatTableDataSource(records);
-      },
-      error => {}
-    );
+    this.adminService
+      .getLocationStats()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let records = response.data;
+          for (let i = 0; i < records.length; i++) {
+            records[i]['serialNo'] = i + 1;
+          }
+          let country_id = response.data[0].country_id;
+          this.TableOptions = { country_id };
+          this.dataSource = new MatTableDataSource(records);
+        },
+        error => {}
+      );
   }
 }

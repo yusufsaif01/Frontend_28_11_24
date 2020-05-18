@@ -5,8 +5,9 @@ import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { AwardCertificateService } from '../award-certificate.service';
 import { ToastrService } from 'ngx-toastr';
-import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
+import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
 import { environment } from '../../../environments/environment';
+import { untilDestroyed } from '@app/core';
 
 interface ArrayTypeContext {
   name: string;
@@ -79,18 +80,27 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
       this.achievement_url = this.data.media;
     }
   }
+
   ngOnDestroy() {}
 
   clubAwardTypeArray = [
     {
       name: 'Club Level Competition Certificates',
       value: 'Club Level Competition Certificates'
+    },
+    {
+      name: 'Other Awards',
+      value: 'Other Awards'
     }
   ];
   academyAwardTypeArray = [
     {
       name: 'Private Tournament Certificates',
       value: 'Private Tournament Certificates'
+    },
+    {
+      name: 'Other Awards',
+      value: 'Other Awards'
     }
   ];
 
@@ -157,7 +167,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
         '',
         [Validators.maxLength(20), Validators.pattern(/^[0-9a-zA-Z]+%?$/)]
       ],
-      achievement: ['', [requiredFileAvatar]]
+      achievement: ['', [requiredFileDocument]]
     });
   }
 
@@ -167,6 +177,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   updateData(requestData: any) {
     this.awardCertificateService
       .updateAwards(this.data.id, requestData)
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this.dialogRef.close('refresh');
@@ -193,19 +204,22 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     }
   }
   addData(requestData: any) {
-    this.awardCertificateService.addAwards(requestData).subscribe(
-      response => {
-        this.dialogRef.close('refresh');
+    this.awardCertificateService
+      .addAwards(requestData)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.dialogRef.close('refresh');
 
-        this.toastrService.success(
-          `${response.message}`,
-          'Award Added Successfully'
-        );
-      },
-      error => {
-        this.toastrService.error(`${error.error.message}`, 'Error');
-      }
-    );
+          this.toastrService.success(
+            `${response.message}`,
+            'Award Added Successfully'
+          );
+        },
+        error => {
+          this.toastrService.error(`${error.error.message}`, 'Error');
+        }
+      );
   }
 
   dateModifier(requestData: any) {

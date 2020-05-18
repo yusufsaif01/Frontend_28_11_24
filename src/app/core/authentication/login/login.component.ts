@@ -59,9 +59,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.toastrService.success('Successful', 'Login');
 
           if (credentials.data.role === 'admin')
-            this.router.navigate(['/manage-player']);
-          else this.router.navigate(['/timeline']);
+            this.router.navigate(['/admin/manage-player']);
+          else this.router.navigate(['/member/timeline']);
 
+          localStorage.setItem('user_id', credentials.data.user_id);
           localStorage.setItem('token', credentials.data.token);
           localStorage.setItem('member_type', credentials.data.member_type);
           if (credentials.data.player_type) {
@@ -81,7 +82,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           // this.router.navigate(['/reset-password'])
           this.credentialsService.setCredentials(
             credentials,
-            this.loginForm.value.remember
+            true //this.loginForm.value.remember
           );
         },
         error => {
