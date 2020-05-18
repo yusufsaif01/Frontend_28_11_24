@@ -24,67 +24,68 @@
       >
     </div>
     <div class="filter-buttons">
-      <button [matMenuTriggerFor]="position" class="active">
+      <button
+        (click)="addActiveClass('activePosition')"
+        [matMenuTriggerFor]="position"
+        [ngClass]="{ active: switchClass.activePosition }"
+      >
         Position
         <i-feather class="icon-size" name="chevron-down"></i-feather>
       </button>
-      <button [matMenuTriggerFor]="playercategory">
+      <button
+        (click)="addActiveClass('activePlayerCategory')"
+        [matMenuTriggerFor]="playercategory"
+        [ngClass]="{ active: switchClass.activePlayerCategory }"
+      >
         Player Category
         <i-feather class="icon-size" name="chevron-down"></i-feather>
       </button>
-      <button [matMenuTriggerFor]="age">
+      <button
+        (click)="addActiveClass('activeAge')"
+        [matMenuTriggerFor]="age"
+        [ngClass]="{ active: switchClass.activeAge }"
+      >
         Age
         <i-feather class="icon-size" name="chevron-down"></i-feather>
       </button>
-      <button [matMenuTriggerFor]="location">
+      <button
+        (click)="addActiveClass('activeLocation')"
+        [matMenuTriggerFor]="location"
+        [ngClass]="{ active: switchClass.activeLocation }"
+      >
         Location
         <i-feather class="icon-size" name="chevron-down"></i-feather>
       </button>
-      <button [matMenuTriggerFor]="strongfoot">
+      <button
+        (click)="addActiveClass('activeStrongFoot')"
+        [matMenuTriggerFor]="strongfoot"
+        [ngClass]="{ active: switchClass.activeStrongFoot }"
+      >
         Strong Foot
         <i-feather class="icon-size" name="chevron-down"></i-feather>
       </button>
-      <button>Clear Filter</button>
+      <button (click)="clearFilters()">Clear Filter</button>
       <!-- postion -->
       <mat-menu #position="matMenu">
         <div (click)="$event.stopPropagation()">
           <h3>Select Position</h3>
           <div class="items">
-            <span class="chk-box">
-              <mat-checkbox>Goalkeeper</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Center Back</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Left Back</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Right Back</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Left Midfielder</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Right Midfielder</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Center Midfielder</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Left Wing</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Right Wing</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Striker</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Center Defensive Midfielder</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Center Attacking Midfielder</mat-checkbox>
+            <span
+              class="chk-box"
+              *ngFor="let position of locationRangeFilters.positions"
+            >
+              <mat-checkbox
+                [value]="position.name"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.positionsArray,
+                    'position'
+                  )
+                "
+                [checked]="checkFilters"
+                >{{ position.name }}</mat-checkbox
+              >
             </span>
           </div>
         </div>
@@ -94,14 +95,22 @@
         <div (click)="$event.stopPropagation()">
           <h3>Select Player Category</h3>
           <div class="items">
-            <span class="chk-box">
-              <mat-checkbox>Grassroot</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Amateur </mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Professional</mat-checkbox>
+            <span
+              class="chk-box"
+              *ngFor="let type of locationRangeFilters.playerType"
+            >
+              <mat-checkbox
+                [value]="type.value"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.playerTypeArray,
+                    'player_category'
+                  )
+                "
+                [checked]="checkFilters"
+                >{{ type.name }}</mat-checkbox
+              >
             </span>
           </div>
         </div>
@@ -111,17 +120,22 @@
         <div (click)="$event.stopPropagation()">
           <h3>Select Age</h3>
           <div class="items">
-            <span class="chk-box">
-              <mat-checkbox>6-12</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>13-26</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>27-28</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>39-50</mat-checkbox>
+            <span
+              class="chk-box"
+              *ngFor="let age of locationRangeFilters.ageRange"
+            >
+              <mat-checkbox
+                [value]="age.value"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.ageRangeArray,
+                    'age'
+                  )
+                "
+                [checked]="checkFilters"
+                >{{ age.name }}</mat-checkbox
+              >
             </span>
           </div>
         </div>
@@ -132,20 +146,44 @@
           <h3>Select Location</h3>
           <div class="wrapper-location">
             <div class="slt-wrapper">
-              <select>
-                <option>Select Country</option>
+              <select
+                (change)="onSelectCountry($event)"
+                [(ngModel)]="locationData.countryValue"
+              >
+                <option value="">Select Country</option>
+                <option
+                  *ngFor="let country of locationRangeFilters.countryData"
+                  [value]="getCountryValue(country)"
+                  >{{ country.country }}</option
+                >
               </select>
               <i-feather class="icon-size" name="chevron-down"></i-feather>
             </div>
             <div class="slt-wrapper">
-              <select>
-                <option>Select State</option>
+              <select
+                (change)="onSelectState($event)"
+                [(ngModel)]="locationData.stateValue"
+              >
+                <option value="">Select State</option>
+                <option
+                  *ngFor="let state of locationRangeFilters.states"
+                  [value]="getStateValue(state)"
+                  >{{ state.name }}</option
+                >
               </select>
               <i-feather class="icon-size" name="chevron-down"></i-feather>
             </div>
             <div class="slt-wrapper">
-              <select>
-                <option>Select City</option>
+              <select
+                (change)="onSelectCity($event)"
+                [(ngModel)]="locationData.cityValue"
+              >
+                <option value="">Select City</option>
+                <option
+                  *ngFor="let city of locationRangeFilters.cities"
+                  [value]="getCityValue(city)"
+                  >{{ city.name }}</option
+                >
               </select>
               <i-feather class="icon-size" name="chevron-down"></i-feather>
             </div>
@@ -157,11 +195,22 @@
         <div (click)="$event.stopPropagation()">
           <h3>Select Strong Foot</h3>
           <div class="items">
-            <span class="chk-box">
-              <mat-checkbox>Left</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Right</mat-checkbox>
+            <span
+              class="chk-box"
+              *ngFor="let type of locationRangeFilters.strongFoot"
+            >
+              <mat-checkbox
+                [value]="type.value"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.strongFootArray,
+                    'strong_foot'
+                  )
+                "
+                [checked]="checkFilters"
+                >{{ type.name }}</mat-checkbox
+              >
             </span>
           </div>
         </div>

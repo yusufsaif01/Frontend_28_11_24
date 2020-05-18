@@ -51,9 +51,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  getMemberSearchList(value: string, keyCode: number) {
+  getMemberSearchList(value: string, keyCode: number, scrolled?: string) {
     this.keyCode = keyCode;
-    if (keyCode == 40 || keyCode == 37 || keyCode == 39 || keyCode == 38)
+    if (
+      keyCode == 40 ||
+      keyCode == 37 ||
+      keyCode == 39 ||
+      keyCode == 38 ||
+      keyCode == 9 ||
+      keyCode == 34 ||
+      keyCode == 35 ||
+      keyCode == 36 ||
+      keyCode == 37
+    )
       return;
     this.searchText = value;
     if (value.length === 0) {
@@ -64,6 +74,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.memberList = [];
       this.pageNo = 1;
       return;
+    }
+    if (!scrolled) {
+      this.pageNo = 1;
     }
     this._headerService
       .getMemberSearchList({
@@ -78,35 +91,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
           for (let i = 0; i < records.length; i++) {
             records[i].avatar = environment.mediaUrl + records[i].avatar;
           }
-          // this.memberList = records;
-          // console.log(this.memberList);
-          let res = records;
-          this.onSuccess(res);
+
+          if (!scrolled) {
+            this.memberList = records;
+          } else {
+            records.forEach(el => {
+              if (!this.memberList.includes(el)) {
+                this.memberList.push(el);
+              }
+            });
+          }
+          console.log(this.memberList);
         },
         error => {
           this._toastrService.error('Error', error.error.message);
         }
       );
   }
-  onSuccess(res: any[]) {
-    res.forEach((el: any) => {
-      // if (!this.memberList.includes(el)) {
-      //   this.memberList.push(el);
-      // }
-      if (this.memberList.length) {
-        this.memberList.filter(element => {
-          if (element.user_id != el.user_id) {
-            this.memberList.push(el);
-          }
-        });
-      }
-    });
-    console.log(this.memberList);
-  }
+
   onScrollDown() {
     console.log('Scrolled down');
     this.pageNo++;
-    this.getMemberSearchList(this.searchText, this.keyCode);
+    this.getMemberSearchList(this.searchText, this.keyCode, 'scrolled');
   }
   onScrollUp() {
     console.log('Scrolled Up');

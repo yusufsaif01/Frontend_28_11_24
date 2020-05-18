@@ -41,7 +41,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   environment = environment;
   member_type: string = localStorage.getItem('member_type');
   loggedin_userid: string = localStorage.getItem('user_id');
-  achievements: number = 0;
+  @Input() achievements: number = 0;
 
   @Input() options: any;
   @Input() userId: string;
