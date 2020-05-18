@@ -12,7 +12,16 @@
     </div>
   </div>
   <div class="modal-body">
-    <div class="footmates-wrapper">
+    <div
+      infiniteScroll
+      [infiniteScrollUpDistance]="1.5"
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="onScrollDown()"
+      (scrolledUp)="onScrollUp()"
+      [scrollWindow]="false"
+      class="footmates-wrapper"
+    >
       <div class="footmate-block" *ngFor="let footmate of mutualFootmate">
         <div class="dp">
           <img [src]="footmate.avatar" alt="profile-icon" />
