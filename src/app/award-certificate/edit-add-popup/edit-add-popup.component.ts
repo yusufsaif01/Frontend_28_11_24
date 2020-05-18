@@ -87,12 +87,20 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     {
       name: 'Club Level Competition Certificates',
       value: 'Club Level Competition Certificates'
+    },
+    {
+      name: 'Other Awards',
+      value: 'Other Awards'
     }
   ];
   academyAwardTypeArray = [
     {
       name: 'Private Tournament Certificates',
       value: 'Private Tournament Certificates'
+    },
+    {
+      name: 'Other Awards',
+      value: 'Other Awards'
     }
   ];
 
