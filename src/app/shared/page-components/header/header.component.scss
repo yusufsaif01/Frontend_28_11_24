@@ -169,9 +169,16 @@ header {
     }
   }
 }
+
 ::ng-deep {
+  .mat-autocomplete-panel.mat-autocomplete-visible div {
+    max-height: 480px !important;
+    overflow: scroll !important;
+  }
+  .mat-autocomplete-panel.mat-autocomplete-visible mat-option {
+    position: static !important;
+  }
   .autocomplete-height {
-    max-height: 550px !important;
     width: 150% !important;
     position: absolute !important;
   }
