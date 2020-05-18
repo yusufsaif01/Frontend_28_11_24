@@ -90,8 +90,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   onSuccess(res: any[]) {
     res.forEach((el: any) => {
-      if (!this.memberList.includes(el)) {
-        this.memberList.push(el);
+      // if (!this.memberList.includes(el)) {
+      //   this.memberList.push(el);
+      // }
+      if (this.memberList.length) {
+        this.memberList.filter(element => {
+          if (element.user_id != el.user_id) {
+            this.memberList.push(el);
+          }
+        });
       }
     });
     console.log(this.memberList);
