@@ -69,8 +69,28 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   createForm() {
     this.resetPasswordForm = this._formBuilder.group(
       {
-        password: ['', Validators.required],
-        confirmPassword: ['', Validators.required]
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(20),
+            Validators.pattern(
+              /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\~\`\!\@\#\$\%\^\&\*\(\)\-\_\+\=\{\}\[\]\\\|\:\;\'\"\,\.\<\>\/\?])/
+            )
+          ]
+        ],
+        confirmPassword: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(20),
+            Validators.pattern(
+              /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\~\`\!\@\#\$\%\^\&\*\(\)\-\_\+\=\{\}\[\]\\\|\:\;\'\"\,\.\<\>\/\?])/
+            )
+          ]
+        ]
       },
       {
         validator: matchingPassword
