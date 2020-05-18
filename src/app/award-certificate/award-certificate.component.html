@@ -5,8 +5,9 @@
     <app-left-panel
       (sendPlayerType)="getPlayerType($event)"
       (sendMemberType)="getMemberType($event)"
-      [options]="panelOptions"
+      (sendAchievementCount)="getAchievementCount($event)"
       [achievements]="total_count"
+      [options]="panelOptions"
       [userId]="userId"
     ></app-left-panel>
   </div>

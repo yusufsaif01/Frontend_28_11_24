@@ -1,14 +1,14 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { AuthenticationService } from '../core/authentication/authentication.service';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
 import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '@app/shared/page-components/header/header.component';
 import { EditProfileService } from './edit-profile-service';
-import { ProfileService } from '../profile/profile.service';
+import { ViewProfileService } from '../view-profile/view-profile.service';
+import { untilDestroyed } from '@app/core';
 
 interface trophyObject {
   name: string;
@@ -39,7 +39,7 @@ interface positionObject {
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss']
 })
-export class EditProfileComponent implements OnInit {
+export class EditProfileComponent implements OnInit, OnDestroy {
   @Input() max: Date | null;
   @ViewChild(HeaderComponent, { static: true }) header: HeaderComponent;
 
@@ -228,19 +228,169 @@ export class EditProfileComponent implements OnInit {
       value: 'city4'
     }
   ];
+  clubAcadTypeArray = [
+    {
+      name: 'Residential',
+      value: 'Residential'
+    },
+    {
+      name: 'Non-Residential',
+      value: 'Non-Residential'
+    }
+  ];
+
+  stateAssociationArray = [
+    {
+      name: 'All Manipur Football Association',
+      value: 'All Manipur Football Association'
+    },
+    {
+      name: 'Andaman & Nicobar Football Association',
+      value: 'Andaman & Nicobar Football Association'
+    },
+    {
+      name: 'Andhra Pradesh Football Association',
+      value: 'Andhra Pradesh Football Association'
+    },
+    {
+      name: 'Arunachal Pradesh Football Association',
+      value: 'Arunachal Pradesh Football Association'
+    },
+    { name: 'Assam Football Association', value: 'Assam Football Association' },
+    { name: 'Bihar Football Association', value: 'Bihar Football Association' },
+    {
+      name: 'Chandigarh Football Association',
+      value: 'Chandigarh Football Association'
+    },
+    {
+      name: 'Chhattisgarh Football Association',
+      value: 'Chhattisgarh Football Association'
+    },
+    {
+      name: 'Dadra and Nagar Haveli Football Association',
+      value: 'Dadra and Nagar Haveli Football Association'
+    },
+    {
+      name: 'Daman and Diu Football Association',
+      value: 'Daman and Diu Football Association'
+    },
+    {
+      name: 'Delhi Soccer Association (Football Delhi)',
+      value: 'Delhi Soccer Association (Football Delhi)'
+    },
+    {
+      name: 'Football Association of Odisha',
+      value: 'Football Association of Odisha'
+    },
+    { name: 'Goa Football Association', value: 'Goa Football Association' },
+    {
+      name: 'Gujarat State Football Association',
+      value: 'Gujarat State Football Association'
+    },
+    {
+      name: 'Haryana Football Association',
+      value: 'Haryana Football Association'
+    },
+    {
+      name: 'Himachal Pradesh Football Association',
+      value: 'Himachal Pradesh Football Association'
+    },
+    {
+      name: 'Indian Football Association - Kolkata',
+      value: 'Indian Football Association - Kolkata'
+    },
+    {
+      name: 'Jammu & Kashmir Football Association',
+      value: 'Jammu & Kashmir Football Association'
+    },
+    {
+      name: 'Jharkhand Football Association',
+      value: 'Jharkhand Football Association'
+    },
+    {
+      name: 'Karnataka State Football Association',
+      value: 'Karnataka State Football Association'
+    },
+    {
+      name: 'Kerala Football Association',
+      value: 'Kerala Football Association'
+    },
+    {
+      name: 'Lakshadweep Football Association',
+      value: 'Lakshadweep Football Association'
+    },
+    {
+      name: 'Madhya Pradesh Football Association',
+      value: 'Madhya Pradesh Football Association'
+    },
+    {
+      name: 'Meghalaya Football Association',
+      value: 'Meghalaya Football Association'
+    },
+    {
+      name: 'Pondicherry Football Association',
+      value: 'Pondicherry Football Association'
+    },
+    {
+      name: 'Nagaland Football Association',
+      value: 'Nagaland Football Association'
+    },
+    {
+      name: 'Mizoram Football Association',
+      value: 'Mizoram Football Association'
+    },
+    {
+      name: 'Punjab Football Association',
+      value: 'Punjab Football Association'
+    },
+    {
+      name: 'Rajasthan Football Association',
+      value: 'Rajasthan Football Association'
+    },
+    {
+      name: 'Sikkim Football Association',
+      value: 'Sikkim Football Association'
+    },
+    {
+      name: 'Tripura Football Association',
+      value: 'Tripura Football Association'
+    },
+    {
+      name: 'Telangana Football Association',
+      value: 'Telangana Football Association'
+    },
+    {
+      name: 'Tamil Nadu Football Association',
+      value: 'Tamil Nadu Football Association'
+    },
+    {
+      name: 'Uttar Pradesh Football Sangh',
+      value: 'Uttar Pradesh Football Sangh'
+    },
+    {
+      name: 'Uttarakhand State Football Association',
+      value: 'Uttarakhand State Football Association'
+    },
+    {
+      name: 'Western India Football Association - Maharastra',
+      value: 'Western India Football Association - Maharastra'
+    },
+    { name: 'Others', value: 'Others' }
+  ];
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _profileService: ProfileService,
+    private _viewProfileService: ViewProfileService,
     private _editProfileService: EditProfileService,
     private _toastrService: ToastrService,
-    private _router: Router,
-    private editProfileService: EditProfileService
+    private _router: Router
   ) {
     this.createForm();
     this.setCategoryValidators();
     this.tomorrow.setDate(this.tomorrow.getDate() + 1);
   }
+
+  ngOnDestroy() {}
 
   ngOnInit() {
     this.populateView();
@@ -274,79 +424,85 @@ export class EditProfileComponent implements OnInit {
   }
 
   populateView() {
-    this._profileService.getProfileDetails({}).subscribe(
-      response => {
-        this.profile = response.data;
-        if (this.profile.documents.length) {
-          if (this.profile.documents[0].type) {
-            if (this.editProfileForm.controls.reg_number) {
-              this.editProfileForm.controls.aiff.disable();
-              this.editProfileForm.controls.reg_number.setValidators(
-                Validators.required
-              );
-              this.editProfileForm.controls.reg_number.disable();
-            }
-            if (this.editProfileForm.controls.number) {
-              this.editProfileForm.controls.document.disable();
-              this.editProfileForm.controls.document_type.disable();
-              this.editProfileForm.controls.number.setValidators(
-                Validators.required
-              );
-              this.editProfileForm.controls.number.disable();
+    this._viewProfileService
+      .getProfileDetails({})
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.profile = response.data;
+          if (this.profile.documents.length) {
+            if (this.profile.documents[0].type) {
+              if (this.editProfileForm.controls.reg_number) {
+                this.editProfileForm.controls.aiff.disable();
+                this.editProfileForm.controls.reg_number.setValidators(
+                  Validators.required
+                );
+                this.editProfileForm.controls.reg_number.disable();
+              }
+              if (this.editProfileForm.controls.number) {
+                this.editProfileForm.controls.document.disable();
+                this.editProfileForm.controls.document_type.disable();
+                this.editProfileForm.controls.number.setValidators(
+                  Validators.required
+                );
+                this.editProfileForm.controls.number.disable();
+              }
             }
           }
+          this.populateFormFields();
+          this.populateDocuments();
+
+          if (
+            this.profile.member_type === 'club' ||
+            this.profile.member_type === 'academy'
+          ) {
+            this.populateDynamicContact();
+            this.populateDynamicTrophy();
+            this.populateDynamicTopSigning();
+            this.populateDynamicTopAcademyPlayer();
+          }
+
+          if (this.profile.member_type === 'player') {
+            this.getPositionList();
+            this.populateDynamicPosition();
+          }
+
+          if (this.profile.avatar_url) {
+            this.profile.avatar_url =
+              this.environment.mediaUrl + this.profile.avatar_url;
+          } else {
+            this.profile.avatar_url =
+              this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
+          }
+
+          this._toastrService.success(
+            'Successful',
+            'Data retrieved successfully'
+          );
+
+          this.setCategoryValidators();
+          this.checkFileValidations();
+        },
+        error => {
+          this._toastrService.error(
+            `${error.error.message}`,
+            'Failed to load data'
+          );
         }
-        this.populateFormFields();
-        this.populateDocuments();
-
-        if (
-          this.profile.member_type === 'club' ||
-          this.profile.member_type === 'academy'
-        ) {
-          this.populateDynamicContact();
-          this.populateDynamicTrophy();
-          this.populateDynamicTopSigning();
-          this.populateDynamicTopAcademyPlayer();
-        }
-
-        if (this.profile.member_type === 'player') {
-          this.getPositionList();
-          this.populateDynamicPosition();
-        }
-
-        if (this.profile.avatar_url) {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + this.profile.avatar_url;
-        } else {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
-        }
-
-        this._toastrService.success(
-          'Successful',
-          'Data retrieved successfully'
-        );
-
-        this.setCategoryValidators();
-        this.checkFileValidations();
-      },
-      error => {
-        this._toastrService.error(
-          `${error.error.message}`,
-          'Failed to load data'
-        );
-      }
-    );
+      );
   }
   getPositionList() {
-    this.editProfileService.getPositionList().subscribe(
-      response => {
-        this.positionArray = response.data.records;
-      },
-      error => {
-        this._toastrService.error(error.error.message, 'Error');
-      }
-    );
+    this._editProfileService
+      .getPositionList()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.positionArray = response.data.records;
+        },
+        error => {
+          this._toastrService.error(error.error.message, 'Error');
+        }
+      );
   }
 
   setCategoryValidators() {
@@ -451,6 +607,7 @@ export class EditProfileComponent implements OnInit {
       const pincode = this.editProfileForm.get('pincode');
       const trophies = this.editProfileForm.get('trophies');
       const leagueOther = this.editProfileForm.get('league_other');
+      const associationOther = this.editProfileForm.get('association_other');
 
       if (this.member_type === 'club') {
         trophies.setValidators(null);
@@ -467,12 +624,20 @@ export class EditProfileComponent implements OnInit {
         ]);
       }
 
+      this.editProfileForm
+        .get('association')
+        .valueChanges.subscribe(association => {
+          if (association !== 'Others') {
+            associationOther.setValue('');
+          }
+        });
       this.editProfileForm.get('league').valueChanges.subscribe(league => {
         if (league !== 'Other') {
           leagueOther.setValue('');
         }
       });
 
+      associationOther.updateValueAndValidity();
       leagueOther.updateValueAndValidity();
       trophies.updateValueAndValidity();
       address.updateValueAndValidity();
@@ -510,18 +675,21 @@ export class EditProfileComponent implements OnInit {
         this.setRequestDataObject(requestData, 'top_players');
     }
 
-    this._editProfileService.editProfile(requestData).subscribe(
-      res => {
-        this._toastrService.success(
-          'Successful',
-          'Profile updated successfully'
-        );
-        this._router.navigate(['/profile']);
-      },
-      err => {
-        this._toastrService.error('Error', err.error.message);
-      }
-    );
+    this._editProfileService
+      .editProfile(requestData)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        res => {
+          this._toastrService.success(
+            'Successful',
+            'Profile updated successfully'
+          );
+          this._router.navigate(['/member/profile/view']);
+        },
+        err => {
+          this._toastrService.error('Error', err.error.message);
+        }
+      );
   }
 
   uploadAadhar(files: FileList) {
@@ -542,7 +710,41 @@ export class EditProfileComponent implements OnInit {
     requestData.set('avatar', this.avatar);
 
     if (this.aboutForm.valid) {
-      this._editProfileService.updateBio(requestData).subscribe(
+      this._editProfileService
+        .updateBio(requestData)
+        .pipe(untilDestroyed(this))
+        .subscribe(
+          res => {
+            if (res.data.avatar_url) {
+              this.profile.avatar_url =
+                this.environment.mediaUrl + res.data.avatar_url;
+            }
+            localStorage.setItem(
+              'avatar_url',
+              this.environment.mediaUrl + res.data.avatar_url
+            );
+            this.header.avatar_url = localStorage.getItem('avatar_url');
+            this._toastrService.success(
+              'Successful',
+              'Avatar updated successfully'
+            );
+          },
+          err => {
+            this._toastrService.error('Error', err.error.message);
+          }
+        );
+    }
+  }
+
+  uploadEmploymentContract(files: FileList) {
+    this.employment_contract = files[0];
+  }
+
+  removeAvatar() {
+    this._editProfileService
+      .removeAvatar()
+      .pipe(untilDestroyed(this))
+      .subscribe(
         res => {
           if (res.data.avatar_url) {
             this.profile.avatar_url =
@@ -555,68 +757,46 @@ export class EditProfileComponent implements OnInit {
           this.header.avatar_url = localStorage.getItem('avatar_url');
           this._toastrService.success(
             'Successful',
-            'Avatar updated successfully'
+            'Avatar removed successfully'
           );
         },
         err => {
           this._toastrService.error('Error', err.error.message);
         }
       );
-    }
-  }
-
-  uploadEmploymentContract(files: FileList) {
-    this.employment_contract = files[0];
-  }
-
-  removeAvatar() {
-    this._editProfileService.removeAvatar().subscribe(
-      res => {
-        if (res.data.avatar_url) {
-          this.profile.avatar_url =
-            this.environment.mediaUrl + res.data.avatar_url;
-        }
-        localStorage.setItem(
-          'avatar_url',
-          this.environment.mediaUrl + res.data.avatar_url
-        );
-        this.header.avatar_url = localStorage.getItem('avatar_url');
-        this._toastrService.success(
-          'Successful',
-          'Avatar removed successfully'
-        );
-      },
-      err => {
-        this._toastrService.error('Error', err.error.message);
-      }
-    );
   }
 
   socialProfile() {
-    this._editProfileService.updateBio(this.socialProfileForm.value).subscribe(
-      res => {
-        this._toastrService.success(
-          'Successful',
-          'Social profiles updated successfully'
-        );
-      },
-      err => {
-        this._toastrService.error('Error', err.error.message);
-      }
-    );
+    this._editProfileService
+      .updateBio(this.socialProfileForm.value)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        res => {
+          this._toastrService.success(
+            'Successful',
+            'Social profiles updated successfully'
+          );
+        },
+        err => {
+          this._toastrService.error('Error', err.error.message);
+        }
+      );
   }
   about() {
     let requestData = this.toFormData(this.aboutForm.value);
     if (this.avatar) requestData.set('avatar', this.avatar);
 
-    this._editProfileService.updateBio(requestData).subscribe(
-      res => {
-        this._toastrService.success('Successful', 'Bio updated successfully');
-      },
-      err => {
-        this._toastrService.error('Error', err.error.message);
-      }
-    );
+    this._editProfileService
+      .updateBio(requestData)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        res => {
+          this._toastrService.success('Successful', 'Bio updated successfully');
+        },
+        err => {
+          this._toastrService.error('Error', err.error.message);
+        }
+      );
   }
 
   createForm() {
@@ -727,6 +907,8 @@ export class EditProfileComponent implements OnInit {
         stadium_name: ['', []],
         league: ['', [Validators.required]],
         league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
+        association: ['', [Validators.required]],
+        association_other: [],
         contact_person: this._formBuilder.array([]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
@@ -735,7 +917,8 @@ export class EditProfileComponent implements OnInit {
           '',
           [Validators.required, Validators.pattern(/^\d+$/)]
         ],
-        aiff: ['', [Validators.required, requiredFileDocument]]
+        aiff: ['', [Validators.required, requiredFileDocument]],
+        type: ['', [Validators.required]]
         // onclick upload document [aiff]
       });
     } else if (this.member_type === 'academy') {
@@ -776,6 +959,8 @@ export class EditProfileComponent implements OnInit {
         stadium_name: ['', []],
         league: ['', [Validators.required]],
         league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
+        association: ['', [Validators.required]],
+        association_other: [],
         document_type: ['', []],
         number: [''],
         contact_person: this._formBuilder.array([], []),
@@ -785,7 +970,8 @@ export class EditProfileComponent implements OnInit {
           '',
           [Validators.required, Validators.pattern(/^\d+$/)]
         ],
-        document: ['', [requiredFileDocument]]
+        document: ['', [requiredFileDocument]],
+        type: ['', [Validators.required]]
         //onclick upload documenet aiff / pan card/tin / coi
       });
     }
@@ -853,7 +1039,12 @@ export class EditProfileComponent implements OnInit {
       city: this.profile.city ? this.profile.city : '',
       stadium_name: this.profile.stadium_name ? this.profile.stadium_name : '',
       league: this.profile.league ? this.profile.league : '',
+      type: this.profile.type ? this.profile.type : '',
       league_other: this.profile.league_other ? this.profile.league_other : '',
+      association: this.profile.association ? this.profile.association : '',
+      association_other: this.profile.association_other
+        ? this.profile.association_other
+        : '',
       strong_foot: this.profile.strong_foot ? this.profile.strong_foot : '',
       weak_foot: this.profile.weak_foot ? this.profile.weak_foot : '',
       head_coach_name: this.profile.club_academy_details

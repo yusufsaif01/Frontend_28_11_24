@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {
   MatDialog,
@@ -13,12 +13,13 @@ import { environment } from '../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
+import { untilDestroyed } from '@app/core';
 @Component({
   selector: 'app-award-certificate',
   templateUrl: './award-certificate.component.html',
   styleUrls: ['./award-certificate.component.scss']
 })
-export class AwardCertificateComponent implements OnInit {
+export class AwardCertificateComponent implements OnInit, OnDestroy {
   public tableConfig: AwardCertificateTableConfig = new AwardCertificateTableConfig();
   public dataSource = new MatTableDataSource([]);
   pageSize: number = 10;
@@ -45,7 +46,8 @@ export class AwardCertificateComponent implements OnInit {
     private toastrService: ToastrService,
     private _activatedRoute: ActivatedRoute
   ) {
-    this._activatedRoute.params.subscribe(params => {
+    this._activatedRoute.firstChild.params.subscribe(params => {
+      console.log('Router params', params);
       if (params['handle']) {
         this.panelOptions.is_public = true;
         this.isPublic = true;
@@ -53,6 +55,8 @@ export class AwardCertificateComponent implements OnInit {
       }
     });
   }
+
+  ngOnDestroy() {}
 
   // dialog box open
   ngOnInit() {
@@ -120,6 +124,9 @@ export class AwardCertificateComponent implements OnInit {
   getMemberType(value: string) {
     this.member_type = value;
   }
+  getAchievementCount(value: number) {
+    this.total_count = value;
+  }
 
   updatePage(event: any) {
     this.currentPageNo = event.selectedPage;
@@ -130,6 +137,7 @@ export class AwardCertificateComponent implements OnInit {
     if (this.isPublic) {
       this.awardCertificateService
         .getPublicAwardsList(this.userId, { page_size, page_no })
+        .pipe(untilDestroyed(this))
         .subscribe(response => {
           let records = response.data.records;
           for (let i = 0; i < records.length; i++) {
@@ -148,6 +156,7 @@ export class AwardCertificateComponent implements OnInit {
     } else {
       this.awardCertificateService
         .getAwardsList({ page_size, page_no })
+        .pipe(untilDestroyed(this))
         .subscribe(response => {
           let records = response.data.records;
           for (let i = 0; i < records.length; i++) {
@@ -179,17 +188,26 @@ export class AwardCertificateComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.awardCertificateService.deleteAward({ id }).subscribe(
-          response => {
-            this.toastrService.success(`Success`, 'Award deleted successfully');
-            this.getAwardsList(this.pageSize, 1);
-          },
-          error => {
-            // log.debug(`Login error: ${error}`);
+        this.awardCertificateService
+          .deleteAward({ id })
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this.toastrService.success(
+                `Success`,
+                'Award deleted successfully'
+              );
+              this.getAwardsList(this.pageSize, 1);
+            },
+            error => {
+              // log.debug(`Login error: ${error}`);
 
-            this.toastrService.error(`${error.error.message}`, 'Delete Award');
-          }
-        );
+              this.toastrService.error(
+                `${error.error.message}`,
+                'Delete Award'
+              );
+            }
+          );
       }
     });
   }

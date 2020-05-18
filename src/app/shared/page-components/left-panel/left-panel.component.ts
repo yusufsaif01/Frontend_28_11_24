@@ -4,7 +4,8 @@ import {
   ViewEncapsulation,
   Input,
   EventEmitter,
-  Output
+  Output,
+  OnDestroy
 } from '@angular/core';
 import {
   AuthenticationService,
@@ -12,10 +13,10 @@ import {
   CredentialsService
 } from '@app/core';
 import { TimelineService } from '@app/timeline/timeline.service';
-import { FootRequestService } from '@app/foot-request/foot-request.service';
+import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
-import { ProfileService } from '@app/profile/profile.service';
+import { ViewProfileService } from '@app/profile/view-profile/view-profile.service';
 import { LeftPanelService } from './left-panel.service';
 import { Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -31,7 +32,7 @@ interface countResponseDataContext {
   styleUrls: ['./left-panel.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class LeftPanelComponent implements OnInit {
+export class LeftPanelComponent implements OnInit, OnDestroy {
   count: countResponseDataContext = {
     achievements: 0,
     tournaments: 0
@@ -40,8 +41,8 @@ export class LeftPanelComponent implements OnInit {
   environment = environment;
   member_type: string = localStorage.getItem('member_type');
   loggedin_userid: string = localStorage.getItem('user_id');
-
   @Input() achievements: number = 0;
+
   @Input() options: any;
   @Input() userId: string;
   @Input() is_following = false;
@@ -52,17 +53,20 @@ export class LeftPanelComponent implements OnInit {
   @Output() sendMemberType = new EventEmitter<string>();
   @Output() sendProfileData = new EventEmitter<object>();
   @Output() sendFootData = new EventEmitter<object>();
+  @Output() sendAchievementCount = new EventEmitter<number>();
   following$: Observable<any>;
 
   constructor(
     private _authenticationService: AuthenticationService,
-    private _profileService: ProfileService,
+    private _profileService: ViewProfileService,
     private _timelineService: TimelineService,
     private _footRequestService: FootRequestService,
     private _router: Router,
     private _leftPanelService: LeftPanelService,
     private _toastrService: ToastrService
   ) {}
+
+  ngOnDestroy() {}
 
   ngOnInit() {
     this.getProfileDetails();
@@ -79,45 +83,55 @@ export class LeftPanelComponent implements OnInit {
     let data = {};
     if (this.userId) data = { user_id: this.userId };
 
-    this._profileService.getProfileDetails(data).subscribe(
-      response => {
-        this.profile = response.data;
-        this.setAvatar();
-        this.is_following = this.profile.is_followed;
-        this.is_footmate = this.profile.footmate_status;
-        this.sendPlayerType.emit(this.profile.player_type);
-        this.sendMemberType.emit(this.profile.member_type);
-        this.sendProfileData.emit(this.profile);
-        this._router.routeReuseStrategy.shouldReuseRoute = () => false;
-      },
-      error => {}
-    );
+    this._profileService
+      .getProfileDetails(data)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.profile = response.data;
+          this.setAvatar();
+          this.is_following = this.profile.is_followed;
+          this.is_footmate = this.profile.footmate_status;
+          this.sendPlayerType.emit(this.profile.player_type);
+          this.sendMemberType.emit(this.profile.member_type);
+          this.sendProfileData.emit(this.profile);
+          this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        },
+        error => {}
+      );
   }
 
   getAchievementCount() {
     let data = {};
     if (this.userId) data = { user_id: this.userId };
 
-    this._timelineService.getAchievementCount(data).subscribe(
-      response => {
-        this.count = response.data;
-        this.achievements = response.data.achievements;
-      },
-      error => {}
-    );
+    this._timelineService
+      .getAchievementCount(data)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.count = response.data;
+          this.achievements = response.data.achievements;
+          this.sendAchievementCount.emit(this.achievements);
+        },
+        error => {}
+      );
   }
 
   getConnectionStats() {
     let data = {};
     if (this.userId) data = { user_id: this.userId };
 
-    this._footRequestService.connectionStats(data).subscribe(
-      response => {
-        this.followers = response.data.followers;
-        this.sendFootData.emit(response.data);
-      },
-      error => {}
-    );
+    this._footRequestService
+      .connectionStats(data)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.followers = response.data.followers;
+          this.sendFootData.emit(response.data);
+        },
+        error => {}
+      );
   }
 
   setAvatar() {
@@ -140,11 +154,13 @@ export class LeftPanelComponent implements OnInit {
           map(resp => {
             console.log(resp);
             this.is_following = false;
+            this.getConnectionStats();
           }),
           catchError(err => {
             this._toastrService.error('Error', err.error.message);
             throw err;
-          })
+          }),
+          untilDestroyed(this)
         );
     } else {
       this.following$ = this._leftPanelService
@@ -155,11 +171,13 @@ export class LeftPanelComponent implements OnInit {
           map(resp => {
             console.log(resp);
             this.is_following = true;
+            this.getConnectionStats();
           }),
           catchError(err => {
             this._toastrService.error('Error', err.error.message);
             throw err;
-          })
+          }),
+          untilDestroyed(this)
         );
     }
   }
@@ -170,6 +188,7 @@ export class LeftPanelComponent implements OnInit {
         .sendFootMate({
           to: this.userId
         })
+        .pipe(untilDestroyed(this))
         .subscribe(
           response => {
             this.is_footmate = 'Pending';
@@ -181,6 +200,7 @@ export class LeftPanelComponent implements OnInit {
         .cancelFootMate({
           to: this.userId
         })
+        .pipe(untilDestroyed(this))
         .subscribe(
           response => {
             this.is_footmate = 'Not_footmate';
