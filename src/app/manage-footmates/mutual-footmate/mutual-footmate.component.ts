@@ -46,17 +46,15 @@ export class MutualFootmateComponent implements OnInit, OnDestroy {
       .subscribe(
         (response: any) => {
           let records = response.data.records;
-          // this.mutualFootmate = response.data.records;
           if (!scrolled) {
             this.mutualFootmate = records;
           } else {
-            records.forEach(el => {
+            records.forEach((el: any) => {
               if (!this.mutualFootmate.includes(el)) {
                 this.mutualFootmate.push(el);
               }
             });
           }
-          console.log(this.mutualFootmate);
         },
         error => {
           this.toastrService.error('Error', error.error.message);

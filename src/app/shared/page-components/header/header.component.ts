@@ -101,7 +101,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
               }
             });
           }
-          console.log(this.memberList);
         },
         error => {
           this._toastrService.error('Error', error.error.message);
