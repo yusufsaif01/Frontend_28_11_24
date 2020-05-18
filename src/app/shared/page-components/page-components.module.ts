@@ -9,6 +9,8 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
 import { MaterialModule } from '../material/material.module';
 import { FeatherModule } from 'angular-feather';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 import {
   Camera,
   Heart,
@@ -106,7 +108,8 @@ const icons = {
     CommonModule,
     RouterModule,
     MaterialModule,
-    FeatherModule.pick(icons)
+    FeatherModule.pick(icons),
+    InfiniteScrollModule
   ],
   exports: [
     SidebarComponent,
@@ -116,7 +119,8 @@ const icons = {
     AdminHeaderComponent,
     AdminSidebarComponent,
     LeftPanelComponent,
-    FeatherModule
+    FeatherModule,
+    InfiniteScrollModule
   ]
 })
 export class PageComponentsModule {}
