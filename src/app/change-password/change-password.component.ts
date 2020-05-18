@@ -59,8 +59,28 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     this.changePasswordForm = this._formBuilder.group(
       {
         old_password: ['', [Validators.required]],
-        new_password: ['', [Validators.required]],
-        confirm_password: ['', [Validators.required]]
+        new_password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(20),
+            Validators.pattern(
+              /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\~\`\!\@\#\$\%\^\&\*\(\)\-\_\+\=\{\}\[\]\\\|\:\;\'\"\,\.\<\>\/\?])/
+            )
+          ]
+        ],
+        confirm_password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(20),
+            Validators.pattern(
+              /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\~\`\!\@\#\$\%\^\&\*\(\)\-\_\+\=\{\}\[\]\\\|\:\;\'\"\,\.\<\>\/\?])/
+            )
+          ]
+        ]
       },
       {
         validator: matchingPassword

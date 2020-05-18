@@ -13,6 +13,8 @@ import { untilDestroyed } from '@app/core';
 export class MutualFootmateComponent implements OnInit, OnDestroy {
   mutualFootmate: any[] = [];
   baseUrl: string = '';
+  pageNo: number = 1;
+  pageSize: number = 8;
   constructor(
     public dialogRef: MatDialogRef<MutualFootmateComponent>,
     private mutualFootmateService: MutualFootmateService,
@@ -31,17 +33,42 @@ export class MutualFootmateComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {}
 
-  getMutualFootmateList() {
+  getMutualFootmateList(scrolled?: string) {
+    if (!scrolled) {
+      this.pageNo = 1;
+    }
     this.mutualFootmateService
-      .getMutualFootmateList(this.data.id)
+      .getMutualFootmateList(this.data.id, {
+        page_no: this.pageNo,
+        page_size: this.pageSize
+      })
       .pipe(untilDestroyed(this))
       .subscribe(
-        response => {
-          this.mutualFootmate = response.data.records;
+        (response: any) => {
+          let records = response.data.records;
+          if (!scrolled) {
+            this.mutualFootmate = records;
+          } else {
+            records.forEach((el: any) => {
+              if (!this.mutualFootmate.includes(el)) {
+                this.mutualFootmate.push(el);
+              }
+            });
+          }
         },
         error => {
           this.toastrService.error('Error', error.error.message);
         }
       );
+  }
+
+  onScrollDown() {
+    console.log('Scrolled Down');
+    this.pageNo++;
+    this.getMutualFootmateList('scrolled');
+  }
+
+  onScrollUp() {
+    console.log('Scrolled Up');
   }
 }
