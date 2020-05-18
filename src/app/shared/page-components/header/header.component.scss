@@ -171,14 +171,14 @@ header {
 }
 ::ng-deep {
   .autocomplete-height {
-    max-height: 550px !important;
+    max-height: 480px !important;
     width: 150% !important;
     position: absolute !important;
   }
 }
-::ng-deep {
-  .mat-autocomplete-panel.mat-autocomplete-visible div {
-    height: 480px !important;
-    overflow: scroll !important;
-  }
-}
+// ::ng-deep {
+//   .mat-autocomplete-panel.mat-autocomplete-visible div {
+//     height: 480px !important;
+//     overflow: scroll !important;
+//   }
+// }
