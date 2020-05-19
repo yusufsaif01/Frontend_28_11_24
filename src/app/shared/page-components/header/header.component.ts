@@ -23,7 +23,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public avatar_url: string = localStorage.getItem('avatar_url');
   public member_type: string = localStorage.getItem('member_type');
   memberList: MemberListContext[] = [];
-  memberBackupList: MemberListContext[] = [];
   searchText = '';
   pageNo: number = 1;
   pageSize: number = 10;
