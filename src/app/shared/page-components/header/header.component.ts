@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public member_type: string = localStorage.getItem('member_type');
   memberList: MemberListContext[] = [];
   searchText: string = '';
+  tempSearchText: string = '';
   pageNo: number = 1;
   pageSize: number = 10;
   keyCode: number;
@@ -73,7 +74,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       keyCode == 37
     )
       return;
+
     this.searchText = value;
+
     if (value.length === 0) {
       this.memberList = [];
       this.pageNo = 1;
@@ -98,33 +101,38 @@ export class HeaderComponent implements OnInit, OnDestroy {
       debounceTime(1000),
       untilDestroyed(this),
       map((data: any) => {
-        this._headerService
-          .getMemberSearchList({
-            search: data.searchText,
-            page_no: this.pageNo,
-            page_size: this.pageSize
-          })
-          .subscribe(
-            response => {
-              let records = response.data.records;
-              for (let i = 0; i < records.length; i++) {
-                records[i].avatar = environment.mediaUrl + records[i].avatar;
-              }
+        if (data.searchText !== this.tempSearchText) {
+          // To check if other keys are not pressed
+          this._headerService
+            .getMemberSearchList({
+              search: data.searchText,
+              page_no: this.pageNo,
+              page_size: this.pageSize
+            })
+            .subscribe(
+              response => {
+                let records = response.data.records;
+                for (let i = 0; i < records.length; i++) {
+                  records[i].avatar = environment.mediaUrl + records[i].avatar;
+                }
 
-              if (!data.scrolled) {
-                this.memberList = records;
-              } else {
-                records.forEach(el => {
-                  if (!this.memberList.includes(el)) {
-                    this.memberList.push(el);
-                  }
-                });
+                if (!data.scrolled) {
+                  this.memberList = records;
+                } else {
+                  records.forEach(el => {
+                    if (!this.memberList.includes(el)) {
+                      this.memberList.push(el);
+                    }
+                  });
+                }
+
+                this.tempSearchText = this.searchText;
+              },
+              error => {
+                this._toastrService.error('Error', error.error.message);
               }
-            },
-            error => {
-              this._toastrService.error('Error', error.error.message);
-            }
-          );
+            );
+        }
       })
     );
   }
