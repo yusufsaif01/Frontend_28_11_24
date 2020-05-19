@@ -72,6 +72,7 @@ export class FootRequestComponent implements OnInit, OnDestroy {
           }
           this.footRequestList = records;
           this.show_count = response.data.records.length;
+          this.foot_data.footmate_requests = response.data.total;
         },
         error => {}
       );
