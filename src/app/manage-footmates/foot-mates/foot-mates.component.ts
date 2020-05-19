@@ -206,6 +206,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
           }
           this.footMatesList = records;
           this.show_count = response.data.records.length;
+          this.foot_data.footmates = response.data.total;
         },
         error => {}
       );
@@ -224,6 +225,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
       delete this.filter.state;
       delete this.filter.city;
     }
+    this.filter.page_no = 1;
     this.getFootMateList(this.pageSize, 1);
   }
 
@@ -258,6 +260,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
       this.locationRangeFilters.cities = [];
       delete this.filter.state;
     }
+    this.filter.page_no = 1;
     this.getFootMateList(this.pageSize, 1);
   }
 
@@ -268,13 +271,14 @@ export class FootMatesComponent implements OnInit, OnDestroy {
     } else {
       delete this.filter.city;
     }
+    this.filter.page_no = 1;
     this.getFootMateList(this.pageSize, 1);
   }
 
   clearFilters() {
     this.filter = {};
     this.filter.page_size = this.pageSize;
-    this.filter.page_no = this.pageNo;
+    this.filter.page_no = 1;
     this.getFootMateList(this.pageSize, 1);
     this.deactivateAll();
     this.checkFilters = false;
@@ -302,6 +306,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
       });
     }
     this.filter[type] = filterArray.join(',');
+    this.filter.page_no = 1;
     this.getFootMateList(this.pageSize, 1);
   }
 

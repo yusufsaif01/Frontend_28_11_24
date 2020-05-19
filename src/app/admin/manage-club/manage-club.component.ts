@@ -28,6 +28,7 @@ export class ManageClubComponent implements OnInit, OnDestroy {
   list: any;
   pageSize: number = 20;
   totalRecords = 10;
+  selectedPage: number;
   clubs_count: number;
   show_count: number;
   tzoffset = new Date().getTimezoneOffset() * 60000;
@@ -76,6 +77,7 @@ export class ManageClubComponent implements OnInit, OnDestroy {
         this.dataSource = new MatTableDataSource(response.data.records);
         this.clubs_count = response.data.total;
         this.show_count = response.data.records.length;
+        this.selectedPage = page_no;
       });
   }
 
