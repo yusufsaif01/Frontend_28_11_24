@@ -5,7 +5,7 @@ import { FootMatesService } from '@app/manage-footmates/foot-mates/foot-mates.se
 import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
-import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
+import { Constants } from '@app/shared/static-data/static-data';
 
 interface FootMatesContext {
   name: string;
@@ -135,50 +135,9 @@ export class FootMatesComponent implements OnInit, OnDestroy {
   }
 
   setDefaultValues() {
-    this.locationRangeFilters.strongFoot = [
-      {
-        name: 'Left',
-        value: 'left'
-      },
-      {
-        name: 'Right',
-        value: 'right'
-      }
-    ];
-
-    this.locationRangeFilters.ageRange = [
-      {
-        name: '6-12',
-        value: '6-12'
-      },
-      {
-        name: '13-26',
-        value: '13-26'
-      },
-      {
-        name: '27-38',
-        value: '27-38'
-      },
-      {
-        name: '39-50',
-        value: '39-50'
-      }
-    ];
-
-    this.locationRangeFilters.playerType = [
-      {
-        name: 'Grassroot',
-        value: 'Grassroot'
-      },
-      {
-        name: 'Amateur',
-        value: 'Amateur'
-      },
-      {
-        name: 'Professional',
-        value: 'Professional'
-      }
-    ];
+    this.locationRangeFilters.strongFoot = Constants.STRONG_FOOT;
+    this.locationRangeFilters.ageRange = Constants.AGE_RANGE;
+    this.locationRangeFilters.playerType = Constants.PLAYER_TYPE;
     this.getPositionsListing();
   }
 
