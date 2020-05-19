@@ -38,7 +38,7 @@
             </div>
           </div>
           <div class="middle">
-            <h4>{{ footRequest.player_type }}</h4>
+            <h4 class="gray">{{ footRequest.player_type }}</h4>
             <h4 *ngIf="footRequest.mutuals">
               <a (click)="openDialog(footRequest)"
                 >{{ footRequest.mutuals }} Mutual Footmates</a
@@ -75,7 +75,7 @@
     </div>
     <ng-container *ngIf="footRequestList.length === 0">
       <span class="no-data-found">
-        No foot requests found
+        No Foot Requests Found
       </span>
     </ng-container>
     <!-- pagination -->

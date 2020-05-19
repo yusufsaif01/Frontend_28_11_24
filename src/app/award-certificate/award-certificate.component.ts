@@ -24,6 +24,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
   public dataSource = new MatTableDataSource([]);
   pageSize: number = 10;
   currentPageNo: number = 1;
+  selectedPage: number;
   environment = environment;
   player_type: string;
   member_type: string;
@@ -152,6 +153,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
           this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
           this.total_count = response.data.total;
+          this.selectedPage = page_no;
         });
     } else {
       this.awardCertificateService
@@ -171,6 +173,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
           this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
           this.total_count = response.data.total;
+          this.selectedPage = page_no;
         });
     }
   }

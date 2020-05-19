@@ -909,7 +909,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
         association: ['', [Validators.required]],
         association_other: [],
-        contact_person: this._formBuilder.array([]),
+        contact_person: this._formBuilder.array([], [Validators.required]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
         reg_number: ['', Validators.required],
@@ -963,7 +963,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         association_other: [],
         document_type: ['', []],
         number: [''],
-        contact_person: this._formBuilder.array([], []),
+        contact_person: this._formBuilder.array([], [Validators.required]),
         trophies: this._formBuilder.array([], []),
         top_players: this._formBuilder.array([], []),
         associated_players: [

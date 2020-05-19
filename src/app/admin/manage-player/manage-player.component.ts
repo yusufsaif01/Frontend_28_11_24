@@ -37,6 +37,7 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
   list: any;
   pageSize: number = 20;
   totalRecords = 10;
+  selectedPage: number;
   players_count: number;
   grassroot_count: number;
   amateur_count: number;
@@ -93,6 +94,7 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
         this.amateur_count = response.data.players_count.amateur;
         this.grassroot_count = response.data.players_count.grassroot;
         this.proff_count = response.data.players_count.professional;
+        this.selectedPage = page_no;
       });
   }
 
