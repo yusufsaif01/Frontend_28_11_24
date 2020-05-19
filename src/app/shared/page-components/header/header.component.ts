@@ -5,6 +5,9 @@ import { HeaderService } from './header.service';
 import { environment } from '../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
+import { debounceTime, map } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+
 interface MemberListContext {
   member_type: string;
   player_type: string;
@@ -24,10 +27,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public member_type: string = localStorage.getItem('member_type');
   memberList: MemberListContext[] = [];
   memberBackupList: MemberListContext[] = [];
-  searchText = '';
+  searchText: string = '';
   pageNo: number = 1;
   pageSize: number = 10;
   keyCode: number;
+
+  results$: Observable<any>;
+  subject = new Subject();
+
   constructor(
     private _router: Router,
     private _authenticationService: AuthenticationService,
@@ -37,7 +44,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.searchInit();
+  }
 
   logout() {
     this._authenticationService.logout();
@@ -78,34 +87,47 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (!scrolled) {
       this.pageNo = 1;
     }
-    this._headerService
-      .getMemberSearchList({
-        search: value,
-        page_no: this.pageNo,
-        page_size: this.pageSize
-      })
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
-          let records = response.data.records;
-          for (let i = 0; i < records.length; i++) {
-            records[i].avatar = environment.mediaUrl + records[i].avatar;
-          }
 
-          if (!scrolled) {
-            this.memberList = records;
-          } else {
-            records.forEach(el => {
-              if (!this.memberList.includes(el)) {
-                this.memberList.push(el);
+    this.subject.next({
+      searchText: this.searchText,
+      scrolled: scrolled
+    });
+  }
+
+  searchInit() {
+    this.results$ = this.subject.pipe(
+      debounceTime(1000),
+      untilDestroyed(this),
+      map((data: any) => {
+        this._headerService
+          .getMemberSearchList({
+            search: data.searchText,
+            page_no: this.pageNo,
+            page_size: this.pageSize
+          })
+          .subscribe(
+            response => {
+              let records = response.data.records;
+              for (let i = 0; i < records.length; i++) {
+                records[i].avatar = environment.mediaUrl + records[i].avatar;
               }
-            });
-          }
-        },
-        error => {
-          this._toastrService.error('Error', error.error.message);
-        }
-      );
+
+              if (!data.scrolled) {
+                this.memberList = records;
+              } else {
+                records.forEach(el => {
+                  if (!this.memberList.includes(el)) {
+                    this.memberList.push(el);
+                  }
+                });
+              }
+            },
+            error => {
+              this._toastrService.error('Error', error.error.message);
+            }
+          );
+      })
+    );
   }
 
   onScrollDown() {
