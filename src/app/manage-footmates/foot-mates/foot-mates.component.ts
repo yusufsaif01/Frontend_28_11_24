@@ -78,7 +78,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
   // foot_request_count = 0;
   // foot_mate_count = 0;
   foot_data: any;
-  pageSize: number = 5;
+  pageSize: number = 20;
   pageNo: number = 1;
   show_count: number = 0;
 
