@@ -5,7 +5,7 @@ import { FootMatesService } from '@app/manage-footmates/foot-mates/foot-mates.se
 import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
-import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
+import { Constants } from '@app/shared/static-data/static-data';
 
 interface FootMatesContext {
   name: string;
@@ -135,50 +135,9 @@ export class FootMatesComponent implements OnInit, OnDestroy {
   }
 
   setDefaultValues() {
-    this.locationRangeFilters.strongFoot = [
-      {
-        name: 'Left',
-        value: 'left'
-      },
-      {
-        name: 'Right',
-        value: 'right'
-      }
-    ];
-
-    this.locationRangeFilters.ageRange = [
-      {
-        name: '6-12',
-        value: '6-12'
-      },
-      {
-        name: '13-26',
-        value: '13-26'
-      },
-      {
-        name: '27-38',
-        value: '27-38'
-      },
-      {
-        name: '39-50',
-        value: '39-50'
-      }
-    ];
-
-    this.locationRangeFilters.playerType = [
-      {
-        name: 'Grassroot',
-        value: 'Grassroot'
-      },
-      {
-        name: 'Amateur',
-        value: 'Amateur'
-      },
-      {
-        name: 'Professional',
-        value: 'Professional'
-      }
-    ];
+    this.locationRangeFilters.strongFoot = Constants.STRONG_FOOT;
+    this.locationRangeFilters.ageRange = Constants.AGE_RANGE;
+    this.locationRangeFilters.playerType = Constants.PLAYER_TYPE;
     this.getPositionsListing();
   }
 
@@ -247,6 +206,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
           }
           this.footMatesList = records;
           this.show_count = response.data.records.length;
+          this.foot_data.footmates = response.data.total;
         },
         error => {}
       );
@@ -265,6 +225,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
       delete this.filter.state;
       delete this.filter.city;
     }
+    this.filter.page_no = 1;
     this.getFootMateList(this.pageSize, 1);
   }
 
@@ -299,6 +260,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
       this.locationRangeFilters.cities = [];
       delete this.filter.state;
     }
+    this.filter.page_no = 1;
     this.getFootMateList(this.pageSize, 1);
   }
 
@@ -309,13 +271,14 @@ export class FootMatesComponent implements OnInit, OnDestroy {
     } else {
       delete this.filter.city;
     }
+    this.filter.page_no = 1;
     this.getFootMateList(this.pageSize, 1);
   }
 
   clearFilters() {
     this.filter = {};
     this.filter.page_size = this.pageSize;
-    this.filter.page_no = this.pageNo;
+    this.filter.page_no = 1;
     this.getFootMateList(this.pageSize, 1);
     this.deactivateAll();
     this.checkFilters = false;
@@ -343,6 +306,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
       });
     }
     this.filter[type] = filterArray.join(',');
+    this.filter.page_no = 1;
     this.getFootMateList(this.pageSize, 1);
   }
 

@@ -9,6 +9,7 @@ import { HeaderComponent } from '@app/shared/page-components/header/header.compo
 import { EditProfileService } from './edit-profile-service';
 import { ViewProfileService } from '../view-profile/view-profile.service';
 import { untilDestroyed } from '@app/core';
+import { Constants } from '@app/shared/static-data/static-data';
 
 interface trophyObject {
   name: string;
@@ -72,311 +73,14 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   position: FormArray;
 
   positionArray: any[] = [];
-  strongFootArray = [
-    {
-      name: 'Left',
-      value: 'left'
-    },
-    {
-      name: 'Right',
-      value: 'right'
-    }
-  ];
-  sampleCountryArray = [
-    {
-      name: 'India',
-      value: 'india'
-    },
-    {
-      name: 'UK',
-      value: 'uk'
-    },
-    {
-      name: 'USA',
-      value: 'usa'
-    },
-    {
-      name: 'Australia',
-      value: 'australia'
-    }
-  ];
-  sampleStateArray = [
-    {
-      name: 'Delhi',
-      value: 'delhi'
-    },
-    {
-      name: 'Mumbai',
-      value: 'mumbai'
-    },
-    {
-      name: 'U.P',
-      value: 'up'
-    },
-    {
-      name: 'M.P',
-      value: 'mp'
-    }
-  ];
-  designationArray = [
-    {
-      name: 'Volvo',
-      value: 'volvo'
-    },
-    {
-      name: 'Saab',
-      value: 'saab'
-    },
-    {
-      name: 'Mercedes',
-      value: 'mercedes'
-    },
-    {
-      name: 'Audi',
-      value: 'audi'
-    }
-  ];
-  leagueArray = [
-    {
-      name: 'Hero Indian Super League',
-      value: 'Hero Indian Super League'
-    },
-    {
-      name: 'Hero Indian women’s League',
-      value: 'Hero Indian women’s League'
-    },
-    {
-      name: 'Hero I-League',
-      value: 'Hero I-League'
-    },
-    {
-      name: 'Hero 2nd Division',
-      value: 'Hero 2nd Division'
-    },
-    {
-      name: 'Hero Elite League',
-      value: 'Hero Elite League'
-    },
-    {
-      name: 'Hero Junior League',
-      value: 'Hero Junior League'
-    },
-    {
-      name: 'Hero Sub - Junior League',
-      value: 'Hero Sub - Junior League'
-    },
-    {
-      name: 'Hero Super Cup',
-      value: 'Hero Super Cup'
-    },
-    {
-      name: 'Hero Gold Cup',
-      value: 'Hero Gold Cup'
-    },
-    {
-      name: 'Second Division League',
-      value: 'Second Division League'
-    },
-    {
-      name: 'Golden Baby Leagues',
-      value: 'Golden Baby Leagues'
-    },
-    {
-      name: 'Hero Senior NFC',
-      value: 'Hero Senior NFC'
-    },
-    {
-      name: 'Hero Senior Women NFC',
-      value: 'Hero Senior Women NFC'
-    },
-    {
-      name: 'Hero Junior NFC',
-      value: 'Hero Junior NFC'
-    },
-    {
-      name: 'Hero Junior Girl NFC',
-      value: 'Hero Junior Girl NFC'
-    },
-    {
-      name: 'Hero Sub-Junior NFC',
-      value: 'Hero Sub-Junior NFC'
-    },
-    {
-      name: 'Hero Sub-Junior Girl’s NFC',
-      value: 'Hero Sub-Junior Girl’s NFC'
-    },
-    {
-      name: 'Other',
-      value: 'Other'
-    }
-  ];
-  sampleCityArray = [
-    {
-      name: 'City1',
-      value: 'city1'
-    },
-    {
-      name: 'City2',
-      value: 'city2'
-    },
-    {
-      name: 'City3',
-      value: 'city3'
-    },
-    {
-      name: 'City4',
-      value: 'city4'
-    }
-  ];
-  clubAcadTypeArray = [
-    {
-      name: 'Residential',
-      value: 'Residential'
-    },
-    {
-      name: 'Non-Residential',
-      value: 'Non-Residential'
-    }
-  ];
-
-  stateAssociationArray = [
-    {
-      name: 'All Manipur Football Association',
-      value: 'All Manipur Football Association'
-    },
-    {
-      name: 'Andaman & Nicobar Football Association',
-      value: 'Andaman & Nicobar Football Association'
-    },
-    {
-      name: 'Andhra Pradesh Football Association',
-      value: 'Andhra Pradesh Football Association'
-    },
-    {
-      name: 'Arunachal Pradesh Football Association',
-      value: 'Arunachal Pradesh Football Association'
-    },
-    { name: 'Assam Football Association', value: 'Assam Football Association' },
-    { name: 'Bihar Football Association', value: 'Bihar Football Association' },
-    {
-      name: 'Chandigarh Football Association',
-      value: 'Chandigarh Football Association'
-    },
-    {
-      name: 'Chhattisgarh Football Association',
-      value: 'Chhattisgarh Football Association'
-    },
-    {
-      name: 'Dadra and Nagar Haveli Football Association',
-      value: 'Dadra and Nagar Haveli Football Association'
-    },
-    {
-      name: 'Daman and Diu Football Association',
-      value: 'Daman and Diu Football Association'
-    },
-    {
-      name: 'Delhi Soccer Association (Football Delhi)',
-      value: 'Delhi Soccer Association (Football Delhi)'
-    },
-    {
-      name: 'Football Association of Odisha',
-      value: 'Football Association of Odisha'
-    },
-    { name: 'Goa Football Association', value: 'Goa Football Association' },
-    {
-      name: 'Gujarat State Football Association',
-      value: 'Gujarat State Football Association'
-    },
-    {
-      name: 'Haryana Football Association',
-      value: 'Haryana Football Association'
-    },
-    {
-      name: 'Himachal Pradesh Football Association',
-      value: 'Himachal Pradesh Football Association'
-    },
-    {
-      name: 'Indian Football Association - Kolkata',
-      value: 'Indian Football Association - Kolkata'
-    },
-    {
-      name: 'Jammu & Kashmir Football Association',
-      value: 'Jammu & Kashmir Football Association'
-    },
-    {
-      name: 'Jharkhand Football Association',
-      value: 'Jharkhand Football Association'
-    },
-    {
-      name: 'Karnataka State Football Association',
-      value: 'Karnataka State Football Association'
-    },
-    {
-      name: 'Kerala Football Association',
-      value: 'Kerala Football Association'
-    },
-    {
-      name: 'Lakshadweep Football Association',
-      value: 'Lakshadweep Football Association'
-    },
-    {
-      name: 'Madhya Pradesh Football Association',
-      value: 'Madhya Pradesh Football Association'
-    },
-    {
-      name: 'Meghalaya Football Association',
-      value: 'Meghalaya Football Association'
-    },
-    {
-      name: 'Pondicherry Football Association',
-      value: 'Pondicherry Football Association'
-    },
-    {
-      name: 'Nagaland Football Association',
-      value: 'Nagaland Football Association'
-    },
-    {
-      name: 'Mizoram Football Association',
-      value: 'Mizoram Football Association'
-    },
-    {
-      name: 'Punjab Football Association',
-      value: 'Punjab Football Association'
-    },
-    {
-      name: 'Rajasthan Football Association',
-      value: 'Rajasthan Football Association'
-    },
-    {
-      name: 'Sikkim Football Association',
-      value: 'Sikkim Football Association'
-    },
-    {
-      name: 'Tripura Football Association',
-      value: 'Tripura Football Association'
-    },
-    {
-      name: 'Telangana Football Association',
-      value: 'Telangana Football Association'
-    },
-    {
-      name: 'Tamil Nadu Football Association',
-      value: 'Tamil Nadu Football Association'
-    },
-    {
-      name: 'Uttar Pradesh Football Sangh',
-      value: 'Uttar Pradesh Football Sangh'
-    },
-    {
-      name: 'Uttarakhand State Football Association',
-      value: 'Uttarakhand State Football Association'
-    },
-    {
-      name: 'Western India Football Association - Maharastra',
-      value: 'Western India Football Association - Maharastra'
-    },
-    { name: 'Others', value: 'Others' }
-  ];
+  strongFootArray = Constants.STRONG_FOOT;
+  sampleCountryArray = Constants.SAMPLE_COUNTRY_ARRAY;
+  sampleStateArray = Constants.SAMPLE_STATE_ARRAY;
+  designationArray = Constants.DESIGNATION_ARRAY;
+  leagueArray = Constants.LEAGUE_ARRAY;
+  sampleCityArray = Constants.SAMPLE_CITY_ARRAY;
+  clubAcadTypeArray = Constants.CLUB_ACAD_TYPE_ARRAY;
+  stateAssociationArray = Constants.STATE_ASSOCIATION_ARRAY;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -909,7 +613,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
         association: ['', [Validators.required]],
         association_other: [],
-        contact_person: this._formBuilder.array([]),
+        contact_person: this._formBuilder.array([], [Validators.required]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
         reg_number: ['', Validators.required],
@@ -963,7 +667,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         association_other: [],
         document_type: ['', []],
         number: [''],
-        contact_person: this._formBuilder.array([], []),
+        contact_person: this._formBuilder.array([], [Validators.required]),
         trophies: this._formBuilder.array([], []),
         top_players: this._formBuilder.array([], []),
         associated_players: [

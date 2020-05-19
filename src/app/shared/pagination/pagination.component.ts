@@ -18,7 +18,7 @@ export class PaginationComponent implements OnInit {
   @Input() showCount: any = 0;
   @Input() totalRows: any = 0;
   @Input() rowsPerPage: any = 10;
-  selectedPage: any = 1;
+  @Input() selectedPage: any = 1;
   private maxPage: any = 1;
   @Output() onChange = new EventEmitter<any>();
 

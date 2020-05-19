@@ -27,6 +27,7 @@
             [scrollWindow]="false"
           >
             <span class="search-options">
+              <ng-container *ngIf="results$ | async"></ng-container>
               <mat-option
                 *ngFor="let member of memberList"
                 (onSelectionChange)="openPublicProfile(member.user_id)"

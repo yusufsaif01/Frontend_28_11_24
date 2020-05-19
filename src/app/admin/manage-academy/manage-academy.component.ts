@@ -28,6 +28,7 @@ export class ManageAcademyComponent implements OnInit, OnDestroy {
   list: any;
   pageSize: number = 20;
   totalRecords = 10;
+  selectedPage: number;
   acad_count: number;
   show_count: number;
   tzoffset = new Date().getTimezoneOffset() * 60000;
@@ -80,6 +81,7 @@ export class ManageAcademyComponent implements OnInit, OnDestroy {
         this.dataSource = new MatTableDataSource(response.data.records);
         this.acad_count = response.data.total;
         this.show_count = response.data.records.length;
+        this.selectedPage = page_no;
       });
   }
 
