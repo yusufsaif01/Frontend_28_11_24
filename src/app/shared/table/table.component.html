@@ -53,12 +53,23 @@
           {{ tableConfig.columns[col].getValue(element) }}
         </p>
         <p *ngIf="col === 'media'">
-          <img
-            class="thumbnail"
-            [src]="tableConfig.columns[col].getValue(element)"
-            alt=""
-          />
-          <img class="thumbnail" src="../../../assets/images/pdf.png" alt="" />
+          <a
+            [href]="tableConfig.columns[col].getValue(element)"
+            target="_blank"
+          >
+            <img
+              class="thumbnail"
+              [src]="
+                tableConfig.columns[col]
+                  .getValue(element)
+                  .split('.')
+                  .includes('pdf')
+                  ? 'assets/images/pdf.png'
+                  : tableConfig.columns[col].getValue(element)
+              "
+              alt=""
+            />
+          </a>
         </p>
       </div>
     </mat-cell>
