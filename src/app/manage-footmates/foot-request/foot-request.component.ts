@@ -37,6 +37,7 @@ export class FootRequestComponent implements OnInit, OnDestroy {
   foot_data: any;
   pageSize: number = 12;
   show_count: number = 0;
+  selectedPage: number;
 
   footRequestList: FootRequestContext[] = [];
 
@@ -73,6 +74,7 @@ export class FootRequestComponent implements OnInit, OnDestroy {
           this.footRequestList = records;
           this.show_count = response.data.records.length;
           this.foot_data.footmate_requests = response.data.total;
+          this.selectedPage = page_no;
         },
         error => {}
       );
