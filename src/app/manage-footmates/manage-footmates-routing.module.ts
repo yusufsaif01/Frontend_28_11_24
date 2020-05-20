@@ -23,7 +23,7 @@ const appRoutes: Routes = [
       {
         path: 'foot-mates',
         component: FootMatesComponent,
-        data: { title: extract('Foot Mates') }
+        data: { title: extract('FootMates') }
       },
       { path: '**', component: FootRequestComponent }
     ]
