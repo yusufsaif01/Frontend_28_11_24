@@ -58,6 +58,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
   locationData: LocationsIds;
   checkFilters: boolean | undefined = undefined;
   public active: boolean;
+  selectedPage: number;
 
   menuOpened() {
     if (this.active) {
@@ -207,6 +208,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
           this.footMatesList = records;
           this.show_count = response.data.records.length;
           this.foot_data.footmates = response.data.total;
+          this.selectedPage = this.filter.page_no;
         },
         error => {}
       );
