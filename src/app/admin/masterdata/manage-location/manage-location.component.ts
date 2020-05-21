@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ManageLocationTableConfig } from './manage-location-table-conf';
 import { untilDestroyed } from '@app/core';
-import { SharedService } from '@app/shared/shared-service';
+import { SharedService } from '@app/shared/shared.service';
 @Component({
   selector: 'app-manage-location',
   templateUrl: './manage-location.component.html',

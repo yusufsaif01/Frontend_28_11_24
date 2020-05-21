@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { StateService } from './manage-state-service';
 import { untilDestroyed } from '@app/core';
-import { SharedService } from '@app/shared/shared-service';
+import { SharedService } from '@app/shared/shared.service';
 @Component({
   selector: 'app-manage-state',
   templateUrl: './manage-state.component.html',

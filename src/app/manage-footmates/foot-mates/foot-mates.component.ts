@@ -6,7 +6,7 @@ import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
 import { Constants } from '@app/shared/static-data/static-data';
-import { SharedService } from '@app/shared/shared-service';
+import { SharedService } from '@app/shared/shared.service';
 
 interface FootMatesContext {
   name: string;

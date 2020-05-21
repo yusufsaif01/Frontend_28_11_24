@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AdminService } from '@app/admin/admin.service';
 import { CityService } from './manage-city-service';
 import { untilDestroyed } from '@app/core';
-import { SharedService } from '@app/shared/shared-service';
+import { SharedService } from '@app/shared/shared.service';
 @Component({
   selector: 'app-manage-city',
   templateUrl: './manage-city.component.html',
