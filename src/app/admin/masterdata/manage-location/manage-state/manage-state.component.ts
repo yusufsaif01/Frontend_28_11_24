@@ -96,7 +96,10 @@ export class ManageStateComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.addStateForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]]
+      name: [
+        '',
+        [Validators.required, Validators.pattern(/^[a-zA-Z0-9\&\- ]+$/)]
+      ]
     });
   }
   editState(name: any, id: any) {

@@ -153,7 +153,10 @@ export class ManageCityComponent implements OnInit, OnDestroy {
   createForm() {
     this.addCityForm = this.formBuilder.group({
       state_id: ['', [Validators.required]],
-      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]]
+      name: [
+        '',
+        [Validators.required, Validators.pattern(/^[a-zA-Z0-9\&\- ]+$/)]
+      ]
     });
   }
   editCity(name: any, id: any) {
