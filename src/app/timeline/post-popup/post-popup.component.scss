@@ -1,5 +1,6 @@
 @import "src/assets/sass/abstracts/variables";
 @import "src/assets/sass/abstracts/mixins";
+
 .from-container {
   margin: -24px;
 }
@@ -29,19 +30,42 @@
 }
 
 .modal-body {
-  padding: 3rem;
-  textarea {
-    width: 100%;
-    border: none;
-    outline: none;
-    min-height: 10rem;
-    height: 100%;
-    padding: 2rem;
-    resize: none;
+  padding: 1rem 2rem;
+  .message-box {
+    textarea {
+      width: 100%;
+      border: none;
+      outline: none;
+      min-height: 15rem;
+      height: 100%;
+      padding: 2rem 0rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      font-family: inherit;
+      color: $text-muted;
+    }
+  }
+  .uploaded-images {
+    overflow-y: scroll;
+    margin-top: 1rem;
+    max-height: 20rem;
+    &::-webkit-scrollbar {
+      width: 1em;
+    }
+    &::webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: darkgrey;
+      outline: 1px solid slategrey;
+    }
+    img {
+      width: 100%;
+    }
   }
 }
 .modal-footer {
-  padding: 3rem;
+  padding: 2rem 3rem;
   display: flex;
   .left {
     width: 60%;
@@ -49,12 +73,16 @@
       list-style: none;
       li {
         display: inline-block;
-        margin-right: 3rem;
-        a {
-          color: $text-muted;
-          &:hover {
-            color: $blue;
-          }
+        color: $text-muted;
+        position: relative;
+        input {
+          position: absolute;
+          visibility: hidden;
+          width: 100%;
+        }
+        &:hover {
+          color: $blue;
+          cursor: pointer;
         }
       }
     }
@@ -63,16 +91,11 @@
     width: 40%;
     display: block;
     text-align: right;
-    button {
-      @include btn-primary;
-      color: $color-white;
-      padding: 1rem 2rem;
-      font-size: 1.8rem;
-      font-weight: 700;
-      border: none;
-      &:disabled {
-        @include disable;
-      }
+    button.cancel {
+      @include cancel;
+    }
+    button.save {
+      @include save;
     }
   }
 }
