@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 
 const routes = {
   getAchievementCount: () => '/achievement/stats',
-  createPost: () => `/post/add`
+  createPost: () => `/post/add`,
+  getPostListing: () => `/posts/list`
 };
 
 interface countResponseContext {
@@ -41,5 +42,12 @@ export class TimelineService {
 
   createPost(context: any): Observable<any> {
     return this.httpClient.post<any>(routes.createPost(), context);
+  }
+
+  getPostListing(context: any = {}) {
+    let query = '?';
+    if (context['page_no']) query += 'page_no=' + context['page_no'];
+    if (context['page_size']) query += '&page_size=' + context['page_size'];
+    return this.httpClient.get<any>(routes.getPostListing() + query);
   }
 }

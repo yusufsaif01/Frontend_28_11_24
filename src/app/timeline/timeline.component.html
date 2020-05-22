@@ -28,7 +28,7 @@
       </div>
     </div>
     <!-- small post -->
-    <div class="post">
+    <!-- <div class="post">
       <div class="post-header border-bottom">
         <div class="post-header-left">
           <div class="profile-img">
@@ -149,10 +149,10 @@
           </button>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- carsouels div -->
-    <div class="slider">
+    <!-- <div class="slider">
       <owl-carousel-o [options]="customOptions">
         <ng-template carouselSlide>
           <div class="block">
@@ -295,21 +295,21 @@
           </div>
         </ng-template>
       </owl-carousel-o>
-    </div>
+    </div> -->
     <!-- corsuels end -->
 
     <!-- post header -->
-    <div class="post">
+    <div class="post" *ngFor="let post of postListing">
       <div class="post-header border-bottom">
         <div class="post-header-left">
           <div class="profile-img">
-            <img src="assets/images/profile-icon.png" alt="" />
+            <img [src]="post.avatar" alt="" />
             <span></span>
           </div>
           <div class="profile-details">
-            <h2>Collin Wender</h2>
-            <h5>Wing Back</h5>
-            <h5>08 August 2020</h5>
+            <h2>{{ post.posted_by.name }}</h2>
+            <h5>{{ post.posted_by.position }}</h5>
+            <h5>{{ post.created_at | date }}</h5>
           </div>
         </div>
 
@@ -331,31 +331,22 @@
       <div class="post-middle border-bottom">
         <div class="post-content">
           <p>
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default
-            model text, and a search for 'lorem ipsum' will uncover many web
-            sites still in their infancy. Various versions have evolved over the
-            years, sometimes by accident, sometimes on purpose (injected humour
-            and the like).
+            {{ post.post.text }}
           </p>
         </div>
         <div class="post-media">
-          <img src="assets/images/ads.png" alt="" />
+          <img [src]="post.post.media_url" alt="" />
         </div>
       </div>
       <div class="post-icons border-bottom">
         <ul>
           <li>
             <i-feather name="thumbs-up" class="icon-size"></i-feather>
-            <span>8</span>
+            <span>{{ post.likes }}</span>
           </li>
           <li>
             <i-feather name="message-square" class="icon-size"></i-feather>
-            <span>8</span>
+            <span>{{ post.comments }}</span>
           </li>
         </ul>
       </div>
