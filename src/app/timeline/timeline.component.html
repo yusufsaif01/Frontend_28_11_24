@@ -334,7 +334,7 @@
             {{ post.post.text }}
           </p>
         </div>
-        <div class="post-media">
+        <div class="post-media" *ngIf="post.post.media_url">
           <img [src]="post.post.media_url" alt="" />
         </div>
       </div>
