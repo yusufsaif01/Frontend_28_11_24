@@ -10,11 +10,7 @@ const routes = {
   activeUser: (c: StatusUserContext) => '/member/status-activate',
   deactivateUser: (c: StatusUserContext) => '/member/status-deactivate',
   addState: (c: AddStateContext) => '/master/state/add',
-  getLocationStats: () => '/master/location/stats',
-  getStateListByCountry: (c: GetStateListByCountryContext) =>
-    '/master/state/list',
   addCity: (c: AddCityContext) => '/master/city/add',
-  getCityListByState: (c: GetCityListByStateContext) => '/master/city/list',
   getMemberTypeList: () => '/member-type/list',
   addAbility: (c: AddAbilityContext) =>
     '/master/player-specialization/ability/add',
@@ -164,46 +160,6 @@ interface AddAbilityContext {
   name: string;
 }
 
-let clubResponse = {
-  data: {
-    total: 1,
-    records: [
-      {
-        name: 'club1',
-        no_of_players: '',
-        email: 'club1@gmail.com',
-        status: 'pending'
-      },
-      {
-        name: 'club2',
-        no_of_players: '2',
-        email: 'club1@gmail.com',
-        status: 'pending'
-      }
-    ]
-  }
-};
-
-let academyResponse = {
-  data: {
-    total: 2,
-    records: [
-      {
-        name: 'acad1',
-        no_of_players: '10',
-        email: 'acad1@gmail.com',
-        status: 'pending'
-      },
-      {
-        name: 'acad',
-        no_of_players: '',
-        email: 'acad@gmail.com',
-        status: 'active'
-      }
-    ]
-  }
-};
-
 interface DeleteUserResponseContext {
   status: string;
   message: string;
@@ -232,26 +188,6 @@ interface AddStateResponseContext {
 interface AddAbilityResponseContext {
   status: string;
   message: string;
-}
-interface LocationStatsResponseContext {
-  data: {
-    country: string;
-    country_id: string;
-    no_of_state: number;
-    no_of_city: number;
-  }[];
-}
-
-interface GetCityStateListResponseContext {
-  status: string;
-  message: string;
-  data: {
-    total: number;
-    records: {
-      name: string;
-      id: string;
-    }[];
-  };
 }
 
 interface AddCityResponseContext {
@@ -458,52 +394,10 @@ export class AdminService {
     );
   }
 
-  getLocationStats(): Observable<LocationStatsResponseContext> {
-    return this.httpClient.get<LocationStatsResponseContext>(
-      routes.getLocationStats()
-    );
-  }
-
-  getStateListByCountry(
-    context: GetStateListByCountryContext
-  ): Observable<GetCityStateListResponseContext> {
-    let params = '/';
-    if (context['country_id']) {
-      params += `${context['country_id']}`;
-    }
-    return this.httpClient.get<GetCityStateListResponseContext>(
-      routes.getStateListByCountry(context) + params
-    );
-  }
-
   addCity(context: AddCityContext): Observable<AddCityResponseContext> {
     return this.httpClient.post<AddCityResponseContext>(
       routes.addCity(context),
       context
-    );
-  }
-  getCityListByState(
-    context: GetCityListByStateContext
-  ): Observable<GetCityStateListResponseContext> {
-    let params = '/';
-    if (context['country_id']) {
-      params += `${context['country_id']}`;
-    }
-    if (context['state_id']) {
-      params += `/${context['state_id']}`;
-    }
-    let query = '?';
-    if (context['page_no']) {
-      query += 'page_no=' + context['page_no'];
-    }
-    if (context['page_size']) {
-      query += '&page_size=' + context['page_size'];
-    }
-    if (context['search']) {
-      query += '&search=' + context['search'];
-    }
-    return this.httpClient.get<GetCityStateListResponseContext>(
-      routes.getCityListByState(context) + params + query
     );
   }
 

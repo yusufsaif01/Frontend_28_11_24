@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { StateService } from './manage-state-service';
 import { untilDestroyed } from '@app/core';
+import { SharedService } from '@app/shared/shared.service';
 @Component({
   selector: 'app-manage-state',
   templateUrl: './manage-state.component.html',
@@ -41,7 +42,8 @@ export class ManageStateComponent implements OnInit, OnDestroy {
     private adminService: AdminService,
     private toastrService: ToastrService,
     private route: ActivatedRoute,
-    private service: StateService
+    private service: StateService,
+    private sharedService: SharedService
   ) {
     this.createForm();
     this.route.params.subscribe(params => {
@@ -79,8 +81,8 @@ export class ManageStateComponent implements OnInit, OnDestroy {
       );
   }
   getStateListByCountry(country_id: string) {
-    this.adminService
-      .getStateListByCountry({ country_id })
+    this.sharedService
+      .getStatesListing(country_id)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
