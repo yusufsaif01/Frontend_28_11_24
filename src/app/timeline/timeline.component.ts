@@ -60,7 +60,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   comment_count: number = 0;
   show_comment_box: false;
 
-  @Input() player_type = 'professional';
+  @Input() player_type = '';
 
   addComment$: Observable<any>;
 

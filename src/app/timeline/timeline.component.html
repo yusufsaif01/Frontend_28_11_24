@@ -77,11 +77,12 @@
           <ng-container *ngIf="addComment$ | async"></ng-container>
           <ng-container *ngIf="!['amateur', 'grassroot'].includes(player_type)">
             <li>
-              <i-feather
-                name="message-square"
-                class="icon-size"
+              <button
                 (click)="show_comment_box = true"
-              ></i-feather>
+                [disabled]="!player_type"
+              >
+                <i-feather name="message-square" class="icon-size"> </i-feather>
+              </button>
               <span>{{ comment_count }}</span>
             </li>
           </ng-container>
