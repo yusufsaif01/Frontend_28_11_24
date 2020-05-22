@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 const routes = {
   getAchievementCount: () => '/achievement/stats',
   createPost: () => `/post/add`,
-  getPostListing: () => `/posts/list`
+  getPostListing: () => `/posts/list`,
+  updatePost: (post_id: string) => `/post/${post_id}`
 };
 
 interface countResponseContext {
@@ -42,6 +43,10 @@ export class TimelineService {
 
   createPost(context: any): Observable<any> {
     return this.httpClient.post<any>(routes.createPost(), context);
+  }
+
+  updatePost(post_id: string, context: any): Observable<any> {
+    return this.httpClient.put<any>(routes.updatePost(post_id), context);
   }
 
   getPostListing(context: any = {}) {

@@ -22,9 +22,14 @@ export class PostPopupComponent implements OnInit {
     public dialogRef: MatDialogRef<PostPopupComponent>,
     private formBuilder: FormBuilder,
     private service: TimelineService,
-    private toastrService: ToastrService // @Inject(MAT_DIALOG_DATA) public data: DialogData
+    private toastrService: ToastrService,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.createForm();
+    if (this.data) {
+      console.log(this.data);
+      this.patchValue();
+    }
   }
 
   onNoClick(): void {
@@ -38,6 +43,11 @@ export class PostPopupComponent implements OnInit {
       text: [''],
       media: ['']
     });
+  }
+
+  patchValue() {
+    this.createPostForm.patchValue(this.data.post);
+    this.imageURL = this.data.post.media_url;
   }
 
   changeMedia(files: FileList) {
@@ -54,7 +64,7 @@ export class PostPopupComponent implements OnInit {
     };
   }
 
-  onCreatePost() {
+  createNewPost() {
     let requestData = this.toFormData(this.createPostForm.value);
     if (this.media) requestData.set('media', this.media);
     this.service
@@ -82,6 +92,34 @@ export class PostPopupComponent implements OnInit {
       formData.append(key, value);
     }
     return formData;
+  }
+
+  onClickSave() {
+    if (this.data) {
+      this.updatePost();
+    } else {
+      this.createNewPost();
+    }
+  }
+  updatePost() {
+    let body: any = {};
+    body = this.data.post;
+    delete body.media_type;
+    delete body.media_url;
+    let requestData = this.toFormData(body);
+    if (this.media) requestData.set('media', this.media);
+    this.service
+      .updatePost(this.data.id, requestData)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          console.log(response);
+          this.dialogRef.close('success');
+        },
+        error => {
+          this.toastrService.error('Error', error.error.message);
+        }
+      );
   }
 
   ngOnDestroy() {}

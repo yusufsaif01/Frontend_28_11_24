@@ -11,6 +11,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { TimelineService } from './timeline.service';
 import { ToastrService } from 'ngx-toastr';
+import { untilDestroyed } from '@app/core';
 
 @Component({
   selector: 'app-timeline',
@@ -79,14 +80,19 @@ export class TimelineComponent implements OnInit {
   getPostListing() {
     this.service
       .getPostListing({ page_no: this.pageNo, page_size: this.pageSize })
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           console.log(response);
           response.data.records.forEach((element: any) => {
-            element.posted_by.avatar =
-              environment.mediaUrl + element.posted_by.avatar;
-            element.posted_by.media_url =
-              environment.mediaUrl + element.posted_by.media_url;
+            if (element.posted_by.avatar) {
+              element.posted_by.avatar =
+                environment.mediaUrl + element.posted_by.avatar;
+            }
+            if (element.post.media_url) {
+              element.post.media_url =
+                environment.mediaUrl + element.post.media_url;
+            }
           });
           this.postListing = response.data.records;
         },
@@ -95,4 +101,20 @@ export class TimelineComponent implements OnInit {
         }
       );
   }
+
+  editPost(post: any) {
+    const dialogRef = this.dialog.open(PostPopupComponent, {
+      width: '40%',
+      panelClass: 'postpopup',
+      data: post
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'success') {
+        this.getPostListing();
+      }
+    });
+  }
+
+  ngOnDestroy() {}
 }
