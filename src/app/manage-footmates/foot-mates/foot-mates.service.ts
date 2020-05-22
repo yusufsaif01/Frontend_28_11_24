@@ -82,16 +82,4 @@ export class FootMatesService {
   getPositionsListing(): Observable<any> {
     return this.httpClient.get<any>(routes.getPositionsList());
   }
-
-  getCitiesListing(countryID: string, stateID: string): Observable<any> {
-    return this.httpClient.get<any>(routes.getCitiesList(countryID, stateID));
-  }
-
-  getStatesListing(countryID: string): Observable<any> {
-    return this.httpClient.get<any>(routes.getStatesList(countryID));
-  }
-
-  getLocationStats(): Observable<any> {
-    return this.httpClient.get<any>(routes.getLocationStats());
-  }
 }
