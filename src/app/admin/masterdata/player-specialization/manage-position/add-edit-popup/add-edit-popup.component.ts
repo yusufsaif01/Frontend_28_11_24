@@ -23,8 +23,11 @@ export class AddEditPopupComponent implements OnInit, OnDestroy {
     private toastrService: ToastrService
   ) {
     this.positionForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      abbreviation: ['', [Validators.required]]
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
+      abbreviation: [
+        '',
+        [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]
+      ]
     });
   }
 

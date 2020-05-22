@@ -74,13 +74,7 @@ export class AddpopupComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.addForm = this.formBuilder.group({
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^[a-zA-Z ]+|[0-9 ]?[a-zA-Z ]+[0-9 ]?$/)
-        ]
-      ]
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]]
     });
   }
 }

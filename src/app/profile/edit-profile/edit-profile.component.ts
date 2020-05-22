@@ -312,6 +312,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       const trophies = this.editProfileForm.get('trophies');
       const leagueOther = this.editProfileForm.get('league_other');
       const associationOther = this.editProfileForm.get('association_other');
+      const documentNumber = this.editProfileForm.get('number');
 
       if (this.member_type === 'club') {
         trophies.setValidators(null);
@@ -326,6 +327,34 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           Validators.required,
           Validators.pattern(/^\d+$/)
         ]);
+
+        this.editProfileForm
+          .get('document_type')
+          .valueChanges.subscribe(type => {
+            if (type === 'aiff') {
+              // later it will be fully implemented
+              documentNumber.setValidators([Validators.required]);
+            } else if (type === 'pan') {
+              documentNumber.setValidators([
+                Validators.required,
+                Validators.minLength(10),
+                Validators.maxLength(10),
+                Validators.pattern(/^[A-Z]{5}[0-9]{4}[A-Z]/)
+              ]);
+            } else if (type === 'coi') {
+              documentNumber.setValidators([
+                Validators.required,
+                Validators.pattern(/^[a-z-A-Z0-9]+$/)
+              ]);
+            } else if (type === 'tin') {
+              documentNumber.setValidators([
+                Validators.required,
+                Validators.minLength(9),
+                Validators.maxLength(12),
+                Validators.pattern(/^\d+$/)
+              ]);
+            }
+          });
       }
 
       this.editProfileForm
@@ -346,6 +375,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       trophies.updateValueAndValidity();
       address.updateValueAndValidity();
       pincode.updateValueAndValidity();
+      documentNumber.updateValueAndValidity();
     }
   }
 
@@ -1022,7 +1052,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   onChangeDocumentType(event: any) {
     this.editProfileForm.controls.number.enable();
     this.editProfileForm.controls.document.enable();
-    this.editProfileForm.controls.number.setValidators(Validators.required);
+    // this.editProfileForm.controls.number.setValidators(Validators.required);
     this.editProfileForm.controls.document.setValidators([
       Validators.required,
       requiredFileDocument
