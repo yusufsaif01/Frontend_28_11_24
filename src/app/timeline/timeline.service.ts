@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const routes = {
-  getAchievementCount: () => '/achievement/stats'
+  getAchievementCount: () => '/achievement/stats',
+  createPost: () => `/post/add`
 };
 
 interface countResponseContext {
@@ -15,6 +16,7 @@ interface countResponseContext {
 interface achievementCountContext {
   user_id: string;
 }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -35,5 +37,9 @@ export class TimelineService {
     return this.httpClient.get<countResponseContext>(
       routes.getAchievementCount()
     );
+  }
+
+  createPost(context: any): Observable<any> {
+    return this.httpClient.post<any>(routes.createPost(), context);
   }
 }
