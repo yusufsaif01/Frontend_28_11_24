@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 const routes = {
   getAchievementCount: () => '/achievement/stats',
-  likePost: (params: any) => `/post/${params}/like`,
-  unlikePost: (params: any) => `/post/${params}/dislike`
+  likePost: (params: string) => `/post/${params}/like`,
+  unlikePost: (params: string) => `/post/${params}/dislike`
 };
 
 interface CommonResponseContext {
