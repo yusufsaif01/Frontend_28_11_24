@@ -53,7 +53,7 @@ export class TimelineComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(PostPopupComponent, {
-      width: '45%',
+      width: '40%',
       panelClass: 'postpopup'
     });
 
