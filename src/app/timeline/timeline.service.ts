@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const routes = {
-  getAchievementCount: () => '/achievement/stats'
+  getAchievementCount: () => '/achievement/stats',
+  addComment: (params: string) => `/post/${params}/comment`
 };
 
 interface countResponseContext {
@@ -14,6 +15,14 @@ interface countResponseContext {
 }
 interface achievementCountContext {
   user_id: string;
+}
+interface CommonResponseContext {
+  status: string;
+  message: string;
+}
+interface AddCommentContext {
+  post_id: string;
+  comment: string;
 }
 @Injectable({
   providedIn: 'root'
@@ -34,6 +43,21 @@ export class TimelineService {
 
     return this.httpClient.get<countResponseContext>(
       routes.getAchievementCount()
+    );
+  }
+
+  addComment(context: AddCommentContext): Observable<CommonResponseContext> {
+    let params = '';
+
+    if (context['post_id']) {
+      params += `${context['post_id']}`;
+    }
+
+    let { comment } = context;
+
+    return this.httpClient.post<CommonResponseContext>(
+      routes.addComment(params),
+      { comment }
     );
   }
 }
