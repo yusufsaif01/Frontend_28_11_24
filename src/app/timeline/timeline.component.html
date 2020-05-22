@@ -69,10 +69,15 @@
         </div>
       </div>
       <div class="post-icons border-bottom">
+        <ng-container *ngIf="like$ | async"></ng-container>
         <ul>
-          <li class="like">
-            <i-feather name="thumbs-up" class="icon-size"></i-feather>
-            <span>8</span>
+          <li [ngClass]="{ like: is_like }">
+            <i-feather
+              name="thumbs-up"
+              class="icon-size"
+              (click)="toggleLike()"
+            ></i-feather>
+            <span>{{ likes }}</span>
           </li>
           <li>
             <i-feather name="message-square" class="icon-size"></i-feather>

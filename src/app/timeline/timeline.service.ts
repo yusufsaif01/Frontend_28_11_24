@@ -3,9 +3,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const routes = {
-  getAchievementCount: () => '/achievement/stats'
+  getAchievementCount: () => '/achievement/stats',
+  likePost: (post_id: string) => `/post/${post_id}/like`,
+  unlikePost: (post_id: string) => `/post/${post_id}/dislike`
 };
 
+interface CommonResponseContext {
+  status: string;
+  message: string;
+}
 interface countResponseContext {
   data: {
     achievements: number;
@@ -34,6 +40,20 @@ export class TimelineService {
 
     return this.httpClient.get<countResponseContext>(
       routes.getAchievementCount()
+    );
+  }
+
+  likePost(post_id: string): Observable<CommonResponseContext> {
+    return this.httpClient.post<CommonResponseContext>(
+      routes.likePost(post_id),
+      post_id
+    );
+  }
+
+  unlikePost(post_id: string): Observable<CommonResponseContext> {
+    return this.httpClient.post<CommonResponseContext>(
+      routes.unlikePost(post_id),
+      post_id
     );
   }
 }
