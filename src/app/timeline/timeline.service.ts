@@ -4,13 +4,16 @@ import { Observable } from 'rxjs';
 
 const routes = {
   getAchievementCount: () => '/achievement/stats',
-  likePost: (post_id: string) => `/post/${post_id}/like`,
-  unlikePost: (post_id: string) => `/post/${post_id}/dislike`
+  likePost: (params: any) => `/post/${params}/like`,
+  unlikePost: (params: any) => `/post/${params}/dislike`
 };
 
 interface CommonResponseContext {
   status: string;
   message: string;
+}
+interface likeUnlikeContext {
+  post_id: string;
 }
 interface countResponseContext {
   data: {
@@ -43,17 +46,25 @@ export class TimelineService {
     );
   }
 
-  likePost(post_id: string): Observable<CommonResponseContext> {
+  likePost(context: likeUnlikeContext): Observable<CommonResponseContext> {
+    let params = '';
+    if (context['post_id']) {
+      params += `${context['post_id']}`;
+    }
     return this.httpClient.post<CommonResponseContext>(
-      routes.likePost(post_id),
-      post_id
+      routes.likePost(params),
+      context
     );
   }
 
-  unlikePost(post_id: string): Observable<CommonResponseContext> {
+  unlikePost(context: likeUnlikeContext): Observable<CommonResponseContext> {
+    let params = '';
+    if (context['post_id']) {
+      params += `${context['post_id']}`;
+    }
     return this.httpClient.post<CommonResponseContext>(
-      routes.unlikePost(post_id),
-      post_id
+      routes.unlikePost(params),
+      context
     );
   }
 }

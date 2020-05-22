@@ -83,7 +83,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   toggleLike() {
     if (this.is_like) {
       this.like$ = this._timelineService
-        .unlikePost('ffd98934-c6f5-47a7-912d-68585dc7861f') //postId
+        .unlikePost({ post_id: 'ffd98934-c6f5-47a7-912d-68585dc7861f' }) //postId
         .pipe(
           map(resp => {
             this.is_like = false;
@@ -97,7 +97,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
         );
     } else {
       this.like$ = this._timelineService
-        .likePost('ffd98934-c6f5-47a7-912d-68585dc7861f') //postId
+        .likePost({ post_id: 'ffd98934-c6f5-47a7-912d-68585dc7861f' }) //postId
         .pipe(
           map(resp => {
             this.is_like = true;
