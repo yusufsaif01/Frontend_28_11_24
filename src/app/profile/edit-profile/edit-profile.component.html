@@ -1482,6 +1482,49 @@
                     type="text"
                     matInput
                   />
+                  <mat-error
+                    *ngIf="
+                      editProfileForm.controls.number.invalid &&
+                      editProfileForm.controls.number.touched
+                    "
+                  >
+                    <span
+                      *ngIf="editProfileForm.controls.number.errors.required"
+                      translate
+                      >Document Number is required</span
+                    >
+                    <ng-template #lengthBlock>
+                      <span
+                        *ngIf="editProfileForm.controls.number.errors.minlength"
+                      >
+                        Please provide number upto
+                        {{
+                          editProfileForm.controls.number.errors.minlength
+                            .requiredLength
+                        }}
+                        digits
+                      </span>
+                      <span
+                        *ngIf="editProfileForm.controls.number.errors.maxlength"
+                      >
+                        Please provide number upto
+                        {{
+                          editProfileForm.controls.number.errors.maxlength
+                            .requiredLength
+                        }}
+                        digits
+                      </span>
+                    </ng-template>
+                    <span
+                      class="error-text"
+                      *ngIf="
+                        editProfileForm.controls.number.errors.pattern;
+                        else lengthBlock
+                      "
+                    >
+                      Document Number is invalid
+                    </span>
+                  </mat-error>
                 </div>
               </ng-container>
 

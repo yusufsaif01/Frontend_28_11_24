@@ -159,13 +159,16 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
         '',
         [
           Validators.maxLength(30),
-          Validators.pattern(/^[a-zA-Z]+|[0-9]?[a-zA-Z]+[0-9]?$/)
+          Validators.pattern(/^[a-zA-Z0-9\&\@\(\)\#\- ]+$/)
         ]
       ],
       year: ['', [Validators.required]],
       position: [
         '',
-        [Validators.maxLength(20), Validators.pattern(/^[0-9a-zA-Z]+%?$/)]
+        [
+          Validators.maxLength(20),
+          Validators.pattern(/^[a-zA-Z0-9\&\@\(\)\#\-\% ]+$/)
+        ]
       ],
       achievement: ['', [requiredFileDocument]]
     });
