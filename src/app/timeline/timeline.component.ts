@@ -56,6 +56,7 @@ export class TimelineComponent implements OnInit {
       }
     }
   };
+  userId: string = '';
   constructor(
     public dialog: MatDialog,
     private service: TimelineService,
@@ -77,6 +78,7 @@ export class TimelineComponent implements OnInit {
 
   ngOnInit() {
     this.getPostListing();
+    this.userId = localStorage.getItem('user_id');
   }
   getPostListing(scrolled?: string) {
     if (!scrolled) {

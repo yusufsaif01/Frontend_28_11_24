@@ -325,7 +325,7 @@
           </div>
         </div>
 
-        <div class="post-header-right">
+        <div class="post-header-right" *ngIf="userId == post.posted_by.user_id">
           <ul>
             <li>
               <a>
