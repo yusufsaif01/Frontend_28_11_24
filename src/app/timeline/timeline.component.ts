@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 
 @Component({
@@ -59,6 +60,13 @@ export class TimelineComponent implements OnInit, OnDestroy {
     }
   };
 
+  commentForm: FormGroup;
+  comment_count: number = 0;
+  show_comment_box: false;
+  player_type: string;
+  member_type: string;
+
+  addComment$: Observable<any>;
   likes: number = 0;
 
   @Input() is_like = false;
@@ -69,8 +77,52 @@ export class TimelineComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private _timelineService: TimelineService,
-    private _toastrService: ToastrService
-  ) {}
+    private _toastrService: ToastrService,
+    private _formBuilder: FormBuilder
+  ) {
+    this.createForm();
+  }
+
+  ngOnDestroy() {}
+
+  getMemberType(value: string) {
+    this.member_type = value;
+  }
+
+  getPlayerType(value: string) {
+    this.player_type = value;
+  }
+
+  createForm() {
+    this.commentForm = this._formBuilder.group({
+      comment: [
+        '',
+        [
+          Validators.maxLength(60),
+          Validators.pattern(/^[A-Za-z0-9\(\)\-\&\!\%\* ]+$/)
+        ]
+      ]
+    });
+  }
+
+  addComment() {
+    this.addComment$ = this._timelineService
+      .addComment({
+        post_id: 'ffd98934-c6f5-47a7-912d-68585dc7861f', //postId
+        ...this.commentForm.value
+      })
+      .pipe(
+        map(resp => {
+          this.comment_count++;
+          this.commentForm.reset();
+        }),
+        catchError(err => {
+          this._toastrService.error('Error', err.error.message);
+          throw err;
+        }),
+        untilDestroyed(this)
+      );
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(PostPopupComponent, {
@@ -222,6 +274,4 @@ export class TimelineComponent implements OnInit, OnDestroy {
   onScrollUp() {
     console.log('Scrolled Up');
   }
-
-  ngOnDestroy() {}
 }
