@@ -317,7 +317,11 @@
           <div class="profile-details">
             <h2>{{ post.posted_by.name }}</h2>
             <h5>{{ post.posted_by.position }}</h5>
-            <h5>{{ post.created_at | date }}</h5>
+            <h5 *ngIf="post.days > 0">{{ post.created_at | date }}</h5>
+            <h5 *ngIf="post.days == 0">
+              {{ post.hours }} hours {{ post.minutes }} minutes
+              {{ post.seconds }} seconds
+            </h5>
           </div>
         </div>
 

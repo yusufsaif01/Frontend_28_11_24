@@ -87,9 +87,16 @@ export class TimelineComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          console.log(response);
+          let dateNow: any = new Date(Date.now());
           let records: any[] = response.data.records;
           records.forEach((element: any) => {
+            element.postDate = new Date(element.created_at);
+            element.dateDiff = Math.abs(dateNow - element.postDate) / 1000;
+            element.days = Math.floor(element.dateDiff / 86400);
+            element.hours = Math.floor(element.dateDiff / 3600) % 24;
+            element.minutes = Math.floor(element.dateDiff / 60) % 60;
+            element.seconds = element.dateDiff % 60;
+            element.seconds = parseInt(element.seconds);
             if (element.posted_by.avatar) {
               element.posted_by.avatar =
                 environment.mediaUrl + element.posted_by.avatar;
