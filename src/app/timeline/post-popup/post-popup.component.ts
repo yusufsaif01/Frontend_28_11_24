@@ -86,7 +86,7 @@ export class PostPopupComponent implements OnInit {
     for (const key of Object.keys(formValue)) {
       const value = formValue[key];
 
-      if (!value && !value.length && key != 'bio') {
+      if (!value && !value.length) {
         continue;
       }
       formData.append(key, value);
@@ -113,7 +113,6 @@ export class PostPopupComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          console.log(response);
           this.dialogRef.close('success');
         },
         error => {
