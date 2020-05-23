@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
+import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-timeline',
@@ -22,6 +23,9 @@ import { untilDestroyed } from '@app/core';
 })
 export class TimelineComponent implements OnInit, OnDestroy {
   environment = environment;
+  postListing: any[] = [];
+  pageNo: number = 1;
+  pageSize: number = 5;
   panelOptions: Partial<PanelOptions> = {
     bio: true,
     member_type: true,
@@ -60,6 +64,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   @Input() is_like = false;
 
   like$: Observable<any>;
+  userId: string = '';
 
   constructor(
     public dialog: MatDialog,
@@ -73,12 +78,17 @@ export class TimelineComponent implements OnInit, OnDestroy {
       panelClass: 'postpopup'
     });
 
-    dialogRef.afterClosed().subscribe(result => {});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'success') {
+        this.getPostListing();
+      }
+    });
   }
 
-  ngOnDestroy() {}
-
-  ngOnInit() {}
+  ngOnInit() {
+    this.getPostListing();
+    this.userId = localStorage.getItem('user_id');
+  }
 
   toggleLike() {
     if (this.is_like) {
@@ -111,4 +121,107 @@ export class TimelineComponent implements OnInit, OnDestroy {
         );
     }
   }
+
+  getPostListing(scrolled?: string) {
+    if (!scrolled) {
+      this.pageNo = 1;
+    }
+    this._timelineService
+      .getPostListing({ page_no: this.pageNo, page_size: this.pageSize })
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let dateNow: any = new Date(Date.now());
+          let records: any[] = response.data.records;
+          records.forEach((element: any) => {
+            element.postDate = new Date(element.created_at);
+            element.dateDiff = Math.abs(dateNow - element.postDate) / 1000;
+            element.days = Math.floor(element.dateDiff / 86400);
+            element.hours = Math.floor(element.dateDiff / 3600) % 24;
+            element.minutes = Math.floor(element.dateDiff / 60) % 60;
+            element.seconds = element.dateDiff % 60;
+            element.seconds = parseInt(element.seconds);
+            if (element.posted_by.avatar) {
+              element.posted_by.avatar =
+                environment.mediaUrl + element.posted_by.avatar;
+            }
+            if (element.post.media_url) {
+              element.post.media_url =
+                environment.mediaUrl + element.post.media_url;
+            }
+          });
+          if (!scrolled) {
+            this.postListing = records;
+          } else {
+            records.forEach((el: any) => {
+              if (!this.postListing.includes(el)) {
+                this.postListing.push(el);
+              }
+            });
+          }
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
+        }
+      );
+  }
+
+  editPost(post: any) {
+    const dialogRef = this.dialog.open(PostPopupComponent, {
+      width: '40%',
+      panelClass: 'postpopup',
+      data: post
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'success') {
+        this.getPostListing();
+      }
+    });
+  }
+
+  deletePost(post_id: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '50% ',
+      panelClass: 'filterDialog',
+      data: {
+        header: 'Delete Post',
+        message: 'Are you sure you want to delete this post?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this._timelineService
+          .deletePost(post_id)
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this._toastrService.success(
+                `Success`,
+                'Post deleted successfully'
+              );
+              this.getPostListing();
+            },
+            error => {
+              this._toastrService.error(
+                `${error.error.message}`,
+                'Delete Post'
+              );
+            }
+          );
+      }
+    });
+  }
+
+  onScrollDown() {
+    console.log('Scrolled Down');
+    this.pageNo++;
+    this.getPostListing('scrolled');
+  }
+
+  onScrollUp() {
+    console.log('Scrolled Up');
+  }
+
+  ngOnDestroy() {}
 }
