@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 import {
@@ -10,6 +10,8 @@ import { PostPopupComponent } from '@app/timeline/post-popup/post-popup.componen
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { TimelineService } from './timeline.service';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
@@ -19,7 +21,7 @@ import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confi
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.scss']
 })
-export class TimelineComponent implements OnInit {
+export class TimelineComponent implements OnInit, OnDestroy {
   environment = environment;
   postListing: any[] = [];
   pageNo: number = 1;
@@ -56,11 +58,18 @@ export class TimelineComponent implements OnInit {
       }
     }
   };
+
+  likes: number = 0;
+
+  @Input() is_like = false;
+
+  like$: Observable<any>;
   userId: string = '';
+
   constructor(
     public dialog: MatDialog,
-    private service: TimelineService,
-    private toastrService: ToastrService
+    private _timelineService: TimelineService,
+    private _toastrService: ToastrService
   ) {}
 
   openDialog(): void {
@@ -80,11 +89,44 @@ export class TimelineComponent implements OnInit {
     this.getPostListing();
     this.userId = localStorage.getItem('user_id');
   }
+
+  toggleLike() {
+    if (this.is_like) {
+      this.like$ = this._timelineService
+        .unlikePost({ post_id: 'ffd98934-c6f5-47a7-912d-68585dc7861f' }) //postId
+        .pipe(
+          map(resp => {
+            this.is_like = false;
+            this.likes--;
+          }),
+          catchError(err => {
+            this._toastrService.error('Error', err.error.message);
+            throw err;
+          }),
+          untilDestroyed(this)
+        );
+    } else {
+      this.like$ = this._timelineService
+        .likePost({ post_id: 'ffd98934-c6f5-47a7-912d-68585dc7861f' }) //postId
+        .pipe(
+          map(resp => {
+            this.is_like = true;
+            this.likes++;
+          }),
+          catchError(err => {
+            this._toastrService.error('Error', err.error.message);
+            throw err;
+          }),
+          untilDestroyed(this)
+        );
+    }
+  }
+
   getPostListing(scrolled?: string) {
     if (!scrolled) {
       this.pageNo = 1;
     }
-    this.service
+    this._timelineService
       .getPostListing({ page_no: this.pageNo, page_size: this.pageSize })
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -119,7 +161,7 @@ export class TimelineComponent implements OnInit {
           }
         },
         error => {
-          this.toastrService.error('Error', error.error.message);
+          this._toastrService.error('Error', error.error.message);
         }
       );
   }
@@ -149,19 +191,22 @@ export class TimelineComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.service
+        this._timelineService
           .deletePost(post_id)
           .pipe(untilDestroyed(this))
           .subscribe(
             response => {
-              this.toastrService.success(
+              this._toastrService.success(
                 `Success`,
                 'Post deleted successfully'
               );
               this.getPostListing();
             },
             error => {
-              this.toastrService.error(`${error.error.message}`, 'Delete Post');
+              this._toastrService.error(
+                `${error.error.message}`,
+                'Delete Post'
+              );
             }
           );
       }
