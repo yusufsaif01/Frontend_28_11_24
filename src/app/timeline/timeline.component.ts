@@ -78,14 +78,18 @@ export class TimelineComponent implements OnInit {
   ngOnInit() {
     this.getPostListing();
   }
-  getPostListing() {
+  getPostListing(scrolled?: string) {
+    if (!scrolled) {
+      this.pageNo = 1;
+    }
     this.service
       .getPostListing({ page_no: this.pageNo, page_size: this.pageSize })
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           console.log(response);
-          response.data.records.forEach((element: any) => {
+          let records: any[] = response.data.records;
+          records.forEach((element: any) => {
             if (element.posted_by.avatar) {
               element.posted_by.avatar =
                 environment.mediaUrl + element.posted_by.avatar;
@@ -95,7 +99,15 @@ export class TimelineComponent implements OnInit {
                 environment.mediaUrl + element.post.media_url;
             }
           });
-          this.postListing = response.data.records;
+          if (!scrolled) {
+            this.postListing = records;
+          } else {
+            records.forEach((el: any) => {
+              if (!this.postListing.includes(el)) {
+                this.postListing.push(el);
+              }
+            });
+          }
         },
         error => {
           this.toastrService.error('Error', error.error.message);
@@ -145,6 +157,16 @@ export class TimelineComponent implements OnInit {
           );
       }
     });
+  }
+
+  onScrollDown() {
+    console.log('Scrolled Down');
+    this.pageNo++;
+    this.getPostListing('scrolled');
+  }
+
+  onScrollUp() {
+    console.log('Scrolled Up');
   }
 
   ngOnDestroy() {}

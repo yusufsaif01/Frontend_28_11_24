@@ -5,7 +5,15 @@
     <app-left-panel [options]="panelOptions"></app-left-panel>
   </div>
   <!-- middle -->
-  <div class="middle-section">
+  <div
+    class="middle-section"
+    infiniteScroll
+    [infiniteScrollUpDistance]="1.5"
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScrollDown()"
+    (scrolledUp)="onScrollUp()"
+  >
     <!-- share-post -->
     <div class="share-post">
       <div class="share-left">
