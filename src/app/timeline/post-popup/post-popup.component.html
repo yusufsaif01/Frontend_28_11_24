@@ -1,12 +1,12 @@
 <div class="from-container">
-  <form>
+  <form [formGroup]="createPostForm">
     <div class="header">
       <div class="title">
         <h3>Create a Post</h3>
       </div>
       <div class="close">
         <img
-          [mat-dialog-close]
+          mat-dialog-close
           src="assets/images/icons/close-white.png"
           alt=""
         />
@@ -15,13 +15,14 @@
     <div class="modal-body">
       <div class="message-box">
         <textarea
+          formControlName="text"
           matinput
           maxlength="60"
           placeholder="Write a FooTPost"
         ></textarea>
       </div>
       <div class="uploaded-images">
-        <img src="../../../assets/images/poster.jpeg" alt="" />
+        <img [src]="imageURL" alt="" />
       </div>
     </div>
     <div class="modal-footer">
@@ -30,14 +31,24 @@
           <li>
             <label>
               <i-feather name="camera"></i-feather>
-              <input type="file" />
+              <input
+                formControlName="media"
+                type="file"
+                (change)="changeMedia($event.target.files)"
+              />
             </label>
           </li>
         </ul>
       </div>
       <div class="right">
-        <button class="cancel">Cancel</button>
-        <button class="save">Save</button>
+        <button mat-dialog-close class="cancel">Cancel</button>
+        <button
+          class="save"
+          [disabled]="!imageURL && !createPostForm.value.text"
+          (click)="onClickSave()"
+        >
+          Save
+        </button>
       </div>
     </div>
   </form>
