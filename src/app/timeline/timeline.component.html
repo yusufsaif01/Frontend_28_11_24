@@ -326,7 +326,11 @@
             </li>
             <li>
               <a>
-                <i-feather name="trash" class="icon-size"></i-feather>
+                <i-feather
+                  (click)="deletePost(post.id)"
+                  name="trash"
+                  class="icon-size"
+                ></i-feather>
               </a>
             </li>
           </ul>

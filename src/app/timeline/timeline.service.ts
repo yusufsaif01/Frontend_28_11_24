@@ -6,7 +6,8 @@ const routes = {
   getAchievementCount: () => '/achievement/stats',
   createPost: () => `/post/add`,
   getPostListing: () => `/posts/list`,
-  updatePost: (post_id: string) => `/post/${post_id}`
+  updatePost: (post_id: string) => `/post/${post_id}`,
+  deletePost: (post_id: string) => `/post/${post_id}`
 };
 
 interface countResponseContext {
@@ -47,6 +48,10 @@ export class TimelineService {
 
   updatePost(post_id: string, context: any): Observable<any> {
     return this.httpClient.put<any>(routes.updatePost(post_id), context);
+  }
+
+  deletePost(post_id: string): Observable<any> {
+    return this.httpClient.delete<any>(routes.deletePost(post_id));
   }
 
   getPostListing(context: any = {}) {

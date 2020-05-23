@@ -12,6 +12,7 @@ import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { TimelineService } from './timeline.service';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
+import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-timeline',
@@ -112,6 +113,36 @@ export class TimelineComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'success') {
         this.getPostListing();
+      }
+    });
+  }
+
+  deletePost(post_id: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '50% ',
+      panelClass: 'filterDialog',
+      data: {
+        header: 'Delete Post',
+        message: 'Are you sure you want to delete this post?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.service
+          .deletePost(post_id)
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this.toastrService.success(
+                `Success`,
+                'Post deleted successfully'
+              );
+              this.getPostListing();
+            },
+            error => {
+              this.toastrService.error(`${error.error.message}`, 'Delete Post');
+            }
+          );
       }
     });
   }
