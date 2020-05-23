@@ -9,6 +9,8 @@ import {
 import { PostPopupComponent } from '@app/timeline/post-popup/post-popup.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
+import { TimelineService } from './timeline.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-timeline',
@@ -17,6 +19,9 @@ import { PanelOptions } from '@app/shared/models/panel-options.model';
 })
 export class TimelineComponent implements OnInit {
   environment = environment;
+  postListing: any[] = [];
+  pageNo: number = 1;
+  pageSize: number = 5;
   panelOptions: Partial<PanelOptions> = {
     bio: true,
     member_type: true,
@@ -49,7 +54,11 @@ export class TimelineComponent implements OnInit {
       }
     }
   };
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private service: TimelineService,
+    private toastrService: ToastrService
+  ) {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(PostPopupComponent, {
@@ -57,8 +66,33 @@ export class TimelineComponent implements OnInit {
       panelClass: 'postpopup'
     });
 
-    dialogRef.afterClosed().subscribe(result => {});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'success') {
+        this.getPostListing();
+      }
+    });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getPostListing();
+  }
+  getPostListing() {
+    this.service
+      .getPostListing({ page_no: this.pageNo, page_size: this.pageSize })
+      .subscribe(
+        response => {
+          console.log(response);
+          response.data.records.forEach((element: any) => {
+            element.posted_by.avatar =
+              environment.mediaUrl + element.posted_by.avatar;
+            element.posted_by.media_url =
+              environment.mediaUrl + element.posted_by.media_url;
+          });
+          this.postListing = response.data.records;
+        },
+        error => {
+          this.toastrService.error('Error', error.error.message);
+        }
+      );
+  }
 }
