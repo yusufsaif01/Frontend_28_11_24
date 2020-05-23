@@ -2,7 +2,11 @@
 <div class="site-wrapper">
   <!-- Left section -->
   <div class="left-section">
-    <app-left-panel [options]="panelOptions"></app-left-panel>
+    <app-left-panel
+      [options]="panelOptions"
+      (sendPlayerType)="getPlayerType($event)"
+      (sendMemberType)="getMemberType($event)"
+    ></app-left-panel>
   </div>
   <!-- middle -->
   <div class="middle-section">
@@ -79,7 +83,9 @@
             <li>
               <button
                 (click)="show_comment_box = true"
-                [disabled]="!player_type"
+                [disabled]="
+                  !player_type && !['academy', 'club'].includes(member_type)
+                "
               >
                 <i-feather name="message-square" class="icon-size"> </i-feather>
               </button>

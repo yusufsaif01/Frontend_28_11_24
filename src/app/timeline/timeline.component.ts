@@ -59,8 +59,8 @@ export class TimelineComponent implements OnInit, OnDestroy {
   commentForm: FormGroup;
   comment_count: number = 0;
   show_comment_box: false;
-
-  @Input() player_type = '';
+  player_type: string;
+  member_type: string;
 
   addComment$: Observable<any>;
 
@@ -84,6 +84,14 @@ export class TimelineComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {}
+
+  getMemberType(value: string) {
+    this.member_type = value;
+  }
+
+  getPlayerType(value: string) {
+    this.player_type = value;
+  }
 
   createForm() {
     this.commentForm = this._formBuilder.group({
