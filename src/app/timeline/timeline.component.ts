@@ -11,6 +11,8 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { TimelineService } from './timeline.service';
 import { ToastrService } from 'ngx-toastr';
+import { untilDestroyed } from '@app/core';
+import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-timeline',
@@ -54,6 +56,7 @@ export class TimelineComponent implements OnInit {
       }
     }
   };
+  userId: string = '';
   constructor(
     public dialog: MatDialog,
     private service: TimelineService,
@@ -75,24 +78,105 @@ export class TimelineComponent implements OnInit {
 
   ngOnInit() {
     this.getPostListing();
+    this.userId = localStorage.getItem('user_id');
   }
-  getPostListing() {
+  getPostListing(scrolled?: string) {
+    if (!scrolled) {
+      this.pageNo = 1;
+    }
     this.service
       .getPostListing({ page_no: this.pageNo, page_size: this.pageSize })
+      .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          console.log(response);
-          response.data.records.forEach((element: any) => {
-            element.posted_by.avatar =
-              environment.mediaUrl + element.posted_by.avatar;
-            element.posted_by.media_url =
-              environment.mediaUrl + element.posted_by.media_url;
+          let dateNow: any = new Date(Date.now());
+          let records: any[] = response.data.records;
+          records.forEach((element: any) => {
+            element.postDate = new Date(element.created_at);
+            element.dateDiff = Math.abs(dateNow - element.postDate) / 1000;
+            element.days = Math.floor(element.dateDiff / 86400);
+            element.hours = Math.floor(element.dateDiff / 3600) % 24;
+            element.minutes = Math.floor(element.dateDiff / 60) % 60;
+            element.seconds = element.dateDiff % 60;
+            element.seconds = parseInt(element.seconds);
+            if (element.posted_by.avatar) {
+              element.posted_by.avatar =
+                environment.mediaUrl + element.posted_by.avatar;
+            }
+            if (element.post.media_url) {
+              element.post.media_url =
+                environment.mediaUrl + element.post.media_url;
+            }
           });
-          this.postListing = response.data.records;
+          if (!scrolled) {
+            this.postListing = records;
+          } else {
+            records.forEach((el: any) => {
+              if (!this.postListing.includes(el)) {
+                this.postListing.push(el);
+              }
+            });
+          }
         },
         error => {
           this.toastrService.error('Error', error.error.message);
         }
       );
   }
+
+  editPost(post: any) {
+    const dialogRef = this.dialog.open(PostPopupComponent, {
+      width: '40%',
+      panelClass: 'postpopup',
+      data: post
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'success') {
+        this.getPostListing();
+      }
+    });
+  }
+
+  deletePost(post_id: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '50% ',
+      panelClass: 'filterDialog',
+      data: {
+        header: 'Delete Post',
+        message: 'Are you sure you want to delete this post?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.service
+          .deletePost(post_id)
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this.toastrService.success(
+                `Success`,
+                'Post deleted successfully'
+              );
+              this.getPostListing();
+            },
+            error => {
+              this.toastrService.error(`${error.error.message}`, 'Delete Post');
+            }
+          );
+      }
+    });
+  }
+
+  onScrollDown() {
+    console.log('Scrolled Down');
+    this.pageNo++;
+    this.getPostListing('scrolled');
+  }
+
+  onScrollUp() {
+    console.log('Scrolled Up');
+  }
+
+  ngOnDestroy() {}
 }
