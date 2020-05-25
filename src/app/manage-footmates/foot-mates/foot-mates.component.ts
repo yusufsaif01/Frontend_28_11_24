@@ -72,7 +72,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
   panelOptions: object = {
     bio: true,
     member_type: true,
-    my_achievements: false,
+    my_achievements: true,
     view_profile_link: true,
     player_type: true,
     follows_buttons: false
