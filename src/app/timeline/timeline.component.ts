@@ -150,6 +150,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
           post.commentForm.reset();
           post.comments++;
           let isViewedMore: boolean = post.commentPageNo > 1;
+          if (isViewedMore) post.commentPageNo = 1;
           this.getCommentListing(post, false, isViewedMore);
         }),
         catchError(err => {
@@ -206,9 +207,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
     this._timelineService
       .getCommentListing({
         page_no: shouldLoadAfterViewMore ? 1 : post.commentPageNo,
-        page_size: shouldLoadAfterViewMore
-          ? post.commentPageNo * post.commentPageSize
-          : post.commentPageSize,
+        page_size: shouldLoadAfterViewMore ? 3 : post.commentPageSize,
         post_id: post.id
       })
       .pipe(untilDestroyed(this))
