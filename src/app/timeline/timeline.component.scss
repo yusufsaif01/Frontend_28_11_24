@@ -313,6 +313,14 @@
             //   color: $blue;
             // }
           }
+          li.chatdisable {
+            cursor: pointer;
+            pointer-events: none;
+            color: rgba($text-muted, 0.5);
+            span {
+              color: rgba($text-muted, 0.5);
+            }
+          }
         }
       }
 

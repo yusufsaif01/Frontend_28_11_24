@@ -427,15 +427,8 @@
           </li>
           <ng-container *ngIf="post.addComment$ | async"></ng-container>
           <ng-container *ngIf="!['amateur', 'grassroot'].includes(player_type)">
-            <li>
-              <button
-                (click)="post.show_comment_box = true"
-                [disabled]="
-                  !player_type && !['academy', 'club'].includes(member_type)
-                "
-              >
-                <i-feather name="message-square" class="icon-size"> </i-feather>
-              </button>
+            <li (click)="post.show_comment_box = true" class="chatdisable">
+              <i-feather name="message-square" class="icon-size"> </i-feather>
               <span>{{ post.comments }}</span>
             </li>
           </ng-container>
