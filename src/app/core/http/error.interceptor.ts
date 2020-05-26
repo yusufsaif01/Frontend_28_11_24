@@ -28,6 +28,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (err.status === 401 || err.status === 402) {
           if (this.credentialService.isAuthenticated()) {
             this.authenticationService.logout();
+            this.router.navigate(['/login'], {
+              queryParams: { redirect: this.router.routerState.snapshot.url },
+              replaceUrl: true
+            });
           } else {
             this.router.navigate(['/login'], {
               queryParams: { redirect: this.router.routerState.snapshot.url },

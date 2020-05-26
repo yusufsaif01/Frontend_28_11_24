@@ -91,12 +91,11 @@ export class AuthenticationService {
     } else {
       credentials = JSON.parse(sessionStorage.getItem('credentials'));
     }
-    this.httpClient.post(routes.logout(), credentials.data.token);
+    if (localStorage.getItem('credentials')) {
+      this.httpClient.post(routes.logout(), credentials.data.token);
+    }
     this.credentialsService.setCredentials();
-    this.router.navigate(['/login'], {
-      queryParams: { redirect: this.router.routerState.snapshot.url },
-      replaceUrl: true
-    });
+    this.router.navigate(['/login']);
     return of(true);
   }
 

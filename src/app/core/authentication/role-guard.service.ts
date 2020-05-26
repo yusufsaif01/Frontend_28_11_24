@@ -20,8 +20,9 @@ export class RoleGuardService implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     const expectedRole = route.data.expectedRole;
-    if (this.credentialsService.isAuthenticated()) {
-      var role = this.credentialsService.credentials['data']['role'];
+    if (localStorage.getItem('credentials')) {
+      let data = JSON.parse(localStorage.getItem('credentials'));
+      var role = data.data.role;
     } else {
       localStorage.clear();
       sessionStorage.clear();
@@ -33,16 +34,10 @@ export class RoleGuardService implements CanActivate {
     }
     // const token = localStorage.getItem('token');
     // const tokenPayload = JWT(token);
-    if (
-      !this.credentialsService.isAuthenticated() ||
-      !expectedRole.includes(role)
-    ) {
+    if (!expectedRole.includes(role)) {
       localStorage.clear();
       sessionStorage.clear();
-      this.router.navigate(['/login'], {
-        queryParams: { redirect: state.url },
-        replaceUrl: true
-      });
+      this.router.navigate(['/login']);
       return false;
     }
     return true;
