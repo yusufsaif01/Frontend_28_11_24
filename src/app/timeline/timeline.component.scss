@@ -292,9 +292,10 @@
 
           li {
             display: flex;
-            margin-right: 2rem;
+            margin-right: 1.5rem;
             align-items: center;
             font-weight: 700;
+            cursor: pointer;
             &:hover {
               color: $blue;
               span {
@@ -309,12 +310,11 @@
           }
           li.like {
             color: $blue;
-            // span {
-            //   color: $blue;
-            // }
+            span {
+              color: $blue;
+            }
           }
           li.chatdisable {
-            cursor: pointer;
             pointer-events: none;
             color: rgba($text-muted, 0.5);
             span {
@@ -344,7 +344,7 @@
           border-bottom-right-radius: 4rem;
 
           .img-commnet {
-            width: 35%;
+            width: 12%;
 
             .profile-img {
               width: 5rem;
@@ -381,10 +381,10 @@
                 justify-content: space-between;
                 .name {
                   h3 {
-                    font-size: 2.4rem;
+                    font-size: 2rem;
                   }
                   h5 {
-                    font-size: 1.8rem;
+                    font-size: 1.6rem;
                     color: $text-muted;
                     font-weight: normal;
                     margin-bottom: 0.5rem;
@@ -434,6 +434,7 @@
             outline: none;
             padding: 0 2rem;
             border-radius: 5rem;
+            padding-right: 7rem;
             &::placeholder {
               font-weight: bold;
             }
@@ -443,6 +444,7 @@
             left: calc(100% - 5rem);
             background: transparent;
             border: none;
+            outline: 0px;
             cursor: pointer;
             i-feather {
               color: $text-muted;
