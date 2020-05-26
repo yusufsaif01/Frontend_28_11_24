@@ -415,7 +415,7 @@
         </div>
       </div>
       <div class="post-icons border-bottom">
-        <!-- <ng-container *ngIf="like$ | async"></ng-container> -->
+        <ng-container *ngIf="post.like$ | async"></ng-container>
         <ul>
           <li [ngClass]="{ like: post.is_liked }">
             <i-feather
@@ -425,7 +425,7 @@
             ></i-feather>
             <span>{{ post.likes }}</span>
           </li>
-          <!-- <ng-container *ngIf="addComment$ | async"></ng-container> -->
+          <ng-container *ngIf="post.addComment$ | async"></ng-container>
           <ng-container *ngIf="!['amateur', 'grassroot'].includes(player_type)">
             <li>
               <button

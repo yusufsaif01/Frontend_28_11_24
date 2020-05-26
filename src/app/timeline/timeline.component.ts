@@ -46,6 +46,8 @@ interface PostContext {
   commentForm?: FormGroup;
   commentPageNo?: number;
   commentPageSize?: number;
+  addComment$?: Observable<any>;
+  like$?: Observable<any>;
 }
 
 interface CommentContext {
@@ -147,40 +149,23 @@ export class TimelineComponent implements OnInit, OnDestroy {
     });
   }
 
-  // addComment(post: PostContext) {
-  //   this.addComment$ = this._timelineService
-  //     .addComment({
-  //       post_id: post.id,
-  //       ...this.commentForm.value
-  //     })
-  //     .pipe(
-  //       map(resp => {
-  //         // this.comment_count++;
-  //         this.commentForm.reset();
-  //       }),
-  //       catchError(err => {
-  //         this._toastrService.error('Error', err.error.message);
-  //         throw err;
-  //       }),
-  //       untilDestroyed(this)
-  //     );
-  // }
   addComment(post: PostContext) {
-    this._timelineService
+    post.addComment$ = this._timelineService
       .addComment({
         post_id: post.id,
         ...post.commentForm.value
       })
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
+      .pipe(
+        map(resp => {
           post.commentForm.reset();
           post.comments++;
           this.getCommentListing(post, false);
-        },
-        err => {
+        }),
+        catchError(err => {
           this._toastrService.error('Error', err.error.message);
-        }
+          throw err;
+        }),
+        untilDestroyed(this)
       );
   }
 
@@ -246,58 +231,31 @@ export class TimelineComponent implements OnInit, OnDestroy {
       );
   }
 
-  // toggleLike(post: PostContext) {
-  //   if (post.is_liked) {
-  //     this.like$ = this._timelineService.unlikePost({ post_id: post.id }).pipe(
-  //       map(resp => {
-  //         post.is_liked = false;
-  //       }),
-  //       catchError(err => {
-  //         this._toastrService.error('Error', err.error.message);
-  //         throw err;
-  //       }),
-  //       untilDestroyed(this)
-  //     );
-  //   } else {
-  //     this.like$ = this._timelineService.likePost({ post_id: post.id }).pipe(
-  //       map(resp => {
-  //         post.is_liked = true;
-  //       }),
-  //       catchError(err => {
-  //         this._toastrService.error('Error', err.error.message);
-  //         throw err;
-  //       }),
-  //       untilDestroyed(this)
-  //     );
-  //   }
-  // }
   toggleLike(post: PostContext) {
     if (post.is_liked) {
-      this._timelineService
-        .unlikePost({ post_id: post.id })
-        .pipe(untilDestroyed(this))
-        .subscribe(
-          response => {
-            post.is_liked = false;
-            post.likes--;
-          },
-          err => {
-            this._toastrService.error('Error', err.error.message);
-          }
-        );
+      post.like$ = this._timelineService.unlikePost({ post_id: post.id }).pipe(
+        map(resp => {
+          post.is_liked = false;
+          post.likes--;
+        }),
+        catchError(err => {
+          this._toastrService.error('Error', err.error.message);
+          throw err;
+        }),
+        untilDestroyed(this)
+      );
     } else {
-      this._timelineService
-        .likePost({ post_id: post.id })
-        .pipe(untilDestroyed(this))
-        .subscribe(
-          response => {
-            post.is_liked = true;
-            post.likes++;
-          },
-          err => {
-            this._toastrService.error('Error', err.error.message);
-          }
-        );
+      post.like$ = this._timelineService.likePost({ post_id: post.id }).pipe(
+        map(resp => {
+          post.is_liked = true;
+          post.likes++;
+        }),
+        catchError(err => {
+          this._toastrService.error('Error', err.error.message);
+          throw err;
+        }),
+        untilDestroyed(this)
+      );
     }
   }
 
@@ -329,7 +287,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
             }
             post.commentPageNo = 1;
             post.commentPageSize = 3;
-            this.getCommentListing(post);
+            this.getCommentListing(post, false);
             let commentForm: FormGroup;
             post.commentForm = commentForm;
             this.createCommentForm(post);
