@@ -50,7 +50,8 @@ import {
   Home,
   UserCheck,
   UserX,
-  Send
+  Send,
+  Info
 } from 'angular-feather/icons';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LinkExpiredComponent } from './link-expired/link-expired.component';
@@ -95,7 +96,8 @@ const icons = {
   Home,
   UserCheck,
   UserX,
-  Send
+  Send,
+  Info
 };
 
 @NgModule({
