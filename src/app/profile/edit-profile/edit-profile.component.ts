@@ -798,6 +798,18 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       else this.editProfileForm.get('associated_club').setValue('no');
     }
 
+    if (this.profile.country) {
+      this.getStatesListing(this.profile.country.id);
+      this.editProfileForm.patchValue({
+        state: this.profile.state ? this.profile.state.id : ''
+      });
+
+      this.getCitiesListing(this.profile.country.id, this.profile.state.id);
+      this.editProfileForm.patchValue({
+        city: this.profile.city ? this.profile.city.id : ''
+      });
+    }
+
     this.editProfileForm.patchValue({
       player_type: this.profile.player_type ? this.profile.player_type : '',
       name: this.profile.name,
@@ -824,9 +836,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       weight: this.profile.weight ? this.profile.weight : '',
       dob: this.profile.dob ? new Date(this.profile.dob) : '',
       phone: this.profile.phone ? this.profile.phone : '',
-      country: this.profile.country ? this.profile.country : '',
-      state: this.profile.state ? this.profile.state : '',
-      city: this.profile.city ? this.profile.city : '',
+      country: this.profile.country ? this.profile.country.id : '',
       stadium_name: this.profile.stadium_name ? this.profile.stadium_name : '',
       league: this.profile.league ? this.profile.league : '',
       type: this.profile.type ? this.profile.type : '',
