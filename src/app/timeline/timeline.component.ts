@@ -1,12 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  AfterContentInit,
-  AfterViewInit,
-  AfterViewChecked,
-  AfterContentChecked
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 import {
