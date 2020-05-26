@@ -27,7 +27,6 @@ export class PostPopupComponent implements OnInit {
   ) {
     this.createForm();
     if (this.data) {
-      console.log(this.data);
       this.patchValue();
     }
   }

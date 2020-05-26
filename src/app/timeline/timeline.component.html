@@ -373,11 +373,10 @@
           <div class="profile-details">
             <h2>{{ post.posted_by.name }}</h2>
             <h5>{{ post.posted_by.position }}</h5>
-            <h5 *ngIf="post.days > 0">{{ post.created_at | date }}</h5>
-            <h5 *ngIf="post.days == 0">
-              {{ post.hours }} hours {{ post.minutes }} minutes
-              {{ post.seconds }} seconds
-            </h5>
+            <h5>{{ post.created_at | datePipe }}</h5>
+            <!-- <h5 *ngIf="post.days == 0">
+              {{post.created_at | toDaysPipe}}
+            </h5> -->
           </div>
         </div>
 
@@ -465,12 +464,8 @@
                     <h3>{{ comment.commented_by.name }}</h3>
                     <h5>{{ comment.commented_by.position }}</h5>
                   </div>
-                  <p *ngIf="comment.days > 0">
-                    {{ comment.commented_at | date }}
-                  </p>
-                  <p *ngIf="comment.days == 0">
-                    {{ comment.hours }} hours {{ comment.minutes }} minutes
-                    {{ comment.seconds }} seconds
+                  <p>
+                    {{ comment.commented_at | datePipe }}
                   </p>
                 </div>
                 <p>{{ comment.comment }}</p>

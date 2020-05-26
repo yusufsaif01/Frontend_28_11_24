@@ -216,13 +216,6 @@ export class TimelineComponent implements OnInit, OnDestroy {
           let dateNow: any = new Date(Date.now());
           let comments: CommentContext[] = response.data.records;
           comments.forEach(comment => {
-            comment.postDate = new Date(comment.commented_at);
-            comment.dateDiff = Math.abs(dateNow - comment.postDate) / 1000;
-            comment.days = Math.floor(comment.dateDiff / 86400);
-            comment.hours = Math.floor(comment.dateDiff / 3600) % 24;
-            comment.minutes = Math.floor(comment.dateDiff / 60) % 60;
-            comment.seconds = comment.dateDiff % 60;
-            comment.seconds = parseInt(comment.seconds.toString());
             if (comment.commented_by.avatar) {
               comment.commented_by.avatar =
                 environment.mediaUrl + comment.commented_by.avatar;
@@ -283,16 +276,8 @@ export class TimelineComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          let dateNow: any = new Date(Date.now());
           let posts: PostContext[] = response.data.records;
           posts.forEach(post => {
-            post.postDate = new Date(post.created_at);
-            post.dateDiff = Math.abs(dateNow - post.postDate) / 1000;
-            post.days = Math.floor(post.dateDiff / 86400);
-            post.hours = Math.floor(post.dateDiff / 3600) % 24;
-            post.minutes = Math.floor(post.dateDiff / 60) % 60;
-            post.seconds = post.dateDiff % 60;
-            post.seconds = parseInt(post.seconds.toString());
             if (post.posted_by.avatar) {
               post.posted_by.avatar =
                 environment.mediaUrl + post.posted_by.avatar;
