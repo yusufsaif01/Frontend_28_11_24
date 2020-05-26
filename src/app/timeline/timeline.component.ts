@@ -61,13 +61,11 @@ export class TimelineComponent implements OnInit, OnDestroy {
   };
 
   commentForm: FormGroup;
-  comment_count: number = 0;
   show_comment_box: false;
   player_type: string;
   member_type: string;
 
   addComment$: Observable<any>;
-  likes: number = 0;
 
   @Input() is_like = false;
 
@@ -105,15 +103,14 @@ export class TimelineComponent implements OnInit, OnDestroy {
     });
   }
 
-  addComment() {
+  addComment(post_id: string) {
     this.addComment$ = this._timelineService
       .addComment({
-        post_id: 'ffd98934-c6f5-47a7-912d-68585dc7861f', //postId
+        post_id,
         ...this.commentForm.value
       })
       .pipe(
         map(resp => {
-          this.comment_count++;
           this.commentForm.reset();
         }),
         catchError(err => {
@@ -142,35 +139,29 @@ export class TimelineComponent implements OnInit, OnDestroy {
     this.userId = localStorage.getItem('user_id');
   }
 
-  toggleLike() {
+  toggleLike(post_id: string) {
     if (this.is_like) {
-      this.like$ = this._timelineService
-        .unlikePost({ post_id: 'ffd98934-c6f5-47a7-912d-68585dc7861f' }) //postId
-        .pipe(
-          map(resp => {
-            this.is_like = false;
-            this.likes--;
-          }),
-          catchError(err => {
-            this._toastrService.error('Error', err.error.message);
-            throw err;
-          }),
-          untilDestroyed(this)
-        );
+      this.like$ = this._timelineService.unlikePost({ post_id }).pipe(
+        map(resp => {
+          this.is_like = false;
+        }),
+        catchError(err => {
+          this._toastrService.error('Error', err.error.message);
+          throw err;
+        }),
+        untilDestroyed(this)
+      );
     } else {
-      this.like$ = this._timelineService
-        .likePost({ post_id: 'ffd98934-c6f5-47a7-912d-68585dc7861f' }) //postId
-        .pipe(
-          map(resp => {
-            this.is_like = true;
-            this.likes++;
-          }),
-          catchError(err => {
-            this._toastrService.error('Error', err.error.message);
-            throw err;
-          }),
-          untilDestroyed(this)
-        );
+      this.like$ = this._timelineService.likePost({ post_id }).pipe(
+        map(resp => {
+          this.is_like = true;
+        }),
+        catchError(err => {
+          this._toastrService.error('Error', err.error.message);
+          throw err;
+        }),
+        untilDestroyed(this)
+      );
     }
   }
 
