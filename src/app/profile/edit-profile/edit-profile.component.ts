@@ -354,8 +354,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
                 Validators.pattern(/^\d+$/)
               ]);
             }
+            documentNumber.updateValueAndValidity();
           });
-        documentNumber.updateValueAndValidity();
       }
 
       this.editProfileForm
