@@ -354,6 +354,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
                 Validators.pattern(/^\d+$/)
               ]);
             }
+            documentNumber.updateValueAndValidity();
           });
       }
 
@@ -375,7 +376,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       trophies.updateValueAndValidity();
       address.updateValueAndValidity();
       pincode.updateValueAndValidity();
-      documentNumber.updateValueAndValidity();
     }
   }
 
