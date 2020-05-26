@@ -4,7 +4,7 @@ import {
   RouterModule
   // , PreloadAllModules
 } from '@angular/router';
-import { extract } from '@app/core';
+import { extract, AuthenticationGuard } from '@app/core';
 import { RegistrationComponent } from './registration/registration.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
@@ -21,16 +21,19 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: './admin/admin.module#AdminModule'
+    loadChildren: './admin/admin.module#AdminModule',
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'member/awardcertification',
     loadChildren:
-      './award-certificate/award-certificate.module#AwardCertificateModule'
+      './award-certificate/award-certificate.module#AwardCertificateModule',
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'member/timeline',
-    loadChildren: './timeline/timeline.module#TimelineModule'
+    loadChildren: './timeline/timeline.module#TimelineModule',
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'forgot-password',
@@ -44,22 +47,26 @@ const routes: Routes = [
   },
   {
     path: 'member/profile',
-    loadChildren: './profile/profile.module#ProfileModule'
+    loadChildren: './profile/profile.module#ProfileModule',
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'member/manage',
     loadChildren:
-      './manage-footmates/manage-footmates.module#ManageFootmatesModule'
+      './manage-footmates/manage-footmates.module#ManageFootmatesModule',
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'register',
     component: RegistrationComponent,
-    data: { title: extract('Registration') }
+    data: { title: extract('Registration') },
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'change-password',
     component: ChangePasswordComponent,
-    data: { title: extract('Change Password') }
+    data: { title: extract('Change Password') },
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'create-password',

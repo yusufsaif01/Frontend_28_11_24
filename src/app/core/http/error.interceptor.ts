@@ -8,7 +8,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthenticationService } from '../authentication/authentication.service';
-import { Router } from '@angular/router';
+import { Router, RouterStateSnapshot } from '@angular/router';
 import { CredentialsService } from '../authentication/credentials.service';
 
 @Injectable()
@@ -29,7 +29,10 @@ export class ErrorInterceptor implements HttpInterceptor {
           if (this.credentialService.isAuthenticated()) {
             this.authenticationService.logout();
           } else {
-            this.router.navigateByUrl('/login');
+            this.router.navigate(['/login'], {
+              queryParams: { redirect: this.router.routerState.snapshot.url },
+              replaceUrl: true
+            });
             localStorage.clear();
             sessionStorage.clear();
           }

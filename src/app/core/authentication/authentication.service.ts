@@ -93,7 +93,10 @@ export class AuthenticationService {
     }
     this.httpClient.post(routes.logout(), credentials.data.token);
     this.credentialsService.setCredentials();
-    this.router.navigateByUrl('/login');
+    this.router.navigate(['/login'], {
+      queryParams: { redirect: this.router.routerState.snapshot.url },
+      replaceUrl: true
+    });
     return of(true);
   }
 
