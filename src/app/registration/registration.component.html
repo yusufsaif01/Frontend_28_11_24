@@ -318,13 +318,15 @@
           <div class="input-wrapper">
             <label
               >Type
-              <span
-                matTooltip="Players between 6-12 years."
-                matTooltipPosition="above"
-              >
+              <span [matTooltip]="tooltip" matTooltipPosition="above">
                 <i-feather name="info" class="info"> </i-feather> </span
             ></label>
-            <select formControlName="type" matNativeControl required>
+            <select
+              formControlName="type"
+              matNativeControl
+              required
+              (change)="onSelectType($event.target.value)"
+            >
               <option value="">Select Type</option>
               <option *ngFor="let type of typeArray" [value]="type.value">{{
                 type.name

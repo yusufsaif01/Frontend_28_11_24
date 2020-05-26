@@ -11,6 +11,7 @@ import { Constants } from '@app/shared/static-data/static-data';
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
   activeForm: string = 'player';
+  tooltip: string = '';
   typeArray: any[] = [];
   playerType: any[] = Constants.PLAYER_TYPE;
   clubAcademyType: any[] = Constants.CLUB_ACADEMY_TYPE;
@@ -77,6 +78,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   resetFormFields() {
     this.registrationForm.reset();
+    this.tooltip = '';
   }
 
   register() {
@@ -120,5 +122,33 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       name: [''],
       type: [['', [Validators.required]]]
     });
+  }
+
+  onSelectType(typeValue: string) {
+    console.log(typeValue);
+    switch (typeValue) {
+      case '':
+        this.tooltip = '';
+        break;
+      case 'grassroot':
+        this.tooltip = 'Players between 6-12 years.';
+        break;
+      case 'amateur':
+        this.tooltip =
+          'Players who have never received any remuneration nor they currently have an employment contract with a club/ academy.';
+        break;
+      case 'professional':
+        this.tooltip =
+          'Players who are currently employed by club/ academy and have an official written contract.';
+        break;
+      case 'Residential':
+        this.tooltip =
+          'Academies that consist of residential rooms, bathrooms, toilets, dining room, kitchen, leisure/recreation room and schooling for players.';
+        break;
+      case 'Non-Residential':
+        this.tooltip =
+          'Academies that do not consist of residential rooms, bathrooms, toilets, dining room, kitchen, leisure/recreation room and schooling for players.';
+        break;
+    }
   }
 }
