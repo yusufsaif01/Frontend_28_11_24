@@ -450,42 +450,34 @@
             >View Previous Comments</a
           >
         </div>
-        <div
-          infiniteScroll
-          [scrollWindow]="false"
-          [infiniteScrollUpDistance]="1.5"
-          [infiniteScrollDistance]="2"
-          [infiniteScrollThrottle]="50"
-        >
-          <ng-container *ngFor="let comment of post.commentListing">
-            <div class="comment">
-              <div class="img-commnet">
-                <div class="profile-img">
-                  <img [src]="comment.commented_by.avatar" alt="" />
-                  <span></span>
-                </div>
-              </div>
-              <div class="profile-details">
-                <div class="details">
-                  <div class="name-time">
-                    <div class="name">
-                      <h3>{{ comment.commented_by.name }}</h3>
-                      <h5>{{ comment.commented_by.position }}</h5>
-                    </div>
-                    <p *ngIf="comment.days > 0">
-                      {{ comment.commented_at | date }}
-                    </p>
-                    <p *ngIf="comment.days == 0">
-                      {{ comment.hours }} hours {{ comment.minutes }} minutes
-                      {{ comment.seconds }} seconds
-                    </p>
-                  </div>
-                  <p>{{ comment.comment }}</p>
-                </div>
+        <ng-container *ngFor="let comment of post.commentListing">
+          <div class="comment">
+            <div class="img-commnet">
+              <div class="profile-img">
+                <img [src]="comment.commented_by.avatar" alt="" />
+                <span></span>
               </div>
             </div>
-          </ng-container>
-        </div>
+            <div class="profile-details">
+              <div class="details">
+                <div class="name-time">
+                  <div class="name">
+                    <h3>{{ comment.commented_by.name }}</h3>
+                    <h5>{{ comment.commented_by.position }}</h5>
+                  </div>
+                  <p *ngIf="comment.days > 0">
+                    {{ comment.commented_at | date }}
+                  </p>
+                  <p *ngIf="comment.days == 0">
+                    {{ comment.hours }} hours {{ comment.minutes }} minutes
+                    {{ comment.seconds }} seconds
+                  </p>
+                </div>
+                <p>{{ comment.comment }}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </div>
       <ng-container *ngIf="post.show_comment_box">
         <div class="comment-box">
