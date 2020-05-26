@@ -17,6 +17,65 @@ import { untilDestroyed } from '@app/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 
+let post_response = [
+  {
+    id: 'f8c1424e-1359-4462-8693-37d281550948',
+    post: {
+      text: 'new Post 3',
+      media_url: '',
+      media_type: ''
+    },
+    posted_by: {
+      avatar: '/uploads/documents/diwali-sample1.jpg',
+      user_id: '09421252-2e38-434d-9d39-3cdd8ce69be4',
+      name: 'play play1',
+      type: 'professional',
+      position: 'Right Midfielder'
+    },
+    is_liked: true,
+    likes: 2,
+    comments: 12,
+    created_at: '2020-05-25T14:46:52.833Z'
+  },
+  {
+    id: 'f6ae1a31-129c-4259-a84c-c307d432a352',
+    post: {
+      text: 'new Post2',
+      media_url: '',
+      media_type: ''
+    },
+    posted_by: {
+      avatar: '/uploads/documents/diwali-sample1.jpg',
+      user_id: '09421252-2e38-434d-9d39-3cdd8ce69be4',
+      name: 'play play1',
+      type: 'professional',
+      position: 'Right Midfielder'
+    },
+    is_liked: false,
+    likes: 0,
+    comments: 8,
+    created_at: '2020-05-25T08:10:35.330Z'
+  },
+  {
+    id: '1f9d1681-d77d-4362-b36a-ef95d96eb584',
+    post: {
+      text: 'new post1',
+      media_url: '',
+      media_type: ''
+    },
+    posted_by: {
+      avatar: '/uploads/documents/diwali-sample1.jpg',
+      user_id: '09421252-2e38-434d-9d39-3cdd8ce69be4',
+      name: 'play play1',
+      type: 'professional',
+      position: 'Right Midfielder'
+    },
+    is_liked: true,
+    likes: 1,
+    comments: 2,
+    created_at: '2020-05-25T08:02:28.703Z'
+  }
+];
 interface PostContext {
   id: string;
   post: {
@@ -269,7 +328,8 @@ export class TimelineComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           let dateNow: any = new Date(Date.now());
-          let posts: PostContext[] = response.data.records;
+          // let posts: PostContext[] = response.data.records;
+          let posts: PostContext[] = post_response;
           posts.forEach(post => {
             post.postDate = new Date(post.created_at);
             post.dateDiff = Math.abs(dateNow - post.postDate) / 1000;
