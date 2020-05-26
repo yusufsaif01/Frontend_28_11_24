@@ -134,7 +134,7 @@ interface CommentContext {
 })
 export class TimelineComponent implements OnInit, OnDestroy {
   environment = environment;
-  postListing: any[] = [];
+  postListing: any[] = post_response;
   pageNo: number = 1;
   pageSize: number = 5;
   panelOptions: Partial<PanelOptions> = {
@@ -242,7 +242,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getPostListing();
+    // this.getPostListing();
     this.userId = localStorage.getItem('user_id');
     this.avatar_url = localStorage.getItem('avatar_url');
   }
@@ -328,8 +328,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           let dateNow: any = new Date(Date.now());
-          // let posts: PostContext[] = response.data.records;
-          let posts: PostContext[] = post_response;
+          let posts: PostContext[] = response.data.records;
           posts.forEach(post => {
             post.postDate = new Date(post.created_at);
             post.dateDiff = Math.abs(dateNow - post.postDate) / 1000;
