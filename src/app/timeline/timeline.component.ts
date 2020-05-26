@@ -143,13 +143,7 @@ export class TimelineComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   createCommentForm(post: PostContext) {
     post.commentForm = this._formBuilder.group({
-      comment: [
-        '',
-        [
-          Validators.maxLength(60),
-          Validators.pattern(/^[A-Za-z0-9\(\)\-\&\!\%\* ]+$/)
-        ]
-      ]
+      comment: ['']
     });
   }
 
