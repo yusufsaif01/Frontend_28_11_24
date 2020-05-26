@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 import {
@@ -16,6 +16,55 @@ import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
+
+interface PostContext {
+  id: string;
+  post: {
+    text: string;
+    media_url: string;
+    media_type: string;
+  };
+  posted_by: {
+    avatar: string;
+    user_id: string;
+    name: string;
+    type: string;
+    position: string;
+  };
+  is_liked: boolean;
+  likes: number;
+  comments: number;
+  created_at: string;
+  show_comment_box?: boolean;
+  postDate?: any;
+  dateDiff?: number;
+  days?: number;
+  hours?: number;
+  minutes?: number;
+  seconds?: number;
+  commentListing?: CommentContext[];
+  commentForm?: FormGroup;
+  commentPageNo?: number;
+  commentPageSize?: number;
+}
+
+interface CommentContext {
+  comment: string;
+  commented_by: {
+    avatar: string;
+    user_id: string;
+    name: string;
+    type: string;
+    position: string;
+  };
+  commented_at: string;
+  postDate?: any;
+  dateDiff?: number;
+  days?: number;
+  hours?: number;
+  minutes?: number;
+  seconds?: number;
+}
 
 @Component({
   selector: 'app-timeline',
@@ -60,18 +109,13 @@ export class TimelineComponent implements OnInit, OnDestroy {
     }
   };
 
-  commentForm: FormGroup;
-  comment_count: number = 0;
-  show_comment_box: false;
   player_type: string;
   member_type: string;
 
-  addComment$: Observable<any>;
-  likes: number = 0;
+  // addComment$: Observable<any>;
+  // like$: Observable<any>;
 
-  @Input() is_like = false;
-
-  like$: Observable<any>;
+  avatar_url: string = '';
   userId: string = '';
 
   constructor(
@@ -79,9 +123,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
     private _timelineService: TimelineService,
     private _toastrService: ToastrService,
     private _formBuilder: FormBuilder
-  ) {
-    this.createForm();
-  }
+  ) {}
 
   ngOnDestroy() {}
 
@@ -93,8 +135,8 @@ export class TimelineComponent implements OnInit, OnDestroy {
     this.player_type = value;
   }
 
-  createForm() {
-    this.commentForm = this._formBuilder.group({
+  createCommentForm(post: PostContext) {
+    post.commentForm = this._formBuilder.group({
       comment: [
         '',
         [
@@ -105,22 +147,40 @@ export class TimelineComponent implements OnInit, OnDestroy {
     });
   }
 
-  addComment() {
-    this.addComment$ = this._timelineService
+  // addComment(post: PostContext) {
+  //   this.addComment$ = this._timelineService
+  //     .addComment({
+  //       post_id: post.id,
+  //       ...this.commentForm.value
+  //     })
+  //     .pipe(
+  //       map(resp => {
+  //         // this.comment_count++;
+  //         this.commentForm.reset();
+  //       }),
+  //       catchError(err => {
+  //         this._toastrService.error('Error', err.error.message);
+  //         throw err;
+  //       }),
+  //       untilDestroyed(this)
+  //     );
+  // }
+  addComment(post: PostContext) {
+    this._timelineService
       .addComment({
-        post_id: 'ffd98934-c6f5-47a7-912d-68585dc7861f', //postId
-        ...this.commentForm.value
+        post_id: post.id,
+        ...post.commentForm.value
       })
-      .pipe(
-        map(resp => {
-          this.comment_count++;
-          this.commentForm.reset();
-        }),
-        catchError(err => {
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          post.commentForm.reset();
+          post.comments++;
+          this.getCommentListing(post, false);
+        },
+        err => {
           this._toastrService.error('Error', err.error.message);
-          throw err;
-        }),
-        untilDestroyed(this)
+        }
       );
   }
 
@@ -140,36 +200,103 @@ export class TimelineComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getPostListing();
     this.userId = localStorage.getItem('user_id');
+    this.avatar_url = localStorage.getItem('avatar_url');
   }
 
-  toggleLike() {
-    if (this.is_like) {
-      this.like$ = this._timelineService
-        .unlikePost({ post_id: 'ffd98934-c6f5-47a7-912d-68585dc7861f' }) //postId
-        .pipe(
-          map(resp => {
-            this.is_like = false;
-            this.likes--;
-          }),
-          catchError(err => {
+  getCommentListing(post: PostContext, shouldLoad?: boolean) {
+    this._timelineService
+      .getCommentListing({
+        page_no: post.commentPageNo,
+        page_size: post.commentPageSize,
+        post_id: post.id
+      })
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let dateNow: any = new Date(Date.now());
+          let comments: CommentContext[] = response.data.records;
+          comments.forEach(comment => {
+            comment.postDate = new Date(comment.commented_at);
+            comment.dateDiff = Math.abs(dateNow - comment.postDate) / 1000;
+            comment.days = Math.floor(comment.dateDiff / 86400);
+            comment.hours = Math.floor(comment.dateDiff / 3600) % 24;
+            comment.minutes = Math.floor(comment.dateDiff / 60) % 60;
+            comment.seconds = comment.dateDiff % 60;
+            comment.seconds = parseInt(comment.seconds.toString());
+            if (comment.commented_by.avatar) {
+              comment.commented_by.avatar =
+                environment.mediaUrl + comment.commented_by.avatar;
+            }
+          });
+          if (!shouldLoad) {
+            post.commentListing = comments;
+          } else {
+            post.commentListing.reverse();
+            comments.forEach(comment => {
+              if (!post.commentListing.includes(comment)) {
+                post.commentListing.push(comment);
+              }
+            });
+          }
+          post.commentListing.reverse();
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
+        }
+      );
+  }
+
+  // toggleLike(post: PostContext) {
+  //   if (post.is_liked) {
+  //     this.like$ = this._timelineService.unlikePost({ post_id: post.id }).pipe(
+  //       map(resp => {
+  //         post.is_liked = false;
+  //       }),
+  //       catchError(err => {
+  //         this._toastrService.error('Error', err.error.message);
+  //         throw err;
+  //       }),
+  //       untilDestroyed(this)
+  //     );
+  //   } else {
+  //     this.like$ = this._timelineService.likePost({ post_id: post.id }).pipe(
+  //       map(resp => {
+  //         post.is_liked = true;
+  //       }),
+  //       catchError(err => {
+  //         this._toastrService.error('Error', err.error.message);
+  //         throw err;
+  //       }),
+  //       untilDestroyed(this)
+  //     );
+  //   }
+  // }
+  toggleLike(post: PostContext) {
+    if (post.is_liked) {
+      this._timelineService
+        .unlikePost({ post_id: post.id })
+        .pipe(untilDestroyed(this))
+        .subscribe(
+          response => {
+            post.is_liked = false;
+            post.likes--;
+          },
+          err => {
             this._toastrService.error('Error', err.error.message);
-            throw err;
-          }),
-          untilDestroyed(this)
+          }
         );
     } else {
-      this.like$ = this._timelineService
-        .likePost({ post_id: 'ffd98934-c6f5-47a7-912d-68585dc7861f' }) //postId
-        .pipe(
-          map(resp => {
-            this.is_like = true;
-            this.likes++;
-          }),
-          catchError(err => {
+      this._timelineService
+        .likePost({ post_id: post.id })
+        .pipe(untilDestroyed(this))
+        .subscribe(
+          response => {
+            post.is_liked = true;
+            post.likes++;
+          },
+          err => {
             this._toastrService.error('Error', err.error.message);
-            throw err;
-          }),
-          untilDestroyed(this)
+          }
         );
     }
   }
@@ -184,30 +311,35 @@ export class TimelineComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           let dateNow: any = new Date(Date.now());
-          let records: any[] = response.data.records;
-          records.forEach((element: any) => {
-            element.postDate = new Date(element.created_at);
-            element.dateDiff = Math.abs(dateNow - element.postDate) / 1000;
-            element.days = Math.floor(element.dateDiff / 86400);
-            element.hours = Math.floor(element.dateDiff / 3600) % 24;
-            element.minutes = Math.floor(element.dateDiff / 60) % 60;
-            element.seconds = element.dateDiff % 60;
-            element.seconds = parseInt(element.seconds);
-            if (element.posted_by.avatar) {
-              element.posted_by.avatar =
-                environment.mediaUrl + element.posted_by.avatar;
+          let posts: PostContext[] = response.data.records;
+          posts.forEach(post => {
+            post.postDate = new Date(post.created_at);
+            post.dateDiff = Math.abs(dateNow - post.postDate) / 1000;
+            post.days = Math.floor(post.dateDiff / 86400);
+            post.hours = Math.floor(post.dateDiff / 3600) % 24;
+            post.minutes = Math.floor(post.dateDiff / 60) % 60;
+            post.seconds = post.dateDiff % 60;
+            post.seconds = parseInt(post.seconds.toString());
+            if (post.posted_by.avatar) {
+              post.posted_by.avatar =
+                environment.mediaUrl + post.posted_by.avatar;
             }
-            if (element.post.media_url) {
-              element.post.media_url =
-                environment.mediaUrl + element.post.media_url;
+            if (post.post.media_url) {
+              post.post.media_url = environment.mediaUrl + post.post.media_url;
             }
+            post.commentPageNo = 1;
+            post.commentPageSize = 3;
+            this.getCommentListing(post);
+            let commentForm: FormGroup;
+            post.commentForm = commentForm;
+            this.createCommentForm(post);
           });
           if (!scrolled) {
-            this.postListing = records;
+            this.postListing = posts;
           } else {
-            records.forEach((el: any) => {
-              if (!this.postListing.includes(el)) {
-                this.postListing.push(el);
+            posts.forEach(post => {
+              if (!this.postListing.includes(post)) {
+                this.postListing.push(post);
               }
             });
           }
@@ -263,6 +395,12 @@ export class TimelineComponent implements OnInit, OnDestroy {
           );
       }
     });
+  }
+
+  loadComments(post: PostContext) {
+    if (post.comments === post.commentListing.length) return;
+    post.commentPageNo++;
+    this.getCommentListing(post, true);
   }
 
   onScrollDown() {
