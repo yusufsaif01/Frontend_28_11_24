@@ -428,7 +428,7 @@
           <ng-container *ngIf="post.addComment$ | async"></ng-container>
           <ng-container *ngIf="!['amateur', 'grassroot'].includes(player_type)">
             <li
-              (click)="post.show_comment_box = true"
+              (click)="activateCommentBox(post)"
               [ngClass]="{
                 chatdisable:
                   !player_type && !['academy', 'club'].includes(member_type)
@@ -442,7 +442,13 @@
       </div>
       <div class="comment-wrapper  border-bottom">
         <div class="previous-list">
-          <a (click)="loadComments(post)">View Previous Comments</a>
+          <a
+            *ngIf="
+              post.comments > 3 && post.comments !== post.commentListing.length
+            "
+            (click)="loadComments(post)"
+            >View Previous Comments</a
+          >
         </div>
         <div
           infiniteScroll

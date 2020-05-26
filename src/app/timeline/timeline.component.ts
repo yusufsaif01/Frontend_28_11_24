@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 import {
@@ -73,7 +73,7 @@ interface CommentContext {
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.scss']
 })
-export class TimelineComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class TimelineComponent implements OnInit, OnDestroy {
   environment = environment;
   postListing: PostContext[] = [];
   pageNo: number = 1;
@@ -179,24 +179,23 @@ export class TimelineComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.avatar_url = localStorage.getItem('avatar_url');
   }
 
-  ngAfterViewChecked() {
-    this.setCategoryValidators();
+  activateCommentBox(post: PostContext) {
+    post.show_comment_box = true;
+    this.setCategoryValidators(post);
   }
 
-  setCategoryValidators() {
-    this.postListing.forEach(post => {
-      const comment = post.commentForm.get('comment');
-      if (this.member_type === 'player') {
-        comment.setValidators([
-          Validators.maxLength(60),
-          Validators.pattern(/^[A-Za-z0-9\(\)\-\&\!\%\* ]+$/)
-        ]);
-      }
-      if (this.member_type === 'club' || this.member_type === 'academy') {
-        comment.setValidators([Validators.maxLength(60)]);
-      }
-      comment.updateValueAndValidity();
-    });
+  setCategoryValidators(post: PostContext) {
+    const comment = post.commentForm.get('comment');
+    if (this.member_type === 'player') {
+      comment.setValidators([
+        Validators.maxLength(60),
+        Validators.pattern(/^[A-Za-z0-9\(\)\-\&\!\%\* ]+$/)
+      ]);
+    }
+    if (this.member_type === 'club' || this.member_type === 'academy') {
+      comment.setValidators([Validators.maxLength(60)]);
+    }
+    comment.updateValueAndValidity();
   }
 
   getCommentListing(
@@ -304,6 +303,7 @@ export class TimelineComponent implements OnInit, OnDestroy, AfterViewChecked {
             }
             post.commentPageNo = 1;
             post.commentPageSize = 3;
+            post.commentListing = [];
             this.getCommentListing(post, false, false);
             let commentForm: FormGroup;
             post.commentForm = commentForm;
