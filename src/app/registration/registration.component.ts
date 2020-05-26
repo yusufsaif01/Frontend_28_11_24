@@ -10,6 +10,16 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
   activeForm: string = 'player';
+  typeArray: any[] = [];
+  playerType: any[] = [
+    { name: 'Grassroot', value: 'grassroot' },
+    { name: 'Amateur', value: 'amateur' },
+    { name: 'Professional', value: 'professional' }
+  ];
+  clubAcademyType: any[] = [
+    { name: 'Residential', value: 'Residential' },
+    { name: 'Non-Residential', value: 'Non-Residential' }
+  ];
   registrationForm: FormGroup;
 
   constructor(
@@ -23,10 +33,21 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   ngOnInit() {
-    this.setDefaultValidators();
+    this.typeArray = this.playerType;
+    this.setPlayerValidators();
   }
-  setDefaultValidators() {
+
+  clearValidators() {
     this.registrationForm.controls.name.clearValidators();
+    this.registrationForm.controls.name.updateValueAndValidity();
+    this.registrationForm.controls.first_name.clearValidators();
+    this.registrationForm.controls.first_name.updateValueAndValidity();
+    this.registrationForm.controls.last_name.clearValidators();
+    this.registrationForm.controls.last_name.updateValueAndValidity();
+  }
+
+  setPlayerValidators() {
+    this.clearValidators();
     this.registrationForm.controls.first_name.setValidators([
       Validators.required,
       Validators.maxLength(25),
@@ -38,26 +59,30 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     ]);
   }
 
+  setClubAcademyValidators() {
+    this.clearValidators();
+    this.registrationForm.controls.name.setValidators([
+      Validators.required,
+      Validators.maxLength(25),
+      Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
+    ]);
+  }
+
   toggleForm(formName: string) {
     this.activeForm = formName;
     this.resetFormFields();
     if (this.activeForm === 'club' || this.activeForm === 'academy') {
-      this.registrationForm.controls.first_name.clearValidators();
-      this.registrationForm.controls.last_name.clearValidators();
-      this.registrationForm.controls.name.setValidators([
-        Validators.required,
-        Validators.maxLength(25),
-        Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-      ]);
+      this.setClubAcademyValidators();
+      this.typeArray = this.clubAcademyType;
     }
     if (this.activeForm === 'player') {
-      this.setDefaultValidators();
+      this.setPlayerValidators();
+      this.typeArray = this.playerType;
     }
   }
 
   resetFormFields() {
     this.registrationForm.reset();
-    this.createForm();
   }
 
   register() {
@@ -86,21 +111,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.registrationForm = this._formBuilder.group({
-      first_name: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(25),
-          Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-        ]
-      ],
-      last_name: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-        ]
-      ],
+      first_name: [''],
+      last_name: [''],
       email: ['', [Validators.required, Validators.email]],
       phone: [
         '',
@@ -111,16 +123,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           Validators.pattern(/^[0-9]+$/)
         ]
       ],
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(25),
-          Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-        ]
-      ],
-      country: ['', [Validators.required]],
-      state: ['', [Validators.required]]
+      name: [''],
+      type: [['', [Validators.required]]]
     });
   }
 }
