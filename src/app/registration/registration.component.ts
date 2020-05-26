@@ -125,7 +125,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   onSelectType(typeValue: string) {
-    console.log(typeValue);
     switch (typeValue) {
       case '':
         this.tooltip = '';
