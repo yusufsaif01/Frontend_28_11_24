@@ -155,7 +155,8 @@ export class TimelineComponent implements OnInit, OnDestroy {
         map(resp => {
           post.commentForm.reset();
           post.comments++;
-          this.getCommentListing(post, false);
+          let isViewedMore: boolean = post.commentPageNo > 1;
+          this.getCommentListing(post, false, isViewedMore);
         }),
         catchError(err => {
           this._toastrService.error('Error', err.error.message);
@@ -184,11 +185,17 @@ export class TimelineComponent implements OnInit, OnDestroy {
     this.avatar_url = localStorage.getItem('avatar_url');
   }
 
-  getCommentListing(post: PostContext, shouldLoad?: boolean) {
+  getCommentListing(
+    post: PostContext,
+    shouldLoad?: boolean,
+    shouldLoadAfterViewMore?: boolean
+  ) {
     this._timelineService
       .getCommentListing({
-        page_no: post.commentPageNo,
-        page_size: post.commentPageSize,
+        page_no: shouldLoadAfterViewMore ? 1 : post.commentPageNo,
+        page_size: shouldLoadAfterViewMore
+          ? post.commentPageNo * post.commentPageSize
+          : post.commentPageSize,
         post_id: post.id
       })
       .pipe(untilDestroyed(this))
@@ -283,7 +290,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
             }
             post.commentPageNo = 1;
             post.commentPageSize = 3;
-            this.getCommentListing(post, false);
+            this.getCommentListing(post, false, false);
             let commentForm: FormGroup;
             post.commentForm = commentForm;
             this.createCommentForm(post);
@@ -354,7 +361,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   loadComments(post: PostContext) {
     if (post.comments === post.commentListing.length) return;
     post.commentPageNo++;
-    this.getCommentListing(post, true);
+    this.getCommentListing(post, true, false);
   }
 
   onScrollDown() {
