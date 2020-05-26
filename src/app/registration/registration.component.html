@@ -314,7 +314,7 @@
           </div>
         </div>
 
-        <!-- Country and City -->
+        <!-- Country and City 
         <div class="form-row">
           <div class="input-wrapper">
             <label>Country</label>
@@ -364,10 +364,39 @@
               </mat-error>
             </ng-container>
           </div>
-        </div>
+        </div> -->
 
         <!-- captcha -->
         <div class="form-row">
+          <div class="input-wrapper">
+            <label
+              >Type
+              <span
+                matTooltip="Players between 6-12 years."
+                matTooltipPosition="above"
+              >
+                <i-feather name="info" class="info"> </i-feather> </span
+            ></label>
+            <select formControlName="Type" matNativeControl required>
+              <option value="">Select Type</option>
+              <option value="">Type01</option>
+              <option value="">Type02</option>
+              <option value="">Type03</option>
+            </select>
+            <ng-container
+              *ngIf="
+                registrationForm.controls.state.invalid &&
+                registrationForm.controls.state.touched
+              "
+            >
+              <mat-error
+                class="error-text"
+                *ngIf="registrationForm.controls.state.errors.required"
+              >
+                State is required
+              </mat-error>
+            </ng-container>
+          </div>
           <div class="img-wrapper">
             <img src="assets/images/capcha.png" alt="" />
           </div>

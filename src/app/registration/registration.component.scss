@@ -149,7 +149,7 @@
 
         .img-wrapper {
           width: 48%;
-          margin-bottom: 2rem;
+          margin-top: 0.7rem;
           img {
             width: 100%;
           }
@@ -184,4 +184,10 @@
 }
 .pd-zero {
   padding: 0px !important;
+}
+.info {
+  width: 2rem;
+  height: 2rem;
+  transform: translate(0.5rem, 0.3rem);
+  cursor: pointer;
 }
