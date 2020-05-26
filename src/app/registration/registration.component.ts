@@ -62,20 +62,20 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       Validators.maxLength(25),
       Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
     ]);
+    this.registrationForm.controls.type.patchValue('');
   }
 
   toggleForm(formName: string) {
     this.activeForm = formName;
     this.resetFormFields();
+
     if (this.activeForm === 'club' || this.activeForm === 'academy') {
       this.setClubAcademyValidators();
       this.typeArray = this.clubAcademyType;
-      this.registrationForm.controls.type.patchValue('');
     }
     if (this.activeForm === 'player') {
       this.setPlayerValidators();
       this.typeArray = this.playerType;
-      this.registrationForm.controls.type.patchValue('');
     }
   }
 
@@ -123,7 +123,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         ]
       ],
       name: [''],
-      type: [['', [Validators.required]]]
+      type: ['', [Validators.required]]
     });
   }
 
@@ -145,11 +145,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         break;
       case 'Residential':
         this.tooltip =
-          'Academies that consist of residential rooms, bathrooms, toilets, dining room, kitchen, leisure/recreation room and schooling for players.';
+          'Type that consist of residential rooms, bathrooms, toilets, dining room, kitchen, leisure/recreation room and schooling for players.';
         break;
       case 'Non-Residential':
         this.tooltip =
-          'Academies that do not consist of residential rooms, bathrooms, toilets, dining room, kitchen, leisure/recreation room and schooling for players.';
+          'Type that does not consist of residential rooms, bathrooms, toilets, dining room, kitchen, leisure/recreation room and schooling for players.';
         break;
     }
   }
