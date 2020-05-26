@@ -52,6 +52,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
     ]);
+    this.registrationForm.controls.type.patchValue('');
   }
 
   setClubAcademyValidators() {
@@ -69,10 +70,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     if (this.activeForm === 'club' || this.activeForm === 'academy') {
       this.setClubAcademyValidators();
       this.typeArray = this.clubAcademyType;
+      this.registrationForm.controls.type.patchValue('');
     }
     if (this.activeForm === 'player') {
       this.setPlayerValidators();
       this.typeArray = this.playerType;
+      this.registrationForm.controls.type.patchValue('');
     }
   }
 
