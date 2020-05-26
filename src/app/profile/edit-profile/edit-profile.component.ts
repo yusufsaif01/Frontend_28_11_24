@@ -355,6 +355,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
               ]);
             }
           });
+        documentNumber.updateValueAndValidity();
       }
 
       this.editProfileForm
@@ -375,7 +376,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       trophies.updateValueAndValidity();
       address.updateValueAndValidity();
       pincode.updateValueAndValidity();
-      documentNumber.updateValueAndValidity();
     }
   }
 
