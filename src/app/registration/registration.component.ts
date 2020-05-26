@@ -10,7 +10,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
   activeForm: string = 'player';
-  registrationForm: FormGroup;
+
+  playerRegistrationForm: FormGroup;
+  clubRegistrationForm: FormGroup;
+  academyRegistrationForm: FormGroup;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -22,54 +25,58 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {}
 
-  ngOnInit() {
-    this.setDefaultValidators();
-  }
-  setDefaultValidators() {
-    this.registrationForm.controls.name.clearValidators();
-    this.registrationForm.controls.first_name.setValidators([
-      Validators.required,
-      Validators.maxLength(25),
-      Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-    ]);
-    this.registrationForm.controls.last_name.setValidators([
-      Validators.required,
-      Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-    ]);
-  }
+  ngOnInit() {}
 
   toggleForm(formName: string) {
     this.activeForm = formName;
     this.resetFormFields();
-    if (this.activeForm === 'club' || this.activeForm === 'academy') {
-      this.registrationForm.controls.first_name.clearValidators();
-      this.registrationForm.controls.last_name.clearValidators();
-      this.registrationForm.controls.name.setValidators([
-        Validators.required,
-        Validators.maxLength(25),
-        Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-      ]);
-    }
-    if (this.activeForm === 'player') {
-      this.setDefaultValidators();
-    }
   }
 
   resetFormFields() {
-    this.registrationForm.reset();
+    this.clubRegistrationForm.reset();
+    this.playerRegistrationForm.reset();
+    this.academyRegistrationForm.reset();
     this.createForm();
   }
 
-  register() {
-    let form_data = this.registrationForm.value;
+  playerRegister() {
+    let form_data = this.playerRegistrationForm.value;
     form_data.member_type = this.activeForm;
-    if (this.activeForm === 'club' || this.activeForm === 'academy') {
-      delete form_data.first_name;
-      delete form_data.last_name;
-    }
-    if (this.activeForm === 'player') {
-      delete form_data.name;
-    }
+
+    this._authenticationService
+      .register(form_data)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        credentials => {
+          this._toastrService.success('Successful', 'Registered');
+          this.resetFormFields();
+        },
+        error => {
+          this._toastrService.error(`${error.error.message}`, 'Failed');
+        }
+      );
+  }
+  clubRegister() {
+    let form_data = this.clubRegistrationForm.value;
+    form_data.member_type = this.activeForm;
+
+    this._authenticationService
+      .register(form_data)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        credentials => {
+          this._toastrService.success('Successful', 'Registered');
+          this.resetFormFields();
+        },
+        error => {
+          this._toastrService.error(`${error.error.message}`, 'Failed');
+        }
+      );
+  }
+  academyRegister() {
+    let form_data = this.academyRegistrationForm.value;
+    form_data.member_type = this.activeForm;
+
     this._authenticationService
       .register(form_data)
       .pipe(untilDestroyed(this))
@@ -84,8 +91,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       );
   }
 
-  createForm() {
-    this.registrationForm = this._formBuilder.group({
+  private createForm() {
+    this.playerRegistrationForm = this._formBuilder.group({
       first_name: [
         '',
         [
@@ -111,12 +118,49 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           Validators.pattern(/^[0-9]+$/)
         ]
       ],
+      country: ['', [Validators.required]],
+      state: ['', [Validators.required]]
+    });
+
+    this.clubRegistrationForm = this._formBuilder.group({
       name: [
         '',
         [
           Validators.required,
           Validators.maxLength(25),
           Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
+        ]
+      ],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10),
+          Validators.pattern(/^[0-9]+$/)
+        ]
+      ],
+      country: ['', [Validators.required]],
+      state: ['', [Validators.required]]
+    });
+    this.academyRegistrationForm = this._formBuilder.group({
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(25),
+          Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
+        ]
+      ],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10),
+          Validators.pattern(/^[0-9]+$/)
         ]
       ],
       country: ['', [Validators.required]],

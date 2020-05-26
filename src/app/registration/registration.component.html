@@ -29,371 +29,790 @@
           Academy
         </button>
       </div>
-      <form
-        (ngSubmit)="register()"
-        [formGroup]="registrationForm"
-        class="form"
-        id="player"
-      >
-        <!-- firstName LastName  -->
-        <div class="form-row">
-          <!-- Club name -->
-          <div class="input-wrapper-full" *ngIf="activeForm === 'club'">
-            <i-feather name="User" class="icon-size"></i-feather>
-            <!-- <img src="assets/icons/user.svg" alt="" /> -->
-            <label>Club Name</label>
-            <input
-              formControlName="name"
-              type="text"
-              matInput
-              placeholder="Club Name"
-            />
-            <ng-container
-              *ngIf="
-                registrationForm.controls.name.invalid &&
-                registrationForm.controls.name.touched
-              "
-            >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.name.errors.required"
-              >
-                Club Name is required
-              </mat-error>
-              <mat-error
-                class="error-text"
+      <div class="Player" *ngIf="activeForm === 'player'">
+        <!-- Player Form -->
+        <form
+          (ngSubmit)="playerRegister()"
+          [formGroup]="playerRegistrationForm"
+          class="form"
+          id="player"
+        >
+          <!-- firstName LastName  -->
+          <div class="form-row">
+            <div class="input-wrapper">
+              <i-feather name="User" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/user.svg" alt="" /> -->
+              <label>First Name</label>
+              <input
+                formControlName="first_name"
+                type="text"
+                matInput
+                required
+                placeholder="First Name"
+              />
+              <ng-container
                 *ngIf="
-                  !registrationForm.controls.name.errors.required &&
-                  registrationForm.controls.name.errors.pattern
+                  playerRegistrationForm.controls.first_name.invalid &&
+                  playerRegistrationForm.controls.first_name.touched
                 "
               >
-                Club Name is invalid
-              </mat-error>
-              <mat-error
-                class="error-text"
-                *ngIf="
-                  !registrationForm.controls.name.errors.required &&
-                  !registrationForm.controls.name.errors.pattern &&
-                  registrationForm.controls.name.errors.maxlength
-                "
-              >
-                Club Name cannot exceed 25 characters
-              </mat-error>
-            </ng-container>
-          </div>
-          <!-- Academy name -->
-          <div class="input-wrapper-full" *ngIf="activeForm === 'academy'">
-            <i-feather name="User" class="icon-size"></i-feather>
-            <!-- <img src="assets/icons/user.svg" alt="" /> -->
-            <label>Academy Name</label>
-            <input
-              formControlName="name"
-              type="text"
-              placeholder="Academy Name"
-              matInput
-              required
-            />
-            <ng-container
-              *ngIf="
-                registrationForm.controls.name.invalid &&
-                registrationForm.controls.name.touched
-              "
-            >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.name.errors.required"
-              >
-                Academy Name is required
-              </mat-error>
-              <mat-error
-                class="error-text"
-                *ngIf="
-                  !registrationForm.controls.name.errors.required &&
-                  registrationForm.controls.name.errors.pattern
-                "
-              >
-                Academy Name is invalid
-              </mat-error>
-              <mat-error
-                class="error-text"
-                *ngIf="
-                  !registrationForm.controls.name.errors.required &&
-                  !registrationForm.controls.name.errors.pattern &&
-                  registrationForm.controls.name.errors.maxlength
-                "
-              >
-                Academy Name cannot exceed 25 characters
-              </mat-error>
-            </ng-container>
-          </div>
-
-          <div class="input-wrapper" *ngIf="activeForm === 'player'">
-            <i-feather name="User" class="icon-size"></i-feather>
-            <!-- <img src="assets/icons/user.svg" alt="" /> -->
-            <label>First Name</label>
-            <input
-              formControlName="first_name"
-              type="text"
-              matInput
-              required
-              placeholder="First Name"
-            />
-            <ng-container
-              *ngIf="
-                registrationForm.controls.first_name.invalid &&
-                registrationForm.controls.first_name.touched
-              "
-            >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.first_name.errors.required"
-              >
-                First Name is required
-              </mat-error>
-              <mat-error
-                class="error-text"
-                *ngIf="
-                  !registrationForm.controls.first_name.errors.required &&
-                  registrationForm.controls.first_name.errors.pattern
-                "
-              >
-                First Name is invalid
-              </mat-error>
-              <mat-error
-                class="error-text"
-                *ngIf="
-                  !registrationForm.controls.first_name.errors.required &&
-                  !registrationForm.controls.first_name.errors.pattern &&
-                  registrationForm.controls.first_name.errors.maxlength
-                "
-              >
-                First Name cannot exceed 25 characters
-              </mat-error>
-            </ng-container>
-          </div>
-
-          <div class="input-wrapper" *ngIf="activeForm === 'player'">
-            <i-feather name="User" class="icon-size"></i-feather>
-            <!-- <img src="assets/icons/user.svg" alt="" /> -->
-            <label>Last Name</label>
-            <input
-              formControlName="last_name"
-              type="text"
-              matInput
-              placeholder="Last Name"
-              required
-            />
-            <ng-container
-              *ngIf="
-                registrationForm.controls.last_name.invalid &&
-                registrationForm.controls.last_name.touched
-              "
-            >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.last_name.errors.required"
-              >
-                Last Name is required
-              </mat-error>
-              <mat-error
-                class="error-text"
-                *ngIf="
-                  !registrationForm.controls.last_name.errors.required &&
-                  registrationForm.controls.last_name.errors.pattern
-                "
-              >
-                Last Name is invalid
-              </mat-error>
-            </ng-container>
-          </div>
-        </div>
-
-        <!-- Email / Contact Number -->
-        <div class="form-row">
-          <div class="input-wrapper">
-            <i-feather name="at-sign" class="icon-size"></i-feather>
-            <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
-            <label>Email</label>
-            <input
-              formControlName="email"
-              type="text"
-              matInput
-              placeholder="Email"
-              autocomplete="off"
-            />
-            <ng-container
-              *ngIf="
-                registrationForm.controls.email.invalid &&
-                registrationForm.controls.email.touched
-              "
-            >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.email.errors.required"
-              >
-                Email is required
-              </mat-error>
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.email.errors.email"
-              >
-                Email format is Invalid
-              </mat-error>
-            </ng-container>
-          </div>
-
-          <div class="input-wrapper">
-            <label>Contact Number</label>
-            <div class="contact">
-              <div class="country-code">
-                <input
-                  type="text"
-                  matInput
-                  value="+91"
-                  readonly
-                  tabindex="-1"
-                />
-              </div>
-              <div class="contact-number">
-                <i-feather name="phone-call" class="icon-size"></i-feather>
-                <input
-                  formControlName="phone"
-                  type="text"
-                  matInput
-                  placeholder="Contact Number"
-                  autocomplete="off"
-                />
-              </div>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    playerRegistrationForm.controls.first_name.errors.required
+                  "
+                >
+                  First Name is required
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    !playerRegistrationForm.controls.first_name.errors
+                      .required &&
+                    playerRegistrationForm.controls.first_name.errors.pattern
+                  "
+                >
+                  First Name is invalid
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    !playerRegistrationForm.controls.first_name.errors
+                      .required &&
+                    !playerRegistrationForm.controls.first_name.errors
+                      .pattern &&
+                    playerRegistrationForm.controls.first_name.errors.maxlength
+                  "
+                >
+                  First Name cannot exceed 25 characters
+                </mat-error>
+              </ng-container>
             </div>
-            <ng-container
-              *ngIf="
-                registrationForm.controls.phone.invalid &&
-                registrationForm.controls.phone.touched
-              "
-            >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.phone.errors.required"
-              >
-                Contact Number is required
-              </mat-error>
-              <ng-template #lengthBlock>
-                <mat-error
-                  class="error-text"
-                  *ngIf="registrationForm.controls.phone.errors.minlength"
-                >
-                  Please provide number upto
-                  {{
-                    registrationForm.controls.phone.errors.minlength
-                      .requiredLength
-                  }}
-                  digits
-                </mat-error>
-                <mat-error
-                  class="error-text"
-                  *ngIf="registrationForm.controls.phone.errors.maxlength"
-                >
-                  Please provide number upto
-                  {{
-                    registrationForm.controls.phone.errors.maxlength
-                      .requiredLength
-                  }}
-                  digits
-                </mat-error>
-              </ng-template>
-              <mat-error
-                class="error-text"
+
+            <div class="input-wrapper">
+              <i-feather name="User" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/user.svg" alt="" /> -->
+              <label>Last Name</label>
+              <input
+                formControlName="last_name"
+                type="text"
+                matInput
+                placeholder="Last Name"
+                required
+              />
+              <ng-container
                 *ngIf="
-                  registrationForm.controls.phone.errors.pattern;
-                  else lengthBlock
+                  playerRegistrationForm.controls.last_name.invalid &&
+                  playerRegistrationForm.controls.last_name.touched
                 "
               >
-                Contact Number format is invalid
-              </mat-error>
-            </ng-container>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    playerRegistrationForm.controls.last_name.errors.required
+                  "
+                >
+                  Last Name is required
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    !playerRegistrationForm.controls.last_name.errors
+                      .required &&
+                    playerRegistrationForm.controls.last_name.errors.pattern
+                  "
+                >
+                  Last Name is invalid
+                </mat-error>
+              </ng-container>
+            </div>
           </div>
-        </div>
 
-        <!-- Country and City -->
-        <div class="form-row">
-          <div class="input-wrapper">
-            <label>Country</label>
-            <select formControlName="country" matNativeControl required>
-              <option value="">Select Country</option>
-              <option value="india">India</option>
-              <option value="uk">UK</option>
-              <option value="usa">USA</option>
-              <option value="australia">Australia</option
-              >country
-            </select>
-            <ng-container
-              *ngIf="
-                registrationForm.controls.country.invalid &&
-                registrationForm.controls.country.touched
-              "
-            >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.country.errors.required"
+          <!-- Email / Contact Number -->
+          <div class="form-row">
+            <div class="input-wrapper">
+              <i-feather name="at-sign" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
+              <label>Email</label>
+              <input
+                formControlName="email"
+                type="text"
+                matInput
+                placeholder="Email"
+                autocomplete="off"
+              />
+              <ng-container
+                *ngIf="
+                  playerRegistrationForm.controls.email.invalid &&
+                  playerRegistrationForm.controls.email.touched
+                "
               >
-                Country is required
-              </mat-error>
-            </ng-container>
-          </div>
+                <mat-error
+                  class="error-text"
+                  *ngIf="playerRegistrationForm.controls.email.errors.required"
+                >
+                  Email is required
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="playerRegistrationForm.controls.email.errors.email"
+                >
+                  Email format is Invalid
+                </mat-error>
+              </ng-container>
+            </div>
 
-          <div class="input-wrapper">
-            <label>State</label>
-            <select formControlName="state" matNativeControl required>
-              <option value="">Select State</option>
-              <option value="delhi">Delhi</option>
-              <option value="mumbai">Mumbai</option>
-              <option value="up">U.P</option>
-              <option value="mp">M.P</option>
-            </select>
-            <ng-container
-              *ngIf="
-                registrationForm.controls.state.invalid &&
-                registrationForm.controls.state.touched
-              "
-            >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.state.errors.required"
+            <div class="input-wrapper">
+              <label>Contact Number</label>
+              <div class="contact">
+                <div class="country-code">
+                  <input
+                    type="text"
+                    matInput
+                    value="+91"
+                    readonly
+                    tabindex="-1"
+                  />
+                </div>
+                <div class="contact-number">
+                  <i-feather name="phone-call" class="icon-size"></i-feather>
+                  <input
+                    formControlName="phone"
+                    type="text"
+                    matInput
+                    placeholder="Contact Number"
+                    autocomplete="off"
+                  />
+                </div>
+              </div>
+              <ng-container
+                *ngIf="
+                  playerRegistrationForm.controls.phone.invalid &&
+                  playerRegistrationForm.controls.phone.touched
+                "
               >
-                State is required
-              </mat-error>
-            </ng-container>
+                <mat-error
+                  class="error-text"
+                  *ngIf="playerRegistrationForm.controls.phone.errors.required"
+                >
+                  Contact Number is required
+                </mat-error>
+                <ng-template #lengthBlock>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      playerRegistrationForm.controls.phone.errors.minlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      playerRegistrationForm.controls.phone.errors.minlength
+                        .requiredLength
+                    }}
+                    digits
+                  </mat-error>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      playerRegistrationForm.controls.phone.errors.maxlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      playerRegistrationForm.controls.phone.errors.maxlength
+                        .requiredLength
+                    }}
+                    digits
+                  </mat-error>
+                </ng-template>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    playerRegistrationForm.controls.phone.errors.pattern;
+                    else lengthBlock
+                  "
+                >
+                  Contact Number format is invalid
+                </mat-error>
+              </ng-container>
+            </div>
           </div>
-        </div>
 
-        <!-- captcha -->
-        <div class="form-row">
-          <div class="img-wrapper">
-            <img src="assets/images/capcha.png" alt="" />
-          </div>
-        </div>
+          <!-- Country and City -->
+          <div class="form-row">
+            <div class="input-wrapper">
+              <label>Country</label>
+              <select formControlName="country" matNativeControl required>
+                <option value="">Select Country</option>
+                <option value="india">India</option>
+                <option value="uk">UK</option>
+                <option value="usa">USA</option>
+                <option value="australia">Australia</option
+                >country
+              </select>
+              <ng-container
+                *ngIf="
+                  playerRegistrationForm.controls.country.invalid &&
+                  playerRegistrationForm.controls.country.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    playerRegistrationForm.controls.country.errors.required
+                  "
+                >
+                  Country is required
+                </mat-error>
+              </ng-container>
+            </div>
 
-        <div class="form-row">
-          <div class="input-wrapper-full zero">
-            <p>
-              You agree to the YFTChain <a>User Agreement</a> and
-              <a>Privacy Policy</a>
-            </p>
+            <div class="input-wrapper">
+              <label>State</label>
+              <select formControlName="state" matNativeControl required>
+                <option value="">Select State</option>
+                <option value="delhi">Delhi</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="up">U.P</option>
+                <option value="mp">M.P</option>
+              </select>
+              <ng-container
+                *ngIf="
+                  playerRegistrationForm.controls.state.invalid &&
+                  playerRegistrationForm.controls.state.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="playerRegistrationForm.controls.state.errors.required"
+                >
+                  State is required
+                </mat-error>
+              </ng-container>
+            </div>
           </div>
-        </div>
 
-        <div class="form-row">
-          <div class="input-wrapper-full pd-zero">
-            <button
-              type="submit"
-              class="btn"
-              [disabled]="registrationForm.invalid"
-            >
-              Agree & Join
-            </button>
+          <!-- captcha -->
+          <div class="form-row">
+            <div class="img-wrapper">
+              <img src="assets/images/capcha.png" alt="" />
+            </div>
           </div>
-        </div>
-      </form>
+
+          <div class="form-row">
+            <div class="input-wrapper-full zero">
+              <p>
+                You agree to the YFTChain <a>User Agreement</a> and
+                <a>Privacy Policy</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="input-wrapper-full pd-zero">
+              <button
+                type="submit"
+                class="btn"
+                [disabled]="playerRegistrationForm.invalid"
+              >
+                Agree & Join
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- club Form -->
+      <div class="clubs" *ngIf="activeForm === 'club'">
+        <form
+          (ngSubmit)="clubRegister()"
+          [formGroup]="clubRegistrationForm"
+          class="form"
+          id="player"
+        >
+          <!-- firstName LastName  -->
+          <div class="form-row">
+            <div class="input-wrapper-full">
+              <i-feather name="User" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/user.svg" alt="" /> -->
+              <label>Club Name</label>
+              <input
+                formControlName="name"
+                type="text"
+                matInput
+                placeholder="Club Name"
+              />
+              <ng-container
+                *ngIf="
+                  clubRegistrationForm.controls.name.invalid &&
+                  clubRegistrationForm.controls.name.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="clubRegistrationForm.controls.name.errors.required"
+                >
+                  Club Name is required
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    !clubRegistrationForm.controls.name.errors.required &&
+                    clubRegistrationForm.controls.name.errors.pattern
+                  "
+                >
+                  Club Name is invalid
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    !clubRegistrationForm.controls.name.errors.required &&
+                    !clubRegistrationForm.controls.name.errors.pattern &&
+                    clubRegistrationForm.controls.name.errors.maxlength
+                  "
+                >
+                  Club Name cannot exceed 25 characters
+                </mat-error>
+              </ng-container>
+            </div>
+          </div>
+
+          <!-- Email / Contact Number -->
+          <div class="form-row">
+            <div class="input-wrapper">
+              <i-feather name="at-sign" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
+              <label>Email</label>
+              <input
+                formControlName="email"
+                type="text"
+                matInput
+                placeholder="Email"
+                autocomplete="off"
+              />
+              <ng-container
+                *ngIf="
+                  clubRegistrationForm.controls.email.invalid &&
+                  clubRegistrationForm.controls.email.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="clubRegistrationForm.controls.email.errors.required"
+                >
+                  Email is required
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="clubRegistrationForm.controls.email.errors.email"
+                >
+                  Email format is Invalid
+                </mat-error>
+              </ng-container>
+            </div>
+
+            <div class="input-wrapper">
+              <label>Contact Number</label>
+              <div class="contact">
+                <div class="country-code">
+                  <input
+                    type="text"
+                    matInput
+                    value="+91"
+                    readonly
+                    tabindex="-1"
+                  />
+                </div>
+                <div class="contact-number">
+                  <i-feather name="phone-call" class="icon-size"></i-feather>
+                  <input
+                    formControlName="phone"
+                    type="text"
+                    matInput
+                    placeholder="Contact Number"
+                    autocomplete="off"
+                  />
+                </div>
+              </div>
+              <ng-container
+                *ngIf="
+                  clubRegistrationForm.controls.phone.invalid &&
+                  clubRegistrationForm.controls.phone.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="clubRegistrationForm.controls.phone.errors.required"
+                >
+                  Contact Number is required
+                </mat-error>
+                <ng-template #lengthBlock>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="clubRegistrationForm.controls.phone.errors.minlength"
+                  >
+                    Please provide number upto
+                    {{
+                      clubRegistrationForm.controls.phone.errors.minlength
+                        .requiredLength
+                    }}
+                    digits
+                  </mat-error>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="clubRegistrationForm.controls.phone.errors.maxlength"
+                  >
+                    Please provide number upto
+                    {{
+                      clubRegistrationForm.controls.phone.errors.maxlength
+                        .requiredLength
+                    }}
+                    digits
+                  </mat-error>
+                </ng-template>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    clubRegistrationForm.controls.phone.errors.pattern;
+                    else lengthBlock
+                  "
+                >
+                  Contact Number format is invalid
+                </mat-error>
+              </ng-container>
+            </div>
+          </div>
+
+          <!-- Country and City -->
+          <div class="form-row">
+            <div class="input-wrapper">
+              <label>Country</label>
+              <select formControlName="country" matNativeControl required>
+                <option value="">Select Country</option>
+                <option value="india">India</option>
+                <option value="uk">UK</option>
+                <option value="usa">USA</option>
+                <option value="australia">Australia</option>
+              </select>
+              <ng-container
+                *ngIf="
+                  clubRegistrationForm.controls.country.invalid &&
+                  clubRegistrationForm.controls.country.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="clubRegistrationForm.controls.country.errors.required"
+                >
+                  Country is required
+                </mat-error>
+              </ng-container>
+            </div>
+
+            <div class="input-wrapper">
+              <label>State</label>
+              <select formControlName="state" matNativeControl required>
+                <option value="">Select State</option>
+                <option value="delhi">Delhi</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="up">U.P</option>
+                <option value="mp">M.P</option>
+              </select>
+              <ng-container
+                *ngIf="
+                  clubRegistrationForm.controls.state.invalid &&
+                  clubRegistrationForm.controls.state.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="clubRegistrationForm.controls.state.errors.required"
+                >
+                  State is required
+                </mat-error>
+              </ng-container>
+            </div>
+          </div>
+
+          <!-- captcha -->
+          <div class="form-row">
+            <div class="img-wrapper">
+              <img src="assets/images/capcha.png" alt="" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="input-wrapper-full zero">
+              <p>
+                You agree to the YFTChain <a>User Agreement</a> and
+                <a>Privacy Policy</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="input-wrapper-full pd-zero">
+              <button
+                type="submit"
+                class="btn"
+                [disabled]="clubRegistrationForm.invalid"
+              >
+                Agree & Join
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- academy Form -->
+      <div class="academy" *ngIf="activeForm === 'academy'">
+        <form
+          (ngSubmit)="academyRegister()"
+          [formGroup]="academyRegistrationForm"
+          class="form"
+          id="player"
+        >
+          <!-- firstName LastName  -->
+          <div class="form-row">
+            <div class="input-wrapper-full">
+              <i-feather name="User" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/user.svg" alt="" /> -->
+              <label>Academy Name</label>
+              <input
+                formControlName="name"
+                type="text"
+                placeholder="Academy Name"
+                matInput
+                required
+              />
+              <ng-container
+                *ngIf="
+                  academyRegistrationForm.controls.name.invalid &&
+                  academyRegistrationForm.controls.name.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="academyRegistrationForm.controls.name.errors.required"
+                >
+                  Academy Name is required
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    !academyRegistrationForm.controls.name.errors.required &&
+                    academyRegistrationForm.controls.name.errors.pattern
+                  "
+                >
+                  Academy Name is invalid
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    !academyRegistrationForm.controls.name.errors.required &&
+                    !academyRegistrationForm.controls.name.errors.pattern &&
+                    academyRegistrationForm.controls.name.errors.maxlength
+                  "
+                >
+                  Academy Name cannot exceed 25 characters
+                </mat-error>
+              </ng-container>
+            </div>
+          </div>
+
+          <!-- Email / Contact Number -->
+          <div class="form-row">
+            <div class="input-wrapper">
+              <i-feather name="at-sign" class="icon-size"></i-feather>
+              <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
+              <label>Email</label>
+              <input
+                formControlName="email"
+                type="text"
+                matInput
+                placeholder="Email"
+                autocomplete="off"
+              />
+              <ng-container
+                *ngIf="
+                  academyRegistrationForm.controls.email.invalid &&
+                  academyRegistrationForm.controls.email.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="academyRegistrationForm.controls.email.errors.required"
+                  >Email is required</mat-error
+                >
+                <mat-error
+                  class="error-text"
+                  *ngIf="academyRegistrationForm.controls.email.errors.email"
+                  >Email format is Invalid</mat-error
+                >
+              </ng-container>
+            </div>
+
+            <div class="input-wrapper">
+              <label>Contact Number</label>
+              <div class="contact">
+                <div class="country-code">
+                  <input
+                    type="text"
+                    matInput
+                    value="+91"
+                    readonly
+                    tabindex="-1"
+                  />
+                </div>
+                <div class="contact-number">
+                  <i-feather name="phone-call" class="icon-size"></i-feather>
+                  <input
+                    formControlName="phone"
+                    type="text"
+                    matInput
+                    placeholder="Contact Number"
+                    autocomplete="off"
+                  />
+                </div>
+              </div>
+              <ng-container
+                *ngIf="
+                  academyRegistrationForm.controls.phone.invalid &&
+                  academyRegistrationForm.controls.phone.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="academyRegistrationForm.controls.phone.errors.required"
+                  >Contact Number is required
+                </mat-error>
+                <ng-template #lengthBlock>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      academyRegistrationForm.controls.phone.errors.minlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      academyRegistrationForm.controls.phone.errors.minlength
+                        .requiredLength
+                    }}
+                    digits
+                  </mat-error>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      academyRegistrationForm.controls.phone.errors.maxlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      academyRegistrationForm.controls.phone.errors.maxlength
+                        .requiredLength
+                    }}
+                    digits
+                  </mat-error>
+                </ng-template>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    academyRegistrationForm.controls.phone.errors.pattern;
+                    else lengthBlock
+                  "
+                >
+                  Contact Number format is invalid
+                </mat-error>
+              </ng-container>
+            </div>
+          </div>
+
+          <!-- Country and City -->
+          <div class="form-row">
+            <div class="input-wrapper">
+              <label>Country</label>
+              <select formControlName="country" matNativeControl required>
+                <option value="">Select Country</option>
+                <option value="india">India</option>
+                <option value="uk">UK</option>
+                <option value="usa">USA</option>
+                <option value="australia">Australia</option>
+              </select>
+              <ng-container
+                *ngIf="
+                  academyRegistrationForm.controls.country.invalid &&
+                  academyRegistrationForm.controls.country.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    academyRegistrationForm.controls.country.errors.required
+                  "
+                  >Country is required</mat-error
+                >
+              </ng-container>
+            </div>
+
+            <div class="input-wrapper">
+              <label>State</label>
+              <select
+                name="State"
+                value="state"
+                formControlName="state"
+                matNativeControl
+                placeholder="Select State"
+                required
+              >
+                <option value="">Select State</option>
+                <option value="delhi">Delhi</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="up">U.P</option>
+                <option value="mp">M.P</option>
+              </select>
+              <ng-container
+                *ngIf="
+                  academyRegistrationForm.controls.state.invalid &&
+                  academyRegistrationForm.controls.state.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="academyRegistrationForm.controls.state.errors.required"
+                  >State is required</mat-error
+                >
+              </ng-container>
+            </div>
+          </div>
+
+          <!-- captcha -->
+          <div class="form-row">
+            <div class="img-wrapper">
+              <img src="assets/images/capcha.png" alt="" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="input-wrapper-full zero">
+              <p>
+                You agree to the YFTChain <a>User Agreement</a> and
+                <a>Privacy Policy</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="input-wrapper-full pd-zero">
+              <button
+                type="submit"
+                class="btn"
+                [disabled]="academyRegistrationForm.invalid"
+              >
+                Agree & Join
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
       <div class="form-row">
         <p>Already on YFTChain? <a [routerLink]="['/login']">Sign in</a></p>
       </div>
