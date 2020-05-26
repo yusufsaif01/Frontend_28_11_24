@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService, untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
+import { Constants } from '@app/shared/static-data/static-data';
 
 @Component({
   selector: 'app-registration',
@@ -11,15 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 export class RegistrationComponent implements OnInit, OnDestroy {
   activeForm: string = 'player';
   typeArray: any[] = [];
-  playerType: any[] = [
-    { name: 'Grassroot', value: 'grassroot' },
-    { name: 'Amateur', value: 'amateur' },
-    { name: 'Professional', value: 'professional' }
-  ];
-  clubAcademyType: any[] = [
-    { name: 'Residential', value: 'Residential' },
-    { name: 'Non-Residential', value: 'Non-Residential' }
-  ];
+  playerType: any[] = Constants.PLAYER_TYPE;
+  clubAcademyType: any[] = Constants.CLUB_ACADEMY_TYPE;
   registrationForm: FormGroup;
 
   constructor(
