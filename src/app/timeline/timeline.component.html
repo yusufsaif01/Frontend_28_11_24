@@ -427,14 +427,17 @@
           </li>
           <ng-container *ngIf="post.addComment$ | async"></ng-container>
           <ng-container *ngIf="!['amateur', 'grassroot'].includes(player_type)">
-            <li
-              (click)="post.show_comment_box = true"
-              [ngClass]="{
-                chatdisable:
-                  !player_type && !['academy', 'club'].includes(member_type)
-              }"
-            >
-              <i-feather name="message-square" class="icon-size"> </i-feather>
+            <li>
+              <i-feather
+                name="message-square"
+                class="icon-size"
+                (click)="post.show_comment_box = true"
+                [ngClass]="{
+                  chatdisable:
+                    !player_type && !['academy', 'club'].includes(member_type)
+                }"
+              >
+              </i-feather>
               <span>{{ post.comments }}</span>
             </li>
           </ng-container>
@@ -466,13 +469,15 @@
                       <h3>{{ comment.commented_by.name }}</h3>
                       <h5>{{ comment.commented_by.position }}</h5>
                     </div>
-                    <p *ngIf="comment.days > 0">
-                      {{ comment.commented_at | date }}
-                    </p>
-                    <p *ngIf="comment.days == 0">
-                      {{ comment.hours }} hours {{ comment.minutes }} minutes
-                      {{ comment.seconds }} seconds
-                    </p>
+                    <div class="time">
+                      <p *ngIf="comment.days > 0">
+                        {{ comment.commented_at | date }}
+                      </p>
+                      <p *ngIf="comment.days == 0">
+                        {{ comment.hours }} hours {{ comment.minutes }} minutes
+                        {{ comment.seconds }} seconds
+                      </p>
+                    </div>
                   </div>
                   <p>{{ comment.comment }}</p>
                 </div>

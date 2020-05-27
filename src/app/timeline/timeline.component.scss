@@ -295,17 +295,20 @@
             margin-right: 1.5rem;
             align-items: center;
             font-weight: 700;
-            cursor: pointer;
+            i-feather {
+              cursor: pointer;
+            }
             &:hover {
               color: $blue;
-              span {
-                color: $blue;
-              }
+              // span {
+              //   color: $blue;
+              // }
             }
 
             span {
               font-size: 1.8rem;
               color: $text-muted;
+              user-select: none;
             }
           }
           li.like {
@@ -370,8 +373,10 @@
 
           .profile-details {
             display: flex;
+            width: 88%;
 
             .details {
+              width: 100%;
               p {
                 font-size: 1.8rem;
                 color: $text-muted;
@@ -388,6 +393,12 @@
                     color: $text-muted;
                     font-weight: normal;
                     margin-bottom: 0.5rem;
+                  }
+                }
+                .time {
+                  p {
+                    font-size: 1.8rem;
+                    color: $text-muted;
                   }
                 }
               }
