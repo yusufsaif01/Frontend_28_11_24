@@ -26,20 +26,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError(err => {
         if (err.status === 401 || err.status === 402) {
-          if (this.credentialService.isAuthenticated()) {
-            this.authenticationService.logout();
-            this.router.navigate(['/login'], {
-              queryParams: { redirect: this.router.routerState.snapshot.url },
-              replaceUrl: true
-            });
-          } else {
-            this.router.navigate(['/login'], {
-              queryParams: { redirect: this.router.routerState.snapshot.url },
-              replaceUrl: true
-            });
-            localStorage.clear();
-            sessionStorage.clear();
-          }
+          this.authenticationService.logout();
         }
         const error = err;
         return throwError(error);

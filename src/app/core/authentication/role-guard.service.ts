@@ -7,12 +7,14 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 import { CredentialsService } from '@app/core/authentication/credentials.service';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable()
 export class RoleGuardService implements CanActivate {
   constructor(
     public router: Router,
-    private credentialsService: CredentialsService
+    private credentialsService: CredentialsService,
+    private authenticationService: AuthenticationService
   ) {}
 
   canActivate(
@@ -20,23 +22,13 @@ export class RoleGuardService implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     const expectedRole = route.data.expectedRole;
-    if (this.credentialsService.isAuthenticated()) {
-      var role = this.credentialsService.getRole();
-    } else {
-      localStorage.clear();
-      sessionStorage.clear();
-      this.router.navigate(['/login'], {
-        queryParams: { redirect: state.url },
-        replaceUrl: true
-      });
+    if (!this.credentialsService.isAuthenticated()) {
+      this.authenticationService.logout();
       return false;
     }
-    // const token = localStorage.getItem('token');
-    // const tokenPayload = JWT(token);
+    let role = this.credentialsService.getRole();
     if (!expectedRole.includes(role)) {
-      localStorage.clear();
-      sessionStorage.clear();
-      this.router.navigate(['/login']);
+      this.authenticationService.logout();
       return false;
     }
     return true;
