@@ -459,11 +459,16 @@
             <!-- nationality -->
             <div class="from-block">
               <label>Nationality <span>*</span></label>
-              <select formControlName="country" matNativeControl required>
+              <select
+                formControlName="country"
+                matNativeControl
+                required
+                (change)="onSelectCountry($event)"
+              >
                 <option value="">Select Nationality</option>
-                <ng-container *ngFor="let country of sampleCountryArray">
-                  <option value="{{ country.value }}">{{
-                    country.name
+                <ng-container *ngFor="let country of countryArray">
+                  <option value="{{ country.country_id }}">{{
+                    country.country
                   }}</option>
                 </ng-container>
               </select>
@@ -484,10 +489,15 @@
             <!-- state -->
             <div class="from-block">
               <label>State <span>*</span></label>
-              <select formControlName="state" matNativeControl required>
+              <select
+                formControlName="state"
+                matNativeControl
+                required
+                (change)="onSelectState($event)"
+              >
                 <option value="">Select State</option>
-                <ng-container *ngFor="let state of sampleStateArray">
-                  <option value="{{ state.value }}">{{ state.name }}</option>
+                <ng-container *ngFor="let state of stateArray">
+                  <option value="{{ state.id }}">{{ state.name }}</option>
                 </ng-container>
               </select>
 
@@ -510,8 +520,8 @@
               <label>Current City <span>*</span></label>
               <select formControlName="city" matNativeControl required>
                 <option value="">Select City</option>
-                <ng-container *ngFor="let city of sampleCityArray">
-                  <option value="{{ city.value }}">{{ city.name }}</option>
+                <ng-container *ngFor="let city of cityArray">
+                  <option value="{{ city.id }}">{{ city.name }}</option>
                 </ng-container>
               </select>
 
@@ -747,10 +757,10 @@
             >
               <div class="from-block" [formGroupName]="i">
                 <label>Position ( Priority {{ i + 1 }} ) <span>*</span></label>
-                <select formControlName="name" matNativeControl required>
+                <select formControlName="id" matNativeControl required>
                   <option value="">Select Position</option>
                   <ng-container *ngFor="let position of positionArray">
-                    <option value="{{ position.name }}">{{
+                    <option value="{{ position.id }}">{{
                       position.name
                     }}</option>
                   </ng-container>
