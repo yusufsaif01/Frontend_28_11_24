@@ -103,6 +103,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   member_type: string;
   avatar_url: string = '';
   userId: string = '';
+  postCount: number = 0;
 
   constructor(
     public dialog: MatDialog,
@@ -264,6 +265,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           let posts: PostContext[] = response.data.records;
+          this.postCount = response.data.records.length;
           posts.forEach(post => {
             if (post.posted_by.avatar) {
               post.posted_by.avatar =
@@ -351,8 +353,10 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   onScrollDown() {
     console.log('Scrolled Down');
-    this.pageNo++;
-    this.getPostListing('scrolled');
+    if (this.postCount === this.pageSize) {
+      this.pageNo++;
+      this.getPostListing('scrolled');
+    }
   }
 
   onScrollUp() {
