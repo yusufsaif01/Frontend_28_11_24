@@ -313,61 +313,39 @@
             </ng-container>
           </div>
         </div>
-
-        <!-- Country and City -->
-        <div class="form-row">
-          <div class="input-wrapper">
-            <label>Country</label>
-            <select formControlName="country" matNativeControl required>
-              <option value="">Select Country</option>
-              <option value="india">India</option>
-              <option value="uk">UK</option>
-              <option value="usa">USA</option>
-              <option value="australia">Australia</option
-              >country
-            </select>
-            <ng-container
-              *ngIf="
-                registrationForm.controls.country.invalid &&
-                registrationForm.controls.country.touched
-              "
-            >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.country.errors.required"
-              >
-                Country is required
-              </mat-error>
-            </ng-container>
-          </div>
-
-          <div class="input-wrapper">
-            <label>State</label>
-            <select formControlName="state" matNativeControl required>
-              <option value="">Select State</option>
-              <option value="delhi">Delhi</option>
-              <option value="mumbai">Mumbai</option>
-              <option value="up">U.P</option>
-              <option value="mp">M.P</option>
-            </select>
-            <ng-container
-              *ngIf="
-                registrationForm.controls.state.invalid &&
-                registrationForm.controls.state.touched
-              "
-            >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.state.errors.required"
-              >
-                State is required
-              </mat-error>
-            </ng-container>
-          </div>
-        </div>
-
         <!-- captcha -->
         <div class="form-row">
+          <div class="input-wrapper">
+            <label
+              >Type
+              <span [matTooltip]="tooltip" matTooltipPosition="above">
+                <i-feather name="info" class="info"> </i-feather> </span
+            ></label>
+            <select
+              formControlName="type"
+              matNativeControl
+              required
+              (change)="onSelectType($event.target.value)"
+            >
+              <option value="">Select Type</option>
+              <option *ngFor="let type of typeArray" [value]="type.value">{{
+                type.name
+              }}</option>
+            </select>
+            <ng-container
+              *ngIf="
+                registrationForm.controls.type.invalid &&
+                registrationForm.controls.type.touched
+              "
+            >
+              <mat-error
+                class="error-text"
+                *ngIf="registrationForm.controls.type.errors.required"
+              >
+                Type is required
+              </mat-error>
+            </ng-container>
+          </div>
           <div class="img-wrapper">
             <img src="assets/images/capcha.png" alt="" />
           </div>

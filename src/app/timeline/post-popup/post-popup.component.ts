@@ -27,7 +27,6 @@ export class PostPopupComponent implements OnInit {
   ) {
     this.createForm();
     if (this.data) {
-      console.log(this.data);
       this.patchValue();
     }
   }
@@ -104,6 +103,7 @@ export class PostPopupComponent implements OnInit {
   updatePost() {
     let body: any = {};
     body = this.data.post;
+    body.text = this.createPostForm.value.text;
     delete body.media_type;
     delete body.media_url;
     let requestData = this.toFormData(body);

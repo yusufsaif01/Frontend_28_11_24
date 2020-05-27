@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService, untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
+import { Constants } from '@app/shared/static-data/static-data';
 
 @Component({
   selector: 'app-registration',
@@ -10,6 +11,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
   activeForm: string = 'player';
+  tooltip: string = '';
+  typeArray: any[] = [];
+  playerType: any[] = Constants.PLAYER_TYPE;
+  clubAcademyType: any[] = Constants.CLUB_ACADEMY_TYPE;
   registrationForm: FormGroup;
 
   constructor(
@@ -23,10 +28,21 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   ngOnInit() {
-    this.setDefaultValidators();
+    this.typeArray = this.playerType;
+    this.setPlayerValidators();
   }
-  setDefaultValidators() {
+
+  clearValidators() {
     this.registrationForm.controls.name.clearValidators();
+    this.registrationForm.controls.name.updateValueAndValidity();
+    this.registrationForm.controls.first_name.clearValidators();
+    this.registrationForm.controls.first_name.updateValueAndValidity();
+    this.registrationForm.controls.last_name.clearValidators();
+    this.registrationForm.controls.last_name.updateValueAndValidity();
+  }
+
+  setPlayerValidators() {
+    this.clearValidators();
     this.registrationForm.controls.first_name.setValidators([
       Validators.required,
       Validators.maxLength(25),
@@ -36,28 +52,36 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
     ]);
+    this.registrationForm.controls.type.patchValue('');
+  }
+
+  setClubAcademyValidators() {
+    this.clearValidators();
+    this.registrationForm.controls.name.setValidators([
+      Validators.required,
+      Validators.maxLength(25),
+      Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
+    ]);
+    this.registrationForm.controls.type.patchValue('');
   }
 
   toggleForm(formName: string) {
     this.activeForm = formName;
     this.resetFormFields();
+
     if (this.activeForm === 'club' || this.activeForm === 'academy') {
-      this.registrationForm.controls.first_name.clearValidators();
-      this.registrationForm.controls.last_name.clearValidators();
-      this.registrationForm.controls.name.setValidators([
-        Validators.required,
-        Validators.maxLength(25),
-        Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-      ]);
+      this.setClubAcademyValidators();
+      this.typeArray = this.clubAcademyType;
     }
     if (this.activeForm === 'player') {
-      this.setDefaultValidators();
+      this.setPlayerValidators();
+      this.typeArray = this.playerType;
     }
   }
 
   resetFormFields() {
     this.registrationForm.reset();
-    this.createForm();
+    this.tooltip = '';
   }
 
   register() {
@@ -86,21 +110,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.registrationForm = this._formBuilder.group({
-      first_name: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(25),
-          Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-        ]
-      ],
-      last_name: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-        ]
-      ],
+      first_name: [''],
+      last_name: [''],
       email: ['', [Validators.required, Validators.email]],
       phone: [
         '',
@@ -111,16 +122,35 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           Validators.pattern(/^[0-9]+$/)
         ]
       ],
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(25),
-          Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-        ]
-      ],
-      country: ['', [Validators.required]],
-      state: ['', [Validators.required]]
+      name: [''],
+      type: ['', [Validators.required]]
     });
+  }
+
+  onSelectType(typeValue: string) {
+    switch (typeValue) {
+      case '':
+        this.tooltip = '';
+        break;
+      case 'grassroot':
+        this.tooltip = 'Players between 6-12 years.';
+        break;
+      case 'amateur':
+        this.tooltip =
+          'Players who have never received any remuneration nor they currently have an employment contract with a club/ academy.';
+        break;
+      case 'professional':
+        this.tooltip =
+          'Players who are currently employed by club/ academy and have an official written contract.';
+        break;
+      case 'Residential':
+        this.tooltip =
+          'Type that consist of residential rooms, bathrooms, toilets, dining room, kitchen, leisure/recreation room and schooling for players.';
+        break;
+      case 'Non-Residential':
+        this.tooltip =
+          'Type that does not consist of residential rooms, bathrooms, toilets, dining room, kitchen, leisure/recreation room and schooling for players.';
+        break;
+    }
   }
 }
