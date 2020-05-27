@@ -154,14 +154,33 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   }
 
   onSelectCountry(event: any) {
-    this.getStatesListing(event.target.value);
+    if (!event.target.value) {
+      this.resetStateCity();
+    } else {
+      this.getStatesListing(event.target.value);
+    }
+  }
+
+  resetStateCity() {
+    this.stateArray = [];
+    this.cityArray = [];
+    this.editProfileForm.controls.state.patchValue('');
+    this.editProfileForm.controls.city.patchValue('');
   }
 
   onSelectState(event: any) {
-    this.getCitiesListing(
-      this.editProfileForm.controls.country.value,
-      event.target.value
-    );
+    if (!event.target.value) {
+      this.resetCity();
+    } else {
+      this.getCitiesListing(
+        this.editProfileForm.controls.country.value,
+        event.target.value
+      );
+    }
+  }
+  resetCity() {
+    this.cityArray = [];
+    this.editProfileForm.controls.city.patchValue('');
   }
 
   // selectTab(tabName: string) {
