@@ -47,6 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   results$: Observable<any>;
   subject = new Subject();
+  totalRecordSubject$ = new Subject();
 
   constructor(
     private _router: Router,
@@ -136,6 +137,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
                       this.memberList.push(el);
                     }
                   });
+                }
+                if (response.data.total) {
+                  this.totalRecordSubject$.next(false);
+                } else {
+                  this.totalRecordSubject$.next(true);
                 }
 
                 this.tempSearchText = this.searchText;
