@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AwardCertificateComponent } from './award-certificate.component';
 import { RoleGuardService } from '../core/authentication/role-guard.service';
-import { extract } from '@app/core';
+import { extract, AuthenticationGuard } from '@app/core';
 
 const appRoutes: Routes = [
   {
     path: '',
     component: AwardCertificateComponent,
-    canActivate: [RoleGuardService],
+    canActivate: [RoleGuardService, AuthenticationGuard],
     data: { expectedRole: ['player', 'club', 'academy'] },
     children: [
       {

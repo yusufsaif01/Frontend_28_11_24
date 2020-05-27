@@ -33,7 +33,18 @@ export class CredentialsService {
    * @return True if the user is authenticated.
    */
   isAuthenticated(): boolean {
-    return !!this.credentials;
+    // return !!this.credentials;
+    if (localStorage.getItem('credentials')) {
+      return true;
+    }
+    return false;
+  }
+
+  getRole(): string {
+    if (this.isAuthenticated()) {
+      let credentials = JSON.parse(localStorage.getItem('credentials'));
+      return credentials.data.role;
+    }
   }
 
   /**
