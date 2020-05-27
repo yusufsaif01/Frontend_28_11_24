@@ -682,6 +682,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           ]
         ],
         country: ['', [Validators.required]],
+        state: ['', [Validators.required]],
         city: ['', [Validators.required]],
         address: ['', []],
         pincode: ['', []],
@@ -734,6 +735,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           ]
         ],
         country: ['', [Validators.required]],
+        state: ['', [Validators.required]],
         city: ['', [Validators.required]],
         address: ['', [Validators.required]],
         pincode: ['', [Validators.required]],

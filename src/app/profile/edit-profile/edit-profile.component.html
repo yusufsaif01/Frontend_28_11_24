@@ -1193,11 +1193,16 @@
               <!-- country -->
               <div class="from-block">
                 <label>Country <span>*</span></label>
-                <select formControlName="country" matNativeControl required>
+                <select
+                  formControlName="country"
+                  matNativeControl
+                  required
+                  (change)="onSelectCountry($event)"
+                >
                   <option value="">Select Country</option>
-                  <ng-container *ngFor="let country of sampleCountryArray">
-                    <option value="{{ country.value }}">{{
-                      country.name
+                  <ng-container *ngFor="let country of countryArray">
+                    <option value="{{ country.country_id }}">{{
+                      country.country
                     }}</option>
                   </ng-container>
                 </select>
@@ -1215,15 +1220,42 @@
                 </mat-error>
               </div>
 
+              <div class="from-block">
+                <label>State <span>*</span></label>
+                <select
+                  formControlName="state"
+                  matNativeControl
+                  required
+                  (change)="onSelectState($event)"
+                >
+                  <option value="">Select State</option>
+                  <ng-container *ngFor="let state of stateArray">
+                    <option value="{{ state.id }}">{{ state.name }}</option>
+                  </ng-container>
+                </select>
+
+                <mat-error
+                  *ngIf="
+                    editProfileForm.controls.state.invalid &&
+                    editProfileForm.controls.state.touched
+                  "
+                >
+                  <span
+                    *ngIf="editProfileForm.controls.state.errors.required"
+                    translate
+                    >State is required</span
+                  >
+                </mat-error>
+              </div>
+
               <!-- city -->
               <div class="from-block">
                 <label>City <span>*</span></label>
                 <select formControlName="city" matNativeControl required>
                   <option value="">Select City</option>
-                  <option value="volvo">Volvo</option>
-                  <option value="saab">Saab</option>
-                  <option value="mercedes">Mercedes</option>
-                  <option value="audi">Audi</option>
+                  <ng-container *ngFor="let city of cityArray">
+                    <option value="{{ city.id }}">{{ city.name }}</option>
+                  </ng-container>
                 </select>
                 <mat-error
                   *ngIf="
