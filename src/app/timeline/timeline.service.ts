@@ -10,8 +10,62 @@ const routes = {
   createPost: () => `/post/add`,
   getPostListing: () => `/posts/list`,
   updatePost: (post_id: string) => `/post/${post_id}`,
-  deletePost: (post_id: string) => `/post/${post_id}`
+  deletePost: (post_id: string) => `/post/${post_id}`,
+  getCommentList: (params: string, query: string) =>
+    `/post/${params}/comments${query}`
 };
+
+interface GetCommentListContext {
+  post_id: string;
+  page_no?: number;
+  page_size?: number;
+}
+
+interface GetCommentListResponseContext {
+  status: string;
+  message: string;
+  data: {
+    total: number;
+    records: {
+      comment: string;
+      commented_by: {
+        avatar: string;
+        user_id: string;
+        name: string;
+        type: string;
+        position: string;
+      };
+      commented_at: string;
+    }[];
+  };
+}
+
+interface GetPostListingResponseContext {
+  status: string;
+  message: string;
+  data: {
+    total: number;
+    records: {
+      id: string;
+      post: {
+        text: string;
+        media_url: string;
+        media_type: string;
+      };
+      posted_by: {
+        avatar: string;
+        user_id: string;
+        name: string;
+        type: string;
+        position: string;
+      };
+      is_liked: boolean;
+      likes: number;
+      comments: number;
+      created_at: string;
+    }[];
+  };
+}
 
 interface CommonResponseContext {
   status: string;
@@ -109,10 +163,33 @@ export class TimelineService {
     return this.httpClient.delete<any>(routes.deletePost(post_id));
   }
 
-  getPostListing(context: any = {}) {
+  getPostListing(context: any = {}): Observable<GetPostListingResponseContext> {
     let query = '?';
     if (context['page_no']) query += 'page_no=' + context['page_no'];
     if (context['page_size']) query += '&page_size=' + context['page_size'];
-    return this.httpClient.get<any>(routes.getPostListing() + query);
+    return this.httpClient.get<GetPostListingResponseContext>(
+      routes.getPostListing() + query
+    );
+  }
+
+  getCommentListing(
+    context: GetCommentListContext
+  ): Observable<GetCommentListResponseContext> {
+    let params = '';
+    if (context['post_id']) {
+      params += `${context['post_id']}`;
+    }
+
+    let query = '?';
+    if (context['page_no']) {
+      query += 'page_no=' + context['page_no'];
+    }
+    if (context['page_size']) {
+      query += '&page_size=' + context['page_size'];
+    }
+
+    return this.httpClient.get<GetCommentListResponseContext>(
+      routes.getCommentList(params, query)
+    );
   }
 }

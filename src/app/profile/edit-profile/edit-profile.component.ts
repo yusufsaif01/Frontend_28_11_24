@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { HeaderComponent } from '@app/shared/page-components/header/header.component';
 import { EditProfileService } from './edit-profile-service';
 import { ViewProfileService } from '../view-profile/view-profile.service';
+import { SharedService } from '@app/shared/shared.service';
 import { untilDestroyed } from '@app/core';
 import { Constants } from '@app/shared/static-data/static-data';
 
@@ -32,7 +33,7 @@ interface topAcademyPlayerObject {
 }
 
 interface positionObject {
-  name: string;
+  id: string;
 }
 
 @Component({
@@ -74,11 +75,11 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
   positionArray: any[] = [];
   strongFootArray = Constants.STRONG_FOOT;
-  sampleCountryArray = Constants.SAMPLE_COUNTRY_ARRAY;
-  sampleStateArray = Constants.SAMPLE_STATE_ARRAY;
+  countryArray: any[] = [];
+  stateArray: any[] = [];
   designationArray = Constants.DESIGNATION_ARRAY;
   leagueArray = Constants.LEAGUE_ARRAY;
-  sampleCityArray = Constants.SAMPLE_CITY_ARRAY;
+  cityArray: any[] = [];
   clubAcadTypeArray = Constants.CLUB_ACAD_TYPE_ARRAY;
   stateAssociationArray = Constants.STATE_ASSOCIATION_ARRAY;
 
@@ -86,6 +87,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     private _viewProfileService: ViewProfileService,
     private _editProfileService: EditProfileService,
+    private _sharedService: SharedService,
     private _toastrService: ToastrService,
     private _router: Router
   ) {
@@ -99,6 +101,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.populateView();
     this.initValidations();
+    this.getLocationStats();
   }
 
   initValidations() {
@@ -106,6 +109,59 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       this.editProfileForm.controls.document.disable();
       this.editProfileForm.controls.number.disable();
     }
+  }
+
+  getLocationStats() {
+    this._sharedService
+      .getLocationStats()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        (response: any) => {
+          this.countryArray = response.data;
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
+        }
+      );
+  }
+
+  getStatesListing(countryID: string) {
+    this._sharedService
+      .getStatesListing(countryID)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        (response: any) => {
+          this.stateArray = response.data.records;
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
+        }
+      );
+  }
+
+  getCitiesListing(countryID: string, stateID: string) {
+    this._sharedService
+      .getCitiesListing(countryID, stateID)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        (response: any) => {
+          this.cityArray = response.data.records;
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
+        }
+      );
+  }
+
+  onSelectCountry(event: any) {
+    this.getStatesListing(event.target.value);
+  }
+
+  onSelectState(event: any) {
+    this.getCitiesListing(
+      this.editProfileForm.controls.country.value,
+      event.target.value
+    );
   }
 
   // selectTab(tabName: string) {
@@ -354,6 +410,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
                 Validators.pattern(/^\d+$/)
               ]);
             }
+            documentNumber.updateValueAndValidity();
           });
       }
 
@@ -375,7 +432,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       trophies.updateValueAndValidity();
       address.updateValueAndValidity();
       pincode.updateValueAndValidity();
-      documentNumber.updateValueAndValidity();
     }
   }
 
@@ -742,6 +798,18 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       else this.editProfileForm.get('associated_club').setValue('no');
     }
 
+    if (this.profile.country) {
+      this.getStatesListing(this.profile.country.id);
+      this.editProfileForm.patchValue({
+        state: this.profile.state ? this.profile.state.id : ''
+      });
+
+      this.getCitiesListing(this.profile.country.id, this.profile.state.id);
+      this.editProfileForm.patchValue({
+        city: this.profile.city ? this.profile.city.id : ''
+      });
+    }
+
     this.editProfileForm.patchValue({
       player_type: this.profile.player_type ? this.profile.player_type : '',
       name: this.profile.name,
@@ -768,9 +836,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       weight: this.profile.weight ? this.profile.weight : '',
       dob: this.profile.dob ? new Date(this.profile.dob) : '',
       phone: this.profile.phone ? this.profile.phone : '',
-      country: this.profile.country ? this.profile.country : '',
-      state: this.profile.state ? this.profile.state : '',
-      city: this.profile.city ? this.profile.city : '',
+      country: this.profile.country ? this.profile.country.id : '',
       stadium_name: this.profile.stadium_name ? this.profile.stadium_name : '',
       league: this.profile.league ? this.profile.league : '',
       type: this.profile.type ? this.profile.type : '',
@@ -1036,14 +1102,14 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       this.position.push(
         this._formBuilder.group({
           priority: index + 1,
-          name: [data.name, []]
+          id: [data.id, []]
         })
       );
     } else {
       this.position.push(
         this._formBuilder.group({
           priority: index + 1,
-          name: ['', []]
+          id: ['', []]
         })
       );
     }
