@@ -82,6 +82,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   resetFormFields() {
     this.registrationForm.reset();
     this.tooltip = '';
+    if (this.activeForm === 'club' || this.activeForm === 'academy') {
+      this.setClubAcademyValidators();
+    }
+    if (this.activeForm === 'player') {
+      this.setPlayerValidators();
+    }
   }
 
   register() {
