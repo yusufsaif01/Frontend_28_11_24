@@ -42,7 +42,11 @@
                 }}</small>
               </mat-option>
               <ng-container
-                *ngIf="searchText.length >= 3 && memberList.length === 0"
+                *ngIf="
+                  searchText.length >= 3 &&
+                    memberList.length === 0 &&
+                    totalRecordSubject$ | async
+                "
               >
                 <mat-option>
                   No results found
