@@ -94,7 +94,6 @@ export class AuthenticationService {
     if (this.credentialsService.isAuthenticated()) {
       this.httpClient
         .post(routes.logout(), credentials.data.token)
-        .pipe(untilDestroyed(this))
         .subscribe(data => {});
     }
     this.credentialsService.setCredentials();
