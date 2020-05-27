@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 import {
@@ -36,12 +36,6 @@ interface PostContext {
   comments: number;
   created_at: string;
   show_comment_box?: boolean;
-  postDate?: any;
-  dateDiff?: number;
-  days?: number;
-  hours?: number;
-  minutes?: number;
-  seconds?: number;
   commentListing?: CommentContext[];
   commentForm?: FormGroup;
   commentPageNo?: number;
@@ -60,12 +54,6 @@ interface CommentContext {
     position: string;
   };
   commented_at: string;
-  postDate?: any;
-  dateDiff?: number;
-  days?: number;
-  hours?: number;
-  minutes?: number;
-  seconds?: number;
 }
 
 @Component({
@@ -73,7 +61,7 @@ interface CommentContext {
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.scss']
 })
-export class TimelineComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class TimelineComponent implements OnInit, OnDestroy {
   environment = environment;
   postListing: PostContext[] = [];
   pageNo: number = 1;
@@ -150,6 +138,7 @@ export class TimelineComponent implements OnInit, OnDestroy, AfterViewChecked {
           post.commentForm.reset();
           post.comments++;
           let isViewedMore: boolean = post.commentPageNo > 1;
+          if (isViewedMore) post.commentPageNo = 1;
           this.getCommentListing(post, false, isViewedMore);
         }),
         catchError(err => {
@@ -179,24 +168,23 @@ export class TimelineComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.avatar_url = localStorage.getItem('avatar_url');
   }
 
-  ngAfterViewChecked() {
-    this.setCategoryValidators();
+  activateCommentBox(post: PostContext) {
+    post.show_comment_box = true;
+    this.setCategoryValidators(post);
   }
 
-  setCategoryValidators() {
-    this.postListing.forEach(post => {
-      const comment = post.commentForm.get('comment');
-      if (this.member_type === 'player') {
-        comment.setValidators([
-          Validators.maxLength(60),
-          Validators.pattern(/^[A-Za-z0-9\(\)\-\&\!\%\* ]+$/)
-        ]);
-      }
-      if (this.member_type === 'club' || this.member_type === 'academy') {
-        comment.setValidators([Validators.maxLength(60)]);
-      }
-      comment.updateValueAndValidity();
-    });
+  setCategoryValidators(post: PostContext) {
+    const comment = post.commentForm.get('comment');
+    if (this.member_type === 'player') {
+      comment.setValidators([
+        Validators.maxLength(60),
+        Validators.pattern(/^[A-Za-z0-9\(\)\-\&\!\%\* ]+$/)
+      ]);
+    }
+    if (this.member_type === 'club' || this.member_type === 'academy') {
+      comment.setValidators([Validators.maxLength(60)]);
+    }
+    comment.updateValueAndValidity();
   }
 
   getCommentListing(
@@ -207,24 +195,14 @@ export class TimelineComponent implements OnInit, OnDestroy, AfterViewChecked {
     this._timelineService
       .getCommentListing({
         page_no: shouldLoadAfterViewMore ? 1 : post.commentPageNo,
-        page_size: shouldLoadAfterViewMore
-          ? post.commentPageNo * post.commentPageSize
-          : post.commentPageSize,
+        page_size: shouldLoadAfterViewMore ? 3 : post.commentPageSize,
         post_id: post.id
       })
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          let dateNow: any = new Date(Date.now());
           let comments: CommentContext[] = response.data.records;
           comments.forEach(comment => {
-            comment.postDate = new Date(comment.commented_at);
-            comment.dateDiff = Math.abs(dateNow - comment.postDate) / 1000;
-            comment.days = Math.floor(comment.dateDiff / 86400);
-            comment.hours = Math.floor(comment.dateDiff / 3600) % 24;
-            comment.minutes = Math.floor(comment.dateDiff / 60) % 60;
-            comment.seconds = comment.dateDiff % 60;
-            comment.seconds = parseInt(comment.seconds.toString());
             if (comment.commented_by.avatar) {
               comment.commented_by.avatar =
                 environment.mediaUrl + comment.commented_by.avatar;
@@ -285,16 +263,8 @@ export class TimelineComponent implements OnInit, OnDestroy, AfterViewChecked {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          let dateNow: any = new Date(Date.now());
           let posts: PostContext[] = response.data.records;
           posts.forEach(post => {
-            post.postDate = new Date(post.created_at);
-            post.dateDiff = Math.abs(dateNow - post.postDate) / 1000;
-            post.days = Math.floor(post.dateDiff / 86400);
-            post.hours = Math.floor(post.dateDiff / 3600) % 24;
-            post.minutes = Math.floor(post.dateDiff / 60) % 60;
-            post.seconds = post.dateDiff % 60;
-            post.seconds = parseInt(post.seconds.toString());
             if (post.posted_by.avatar) {
               post.posted_by.avatar =
                 environment.mediaUrl + post.posted_by.avatar;
@@ -304,6 +274,7 @@ export class TimelineComponent implements OnInit, OnDestroy, AfterViewChecked {
             }
             post.commentPageNo = 1;
             post.commentPageSize = 3;
+            post.commentListing = [];
             this.getCommentListing(post, false, false);
             let commentForm: FormGroup;
             post.commentForm = commentForm;
