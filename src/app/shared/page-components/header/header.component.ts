@@ -16,6 +16,19 @@ interface MemberListContext {
   avatar: string;
   user_id: string;
 }
+
+let keyCodeObject = {
+  tab: 9,
+  pageUp: 33,
+  pageDown: 34,
+  end: 35,
+  home: 36,
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40
+};
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -62,18 +75,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   getMemberSearchList(value: string, keyCode: number, scrolled?: string) {
     this.keyCode = keyCode;
-    if (
-      keyCode == 40 ||
-      keyCode == 37 ||
-      keyCode == 39 ||
-      keyCode == 38 ||
-      keyCode == 9 ||
-      keyCode == 34 ||
-      keyCode == 35 ||
-      keyCode == 36 ||
-      keyCode == 37
-    )
+    let keyCodeList = Object.values(keyCodeObject);
+
+    if (keyCodeList.includes(keyCode)) {
+      // For debugging purpose get key name
+      // for (var key in keyCodeObject) {
+      //   if (keyCodeObject[key] === keyCode) {
+      //     console.log(key, keyCode);
+      //   }
+      // }
       return;
+    }
 
     this.searchText = value;
 
