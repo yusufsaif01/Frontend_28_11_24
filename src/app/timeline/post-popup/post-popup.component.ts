@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TimelineService } from '../timeline.service';
 import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
+import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 @Component({
   selector: 'app-post-popup',
   templateUrl: './post-popup.component.html',
@@ -40,7 +41,7 @@ export class PostPopupComponent implements OnInit {
   createForm() {
     this.createPostForm = this.formBuilder.group({
       text: [''],
-      media: ['']
+      media: ['', [requiredFileAvatar]]
     });
   }
 
@@ -55,10 +56,13 @@ export class PostPopupComponent implements OnInit {
       this.media = undefined;
       return;
     }
-    let type = files[0].type.split('/')[1];
-    if (type !== 'jpeg' && type !== 'jpg' && type !== 'png') {
-      return this.toastrService.error('Error', 'Invalid File');
-    }
+
+    if (this.createPostForm.controls.media.errors)
+      return this.toastrService.error(
+        'Error',
+        'Post Image must be of type JPEG / JPG / PNG'
+      );
+
     this.media = files[0];
     let reader = new FileReader();
     reader.readAsDataURL(files[0]);
