@@ -33,6 +33,7 @@ export class AuthenticationGuard implements CanActivate {
       queryParams: { redirect: state.url },
       replaceUrl: true
     });
+    localStorage.clear();
     return false;
   }
 }
