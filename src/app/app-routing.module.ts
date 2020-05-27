@@ -21,19 +21,16 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: './admin/admin.module#AdminModule',
-    canActivate: [AuthenticationGuard]
+    loadChildren: './admin/admin.module#AdminModule'
   },
   {
     path: 'member/awardcertification',
     loadChildren:
-      './award-certificate/award-certificate.module#AwardCertificateModule',
-    canActivate: [AuthenticationGuard]
+      './award-certificate/award-certificate.module#AwardCertificateModule'
   },
   {
     path: 'member/timeline',
-    loadChildren: './timeline/timeline.module#TimelineModule',
-    canActivate: [AuthenticationGuard]
+    loadChildren: './timeline/timeline.module#TimelineModule'
   },
   {
     path: 'forgot-password',
@@ -47,20 +44,17 @@ const routes: Routes = [
   },
   {
     path: 'member/profile',
-    loadChildren: './profile/profile.module#ProfileModule',
-    canActivate: [AuthenticationGuard]
+    loadChildren: './profile/profile.module#ProfileModule'
   },
   {
     path: 'member/manage',
     loadChildren:
-      './manage-footmates/manage-footmates.module#ManageFootmatesModule',
-    canActivate: [AuthenticationGuard]
+      './manage-footmates/manage-footmates.module#ManageFootmatesModule'
   },
   {
     path: 'register',
     component: RegistrationComponent,
-    data: { title: extract('Registration') },
-    canActivate: [AuthenticationGuard]
+    data: { title: extract('Registration') }
   },
   {
     path: 'change-password',

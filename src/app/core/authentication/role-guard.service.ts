@@ -20,9 +20,8 @@ export class RoleGuardService implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     const expectedRole = route.data.expectedRole;
-    if (localStorage.getItem('credentials')) {
-      let data = JSON.parse(localStorage.getItem('credentials'));
-      var role = data.data.role;
+    if (this.credentialsService.isAuthenticated()) {
+      var role = this.credentialsService.getRole();
     } else {
       localStorage.clear();
       sessionStorage.clear();

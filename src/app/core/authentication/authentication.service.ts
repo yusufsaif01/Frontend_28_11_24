@@ -91,7 +91,7 @@ export class AuthenticationService {
     } else {
       credentials = JSON.parse(sessionStorage.getItem('credentials'));
     }
-    if (localStorage.getItem('credentials')) {
+    if (this.credentialsService.isAuthenticated()) {
       this.httpClient.post(routes.logout(), credentials.data.token);
     }
     this.credentialsService.setCredentials();

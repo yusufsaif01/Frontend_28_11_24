@@ -24,7 +24,7 @@ export class AuthenticationGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if (localStorage.getItem('credentials')) {
+    if (this.credentialsService.isAuthenticated()) {
       return true;
     }
 
