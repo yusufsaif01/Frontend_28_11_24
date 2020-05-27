@@ -36,12 +36,6 @@ interface PostContext {
   comments: number;
   created_at: string;
   show_comment_box?: boolean;
-  postDate?: any;
-  dateDiff?: number;
-  days?: number;
-  hours?: number;
-  minutes?: number;
-  seconds?: number;
   commentListing?: CommentContext[];
   commentForm?: FormGroup;
   commentPageNo?: number;
@@ -60,12 +54,6 @@ interface CommentContext {
     position: string;
   };
   commented_at: string;
-  postDate?: any;
-  dateDiff?: number;
-  days?: number;
-  hours?: number;
-  minutes?: number;
-  seconds?: number;
 }
 
 @Component({
@@ -213,7 +201,6 @@ export class TimelineComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          let dateNow: any = new Date(Date.now());
           let comments: CommentContext[] = response.data.records;
           comments.forEach(comment => {
             if (comment.commented_by.avatar) {
