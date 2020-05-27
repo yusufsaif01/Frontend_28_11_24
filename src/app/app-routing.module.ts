@@ -4,7 +4,7 @@ import {
   RouterModule
   // , PreloadAllModules
 } from '@angular/router';
-import { extract } from '@app/core';
+import { extract, AuthenticationGuard } from '@app/core';
 import { RegistrationComponent } from './registration/registration.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
@@ -59,7 +59,8 @@ const routes: Routes = [
   {
     path: 'change-password',
     component: ChangePasswordComponent,
-    data: { title: extract('Change Password') }
+    data: { title: extract('Change Password') },
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'create-password',

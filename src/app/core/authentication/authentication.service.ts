@@ -3,7 +3,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { Credentials, CredentialsService } from './credentials.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { untilDestroyed } from '@app/core';
 
 const routes = {
   login: (c: LoginContext) => `/login`,
@@ -91,9 +91,13 @@ export class AuthenticationService {
     } else {
       credentials = JSON.parse(sessionStorage.getItem('credentials'));
     }
-    this.httpClient.post(routes.logout(), credentials.data.token);
+    if (this.credentialsService.isAuthenticated()) {
+      this.httpClient
+        .post(routes.logout(), credentials.data.token)
+        .subscribe(data => {});
+    }
     this.credentialsService.setCredentials();
-    this.router.navigateByUrl('/login');
+    this.router.navigate(['/login']);
     return of(true);
   }
 
@@ -157,4 +161,5 @@ export class AuthenticationService {
 
     return this.httpClient.get(routes.resetLinkStatus(), httpOptions);
   }
+  ngOnDestroy() {}
 }

@@ -13,13 +13,13 @@ import { ManagePositionComponent } from './masterdata/player-specialization/mana
 import { ManageAbilityComponent } from './masterdata/player-specialization/manage-ability/manage-ability.component';
 import { ManageParametersComponent } from './masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
 import { AdminComponent } from './admin.component';
-import { extract } from '@app/core';
+import { extract, AuthenticationGuard } from '@app/core';
 
 const appRoutes: Routes = [
   {
     path: '',
     component: AdminComponent,
-    canActivate: [RoleGuardService],
+    canActivate: [RoleGuardService, AuthenticationGuard],
     data: { expectedRole: ['admin'] },
     children: [
       {

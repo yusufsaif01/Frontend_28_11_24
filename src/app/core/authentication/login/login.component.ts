@@ -57,11 +57,20 @@ export class LoginComponent implements OnInit, OnDestroy {
         (credentials: any) => {
           log.debug(`${credentials.email} successfully logged in`);
           this.toastrService.success('Successful', 'Login');
-
-          if (credentials.data.role === 'admin')
-            this.router.navigate(['/admin/manage-player']);
-          else this.router.navigate(['/member/timeline']);
-
+          if (credentials.data.role == 'admin') {
+            this.router.navigate(
+              [
+                this.route.snapshot.queryParams.redirect ||
+                  '/admin/manage-player'
+              ],
+              { replaceUrl: true }
+            );
+          } else {
+            this.router.navigate(
+              [this.route.snapshot.queryParams.redirect || '/member/timeline'],
+              { replaceUrl: true }
+            );
+          }
           localStorage.setItem('user_id', credentials.data.user_id);
           localStorage.setItem('token', credentials.data.token);
           localStorage.setItem('member_type', credentials.data.member_type);
