@@ -178,12 +178,13 @@ export class TimelineComponent implements OnInit, OnDestroy {
     const comment = post.commentForm.get('comment');
     if (this.member_type === 'player') {
       comment.setValidators([
+        Validators.required,
         Validators.maxLength(60),
         Validators.pattern(/^[A-Za-z0-9\(\)\-\&\!\%\* ]+$/)
       ]);
     }
     if (this.member_type === 'club' || this.member_type === 'academy') {
-      comment.setValidators([Validators.maxLength(60)]);
+      comment.setValidators([Validators.required, Validators.maxLength(60)]);
     }
     comment.updateValueAndValidity();
   }

@@ -430,7 +430,7 @@
               <i-feather
                 name="message-square"
                 class="icon-size"
-                (click)="post.show_comment_box = true"
+                (click)="activateCommentBox(post)"
                 [ngClass]="{
                   chatdisable:
                     !player_type && !['academy', 'club'].includes(member_type)
@@ -507,7 +507,7 @@
                   <span
                     *ngIf="post.commentForm.controls.comment.errors.maxlength"
                   >
-                    Please provide number upto
+                    Please provide upto
                     {{
                       post.commentForm.controls.comment.errors.maxlength
                         .requiredLength
