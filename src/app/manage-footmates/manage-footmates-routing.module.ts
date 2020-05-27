@@ -6,13 +6,13 @@ import { FootRequestComponent } from './foot-request/foot-request.component';
 import { MutualFootmateComponent } from './mutual-footmate/mutual-footmate.component';
 import { ManageFootmatesComponent } from './manage-footmates.component';
 import { RoleGuardService } from '../core/authentication/role-guard.service';
-import { extract } from '@app/core';
+import { extract, AuthenticationGuard } from '@app/core';
 
 const appRoutes: Routes = [
   {
     path: '',
     component: ManageFootmatesComponent,
-    canActivate: [RoleGuardService],
+    canActivate: [RoleGuardService, AuthenticationGuard],
     data: { expectedRole: ['player'] },
     children: [
       {
