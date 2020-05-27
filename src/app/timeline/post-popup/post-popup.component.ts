@@ -55,6 +55,10 @@ export class PostPopupComponent implements OnInit {
       this.media = undefined;
       return;
     }
+    let type = files[0].type.split('/')[1];
+    if (type !== 'jpeg' && type !== 'jpg' && type !== 'png') {
+      return this.toastrService.error('Error', 'Invalid File');
+    }
     this.media = files[0];
     let reader = new FileReader();
     reader.readAsDataURL(files[0]);
@@ -71,7 +75,6 @@ export class PostPopupComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
-          console.log(response);
           this.dialogRef.close('success');
         },
         (error: any) => {

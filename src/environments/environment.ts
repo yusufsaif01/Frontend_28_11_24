@@ -15,7 +15,7 @@ export const environment = {
   hmr: false,
   version: env.npm_package_version + '-dev',
   serverUrl: 'http://localhost:3000/api',
-  mediaUrl: 'http://localhost:4200',
+  mediaUrl: 'http://localhost:3000',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'fr-FR']
 };
