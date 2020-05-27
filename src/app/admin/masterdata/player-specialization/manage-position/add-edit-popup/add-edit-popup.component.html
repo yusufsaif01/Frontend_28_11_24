@@ -21,6 +21,10 @@
         <span *ngIf="positionForm.controls.name.errors.required" translate
           >Position is required
         </span>
+
+        <span *ngIf="positionForm.controls.name.errors.pattern">
+          Position format is invalid
+        </span>
       </mat-error>
     </div>
 
@@ -43,6 +47,9 @@
           *ngIf="positionForm.controls.abbreviation.errors.required"
           translate
           >Abbreviation is required
+        </span>
+        <span *ngIf="positionForm.controls.abbreviation.errors.pattern">
+          Abbreviation format is invalid
         </span>
       </mat-error>
     </div>

@@ -7,6 +7,7 @@
         src="assets/images/logo.png"
         alt=""
       />
+      <ng-container *ngIf="results$ | async"></ng-container>
       <div class="search">
         <input
           matInput
@@ -27,7 +28,6 @@
             [scrollWindow]="false"
           >
             <span class="search-options">
-              <ng-container *ngIf="results$ | async"></ng-container>
               <mat-option
                 *ngFor="let member of memberList"
                 (onSelectionChange)="openPublicProfile(member.user_id)"
@@ -42,7 +42,11 @@
                 }}</small>
               </mat-option>
               <ng-container
-                *ngIf="searchText.length >= 3 && memberList.length === 0"
+                *ngIf="
+                  searchText.length >= 3 &&
+                    memberList.length === 0 &&
+                    totalRecordSubject$ | async
+                "
               >
                 <mat-option>
                   No results found

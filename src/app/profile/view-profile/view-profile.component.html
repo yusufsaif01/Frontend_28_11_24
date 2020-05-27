@@ -58,16 +58,21 @@
             </p>
           </div>
           <div class="half">
-            <p><span>Nationality :</span> {{ profile.country | titlecase }}</p>
+            <p>
+              <span>Nationality :</span>
+              {{ profile?.country?.name | titlecase }}
+            </p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>State :</span> {{ profile.state | titlecase }}</p>
+            <p><span>State :</span> {{ profile?.state?.name | titlecase }}</p>
           </div>
           <div class="half">
-            <p><span>Current City :</span> {{ profile.city | titlecase }}</p>
+            <p>
+              <span>Current City :</span> {{ profile?.city?.name | titlecase }}
+            </p>
           </div>
         </div>
 
@@ -326,15 +331,20 @@
 
         <div class="block-middle border-bottom">
           <div class="half">
-            <p><span>Country :</span> {{ profile.country | titlecase }}</p>
+            <p>
+              <span>Country :</span> {{ profile?.country?.name | titlecase }}
+            </p>
           </div>
           <div class="half">
-            <p><span>City :</span> {{ profile.city | titlecase }}</p>
+            <p><span>State :</span> {{ profile?.state?.name | titlecase }}</p>
           </div>
         </div>
 
         <div class="block-middle border-bottom">
-          <div class="full">
+          <div class="half">
+            <p><span>City :</span> {{ profile?.city?.name | titlecase }}</p>
+          </div>
+          <div class="half">
             <p>
               <span>Office address :</span>
               {{ profile.address?.full_address | titlecase }}

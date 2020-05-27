@@ -6,6 +6,7 @@ import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
 import { Constants } from '@app/shared/static-data/static-data';
+import { SharedService } from '@app/shared/shared.service';
 
 interface FootMatesContext {
   name: string;
@@ -71,8 +72,8 @@ export class FootMatesComponent implements OnInit, OnDestroy {
   panelOptions: object = {
     bio: true,
     member_type: true,
-    my_achievements: false,
-    view_profile_link: false,
+    my_achievements: true,
+    view_profile_link: true,
     player_type: true,
     follows_buttons: false
   };
@@ -87,7 +88,8 @@ export class FootMatesComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private footMatesService: FootMatesService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private sharedService: SharedService
   ) {}
 
   ngOnDestroy() {}
@@ -143,7 +145,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
   }
 
   getLocationStats() {
-    this.footMatesService
+    this.sharedService
       .getLocationStats()
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -156,7 +158,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
       );
   }
   getCitiesListing(countryID: string, stateID: string) {
-    this.footMatesService
+    this.sharedService
       .getCitiesListing(countryID, stateID)
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -169,7 +171,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
       );
   }
   getStatesListing(countryID: string) {
-    this.footMatesService
+    this.sharedService
       .getStatesListing(countryID)
       .pipe(untilDestroyed(this))
       .subscribe(

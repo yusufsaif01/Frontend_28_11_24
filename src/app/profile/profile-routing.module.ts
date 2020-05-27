@@ -5,13 +5,13 @@ import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ProfileComponent } from './profile.component';
 import { RoleGuardService } from '../core/authentication/role-guard.service';
-import { extract } from '@app/core';
+import { extract, AuthenticationGuard } from '@app/core';
 
 const appRoutes: Routes = [
   {
     path: '',
     component: ProfileComponent,
-    canActivate: [RoleGuardService],
+    canActivate: [RoleGuardService, AuthenticationGuard],
     data: { expectedRole: ['player', 'club', 'academy'] },
     children: [
       {

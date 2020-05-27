@@ -14,6 +14,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Camera,
   Heart,
+  Trash,
+  ThumbsUp,
   Github,
   Mail,
   Users,
@@ -47,7 +49,9 @@ import {
   Award,
   Home,
   UserCheck,
-  UserX
+  UserX,
+  Send,
+  Info
 } from 'angular-feather/icons';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LinkExpiredComponent } from './link-expired/link-expired.component';
@@ -56,6 +60,8 @@ import { LeftPanelComponent } from './left-panel/left-panel.component';
 const icons = {
   Camera,
   Heart,
+  Trash,
+  ThumbsUp,
   Github,
   Mail,
   Users,
@@ -89,7 +95,9 @@ const icons = {
   Award,
   Home,
   UserCheck,
-  UserX
+  UserX,
+  Send,
+  Info
 };
 
 @NgModule({

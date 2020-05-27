@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { HeaderComponent } from '@app/shared/page-components/header/header.component';
 import { EditProfileService } from './edit-profile-service';
 import { ViewProfileService } from '../view-profile/view-profile.service';
+import { SharedService } from '@app/shared/shared.service';
 import { untilDestroyed } from '@app/core';
 import { Constants } from '@app/shared/static-data/static-data';
 
@@ -32,7 +33,7 @@ interface topAcademyPlayerObject {
 }
 
 interface positionObject {
-  name: string;
+  id: string;
 }
 
 @Component({
@@ -74,11 +75,11 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
   positionArray: any[] = [];
   strongFootArray = Constants.STRONG_FOOT;
-  sampleCountryArray = Constants.SAMPLE_COUNTRY_ARRAY;
-  sampleStateArray = Constants.SAMPLE_STATE_ARRAY;
+  countryArray: any[] = [];
+  stateArray: any[] = [];
   designationArray = Constants.DESIGNATION_ARRAY;
   leagueArray = Constants.LEAGUE_ARRAY;
-  sampleCityArray = Constants.SAMPLE_CITY_ARRAY;
+  cityArray: any[] = [];
   clubAcadTypeArray = Constants.CLUB_ACAD_TYPE_ARRAY;
   stateAssociationArray = Constants.STATE_ASSOCIATION_ARRAY;
 
@@ -86,6 +87,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     private _viewProfileService: ViewProfileService,
     private _editProfileService: EditProfileService,
+    private _sharedService: SharedService,
     private _toastrService: ToastrService,
     private _router: Router
   ) {
@@ -99,6 +101,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.populateView();
     this.initValidations();
+    this.getLocationStats();
   }
 
   initValidations() {
@@ -106,6 +109,78 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       this.editProfileForm.controls.document.disable();
       this.editProfileForm.controls.number.disable();
     }
+  }
+
+  getLocationStats() {
+    this._sharedService
+      .getLocationStats()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        (response: any) => {
+          this.countryArray = response.data;
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
+        }
+      );
+  }
+
+  getStatesListing(countryID: string) {
+    this._sharedService
+      .getStatesListing(countryID)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        (response: any) => {
+          this.stateArray = response.data.records;
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
+        }
+      );
+  }
+
+  getCitiesListing(countryID: string, stateID: string) {
+    this._sharedService
+      .getCitiesListing(countryID, stateID)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        (response: any) => {
+          this.cityArray = response.data.records;
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
+        }
+      );
+  }
+
+  onSelectCountry(event: any) {
+    if (!event.target.value) {
+      this.resetStateCity();
+    } else {
+      this.getStatesListing(event.target.value);
+    }
+  }
+
+  resetStateCity() {
+    this.stateArray = [];
+    this.cityArray = [];
+    this.editProfileForm.controls.state.patchValue('');
+    this.editProfileForm.controls.city.patchValue('');
+  }
+
+  onSelectState(event: any) {
+    if (!event.target.value) {
+      this.resetCity();
+    } else {
+      this.getCitiesListing(
+        this.editProfileForm.controls.country.value,
+        event.target.value
+      );
+    }
+  }
+  resetCity() {
+    this.cityArray = [];
+    this.editProfileForm.controls.city.patchValue('');
   }
 
   // selectTab(tabName: string) {
@@ -312,6 +387,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       const trophies = this.editProfileForm.get('trophies');
       const leagueOther = this.editProfileForm.get('league_other');
       const associationOther = this.editProfileForm.get('association_other');
+      const documentNumber = this.editProfileForm.get('number');
 
       if (this.member_type === 'club') {
         trophies.setValidators(null);
@@ -326,6 +402,35 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           Validators.required,
           Validators.pattern(/^\d+$/)
         ]);
+
+        this.editProfileForm
+          .get('document_type')
+          .valueChanges.subscribe(type => {
+            if (type === 'aiff') {
+              // later it will be fully implemented
+              documentNumber.setValidators([Validators.required]);
+            } else if (type === 'pan') {
+              documentNumber.setValidators([
+                Validators.required,
+                Validators.minLength(10),
+                Validators.maxLength(10),
+                Validators.pattern(/^[A-Z]{5}[0-9]{4}[A-Z]/)
+              ]);
+            } else if (type === 'coi') {
+              documentNumber.setValidators([
+                Validators.required,
+                Validators.pattern(/^[a-z-A-Z0-9]+$/)
+              ]);
+            } else if (type === 'tin') {
+              documentNumber.setValidators([
+                Validators.required,
+                Validators.minLength(9),
+                Validators.maxLength(12),
+                Validators.pattern(/^\d+$/)
+              ]);
+            }
+            documentNumber.updateValueAndValidity();
+          });
       }
 
       this.editProfileForm
@@ -596,6 +701,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           ]
         ],
         country: ['', [Validators.required]],
+        state: ['', [Validators.required]],
         city: ['', [Validators.required]],
         address: ['', []],
         pincode: ['', []],
@@ -648,6 +754,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           ]
         ],
         country: ['', [Validators.required]],
+        state: ['', [Validators.required]],
         city: ['', [Validators.required]],
         address: ['', [Validators.required]],
         pincode: ['', [Validators.required]],
@@ -712,6 +819,18 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       else this.editProfileForm.get('associated_club').setValue('no');
     }
 
+    if (this.profile.country) {
+      this.getStatesListing(this.profile.country.id);
+      this.editProfileForm.patchValue({
+        state: this.profile.state ? this.profile.state.id : ''
+      });
+
+      this.getCitiesListing(this.profile.country.id, this.profile.state.id);
+      this.editProfileForm.patchValue({
+        city: this.profile.city ? this.profile.city.id : ''
+      });
+    }
+
     this.editProfileForm.patchValue({
       player_type: this.profile.player_type ? this.profile.player_type : '',
       name: this.profile.name,
@@ -738,9 +857,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       weight: this.profile.weight ? this.profile.weight : '',
       dob: this.profile.dob ? new Date(this.profile.dob) : '',
       phone: this.profile.phone ? this.profile.phone : '',
-      country: this.profile.country ? this.profile.country : '',
-      state: this.profile.state ? this.profile.state : '',
-      city: this.profile.city ? this.profile.city : '',
+      country: this.profile.country ? this.profile.country.id : '',
       stadium_name: this.profile.stadium_name ? this.profile.stadium_name : '',
       league: this.profile.league ? this.profile.league : '',
       type: this.profile.type ? this.profile.type : '',
@@ -1006,14 +1123,14 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       this.position.push(
         this._formBuilder.group({
           priority: index + 1,
-          name: [data.name, []]
+          id: [data.id, []]
         })
       );
     } else {
       this.position.push(
         this._formBuilder.group({
           priority: index + 1,
-          name: ['', []]
+          id: ['', []]
         })
       );
     }
@@ -1022,7 +1139,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   onChangeDocumentType(event: any) {
     this.editProfileForm.controls.number.enable();
     this.editProfileForm.controls.document.enable();
-    this.editProfileForm.controls.number.setValidators(Validators.required);
+    // this.editProfileForm.controls.number.setValidators(Validators.required);
     this.editProfileForm.controls.document.setValidators([
       Validators.required,
       requiredFileDocument

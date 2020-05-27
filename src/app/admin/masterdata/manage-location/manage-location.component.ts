@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ManageLocationTableConfig } from './manage-location-table-conf';
-import { AdminService } from '@app/admin/admin.service';
 import { untilDestroyed } from '@app/core';
+import { SharedService } from '@app/shared/shared.service';
 @Component({
   selector: 'app-manage-location',
   templateUrl: './manage-location.component.html',
@@ -19,7 +19,7 @@ export class ManageLocationComponent implements OnInit, OnDestroy {
   updateSidebar($event: any) {
     this.sideBarToggle = $event;
   }
-  constructor(public adminService: AdminService) {}
+  constructor(public sharedService: SharedService) {}
 
   ngOnDestroy() {}
 
@@ -28,7 +28,7 @@ export class ManageLocationComponent implements OnInit, OnDestroy {
   }
 
   getLocationStats() {
-    this.adminService
+    this.sharedService
       .getLocationStats()
       .pipe(untilDestroyed(this))
       .subscribe(

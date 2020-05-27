@@ -29,21 +29,6 @@ export abstract class Constants {
     }
   ];
 
-  static readonly PLAYER_TYPE = [
-    {
-      name: 'Grassroot',
-      value: 'Grassroot'
-    },
-    {
-      name: 'Amateur',
-      value: 'Amateur'
-    },
-    {
-      name: 'Professional',
-      value: 'Professional'
-    }
-  ];
-
   static readonly SAMPLE_COUNTRY_ARRAY = [
     {
       name: 'India',
@@ -355,5 +340,15 @@ export abstract class Constants {
       name: 'Dashboard',
       imagePath: 'assets/images/icons/sidebar/dashboard.png'
     }
+  ];
+
+  static readonly PLAYER_TYPE: any[] = [
+    { name: 'Grassroot', value: 'grassroot' },
+    { name: 'Amateur', value: 'amateur' },
+    { name: 'Professional', value: 'professional' }
+  ];
+  static readonly CLUB_ACADEMY_TYPE: any[] = [
+    { name: 'Residential', value: 'Residential' },
+    { name: 'Non-Residential', value: 'Non-Residential' }
   ];
 }

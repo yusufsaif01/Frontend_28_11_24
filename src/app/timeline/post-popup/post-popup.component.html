@@ -1,47 +1,55 @@
 <div class="from-container">
-  <form>
+  <form [formGroup]="createPostForm">
     <div class="header">
       <div class="title">
-        <h3>Create a Post</h3>
+        <h3 *ngIf="!data">Create a Post</h3>
+        <h3 *ngIf="data">Edit Post</h3>
       </div>
       <div class="close">
         <img
-          [mat-dialog-close]
+          mat-dialog-close
           src="assets/images/icons/close-white.png"
           alt=""
         />
       </div>
     </div>
     <div class="modal-body">
-      <textarea matinput placeholder="Write your message"></textarea>
+      <div class="message-box">
+        <textarea
+          formControlName="text"
+          matinput
+          maxlength="60"
+          placeholder="Write a FooTPost"
+        ></textarea>
+      </div>
+      <div class="uploaded-images">
+        <img [src]="imageURL" alt="" />
+      </div>
     </div>
     <div class="modal-footer">
       <div class="left">
         <ul>
           <li>
-            <a>
-              <i-feather name="plus"></i-feather>
-            </a>
-          </li>
-          <li>
-            <a>
+            <label>
               <i-feather name="camera"></i-feather>
-            </a>
-          </li>
-          <li>
-            <a>
-              <i-feather name="video"></i-feather>
-            </a>
-          </li>
-          <li>
-            <a>
-              <i-feather name="file"></i-feather>
-            </a>
+              <input
+                formControlName="media"
+                type="file"
+                (change)="changeMedia($event.target.files)"
+              />
+            </label>
           </li>
         </ul>
       </div>
       <div class="right">
-        <button>Post</button>
+        <button mat-dialog-close class="cancel">Cancel</button>
+        <button
+          class="save"
+          [disabled]="!imageURL && !createPostForm.value.text"
+          (click)="onClickSave()"
+        >
+          Save
+        </button>
       </div>
     </div>
   </form>

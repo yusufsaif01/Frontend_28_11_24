@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AdminService } from '@app/admin/admin.service';
 import { CityService } from './manage-city-service';
 import { untilDestroyed } from '@app/core';
+import { SharedService } from '@app/shared/shared.service';
 @Component({
   selector: 'app-manage-city',
   templateUrl: './manage-city.component.html',
@@ -46,7 +47,8 @@ export class ManageCityComponent implements OnInit, OnDestroy {
     private adminService: AdminService,
     private toastrService: ToastrService,
     private route: ActivatedRoute,
-    private cityService: CityService
+    private cityService: CityService,
+    private sharedService: SharedService
   ) {
     this.createForm();
     this.route.params.subscribe(params => {
@@ -88,8 +90,8 @@ export class ManageCityComponent implements OnInit, OnDestroy {
       );
   }
   getStateListByCountry() {
-    this.adminService
-      .getStateListByCountry({ country_id: this.country_id })
+    this.sharedService
+      .getStatesListing(this.country_id)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
@@ -110,10 +112,8 @@ export class ManageCityComponent implements OnInit, OnDestroy {
     page_no: number,
     search?: string
   ) {
-    this.adminService
-      .getCityListByState({
-        country_id: this.country_id,
-        state_id,
+    this.sharedService
+      .getCitiesListing(this.country_id, state_id, {
         page_no,
         page_size,
         search
@@ -153,7 +153,10 @@ export class ManageCityComponent implements OnInit, OnDestroy {
   createForm() {
     this.addCityForm = this.formBuilder.group({
       state_id: ['', [Validators.required]],
-      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]]
+      name: [
+        '',
+        [Validators.required, Validators.pattern(/^[a-zA-Z0-9\&\- ]+$/)]
+      ]
     });
   }
   editCity(name: any, id: any) {
