@@ -23,8 +23,8 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() NumberColumn: boolean = false;
   @Input() sortEnabled: boolean = false;
   @Input() rows = new MatTableDataSource([]);
-  @Input() pageSize: number;
-  @Input() pageNo: number;
+  @Input() pageSize: number = 10;
+  @Input() pageNo: number = 1;
   // dataSource = new MatTableDataSource<any>();
   // rows = new MatTableDataSource([
   //   {

@@ -31,8 +31,8 @@ export class MasterTableComponent implements OnInit {
   @Output() event: EventEmitter<any> = new EventEmitter<any>();
   obj: any = {};
   @Input() update: any = '';
-  @Input() pageSize: number;
-  @Input() pageNo: number;
+  @Input() pageSize: number = 10;
+  @Input() pageNo: number = 1;
   // dataSource = new MatTableDataSource<any>();
   // rows = new MatTableDataSource([
   //   {
