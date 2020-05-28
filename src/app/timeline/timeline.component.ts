@@ -124,7 +124,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   createCommentForm(post: PostContext) {
     post.commentForm = this._formBuilder.group({
-      comment: ['']
+      comment: ['', [Validators.required, Validators.maxLength(60)]]
     });
   }
 
@@ -171,22 +171,6 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   activateCommentBox(post: PostContext) {
     post.show_comment_box = true;
-    this.setCategoryValidators(post);
-  }
-
-  setCategoryValidators(post: PostContext) {
-    const comment = post.commentForm.get('comment');
-    if (this.member_type === 'player') {
-      comment.setValidators([
-        Validators.required,
-        Validators.maxLength(60),
-        Validators.pattern(/^[A-Za-z0-9\(\)\-\&\!\%\* ]+$/)
-      ]);
-    }
-    if (this.member_type === 'club' || this.member_type === 'academy') {
-      comment.setValidators([Validators.required, Validators.maxLength(60)]);
-    }
-    comment.updateValueAndValidity();
   }
 
   getCommentListing(
