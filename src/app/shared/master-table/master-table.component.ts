@@ -95,7 +95,8 @@ export class MasterTableComponent implements OnInit {
       this.event.emit('cancelled');
     }
     if (this.sortEnabled) this.rows.sort = this.sort;
-    this.rows.data = this.serialNumberGenerator();
+
+    if (changes.rows) this.rows.data = this.serialNumberGenerator();
   }
   serialNumberGenerator() {
     let data = this.rows.data;
