@@ -126,6 +126,8 @@
             [row]="row"
             [update]="update"
             (event)="onChange($event)"
+            [pageSize]="pageSize"
+            [pageNo]="selectedPage"
           ></app-master-table>
           <ng-template
             #ListAction

@@ -70,9 +70,6 @@ export class ManageParametersComponent implements OnInit, OnDestroy {
         response => {
           this.abilityName = response.data.ability;
           let records = response.data.records;
-          for (let i = 0; i < records.length; i++) {
-            records[i]['serialNumber'] = i + 1;
-          }
           this.dataSource = new MatTableDataSource(records);
         },
         error => {}

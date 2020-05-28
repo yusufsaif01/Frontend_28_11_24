@@ -122,14 +122,6 @@ export class ManageCityComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           let records = response.data.records;
-          for (let i = 0; i < records.length; i++) {
-            if (page_no > 1) {
-              records[i]['serialNumber'] =
-                i + 1 + page_size * page_no - page_size;
-            } else {
-              records[i]['serialNumber'] = i + 1;
-            }
-          }
           this.total_count = response.data.total;
           this.show_count = response.data.records.length;
           this.dataSource = new MatTableDataSource(records);

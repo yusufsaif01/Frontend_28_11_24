@@ -142,12 +142,6 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
         .subscribe(response => {
           let records = response.data.records;
           for (let i = 0; i < records.length; i++) {
-            if (page_no > 1) {
-              records[i]['serialnumber'] =
-                i + 1 + page_size * page_no - page_size;
-            } else {
-              records[i]['serialnumber'] = i + 1;
-            }
             records[i]['media'] = environment.mediaUrl + records[i]['media'];
           }
           this.dataSource = new MatTableDataSource(records);
@@ -162,12 +156,6 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
         .subscribe(response => {
           let records = response.data.records;
           for (let i = 0; i < records.length; i++) {
-            if (page_no > 1) {
-              records[i]['serialnumber'] =
-                i + 1 + page_size * page_no - page_size;
-            } else {
-              records[i]['serialnumber'] = i + 1;
-            }
             records[i]['media'] = environment.mediaUrl + records[i]['media'];
           }
           this.dataSource = new MatTableDataSource(records);
