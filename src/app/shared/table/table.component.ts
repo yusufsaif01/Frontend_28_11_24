@@ -5,7 +5,8 @@ import {
   ViewChild,
   ElementRef,
   TemplateRef,
-  SimpleChanges
+  SimpleChanges,
+  OnChanges
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -16,12 +17,14 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
   @Input() tableConfig: any = {};
   @Input() TableActions: TemplateRef<any>;
   @Input() NumberColumn: boolean = false;
   @Input() sortEnabled: boolean = false;
   @Input() rows = new MatTableDataSource([]);
+  @Input() page_size: number;
+  @Input() page_no: number;
   // dataSource = new MatTableDataSource<any>();
   // rows = new MatTableDataSource([
   //   {
@@ -77,6 +80,27 @@ export class TableComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.rows.data = this.serialNumberGenerator(
+      this.rows.data,
+      this.page_size,
+      this.page_no
+    );
+
     if (this.sortEnabled) this.rows.sort = this.sort;
+  }
+
+  serialNumberGenerator<T extends { serialnumber?: number }>(
+    records: T[],
+    page_size: number,
+    page_no: number
+  ): T[] {
+    for (let i = 0; i < records.length; i++) {
+      if (page_no > 1) {
+        records[i].serialnumber = i + 1 + page_size * (page_no - 1);
+      } else {
+        records[i].serialnumber = i + 1;
+      }
+    }
+    return records;
   }
 }

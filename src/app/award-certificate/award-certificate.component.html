@@ -29,6 +29,8 @@
           [rows]="dataSource"
           [TableActions]="!isPublic ? ListAction : false"
           [sortEnabled]="false"
+          [page_size]="pageSize"
+          [page_no]="currentPageNo"
         >
         </app-table>
         <ng-template
