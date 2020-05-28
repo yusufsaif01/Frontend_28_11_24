@@ -31,6 +31,8 @@ export class MasterTableComponent implements OnInit {
   @Output() event: EventEmitter<any> = new EventEmitter<any>();
   obj: any = {};
   @Input() update: any = '';
+  @Input() pageSize: number;
+  @Input() pageNo: number;
   // dataSource = new MatTableDataSource<any>();
   // rows = new MatTableDataSource([
   //   {
@@ -93,5 +95,17 @@ export class MasterTableComponent implements OnInit {
       this.event.emit('cancelled');
     }
     if (this.sortEnabled) this.rows.sort = this.sort;
+    this.rows.data = this.serialNumberGenerator();
+  }
+  serialNumberGenerator() {
+    let data = this.rows.data;
+    for (let i = 0; i < data.length; i++) {
+      if (this.pageNo > 1) {
+        data[i].serialNumber = i + 1 + this.pageSize * (this.pageNo - 1);
+      } else {
+        data[i].serialNumber = i + 1;
+      }
+    }
+    return data;
   }
 }
