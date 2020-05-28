@@ -103,9 +103,10 @@ export class ManagePositionComponent implements OnInit, OnDestroy {
           this.position_count = response.data.total;
           for (let i = 0; i < records.length; i++) {
             if (page_no > 1) {
-              records[i]['serialNo'] = i + 1 + page_size * page_no - page_size;
+              records[i]['serialNumber'] =
+                i + 1 + page_size * page_no - page_size;
             } else {
-              records[i]['serialNo'] = i + 1;
+              records[i]['serialNumber'] = i + 1;
             }
           }
           this.dataSource = new MatTableDataSource(records);

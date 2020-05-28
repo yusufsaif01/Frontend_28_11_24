@@ -89,9 +89,9 @@ export class TableComponent implements OnInit, OnChanges {
     let data = this.rows.data;
     for (let i = 0; i < data.length; i++) {
       if (this.pageNo > 1) {
-        data[i].serialnumber = i + 1 + this.pageSize * (this.pageNo - 1);
+        data[i].serialNumber = i + 1 + this.pageSize * (this.pageNo - 1);
       } else {
-        data[i].serialnumber = i + 1;
+        data[i].serialNumber = i + 1;
       }
     }
     return data;
