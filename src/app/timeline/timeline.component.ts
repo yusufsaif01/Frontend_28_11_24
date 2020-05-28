@@ -319,7 +319,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
       panelClass: 'filterDialog',
       data: {
         header: 'Delete Post',
-        message: 'Are you sure you want to delete this post?'
+        message: 'Are you sure you want to delete?'
       }
     });
     dialogRef.afterClosed().subscribe(result => {
