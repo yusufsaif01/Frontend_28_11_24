@@ -114,7 +114,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       debounceTime(1000),
       untilDestroyed(this),
       map((data: any) => {
-        if (data.searchText !== this.tempSearchText) {
+        if (data.searchText !== this.tempSearchText || this.pageNo > 1) {
           // To check if other keys are not pressed
           this._headerService
             .getMemberSearchList({
