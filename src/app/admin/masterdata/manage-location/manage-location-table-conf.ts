@@ -3,14 +3,19 @@ import { TableConfig } from '@app/shared/table/TableConfig';
 export class ManageLocationTableConfig extends TableConfig {
   constructor() {
     super();
-    this.allowedColumns = ['serialNo', 'country', 'no_of_state', 'no_of_city'];
+    this.allowedColumns = [
+      'serialNumber',
+      'country',
+      'no_of_state',
+      'no_of_city'
+    ];
 
     this.columns = {
-      serialNo: {
-        code: 'serialNo',
+      serialNumber: {
+        code: 'serialNumber',
         text: 'S.No',
         getValue: (ele: any) => {
-          return ele[this.columns.serialNo.code];
+          return ele[this.columns.serialNumber.code];
         }
       },
       country: {

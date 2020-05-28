@@ -34,9 +34,6 @@ export class ManageLocationComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           let records = response.data;
-          for (let i = 0; i < records.length; i++) {
-            records[i]['serialNo'] = i + 1;
-          }
           let country_id = response.data[0].country_id;
           this.TableOptions = { country_id };
           this.dataSource = new MatTableDataSource(records);

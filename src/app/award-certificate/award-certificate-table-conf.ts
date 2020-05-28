@@ -3,7 +3,7 @@ export class AwardCertificateTableConfig extends TableConfig {
   constructor() {
     super();
     this.allowedColumns = [
-      'serialnumber',
+      'serialNumber',
       'type',
       'name',
       'year',
@@ -12,11 +12,11 @@ export class AwardCertificateTableConfig extends TableConfig {
     ];
 
     this.columns = {
-      serialnumber: {
-        code: 'serialnumber',
+      serialNumber: {
+        code: 'serialNumber',
         text: 'S.No',
         getValue: (ele: any) => {
-          return ele[this.columns.serialnumber.code];
+          return ele[this.columns.serialNumber.code];
         }
       },
       type: {
