@@ -23,8 +23,8 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() NumberColumn: boolean = false;
   @Input() sortEnabled: boolean = false;
   @Input() rows = new MatTableDataSource([]);
-  @Input() page_size: number;
-  @Input() page_no: number;
+  @Input() pageSize: number;
+  @Input() pageNo: number;
   // dataSource = new MatTableDataSource<any>();
   // rows = new MatTableDataSource([
   //   {
@@ -80,27 +80,20 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.rows.data = this.serialNumberGenerator(
-      this.rows.data,
-      this.page_size,
-      this.page_no
-    );
+    this.rows.data = this.serialNumberGenerator();
 
     if (this.sortEnabled) this.rows.sort = this.sort;
   }
 
-  serialNumberGenerator<T extends { serialnumber?: number }>(
-    records: T[],
-    page_size: number,
-    page_no: number
-  ): T[] {
-    for (let i = 0; i < records.length; i++) {
-      if (page_no > 1) {
-        records[i].serialnumber = i + 1 + page_size * (page_no - 1);
+  serialNumberGenerator() {
+    let data = this.rows.data;
+    for (let i = 0; i < data.length; i++) {
+      if (this.pageNo > 1) {
+        data[i].serialnumber = i + 1 + this.pageSize * (this.pageNo - 1);
       } else {
-        records[i].serialnumber = i + 1;
+        data[i].serialnumber = i + 1;
       }
     }
-    return records;
+    return data;
   }
 }
