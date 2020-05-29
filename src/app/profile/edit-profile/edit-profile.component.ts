@@ -624,6 +624,30 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   }
 
   manageCommonField() {
+    let commonControls = [
+        {
+          name: 'country',
+          formControl: this._formBuilder.control('', [Validators.required])
+        },
+        {
+          name: 'state',
+          formControl: this._formBuilder.control('', [Validators.required])
+        },
+        {
+          name: 'city',
+          formControl: this._formBuilder.control('', [Validators.required])
+        },
+        {
+          name: 'phone',
+          formControl: this._formBuilder.control('', [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^\d+$/)
+          ])
+        },
+    ]
+    this.formControlAdder(this.editProfileForm, commonControls);
     if (this.member_type == 'academy' || this.member_type === 'club') {
       let clubAcadControls = [
         {
@@ -645,27 +669,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
             Validators.minLength(4),
             Validators.maxLength(4),
             Validators.max(this.currentYear),
-            Validators.pattern(/^\d+$/)
-          ])
-        },
-        {
-          name: 'country',
-          formControl: this._formBuilder.control('', [Validators.required])
-        },
-        {
-          name: 'state',
-          formControl: this._formBuilder.control('', [Validators.required])
-        },
-        {
-          name: 'city',
-          formControl: this._formBuilder.control('', [Validators.required])
-        },
-        {
-          name: 'phone',
-          formControl: this._formBuilder.control('', [
-            Validators.required,
-            Validators.minLength(10),
-            Validators.maxLength(10),
             Validators.pattern(/^\d+$/)
           ])
         },
@@ -748,18 +751,18 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         height_feet: ['', []],
         height_inches: ['', []],
         weight: ['', [Validators.min(1), Validators.pattern(/^\d+(\.\d)?$/)]],
-        country: ['', [Validators.required]], // country or nationality
-        state: ['', [Validators.required]],
-        city: ['', [Validators.required]], //city
-        phone: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(10),
-            Validators.maxLength(10),
-            Validators.pattern(/^\d+$/)
-          ]
-        ],
+        // country: ['', [Validators.required]], // country or nationality
+        // state: ['', [Validators.required]],
+        // city: ['', [Validators.required]], //city
+        // phone: [
+        //   '',
+        //   [
+        //     Validators.required,
+        //     Validators.minLength(10),
+        //     Validators.maxLength(10),
+        //     Validators.pattern(/^\d+$/)
+        //   ]
+        // ],
         school: ['', []], //institute.school
         university: [''], //institute.univeristy
         college: [''], //institute.college
