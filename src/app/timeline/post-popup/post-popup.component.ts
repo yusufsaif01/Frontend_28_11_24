@@ -9,6 +9,8 @@ import { TimelineService } from '../timeline.service';
 import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
+import { NgxImageCompressService } from 'ngx-image-compress';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-post-popup',
   templateUrl: './post-popup.component.html',
@@ -16,15 +18,20 @@ import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 })
 export class PostPopupComponent implements OnInit {
   createPostForm: FormGroup;
-  media: File;
+  media: Blob;
   imageURL: string = '';
+  savedMedia: File;
+  convertedFile: File;
+  imageQuality: number = 10;
 
   constructor(
     public dialogRef: MatDialogRef<PostPopupComponent>,
     private formBuilder: FormBuilder,
     private service: TimelineService,
     private toastrService: ToastrService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private imageCompress: NgxImageCompressService,
+    private loaderService: NgxSpinnerService
   ) {
     this.createForm();
     if (this.data) {
@@ -62,18 +69,83 @@ export class PostPopupComponent implements OnInit {
         'Error',
         'Post Image must be of type JPEG / JPG / PNG'
       );
-
-    this.media = files[0];
+    this.loaderService.show();
+    this.savedMedia = files[0];
     let reader = new FileReader();
     reader.readAsDataURL(files[0]);
     reader.onload = _event => {
-      this.imageURL = reader.result.toString();
+      let base64 = reader.result.toString();
+      let imageSize = this.imageCompress.byteCount(base64) / 1024;
+      console.log('Size in KB before:', imageSize);
+      this.checkImageQuality(imageSize);
+      console.log(this.imageQuality);
+      this.imageCompress
+        .compressFile(base64, null, 100, this.imageQuality)
+        .then(result => {
+          this.imageURL = result;
+          console.log(
+            'Size in KB now:',
+            this.imageCompress.byteCount(result) / 1024
+          );
+          fetch(this.imageURL)
+            .then(res =>
+              res
+                .blob()
+                .then(res => {
+                  this.loaderService.hide();
+                  this.media = res;
+                  this.convertedFile = new File(
+                    [this.media],
+                    this.savedMedia.name,
+                    {
+                      type: this.savedMedia.type,
+                      lastModified: this.savedMedia.lastModified
+                    }
+                  );
+                })
+                .catch(err => {
+                  console.log('error converting to blob', err);
+                  this.imageErrorHandler();
+                })
+            )
+            .catch(err => {
+              console.log('Invalid base64 data', err);
+              this.imageErrorHandler();
+            });
+        })
+        .catch(err => {
+          console.log('error in file compression', err);
+          this.imageErrorHandler();
+        });
     };
+  }
+  checkImageQuality(imageSize: number) {
+    if (imageSize < 500) {
+      this.imageQuality = 50;
+      return;
+    }
+    if (imageSize > 500 && imageSize < 1024) {
+      this.imageQuality = 30;
+    }
+    if (imageSize > 1024 && imageSize < 5000) {
+      this.imageQuality = 20;
+    }
+    if (imageSize > 5000 && imageSize < 10000) {
+      this.imageQuality = 10;
+    }
+    if (imageSize > 10000) {
+      this.imageQuality = 5;
+    }
+  }
+  imageErrorHandler() {
+    this.loaderService.hide();
+    this.imageURL = '';
+    this.convertedFile = undefined;
   }
 
   createNewPost() {
     let requestData = this.toFormData(this.createPostForm.value);
-    if (this.media) requestData.set('media', this.media);
+    if (this.media) requestData.set('media', this.convertedFile);
     this.service
       .createPost(requestData)
       .pipe(untilDestroyed(this))
