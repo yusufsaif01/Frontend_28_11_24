@@ -1,5 +1,11 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  AbstractControl
+} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
 import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
@@ -92,6 +98,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     private _router: Router
   ) {
     this.createForm();
+    this.manageCommonField();
     this.setCategoryValidators();
     this.tomorrow.setDate(this.tomorrow.getDate() + 1);
   }
@@ -607,6 +614,103 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         }
       );
   }
+  formControlAdder(
+    form: FormGroup,
+    controls: { name: string; formControl: AbstractControl }[]
+  ) {
+    controls.forEach(control => {
+      form.addControl(control.name, control.formControl);
+    });
+  }
+
+  manageCommonField() {
+    if (this.member_type == 'academy' || this.member_type === 'club') {
+      let clubAcadControls = [
+        {
+          name: 'name',
+          formControl: this._formBuilder.control('', [
+            Validators.required,
+            Validators.maxLength(25),
+            Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
+          ])
+        },
+        {
+          name: 'short_name',
+          formControl: this._formBuilder.control('', [])
+        },
+        {
+          name: 'founded_in',
+          formControl: this._formBuilder.control('', [
+            Validators.required,
+            Validators.minLength(4),
+            Validators.maxLength(4),
+            Validators.max(this.currentYear),
+            Validators.pattern(/^\d+$/)
+          ])
+        },
+        {
+          name: 'country',
+          formControl: this._formBuilder.control('', [Validators.required])
+        },
+        {
+          name: 'state',
+          formControl: this._formBuilder.control('', [Validators.required])
+        },
+        {
+          name: 'city',
+          formControl: this._formBuilder.control('', [Validators.required])
+        },
+        {
+          name: 'phone',
+          formControl: this._formBuilder.control('', [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^\d+$/)
+          ])
+        },
+        {
+          name: 'stadium_name',
+          formControl: this._formBuilder.control('', [])
+        },
+        {
+          name: 'league',
+          formControl: this._formBuilder.control('', [Validators.required])
+        },
+
+        {
+          name: 'league_other',
+          formControl: this._formBuilder.control('', [
+            Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)
+          ])
+        },
+        {
+          name: 'association',
+          formControl: this._formBuilder.control('', [Validators.required])
+        },
+        {
+          name: 'association_other',
+          formControl: this._formBuilder.control('')
+        },
+        {
+          name: 'contact_person',
+          formControl: this._formBuilder.array([], [Validators.required])
+        },
+        {
+          name: 'associated_players',
+          formControl: this._formBuilder.control('', [
+            Validators.required,
+            Validators.pattern(/^\d+$/)
+          ])
+        },
+        {
+          name: 'type',
+          formControl: this._formBuilder.control('', [Validators.required])
+        }
+      ];
+      this.formControlAdder(this.editProfileForm, clubAcadControls);
+    }
+  }
 
   createForm() {
     this.aboutForm = this._formBuilder.group({
@@ -681,108 +785,108 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     } else if (this.member_type === 'club') {
       this.editProfileForm = this._formBuilder.group({
         // personal_details
-        name: [
-          '',
-          [
-            Validators.required,
-            Validators.maxLength(25),
-            Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-          ]
-        ],
-        short_name: ['', []],
-        founded_in: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(4),
-            Validators.max(this.currentYear),
-            Validators.pattern(/^\d+$/)
-          ]
-        ],
-        country: ['', [Validators.required]],
-        state: ['', [Validators.required]],
-        city: ['', [Validators.required]],
+        // name: [
+        //   '',
+        //   [
+        //     Validators.required,
+        //     Validators.maxLength(25),
+        //     Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
+        //   ]
+        // ],
+        // short_name: ['', []],
+        // founded_in: [
+        //   '',
+        //   [
+        //     Validators.required,
+        //     Validators.minLength(4),
+        //     Validators.maxLength(4),
+        //     Validators.max(this.currentYear),
+        //     Validators.pattern(/^\d+$/)
+        //   ]
+        // ],
+        // country: ['', [Validators.required]],
+        // state: ['', [Validators.required]],
+        // city: ['', [Validators.required]],
         address: ['', []],
         pincode: ['', []],
-        phone: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(10),
-            Validators.maxLength(10),
-            Validators.pattern(/^\d+$/)
-          ]
-        ],
-        stadium_name: ['', []],
-        league: ['', [Validators.required]],
-        league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
-        association: ['', [Validators.required]],
-        association_other: [],
-        contact_person: this._formBuilder.array([], [Validators.required]),
+        // phone: [
+        //   '',
+        //   [
+        //     Validators.required,
+        //     Validators.minLength(10),
+        //     Validators.maxLength(10),
+        //     Validators.pattern(/^\d+$/)
+        //   ]
+        // ],
+        // stadium_name: ['', []],
+        // league: ['', [Validators.required]],
+        // league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
+        // association: ['', [Validators.required]],
+        // association_other: [],
+        // contact_person: this._formBuilder.array([], [Validators.required]),
         trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
         reg_number: ['', Validators.required],
-        associated_players: [
-          '',
-          [Validators.required, Validators.pattern(/^\d+$/)]
-        ],
-        aiff: ['', [Validators.required, requiredFileDocument]],
-        type: ['', [Validators.required]]
+        // associated_players: [
+        //   '',
+        //   [Validators.required, Validators.pattern(/^\d+$/)]
+        // ],
+        aiff: ['', [Validators.required, requiredFileDocument]]
+        // type: ['', [Validators.required]]
         // onclick upload document [aiff]
       });
     } else if (this.member_type === 'academy') {
       this.editProfileForm = this._formBuilder.group({
         // personal_details
-        name: [
-          '',
-          [
-            Validators.required,
-            Validators.maxLength(25),
-            Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-          ]
-        ],
-        short_name: ['', []],
-        founded_in: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(4),
-            Validators.max(this.currentYear),
-            Validators.pattern(/^\d+$/)
-          ]
-        ],
-        country: ['', [Validators.required]],
-        state: ['', [Validators.required]],
-        city: ['', [Validators.required]],
+        // name: [
+        //   '',
+        //   [
+        //     Validators.required,
+        //     Validators.maxLength(25),
+        //     Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
+        //   ]
+        // ],
+        // short_name: ['', []],
+        // founded_in: [
+        //   '',
+        //   [
+        //     Validators.required,
+        //     Validators.minLength(4),
+        //     Validators.maxLength(4),
+        //     Validators.max(this.currentYear),
+        //     Validators.pattern(/^\d+$/)
+        //   ]
+        // ],
+        // country: ['', [Validators.required]],
+        // state: ['', [Validators.required]],
+        // city: ['', [Validators.required]],
         address: ['', [Validators.required]],
         pincode: ['', [Validators.required]],
-        phone: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(10),
-            Validators.maxLength(10),
-            Validators.pattern(/^\d+$/)
-          ]
-        ],
-        stadium_name: ['', []],
-        league: ['', [Validators.required]],
-        league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
-        association: ['', [Validators.required]],
-        association_other: [],
+        // phone: [
+        //   '',
+        //   [
+        //     Validators.required,
+        //     Validators.minLength(10),
+        //     Validators.maxLength(10),
+        //     Validators.pattern(/^\d+$/)
+        //   ]
+        // ],
+        // stadium_name: ['', []],
+        // league: ['', [Validators.required]],
+        // league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
+        // association: ['', [Validators.required]],
+        // association_other: [],
         document_type: ['', []],
         number: [''],
-        contact_person: this._formBuilder.array([], [Validators.required]),
+        // contact_person: this._formBuilder.array([], [Validators.required]),
         trophies: this._formBuilder.array([], []),
         top_players: this._formBuilder.array([], []),
-        associated_players: [
-          '',
-          [Validators.required, Validators.pattern(/^\d+$/)]
-        ],
-        document: ['', [requiredFileDocument]],
-        type: ['', [Validators.required]]
+        // associated_players: [
+        //   '',
+        //   [Validators.required, Validators.pattern(/^\d+$/)]
+        // ],
+        document: ['', [requiredFileDocument]]
+        // type: ['', [Validators.required]]
         //onclick upload documenet aiff / pan card/tin / coi
       });
     }
