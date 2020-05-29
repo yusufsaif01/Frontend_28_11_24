@@ -503,26 +503,15 @@
                   post.commentForm.controls.comment.touched
                 "
               >
-                <ng-template #lengthBlock>
-                  <span
-                    *ngIf="post.commentForm.controls.comment.errors.maxlength"
-                  >
-                    Please provide upto
-                    {{
-                      post.commentForm.controls.comment.errors.maxlength
-                        .requiredLength
-                    }}
-                    characters
-                  </span>
-                </ng-template>
                 <span
-                  class="error-text"
-                  *ngIf="
-                    post.commentForm.controls.comment.errors.pattern;
-                    else lengthBlock
-                  "
+                  *ngIf="post.commentForm.controls.comment.errors.maxlength"
                 >
-                  Comment Format is invalid
+                  Please provide upto
+                  {{
+                    post.commentForm.controls.comment.errors.maxlength
+                      .requiredLength
+                  }}
+                  characters
                 </span>
               </mat-error>
             </form>
