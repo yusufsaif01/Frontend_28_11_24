@@ -98,7 +98,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     private _router: Router
   ) {
     this.createForm();
-    this.manageCommonField();
+    this.manageCommonControls();
     this.setCategoryValidators();
     this.tomorrow.setDate(this.tomorrow.getDate() + 1);
   }
@@ -623,7 +623,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  manageCommonField() {
+  manageCommonControls() {
     let commonControls = [
       {
         name: 'country',
