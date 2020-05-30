@@ -33,7 +33,20 @@ interface PostContext {
   };
   is_liked: boolean;
   likes: number;
-  comments: number;
+  comments: {
+    total: number;
+    data: {
+      comment: string;
+      commented_by: {
+        avatar: string;
+        user_id: string;
+        name: string;
+        type: string;
+        position: string;
+      };
+      commented_at: string;
+    }[];
+  };
   created_at: string;
   show_comment_box?: boolean;
   commentListing?: CommentContext[];
@@ -137,10 +150,10 @@ export class TimelineComponent implements OnInit, OnDestroy {
       .pipe(
         map(resp => {
           post.commentForm.reset();
-          post.comments++;
+          post.comments.total++;
           let isViewedMore: boolean = post.commentPageNo > 1;
           if (isViewedMore) post.commentPageNo = 1;
-          this.getCommentListing(post, false, isViewedMore);
+          this.getCommentListing(post, false);
         }),
         catchError(err => {
           this._toastrService.error('Error', err.error.message);
@@ -173,15 +186,11 @@ export class TimelineComponent implements OnInit, OnDestroy {
     post.show_comment_box = true;
   }
 
-  getCommentListing(
-    post: PostContext,
-    shouldLoad?: boolean,
-    shouldLoadAfterViewMore?: boolean
-  ) {
+  getCommentListing(post: PostContext, shouldLoad?: boolean) {
     this._timelineService
       .getCommentListing({
-        page_no: shouldLoadAfterViewMore ? 1 : post.commentPageNo,
-        page_size: shouldLoadAfterViewMore ? 3 : post.commentPageSize,
+        page_no: post.commentPageNo,
+        page_size: post.commentPageSize,
         post_id: post.id
       })
       .pipe(untilDestroyed(this))
@@ -245,7 +254,11 @@ export class TimelineComponent implements OnInit, OnDestroy {
       this.pageNo = 1;
     }
     this._timelineService
-      .getPostListing({ page_no: this.pageNo, page_size: this.pageSize })
+      .getPostListing({
+        page_no: this.pageNo,
+        page_size: this.pageSize,
+        comments: 1
+      })
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
@@ -262,7 +275,16 @@ export class TimelineComponent implements OnInit, OnDestroy {
             post.commentPageNo = 1;
             post.commentPageSize = 3;
             post.commentListing = [];
-            this.getCommentListing(post, false, false);
+            let comments: CommentContext[] = post.comments.data;
+            comments.forEach(comment => {
+              if (comment.commented_by.avatar) {
+                comment.commented_by.avatar =
+                  environment.mediaUrl + comment.commented_by.avatar;
+              }
+            });
+            post.commentListing = comments;
+            post.commentListing.reverse();
+            // this.getCommentListing(post, false, false);
             let commentForm: FormGroup;
             post.commentForm = commentForm;
             this.createCommentForm(post);
@@ -331,9 +353,9 @@ export class TimelineComponent implements OnInit, OnDestroy {
   }
 
   loadComments(post: PostContext) {
-    if (post.comments === post.commentListing.length) return;
+    if (post.comments.total === post.commentListing.length) return;
     post.commentPageNo++;
-    this.getCommentListing(post, true, false);
+    this.getCommentListing(post, true);
   }
 
   onScrollDown() {
