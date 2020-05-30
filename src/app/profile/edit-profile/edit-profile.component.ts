@@ -616,43 +616,43 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   }
   formControlAdder(
     form: FormGroup,
-    controls: { name: string; formControl: AbstractControl }[]
+    controls: { name: string; abstractControl: AbstractControl }[]
   ) {
     controls.forEach(control => {
-      form.addControl(control.name, control.formControl);
+      form.addControl(control.name, control.abstractControl);
     });
   }
 
   manageCommonField() {
     let commonControls = [
-        {
-          name: 'country',
-          formControl: this._formBuilder.control('', [Validators.required])
-        },
-        {
-          name: 'state',
-          formControl: this._formBuilder.control('', [Validators.required])
-        },
-        {
-          name: 'city',
-          formControl: this._formBuilder.control('', [Validators.required])
-        },
-        {
-          name: 'phone',
-          formControl: this._formBuilder.control('', [
-            Validators.required,
-            Validators.minLength(10),
-            Validators.maxLength(10),
-            Validators.pattern(/^\d+$/)
-          ])
-        },
-    ]
+      {
+        name: 'country',
+        abstractControl: this._formBuilder.control('', [Validators.required])
+      },
+      {
+        name: 'state',
+        abstractControl: this._formBuilder.control('', [Validators.required])
+      },
+      {
+        name: 'city',
+        abstractControl: this._formBuilder.control('', [Validators.required])
+      },
+      {
+        name: 'phone',
+        abstractControl: this._formBuilder.control('', [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10),
+          Validators.pattern(/^\d+$/)
+        ])
+      }
+    ];
     this.formControlAdder(this.editProfileForm, commonControls);
     if (this.member_type == 'academy' || this.member_type === 'club') {
-      let clubAcadControls = [
+      let clubAcadCommonControls = [
         {
           name: 'name',
-          formControl: this._formBuilder.control('', [
+          abstractControl: this._formBuilder.control('', [
             Validators.required,
             Validators.maxLength(25),
             Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
@@ -660,11 +660,11 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         },
         {
           name: 'short_name',
-          formControl: this._formBuilder.control('', [])
+          abstractControl: this._formBuilder.control('', [])
         },
         {
           name: 'founded_in',
-          formControl: this._formBuilder.control('', [
+          abstractControl: this._formBuilder.control('', [
             Validators.required,
             Validators.minLength(4),
             Validators.maxLength(4),
@@ -674,44 +674,44 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         },
         {
           name: 'stadium_name',
-          formControl: this._formBuilder.control('', [])
+          abstractControl: this._formBuilder.control('', [])
         },
         {
           name: 'league',
-          formControl: this._formBuilder.control('', [Validators.required])
+          abstractControl: this._formBuilder.control('', [Validators.required])
         },
 
         {
           name: 'league_other',
-          formControl: this._formBuilder.control('', [
+          abstractControl: this._formBuilder.control('', [
             Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)
           ])
         },
         {
           name: 'association',
-          formControl: this._formBuilder.control('', [Validators.required])
+          abstractControl: this._formBuilder.control('', [Validators.required])
         },
         {
           name: 'association_other',
-          formControl: this._formBuilder.control('')
+          abstractControl: this._formBuilder.control('')
         },
         {
           name: 'contact_person',
-          formControl: this._formBuilder.array([], [Validators.required])
+          abstractControl: this._formBuilder.array([], [Validators.required])
         },
         {
           name: 'associated_players',
-          formControl: this._formBuilder.control('', [
+          abstractControl: this._formBuilder.control('', [
             Validators.required,
             Validators.pattern(/^\d+$/)
           ])
         },
         {
           name: 'type',
-          formControl: this._formBuilder.control('', [Validators.required])
+          abstractControl: this._formBuilder.control('', [Validators.required])
         }
       ];
-      this.formControlAdder(this.editProfileForm, clubAcadControls);
+      this.formControlAdder(this.editProfileForm, clubAcadCommonControls);
     }
   }
 
