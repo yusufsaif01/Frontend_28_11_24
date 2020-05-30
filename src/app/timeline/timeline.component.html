@@ -504,14 +504,9 @@
                 "
               >
                 <span
-                  *ngIf="post.commentForm.controls.comment.errors.maxlength"
+                  *ngIf="post.commentForm.controls.comment.errors.wordCount"
                 >
-                  Please provide upto
-                  {{
-                    post.commentForm.controls.comment.errors.maxlength
-                      .requiredLength
-                  }}
-                  characters
+                  Please provide upto 60 words
                 </span>
               </mat-error>
             </form>
