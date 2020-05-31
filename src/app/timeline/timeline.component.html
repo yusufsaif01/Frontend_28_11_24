@@ -437,7 +437,7 @@
                 }"
               >
               </i-feather>
-              <span>{{ post.comments }}</span>
+              <span>{{ post.comments.total }}</span>
             </li>
           </ng-container>
         </ul>
@@ -446,7 +446,8 @@
         <div class="previous-list">
           <a
             *ngIf="
-              post.comments > 3 && post.comments !== post.commentListing.length
+              post.comments.total > 3 &&
+              post.comments.total !== post.commentListing.length
             "
             (click)="loadComments(post)"
             >View Previous Comments</a

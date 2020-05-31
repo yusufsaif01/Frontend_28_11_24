@@ -8,20 +8,26 @@ const routes = {
   likePost: (params: string) => `/post/${params}/like`,
   unlikePost: (params: string) => `/post/${params}/dislike`,
   createPost: () => `/post/add`,
-  getPostListing: () => `/posts/list`,
+  getPostListing: (query: string) => `/posts/list${query}`,
   updatePost: (post_id: string) => `/post/${post_id}`,
   deletePost: (post_id: string) => `/post/${post_id}`,
-  getCommentList: (params: string, query: string) =>
+  getCommentListing: (params: string, query: string) =>
     `/post/${params}/comments${query}`
 };
 
-interface GetCommentListContext {
+interface GetPostListingContext {
+  page_no?: number;
+  page_size?: number;
+  comments?: number;
+}
+
+interface GetCommentListingContext {
   post_id: string;
   page_no?: number;
   page_size?: number;
 }
 
-interface GetCommentListResponseContext {
+interface GetCommentListingResponseContext {
   status: string;
   message: string;
   data: {
@@ -61,7 +67,20 @@ interface GetPostListingResponseContext {
       };
       is_liked: boolean;
       likes: number;
-      comments: number;
+      comments: {
+        total: number;
+        data: {
+          comment: string;
+          commented_by: {
+            avatar: string;
+            user_id: string;
+            name: string;
+            type: string;
+            position: string;
+          };
+          commented_at: string;
+        }[];
+      };
       created_at: string;
     }[];
   };
@@ -163,18 +182,30 @@ export class TimelineService {
     return this.httpClient.delete<any>(routes.deletePost(post_id));
   }
 
-  getPostListing(context: any = {}): Observable<GetPostListingResponseContext> {
+  getPostListing(
+    context: GetPostListingContext
+  ): Observable<GetPostListingResponseContext> {
     let query = '?';
-    if (context['page_no']) query += 'page_no=' + context['page_no'];
-    if (context['page_size']) query += '&page_size=' + context['page_size'];
+    if (context['page_no']) {
+      query += 'page_no=' + context['page_no'];
+    }
+
+    if (context['page_size']) {
+      query += '&page_size=' + context['page_size'];
+    }
+
+    if (context['comments']) {
+      query += '&comments=' + context['comments'];
+    }
+
     return this.httpClient.get<GetPostListingResponseContext>(
-      routes.getPostListing() + query
+      routes.getPostListing(query)
     );
   }
 
   getCommentListing(
-    context: GetCommentListContext
-  ): Observable<GetCommentListResponseContext> {
+    context: GetCommentListingContext
+  ): Observable<GetCommentListingResponseContext> {
     let params = '';
     if (context['post_id']) {
       params += `${context['post_id']}`;
@@ -188,8 +219,8 @@ export class TimelineService {
       query += '&page_size=' + context['page_size'];
     }
 
-    return this.httpClient.get<GetCommentListResponseContext>(
-      routes.getCommentList(params, query)
+    return this.httpClient.get<GetCommentListingResponseContext>(
+      routes.getCommentListing(params, query)
     );
   }
 }
