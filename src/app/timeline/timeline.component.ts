@@ -15,6 +15,7 @@ import { map, catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { wordCount } from '@app/shared/validators/wordCount';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 
 interface PostContext {
@@ -137,7 +138,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   createCommentForm(post: PostContext) {
     post.commentForm = this._formBuilder.group({
-      comment: ['', [Validators.required, Validators.maxLength(60)]]
+      comment: ['', [Validators.required, wordCount]]
     });
   }
 
