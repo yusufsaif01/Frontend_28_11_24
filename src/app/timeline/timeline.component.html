@@ -437,7 +437,7 @@
                 }"
               >
               </i-feather>
-              <span>{{ post.comments }}</span>
+              <span>{{ post.comments.total }}</span>
             </li>
           </ng-container>
         </ul>
@@ -446,7 +446,8 @@
         <div class="previous-list">
           <a
             *ngIf="
-              post.comments > 3 && post.comments !== post.commentListing.length
+              post.comments.total > 3 &&
+              post.comments.total !== post.commentListing.length
             "
             (click)="loadComments(post)"
             >View Previous Comments</a
@@ -503,26 +504,10 @@
                   post.commentForm.controls.comment.touched
                 "
               >
-                <ng-template #lengthBlock>
-                  <span
-                    *ngIf="post.commentForm.controls.comment.errors.maxlength"
-                  >
-                    Please provide upto
-                    {{
-                      post.commentForm.controls.comment.errors.maxlength
-                        .requiredLength
-                    }}
-                    characters
-                  </span>
-                </ng-template>
                 <span
-                  class="error-text"
-                  *ngIf="
-                    post.commentForm.controls.comment.errors.pattern;
-                    else lengthBlock
-                  "
+                  *ngIf="post.commentForm.controls.comment.errors.wordCount"
                 >
-                  Comment Format is invalid
+                  Please provide upto 60 words
                 </span>
               </mat-error>
             </form>
