@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { DatePipe as DatePipeAngular } from '@angular/common';
 @Pipe({
   name: 'datePipe'
 })
@@ -22,7 +23,8 @@ export class DatePipe implements PipeTransform {
       created_at = hours + ' hours';
     }
     if (hours >= 24) {
-      created_at = created_at.toDateString();
+      let finalDate = new DatePipeAngular('en-US');
+      created_at = finalDate.transform(created_at, 'dd MMMM yyyy');
     }
     return created_at;
   }
