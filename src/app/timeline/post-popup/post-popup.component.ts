@@ -73,50 +73,36 @@ export class PostPopupComponent implements OnInit {
     this.savedMedia = files[0];
     let reader = new FileReader();
     reader.readAsDataURL(files[0]);
-    reader.onload = _event => {
+    reader.onload = async _event => {
       let base64 = reader.result.toString();
       let imageSize = this.imageCompress.byteCount(base64) / 1024;
       console.log('Size in KB before:', imageSize);
       this.checkImageQuality(imageSize);
       console.log(this.imageQuality);
-      this.imageCompress
-        .compressFile(base64, null, 100, this.imageQuality)
-        .then(result => {
-          this.imageURL = result;
-          console.log(
-            'Size in KB now:',
-            this.imageCompress.byteCount(result) / 1024
-          );
-          fetch(this.imageURL)
-            .then(res =>
-              res
-                .blob()
-                .then(res => {
-                  this.loaderService.hide();
-                  this.media = res;
-                  this.convertedFile = new File(
-                    [this.media],
-                    this.savedMedia.name,
-                    {
-                      type: this.savedMedia.type,
-                      lastModified: this.savedMedia.lastModified
-                    }
-                  );
-                })
-                .catch(err => {
-                  console.log('error converting to blob', err);
-                  this.imageErrorHandler();
-                })
-            )
-            .catch(err => {
-              console.log('Invalid base64 data', err);
-              this.imageErrorHandler();
-            });
-        })
-        .catch(err => {
-          console.log('error in file compression', err);
-          this.imageErrorHandler();
+      try {
+        let result = await this.imageCompress.compressFile(
+          base64,
+          null,
+          100,
+          this.imageQuality
+        );
+        this.imageURL = result;
+        console.log(
+          'Size in KB now:',
+          this.imageCompress.byteCount(result) / 1024
+        );
+        let fetchData = await fetch(this.imageURL);
+        let blob = await fetchData.blob();
+        this.media = blob;
+        this.loaderService.hide();
+        this.convertedFile = new File([this.media], this.savedMedia.name, {
+          type: this.savedMedia.type,
+          lastModified: this.savedMedia.lastModified
         });
+      } catch (e) {
+        this.toastrService.error('File proccess error', e);
+        this.imageErrorHandler();
+      }
     };
   }
   checkImageQuality(imageSize: number) {
