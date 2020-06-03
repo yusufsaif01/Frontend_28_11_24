@@ -52,16 +52,15 @@ const routes: Routes = [
     loadChildren:
       './manage-footmates/manage-footmates.module#ManageFootmatesModule'
   },
-
+  {
+    path: 'member/manage-footplayer',
+    loadChildren:
+      './manage-footplayer/manage-footplayer.module#ManageFootplayerModule'
+  },
   {
     path: 'register',
     component: RegistrationComponent,
     data: { title: extract('Registration') }
-  },
-  {
-    path: 'foot-player',
-    component: FootPlayerComponent,
-    data: { title: extract('FootPlayer') }
   },
   {
     path: 'change-password',
