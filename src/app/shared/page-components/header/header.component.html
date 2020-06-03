@@ -64,7 +64,17 @@
     <div class="header-menu">
       <ul>
         <li *ngIf="member_type === 'player'">
-          <a matTooltip="FootMates" (click)="onchangefootplayer()">
+          <a
+            matTooltip="FootMates"
+            [routerLink]="['/member/manage/foot-requests']"
+          >
+            <span>
+              <i-feather name="Users" class="icon-size"></i-feather>
+            </span>
+          </a>
+        </li>
+        <li *ngIf="member_type === 'club' || member_type === 'academy'">
+          <a matTooltip="FootPlayers" (click)="onchangefootplayer()">
             <span>
               <i-feather name="Users" class="icon-size"></i-feather>
             </span>
@@ -72,15 +82,19 @@
           <div class="dropdown" [hidden]="this.isFootplayerActive">
             <ul>
               <li>
-                <a>
+                <a [routerLink]="['/member/manage-footplayer']">
                   <i-feather name="Settings" class="icon-size"></i-feather>
                   Manage FootPlayers
                 </a>
               </li>
               <li>
-                <a>
+                <a *ngIf="member_type === 'academy'">
                   <i-feather name="users" class="icon-size"></i-feather>
                   Academy’s FootPlayers
+                </a>
+                <a *ngIf="member_type === 'club'">
+                  <i-feather name="users" class="icon-size"></i-feather>
+                  Club’s FootPlayers
                 </a>
               </li>
               <li>

@@ -49,7 +49,6 @@ export class ViewProfileComponent implements OnInit {
 
   logout() {
     this._authenticationService.logout();
-    this._router.navigateByUrl('/login');
   }
 
   getProfile(data: object) {
