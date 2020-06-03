@@ -14,7 +14,7 @@ const appRoutes: Routes = [
     data: { expectedRole: ['club', 'academy'] },
     children: [
       {
-        path: 'foot-player',
+        path: '',
         component: FootPlayerComponent,
         data: { title: extract('Foot Player') }
       },
