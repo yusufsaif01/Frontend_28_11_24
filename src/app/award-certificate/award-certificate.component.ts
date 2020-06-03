@@ -188,6 +188,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
                 `Success`,
                 'Award deleted successfully'
               );
+              this.currentPageNo = 1;
               this.getAwardsList(this.pageSize, 1);
             },
             error => {
