@@ -88,13 +88,9 @@
                 </a>
               </li>
               <li>
-                <a *ngIf="member_type === 'academy'">
+                <a>
                   <i-feather name="users" class="icon-size"></i-feather>
-                  Academy’s FootPlayers
-                </a>
-                <a *ngIf="member_type === 'club'">
-                  <i-feather name="users" class="icon-size"></i-feather>
-                  Club’s FootPlayers
+                  {{ member_type | titlecase }}'s FootPlayers
                 </a>
               </li>
               <li>

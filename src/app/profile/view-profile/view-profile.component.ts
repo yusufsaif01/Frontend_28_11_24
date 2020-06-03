@@ -21,6 +21,7 @@ export class ViewProfileComponent implements OnInit {
     player_type: false,
     logout_link: true,
     achievements: true,
+    footplayers: true,
     is_public: false
   };
   docNumber: string;

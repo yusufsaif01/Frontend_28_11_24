@@ -132,14 +132,13 @@
 </ng-container>
 
 <!-- AcademyFootplayer / ClubsFootplayer -->
-<ng-container *ngIf="profileDataPopulated && options.is_public">
+<ng-container *ngIf="options.footplayers && options.is_public">
   <div
     class="block-design"
     *ngIf="profile.member_type === 'club' || profile.member_type === 'academy'"
   >
     <div class="achievement">
-      <a *ngIf="profile.member_type === 'club'"> Club's Footplayers</a>
-      <a *ngIf="profile.member_type === 'academy'"> Academy's Footplayers</a>
+      <a> {{ profile.member_type | titlecase }}'s FootPlayers</a>
     </div>
   </div>
 </ng-container>
