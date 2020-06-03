@@ -118,8 +118,7 @@ const icons = {
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
     AddEditPopupComponent,
-    AddpopupComponent,
-    FootPlayerComponent
+    AddpopupComponent
   ],
   providers: [
     RoleGuardService,
