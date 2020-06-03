@@ -1,1 +1,96 @@
-<p>foot-player works!</p>
+<app-header></app-header>
+<div class="site-wrapper">
+  <!-- left Sidebar -->
+  <div class="left-section">
+    <app-left-panel
+      [achievements]="total_count"
+      [options]="panelOptions"
+      [userId]="userId"
+    ></app-left-panel>
+  </div>
+  <div class="right-section">
+    <div class="award-heading">
+      <div class="left-part">
+        <h2>
+          Manage FootPlayers
+        </h2>
+      </div>
+      <div class="right-part" *ngIf="!isPublic">
+        <button (click)="openDialog()">Add Player</button>
+      </div>
+    </div>
+    <!-- filter -->
+    <div class="filter">
+      <button>Filters</button>
+    </div>
+    <!-- search -->
+    <div class="search">
+      <div class="search-form">
+        <form>
+          <input type="text" placeholder="Search player" />
+          <span class="search-icon">
+            <i-feather name="search" class="icon-size"></i-feather>
+          </span>
+        </form>
+      </div>
+    </div>
+    <div class="table">
+      <!-- table -->
+      <div class="table-container">
+        <app-table
+          [tableConfig]="tableConfig"
+          [NumberColumn]="'true'"
+          [rows]="dataSource"
+          [sortEnabled]="false"
+          [pageSize]="pageSize"
+          [TableActions]="ListAction"
+          [pageNo]="currentPageNo"
+        >
+        </app-table>
+        <ng-template
+          #ListAction
+          let-id="id"
+          let-media="media"
+          let-name="name"
+          let-position="position"
+          let-status="status"
+          let-category="category"
+        >
+          <div class="action-buttons">
+            <button
+              matTooltip="Resend Invitation"
+              (click)="
+                openEditDialog(id, media, name, position, category, status)
+              "
+            >
+              <img src="assets/images/icons/refresh01.png" alt="refresh" />
+            </button>
+
+            <button
+              matTooltip="Add Contract"
+              (click)="
+                openEditDialog(id, media, name, position, category, status)
+              "
+            >
+              <img src="assets/images/icons/plus.png" alt="Add" />
+            </button>
+
+            <button matTooltip="Delete" (click)="deletePopup(id)">
+              <img src="assets/images/icons/bin.png" alt="Delete" />
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <!-- pagination -->
+    <app-pagination
+      [showData]="false"
+      [showCount]="show_count"
+      [totalRows]="total_count"
+      [rowsPerPage]="pageSize"
+      [selectedPage]="selectedPage"
+      (onChange)="updatePage($event)"
+    >
+    </app-pagination>
+  </div>
+</div>
