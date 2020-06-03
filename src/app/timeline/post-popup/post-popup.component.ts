@@ -61,6 +61,7 @@ export class PostPopupComponent implements OnInit {
     if (!files || files.length === 0) {
       this.imageURL = '';
       this.media = undefined;
+      this.convertedFile = undefined;
       return;
     }
 
