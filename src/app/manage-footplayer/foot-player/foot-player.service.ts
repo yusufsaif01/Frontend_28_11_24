@@ -11,17 +11,15 @@ interface GetFootPlayerListResponseContext {
   message: string;
   data: {
     total: number;
-    records: [
-      {
-        id: string;
-        user_id: string;
-        avatar: string;
-        category: string;
-        name: string;
-        position: string;
-        status: string;
-      }
-    ];
+    records: {
+      id: string;
+      user_id: string;
+      avatar: string;
+      category: string;
+      name: string;
+      position: string;
+      status: string;
+    }[];
   };
 }
 

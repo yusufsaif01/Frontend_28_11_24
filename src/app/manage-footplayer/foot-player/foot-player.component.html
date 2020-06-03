@@ -41,26 +41,26 @@
           [tableConfig]="tableConfig"
           [NumberColumn]="'true'"
           [rows]="dataSource"
-          [sortEnabled]="false"
+          [sortEnabled]="true"
           [pageSize]="pageSize"
           [TableActions]="ListAction"
-          [pageNo]="currentPageNo"
+          [pageNo]="selectedPage"
         >
         </app-table>
         <ng-template
           #ListAction
           let-id="id"
-          let-media="media"
+          let-avatar="avatar"
+          let-category="category"
           let-name="name"
           let-position="position"
           let-status="status"
-          let-category="category"
         >
           <div class="action-buttons">
             <button
               matTooltip="Resend Invitation"
               (click)="
-                openEditDialog(id, media, name, position, category, status)
+                openEditDialog(id, avatar, name, position, category, status)
               "
             >
               <img src="assets/images/icons/refresh01.png" alt="refresh" />

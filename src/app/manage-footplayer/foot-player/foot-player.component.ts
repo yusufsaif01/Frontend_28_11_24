@@ -1,6 +1,6 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FootPlayerTableConfig } from './foot-player-table-conf';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '@env/environment';
 import { FootPlayerService } from './foot-player.service';
 import { untilDestroyed } from '@app/core';
@@ -11,13 +11,12 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './foot-player.component.html',
   styleUrls: ['./foot-player.component.scss']
 })
-export class FootPlayerComponent implements OnInit {
+export class FootPlayerComponent implements OnInit, OnDestroy {
   // TABLE CONFIG
   public tableConfig: FootPlayerTableConfig = new FootPlayerTableConfig();
   public dataSource = new MatTableDataSource([]);
   pageSize: number = 10;
-  currentPageNo: number = 1;
-  selectedPage: number;
+  selectedPage: number = 1;
   environment = environment;
   player_type: string;
   member_type: string;
