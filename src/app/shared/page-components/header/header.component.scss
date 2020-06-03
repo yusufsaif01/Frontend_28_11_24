@@ -54,13 +54,19 @@ header {
 
     &-menu {
       display: flex;
+      width: 20%;
       align-items: center;
       justify-content: flex-end;
       ul {
         list-style: none;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
         li {
-          display: inline-block;
-          margin-left: 4rem;
+          // display: inline-block;
+          // margin-left: 4rem;
+          position: relative;
           a {
             font-size: 1.8rem;
             color: #ccced2;
@@ -91,44 +97,17 @@ header {
         }
       }
       .profile {
-        padding: 1rem 0px;
-        margin-left: 4rem;
+        // padding: 1rem 0px;
         border-radius: 10rem;
-        position: relative;
         cursor: pointer;
         img {
-          max-width: 5rem;
+          width: 4rem;
+          height: 4rem;
           border-radius: 10rem;
         }
         i-feather.down {
           color: $text-muted;
-          transform: translateY(-1rem);
-        }
-        .dropdown {
-          position: absolute;
-          width: 23rem;
-          left: -7rem;
-          top: 7rem;
-          background-color: #1d2f38;
-          z-index: 999;
-          ul {
-            list-style: none;
-            li {
-              display: block;
-              margin-left: 0px;
-              a {
-                display: block;
-                padding: 1rem;
-                i-feather {
-                  transform: translateY(2px);
-                  margin-right: 1rem;
-                }
-                &:hover {
-                  background-color: #12181b;
-                }
-              }
-            }
-          }
+          // transform: translateY(-1rem);
         }
       }
     }
@@ -141,6 +120,36 @@ header {
   margin-left: 1rem;
 }
 
+// dropdown
+.dropdown {
+  position: absolute;
+  width: 28rem;
+  left: -7rem;
+  // top:2rem;
+  background-color: #1d2f38;
+  z-index: 999;
+  ul {
+    list-style: none;
+    flex-direction: column;
+    align-items: flex-start !important;
+    li {
+      display: block !important;
+      margin-left: 0px !important;
+      width: 100%;
+      a {
+        display: block;
+        padding: 1rem;
+        i-feather {
+          transform: translateY(2px);
+          margin-right: 1rem;
+        }
+        &:hover {
+          background-color: #12181b;
+        }
+      }
+    }
+  }
+}
 // mat options
 .search-options {
   ::ng-deep {

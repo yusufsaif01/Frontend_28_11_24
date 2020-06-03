@@ -9,6 +9,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
 import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
+import { FootPlayerComponent } from './manage-footplayer/foot-player/foot-player.component';
 const routes: Routes = [
   {
     path: '',
@@ -51,10 +52,16 @@ const routes: Routes = [
     loadChildren:
       './manage-footmates/manage-footmates.module#ManageFootmatesModule'
   },
+
   {
     path: 'register',
     component: RegistrationComponent,
     data: { title: extract('Registration') }
+  },
+  {
+    path: 'foot-player',
+    component: FootPlayerComponent,
+    data: { title: extract('FootPlayer') }
   },
   {
     path: 'change-password',

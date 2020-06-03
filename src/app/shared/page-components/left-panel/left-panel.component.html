@@ -131,6 +131,17 @@
   </div>
 </ng-container>
 
+<!-- AcademyFootplayer / ClubsFootplayer -->
+<ng-container *ngIf="options.Footplayer && options.is_public">
+  <div class="block-design">
+    <div class="achievement">
+      <a [routerLink]="['/member/awardcertification', userId]">
+        Academy Footplayer</a
+      >
+    </div>
+  </div>
+</ng-container>
+
 <!-- player bio -->
 <ng-container *ngIf="options.bio">
   <div class="block-design" *ngIf="profile">
