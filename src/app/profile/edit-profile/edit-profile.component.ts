@@ -4,7 +4,8 @@ import {
   FormGroup,
   Validators,
   FormArray,
-  AbstractControl
+  AbstractControl,
+  ValidatorFn
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
@@ -290,98 +291,148 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         }
       );
   }
+  setControlValidation(
+    form: FormGroup,
+    controlObject: { [name: string]: ValidatorFn[] }
+  ) {
+    for (const name in controlObject) {
+      let controlName = form.get(name);
+      controlName.setValidators(controlObject[name]);
+      controlName.updateValueAndValidity();
+    }
+  }
+  removeControlValidation() {}
 
   setPlayerValidators() {
     const employmentContract = this.editProfileForm.get('employment_contract');
-    const aadhar = this.editProfileForm.get('aadhar');
-    const height_feet = this.editProfileForm.get('height_feet');
-    const height_inches = this.editProfileForm.get('height_inches');
     const head_coach_phone = this.editProfileForm.get('head_coach_phone');
     const head_coach_email = this.editProfileForm.get('head_coach_email');
     const head_coach_name = this.editProfileForm.get('head_coach_name');
+
+    let headCoachControl = {
+      head_coach_phone: [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern(/^\d+$/)
+      ],
+      head_coach_email: [Validators.email],
+      head_coach_name: [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)
+      ]
+    };
+    let headCoachControl2 = {
+      head_coach_phone: [
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern(/^\d+$/)
+      ],
+      head_coach_email: [Validators.email],
+      head_coach_name: [Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)]
+    };
 
     this.editProfileForm
       .get('associated_club')
       .valueChanges.subscribe(associated_club => {
         if (associated_club === 'yes') {
-          head_coach_phone.setValidators([
-            Validators.required,
-            Validators.minLength(10),
-            Validators.maxLength(10),
-            Validators.pattern(/^\d+$/)
-          ]);
-          head_coach_email.setValidators([Validators.email]);
-          head_coach_name.setValidators([
-            Validators.required,
-            Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)
-          ]);
+          this.setControlValidation(this.editProfileForm, headCoachControl);
+          console.log(headCoachControl);
         } else if (associated_club === 'no') {
           head_coach_phone.setValue(''); // setValue use to clear any input provided
           head_coach_email.setValue('');
           head_coach_name.setValue('');
-          head_coach_phone.setValidators([
-            Validators.minLength(10),
-            Validators.maxLength(10),
-            Validators.pattern(/^\d+$/)
-          ]);
-          head_coach_email.setValidators([Validators.email]);
-          head_coach_name.setValidators([
-            Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)
-          ]);
+          this.setControlValidation(this.editProfileForm, headCoachControl2);
         }
-        head_coach_phone.updateValueAndValidity();
-        head_coach_email.updateValueAndValidity();
-        head_coach_name.updateValueAndValidity();
       });
 
+    let aadharControl = {
+      aadhar: [Validators.required, requiredFileDocument]
+    };
+    let employmentContractControl = {
+      employment_contract: [Validators.required, requiredFileDocument]
+    };
+    let heightControl = {
+      height_feet: [
+        Validators.required,
+        Validators.min(1),
+        Validators.max(10),
+        Validators.pattern(/^\d+$/)
+      ],
+      height_inches: [
+        Validators.required,
+        Validators.min(0),
+        Validators.max(12),
+        Validators.pattern(/^\d+$/)
+      ]
+    };
+    let heightControl2 = {
+      height_feet: [
+        Validators.min(1),
+        Validators.max(10),
+        Validators.pattern(/^\d+$/)
+      ],
+      height_inches: [
+        Validators.min(0),
+        Validators.max(12),
+        Validators.pattern(/^\d+$/)
+      ]
+    };
     this.editProfileForm
       .get('player_type')
       .valueChanges.subscribe(player_type => {
         // if(!this.profile.documents && this.profile.documents[0])
-        aadhar.setValidators([Validators.required, requiredFileDocument]);
+        // aadhar.setValidators([Validators.required, requiredFileDocument]);
+        this.setControlValidation(this.editProfileForm, aadharControl);
 
         if (player_type === 'professional') {
-          employmentContract.setValidators([
-            Validators.required,
-            requiredFileDocument
-          ]);
+          // employmentContract.setValidators([
+          //   Validators.required,
+          //   requiredFileDocument
+          // ]);
+          this.setControlValidation(
+            this.editProfileForm,
+            employmentContractControl
+          );
         }
         if (player_type === 'amateur' || player_type === 'grassroot') {
           employmentContract.setValidators(null);
         }
 
         if (player_type === 'amateur' || player_type === 'professional') {
-          height_feet.setValidators([
-            Validators.required,
-            Validators.min(1),
-            Validators.max(10),
-            Validators.pattern(/^\d+$/)
-          ]);
-          height_inches.setValidators([
-            Validators.required,
-            Validators.min(0),
-            Validators.max(12),
-            Validators.pattern(/^\d+$/)
-          ]);
+          this.setControlValidation(this.editProfileForm, heightControl);
+          // height_feet.setValidators([
+          //   Validators.required,
+          //   Validators.min(1),
+          //   Validators.max(10),
+          //   Validators.pattern(/^\d+$/)
+          // ]);
+          // height_inches.setValidators([
+          //   Validators.required,
+          //   Validators.min(0),
+          //   Validators.max(12),
+          //   Validators.pattern(/^\d+$/)
+          // ]);
         }
 
         if (player_type === 'grassroot') {
-          height_feet.setValidators([
-            Validators.min(1),
-            Validators.max(10),
-            Validators.pattern(/^\d+$/)
-          ]);
-          height_inches.setValidators([
-            Validators.min(0),
-            Validators.max(12),
-            Validators.pattern(/^\d+$/)
-          ]);
+          this.setControlValidation(this.editProfileForm, heightControl2);
+          // height_feet.setValidators([
+          //   Validators.min(1),
+          //   Validators.max(10),
+          //   Validators.pattern(/^\d+$/)
+          // ]);
+          // height_inches.setValidators([
+          //   Validators.min(0),
+          //   Validators.max(12),
+          //   Validators.pattern(/^\d+$/)
+          // ]);
         }
 
-        height_feet.updateValueAndValidity();
-        height_inches.updateValueAndValidity();
-        aadhar.updateValueAndValidity();
-        employmentContract.updateValueAndValidity();
+        // height_feet.updateValueAndValidity();
+        // height_inches.updateValueAndValidity();
+        // aadhar.updateValueAndValidity();
+        // employmentContract.updateValueAndValidity();
 
         this.checkFileValidations();
       });
