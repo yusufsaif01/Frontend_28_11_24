@@ -347,7 +347,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       .valueChanges.subscribe(associated_club => {
         if (associated_club === 'yes') {
           this.setControlValidation(this.editProfileForm, headCoachControl);
-          console.log(headCoachControl);
         } else if (associated_club === 'no') {
           head_coach_phone.setValue(''); // setValue use to clear any input provided
           head_coach_email.setValue('');
