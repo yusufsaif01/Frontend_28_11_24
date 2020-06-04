@@ -312,7 +312,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       controlName.updateValueAndValidity();
     }
   }
-  removeControlValidation() {}
 
   setPlayerValidators() {
     const employmentContract = this.editProfileForm.get('employment_contract');
@@ -443,7 +442,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         // height_feet.updateValueAndValidity();
         // height_inches.updateValueAndValidity();
         // aadhar.updateValueAndValidity();
-        // employmentContract.updateValueAndValidity();
+        employmentContract.updateValueAndValidity();
 
         this.checkFileValidations();
       });
@@ -806,7 +805,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     if (this.member_type === 'player') {
       this.editProfileForm = this._formBuilder.group({
-        // personal_details
         player_type: ['', [Validators.required]],
         first_name: [
           '',
@@ -827,24 +825,11 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         height_feet: ['', []],
         height_inches: ['', []],
         weight: ['', [Validators.min(1), Validators.pattern(/^\d+(\.\d)?$/)]],
-        // country: ['', [Validators.required]], // country or nationality
-        // state: ['', [Validators.required]],
-        // city: ['', [Validators.required]], //city
-        // phone: [
-        //   '',
-        //   [
-        //     Validators.required,
-        //     Validators.minLength(10),
-        //     Validators.maxLength(10),
-        //     Validators.pattern(/^\d+$/)
-        //   ]
-        // ],
-        school: ['', []], //institute.school
-        university: [''], //institute.univeristy
-        college: [''], //institute.college
+        school: ['', []],
+        university: [''],
+        college: [''],
         aadhar: ['', []],
         employment_contract: ['', []],
-        // // professional_details
         position: this._formBuilder.array([]),
         strong_foot: ['', []],
         associated_club: ['', []],
@@ -863,110 +848,16 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       });
     } else if (this.member_type === 'club') {
       this.editProfileForm = this._formBuilder.group({
-        // personal_details
-        // name: [
-        //   '',
-        //   [
-        //     Validators.required,
-        //     Validators.maxLength(25),
-        //     Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-        //   ]
-        // ],
-        // short_name: ['', []],
-        // founded_in: [
-        //   '',
-        //   [
-        //     Validators.required,
-        //     Validators.minLength(4),
-        //     Validators.maxLength(4),
-        //     Validators.max(this.currentYear),
-        //     Validators.pattern(/^\d+$/)
-        //   ]
-        // ],
-        // country: ['', [Validators.required]],
-        // state: ['', [Validators.required]],
-        // city: ['', [Validators.required]],
-        // address: ['', []],
-        // pincode: ['', []],
-        // phone: [
-        //   '',
-        //   [
-        //     Validators.required,
-        //     Validators.minLength(10),
-        //     Validators.maxLength(10),
-        //     Validators.pattern(/^\d+$/)
-        //   ]
-        // ],
-        // stadium_name: ['', []],
-        // league: ['', [Validators.required]],
-        // league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
-        // association: ['', [Validators.required]],
-        // association_other: [],
-        // contact_person: this._formBuilder.array([], [Validators.required]),
-        // trophies: this._formBuilder.array([]),
         top_signings: this._formBuilder.array([], []),
         reg_number: ['', Validators.required],
-        // associated_players: [
-        //   '',
-        //   [Validators.required, Validators.pattern(/^\d+$/)]
-        // ],
         aiff: ['', [Validators.required, requiredFileDocument]]
-        // type: ['', [Validators.required]]
-        // onclick upload document [aiff]
       });
     } else if (this.member_type === 'academy') {
       this.editProfileForm = this._formBuilder.group({
-        // personal_details
-        // name: [
-        //   '',
-        //   [
-        //     Validators.required,
-        //     Validators.maxLength(25),
-        //     Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-        //   ]
-        // ],
-        // short_name: ['', []],
-        // founded_in: [
-        //   '',
-        //   [
-        //     Validators.required,
-        //     Validators.minLength(4),
-        //     Validators.maxLength(4),
-        //     Validators.max(this.currentYear),
-        //     Validators.pattern(/^\d+$/)
-        //   ]
-        // ],
-        // country: ['', [Validators.required]],
-        // state: ['', [Validators.required]],
-        // city: ['', [Validators.required]],
-        // address: ['', [Validators.required]],
-        // pincode: ['', [Validators.required]],
-        // phone: [
-        //   '',
-        //   [
-        //     Validators.required,
-        //     Validators.minLength(10),
-        //     Validators.maxLength(10),
-        //     Validators.pattern(/^\d+$/)
-        //   ]
-        // ],
-        // stadium_name: ['', []],
-        // league: ['', [Validators.required]],
-        // league_other: ['', [Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)]],
-        // association: ['', [Validators.required]],
-        // association_other: [],
         document_type: ['', []],
         number: [''],
-        // contact_person: this._formBuilder.array([], [Validators.required]),
-        // trophies: this._formBuilder.array([], []),
         top_players: this._formBuilder.array([], []),
-        // associated_players: [
-        //   '',
-        //   [Validators.required, Validators.pattern(/^\d+$/)]
-        // ],
         document: ['', [requiredFileDocument]]
-        // type: ['', [Validators.required]]
-        //onclick upload documenet aiff / pan card/tin / coi
       });
     }
   }
