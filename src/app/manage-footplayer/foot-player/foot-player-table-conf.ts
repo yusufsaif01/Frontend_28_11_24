@@ -4,7 +4,7 @@ export class FootPlayerTableConfig extends TableConfig {
     super();
     this.allowedColumns = [
       'serialNumber',
-      'media',
+      'avatar',
       'name',
       'category',
       'position',
@@ -19,11 +19,11 @@ export class FootPlayerTableConfig extends TableConfig {
           return ele[this.columns.serialNumber.code];
         }
       },
-      media: {
-        code: 'media',
+      avatar: {
+        code: 'avatar',
         text: 'DP',
         getValue: (ele: any) => {
-          return ele[this.columns.media.code];
+          return ele[this.columns.avatar.code];
         }
       },
       name: {
