@@ -27,7 +27,11 @@
     <div class="search">
       <div class="search-form">
         <form>
-          <input type="text" placeholder="Search player" />
+          <input
+            (keyup)="applyFilter($event)"
+            type="text"
+            placeholder="Search player"
+          />
           <span class="search-icon">
             <i-feather name="search" class="icon-size"></i-feather>
           </span>
