@@ -31,7 +31,6 @@
           <app-table
             [tableConfig]="tableConfig"
             [NumberColumn]="'true'"
-            [rows]="dataSource"
             [TableActions]="ListAction"
             [sortEnabled]="true"
           ></app-table>
@@ -76,7 +75,7 @@
       </div>
 
       <!-- pagination -->
-      <app-pagination
+      <!-- <app-pagination
         [showData]="true"
         [showCount]="show_count"
         [totalRows]="players_count"
@@ -84,7 +83,7 @@
         [selectedPage]="selectedPage"
         (onChange)="updatePage($event)"
       >
-      </app-pagination>
+      </app-pagination> -->
       <!-- pagination end here -->
     </div>
   </div>
