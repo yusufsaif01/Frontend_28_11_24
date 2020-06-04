@@ -5,6 +5,9 @@ import { environment } from '@env/environment';
 import { FootPlayerService } from './foot-player.service';
 import { untilDestroyed } from '@app/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material';
+import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-foot-player',
@@ -34,7 +37,11 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   isPublic: boolean = false;
   userId: string;
 
-  constructor(private _footPlayerService: FootPlayerService) {}
+  constructor(
+    private _footPlayerService: FootPlayerService,
+    public dialog: MatDialog,
+    private toastrService: ToastrService
+  ) {}
 
   ngOnInit() {
     this.getFootPlayerList(this.pageSize, 1);
@@ -64,5 +71,41 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   applyFilter(event: any) {
     let filterValue = event.target.value;
     this.getFootPlayerList(this.pageSize, 1, filterValue);
+  }
+  // delete
+  deletePopup(id: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '40% ',
+      panelClass: 'filterDialog',
+      data: {
+        message: 'Are you sure you want to delete?',
+        acceptText: 'Yes',
+        rejectText: 'No'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this._footPlayerService
+          .deleteFootplayer(id)
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this.toastrService.success(
+                `Success`,
+                'Footplayer deleted successfully'
+              );
+              this.getFootPlayerList(this.pageSize, 1);
+            },
+            error => {
+              // log.debug(`Login error: ${error}`);
+
+              this.toastrService.error(
+                `${error.error.message}`,
+                'Delete Footplayer'
+              );
+            }
+          );
+      }
+    });
   }
 }

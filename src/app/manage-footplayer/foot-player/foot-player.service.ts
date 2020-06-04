@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const routes = {
-  getFootPlayerList: (query: string) => `/footplayers${query}`
+  getFootPlayerList: (query: string) => `/footplayers${query}`,
+  deleteFootplayer: (id: string) => `/footplayers/${id}`
 };
 
 interface GetFootPlayerListResponseContext {
@@ -51,5 +52,8 @@ export class FootPlayerService {
     return this.httpClient.get<GetFootPlayerListResponseContext>(
       routes.getFootPlayerList(query)
     );
+  }
+  deleteFootplayer(id: string) {
+    return this.httpClient.delete<any>(routes.deleteFootplayer(id));
   }
 }
