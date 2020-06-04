@@ -131,6 +131,18 @@
   </div>
 </ng-container>
 
+<!-- AcademyFootplayer / ClubsFootplayer -->
+<ng-container *ngIf="options.footplayers && options.is_public">
+  <div
+    class="block-design"
+    *ngIf="profile.member_type === 'club' || profile.member_type === 'academy'"
+  >
+    <div class="achievement">
+      <a> {{ profile.member_type | titlecase }}'s FootPlayers</a>
+    </div>
+  </div>
+</ng-container>
+
 <!-- player bio -->
 <ng-container *ngIf="options.bio">
   <div class="block-design" *ngIf="profile">

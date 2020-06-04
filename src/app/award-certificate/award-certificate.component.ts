@@ -36,6 +36,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
     member_type: true,
     my_achievements: false,
     view_profile_link: true,
+    footplayers: true,
     is_public: false
   };
   isPublic: boolean = false;
@@ -188,6 +189,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
                 `Success`,
                 'Award deleted successfully'
               );
+              this.currentPageNo = 1;
               this.getAwardsList(this.pageSize, 1);
             },
             error => {

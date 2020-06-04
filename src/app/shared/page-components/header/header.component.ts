@@ -36,6 +36,7 @@ let keyCodeObject = {
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   public isActive: boolean = true;
+  public isFootplayerActive: boolean = true;
   public avatar_url: string = localStorage.getItem('avatar_url');
   public member_type: string = localStorage.getItem('member_type');
   memberList: MemberListContext[] = [];
@@ -64,13 +65,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout() {
     this._authenticationService.logout();
-    this._router.navigateByUrl('/login');
   }
   changeDropdown() {
     if (this.isActive) {
       this.isActive = false;
     } else {
       this.isActive = true;
+    }
+  }
+  onchangefootplayer() {
+    if (this.isFootplayerActive) {
+      this.isFootplayerActive = false;
+    } else {
+      this.isFootplayerActive = true;
     }
   }
 

@@ -57,6 +57,7 @@ import { AddpopupComponent } from './admin/masterdata/player-specialization/addp
 import { RoleGuardService } from './core/authentication/role-guard.service';
 import { JwtInterceptor } from './core/http/jwt.interceptor';
 import { ErrorInterceptor } from './core/http/error.interceptor';
+import { FootPlayerComponent } from './manage-footplayer/foot-player/foot-player.component';
 const icons = {
   Camera,
   Heart,

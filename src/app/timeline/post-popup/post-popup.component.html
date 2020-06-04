@@ -45,7 +45,7 @@
         <button mat-dialog-close class="cancel">Cancel</button>
         <button
           class="save"
-          [disabled]="!imageURL && !createPostForm.value.text"
+          [disabled]="!createPostForm.value.text && !convertedFile"
           (click)="onClickSave()"
         >
           Save
