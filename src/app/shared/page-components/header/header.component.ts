@@ -65,7 +65,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout() {
     this._authenticationService.logout();
-    this._router.navigateByUrl('/login');
   }
   changeDropdown() {
     if (this.isActive) {

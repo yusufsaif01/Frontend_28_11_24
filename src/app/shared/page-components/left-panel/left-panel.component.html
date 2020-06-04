@@ -132,12 +132,13 @@
 </ng-container>
 
 <!-- AcademyFootplayer / ClubsFootplayer -->
-<ng-container *ngIf="options.Footplayer && options.is_public">
-  <div class="block-design">
+<ng-container *ngIf="options.footplayers && options.is_public">
+  <div
+    class="block-design"
+    *ngIf="profile.member_type === 'club' || profile.member_type === 'academy'"
+  >
     <div class="achievement">
-      <a [routerLink]="['/member/awardcertification', userId]">
-        Academy Footplayer</a
-      >
+      <a> {{ profile.member_type | titlecase }}'s FootPlayers</a>
     </div>
   </div>
 </ng-container>
