@@ -6,5 +6,6 @@ export interface PanelOptions {
   member_type: boolean;
   my_achievements: boolean;
   achievements: boolean;
+  footplayers: boolean;
   view_profile_link: boolean;
 }

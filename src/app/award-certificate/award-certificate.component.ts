@@ -36,6 +36,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
     member_type: true,
     my_achievements: false,
     view_profile_link: true,
+    footplayers: true,
     is_public: false
   };
   isPublic: boolean = false;

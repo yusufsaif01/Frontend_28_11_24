@@ -38,6 +38,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     tournaments: 0
   };
   profile: any;
+  // profileDataPopulated: boolean = false;
   environment = environment;
   member_type: string = localStorage.getItem('member_type');
   loggedin_userid: string = localStorage.getItem('user_id');
@@ -89,6 +90,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.profile = response.data;
+          // this.profileDataPopulated = true;
           this.setAvatar();
           this.is_following = this.profile.is_followed;
           this.is_footmate = this.profile.footmate_status;
