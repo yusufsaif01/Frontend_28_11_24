@@ -13,6 +13,8 @@
           *ngIf="
             col !== 'name' &&
             col !== 'media' &&
+            col !== 'aadhaarimg' &&
+            col !== 'profileimg' &&
             col !== 'type' &&
             col !== 'email' &&
             col !== 'status' &&
@@ -55,6 +57,11 @@
           }"
         >
           {{ tableConfig.columns[col].getValue(element) }}
+          <img
+            class="status-icon"
+            src="./../../../assets/images/icons/tick.png"
+            alt=""
+          />
         </p>
         <p *ngIf="col === 'media'">
           <a
@@ -79,6 +86,26 @@
           <img
             class="thumbnail"
             [src]="tableConfig.columns[col].getValue(element)"
+            alt=""
+          />
+        </p>
+
+        <p *ngIf="col === 'aadhaarimg'">
+          <img
+            class="thumbnail"
+            src="../../../assets/images/profile-icon.png"
+            alt=""
+          />
+          <img
+            class="thumbnail"
+            src="../../../assets/images/profile-icon.png"
+            alt=""
+          />
+        </p>
+        <p *ngIf="col === 'playerimg'">
+          <img
+            class="thumbnail"
+            src="../../../assets/images/profile-icon.png"
             alt=""
           />
         </p>

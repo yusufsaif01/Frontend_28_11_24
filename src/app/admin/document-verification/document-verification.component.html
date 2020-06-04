@@ -26,6 +26,9 @@
       <!-- end of the breadcrum -->
 
       <div class="middle-part">
+        <div class="heading">
+          <h2>Aadhaar Verification</h2>
+        </div>
         <!-- table -->
         <div class="table-container">
           <app-table
@@ -39,35 +42,12 @@
             let-user_id="user_id"
             let-account_status="account_status"
           >
-            <div class="action-buttons">
-              <button matTooltip="View">
-                <img src="assets/images/icons/eyes.png" alt="Edit" />
+            <div class="action">
+              <button matTooltip="Approve">
+                Approve
               </button>
-              <button
-                [matTooltip]="
-                  account_status === 'pending'
-                    ? 'Pending'
-                    : 'Activate / Deactivate'
-                "
-                [ngStyle]="{
-                  cursor:
-                    account_status === 'pending' ? 'not-allowed' : 'pointer'
-                }"
-                (click)="statusPopup(user_id, account_status)"
-              >
-                <img
-                  [src]="
-                    account_status === 'blocked'
-                      ? 'assets/images/icons/close01.png'
-                      : account_status === 'pending'
-                      ? 'assets/images/icons/pending.png'
-                      : 'assets/images/icons/tick.png'
-                  "
-                  alt="Edit"
-                />
-              </button>
-              <button (click)="deletePopup(user_id)" matTooltip="Delete">
-                <img src="assets/images/icons/bin.png" alt="Delete" />
+              <button matTooltip="Disapprove">
+                Disapprove
               </button>
             </div>
           </ng-template>
