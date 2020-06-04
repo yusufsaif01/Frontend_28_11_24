@@ -243,10 +243,21 @@ export class EditProfileComponent implements OnInit, OnDestroy {
             this.profile.member_type === 'club' ||
             this.profile.member_type === 'academy'
           ) {
-            this.populateDynamicContact();
-            this.populateDynamicTrophy();
-            this.populateDynamicTopSigning();
-            this.populateDynamicTopAcademyPlayer();
+            let controlFuncObject = {
+              contact_person: [
+                this.profile.contact_person,
+                this.addContactPerson
+              ],
+              trophies: [this.profile.trophies, this.addTrophy],
+              top_signings: [this.profile.top_signings, this.addTopSigning],
+              top_players: [this.profile.top_players, this.addTopAcademyPlayer]
+            };
+            for (const key in controlFuncObject) {
+              this.populateDynamicControl(
+                controlFuncObject[key][0],
+                controlFuncObject[key][1]
+              );
+            }
           }
 
           if (this.profile.member_type === 'player') {
@@ -1117,33 +1128,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  populateDynamicContact() {
-    if (this.profile.contact_person.length !== 0) {
-      for (let i = 0; i < this.profile.contact_person.length; i++) {
-        this.addContactPerson(this.profile.contact_person[i]);
-      }
-    }
-  }
-
-  populateDynamicTrophy() {
-    if (this.profile.trophies.length !== 0) {
-      for (let i = 0; i < this.profile.trophies.length; i++) {
-        this.addTrophy(this.profile.trophies[i]);
-      }
-    }
-  }
-
-  populateDynamicTopSigning() {
-    if (this.profile.top_signings.length !== 0) {
-      for (let i = 0; i < this.profile.top_signings.length; i++) {
-        this.addTopSigning(this.profile.top_signings[i]);
-      }
-    }
-  }
-  populateDynamicTopAcademyPlayer() {
-    if (this.profile.top_players.length !== 0) {
-      for (let i = 0; i < this.profile.top_players.length; i++) {
-        this.addTopAcademyPlayer(this.profile.top_players[i]);
+  populateDynamicControl(data: any, func: any) {
+    if (data.length !== 0) {
+      for (let i = 0; i < data.length; i++) {
+        func(data[i]);
       }
     }
   }
@@ -1154,7 +1142,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  addContactPerson(data?: contactPersonObject) {
+  addContactPerson = (data?: contactPersonObject) => {
     this.contact_person = this.editProfileForm.get(
       'contact_person'
     ) as FormArray;
@@ -1194,13 +1182,13 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         })
       );
     }
-  }
+  };
 
   removeContactPerson(i: number) {
     this.contact_person.removeAt(i);
   }
 
-  addTrophy(data?: trophyObject) {
+  addTrophy = (data?: trophyObject) => {
     this.trophies = this.editProfileForm.get('trophies') as FormArray;
 
     if (data !== undefined) {
@@ -1238,13 +1226,13 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         })
       );
     }
-  }
+  };
 
   removeTrophy(i: number) {
     this.trophies.removeAt(i);
   }
 
-  addTopSigning(data?: topSigningObject) {
+  addTopSigning = (data?: topSigningObject) => {
     this.top_signings = this.editProfileForm.get('top_signings') as FormArray;
 
     if (data !== undefined) {
@@ -1260,13 +1248,13 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         })
       );
     }
-  }
+  };
 
   removeTopSigning(i: number) {
     this.top_signings.removeAt(i);
   }
 
-  addTopAcademyPlayer(data?: topAcademyPlayerObject) {
+  addTopAcademyPlayer = (data?: topAcademyPlayerObject) => {
     this.top_players = this.editProfileForm.get('top_players') as FormArray;
 
     if (data !== undefined) {
@@ -1282,7 +1270,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         })
       );
     }
-  }
+  };
 
   removeTopAcademyPlayer(i: number) {
     this.top_players.removeAt(i);
