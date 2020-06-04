@@ -26,19 +26,6 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() pageSize: number = 10;
   @Input() pageNo: number = 1;
   dataSource = new MatTableDataSource<any>();
-  rows = new MatTableDataSource([
-    {
-      serialNumber: 1,
-      name: 'Rasik Lal',
-      dob: '3 June 1990',
-      addedon: '12 May 2020',
-      aadhaarno: '9889-8998-8983',
-      aadhaarimg: '',
-      playerimg: '',
-      status: '',
-      action: ''
-    }
-  ]);
   public columns: string[] = [];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;

@@ -10,7 +10,19 @@ import { DocumentVerificationTableConfig } from './document-verification-table-c
 export class DocumentVerificationComponent implements OnInit {
   public sideBarToggle: boolean = true;
   public tableConfig: DocumentVerificationTableConfig = new DocumentVerificationTableConfig();
-  public dataSource = new MatTableDataSource([]);
+  public dataSource = new MatTableDataSource([
+    {
+      serialNumber: 1,
+      name: 'Rasik Lal',
+      dob: '3 June 1990',
+      addedon: '12 May 2020',
+      aadhaarno: '9889-8998-8983',
+      aadhaarimg: '',
+      playerimg: '',
+      status: '',
+      action: ''
+    }
+  ]);
   constructor() {}
 
   updateSidebar($event: any) {
