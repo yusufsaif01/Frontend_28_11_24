@@ -40,7 +40,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   constructor(
     private _footPlayerService: FootPlayerService,
     public dialog: MatDialog,
-    private toastrService: ToastrService
+    private _toastrService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -86,20 +86,20 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this._footPlayerService
-          .deleteFootplayer(id)
+          .deleteFootPlayer(id)
           .pipe(untilDestroyed(this))
           .subscribe(
             response => {
-              this.toastrService.success(
+              this._toastrService.success(
                 `Success`,
-                'Footplayer deleted successfully'
+                'FootPlayer deleted successfully'
               );
               this.getFootPlayerList(this.pageSize, 1);
             },
             error => {
               // log.debug(`Login error: ${error}`);
 
-              this.toastrService.error(
+              this._toastrService.error(
                 `${error.error.message}`,
                 'Delete Footplayer'
               );

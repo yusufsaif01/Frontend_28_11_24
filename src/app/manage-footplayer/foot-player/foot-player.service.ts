@@ -53,7 +53,7 @@ export class FootPlayerService {
       routes.getFootPlayerList(query)
     );
   }
-  deleteFootplayer(id: string) {
+  deleteFootPlayer(id: string) {
     return this.httpClient.delete<any>(routes.deleteFootplayer(id));
   }
 }
