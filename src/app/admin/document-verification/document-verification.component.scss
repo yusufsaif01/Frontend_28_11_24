@@ -164,16 +164,13 @@
       margin-right: 0.5rem;
     }
 
-    .mat-cell {
-      .action {
-        button.approve {
-          border: none !important;
-        }
+    .mat-table .mat-row .mat-cell .action-buttons button:nth-of-type(1) img {
+      margin-top: 0px;
+      height: 2rem;
+    }
 
-        button.disapprove {
-          border: none !important;
-        }
-      }
+    .mat-table .mat-row .mat-cell .action-buttons button:nth-of-type(1) {
+      transform: translateY(0px);
     }
   }
 }
