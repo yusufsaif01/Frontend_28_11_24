@@ -656,10 +656,34 @@
                 />
               </div>
             </ng-container>
+            <div class="from-block"></div>
+
+            <!-- Aadhaar Image Type -->
+            <div class="from-block">
+              <label>Aadhaar Image Type <span>*</span></label>
+              <div class="radio">
+                <label
+                  ><input
+                    type="radio"
+                    formControlName="associated_club"
+                    value="Image"
+                  />
+                  <span>Image Format</span>
+                </label>
+                <label
+                  ><input
+                    type="radio"
+                    formControlName="associated_club"
+                    value="PDF"
+                  />
+                  <span>PDF Format</span>
+                </label>
+              </div>
+            </div>
 
             <!-- Upload   -->
             <div class="from-block">
-              <label>Upload Adhaar <span>*</span></label>
+              <label>Upload Aadhaar <span>*</span></label>
               <div class="file-wrapper">
                 <input
                   formControlName="aadhar"
@@ -684,15 +708,96 @@
                     editProfileForm.controls.aadhar.errors.requiredFileDocument
                   "
                   translate
-                  >Aadhar must be of type PDF / PNG / JPG / JPEG</span
+                  >Aadhaar must be of type PDF / PNG / JPG / JPEG</span
                 >
               </mat-error>
             </div>
 
-            <!-- <div class="from-block">
-              <label>Adhaar Number <span>*</span></label>
+            <!-- Upload   -->
+            <div class="from-block">
+              <label>Upload Aadhaar Front <span>*</span></label>
+              <div class="file-wrapper">
+                <input
+                  formControlName="aadhar"
+                  (change)="uploadAadhar($event.target.files)"
+                  type="file"
+                />
+                <a
+                  *ngIf="aadhar_url"
+                  href="{{ aadhar_url ? aadhar_url : '' }}"
+                  target="_blank"
+                  >View Document</a
+                >
+              </div>
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.aadhar.errors &&
+                  editProfileForm.controls.aadhar.dirty
+                "
+              >
+                <span
+                  *ngIf="
+                    editProfileForm.controls.aadhar.errors.requiredFileDocument
+                  "
+                  translate
+                  >Aadhaar must be of type PDF / PNG / JPG / JPEG</span
+                >
+              </mat-error>
+            </div>
+
+            <!-- Upload   -->
+            <div class="from-block">
+              <label>Upload Aadhaar Back <span>*</span></label>
+              <div class="file-wrapper">
+                <input
+                  formControlName="aadhar"
+                  (change)="uploadAadhar($event.target.files)"
+                  type="file"
+                />
+                <a
+                  *ngIf="aadhar_url"
+                  href="{{ aadhar_url ? aadhar_url : '' }}"
+                  target="_blank"
+                  >View Document</a
+                >
+              </div>
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.aadhar.errors &&
+                  editProfileForm.controls.aadhar.dirty
+                "
+              >
+                <span
+                  *ngIf="
+                    editProfileForm.controls.aadhar.errors.requiredFileDocument
+                  "
+                  translate
+                  >Aadhaar must be of type PDF / PNG / JPG / JPEG</span
+                >
+              </mat-error>
+            </div>
+
+            <div class="from-block">
+              <label>Aadhaar Number <span>*</span></label>
               <input type="text" matinput />
-            </div> -->
+            </div>
+
+            <!-- Player Upload   -->
+            <div class="from-block">
+              <label
+                >Player Photo Upload
+                <i-feather
+                  matTooltip="This will be used only for verification purpose and will not be visible to anyone"
+                  name="info"
+                  class="info"
+                ></i-feather>
+                <span>*</span></label
+              >
+              <div class="file-wrapper">
+                <input formControlName="aadhar" type="file" />
+                <a>View Document</a>
+              </div>
+            </div>
 
             <!-- employee  -->
             <div class="from-block" *ngIf="player_type === 'professional'">
@@ -1423,6 +1528,11 @@
                 />
               </div>
 
+              <div
+                class="from-block"
+                *ngIf="member_type === 'club' || member_type === 'academy'"
+              ></div>
+
               <!-- Club owner
               <div class="from-block">
                 <label
@@ -1572,7 +1682,7 @@
 
               <!-- Upload   -->
               <div class="from-block" *ngIf="member_type === 'club'">
-                <label>Document Number <span>*</span></label>
+                <label>AIFF Accreditation ID <span>*</span></label>
                 <input
                   formControlName="reg_number"
                   placeholder="Document Number"
@@ -1581,7 +1691,7 @@
                 />
               </div>
               <div class="from-block" *ngIf="member_type === 'club'">
-                <label>Upload AIFF accreditation status <span>*</span></label>
+                <label>Upload AIFF Accreditation Document <span>*</span></label>
                 <div class="file-wrapper">
                   <input
                     type="file"
