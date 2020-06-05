@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { ToastrService } from 'ngx-toastr';
-import { AddFootplayerComponent } from '../add-footplayer/add-footplayer.component';
+import { AddFootplayerComponent } from './add-footplayer/add-footplayer.component';
 
 @Component({
   selector: 'app-foot-player',
