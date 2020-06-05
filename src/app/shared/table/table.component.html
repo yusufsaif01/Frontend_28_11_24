@@ -19,7 +19,11 @@
             col !== 'email' &&
             col !== 'status' &&
             col !== 'avatar' &&
-            col !== 'playerimg'
+            col !== 'playerimg' &&
+            col !== 'doc_front' &&
+            col !== 'doc_back' &&
+            col !== 'user_photo' &&
+            col !== 'document'
           "
         >
           {{ tableConfig.columns[col].getValue(element) }}

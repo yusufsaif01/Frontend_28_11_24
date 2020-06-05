@@ -5,12 +5,13 @@ export class DocumentVerificationTableConfig extends TableConfig {
     super();
     this.allowedColumns = [
       'serialNumber',
-      'name',
-      'dob',
-      'addedon',
-      'aadhaarno',
-      'aadhaarimg',
-      'playerimg',
+      'player_name',
+      'date_of_birth',
+      'added_on',
+      'document_number',
+      'doc_front',
+      'doc_back',
+      'user_photo',
       'status'
     ];
 
@@ -22,46 +23,53 @@ export class DocumentVerificationTableConfig extends TableConfig {
           return ele[this.columns.serialNumber.code];
         }
       },
-      name: {
-        code: 'name',
+      player_name: {
+        code: 'player_name',
         text: 'Player Name',
         getValue: (ele: any) => {
-          return ele[this.columns.name.code];
+          return ele[this.columns.player_name.code];
         }
       },
-      dob: {
-        code: 'dob',
+      date_of_birth: {
+        code: 'date_of_birth',
         text: 'DOB',
         getValue: (ele: any) => {
-          return ele[this.columns.dob.code];
+          return ele[this.columns.date_of_birth.code];
         }
       },
-      addedon: {
-        code: 'addedon',
+      added_on: {
+        code: 'added_on',
         text: 'Added On',
         getValue: (ele: any) => {
-          return ele[this.columns.addedon.code];
+          return ele[this.columns.added_on.code];
         }
       },
-      aadhaarno: {
-        code: 'aadhaarno',
+      document_number: {
+        code: 'document_number',
         text: 'Aadhaar No',
         getValue: (ele: any) => {
-          return ele[this.columns.aadhaarno.code];
+          return ele[this.columns.document_number.code];
         }
       },
-      aadhaarimg: {
-        code: 'aadhaarimg',
-        text: 'Aadhaar Image',
+      doc_front: {
+        code: 'doc_front',
+        text: 'Aadhaar Front Image',
         getValue: (ele: any) => {
-          return ele[this.columns.aadhaarimg.code];
+          return ele[this.columns.doc_front.code];
         }
       },
-      playerimg: {
-        code: 'playerimg',
+      doc_back: {
+        code: 'doc_back',
+        text: 'Aadhaar Back Image',
+        getValue: (ele: any) => {
+          return ele[this.columns.doc_back.code];
+        }
+      },
+      user_photo: {
+        code: 'user_photo',
         text: 'Player Image',
         getValue: (ele: any) => {
-          return ele[this.columns.playerimg.code];
+          return ele[this.columns.user_photo.code];
         }
       },
       status: {
