@@ -67,4 +67,5 @@ export class TableComponent implements OnInit, OnChanges {
     }
     return data;
   }
+  openDialog() {}
 }

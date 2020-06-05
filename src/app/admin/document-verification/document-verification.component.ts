@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { DocumentVerificationTableConfig } from './document-verification-table-conf';
+import { ActivatedRoute } from '@angular/router';
+import { DocumentVerificationService } from './document-verification-service';
 
 @Component({
   selector: 'app-document-verification',
@@ -23,11 +25,30 @@ export class DocumentVerificationComponent implements OnInit {
       action: ''
     }
   ]);
-  constructor() {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private _documentVerficationService: DocumentVerificationService
+  ) {}
+
+  ngOnInit() {
+    this.getDocumentStatus();
+  }
 
   updateSidebar($event: any) {
     this.sideBarToggle = $event;
   }
 
-  ngOnInit() {}
+  getDocumentStatus() {
+    this.activatedRoute.params.subscribe(param => {
+      let user_id = param.id;
+      this._documentVerficationService.getDocumentStatus(user_id).subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    });
+  }
 }

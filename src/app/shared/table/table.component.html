@@ -18,7 +18,8 @@
             col !== 'type' &&
             col !== 'email' &&
             col !== 'status' &&
-            col !== 'avatar'
+            col !== 'avatar' &&
+            col !== 'playerimg'
           "
         >
           {{ tableConfig.columns[col].getValue(element) }}
@@ -91,11 +92,13 @@
         </p>
 
         <p *ngIf="col === 'aadhaarimg'">
-          <img
-            class="thumbnail"
-            src="../../../assets/images/profile-icon.png"
-            alt=""
-          />
+          <a href="../../../assets/images/profile-icon.png" target="_blank">
+            <img
+              class="thumbnail"
+              src="../../../assets/images/profile-icon.png"
+              alt=""
+            />
+          </a>
           <img
             class="thumbnail"
             src="../../../assets/images/profile-icon.png"
@@ -103,11 +106,13 @@
           />
         </p>
         <p *ngIf="col === 'playerimg'">
-          <img
-            class="thumbnail"
-            src="../../../assets/images/profile-icon.png"
-            alt=""
-          />
+          <a href="javascript:void(0);" (click)="openDialog()">
+            <img
+              class="thumbnail"
+              src="../../../assets/images/profile-icon.png"
+              alt=""
+            />
+          </a>
         </p>
       </div>
     </mat-cell>
