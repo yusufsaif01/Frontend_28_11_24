@@ -21,6 +21,7 @@ export class ViewProfileComponent implements OnInit {
     player_type: false,
     logout_link: true,
     achievements: true,
+    footplayers: true,
     is_public: false
   };
   docNumber: string;
@@ -49,7 +50,6 @@ export class ViewProfileComponent implements OnInit {
 
   logout() {
     this._authenticationService.logout();
-    this._router.navigateByUrl('/login');
   }
 
   getProfile(data: object) {

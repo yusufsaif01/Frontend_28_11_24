@@ -1,23 +1,25 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FootPlayerTableConfig } from './foot-player-table-conf';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '@env/environment';
 import { FootPlayerService } from './foot-player.service';
 import { untilDestroyed } from '@app/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material';
+import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-foot-player',
   templateUrl: './foot-player.component.html',
   styleUrls: ['./foot-player.component.scss']
 })
-export class FootPlayerComponent implements OnInit {
+export class FootPlayerComponent implements OnInit, OnDestroy {
   // TABLE CONFIG
   public tableConfig: FootPlayerTableConfig = new FootPlayerTableConfig();
   public dataSource = new MatTableDataSource([]);
   pageSize: number = 10;
-  currentPageNo: number = 1;
-  selectedPage: number;
+  selectedPage: number = 1;
   environment = environment;
   player_type: string;
   member_type: string;
@@ -35,7 +37,11 @@ export class FootPlayerComponent implements OnInit {
   isPublic: boolean = false;
   userId: string;
 
-  constructor(private _footPlayerService: FootPlayerService) {}
+  constructor(
+    private _footPlayerService: FootPlayerService,
+    public dialog: MatDialog,
+    private _toastrService: ToastrService
+  ) {}
 
   ngOnInit() {
     this.getFootPlayerList(this.pageSize, 1);
@@ -65,5 +71,41 @@ export class FootPlayerComponent implements OnInit {
   applyFilter(event: any) {
     let filterValue = event.target.value;
     this.getFootPlayerList(this.pageSize, 1, filterValue);
+  }
+  // delete
+  deletePopup(id: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '40% ',
+      panelClass: 'filterDialog',
+      data: {
+        message: 'Are you sure you want to delete?',
+        acceptText: 'Yes',
+        rejectText: 'No'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this._footPlayerService
+          .deleteFootPlayer(id)
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this._toastrService.success(
+                `Success`,
+                'FootPlayer deleted successfully'
+              );
+              this.getFootPlayerList(this.pageSize, 1);
+            },
+            error => {
+              // log.debug(`Login error: ${error}`);
+
+              this._toastrService.error(
+                `${error.error.message}`,
+                'Delete Footplayer'
+              );
+            }
+          );
+      }
+    });
   }
 }

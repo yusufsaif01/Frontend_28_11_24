@@ -15,7 +15,8 @@
             col !== 'media' &&
             col !== 'type' &&
             col !== 'email' &&
-            col !== 'status'
+            col !== 'status' &&
+            col !== 'avatar'
           "
         >
           {{ tableConfig.columns[col].getValue(element) }}
@@ -46,8 +47,11 @@
         <p
           *ngIf="col === 'status'"
           [ngClass]="{
-            red: element.status === 'non-verified',
-            black: element.status === 'verified'
+            red: ['non-verified', 'rejected', 'pending'].includes(
+              element.status
+            ),
+            black: ['verified'].includes(element.status),
+            green: ['added'].includes(element.status)
           }"
         >
           {{ tableConfig.columns[col].getValue(element) }}
@@ -70,6 +74,13 @@
               alt=""
             />
           </a>
+        </p>
+        <p *ngIf="col === 'avatar'">
+          <img
+            class="thumbnail"
+            [src]="tableConfig.columns[col].getValue(element)"
+            alt=""
+          />
         </p>
       </div>
     </mat-cell>
