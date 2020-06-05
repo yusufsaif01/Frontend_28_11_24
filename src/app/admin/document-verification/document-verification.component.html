@@ -43,12 +43,12 @@
             let-user_id="user_id"
             let-account_status="account_status"
           >
-            <div class="action">
+            <div class="action-buttons">
               <button matTooltip="Approve">
-                Approve
+                <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button matTooltip="Disapprove">
-                Disapprove
+              <button matTooltip="Disapprove" (click)="deletePopup(user_id)">
+                <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>
           </ng-template>
