@@ -1,22 +1,22 @@
 // MEDIA QUERY MANAGER
 @mixin for-size($size) {
-  @if $size == phone-only {
+  @if $size==phone-only {
     @media (max-width: 599px) {
       @content;
     }
-  } @else if $size == tablet-portrait-up {
+  } @else if $size==tablet-portrait-up {
     @media (max-width: 600px) {
       @content;
     }
-  } @else if $size == tablet-landscape-up {
+  } @else if $size==tablet-landscape-up {
     @media (max-width: 900px) {
       @content;
     }
-  } @else if $size == desktop-up {
+  } @else if $size==desktop-up {
     @media (max-width: 1200px) {
       @content;
     }
-  } @else if $size == big-desktop-up {
+  } @else if $size==big-desktop-up {
     @media (max-width: 1800px) {
       @content;
     }
@@ -37,7 +37,7 @@
   background: -o-linear-gradient(194deg, #00c9e4 0%, #007bff 100%);
   background: -ms-linear-gradient(194deg, #00c9e4 0%, #007bff 100%);
   background: linear-gradient(256deg, #00c9e4 0%, #007bff 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007bff', endColorstr='#00c9e4',GradientType=1 );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#007bff', endColorstr='#00c9e4', GradientType=1);
   border-color: #007bff;
 }
 
@@ -75,15 +75,18 @@
   color: $blue;
   outline: 0px;
   cursor: pointer;
+
   &:hover,
   &:active {
     background: $blue;
     color: $color-white;
     outline: 0px;
   }
+
   &:disabled {
     border: 0.2rem solid $grey;
     color: $grey;
+
     &:hover {
       background: $grey;
       color: $color-white;
@@ -101,12 +104,14 @@
   color: $color-white;
   outline: 0px;
   cursor: pointer;
+
   &:hover,
   &:active {
     background: $text-color;
     color: $color-white;
     outline: 0px;
   }
+
   &:disabled {
     color: $color-white;
     background: $text-color;
@@ -123,12 +128,14 @@
   outline: none;
   color: $color-white;
   cursor: pointer;
+
   &:hover,
   &:active {
     background: $blue;
     color: $color-white;
     outline: 0px;
   }
+
   &:disabled {
     color: $color-white;
     background: $text-color;
@@ -144,12 +151,14 @@
   color: $color-white;
   outline: 0px;
   cursor: pointer;
+
   &:hover,
   &:active {
     background: rgba($blue, 0.8);
     color: $color-white;
     outline: 0px;
   }
+
   &:disabled {
     color: $color-white;
     background: $text-color;

@@ -1,0 +1,115 @@
+<div class="from-container">
+  <div class="header">
+    <div class="title">
+      <h3>Add New Player</h3>
+    </div>
+    <div class="close">
+      <img
+        [mat-dialog-close]
+        src="assets/images/icons/close-white.png"
+        alt=""
+      />
+    </div>
+  </div>
+  <div class="modal-body">
+    <!-- form section -->
+    <form action="">
+      <div class="from-wrapper">
+        <!-- First Name  -->
+        <div class="from-block">
+          <label
+            >First Name
+            <!-- <span>*</span> -->
+          </label>
+          <input
+            type="text"
+            matInput
+            placeholder="First Name"
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Last  Name  -->
+        <div class="from-block">
+          <label>Last Name </label>
+          <input
+            type="text"
+            matInput
+            placeholder="Last Name"
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Email  -->
+        <div class="from-block">
+          <label>Last Name </label>
+          <input type="email" matInput placeholder="Email" autocomplete="off" />
+        </div>
+
+        <!-- Phone Number  -->
+        <div class="from-block">
+          <label>Phone Number </label>
+          <div class="phone">
+            <div class="country-code">
+              <input
+                type="text"
+                matInput
+                value="+91"
+                autocomplete="off"
+                readonly
+                tabindex="-1"
+              />
+            </div>
+            <div class="number">
+              <input
+                type="text"
+                matInput
+                placeholder="Phone Number"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- find button  -->
+        <div class="find-btn">
+          <button>Find</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Table on Data search -->
+    <div class="table">
+      <!-- table -->
+      <div class="table-container">
+        <app-table
+          [tableConfig]="tableConfig"
+          [NumberColumn]="'true'"
+          [sortEnabled]="true"
+          [pageSize]="pageSize"
+          [TableActions]="ListAction"
+          [pageNo]="selectedPage"
+        >
+        </app-table>
+        <ng-template
+          #ListAction
+          let-id="id"
+          let-avatar="avatar"
+          let-category="category"
+          let-name="name"
+          let-position="position"
+        >
+          <div class="action-buttons">
+            <button matTooltip="Add" class="save">
+              Add
+            </button>
+          </div>
+        </ng-template>
+      </div>
+      <div class="notonportal">
+        <h3>Player is not available on YFT Portal</h3>
+        <button>Send Invitation</button>
+      </div>
+    </div>
+  </div>
+</div>

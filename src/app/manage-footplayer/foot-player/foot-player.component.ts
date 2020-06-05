@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { ToastrService } from 'ngx-toastr';
+import { AddFootplayerComponent } from '../add-footplayer/add-footplayer.component';
 
 @Component({
   selector: 'app-foot-player',
@@ -71,6 +72,13 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   applyFilter(event: any) {
     let filterValue = event.target.value;
     this.getFootPlayerList(this.pageSize, 1, filterValue);
+  }
+
+  // AddPlayerPopUp
+  onaddfootplayer(): void {
+    const dialogRef = this.dialog.open(AddFootplayerComponent, {
+      width: '99%'
+    });
   }
   // delete
   deletePopup(id: string) {

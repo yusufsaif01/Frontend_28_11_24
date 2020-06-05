@@ -4,9 +4,15 @@ import { ManageFootPlayerComponent } from './manage-footplayer.component';
 import { SharedModule } from '@app/shared';
 import { ManageFootplayerRoutingModule } from './manage-footplayer-routing.module';
 import { FootPlayerComponent } from './foot-player/foot-player.component';
+import { AddFootplayerComponent } from './add-footplayer/add-footplayer.component';
 
 @NgModule({
-  declarations: [ManageFootPlayerComponent, FootPlayerComponent],
-  imports: [CommonModule, SharedModule, ManageFootplayerRoutingModule]
+  declarations: [
+    ManageFootPlayerComponent,
+    FootPlayerComponent,
+    AddFootplayerComponent
+  ],
+  imports: [CommonModule, SharedModule, ManageFootplayerRoutingModule],
+  entryComponents: [AddFootplayerComponent]
 })
 export class ManageFootplayerModule {}
