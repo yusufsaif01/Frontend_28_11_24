@@ -8,7 +8,12 @@ const routes = {
   getFootRequestList: (c: GetFootRequestList) => '/connection/request/list',
   acceptFootRequest: (c: AcceptFootRequest) => '/connection/request/accept',
   rejectFootRequest: (c: RejectFootRequest) => '/connection/request/reject',
-  connectionStats: () => '/connection/stats'
+  connectionStats: () => '/connection/stats',
+  getFootPlayerRequestList: (query: string) => `/footplayer/requests${query}`,
+  acceptFootPlayerRequest: (params: string) =>
+    `/footplayer/request/accept/${params}`,
+  rejectFootPlayerRequest: (params: string) =>
+    `/footplayer/request/reject/${params}`
 };
 
 interface ConnectionStatsResponseContext {
@@ -53,7 +58,31 @@ interface GetFootRequestListResponseContext {
     }[];
   };
 }
-
+interface GetFootPlayerRequestListContext {
+  page_no?: number;
+  page_size?: number;
+  requested_by?: string;
+}
+interface GetFootPlayerRequestListResponseContext {
+  status: string;
+  message: string;
+  data: {
+    total: number;
+    records: {
+      user_id: string;
+      avatar: string;
+      name: string;
+      member_type: string;
+      sub_category: string;
+    }[];
+  };
+}
+interface AcceptFootPlayerContext {
+  user_id: string;
+}
+interface RejectFootPlayerContext {
+  user_id: string;
+}
 interface CommonResponseContext {
   status: string;
   message: string;
@@ -119,6 +148,48 @@ export class FootRequestService {
 
     return this.httpClient.get<ConnectionStatsResponseContext>(
       routes.connectionStats()
+    );
+  }
+  getFootPlayerRequestList(
+    context: GetFootPlayerRequestListContext
+  ): Observable<GetFootPlayerRequestListResponseContext> {
+    let query = '?';
+    if (context['page_no']) {
+      query += 'page_no=' + context['page_no'];
+    }
+    if (context['page_size']) {
+      query += '&page_size=' + context['page_size'];
+    }
+    if (context['requested_by']) {
+      query += '&requested_by=' + context['requested_by'];
+    }
+    return this.httpClient.get<GetFootPlayerRequestListResponseContext>(
+      routes.getFootPlayerRequestList(query)
+    );
+  }
+
+  acceptFootPlayerRequest(
+    context: AcceptFootPlayerContext
+  ): Observable<CommonResponseContext> {
+    let params = '';
+    if (context['user_id']) {
+      params += context['user_id'];
+    }
+    return this.httpClient.patch<CommonResponseContext>(
+      routes.acceptFootPlayerRequest(params),
+      context
+    );
+  }
+  rejectFootPlayerRequest(
+    context: RejectFootPlayerContext
+  ): Observable<CommonResponseContext> {
+    let params = '';
+    if (context['user_id']) {
+      params += context['user_id'];
+    }
+    return this.httpClient.patch<CommonResponseContext>(
+      routes.rejectFootPlayerRequest(params),
+      context
     );
   }
 }
