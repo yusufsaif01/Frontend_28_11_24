@@ -25,9 +25,21 @@
     </div>
 
     <div class="tab-buttons">
-      <a (click)="getType('player')">Player's FootRequests</a>
-      <a (click)="getType('club')">Club's FootRequests</a>
-      <a (click)="getType('academy')">Academy's FootRequests</a>
+      <a
+        (click)="getType('player')"
+        [ngClass]="requested_by === 'player' ? 'active' : ''"
+        >Player's FootRequests</a
+      >
+      <a
+        (click)="getType('club')"
+        [ngClass]="requested_by === 'club' ? 'active' : ''"
+        >Club's FootRequests</a
+      >
+      <a
+        (click)="getType('academy')"
+        [ngClass]="requested_by === 'academy' ? 'active' : ''"
+        >Academy's FootRequests</a
+      >
     </div>
 
     <div class="playerwrapper">
