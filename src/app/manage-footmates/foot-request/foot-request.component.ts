@@ -5,7 +5,7 @@ import { FootRequestService } from './foot-request.service';
 import { environment } from '../../../environments/environment';
 import { untilDestroyed } from '@app/core';
 
-interface FootRequestContext {
+interface RequestContext {
   name: string;
   position: string;
   player_type: string;
@@ -13,17 +13,10 @@ interface FootRequestContext {
   user_id: string;
   request_id: string;
   mutuals: number;
-  accepted?: boolean;
-  hide?: boolean;
-}
-interface FootPlayerRequestContext {
-  user_id: string;
-  avatar: string;
-  name: string;
   member_type: string;
   sub_category: string;
-  accepted?: boolean;
-  hide?: boolean;
+  accepted: boolean;
+  hide: boolean;
 }
 @Component({
   selector: 'app-footrequest',
@@ -40,15 +33,13 @@ export class FootRequestComponent implements OnInit, OnDestroy {
     follows_buttons: false
   };
 
-  // foot_request_count = 0;
-  // foot_mate_count = 0;
   foot_data: any;
   pageSize: number = 12;
   show_count: number = 0;
   selectedPage: number;
   requested_by: string = 'player';
 
-  requestList: FootRequestContext[] | FootPlayerRequestContext[] = [];
+  requestList: Partial<RequestContext>[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -89,29 +80,55 @@ export class FootRequestComponent implements OnInit, OnDestroy {
       );
   }
 
-  acceptFootRequest(footRequest: FootRequestContext) {
-    this.footRequestService
-      .acceptFootRequest({ request_id: footRequest.request_id })
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
-          footRequest.hide = true;
-          footRequest.accepted = true;
-        },
-        error => {}
-      );
+  acceptRequest(request: RequestContext) {
+    if (this.requested_by === 'player') {
+      this.footRequestService
+        .acceptFootRequest({ request_id: request.request_id })
+        .pipe(untilDestroyed(this))
+        .subscribe(
+          response => {
+            request.hide = true;
+            request.accepted = true;
+          },
+          error => {}
+        );
+    } else {
+      this.footRequestService
+        .acceptFootPlayerRequest({ user_id: request.user_id })
+        .pipe(untilDestroyed(this))
+        .subscribe(
+          response => {
+            request.hide = true;
+            request.accepted = true;
+          },
+          error => {}
+        );
+    }
   }
-  rejectFootRequest(footRequest: FootRequestContext) {
-    this.footRequestService
-      .rejectFootRequest({ request_id: footRequest.request_id })
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
-          footRequest.hide = true;
-          footRequest.accepted = false;
-        },
-        error => {}
-      );
+  rejectRequest(request: RequestContext) {
+    if (this.requested_by === 'player') {
+      this.footRequestService
+        .rejectFootRequest({ request_id: request.request_id })
+        .pipe(untilDestroyed(this))
+        .subscribe(
+          response => {
+            request.hide = true;
+            request.accepted = false;
+          },
+          error => {}
+        );
+    } else {
+      this.footRequestService
+        .rejectFootPlayerRequest({ user_id: request.user_id })
+        .pipe(untilDestroyed(this))
+        .subscribe(
+          response => {
+            request.hide = true;
+            request.accepted = false;
+          },
+          error => {}
+        );
+    }
   }
   updatePage(event: any) {
     this.selectedPage = event.selectedPage;
@@ -140,35 +157,6 @@ export class FootRequestComponent implements OnInit, OnDestroy {
           this.show_count = response.data.records.length;
           this.foot_data.footmate_requests = response.data.total;
           this.selectedPage = page_no;
-        },
-        error => {}
-      );
-  }
-
-  acceptFootPlayerRequest(footPlayerRequest: FootPlayerRequestContext) {
-    this.footRequestService
-      .acceptFootPlayerRequest({
-        user_id: footPlayerRequest.user_id
-      })
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
-          footPlayerRequest.hide = true;
-          footPlayerRequest.accepted = true;
-        },
-        error => {}
-      );
-  }
-  rejectFootPlayerRequest(footPlayerRequest: FootPlayerRequestContext) {
-    this.footRequestService
-      .rejectFootPlayerRequest({
-        user_id: footPlayerRequest.user_id
-      })
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
-          footPlayerRequest.hide = true;
-          footPlayerRequest.accepted = false;
         },
         error => {}
       );

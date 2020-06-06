@@ -56,25 +56,11 @@
           </div>
           <div class="bottom">
             <ng-container *ngIf="request.hide !== true">
-              <button
-                (click)="
-                  requested_by === 'player'
-                    ? acceptFootRequest(request)
-                    : acceptFootPlayerRequest(request)
-                "
-                class="accepted"
-              >
+              <button (click)="acceptRequest(request)" class="accepted">
                 <i-feather class="icon-size" name="user-check"></i-feather>
                 Accept
               </button>
-              <button
-                (click)="
-                  requested_by === 'player'
-                    ? rejectFootRequest(request)
-                    : rejectFootPlayerRequest(request)
-                "
-                class="rejected"
-              >
+              <button (click)="rejectRequest(request)" class="rejected">
                 <i-feather class="icon-size" name="user-x"></i-feather>Reject
               </button>
             </ng-container>

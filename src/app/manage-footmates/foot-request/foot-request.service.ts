@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-// /connection/request/accept/:request_id
-// /connection/request/reject/:request_id
 const routes = {
   getFootRequestList: (c: GetFootRequestList) => '/connection/request/list',
-  acceptFootRequest: (c: AcceptFootRequest) => '/connection/request/accept',
-  rejectFootRequest: (c: RejectFootRequest) => '/connection/request/reject',
+  acceptFootRequest: (c: FootRequestContext) => '/connection/request/accept',
+  rejectFootRequest: (c: FootRequestContext) => '/connection/request/reject',
   connectionStats: () => '/connection/stats',
   getFootPlayerRequestList: (query: string) => `/footplayer/requests${query}`,
   acceptFootPlayerRequest: (params: string) =>
@@ -29,11 +27,7 @@ interface ConnectionStatsResponseContext {
 interface ConnectionStatsRequestContext {
   user_id: string;
 }
-interface AcceptFootRequest {
-  request_id: string;
-}
-
-interface RejectFootRequest {
+interface FootRequestContext {
   request_id: string;
 }
 
@@ -77,12 +71,10 @@ interface GetFootPlayerRequestListResponseContext {
     }[];
   };
 }
-interface AcceptFootPlayerContext {
+interface FootPlayerStatusContext {
   user_id: string;
 }
-interface RejectFootPlayerContext {
-  user_id: string;
-}
+
 interface CommonResponseContext {
   status: string;
   message: string;
@@ -110,7 +102,7 @@ export class FootRequestService {
   }
 
   acceptFootRequest(
-    context: AcceptFootRequest
+    context: FootRequestContext
   ): Observable<CommonResponseContext> {
     let params = '/';
     if (context['request_id']) {
@@ -123,7 +115,7 @@ export class FootRequestService {
   }
 
   rejectFootRequest(
-    context: RejectFootRequest
+    context: FootRequestContext
   ): Observable<CommonResponseContext> {
     let params = '/';
     if (context['request_id']) {
@@ -169,7 +161,7 @@ export class FootRequestService {
   }
 
   acceptFootPlayerRequest(
-    context: AcceptFootPlayerContext
+    context: FootPlayerStatusContext
   ): Observable<CommonResponseContext> {
     let params = '';
     if (context['user_id']) {
@@ -181,7 +173,7 @@ export class FootRequestService {
     );
   }
   rejectFootPlayerRequest(
-    context: RejectFootPlayerContext
+    context: FootPlayerStatusContext
   ): Observable<CommonResponseContext> {
     let params = '';
     if (context['user_id']) {
