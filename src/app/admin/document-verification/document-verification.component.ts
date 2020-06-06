@@ -16,21 +16,10 @@ import { VerificationPopupComponent } from '@app/admin/verification-popup/verifi
 export class DocumentVerificationComponent implements OnInit {
   public sideBarToggle: boolean = true;
   public tableConfig: DocumentVerificationTableConfig = new DocumentVerificationTableConfig();
-  public dataSource = new MatTableDataSource([
-    {
-      serialNumber: 1,
-      name: 'Rasik Lal',
-      dob: '3 June 1990',
-      addedon: '12 May 2020',
-      aadhaarno: '9889-8998-8983',
-      aadhaarimg: '',
-      playerimg: '',
-      status: '',
-      action: ''
-    }
-  ]);
+  public dataSource = new MatTableDataSource([]);
   user_id: string;
   documentDetails: any;
+  responsePopulated: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private _documentVerficationService: DocumentVerificationService,
@@ -54,6 +43,7 @@ export class DocumentVerificationComponent implements OnInit {
     this._documentVerficationService.getDocumentStatus(this.user_id).subscribe(
       response => {
         // console.log(response);
+        this.responsePopulated = true;
         this.documentDetails = {
           player_name: 'Phillip J Coulson',
           date_of_birth: '2020-06-03',

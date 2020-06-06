@@ -43,11 +43,21 @@
             let-user_id="user_id"
             let-account_status="account_status"
           >
-            <div class="action-buttons">
-              <button matTooltip="Approve" (click)="approve(user_id)">
+            <div class="action-buttons" *ngIf="responsePopulated">
+              <button
+                [disabled]="documentDetails.documents[0].status === 'approved'"
+                matTooltip="Approve"
+                (click)="approve(user_id)"
+              >
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button matTooltip="Disapprove" (click)="disApprove(user_id)">
+              <button
+                [disabled]="
+                  documentDetails.documents[0].status === 'disapproved'
+                "
+                matTooltip="Disapprove"
+                (click)="disApprove(user_id)"
+              >
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>
