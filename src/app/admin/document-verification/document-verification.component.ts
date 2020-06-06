@@ -3,6 +3,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DocumentVerificationTableConfig } from './document-verification-table-conf';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentVerificationService } from './document-verification-service';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material';
+import { untilDestroyed } from '@app/core';
+import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
 
 @Component({
   selector: 'app-document-verification',
@@ -29,7 +33,9 @@ export class DocumentVerificationComponent implements OnInit {
   documentDetails: any;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private _documentVerficationService: DocumentVerificationService
+    private _documentVerficationService: DocumentVerificationService,
+    private _toastrService: ToastrService,
+    public dialog: MatDialog
   ) {
     this.activatedRoute.params.subscribe(param => {
       this.user_id = param.id;
@@ -100,4 +106,73 @@ export class DocumentVerificationComponent implements OnInit {
     responseArray[0] = modifiedResponse;
     return responseArray;
   }
+
+  approve(user_id: string) {
+    const dialogRef = this.dialog.open(VerificationPopupComponent, {
+      width: '50% ',
+      panelClass: 'filterDialog',
+      data: {
+        header: 'Approve',
+        message: `Do you want to approve aadhaar details of ${this.documentDetails.player_name} player`
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this._documentVerficationService
+          .updateStatus(user_id, { status: 'approved' })
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this.getDocumentStatus();
+              this._toastrService.success(
+                `Success`,
+                'Status updated successfully'
+              );
+            },
+            error => {
+              // log.debug(`Login error: ${error}`);
+              this._toastrService.error(
+                `${error.error.message}`,
+                'Verification'
+              );
+            }
+          );
+      }
+    });
+  }
+
+  disApprove(user_id: string) {
+    const dialogRef = this.dialog.open(VerificationPopupComponent, {
+      width: '50% ',
+      panelClass: 'filterDialog',
+      data: {
+        header: 'Disapprove',
+        message: `Please specify a reason for disapproval`
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this._documentVerficationService
+          .updateStatus(user_id, { remarks: result, status: 'disapproved' })
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this.getDocumentStatus();
+              this._toastrService.success(
+                `Success`,
+                'Status updated successfully'
+              );
+            },
+            error => {
+              // log.debug(`Login error: ${error}`);
+              this._toastrService.error(
+                `${error.error.message}`,
+                'Verification'
+              );
+            }
+          );
+      }
+    });
+  }
+  ngOnDestroy() {}
 }

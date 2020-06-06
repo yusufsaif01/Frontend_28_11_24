@@ -44,10 +44,10 @@
             let-account_status="account_status"
           >
             <div class="action-buttons">
-              <button matTooltip="Approve">
+              <button matTooltip="Approve" (click)="approve(user_id)">
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button matTooltip="Disapprove" (click)="deletePopup(user_id)">
+              <button matTooltip="Disapprove" (click)="disApprove(user_id)">
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>

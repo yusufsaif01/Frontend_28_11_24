@@ -3,13 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const routes = {
-  getDocumentStatus: (id: string) => `/player/${id}/documents`
+  getDocumentStatus: (id: string) => `/player/${id}/documents`,
+  updateStatus: (id: string) => `/player/${id}/documents/status`
 };
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocumentVerificationService {
+  updateStatus(id: string, data: any) {
+    return this.httpClient.put<any>(routes.updateStatus(id), data);
+  }
   constructor(private httpClient: HttpClient) {}
 
   getDocumentStatus(id: string): Observable<any> {

@@ -95,19 +95,28 @@
           />
         </p>
 
-        <p *ngIf="col === 'aadhaarimg'">
-          <a href="../../../assets/images/profile-icon.png" target="_blank">
+        <p *ngIf="col === 'doc_front'">
+          <a
+            [href]="tableConfig.columns[col].getValue(element)"
+            target="_blank"
+          >
+            <img
+              class="thumbnail"
+              [src]="tableConfig.columns[col].getValue(element)"
+              alt=""
+            />
+          </a>
+          <a
+            *ngIf="col === 'doc_back'"
+            [href]="tableConfig.columns[col].getValue(element)"
+            target="_blank"
+          >
             <img
               class="thumbnail"
               src="../../../assets/images/profile-icon.png"
               alt=""
             />
           </a>
-          <img
-            class="thumbnail"
-            src="../../../assets/images/profile-icon.png"
-            alt=""
-          />
         </p>
         <p *ngIf="col === 'playerimg'">
           <a href="javascript:void(0);" (click)="openDialog()">
