@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 const routes = {
   getFootRequestList: (c: GetFootRequestList) => '/connection/request/list',
-  acceptFootRequest: (c: FootRequestContext) => '/connection/request/accept',
-  rejectFootRequest: (c: FootRequestContext) => '/connection/request/reject',
+  acceptFootRequest: () => '/connection/request/accept',
+  rejectFootRequest: () => '/connection/request/reject',
   connectionStats: () => '/connection/stats',
   getFootPlayerRequestList: (query: string) => `/footplayer/requests${query}`,
   acceptFootPlayerRequest: (params: string) =>
@@ -27,8 +27,9 @@ interface ConnectionStatsResponseContext {
 interface ConnectionStatsRequestContext {
   user_id: string;
 }
-interface FootRequestContext {
+interface RequestContext {
   request_id: string;
+  user_id: string;
 }
 
 interface GetFootRequestList {
@@ -71,9 +72,6 @@ interface GetFootPlayerRequestListResponseContext {
     }[];
   };
 }
-interface FootPlayerStatusContext {
-  user_id: string;
-}
 
 interface CommonResponseContext {
   status: string;
@@ -101,30 +99,46 @@ export class FootRequestService {
     );
   }
 
-  acceptFootRequest(
-    context: FootRequestContext
+  acceptRequest(
+    context: Partial<RequestContext>
   ): Observable<CommonResponseContext> {
     let params = '/';
+
     if (context['request_id']) {
       params += `${context['request_id']}`;
+      return this.httpClient.patch<CommonResponseContext>(
+        routes.acceptFootRequest() + params,
+        context
+      );
     }
-    return this.httpClient.patch<CommonResponseContext>(
-      routes.acceptFootRequest(context) + params,
-      context
-    );
+    if (context['user_id']) {
+      params += context['user_id'];
+      return this.httpClient.patch<CommonResponseContext>(
+        routes.acceptFootPlayerRequest(params),
+        context
+      );
+    }
   }
 
-  rejectFootRequest(
-    context: FootRequestContext
+  rejectRequest(
+    context: Partial<RequestContext>
   ): Observable<CommonResponseContext> {
     let params = '/';
+
     if (context['request_id']) {
       params += `${context['request_id']}`;
+      return this.httpClient.patch<CommonResponseContext>(
+        routes.rejectFootRequest() + params,
+        context
+      );
     }
-    return this.httpClient.patch<CommonResponseContext>(
-      routes.rejectFootRequest(context) + params,
-      context
-    );
+    if (context['user_id']) {
+      params += context['user_id'];
+      return this.httpClient.patch<CommonResponseContext>(
+        routes.rejectFootPlayerRequest(params),
+        context
+      );
+    }
   }
 
   connectionStats(
@@ -142,6 +156,7 @@ export class FootRequestService {
       routes.connectionStats()
     );
   }
+
   getFootPlayerRequestList(
     context: GetFootPlayerRequestListContext
   ): Observable<GetFootPlayerRequestListResponseContext> {
@@ -157,31 +172,6 @@ export class FootRequestService {
     }
     return this.httpClient.get<GetFootPlayerRequestListResponseContext>(
       routes.getFootPlayerRequestList(query)
-    );
-  }
-
-  acceptFootPlayerRequest(
-    context: FootPlayerStatusContext
-  ): Observable<CommonResponseContext> {
-    let params = '';
-    if (context['user_id']) {
-      params += context['user_id'];
-    }
-    return this.httpClient.patch<CommonResponseContext>(
-      routes.acceptFootPlayerRequest(params),
-      context
-    );
-  }
-  rejectFootPlayerRequest(
-    context: FootPlayerStatusContext
-  ): Observable<CommonResponseContext> {
-    let params = '';
-    if (context['user_id']) {
-      params += context['user_id'];
-    }
-    return this.httpClient.patch<CommonResponseContext>(
-      routes.rejectFootPlayerRequest(params),
-      context
     );
   }
 }

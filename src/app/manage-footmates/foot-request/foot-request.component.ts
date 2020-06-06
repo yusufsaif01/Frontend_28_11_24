@@ -81,55 +81,39 @@ export class FootRequestComponent implements OnInit, OnDestroy {
   }
 
   acceptRequest(request: RequestContext) {
-    if (this.requested_by === 'player') {
-      this.footRequestService
-        .acceptFootRequest({ request_id: request.request_id })
-        .pipe(untilDestroyed(this))
-        .subscribe(
-          response => {
-            request.hide = true;
-            request.accepted = true;
-          },
-          error => {}
-        );
-    } else {
-      this.footRequestService
-        .acceptFootPlayerRequest({ user_id: request.user_id })
-        .pipe(untilDestroyed(this))
-        .subscribe(
-          response => {
-            request.hide = true;
-            request.accepted = true;
-          },
-          error => {}
-        );
-    }
+    let requestData =
+      this.requested_by === 'player'
+        ? { request_id: request.request_id }
+        : { user_id: request.user_id };
+    this.footRequestService
+      .acceptRequest(requestData)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          request.hide = true;
+          request.accepted = true;
+        },
+        error => {}
+      );
   }
+
   rejectRequest(request: RequestContext) {
-    if (this.requested_by === 'player') {
-      this.footRequestService
-        .rejectFootRequest({ request_id: request.request_id })
-        .pipe(untilDestroyed(this))
-        .subscribe(
-          response => {
-            request.hide = true;
-            request.accepted = false;
-          },
-          error => {}
-        );
-    } else {
-      this.footRequestService
-        .rejectFootPlayerRequest({ user_id: request.user_id })
-        .pipe(untilDestroyed(this))
-        .subscribe(
-          response => {
-            request.hide = true;
-            request.accepted = false;
-          },
-          error => {}
-        );
-    }
+    let requestData =
+      this.requested_by === 'player'
+        ? { request_id: request.request_id }
+        : { user_id: request.user_id };
+    this.footRequestService
+      .rejectRequest(requestData)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          request.hide = true;
+          request.accepted = false;
+        },
+        error => {}
+      );
   }
+
   updatePage(event: any) {
     this.selectedPage = event.selectedPage;
     this.manageRequest(this.requested_by, this.selectedPage);
