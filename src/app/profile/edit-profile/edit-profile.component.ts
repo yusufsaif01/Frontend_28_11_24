@@ -217,7 +217,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.profile = response.data;
-          if (this.profile.documents.length) {
+          if (this.profile.documents && this.profile.documents.length) {
             if (this.profile.documents[0].type) {
               if (this.editProfileForm.controls.reg_number) {
                 this.editProfileForm.controls.aiff.disable();
@@ -332,26 +332,39 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)
       ]
     };
-    let headCoachControl2 = {
-      head_coach_phone: [
-        Validators.minLength(10),
-        Validators.maxLength(10),
-        Validators.pattern(/^\d+$/)
-      ],
-      head_coach_email: [Validators.email],
-      head_coach_name: [Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)]
-    };
 
     this.editProfileForm
       .get('associated_club')
       .valueChanges.subscribe(associated_club => {
         if (associated_club === 'yes') {
+          this.checkRequiredValidator(
+            headCoachControl,
+            headCoachControl.head_coach_phone,
+            1
+          );
+          this.checkRequiredValidator(
+            headCoachControl,
+            headCoachControl.head_coach_name,
+            1
+          );
+
           this.setControlValidation(this.editProfileForm, headCoachControl);
         } else if (associated_club === 'no') {
           head_coach_phone.setValue(''); // setValue use to clear any input provided
           head_coach_email.setValue('');
           head_coach_name.setValue('');
-          this.setControlValidation(this.editProfileForm, headCoachControl2);
+          this.checkRequiredValidator(
+            headCoachControl,
+            headCoachControl.head_coach_phone,
+            2
+          );
+          this.checkRequiredValidator(
+            headCoachControl,
+            headCoachControl.head_coach_name,
+            2
+          );
+
+          this.setControlValidation(this.editProfileForm, headCoachControl);
         }
       });
 
@@ -361,6 +374,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     let employmentContractControl = {
       employment_contract: [Validators.required, requiredFileDocument]
     };
+
     let heightControl = {
       height_feet: [
         Validators.required,
@@ -375,18 +389,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         Validators.pattern(/^\d+$/)
       ]
     };
-    let heightControl2 = {
-      height_feet: [
-        Validators.min(1),
-        Validators.max(10),
-        Validators.pattern(/^\d+$/)
-      ],
-      height_inches: [
-        Validators.min(0),
-        Validators.max(12),
-        Validators.pattern(/^\d+$/)
-      ]
-    };
+
     this.editProfileForm
       .get('player_type')
       .valueChanges.subscribe(player_type => {
@@ -409,42 +412,51 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         }
 
         if (player_type === 'amateur' || player_type === 'professional') {
+          this.checkRequiredValidator(
+            heightControl,
+            heightControl.height_feet,
+            1
+          );
+          this.checkRequiredValidator(
+            heightControl,
+            heightControl.height_inches,
+            1
+          );
+
           this.setControlValidation(this.editProfileForm, heightControl);
-          // height_feet.setValidators([
-          //   Validators.required,
-          //   Validators.min(1),
-          //   Validators.max(10),
-          //   Validators.pattern(/^\d+$/)
-          // ]);
-          // height_inches.setValidators([
-          //   Validators.required,
-          //   Validators.min(0),
-          //   Validators.max(12),
-          //   Validators.pattern(/^\d+$/)
-          // ]);
         }
 
         if (player_type === 'grassroot') {
-          this.setControlValidation(this.editProfileForm, heightControl2);
-          // height_feet.setValidators([
-          //   Validators.min(1),
-          //   Validators.max(10),
-          //   Validators.pattern(/^\d+$/)
-          // ]);
-          // height_inches.setValidators([
-          //   Validators.min(0),
-          //   Validators.max(12),
-          //   Validators.pattern(/^\d+$/)
-          // ]);
+          this.checkRequiredValidator(
+            heightControl,
+            heightControl.height_feet,
+            2
+          );
+          this.checkRequiredValidator(
+            heightControl,
+            heightControl.height_inches,
+            2
+          );
+
+          this.setControlValidation(this.editProfileForm, heightControl);
         }
 
-        // height_feet.updateValueAndValidity();
-        // height_inches.updateValueAndValidity();
         // aadhar.updateValueAndValidity();
         employmentContract.updateValueAndValidity();
 
         this.checkFileValidations();
       });
+  }
+
+  checkRequiredValidator(controlname: any, paramname: any, type: number) {
+    if (type === 1)
+      paramname.includes(Validators.required)
+        ? controlname
+        : paramname.push(Validators.required);
+    else if (type === 2)
+      paramname.includes(Validators.required)
+        ? paramname.splice(paramname.findIndex(Validators.required), 1)
+        : controlname;
   }
 
   setCategoryValidators() {
@@ -970,12 +982,14 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         this.profile.documents && this.profile.documents[0]
           ? this.profile.documents[0].type
           : '',
-      number: this.profile.documents.length
-        ? this.profile.documents[0].document_number
-        : '',
-      reg_number: this.profile.documents.length
-        ? this.profile.documents[0].document_number
-        : ''
+      number:
+        this.profile.documents && this.profile.documents.length
+          ? this.profile.documents[0].document_number
+          : '',
+      reg_number:
+        this.profile.documents && this.profile.documents.length
+          ? this.profile.documents[0].document_number
+          : ''
     });
 
     if (this.profile.social_profiles) {
@@ -995,7 +1009,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   }
 
   populateDocuments() {
-    if (this.profile.documents.length !== 0) {
+    if (this.profile.documents && this.profile.documents.length !== 0) {
       this.profile.documents.forEach((element: any) => {
         let fileLink = this.environment.mediaUrl + element.link;
         if (element.type === 'aadhar') {
