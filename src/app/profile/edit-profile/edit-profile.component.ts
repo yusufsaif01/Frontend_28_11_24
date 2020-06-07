@@ -209,7 +209,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.profile = response.data;
-          if (this.profile.documents.length) {
+          if (this.profile.documents && this.profile.documents.length) {
             if (this.profile.documents[0].type) {
               if (this.editProfileForm.controls.reg_number) {
                 this.editProfileForm.controls.aiff.disable();

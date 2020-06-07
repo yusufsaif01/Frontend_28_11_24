@@ -20,8 +20,6 @@
             col !== 'status' &&
             col !== 'avatar' &&
             col !== 'playerimg' &&
-            col !== 'doc_front' &&
-            col !== 'doc_back' &&
             col !== 'user_photo' &&
             col !== 'document'
           "
@@ -99,13 +97,13 @@
           <a href="../../../assets/images/profile-icon.png" target="_blank">
             <img
               class="thumbnail"
-              src="../../../assets/images/profile-icon.png"
+              [src]="tableConfig.columns[col].getValue(element).split('---')[0]"
               alt=""
             />
           </a>
           <img
             class="thumbnail"
-            src="../../../assets/images/profile-icon.png"
+            [src]="tableConfig.columns[col].getValue(element).split('---')[1]"
             alt=""
           />
         </p>
