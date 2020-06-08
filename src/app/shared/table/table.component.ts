@@ -6,7 +6,9 @@ import {
   ElementRef,
   TemplateRef,
   SimpleChanges,
-  OnChanges
+  OnChanges,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -25,6 +27,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() rows = new MatTableDataSource([]);
   @Input() pageSize: number = 10;
   @Input() pageNo: number = 1;
+  @Output() imgLink: EventEmitter<string> = new EventEmitter<string>();
   dataSource = new MatTableDataSource<any>();
   public columns: string[] = [];
 
@@ -67,5 +70,7 @@ export class TableComponent implements OnInit, OnChanges {
     }
     return data;
   }
-  openDialog() {}
+  openDialog(imgLink: string) {
+    this.imgLink.emit(imgLink);
+  }
 }

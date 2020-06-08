@@ -126,16 +126,50 @@
           </div>
         </div>
 
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>View Player Image : </span>
+              <a>Image</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Aadhaar Number : </span>
+              1390-8989-8989
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>View Aadhaar Image Front : </span>
+              <a>Document</a>
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>View Aadhaar Image Back : </span>
+              <a>Document</a>
+            </p>
+          </div>
+        </div>
+
         <ng-container *ngIf="!isPublic">
           <div class="block-middle border-bottom">
             <div class="full">
               <p>
-                <span>View Adhaar : </span>
+                <span>View Aadhaar : </span>
                 <a
                   *ngIf="aadhar"
                   href="{{ aadhar ? aadhar : '' }}"
                   target="_blank"
-                  >Document</a
+                >
+                  Document</a
                 >
               </p>
             </div>
@@ -382,12 +416,26 @@
             </p>
           </div>
         </div>
-
+        <!-- clubs AIFFS status  -->
         <ng-container *ngIf="!isPublic">
-          <div class="block-middle border-bottom">
-            <div class="half">
+          <div
+            class="block-middle border-bottom "
+            *ngIf="profile.member_type === 'club'"
+          >
+            <div class="full">
               <p>
-                <span>View Document Status : </span>
+                <span>AIFF Accreditation ID : </span
+                >{{ docNumber ? docNumber : '' }}
+              </p>
+            </div>
+          </div>
+          <div
+            class="block-middle border-bottom"
+            *ngIf="profile.member_type === 'club'"
+          >
+            <div class="full">
+              <p>
+                <span>View AIFF Accreditation Document Image : </span>
                 <a
                   *ngIf="document"
                   href="{{ document ? document : '' }}"
@@ -396,9 +444,42 @@
                 >
               </p>
             </div>
-            <div class="half">
+          </div>
+        </ng-container>
+
+        <!-- Academy document status -->
+        <ng-container *ngIf="!isPublic">
+          <div
+            class="block-middle border-bottom "
+            *ngIf="profile.member_type === 'academy'"
+          >
+            <div class="full">
+              <p><span>Document Type : </span> Pan</p>
+            </div>
+          </div>
+
+          <div
+            class="block-middle border-bottom "
+            *ngIf="profile.member_type === 'academy'"
+          >
+            <div class="full">
+              <p><span>Document Number : </span> RT908234DFLKJ</p>
+            </div>
+          </div>
+
+          <div
+            class="block-middle border-bottom"
+            *ngIf="profile.member_type === 'academy'"
+          >
+            <div class="full">
               <p>
-                <span>Document Number : </span>{{ docNumber ? docNumber : '' }}
+                <span>View Document Image : </span>
+                <a
+                  *ngIf="document"
+                  href="{{ document ? document : '' }}"
+                  target="_blank"
+                  >Document</a
+                >
               </p>
             </div>
           </div>

@@ -9,7 +9,7 @@ export class DocumentVerificationTableConfig extends TableConfig {
       'date_of_birth',
       'added_on',
       'document_number',
-      'doc_front',
+      'aadhaarimg',
       'user_photo',
       'status'
     ];
@@ -50,18 +50,11 @@ export class DocumentVerificationTableConfig extends TableConfig {
           return ele[this.columns.document_number.code];
         }
       },
-      doc_front: {
-        code: 'doc_front',
+      aadhaarimg: {
+        code: 'aadhaarimg',
         text: 'Aadhaar Image',
         getValue: (ele: any) => {
-          return ele[this.columns.doc_front.code];
-        }
-      },
-      doc_back: {
-        code: 'doc_back',
-        text: 'Aadhaar Back Image',
-        getValue: (ele: any) => {
-          return ele[this.columns.doc_back.code];
+          return ele[this.columns.aadhaarimg.code];
         }
       },
       user_photo: {

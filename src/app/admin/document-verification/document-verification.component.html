@@ -37,6 +37,7 @@
             [NumberColumn]="'true'"
             [TableActions]="ListAction"
             [sortEnabled]="true"
+            (imgLink)="openDialog($event)"
           ></app-table>
           <ng-template
             #ListAction
