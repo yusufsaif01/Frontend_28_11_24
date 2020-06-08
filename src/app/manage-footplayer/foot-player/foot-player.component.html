@@ -6,6 +6,7 @@
       [achievements]="total_count"
       [options]="panelOptions"
       [userId]="userId"
+      (sendMemberType)="getMemberType($event)"
     ></app-left-panel>
   </div>
   <div class="right-section">
