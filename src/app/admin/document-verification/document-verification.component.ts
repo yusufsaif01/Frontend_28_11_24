@@ -13,19 +13,20 @@ import { environment } from '@env/environment';
 export class DocumentVerificationComponent implements OnInit {
   public sideBarToggle: boolean = true;
   public tableConfig: DocumentVerificationTableConfig = new DocumentVerificationTableConfig();
-  public dataSource = new MatTableDataSource([
-    {
-      serialNumber: 1,
-      name: 'Rasik Lal',
-      dob: '3 June 1990',
-      addedon: '12 May 2020',
-      aadhaarno: '9889-8998-8983',
-      aadhaarimg: '',
-      playerimg: '',
-      status: '',
-      action: ''
-    }
-  ]);
+  public dataSource = new MatTableDataSource([]);
+  // [ / /Dummy response, commented for now
+  //   {
+  //     serialNumber: 1,
+  //     name: 'Rasik Lal',
+  //     dob: '3 June 1990',
+  //     addedon: '12 May 2020',
+  //     aadhaarno: '9889-8998-8983',
+  //     aadhaarimg: '',
+  //     playerimg: '',
+  //     status: '',
+  //     action: ''
+  //   }
+  // ]
   user_id: string;
   documentDetails: any;
   constructor(
@@ -48,19 +49,17 @@ export class DocumentVerificationComponent implements OnInit {
   getDocumentStatus() {
     this._documentVerficationService.getDocumentStatus(this.user_id).subscribe(
       response => {
-        console.log(response);
         this.documentDetails = response.data;
-        let modifiedResponse = this.responseModify(this.documentDetails);
-        console.log(modifiedResponse);
+        let modifiedResponse = this.prepareResponse(this.documentDetails);
         this.dataSource = new MatTableDataSource(modifiedResponse);
-        console.log(this.dataSource);
       },
       error => {
         console.log(error);
       }
     );
   }
-  responseModify(documentDetails: any) {
+
+  prepareResponse(documentDetails: any) {
     let modifiedResponse: any = {
       added_on: documentDetails.documents[0].added_on,
       date_of_birth: documentDetails.date_of_birth,
@@ -83,6 +82,7 @@ export class DocumentVerificationComponent implements OnInit {
     responseArray[0] = modifiedResponse;
     return responseArray;
   }
+
   openDialog(event: string) {
     console.log(event);
   }
