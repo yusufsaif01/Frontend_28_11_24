@@ -14,6 +14,7 @@ import { ManageAbilityComponent } from './masterdata/player-specialization/manag
 import { ManageParametersComponent } from './masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
 import { AdminComponent } from './admin.component';
 import { extract, AuthenticationGuard } from '@app/core';
+import { DocumentVerificationComponent } from './document-verification/document-verification.component';
 
 const appRoutes: Routes = [
   {
@@ -41,6 +42,11 @@ const appRoutes: Routes = [
         path: 'manage-academy',
         component: ManageAcademyComponent,
         data: { title: extract('Manage Academy') }
+      },
+      {
+        path: 'document-verification/:id',
+        component: DocumentVerificationComponent,
+        data: { title: extract('Document Verification') }
       },
       {
         path: 'masterdata-location',

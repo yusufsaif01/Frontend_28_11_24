@@ -6,7 +6,9 @@ import {
   ElementRef,
   TemplateRef,
   SimpleChanges,
-  OnChanges
+  OnChanges,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -25,36 +27,8 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() rows = new MatTableDataSource([]);
   @Input() pageSize: number = 10;
   @Input() pageNo: number = 1;
-  // dataSource = new MatTableDataSource<any>();
-  // rows = new MatTableDataSource([
-  //   {
-  //     serialnumber: '1',
-  //     awardtype: 'Professional',
-  //     awardname: 'FIFA World Cup',
-  //     year: '1980',
-  //     position_secured: 'Second',
-  //     thumbnail: '',
-  //     actions: ''
-  //   },
-  //   {
-  //     serialnumber: '1',
-  //     awardtype: 'Professional',
-  //     awardname: 'FIFA World Cup',
-  //     year: '1980',
-  //     position_secured: 'Second',
-  //     thumbnail: '',
-  //     actions: ''
-  //   },
-  //   {
-  //     serialnumber: '1',
-  //     awardtype: 'Professional',
-  //     awardname: 'FIFA World Cup',
-  //     year: '1980',
-  //     position_secured: 'Second',
-  //     thumbnail: '',
-  //     actions: ''
-  //   },
-  // ]);
+  @Output() imgLink: EventEmitter<string> = new EventEmitter<string>();
+  dataSource = new MatTableDataSource<any>();
   public columns: string[] = [];
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -95,5 +69,8 @@ export class TableComponent implements OnInit, OnChanges {
       }
     }
     return data;
+  }
+  openDialog(imgLink: string) {
+    this.imgLink.emit(imgLink);
   }
 }
