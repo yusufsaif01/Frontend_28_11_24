@@ -5,6 +5,7 @@
     <app-left-panel
       [options]="panelOptions"
       (sendFootData)="getConnectionStats($event)"
+      (sendProfileStatus)="getProfileStatus($event)"
     ></app-left-panel>
   </div>
   <div class="right-section">
@@ -66,13 +67,28 @@
               >
             </h4>
           </div>
-          <div class="bottom">
+          <div
+            [matTooltip]="
+              request.profile_status == 'non-verified'
+                ? 'Verify your documents in order to Accept/ Reject the request'
+                : ''
+            "
+            class="bottom"
+          >
             <ng-container *ngIf="request.hide !== true">
-              <button (click)="acceptRequest(request)" class="accepted">
+              <button
+                [disabled]="request.profile_status == 'non-verified'"
+                (click)="acceptRequest(request)"
+                class="accepted"
+              >
                 <i-feather class="icon-size" name="user-check"></i-feather>
                 Accept
               </button>
-              <button (click)="rejectRequest(request)" class="rejected">
+              <button
+                [disabled]="request.profile_status == 'non-verified'"
+                (click)="rejectRequest(request)"
+                class="rejected"
+              >
                 <i-feather class="icon-size" name="user-x"></i-feather>Reject
               </button>
             </ng-container>

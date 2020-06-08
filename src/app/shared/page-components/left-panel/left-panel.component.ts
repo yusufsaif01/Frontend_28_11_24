@@ -55,6 +55,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   @Output() sendProfileData = new EventEmitter<object>();
   @Output() sendFootData = new EventEmitter<object>();
   @Output() sendAchievementCount = new EventEmitter<number>();
+  @Output() sendProfileStatus = new EventEmitter<object>();
   following$: Observable<any>;
 
   constructor(
@@ -97,6 +98,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
           this.sendPlayerType.emit(this.profile.player_type);
           this.sendMemberType.emit(this.profile.member_type);
           this.sendProfileData.emit(this.profile);
+          this.sendProfileStatus.emit(this.profile.profile_status.status);
           this._router.routeReuseStrategy.shouldReuseRoute = () => false;
         },
         error => {}
