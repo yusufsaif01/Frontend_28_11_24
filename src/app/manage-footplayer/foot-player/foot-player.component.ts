@@ -50,6 +50,10 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {}
 
+  getMemberType(value: string) {
+    this.member_type = value;
+  }
+
   updatePage(event: any) {
     this.selectedPage = event.selectedPage;
     this.getFootPlayerList(this.pageSize, event.selectedPage);
@@ -76,8 +80,14 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
 
   // AddPlayerPopUp
   onaddfootplayer(): void {
+    let data = {
+      member_type: this.member_type
+    };
     const dialogRef = this.dialog.open(AddFootplayerComponent, {
-      width: '99%'
+      width: '99%',
+      data: {
+        ...data
+      }
     });
   }
   // delete
