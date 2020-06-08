@@ -94,24 +94,35 @@
         </p>
 
         <p *ngIf="col === 'aadhaarimg'">
-          <a href="../../../assets/images/profile-icon.png" target="_blank">
+          <a
+            [href]="tableConfig.columns[col].getValue(element).split('---')[0]"
+            target="_blank"
+          >
             <img
               class="thumbnail"
               [src]="tableConfig.columns[col].getValue(element).split('---')[0]"
               alt=""
             />
           </a>
-          <img
-            class="thumbnail"
-            [src]="tableConfig.columns[col].getValue(element).split('---')[1]"
-            alt=""
-          />
-        </p>
-        <p *ngIf="col === 'playerimg'">
-          <a href="javascript:void(0);" (click)="openDialog()">
+          <a
+            [href]="tableConfig.columns[col].getValue(element).split('---')[1]"
+            target="_blank"
+          >
             <img
               class="thumbnail"
-              src="../../../assets/images/profile-icon.png"
+              [src]="tableConfig.columns[col].getValue(element).split('---')[1]"
+              alt=""
+            />
+          </a>
+        </p>
+        <p *ngIf="col === 'user_photo'">
+          <a
+            href="javascript:void(0);"
+            (click)="openDialog(tableConfig.columns[col].getValue(element))"
+          >
+            <img
+              class="thumbnail"
+              [src]="tableConfig.columns[col].getValue(element)"
               alt=""
             />
           </a>

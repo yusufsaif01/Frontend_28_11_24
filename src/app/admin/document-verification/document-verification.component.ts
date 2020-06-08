@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DocumentVerificationTableConfig } from './document-verification-table-conf';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentVerificationService } from './document-verification-service';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-document-verification',
@@ -45,41 +46,19 @@ export class DocumentVerificationComponent implements OnInit {
   }
 
   getDocumentStatus() {
-    // this._documentVerficationService.getDocumentStatus(this.user_id).subscribe(
-    //   response => {
-    // console.log(response);
-    this.documentDetails = {
-      player_name: 'Phillip J Coulson',
-      date_of_birth: '2020-06-03',
-      documents: [
-        {
-          type: 'aadhar',
-          added_on: '2020-04-21T10:57:06.730Z',
-          document_number: '1234567890987654',
-          media: {
-            attachment_type: 'image',
-            doc_front:
-              'http://localhost:3000/uploads/documents/AOsI66k1591167860318.jpg',
-            doc_back:
-              'http://localhost:3000/uploads/documents/AOsI66k1591167860318.jpg',
-            user_photo:
-              'http://localhost:3000/uploads/documents/AOsI66k1591167860318.jpg',
-            document:
-              'http://localhost:3000/uploads/documents/AOsI66k1591167860318.jpg'
-          },
-          status: 'pending'
-        }
-      ]
-    };
-    let modifiedResponse = this.responseModify(this.documentDetails);
-    console.log(modifiedResponse);
-    this.dataSource = new MatTableDataSource(modifiedResponse);
-    // console.log(this.dataSource);
-    // },
-    // error => {
-    //   console.log(error);
-    // }
-    // );
+    this._documentVerficationService.getDocumentStatus(this.user_id).subscribe(
+      response => {
+        console.log(response);
+        this.documentDetails = response.data;
+        let modifiedResponse = this.responseModify(this.documentDetails);
+        console.log(modifiedResponse);
+        this.dataSource = new MatTableDataSource(modifiedResponse);
+        console.log(this.dataSource);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
   responseModify(documentDetails: any) {
     let modifiedResponse: any = {
@@ -91,14 +70,20 @@ export class DocumentVerificationComponent implements OnInit {
       // type : documentDetails.documents[0].type,
       // attachment_type :      documentDetails.documents[0].media.attachment_type,
       aadhaarimg:
+        environment.mediaUrl +
         documentDetails.documents[0].media.doc_front +
         '---' +
+        environment.mediaUrl +
         documentDetails.documents[0].media.doc_back,
       document: documentDetails.documents[0].media.document,
-      user_photo: documentDetails.documents[0].media.user_photo
+      user_photo:
+        environment.mediaUrl + documentDetails.documents[0].media.user_photo
     };
     let responseArray: any[] = [];
     responseArray[0] = modifiedResponse;
     return responseArray;
+  }
+  openDialog(event: string) {
+    console.log(event);
   }
 }
