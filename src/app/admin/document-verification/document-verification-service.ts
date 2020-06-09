@@ -16,16 +16,17 @@ const routes = {
 export class DocumentVerificationService {
   constructor(private httpClient: HttpClient) {}
 
-  getStatus(id: string, member_type: string): Observable<any> {
+  getDocumentStatus(id: string, member_type: string): Observable<any> {
     if (member_type === 'player')
       return this.httpClient.get<any>(routes.getPlayerStatus(id));
-    else return this.httpClient.get<any>(routes.getClubAcademyStatus(id));
+
+    return this.httpClient.get<any>(routes.getClubAcademyStatus(id));
   }
 
-  updateStatus(id: string, member_type: string, data: any) {
+  updateDocumentStatus(id: string, member_type: string, data: any) {
     if (member_type === 'player')
       return this.httpClient.put<any>(routes.updatePlayerStatus(id), data);
-    else
-      return this.httpClient.put<any>(routes.updateClubAcademyStatus(id), data);
+
+    return this.httpClient.put<any>(routes.updateClubAcademyStatus(id), data);
   }
 }

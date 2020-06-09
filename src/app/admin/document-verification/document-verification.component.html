@@ -47,16 +47,12 @@
             [sortEnabled]="true"
             (imgLink)="openDialog($event)"
           ></app-table>
-          <ng-template
-            #ListAction
-            let-type="type"
-            let-account_status="account_status"
-          >
+          <ng-template #ListAction let-account_status="account_status">
             <div class="action-buttons">
               <button
                 [disabled]="documentDetails.documents[0].status === 'approved'"
                 matTooltip="Approve"
-                (click)="approveDocument(type)"
+                (click)="updateDocumentStatus('approved')"
               >
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
@@ -65,7 +61,7 @@
                   documentDetails.documents[0].status === 'disapproved'
                 "
                 matTooltip="Disapprove"
-                (click)="disapproveDocument(type)"
+                (click)="updateDocumentStatus('disapproved')"
               >
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>

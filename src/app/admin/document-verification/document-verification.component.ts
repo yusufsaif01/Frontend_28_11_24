@@ -59,7 +59,7 @@ export class DocumentVerificationComponent implements OnInit {
 
   getDocumentStatus() {
     this._documentVerficationService
-      .getStatus(this.user_id, this.member_type)
+      .getDocumentStatus(this.user_id, this.member_type)
       .subscribe(
         response => {
           this.documentDetails = response.data;
@@ -74,12 +74,11 @@ export class DocumentVerificationComponent implements OnInit {
 
   prepareResponse(data: any) {
     let document = data.documents[0];
-
     let modifiedResponse: Partial<ResponseContext> = {
       player_name: data.player_name ? data.player_name : '',
       name: data.name ? data.name : '',
-      added_on: document.added_on,
       date_of_birth: data.date_of_birth ? data.date_of_birth : '',
+      added_on: document.added_on,
       document_number: document.document_number ? document.document_number : '',
       document_type: document.type ? document.type : '',
       status: document.status,
@@ -98,22 +97,53 @@ export class DocumentVerificationComponent implements OnInit {
     return environment.mediaUrl + documentUrl;
   }
 
-  approveDocument(type: string) {
+  prepareModalData(status: string) {
+    let data = {};
+    let message = '';
+
+    if (status === 'approved') {
+      switch (this.member_type) {
+        case 'player':
+          'Aadhaar details';
+          break;
+        case 'club':
+          'AIFF document details';
+          break;
+        case 'academy':
+          'document details';
+          break;
+      }
+      data = {
+        header: 'Approve',
+        message: `Do you want to approve ${message} of ${this.documentDetails.player_name} player ?`
+      };
+    } else if (status === 'disapproved') {
+      data = {
+        header: 'Disapprove',
+        message: `Please specify a reason for disapproval`
+      };
+    }
+
+    return data;
+  }
+
+  updateDocumentStatus(status: string) {
     const dialogRef = this.dialog.open(VerificationPopupComponent, {
       width: '50% ',
       panelClass: 'filterDialog',
-      data: {
-        header: 'Approve',
-        message: `Do you want to approve aadhaar details of ${this.documentDetails.player_name} player ?`
-      }
+      data: this.prepareModalData(status)
     });
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        let data = {
+          remarks: status === 'disapproved' ? result : ' ',
+          status: status,
+          type: this.documentDetails.documents[0].type
+        };
+
         this._documentVerficationService
-          .updateStatus(this.user_id, this.member_type, {
-            status: 'approved',
-            type: type
-          })
+          .updateDocumentStatus(this.user_id, this.member_type, data)
           .pipe(untilDestroyed(this))
           .subscribe(
             response => {
@@ -124,7 +154,6 @@ export class DocumentVerificationComponent implements OnInit {
               );
             },
             error => {
-              // log.debug(`Login error: ${error}`);
               this._toastrService.error(
                 `${error.error.message}`,
                 'Verification'
@@ -135,43 +164,6 @@ export class DocumentVerificationComponent implements OnInit {
     });
   }
 
-  disapproveDocument(type: string) {
-    const dialogRef = this.dialog.open(VerificationPopupComponent, {
-      width: '50% ',
-      panelClass: 'filterDialog',
-      data: {
-        header: 'Disapprove',
-        message: `Please specify a reason for disapproval`
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this._documentVerficationService
-          .updateStatus(this.user_id, this.member_type, {
-            remarks: result,
-            status: 'disapproved',
-            type: type
-          })
-          .pipe(untilDestroyed(this))
-          .subscribe(
-            response => {
-              this.getDocumentStatus();
-              this._toastrService.success(
-                `Success`,
-                'Status updated successfully'
-              );
-            },
-            error => {
-              // log.debug(`Login error: ${error}`);
-              this._toastrService.error(
-                `${error.error.message}`,
-                'Verification'
-              );
-            }
-          );
-      }
-    });
-  }
   ngOnDestroy() {}
 
   openDialog(event: string) {
