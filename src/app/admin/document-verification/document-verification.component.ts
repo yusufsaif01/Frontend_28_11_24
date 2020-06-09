@@ -54,7 +54,7 @@ export class DocumentVerificationComponent implements OnInit {
   }
 
   getDocumentStatus() {
-    this._documentVerficationService.getDocumentStatus(this.user_id).subscribe(
+    this._documentVerficationService.getPlayerStatus(this.user_id).subscribe(
       response => {
         this.documentDetails = response.data;
         let modifiedResponse = this.prepareResponse(this.documentDetails);
@@ -102,7 +102,10 @@ export class DocumentVerificationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this._documentVerficationService
-          .updateStatus(this.user_id, { status: 'approved', type: 'aadhar' })
+          .updatePlayerStatus(this.user_id, {
+            status: 'approved',
+            type: 'aadhar'
+          })
           .pipe(untilDestroyed(this))
           .subscribe(
             response => {
@@ -136,7 +139,7 @@ export class DocumentVerificationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this._documentVerficationService
-          .updateStatus(this.user_id, {
+          .updatePlayerStatus(this.user_id, {
             remarks: result,
             status: 'disapproved',
             type: 'aadhar'

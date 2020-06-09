@@ -3,8 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const routes = {
-  getDocumentStatus: (id: string) => `/player/${id}/documents`,
-  updateStatus: (id: string) => `/player/${id}/documents/status`
+  getPlayerStatus: (id: string) => `/player/${id}/documents`,
+  updatePlayerStatus: (id: string) => `/player/${id}/documents/status`,
+  getClubAcademyStatus: (id: string) => `/club-academy/${id}/documents`,
+  updateClubAcademyStatus: (id: string) =>
+    `/club-academy/${id}/documents/status`
 };
 
 @Injectable({
@@ -13,11 +16,19 @@ const routes = {
 export class DocumentVerificationService {
   constructor(private httpClient: HttpClient) {}
 
-  updateStatus(id: string, data: any) {
-    return this.httpClient.put<any>(routes.updateStatus(id), data);
+  updatePlayerStatus(id: string, data: any) {
+    return this.httpClient.put<any>(routes.updatePlayerStatus(id), data);
   }
 
-  getDocumentStatus(id: string): Observable<any> {
-    return this.httpClient.get<any>(routes.getDocumentStatus(id));
+  getPlayerStatus(id: string): Observable<any> {
+    return this.httpClient.get<any>(routes.getPlayerStatus(id));
+  }
+
+  updateClubAcademyStatus(id: string, data: any) {
+    return this.httpClient.put<any>(routes.updateClubAcademyStatus(id), data);
+  }
+
+  getClubAcademyStatus(id: string): Observable<any> {
+    return this.httpClient.get<any>(routes.getClubAcademyStatus(id));
   }
 }
