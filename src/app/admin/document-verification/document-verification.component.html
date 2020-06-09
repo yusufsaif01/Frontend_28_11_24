@@ -18,7 +18,11 @@
         <div class="breadcrumb">
           <ul>
             <li>Dashboard</li>
-            <li>Manage Player</li>
+            <ng-container [ngSwitch]="member_type">
+              <li *ngSwitchCase="'player'">Manage Player</li>
+              <li *ngSwitchCase="'club'">Manage Club</li>
+              <li *ngSwitchCase="'academy'">Manage Academy</li>
+            </ng-container>
             <li>Document Verification</li>
           </ul>
         </div>
@@ -27,7 +31,11 @@
 
       <div class="middle-part">
         <div class="heading">
-          <h2>Aadhaar Verification</h2>
+          <ng-container [ngSwitch]="member_type">
+            <h2 *ngSwitchCase="'player'">Aadhaar Verification</h2>
+            <h2 *ngSwitchCase="'club'">AIFF Accreditation Verification</h2>
+            <h2 *ngSwitchCase="'academy'">Document Verification</h2>
+          </ng-container>
         </div>
         <!-- table -->
         <div class="table-container">
