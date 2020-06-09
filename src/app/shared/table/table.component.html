@@ -12,6 +12,8 @@
         <p
           *ngIf="
             col !== 'name' &&
+            col !== 'date_of_birth' &&
+            col !== 'added_on' &&
             col !== 'media' &&
             col !== 'aadhaarimg' &&
             col !== 'document_image' &&
@@ -26,6 +28,11 @@
           "
         >
           {{ tableConfig.columns[col].getValue(element) }}
+        </p>
+        <p *ngIf="col === 'added_on' || col === 'date_of_birth'">
+          {{
+            tableConfig.columns[col].getValue(element) | date: 'dd-LLLL-yyyy'
+          }}
         </p>
         <p
           *ngIf="col === 'name' || col === 'type'"

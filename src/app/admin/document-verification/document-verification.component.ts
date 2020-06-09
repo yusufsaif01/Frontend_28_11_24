@@ -36,7 +36,6 @@ export class DocumentVerificationComponent implements OnInit {
   member_type: string;
   user_id: string;
   documentDetails: any;
-  responsePopulated: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private _documentVerficationService: DocumentVerificationService,
