@@ -11,20 +11,22 @@
       <div>
         <p
           *ngIf="
-            col !== 'name' &&
-            col !== 'date_of_birth' &&
-            col !== 'added_on' &&
-            col !== 'media' &&
-            col !== 'aadhaarimg' &&
-            col !== 'document_image' &&
-            col !== 'profileimg' &&
-            col !== 'type' &&
-            col !== 'email' &&
-            col !== 'status' &&
-            col !== 'avatar' &&
-            col !== 'playerimg' &&
-            col !== 'user_photo' &&
-            col !== 'document'
+            ![
+              'name',
+              'date_of_birth',
+              'added_on',
+              'media',
+              'aadhaarimg',
+              'document_image',
+              'profileimg',
+              'type',
+              'email',
+              'status',
+              'avatar',
+              'playerimg',
+              'user_photo',
+              'document'
+            ].includes(col)
           "
         >
           {{ tableConfig.columns[col].getValue(element) }}
