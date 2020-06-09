@@ -7,8 +7,14 @@ const routes = {
   deleteFootplayer: (id: string) => `/footplayers/${id}`,
   findPlayer: (query: string) => `/footplayer/search${query}`,
   sendFootPlayerRequest: () => '/footplayer/request',
-  sendFootPlayerInvite: () => '/footplayer/invite'
+  sendFootPlayerInvite: () => '/footplayer/invite',
+  resendFootPlayerInvite: (params: string) =>
+    `/footplayer/resend-invite/${params}`
 };
+
+interface ResendFootPlayerInviteContext {
+  email: string;
+}
 
 interface SendFootPlayerInviteContext {
   name?: string;
@@ -43,6 +49,7 @@ interface FindPlayerResponseContext {
       position: string;
       is_verified: boolean;
       club_name: string;
+      email: string;
     }[];
   };
 }
@@ -129,6 +136,20 @@ export class FootPlayerService {
   ): Observable<CommonResponseContext> {
     return this.httpClient.post<CommonResponseContext>(
       routes.sendFootPlayerInvite(),
+      context
+    );
+  }
+
+  resendFootPlayerInvite(
+    context: ResendFootPlayerInviteContext
+  ): Observable<CommonResponseContext> {
+    let params = '';
+    if (context['email']) {
+      params += context['email'];
+    }
+
+    return this.httpClient.post<CommonResponseContext>(
+      routes.resendFootPlayerInvite(params),
       context
     );
   }

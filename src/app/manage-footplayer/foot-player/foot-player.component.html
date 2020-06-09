@@ -60,13 +60,13 @@
           let-name="name"
           let-position="position"
           let-status="status"
+          let-email="email"
         >
           <div class="action-buttons">
             <button
               matTooltip="Resend Invitation"
-              (click)="
-                openEditDialog(id, avatar, name, position, category, status)
-              "
+              [disabled]="['Pending', 'Added', 'Rejected'].includes(status)"
+              (click)="resendInvitationPopup(email)"
             >
               <img src="assets/images/icons/refresh01.png" alt="refresh" />
             </button>

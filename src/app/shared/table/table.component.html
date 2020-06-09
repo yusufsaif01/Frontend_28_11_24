@@ -52,11 +52,11 @@
         <p
           *ngIf="col === 'status'"
           [ngClass]="{
-            red: ['non-verified', 'rejected', 'pending'].includes(
+            red: ['non-verified', 'Rejected', 'Pending'].includes(
               element.status
             ),
             black: ['verified'].includes(element.status),
-            green: ['added'].includes(element.status)
+            green: ['Added'].includes(element.status)
           }"
         >
           {{ tableConfig.columns[col].getValue(element) }}
