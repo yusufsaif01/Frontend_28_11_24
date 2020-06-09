@@ -65,7 +65,7 @@
           <div class="action-buttons">
             <button
               matTooltip="Resend Invitation"
-              [disabled]="['Pending', 'Added', 'Rejected'].includes(status)"
+              [disabled]="['pending', 'added', 'rejected'].includes(status)"
               (click)="resendInvitationPopup(email)"
             >
               <img src="assets/images/icons/refresh01.png" alt="refresh" />
