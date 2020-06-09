@@ -11,10 +11,11 @@ const routes = {
   providedIn: 'root'
 })
 export class DocumentVerificationService {
+  constructor(private httpClient: HttpClient) {}
+
   updateStatus(id: string, data: any) {
     return this.httpClient.put<any>(routes.updateStatus(id), data);
   }
-  constructor(private httpClient: HttpClient) {}
 
   getDocumentStatus(id: string): Observable<any> {
     return this.httpClient.get<any>(routes.getDocumentStatus(id));

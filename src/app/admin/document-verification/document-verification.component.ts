@@ -90,19 +90,19 @@ export class DocumentVerificationComponent implements OnInit {
     return responseArray;
   }
 
-  approve(user_id: string) {
+  approveDocument() {
     const dialogRef = this.dialog.open(VerificationPopupComponent, {
       width: '50% ',
       panelClass: 'filterDialog',
       data: {
         header: 'Approve',
-        message: `Do you want to approve aadhaar details of ${this.documentDetails.player_name} player`
+        message: `Do you want to approve aadhaar details of ${this.documentDetails.player_name} player ?`
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this._documentVerficationService
-          .updateStatus(user_id, { status: 'approved' })
+          .updateStatus(this.user_id, { status: 'approved', type: 'aadhar' })
           .pipe(untilDestroyed(this))
           .subscribe(
             response => {
@@ -124,7 +124,7 @@ export class DocumentVerificationComponent implements OnInit {
     });
   }
 
-  disApprove(user_id: string) {
+  disapproveDocument() {
     const dialogRef = this.dialog.open(VerificationPopupComponent, {
       width: '50% ',
       panelClass: 'filterDialog',
@@ -136,7 +136,11 @@ export class DocumentVerificationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this._documentVerficationService
-          .updateStatus(user_id, { remarks: result, status: 'disapproved' })
+          .updateStatus(this.user_id, {
+            remarks: result,
+            status: 'disapproved',
+            type: 'aadhar'
+          })
           .pipe(untilDestroyed(this))
           .subscribe(
             response => {
