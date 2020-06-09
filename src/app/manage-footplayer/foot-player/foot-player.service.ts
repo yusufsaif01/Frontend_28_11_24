@@ -6,8 +6,15 @@ const routes = {
   getFootPlayerList: (query: string) => `/footplayers${query}`,
   deleteFootplayer: (id: string) => `/footplayers/${id}`,
   findPlayer: (query: string) => `/footplayer/search${query}`,
-  sendFootPlayerRequest: () => '/footplayer/request'
+  sendFootPlayerRequest: () => '/footplayer/request',
+  sendFootPlayerInvite: () => '/footplayer/invite'
 };
+
+interface SendFootPlayerInviteContext {
+  name?: string;
+  phone?: string;
+  email: string;
+}
 
 interface CommonResponseContext {
   status: string;
@@ -113,6 +120,15 @@ export class FootPlayerService {
   ): Observable<CommonResponseContext> {
     return this.httpClient.post<CommonResponseContext>(
       routes.sendFootPlayerRequest(),
+      context
+    );
+  }
+
+  sendFootPlayerInvite(
+    context: SendFootPlayerInviteContext
+  ): Observable<CommonResponseContext> {
+    return this.httpClient.post<CommonResponseContext>(
+      routes.sendFootPlayerInvite(),
       context
     );
   }

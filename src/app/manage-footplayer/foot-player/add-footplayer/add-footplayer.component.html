@@ -185,7 +185,7 @@
       </div>
       <div *ngIf="totalRecordSubject$ | async" class="notonportal">
         <h3>Player is not available on YFT Portal</h3>
-        <button>Send Invitation</button>
+        <button (click)="sendFootPlayerInvite()">Send Invitation</button>
       </div>
     </div>
   </div>

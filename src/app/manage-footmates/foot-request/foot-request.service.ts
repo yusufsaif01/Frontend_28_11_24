@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 const routes = {
   getFootRequestList: (c: GetFootRequestList) => '/connection/request/list',
-  acceptFootRequest: () => '/connection/request/accept',
-  rejectFootRequest: () => '/connection/request/reject',
+  acceptFootRequest: (params: string) => `/connection/request/accept/${params}`,
+  rejectFootRequest: (params: string) => `/connection/request/reject/${params}`,
   connectionStats: () => '/connection/stats',
   getFootPlayerRequestList: (query: string) => `/footplayer/requests${query}`,
   acceptFootPlayerRequest: (params: string) =>
@@ -102,12 +102,12 @@ export class FootRequestService {
   acceptRequest(
     context: Partial<RequestContext>
   ): Observable<CommonResponseContext> {
-    let params = '/';
+    let params = '';
 
     if (context['request_id']) {
       params += `${context['request_id']}`;
       return this.httpClient.patch<CommonResponseContext>(
-        routes.acceptFootRequest() + params,
+        routes.acceptFootRequest(params),
         context
       );
     }
@@ -123,12 +123,12 @@ export class FootRequestService {
   rejectRequest(
     context: Partial<RequestContext>
   ): Observable<CommonResponseContext> {
-    let params = '/';
+    let params = '';
 
     if (context['request_id']) {
       params += `${context['request_id']}`;
       return this.httpClient.patch<CommonResponseContext>(
-        routes.rejectFootRequest() + params,
+        routes.rejectFootRequest(params),
         context
       );
     }
