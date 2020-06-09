@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { ToastrService } from 'ngx-toastr';
 import { AddFootplayerComponent } from './add-footplayer/add-footplayer.component';
+import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
 
 @Component({
   selector: 'app-foot-player',
@@ -120,6 +121,40 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
               this._toastrService.error(
                 `${error.error.message}`,
                 'Delete Footplayer'
+              );
+            }
+          );
+      }
+    });
+  }
+
+  resendInvitationPopup(email: string) {
+    const dialogRef = this.dialog.open(StatusConfirmationComponent, {
+      width: '40% ',
+      panelClass: 'filterDialog',
+      data: {
+        header: 'Please confirm',
+        message: 'Do you want to Resend Invitation?',
+        acceptText: 'Yes',
+        rejectText: 'No'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this._footPlayerService
+          .resendFootPlayerInvite({ email })
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this._toastrService.success(
+                `Success`,
+                'Resend Invite successfully'
+              );
+            },
+            error => {
+              this._toastrService.error(
+                `${error.error.message}`,
+                'Resend Invitation'
               );
             }
           );
