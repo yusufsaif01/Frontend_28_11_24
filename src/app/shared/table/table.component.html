@@ -13,10 +13,15 @@
           *ngIf="
             col !== 'name' &&
             col !== 'media' &&
+            col !== 'aadhaarimg' &&
+            col !== 'profileimg' &&
             col !== 'type' &&
             col !== 'email' &&
             col !== 'status' &&
-            col !== 'avatar'
+            col !== 'avatar' &&
+            col !== 'playerimg' &&
+            col !== 'user_photo' &&
+            col !== 'document'
           "
         >
           {{ tableConfig.columns[col].getValue(element) }}
@@ -55,6 +60,11 @@
           }"
         >
           {{ tableConfig.columns[col].getValue(element) }}
+          <!-- <img
+            class="status-icon"
+            src="./../../../assets/images/icons/tick.png"
+            alt=""
+          /> -->
         </p>
         <p *ngIf="col === 'media'">
           <a
@@ -81,6 +91,41 @@
             [src]="tableConfig.columns[col].getValue(element)"
             alt=""
           />
+        </p>
+
+        <p *ngIf="col === 'aadhaarimg'">
+          <a
+            [href]="tableConfig.columns[col].getValue(element).split('---')[0]"
+            target="_blank"
+          >
+            <img
+              class="thumbnail"
+              [src]="tableConfig.columns[col].getValue(element).split('---')[0]"
+              alt=""
+            />
+          </a>
+          <a
+            [href]="tableConfig.columns[col].getValue(element).split('---')[1]"
+            target="_blank"
+          >
+            <img
+              class="thumbnail"
+              [src]="tableConfig.columns[col].getValue(element).split('---')[1]"
+              alt=""
+            />
+          </a>
+        </p>
+        <p *ngIf="col === 'user_photo'">
+          <a
+            href="javascript:void(0);"
+            (click)="openDialog(tableConfig.columns[col].getValue(element))"
+          >
+            <img
+              class="thumbnail"
+              [src]="tableConfig.columns[col].getValue(element)"
+              alt=""
+            />
+          </a>
         </p>
       </div>
     </mat-cell>

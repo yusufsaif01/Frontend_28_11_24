@@ -5,6 +5,11 @@ import { environment } from '@env/environment';
 import { FootPlayerService } from './foot-player.service';
 import { untilDestroyed } from '@app/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material';
+import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { ToastrService } from 'ngx-toastr';
+import { AddFootplayerComponent } from './add-footplayer/add-footplayer.component';
+import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
 
 @Component({
   selector: 'app-foot-player',
@@ -34,13 +39,21 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   isPublic: boolean = false;
   userId: string;
 
-  constructor(private _footPlayerService: FootPlayerService) {}
+  constructor(
+    private _footPlayerService: FootPlayerService,
+    public dialog: MatDialog,
+    private _toastrService: ToastrService
+  ) {}
 
   ngOnInit() {
     this.getFootPlayerList(this.pageSize, 1);
   }
 
   ngOnDestroy() {}
+
+  getMemberType(value: string) {
+    this.member_type = value;
+  }
 
   updatePage(event: any) {
     this.selectedPage = event.selectedPage;
@@ -64,5 +77,88 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   applyFilter(event: any) {
     let filterValue = event.target.value;
     this.getFootPlayerList(this.pageSize, 1, filterValue);
+  }
+
+  // AddPlayerPopUp
+  onaddfootplayer(): void {
+    let data = {
+      member_type: this.member_type
+    };
+    const dialogRef = this.dialog.open(AddFootplayerComponent, {
+      width: '99%',
+      data: {
+        ...data
+      }
+    });
+  }
+  // delete
+  deletePopup(id: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '40% ',
+      panelClass: 'filterDialog',
+      data: {
+        message: 'Are you sure you want to delete?',
+        acceptText: 'Yes',
+        rejectText: 'No'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this._footPlayerService
+          .deleteFootPlayer(id)
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this._toastrService.success(
+                `Success`,
+                'FootPlayer deleted successfully'
+              );
+              this.getFootPlayerList(this.pageSize, 1);
+            },
+            error => {
+              // log.debug(`Login error: ${error}`);
+
+              this._toastrService.error(
+                `${error.error.message}`,
+                'Delete Footplayer'
+              );
+            }
+          );
+      }
+    });
+  }
+
+  resendInvitationPopup(email: string) {
+    const dialogRef = this.dialog.open(StatusConfirmationComponent, {
+      width: '40% ',
+      panelClass: 'filterDialog',
+      data: {
+        header: 'Please confirm',
+        message: 'Do you want to Resend Invitation?',
+        acceptText: 'Yes',
+        rejectText: 'No'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this._footPlayerService
+          .resendFootPlayerInvite({ email })
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this._toastrService.success(
+                `Success`,
+                'Resend Invite successfully'
+              );
+            },
+            error => {
+              this._toastrService.error(
+                `${error.error.message}`,
+                'Resend Invitation'
+              );
+            }
+          );
+      }
+    });
   }
 }

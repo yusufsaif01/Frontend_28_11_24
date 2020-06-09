@@ -3,8 +3,56 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const routes = {
-  getFootPlayerList: (query: string) => `/footplayers${query}`
+  getFootPlayerList: (query: string) => `/footplayers${query}`,
+  deleteFootplayer: (id: string) => `/footplayers/${id}`,
+  findPlayer: (query: string) => `/footplayer/search${query}`,
+  sendFootPlayerRequest: () => '/footplayer/request',
+  sendFootPlayerInvite: () => '/footplayer/invite',
+  resendFootPlayerInvite: (params: string) =>
+    `/footplayer/resend-invite/${params}`
 };
+
+interface ResendFootPlayerInviteContext {
+  email: string;
+}
+
+interface SendFootPlayerInviteContext {
+  name?: string;
+  phone?: string;
+  email: string;
+}
+
+interface CommonResponseContext {
+  status: string;
+  message: string;
+}
+
+interface sendFootPlayerRequestContext {
+  to: string;
+}
+interface FindPlayerContext {
+  name: string;
+  email: string;
+  phone: string;
+}
+interface FindPlayerResponseContext {
+  status: string;
+  message: string;
+  data: {
+    total: number;
+    records: {
+      user_id: string;
+      avatar: string;
+      name: string;
+      member_type: string;
+      category: string;
+      position: string;
+      is_verified: boolean;
+      club_name: string;
+      email: string;
+    }[];
+  };
+}
 
 interface GetFootPlayerListResponseContext {
   status: string;
@@ -50,6 +98,59 @@ export class FootPlayerService {
     }
     return this.httpClient.get<GetFootPlayerListResponseContext>(
       routes.getFootPlayerList(query)
+    );
+  }
+  deleteFootPlayer(id: string) {
+    return this.httpClient.delete<any>(routes.deleteFootplayer(id));
+  }
+
+  findPlayer(
+    context: FindPlayerContext
+  ): Observable<FindPlayerResponseContext> {
+    let query = '?';
+    if (context['email']) {
+      query += 'email=' + context['email'];
+    }
+    if (context['phone']) {
+      query += '&phone=' + context['phone'];
+    }
+    if (context['name']) {
+      query += '&name=' + context['name'];
+    }
+    return this.httpClient.get<FindPlayerResponseContext>(
+      routes.findPlayer(query)
+    );
+  }
+
+  sendFootPlayerRequest(
+    context: sendFootPlayerRequestContext
+  ): Observable<CommonResponseContext> {
+    return this.httpClient.post<CommonResponseContext>(
+      routes.sendFootPlayerRequest(),
+      context
+    );
+  }
+
+  sendFootPlayerInvite(
+    context: SendFootPlayerInviteContext
+  ): Observable<CommonResponseContext> {
+    return this.httpClient.post<CommonResponseContext>(
+      routes.sendFootPlayerInvite(),
+      context
+    );
+  }
+
+  resendFootPlayerInvite(
+    context: ResendFootPlayerInviteContext
+  ): Observable<CommonResponseContext> {
+    let params = '';
+    if (context['email']) {
+      params += context['email'];
+    }
+
+    return this.httpClient.post<CommonResponseContext>(
+      routes.resendFootPlayerInvite(params),
+      context
     );
   }
 }

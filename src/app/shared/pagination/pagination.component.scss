@@ -2,7 +2,7 @@
 
 // paginations
 .pagination-wrapper {
-  width: 96.5%;
+  width: 95%;
   margin: 2rem auto;
   display: flex;
   justify-content: space-between;
@@ -10,18 +10,22 @@
   padding: 2rem;
   background-color: $color-white;
   box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+
   .showing-data {
     p {
       font-size: 1.8rem;
       color: $text-color;
     }
   }
+
   .pagination {
     ul {
       list-style: none;
+
       li {
         display: inline-block;
         margin: 0 1rem;
+
         a {
           color: $text-color;
           font-weight: 700;
@@ -31,6 +35,7 @@
           border-radius: 3rem;
           box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
         }
+
         .active {
           background: #117ab5;
           color: white;

@@ -5,6 +5,7 @@
     <app-left-panel
       [options]="panelOptions"
       (sendFootData)="getConnectionStats($event)"
+      (sendProfileStatus)="getProfileStatus($event)"
     ></app-left-panel>
   </div>
   <div class="right-section">
@@ -23,64 +24,104 @@
         >FootMates <span>{{ foot_data.footmates }}</span></a
       >
     </div>
+
+    <div class="tab-buttons">
+      <a
+        (click)="getType('player')"
+        [ngClass]="requested_by === 'player' ? 'active' : ''"
+        >Player's FootRequests</a
+      >
+      <a
+        (click)="getType('club')"
+        [ngClass]="requested_by === 'club' ? 'active' : ''"
+        >Club's FootRequests</a
+      >
+      <a
+        (click)="getType('academy')"
+        [ngClass]="requested_by === 'academy' ? 'active' : ''"
+        >Academy's FootRequests</a
+      >
+    </div>
+
     <div class="playerwrapper">
-      <ng-container *ngFor="let footRequest of footRequestList">
+      <ng-container *ngFor="let request of requestList">
         <div class="playerbox">
           <div class="top">
             <div class="dp">
-              <img [src]="footRequest.avatar" alt="" />
+              <img [src]="request.avatar" alt="" />
             </div>
             <div class="name">
-              <strong [routerLink]="['/profile', footRequest.user_id]">{{
-                footRequest.name
+              <strong [routerLink]="['/profile', request.user_id]">{{
+                request.name
               }}</strong>
-              <p>{{ footRequest.position }}</p>
+              <p>{{ request.position }}</p>
             </div>
           </div>
           <div class="middle">
-            <h4 class="gray">{{ footRequest.player_type }}</h4>
-            <h4 *ngIf="footRequest.mutuals">
-              <a (click)="openDialog(footRequest)"
-                >{{ footRequest.mutuals }} Mutual Footmates</a
+            <h4 class="gray">
+              {{ request.player_type || request.sub_category }}
+            </h4>
+            <h4 *ngIf="request.mutuals">
+              <a (click)="openDialog(request)"
+                >{{ request.mutuals }} Mutual Footmates</a
               >
             </h4>
           </div>
-          <div class="bottom">
-            <ng-container *ngIf="footRequest.hide !== true">
-              <button (click)="acceptFootRequest(footRequest)" class="accepted">
+          <div
+            [matTooltip]="
+              requested_by !== 'player' && profile_status == 'non-verified'
+                ? 'Verify your documents in order to Accept/ Reject the request'
+                : ''
+            "
+            class="bottom"
+          >
+            <ng-container *ngIf="request.hide !== true">
+              <button
+                [disabled]="
+                  requested_by !== 'player' && profile_status == 'non-verified'
+                "
+                (click)="acceptRequest(request)"
+                class="accepted"
+              >
                 <i-feather class="icon-size" name="user-check"></i-feather>
                 Accept
               </button>
-              <button (click)="rejectFootRequest(footRequest)" class="rejected">
+              <button
+                [disabled]="
+                  requested_by !== 'player' && profile_status == 'non-verified'
+                "
+                (click)="rejectRequest(request)"
+                class="rejected"
+              >
                 <i-feather class="icon-size" name="user-x"></i-feather>Reject
               </button>
             </ng-container>
-            <ng-container *ngIf="footRequest.hide === true">
+            <ng-container *ngIf="request.hide === true">
               <button
                 [ngClass]="{
-                  accepted: footRequest.accepted,
-                  rejected: !footRequest.accepted
+                  accepted: request.accepted,
+                  rejected: !request.accepted
                 }"
               >
                 <i-feather
                   class="icon-size"
-                  [name]="footRequest.accepted ? 'user-check' : 'user-x'"
+                  [name]="request.accepted ? 'user-check' : 'user-x'"
                 ></i-feather>
-                {{ footRequest.accepted ? 'Accepted' : 'Rejected' }}
+                {{ request.accepted ? 'Accepted' : 'Rejected' }}
               </button>
             </ng-container>
           </div>
         </div>
       </ng-container>
     </div>
-    <ng-container *ngIf="footRequestList.length === 0">
+    <ng-container *ngIf="requestList.length === 0">
       <span class="no-data-found">
         No Foot Requests Found
       </span>
     </ng-container>
     <!-- pagination -->
     <app-pagination
-      *ngIf="footRequestList.length !== 0"
+      *ngIf="requestList.length !== 0"
       [showData]="false"
       [showCount]="show_count"
       [totalRows]="foot_data.footmate_requests"
