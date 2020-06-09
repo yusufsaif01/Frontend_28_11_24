@@ -38,6 +38,7 @@ export class FootRequestComponent implements OnInit, OnDestroy {
   show_count: number = 0;
   selectedPage: number;
   requested_by: string = 'player';
+  profile_status: string = '';
 
   requestList: Partial<RequestContext>[] = [];
 
@@ -172,5 +173,9 @@ export class FootRequestComponent implements OnInit, OnDestroy {
         );
         break;
     }
+  }
+
+  getProfileStatus(profile_status: string) {
+    this.profile_status = profile_status;
   }
 }

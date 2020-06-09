@@ -76,6 +76,20 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       );
   }
 
+  sendFootPlayerInvite() {
+    let formValues = this.findPlayerForm.value;
+    Object.keys(formValues).forEach(
+      key => formValues[key] == '' && delete formValues[key]
+    );
+    this._footPlayerService
+      .sendFootPlayerInvite(formValues)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {},
+        error => {}
+      );
+  }
+
   getToolTip(is_verified: boolean, club_name: string, member_type: string) {
     if (['club', 'academy'].includes(member_type)) {
       return 'These details are for club/ academy';
