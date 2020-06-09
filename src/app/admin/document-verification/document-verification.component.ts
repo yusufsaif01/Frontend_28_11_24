@@ -9,6 +9,20 @@ import { untilDestroyed } from '@app/core';
 import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
 import { environment } from '@env/environment';
 
+interface ResponseContext {
+  added_on: string;
+  date_of_birth: string;
+  name: string;
+  player_name: string;
+  document_type: string;
+  document_image: string;
+  document_number: string;
+  status: string;
+  aadhaarimg: string;
+  document: string;
+  user_photo: string;
+}
+
 @Component({
   selector: 'app-document-verification',
   templateUrl: './document-verification.component.html',
@@ -16,21 +30,10 @@ import { environment } from '@env/environment';
 })
 export class DocumentVerificationComponent implements OnInit {
   public sideBarToggle: boolean = true;
-  public tableConfig: DocumentVerificationTableConfig = new DocumentVerificationTableConfig();
+  public tableConfig: DocumentVerificationTableConfig;
   public dataSource = new MatTableDataSource([]);
-  // [ // Dummy response, commented for now
-  //   {
-  //     serialNumber: 1,
-  //     name: 'Rasik Lal',
-  //     dob: '3 June 1990',
-  //     addedon: '12 May 2020',
-  //     aadhaarno: '9889-8998-8983',
-  //     aadhaarimg: '',
-  //     playerimg: '',
-  //     status: '',
-  //     action: ''
-  //   }
-  // ]
+
+  member_type: string;
   user_id: string;
   documentDetails: any;
   responsePopulated: boolean = false;
@@ -42,6 +45,8 @@ export class DocumentVerificationComponent implements OnInit {
   ) {
     this.activatedRoute.params.subscribe(param => {
       this.user_id = param.id;
+      this.member_type = param.member_type;
+      this.tableConfig = new DocumentVerificationTableConfig(this.member_type);
     });
   }
 
@@ -54,43 +59,47 @@ export class DocumentVerificationComponent implements OnInit {
   }
 
   getDocumentStatus() {
-    this._documentVerficationService.getPlayerStatus(this.user_id).subscribe(
-      response => {
-        this.documentDetails = response.data;
-        let modifiedResponse = this.prepareResponse(this.documentDetails);
-        this.dataSource = new MatTableDataSource(modifiedResponse);
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this._documentVerficationService
+      .getStatus(this.user_id, this.member_type)
+      .subscribe(
+        response => {
+          this.documentDetails = response.data;
+          let modifiedResponse = this.prepareResponse(this.documentDetails);
+          this.dataSource = new MatTableDataSource([modifiedResponse]);
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
-  prepareResponse(documentDetails: any) {
-    let modifiedResponse: any = {
-      added_on: documentDetails.documents[0].added_on,
-      date_of_birth: documentDetails.date_of_birth,
-      player_name: documentDetails.player_name,
-      document_number: documentDetails.documents[0].document_number,
-      status: documentDetails.documents[0].status,
-      // type : documentDetails.documents[0].type,
-      // attachment_type :      documentDetails.documents[0].media.attachment_type,
+  prepareResponse(data: any) {
+    let document = data.documents[0];
+
+    let modifiedResponse: Partial<ResponseContext> = {
+      player_name: data.player_name ? data.player_name : '',
+      name: data.name ? data.name : '',
+      added_on: document.added_on,
+      date_of_birth: data.date_of_birth ? data.date_of_birth : '',
+      document_number: document.document_number ? document.document_number : '',
+      document_type: document.type ? document.type : '',
+      status: document.status,
       aadhaarimg:
-        environment.mediaUrl +
-        documentDetails.documents[0].media.doc_front +
+        this.attachDocumentUrl(document.media.doc_front) +
         '---' +
-        environment.mediaUrl +
-        documentDetails.documents[0].media.doc_back,
-      document: documentDetails.documents[0].media.document,
-      user_photo:
-        environment.mediaUrl + documentDetails.documents[0].media.user_photo
+        this.attachDocumentUrl(document.media.doc_back),
+      document_image: this.attachDocumentUrl(document.media.document),
+      user_photo: this.attachDocumentUrl(document.media.user_photo)
     };
-    let responseArray: any[] = [];
-    responseArray[0] = modifiedResponse;
-    return responseArray;
+
+    return modifiedResponse;
   }
 
-  approveDocument() {
+  attachDocumentUrl(documentUrl: string) {
+    return environment.mediaUrl + documentUrl;
+  }
+
+  approveDocument(type: string) {
     const dialogRef = this.dialog.open(VerificationPopupComponent, {
       width: '50% ',
       panelClass: 'filterDialog',
@@ -102,9 +111,9 @@ export class DocumentVerificationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this._documentVerficationService
-          .updatePlayerStatus(this.user_id, {
+          .updateStatus(this.user_id, this.member_type, {
             status: 'approved',
-            type: 'aadhar'
+            type: type
           })
           .pipe(untilDestroyed(this))
           .subscribe(
@@ -127,7 +136,7 @@ export class DocumentVerificationComponent implements OnInit {
     });
   }
 
-  disapproveDocument() {
+  disapproveDocument(type: string) {
     const dialogRef = this.dialog.open(VerificationPopupComponent, {
       width: '50% ',
       panelClass: 'filterDialog',
@@ -139,10 +148,10 @@ export class DocumentVerificationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this._documentVerficationService
-          .updatePlayerStatus(this.user_id, {
+          .updateStatus(this.user_id, this.member_type, {
             remarks: result,
             status: 'disapproved',
-            type: 'aadhar'
+            type: type
           })
           .pipe(untilDestroyed(this))
           .subscribe(
@@ -165,6 +174,7 @@ export class DocumentVerificationComponent implements OnInit {
     });
   }
   ngOnDestroy() {}
+
   openDialog(event: string) {
     console.log(event);
   }

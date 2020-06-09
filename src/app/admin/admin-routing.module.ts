@@ -44,7 +44,7 @@ const appRoutes: Routes = [
         data: { title: extract('Manage Academy') }
       },
       {
-        path: 'document-verification/:id',
+        path: 'document-verification/:id/:member_type',
         component: DocumentVerificationComponent,
         data: { title: extract('Document Verification') }
       },

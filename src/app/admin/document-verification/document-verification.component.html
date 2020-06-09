@@ -39,12 +39,16 @@
             [sortEnabled]="true"
             (imgLink)="openDialog($event)"
           ></app-table>
-          <ng-template #ListAction let-account_status="account_status">
+          <ng-template
+            #ListAction
+            let-type="type"
+            let-account_status="account_status"
+          >
             <div class="action-buttons">
               <button
                 [disabled]="documentDetails.documents[0].status === 'approved'"
                 matTooltip="Approve"
-                (click)="approveDocument()"
+                (click)="approveDocument(type)"
               >
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
@@ -53,7 +57,7 @@
                   documentDetails.documents[0].status === 'disapproved'
                 "
                 matTooltip="Disapprove"
-                (click)="disapproveDocument()"
+                (click)="disapproveDocument(type)"
               >
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
@@ -61,18 +65,6 @@
           </ng-template>
         </div>
       </div>
-
-      <!-- pagination -->
-      <!-- <app-pagination
-        [showData]="true"
-        [showCount]="show_count"
-        [totalRows]="players_count"
-        [rowsPerPage]="pageSize"
-        [selectedPage]="selectedPage"
-        (onChange)="updatePage($event)"
-      >
-      </app-pagination> -->
-      <!-- pagination end here -->
     </div>
   </div>
 </mat-drawer-container>
