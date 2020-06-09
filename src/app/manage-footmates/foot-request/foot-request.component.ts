@@ -17,7 +17,6 @@ interface RequestContext {
   sub_category: string;
   accepted: boolean;
   hide: boolean;
-  profile_status: string;
 }
 @Component({
   selector: 'app-footrequest',
@@ -140,9 +139,6 @@ export class FootRequestComponent implements OnInit, OnDestroy {
             records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
           }
           this.requestList = records;
-          this.requestList.forEach(request => {
-            request.profile_status = this.profile_status;
-          });
           this.show_count = response.data.records.length;
           this.foot_data.footmate_requests = response.data.total;
           this.selectedPage = page_no;
