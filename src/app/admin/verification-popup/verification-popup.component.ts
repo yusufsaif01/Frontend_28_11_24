@@ -13,11 +13,17 @@ export class VerificationPopupComponent implements OnInit {
   public rejectText: string = 'Cancel';
   disApprove: boolean = false;
   disApproveReason: string = '';
+  imageMode: boolean = false;
+  imageURL: string = '';
 
   constructor(
     private dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) data: any
   ) {
+    if (data.imageURL) {
+      this.imageMode = true;
+      this.imageURL = data.imageURL;
+    }
     if (data.header) {
       this.header = data.header;
     }

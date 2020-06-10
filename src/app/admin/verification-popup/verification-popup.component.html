@@ -1,4 +1,4 @@
-<div class="form-container">
+<div class="form-container" *ngIf="!imageMode">
   <div class="modal-header">
     <div class="heading">
       <h4>{{ header }}</h4>
@@ -30,4 +30,8 @@
       <button class="cancel" mat-dialog-close>{{ rejectText }}</button>
     </div>
   </div>
+</div>
+
+<div class="form-container" *ngIf="imageMode">
+  <img [src]="imageURL" alt="" />
 </div>

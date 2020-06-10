@@ -167,6 +167,10 @@ export class DocumentVerificationComponent implements OnInit {
   ngOnDestroy() {}
 
   openDialog(event: string) {
-    console.log(event);
+    this.dialog.open(VerificationPopupComponent, {
+      width: '40%',
+      autoFocus: false,
+      data: { imageURL: event }
+    });
   }
 }
