@@ -33,5 +33,19 @@
 </div>
 
 <div class="form-container" *ngIf="imageMode">
-  <img [src]="imageURL" alt="" />
+  <div class="modal-header">
+    <div class="heading">
+      <h4>Player Image</h4>
+    </div>
+    <div class="close">
+      <img
+        src="assets/images/icons/close-white.png"
+        alt=""
+        [mat-dialog-close]="false"
+      />
+    </div>
+  </div>
+  <div class="img-wrapper">
+    <img [src]="imageURL" alt="" />
+  </div>
 </div>
