@@ -1,18 +1,40 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
 
 export class DocumentVerificationTableConfig extends TableConfig {
-  constructor() {
+  constructor(member_type: string) {
     super();
-    this.allowedColumns = [
-      'serialNumber',
-      'player_name',
-      'date_of_birth',
-      'added_on',
-      'document_number',
-      'aadhaarimg',
-      'user_photo',
-      'status'
-    ];
+    console.log('Type of member', member_type);
+    if (member_type === 'player') {
+      this.allowedColumns = [
+        'serialNumber',
+        'player_name',
+        'date_of_birth',
+        'added_on',
+        'document_number',
+        'aadhaarimg',
+        'user_photo',
+        'status'
+      ];
+    } else if (member_type === 'club') {
+      this.allowedColumns = [
+        'serialNumber',
+        'name',
+        'added_on',
+        'document_number',
+        'document_image',
+        'status'
+      ];
+    } else if (member_type === 'academy') {
+      this.allowedColumns = [
+        'serialNumber',
+        'name',
+        'added_on',
+        'document_type',
+        'document_number',
+        'document_image',
+        'status'
+      ];
+    }
 
     this.columns = {
       serialNumber: {
@@ -20,6 +42,13 @@ export class DocumentVerificationTableConfig extends TableConfig {
         text: 'S No.',
         getValue: (ele: any) => {
           return ele[this.columns.serialNumber.code];
+        }
+      },
+      name: {
+        code: 'name',
+        text: member_type === 'club' ? 'Club Name' : 'Academy Name',
+        getValue: (ele: any) => {
+          return ele[this.columns.name.code];
         }
       },
       player_name: {
@@ -43,11 +72,25 @@ export class DocumentVerificationTableConfig extends TableConfig {
           return ele[this.columns.added_on.code];
         }
       },
+      document_type: {
+        code: 'document_type',
+        text: 'Document Type',
+        getValue: (ele: any) => {
+          return ele[this.columns.document_type.code];
+        }
+      },
       document_number: {
         code: 'document_number',
-        text: 'Aadhaar No',
+        text: 'Document Number',
         getValue: (ele: any) => {
           return ele[this.columns.document_number.code];
+        }
+      },
+      document_image: {
+        code: 'document_image',
+        text: 'Document Image',
+        getValue: (ele: any) => {
+          return ele[this.columns.document_image.code];
         }
       },
       aadhaarimg: {
@@ -57,20 +100,6 @@ export class DocumentVerificationTableConfig extends TableConfig {
           return ele[this.columns.aadhaarimg.code];
         }
       },
-      // doc_front: {
-      //   code: 'doc_front',
-      //   text: 'Aadhaar Front Image',
-      //   getValue: (ele: any) => {
-      //     return ele[this.columns.doc_front.code];
-      //   }
-      // },
-      // doc_back: {
-      //   code: 'doc_back',
-      //   text: 'Aadhaar Back Image',
-      //   getValue: (ele: any) => {
-      //     return ele[this.columns.doc_back.code];
-      //   }
-      // },
       user_photo: {
         code: 'user_photo',
         text: 'Player Image',

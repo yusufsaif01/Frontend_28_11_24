@@ -102,7 +102,10 @@
             let-account_status="account_status"
           >
             <div class="action-buttons">
-              <button matTooltip="View">
+              <button
+                matTooltip="View"
+                [routerLink]="['/admin/document-verification', user_id, 'club']"
+              >
                 <img src="assets/images/icons/eyes.png" alt="Edit" />
               </button>
               <button

@@ -70,6 +70,7 @@ export class TableComponent implements OnInit, OnChanges {
     }
     return data;
   }
+
   openDialog(imgLink: string) {
     this.imgLink.emit(imgLink);
   }

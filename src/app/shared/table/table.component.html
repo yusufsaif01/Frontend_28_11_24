@@ -11,20 +11,30 @@
       <div>
         <p
           *ngIf="
-            col !== 'name' &&
-            col !== 'media' &&
-            col !== 'aadhaarimg' &&
-            col !== 'profileimg' &&
-            col !== 'type' &&
-            col !== 'email' &&
-            col !== 'status' &&
-            col !== 'avatar' &&
-            col !== 'playerimg' &&
-            col !== 'user_photo' &&
-            col !== 'document'
+            ![
+              'name',
+              'date_of_birth',
+              'added_on',
+              'media',
+              'aadhaarimg',
+              'document_image',
+              'profileimg',
+              'type',
+              'email',
+              'status',
+              'avatar',
+              'playerimg',
+              'user_photo',
+              'document'
+            ].includes(col)
           "
         >
           {{ tableConfig.columns[col].getValue(element) }}
+        </p>
+        <p *ngIf="col === 'added_on' || col === 'date_of_birth'">
+          {{
+            tableConfig.columns[col].getValue(element) | date: 'dd-LLLL-yyyy'
+          }}
         </p>
         <p
           *ngIf="col === 'name' || col === 'type'"
@@ -95,6 +105,7 @@
 
         <p *ngIf="col === 'aadhaarimg'">
           <a
+            *ngIf="tableConfig.columns[col].getValue(element).includes('---')"
             [href]="tableConfig.columns[col].getValue(element).split('---')[0]"
             target="_blank"
           >
@@ -105,6 +116,7 @@
             />
           </a>
           <a
+            *ngIf="tableConfig.columns[col].getValue(element).includes('---')"
             [href]="tableConfig.columns[col].getValue(element).split('---')[1]"
             target="_blank"
           >
@@ -113,6 +125,13 @@
               [src]="tableConfig.columns[col].getValue(element).split('---')[1]"
               alt=""
             />
+          </a>
+          <a
+            *ngIf="!tableConfig.columns[col].getValue(element).includes('---')"
+            [href]="tableConfig.columns[col].getValue(element)"
+            target="_blank"
+          >
+            <img class="thumbnail" src="assets/images/pdf.png" alt="" />
           </a>
         </p>
         <p *ngIf="col === 'user_photo'">

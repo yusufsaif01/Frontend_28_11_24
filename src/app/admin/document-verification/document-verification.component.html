@@ -18,7 +18,11 @@
         <div class="breadcrumb">
           <ul>
             <li>Dashboard</li>
-            <li>Manage Player</li>
+            <ng-container [ngSwitch]="member_type">
+              <li *ngSwitchCase="'player'">Manage Player</li>
+              <li *ngSwitchCase="'club'">Manage Club</li>
+              <li *ngSwitchCase="'academy'">Manage Academy</li>
+            </ng-container>
             <li>Document Verification</li>
           </ul>
         </div>
@@ -27,7 +31,11 @@
 
       <div class="middle-part">
         <div class="heading">
-          <h2>Aadhaar Verification</h2>
+          <ng-container [ngSwitch]="member_type">
+            <h2 *ngSwitchCase="'player'">Aadhaar Verification</h2>
+            <h2 *ngSwitchCase="'club'">AIFF Accreditation Verification</h2>
+            <h2 *ngSwitchCase="'academy'">Document Verification</h2>
+          </ng-container>
         </div>
         <!-- table -->
         <div class="table-container">
@@ -39,34 +47,28 @@
             [sortEnabled]="true"
             (imgLink)="openDialog($event)"
           ></app-table>
-          <ng-template
-            #ListAction
-            let-user_id="user_id"
-            let-account_status="account_status"
-          >
+          <ng-template #ListAction let-account_status="account_status">
             <div class="action-buttons">
-              <button matTooltip="Approve">
+              <button
+                [disabled]="documentDetails.documents[0].status === 'approved'"
+                matTooltip="Approve"
+                (click)="updateDocumentStatus('approved')"
+              >
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button matTooltip="Disapprove" (click)="deletePopup(user_id)">
+              <button
+                [disabled]="
+                  documentDetails.documents[0].status === 'disapproved'
+                "
+                matTooltip="Disapprove"
+                (click)="updateDocumentStatus('disapproved')"
+              >
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>
           </ng-template>
         </div>
       </div>
-
-      <!-- pagination -->
-      <!-- <app-pagination
-        [showData]="true"
-        [showCount]="show_count"
-        [totalRows]="players_count"
-        [rowsPerPage]="pageSize"
-        [selectedPage]="selectedPage"
-        (onChange)="updatePage($event)"
-      >
-      </app-pagination> -->
-      <!-- pagination end here -->
     </div>
   </div>
 </mat-drawer-container>
