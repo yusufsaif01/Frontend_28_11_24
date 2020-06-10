@@ -13,8 +13,9 @@
           <h3 *ngIf="member_type === 'club' || member_type === 'academy'">
             {{ profile?.name | titlecase }}
           </h3>
-          <p>
+          <p [ngClass]="{ green: profile_status === 'verified' }">
             <i-feather name="alert-circle" class="icon-size"></i-feather>
+
             {{ profile_status === 'verified' ? 'Verified' : 'Not Verified' }}
           </p>
           <div class="add-btn">
@@ -658,16 +659,16 @@
             </ng-container>
             <div class="from-block"></div>
 
-            <!-- <div
-              [matTooltip]="
-                profile_status === 'verified'
-                  ? 'Not allowed to update aadhaar details'
-                  : ''
-              "
-            > -->
             <!-- Aadhaar Image Type -->
             <div class="from-block">
-              <label>Aadhaar Image Type <span>*</span></label>
+              <label
+                [matTooltip]="
+                  profile_status === 'verified'
+                    ? 'Not allowed to update aadhaar details'
+                    : ''
+                "
+                >Aadhaar Image Type <span>*</span></label
+              >
               <div class="radio">
                 <label
                   ><input
@@ -693,7 +694,14 @@
               *ngIf="editProfileForm.controls.aadhar_media_type.value == 'pdf'"
             >
               <div class="from-block">
-                <label>Upload Aadhaar <span>*</span></label>
+                <label
+                  [matTooltip]="
+                    profile_status === 'verified'
+                      ? 'Not allowed to update aadhaar details'
+                      : ''
+                  "
+                  >Upload Aadhaar <span>*</span></label
+                >
                 <div class="file-wrapper">
                   <input
                     formControlName="aadhar"
@@ -715,11 +723,10 @@
                 >
                   <span
                     *ngIf="
-                      editProfileForm.controls.aadhar.errors
-                        .requiredFileDocument
+                      editProfileForm.controls.aadhar.errors.requiredPdfDocument
                     "
                     translate
-                    >Aadhaar must be of type PDF / PNG / JPG / JPEG</span
+                    >Aadhaar must be of type PDF</span
                   >
                 </mat-error>
               </div>
@@ -732,7 +739,14 @@
             >
               <!-- Upload   -->
               <div class="from-block">
-                <label>Upload Aadhaar Front <span>*</span></label>
+                <label
+                  [matTooltip]="
+                    profile_status === 'verified'
+                      ? 'Not allowed to update aadhaar details'
+                      : ''
+                  "
+                  >Upload Aadhaar Front <span>*</span></label
+                >
                 <div class="file-wrapper">
                   <input
                     formControlName="aadhar_front"
@@ -740,8 +754,8 @@
                     type="file"
                   />
                   <a
-                    *ngIf="aadhar_url"
-                    href="{{ aadhar_url ? aadhar_url : '' }}"
+                    *ngIf="aadhar_front_url"
+                    href="{{ aadhar_front_url ? aadhar_front_url : '' }}"
                     target="_blank"
                     >View Document</a
                   >
@@ -755,17 +769,24 @@
                   <span
                     *ngIf="
                       editProfileForm.controls.aadhar_front.errors
-                        .requiredFileDocument
+                        .requiredFileAvatar
                     "
                     translate
-                    >Aadhaar must be of type PDF / PNG / JPG / JPEG</span
+                    >Aadhaar Front must be of type PNG / JPG / JPEG</span
                   >
                 </mat-error>
               </div>
 
               <!-- Upload   -->
               <div class="from-block">
-                <label>Upload Aadhaar Back <span>*</span></label>
+                <label
+                  [matTooltip]="
+                    profile_status === 'verified'
+                      ? 'Not allowed to update aadhaar details'
+                      : ''
+                  "
+                  >Upload Aadhaar Back <span>*</span></label
+                >
                 <div class="file-wrapper">
                   <input
                     formControlName="aadhar_back"
@@ -773,8 +794,8 @@
                     type="file"
                   />
                   <a
-                    *ngIf="aadhar_url"
-                    href="{{ aadhar_url ? aadhar_url : '' }}"
+                    *ngIf="aadhar_back_url"
+                    href="{{ aadhar_back_url ? aadhar_back_url : '' }}"
                     target="_blank"
                     >View Document</a
                   >
@@ -788,23 +809,90 @@
                   <span
                     *ngIf="
                       editProfileForm.controls.aadhar_back.errors
-                        .requiredFileDocument
+                        .requiredFileAvatar
                     "
                     translate
-                    >Aadhaar must be of type PDF / PNG / JPG / JPEG</span
+                    >Aadhaar Back must be of type PNG / JPG / JPEG</span
                   >
                 </mat-error>
               </div>
             </ng-container>
 
             <div class="from-block">
-              <label>Aadhaar Number <span>*</span></label>
-              <input formControlName="aadhar_number" type="text" matinput />
+              <label
+                [matTooltip]="
+                  profile_status === 'verified'
+                    ? 'Not allowed to update aadhaar details'
+                    : ''
+                "
+                >Aadhaar Number <span>*</span></label
+              >
+              <input
+                placeholder="Aadhaar Number"
+                formControlName="aadhar_number"
+                type="text"
+                matinput
+              />
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.aadhar_number.invalid &&
+                  editProfileForm.controls.aadhar_number.touched
+                "
+              >
+                <span
+                  translate
+                  class="error-text"
+                  *ngIf="editProfileForm.controls.aadhar_number.errors.required"
+                >
+                  Aadhaar Number is required</span
+                >
+                <ng-template #lengthBlock>
+                  <span
+                    *ngIf="
+                      editProfileForm.controls.aadhar_number.errors.minlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      editProfileForm.controls.aadhar_number.errors.minlength
+                        .requiredLength
+                    }}
+                    characters
+                  </span>
+                  <span
+                    *ngIf="
+                      editProfileForm.controls.aadhar_number.errors.maxlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      editProfileForm.controls.aadhar_number.errors.maxlength
+                        .requiredLength
+                    }}
+                    characters
+                  </span>
+                </ng-template>
+                <span
+                  translate
+                  class="error-text"
+                  *ngIf="
+                    editProfileForm.controls.aadhar_number.errors.pattern;
+                    else lengthBlock
+                  "
+                >
+                  Aadhaar Number is invalid
+                </span>
+              </mat-error>
             </div>
 
             <!-- Player Upload   -->
             <div class="from-block">
               <label
+                [matTooltip]="
+                  profile_status === 'verified'
+                    ? 'Not allowed to update aadhaar details'
+                    : ''
+                "
                 >Player Photo Upload
                 <i-feather
                   matTooltip="This will be used only for verification purpose and will not be visible to anyone"
@@ -815,12 +903,37 @@
               >
               <div class="file-wrapper">
                 <input
+                  [matTooltip]="
+                    profile_status === 'verified'
+                      ? 'Not allowed to update aadhaar details'
+                      : ''
+                  "
                   formControlName="player_photo"
                   (change)="uploadPlayerPhoto($event.target.files)"
                   type="file"
                 />
-                <a>View Document</a>
+                <a
+                  *ngIf="player_photo_url"
+                  href="{{ player_photo_url ? player_photo_url : '' }}"
+                  target="_blank"
+                  >View Document</a
+                >
               </div>
+              <mat-error
+                *ngIf="
+                  editProfileForm.controls.player_photo.errors &&
+                  editProfileForm.controls.player_photo.dirty
+                "
+              >
+                <span
+                  *ngIf="
+                    editProfileForm.controls.player_photo.errors
+                      .requiredFileAvatar
+                  "
+                  translate
+                  >Player Photo must be of type PNG / JPG / JPEG</span
+                >
+              </mat-error>
             </div>
 
             <!-- employee  -->
@@ -1592,8 +1705,8 @@
                 <div class="from-block w-100">
                   <label
                     [matTooltip]="
-                      editProfileForm.controls.document_type.disabled
-                        ? 'Not allowed to change document type'
+                      profile_status === 'verified'
+                        ? 'Not allowed to update details'
                         : ''
                     "
                     >Document Type</label
@@ -1640,8 +1753,8 @@
                 <div class="from-block" *ngIf="member_type === 'academy'">
                   <label
                     [matTooltip]="
-                      editProfileForm.controls.number.disabled
-                        ? 'Not allowed to change document number'
+                      profile_status === 'verified'
+                        ? 'Not allowed to update details'
                         : ''
                     "
                     >Document Number</label
@@ -1702,7 +1815,7 @@
               <div class="from-block" *ngIf="member_type === 'club'">
                 <label>AIFF Accreditation ID <span>*</span></label>
                 <input
-                  formControlName="reg_number"
+                  formControlName="aiff_id"
                   placeholder="Document Number"
                   type="text"
                   matInput
@@ -1748,8 +1861,8 @@
               <div class="from-block" *ngIf="member_type === 'academy'">
                 <label
                   [matTooltip]="
-                    editProfileForm.controls.number.disabled
-                      ? 'Not allowed to change document'
+                    profile_status == 'verified'
+                      ? 'Not allowed to update details'
                       : ''
                   "
                   >Upload Document</label

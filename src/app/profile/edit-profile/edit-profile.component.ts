@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
 import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
 import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
+import { requiredPdfDocument } from '@app/shared/validators/requiredPdfDocument';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '@app/shared/page-components/header/header.component';
 import { EditProfileService } from './edit-profile-service';
@@ -68,7 +69,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   aiff_url: String;
   document_url: String;
   aadhar_url: String;
+  aadhar_front_url: string;
+  aadhar_back_url: string;
   employment_contract_url: String;
+  player_photo_url: String;
 
   profile: any;
   member_type: string = localStorage.getItem('member_type') || 'player';
@@ -126,7 +130,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       'player_photo',
       'employment_contract',
       'dob',
-      'reg_number',
+      'aiff_id',
       'aiff',
       'document_type',
       'document',
@@ -352,24 +356,29 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     const aadhar_front = this.editProfileForm.get('aadhar_front');
     const aadhar_back = this.editProfileForm.get('aadhar_back');
     const aadhar = this.editProfileForm.get('aadhar');
+    const aadhar_media_type = this.editProfileForm.get('aadhar_media_type');
 
+    let aadharImageControl = {
+      aadhar_front: [Validators.required, requiredFileAvatar],
+      aadhar_back: [Validators.required, requiredFileAvatar]
+    };
+    let aadharPdfControl = {
+      aadhar: [Validators.required, requiredPdfDocument]
+    };
     this.editProfileForm
       .get('aadhar_media_type')
       .valueChanges.subscribe(value => {
         if (value == 'image') {
-          this.aadhar = null;
           aadhar_front.setValue('');
           aadhar_back.setValue('');
-          aadhar_front.setValidators([Validators.required, requiredFileAvatar]);
-          aadhar_back.setValidators([Validators.required, requiredFileAvatar]);
-          aadhar.clearValidators();
+          this.setControlValidation(this.editProfileForm, aadharImageControl);
+
+          aadhar.setValidators(null);
         } else if (value == 'pdf') {
-          this.aadhar_front = null;
-          this.aadhar_back = null;
           aadhar.setValue('');
-          aadhar.setValidators([Validators.required, requiredFileDocument]);
-          aadhar_front.clearValidators();
-          aadhar_back.clearValidators();
+          this.setControlValidation(this.editProfileForm, aadharPdfControl);
+          aadhar_front.setValidators(null);
+          aadhar_back.setValidators(null);
         }
         aadhar_front.updateValueAndValidity();
         aadhar_back.updateValueAndValidity();
@@ -425,9 +434,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         }
       });
 
-    // let aadharControl = {
-    //   aadhar: [Validators.required, requiredFileDocument]
-    // };
     let employmentContractControl = {
       employment_contract: [Validators.required, requiredFileDocument]
     };
@@ -446,13 +452,17 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         Validators.pattern(/^\d+$/)
       ]
     };
+    if (aadhar_media_type.value == 'pdf') {
+      this.setControlValidation(this.editProfileForm, aadharPdfControl);
+    } else if (aadhar_media_type.value == 'image') {
+      this.setControlValidation(this.editProfileForm, aadharImageControl);
+    }
 
     this.editProfileForm
       .get('player_type')
       .valueChanges.subscribe(player_type => {
         // if(!this.profile.documents && this.profile.documents[0])
         // aadhar.setValidators([Validators.required, requiredFileDocument]);
-        // this.setControlValidation(this.editProfileForm, aadharControl);
 
         if (player_type === 'professional') {
           // employmentContract.setValidators([
@@ -597,11 +607,20 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   }
 
   editProfile() {
+    let aadhar_media_type = this.editProfileForm.get('aadhar_media_type');
     let requestData = this.toFormData(this.editProfileForm.value);
 
     if (this.member_type === 'player') {
-      if (this.aadhar) requestData.set('aadhar', this.aadhar);
-      else if (this.aadhar_front && this.aadhar_back) {
+      if (aadhar_media_type.value === 'pdf' && this.aadhar) {
+        requestData.set('aadhar', this.aadhar);
+        requestData.delete('aadhar_front');
+        requestData.delete('aadhar_back');
+      } else if (
+        aadhar_media_type.value === 'image' &&
+        this.aadhar_front &&
+        this.aadhar_back
+      ) {
+        requestData.delete('aadhar');
         requestData.set('aadhar_front', this.aadhar_front);
         requestData.set('aadhar_back', this.aadhar_back);
       }
@@ -652,15 +671,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   }
 
   uploadAadhar(files: FileList, type?: string) {
-    console.log(files);
-
-    if (type == 'single') {
-      this.aadhar = files[0];
-      this.aadhar_front = null;
-      this.aadhar_back = null;
-    } else {
-      this.aadhar = null;
-    }
+    if (type == 'single') this.aadhar = files[0];
     if (type == 'front') this.aadhar_front = files[0];
     if (type == 'back') this.aadhar_back = files[0];
   }
@@ -920,7 +931,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         college: [''],
         aadhar: [''], //pdf
         aadhar_number: [
-          '123456789012',
+          '',
           [
             Validators.required,
             Validators.minLength(12),
@@ -928,7 +939,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
             Validators.pattern(/^\d+$/)
           ]
         ], //number
-        aadhar_media_type: ['pdf', [Validators.required]], //string
+        aadhar_media_type: ['', [Validators.required]], //string
         aadhar_front: ['', []], //img
         aadhar_back: ['', []], //img
         player_photo: ['', [Validators.required, requiredFileAvatar]], //img
@@ -952,7 +963,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     } else if (this.member_type === 'club') {
       this.editProfileForm = this._formBuilder.group({
         top_signings: this._formBuilder.array([], []),
-        reg_number: ['', Validators.required],
+        aiff_id: ['', Validators.required],
         aiff: ['', [Validators.required, requiredFileDocument]]
       });
     } else if (this.member_type === 'academy') {
@@ -968,8 +979,20 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   checkFileValidations() {
     if (this.profile.documents) {
       this.profile.documents.forEach((data: any) => {
-        if (data.type === 'aadhar' || data.type === 'employment_contract') {
+        if (data.type === 'employment_contract') {
           this.removeFileValidations(data.type);
+        }
+        if (data.type === 'aiff' && this.member_type == 'club') {
+          this.removeFileValidations(data.type);
+        }
+        if (data.type === 'aadhar') {
+          // this.removeFileValidations('player_photo');
+          if (data.media.attachment_type === 'pdf')
+            this.removeFileValidations('aadhar');
+          if (data.media.attachment_type === 'image') {
+            // this.removeFileValidations('aadhar_front');
+            // this.removeFileValidations('aadhar_back');
+          }
         }
       });
     }
@@ -1078,9 +1101,20 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         this.profile.documents && this.profile.documents.length
           ? this.profile.documents[0].document_number
           : '',
-      reg_number:
+      aiff_id:
         this.profile.documents && this.profile.documents.length
           ? this.profile.documents[0].document_number
+          : '',
+      aadhar_number:
+        this.profile.documents && this.profile.documents.length
+          ? this.profile.documents[0].document_number
+          : '',
+      aadhar_media_type:
+        this.profile.documents &&
+        this.profile.documents.length &&
+        this.profile.documents[0].media &&
+        this.profile.documents[0].media.attachment_type
+          ? this.profile.documents[0].media.attachment_type
           : ''
     });
 
@@ -1103,22 +1137,30 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   populateDocuments() {
     if (this.profile.documents && this.profile.documents.length !== 0) {
       this.profile.documents.forEach((element: any) => {
-        let fileLink = this.environment.mediaUrl + element.link;
+        let fileLink: any = this.environment.mediaUrl;
+        let rootMedia: any = element.media || element.link;
+
         if (element.type === 'aadhar') {
-          this.aadhar_url = fileLink;
+          if (element.media.attachment_type === 'pdf') {
+            this.aadhar_url = fileLink + rootMedia.document;
+          } else if (element.media.attachment_type === 'image') {
+            this.aadhar_front_url = fileLink + rootMedia.doc_front;
+            this.aadhar_back_url = fileLink + rootMedia.doc_back;
+          }
+          this.player_photo_url = fileLink + rootMedia.user_photo;
         }
         if (element.type === 'employment_contract') {
-          this.employment_contract_url = fileLink;
+          this.employment_contract_url = fileLink + rootMedia.document;
         }
         if (element.type === 'aiff') {
-          this.aiff_url = fileLink;
+          this.aiff_url = fileLink + rootMedia.document;
         }
         if (
           element.type !== 'employment_contract' &&
           element.type !== 'aadhar' &&
           element.type !== 'aiff'
         ) {
-          this.document_url = fileLink;
+          this.document_url = fileLink + rootMedia.document;
         }
       });
     }
