@@ -986,12 +986,12 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           this.removeFileValidations(data.type);
         }
         if (data.type === 'aadhar') {
-          // this.removeFileValidations('player_photo');
+          this.removeFileValidations('player_photo');
           if (data.media.attachment_type === 'pdf')
             this.removeFileValidations('aadhar');
           if (data.media.attachment_type === 'image') {
-            // this.removeFileValidations('aadhar_front');
-            // this.removeFileValidations('aadhar_back');
+            this.removeFileValidations('aadhar_front');
+            this.removeFileValidations('aadhar_back');
           }
         }
       });

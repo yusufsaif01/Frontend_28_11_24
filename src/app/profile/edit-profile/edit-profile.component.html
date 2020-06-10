@@ -1823,7 +1823,14 @@
 
               <!-- Upload   -->
               <div class="from-block" *ngIf="member_type === 'club'">
-                <label>AIFF Accreditation ID <span>*</span></label>
+                <label
+                  [matTooltip]="
+                    profile_status == 'verified'
+                      ? 'Not allowed to update details'
+                      : ''
+                  "
+                  >AIFF Accreditation ID <span>*</span></label
+                >
                 <input
                   formControlName="aiff_id"
                   placeholder="Document Number"
@@ -1832,7 +1839,14 @@
                 />
               </div>
               <div class="from-block" *ngIf="member_type === 'club'">
-                <label>Upload AIFF Accreditation Document <span>*</span></label>
+                <label
+                  [matTooltip]="
+                    profile_status == 'verified'
+                      ? 'Not allowed to update details'
+                      : ''
+                  "
+                  >Upload AIFF Accreditation Document <span>*</span></label
+                >
                 <div class="file-wrapper">
                   <input
                     type="file"
