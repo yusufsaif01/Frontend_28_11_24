@@ -130,7 +130,11 @@
             <div class="action-buttons">
               <button
                 matTooltip="View"
-                [routerLink]="['/admin/document-verification', user_id]"
+                [routerLink]="[
+                  '/admin/document-verification',
+                  user_id,
+                  'player'
+                ]"
               >
                 <img src="assets/images/icons/eyes.png" alt="Edit" />
               </button>
