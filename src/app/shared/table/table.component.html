@@ -105,6 +105,7 @@
 
         <p *ngIf="col === 'aadhaarimg'">
           <a
+            *ngIf="tableConfig.columns[col].getValue(element).includes('---')"
             [href]="tableConfig.columns[col].getValue(element).split('---')[0]"
             target="_blank"
           >
@@ -115,6 +116,7 @@
             />
           </a>
           <a
+            *ngIf="tableConfig.columns[col].getValue(element).includes('---')"
             [href]="tableConfig.columns[col].getValue(element).split('---')[1]"
             target="_blank"
           >
@@ -123,6 +125,13 @@
               [src]="tableConfig.columns[col].getValue(element).split('---')[1]"
               alt=""
             />
+          </a>
+          <a
+            *ngIf="!tableConfig.columns[col].getValue(element).includes('---')"
+            [href]="tableConfig.columns[col].getValue(element)"
+            target="_blank"
+          >
+            <img class="thumbnail" src="assets/images/pdf.png" alt="" />
           </a>
         </p>
         <p *ngIf="col === 'user_photo'">

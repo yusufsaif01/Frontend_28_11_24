@@ -82,10 +82,11 @@ export class DocumentVerificationComponent implements OnInit {
       document_number: document.document_number ? document.document_number : '',
       document_type: document.type ? document.type : '',
       status: document.status,
-      aadhaarimg:
-        this.attachDocumentUrl(document.media.doc_front) +
-        '---' +
-        this.attachDocumentUrl(document.media.doc_back),
+      aadhaarimg: document.media.doc_front
+        ? this.attachDocumentUrl(document.media.doc_front) +
+          '---' +
+          this.attachDocumentUrl(document.media.doc_back)
+        : this.attachDocumentUrl(document.media.document),
       document_image: this.attachDocumentUrl(document.media.document),
       user_photo: this.attachDocumentUrl(document.media.user_photo)
     };
