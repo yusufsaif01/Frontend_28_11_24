@@ -116,7 +116,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this.getLocationStats();
   }
 
-  checkVerifiedProfile() {
+  setControlState() {
     let controls = [
       'aadhar',
       'aadhar_front',
@@ -125,11 +125,16 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       'aadhar_media_type',
       'player_photo',
       'employment_contract',
-      'dob'
+      'dob',
+      'reg_number',
+      'aiff',
+      'document_type',
+      'document',
+      'number'
     ];
     if (this.profile_status === 'verified') {
       controls.forEach(control => {
-        if (this.editProfileForm.get(control).enabled) {
+        if (this.editProfileForm.get(control)) {
           this.editProfileForm.get(control).disable();
         }
       });
@@ -242,28 +247,28 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         response => {
           this.profile = response.data;
           this.profile_status = this.profile.profile_status.status;
-          if (this.profile.documents && this.profile.documents.length) {
-            if (this.profile.documents[0].type) {
-              if (this.editProfileForm.controls.reg_number) {
-                this.editProfileForm.controls.aiff.disable();
-                this.editProfileForm.controls.reg_number.setValidators(
-                  Validators.required
-                );
-                this.editProfileForm.controls.reg_number.disable();
-              }
-              if (this.editProfileForm.controls.number) {
-                this.editProfileForm.controls.document.disable();
-                this.editProfileForm.controls.document_type.disable();
-                this.editProfileForm.controls.number.setValidators(
-                  Validators.required
-                );
-                this.editProfileForm.controls.number.disable();
-              }
-            }
-          }
+          // if (this.profile.documents && this.profile.documents.length) {
+          //   if (this.profile.documents[0].type) {
+          //     if (this.editProfileForm.controls.reg_number) {
+          //       this.editProfileForm.controls.aiff.disable();
+          //       this.editProfileForm.controls.reg_number.setValidators(
+          //         Validators.required
+          //       );
+          //       this.editProfileForm.controls.reg_number.disable();
+          //     }
+          //     if (this.editProfileForm.controls.number) {
+          //       this.editProfileForm.controls.document.disable();
+          //       this.editProfileForm.controls.document_type.disable();
+          //       this.editProfileForm.controls.number.setValidators(
+          //         Validators.required
+          //       );
+          //       this.editProfileForm.controls.number.disable();
+          //     }
+          //   }
+          // }
           this.populateFormFields();
           this.populateDocuments();
-          this.checkVerifiedProfile();
+          this.setControlState();
 
           if (
             this.profile.member_type === 'club' ||
@@ -355,8 +360,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           this.aadhar = null;
           aadhar_front.setValue('');
           aadhar_back.setValue('');
-          aadhar_front.setValidators([Validators.required]);
-          aadhar_back.setValidators([Validators.required]);
+          aadhar_front.setValidators([Validators.required, requiredFileAvatar]);
+          aadhar_back.setValidators([Validators.required, requiredFileAvatar]);
           aadhar.clearValidators();
         } else if (value == 'pdf') {
           this.aadhar_front = null;
@@ -647,6 +652,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   }
 
   uploadAadhar(files: FileList, type?: string) {
+    console.log(files);
+
     if (type == 'single') {
       this.aadhar = files[0];
       this.aadhar_front = null;
@@ -924,7 +931,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         aadhar_media_type: ['pdf', [Validators.required]], //string
         aadhar_front: ['', []], //img
         aadhar_back: ['', []], //img
-        player_photo: ['', [Validators.required]], //img
+        player_photo: ['', [Validators.required, requiredFileAvatar]], //img
         employment_contract: ['', []],
         position: this._formBuilder.array([]),
         strong_foot: ['', []],
