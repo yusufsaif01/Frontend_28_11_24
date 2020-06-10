@@ -36,7 +36,7 @@ body {
           justify-content: center;
           align-items: center;
           font-size: 1.8rem;
-          color: $error;
+          // color: $error;
           margin: 2rem 0;
         }
 
@@ -783,4 +783,11 @@ body {
   margin-right: 1rem;
   transform: translate(0.5rem, 0.3rem);
   cursor: pointer;
+}
+
+.green {
+  color: green;
+}
+.red {
+  color: red;
 }

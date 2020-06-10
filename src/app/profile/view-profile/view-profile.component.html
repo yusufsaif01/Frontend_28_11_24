@@ -130,7 +130,13 @@
           <div class="full">
             <p>
               <span>View Player Image : </span>
-              <a>Image</a>
+              <a
+                *ngIf="player_photo_url"
+                href="{{ player_photo_url ? player_photo_url : '' }}"
+                target="_blank"
+              >
+                Image</a
+              >
             </p>
           </div>
         </div>
@@ -139,34 +145,49 @@
           <div class="full">
             <p>
               <span>Aadhaar Number : </span>
-              1390-8989-8989
+              {{ aadhar_number ? aadhar_number : '' }}
             </p>
           </div>
         </div>
 
-        <div class="block-middle border-bottom">
+        <div
+          *ngIf="aadhar_front_url && aadhar_back_url"
+          class="block-middle border-bottom"
+        >
           <div class="half">
             <p>
               <span>View Aadhaar Image Front : </span>
-              <a>Document</a>
+              <a
+                *ngIf="aadhar_front_url"
+                href="{{ aadhar_front_url ? aadhar_front_url : '' }}"
+                target="_blank"
+              >
+                Document</a
+              >
             </p>
           </div>
           <div class="half">
             <p>
               <span>View Aadhaar Image Back : </span>
-              <a>Document</a>
+              <a
+                *ngIf="aadhar_back_url"
+                href="{{ aadhar_back_url ? aadhar_back_url : '' }}"
+                target="_blank"
+              >
+                Document</a
+              >
             </p>
           </div>
         </div>
 
         <ng-container *ngIf="!isPublic">
-          <div class="block-middle border-bottom">
+          <div *ngIf="aadhar_url" class="block-middle border-bottom">
             <div class="full">
               <p>
                 <span>View Aadhaar : </span>
                 <a
-                  *ngIf="aadhar"
-                  href="{{ aadhar ? aadhar : '' }}"
+                  *ngIf="aadhar_url"
+                  href="{{ aadhar_url ? aadhar_url : '' }}"
                   target="_blank"
                 >
                   Document</a
@@ -185,8 +206,10 @@
               <p>
                 <span>View Employment : </span>
                 <a
-                  *ngIf="employment_contract"
-                  href="{{ employment_contract ? employment_contract : '' }}"
+                  *ngIf="employment_contract_url"
+                  href="{{
+                    employment_contract_url ? employment_contract_url : ''
+                  }}"
                   target="_blank"
                   >Document</a
                 >
@@ -437,8 +460,8 @@
               <p>
                 <span>View AIFF Accreditation Document Image : </span>
                 <a
-                  *ngIf="document"
-                  href="{{ document ? document : '' }}"
+                  *ngIf="document_url"
+                  href="{{ document_url ? document_url : '' }}"
                   target="_blank"
                   >Document</a
                 >
@@ -454,7 +477,10 @@
             *ngIf="profile.member_type === 'academy'"
           >
             <div class="full">
-              <p><span>Document Type : </span> Pan</p>
+              <p>
+                <span>Document Type : </span>
+                {{ document_type ? document_type : '' }}
+              </p>
             </div>
           </div>
 
@@ -463,7 +489,9 @@
             *ngIf="profile.member_type === 'academy'"
           >
             <div class="full">
-              <p><span>Document Number : </span> RT908234DFLKJ</p>
+              <p>
+                <span>Document Number : </span> {{ docNumber ? docNumber : '' }}
+              </p>
             </div>
           </div>
 
@@ -475,8 +503,8 @@
               <p>
                 <span>View Document Image : </span>
                 <a
-                  *ngIf="document"
-                  href="{{ document ? document : '' }}"
+                  *ngIf="document_url"
+                  href="{{ document_url ? document_url : '' }}"
                   target="_blank"
                   >Document</a
                 >
