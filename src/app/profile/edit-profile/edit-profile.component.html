@@ -13,8 +13,18 @@
           <h3 *ngIf="member_type === 'club' || member_type === 'academy'">
             {{ profile?.name | titlecase }}
           </h3>
-          <p [ngClass]="{ green: profile_status === 'verified' }">
-            <i-feather name="alert-circle" class="icon-size"></i-feather>
+          <p
+            [ngClass]="{
+              green: profile_status === 'verified',
+              red: profile_status === 'non-verified'
+            }"
+          >
+            <i-feather
+              [name]="
+                profile_status === 'verified' ? 'check-circle' : 'alert-circle'
+              "
+              class="icon-size"
+            ></i-feather>
 
             {{ profile_status === 'verified' ? 'Verified' : 'Not Verified' }}
           </p>

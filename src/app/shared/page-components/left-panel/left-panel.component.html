@@ -20,9 +20,18 @@
         ) | titlecase
       }}
     </h6>
-    <p>
-      <i-feather name="alert-circle" class="icon-size"></i-feather>
-      Not Verified
+    <p
+      [ngClass]="{
+        green: profile_status === 'verified',
+        red: profile_status === 'non-verified'
+      }"
+    >
+      <i-feather
+        [name]="profile_status === 'verified' ? 'check-circle' : 'alert-circle'"
+        class="icon-size"
+      ></i-feather>
+
+      {{ profile_status === 'verified' ? 'Verified' : 'Not Verified' }}
     </p>
   </div>
   <div class="block-middle border-bottom">

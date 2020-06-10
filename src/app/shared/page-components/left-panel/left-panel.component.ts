@@ -42,8 +42,9 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   environment = environment;
   member_type: string = localStorage.getItem('member_type');
   loggedin_userid: string = localStorage.getItem('user_id');
-  @Input() achievements: number = 0;
+  profile_status: string;
 
+  @Input() achievements: number = 0;
   @Input() options: any;
   @Input() userId: string;
   @Input() is_following = false;
@@ -95,6 +96,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
           this.setAvatar();
           this.is_following = this.profile.is_followed;
           this.is_footmate = this.profile.footmate_status;
+          this.profile_status = this.profile.profile_status.status;
           this.sendPlayerType.emit(this.profile.player_type);
           this.sendMemberType.emit(this.profile.member_type);
           this.sendProfileData.emit(this.profile);
