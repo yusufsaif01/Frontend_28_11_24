@@ -15,7 +15,7 @@
           </h3>
           <p>
             <i-feather name="alert-circle" class="icon-size"></i-feather>
-            Not Verified
+            {{ profile_status === 'verified' ? 'Verified' : 'Not Verified' }}
           </p>
           <div class="add-btn">
             <label for="add-image" class="btn upload">
@@ -658,193 +658,213 @@
             </ng-container>
             <div class="from-block"></div>
 
-            <!-- Aadhaar Image Type -->
-            <div class="from-block">
-              <label>Aadhaar Image Type <span>*</span></label>
-              <div class="radio">
+            <div
+              [matTooltip]="
+                profile_status === 'verified'
+                  ? 'Not allowed to update aadhaar details'
+                  : ''
+              "
+            >
+              <!-- Aadhaar Image Type -->
+              <div class="from-block">
+                <label>Aadhaar Image Type <span>*</span></label>
+                <div class="radio">
+                  <label
+                    ><input
+                      type="radio"
+                      formControlName="aadhar_media_type"
+                      value="image"
+                    />
+                    <span>Image Format</span>
+                  </label>
+                  <label
+                    ><input
+                      type="radio"
+                      formControlName="aadhar_media_type"
+                      value="pdf"
+                    />
+                    <span>PDF Format</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Upload   -->
+              <ng-container
+                *ngIf="
+                  editProfileForm.controls.aadhar_media_type.value == 'pdf'
+                "
+              >
+                <div class="from-block">
+                  <label>Upload Aadhaar <span>*</span></label>
+                  <div class="file-wrapper">
+                    <input
+                      formControlName="aadhar"
+                      (change)="uploadAadhar($event.target.files, 'single')"
+                      type="file"
+                    />
+                    <a
+                      *ngIf="aadhar_url"
+                      href="{{ aadhar_url ? aadhar_url : '' }}"
+                      target="_blank"
+                      >View Document</a
+                    >
+                  </div>
+                  <mat-error
+                    *ngIf="
+                      editProfileForm.controls.aadhar.errors &&
+                      editProfileForm.controls.aadhar.dirty
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.aadhar.errors
+                          .requiredFileDocument
+                      "
+                      translate
+                      >Aadhaar must be of type PDF / PNG / JPG / JPEG</span
+                    >
+                  </mat-error>
+                </div>
+              </ng-container>
+
+              <ng-container
+                *ngIf="
+                  editProfileForm.controls.aadhar_media_type.value == 'image'
+                "
+              >
+                <!-- Upload   -->
+                <div class="from-block">
+                  <label>Upload Aadhaar Front <span>*</span></label>
+                  <div class="file-wrapper">
+                    <input
+                      formControlName="aadhar_front"
+                      (change)="uploadAadhar($event.target.files, 'front')"
+                      type="file"
+                    />
+                    <a
+                      *ngIf="aadhar_url"
+                      href="{{ aadhar_url ? aadhar_url : '' }}"
+                      target="_blank"
+                      >View Document</a
+                    >
+                  </div>
+                  <mat-error
+                    *ngIf="
+                      editProfileForm.controls.aadhar_front.errors &&
+                      editProfileForm.controls.aadhar_front.dirty
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.aadhar_front.errors
+                          .requiredFileDocument
+                      "
+                      translate
+                      >Aadhaar must be of type PDF / PNG / JPG / JPEG</span
+                    >
+                  </mat-error>
+                </div>
+
+                <!-- Upload   -->
+                <div class="from-block">
+                  <label>Upload Aadhaar Back <span>*</span></label>
+                  <div class="file-wrapper">
+                    <input
+                      formControlName="aadhar_back"
+                      (change)="uploadAadhar($event.target.files, 'back')"
+                      type="file"
+                    />
+                    <a
+                      *ngIf="aadhar_url"
+                      href="{{ aadhar_url ? aadhar_url : '' }}"
+                      target="_blank"
+                      >View Document</a
+                    >
+                  </div>
+                  <mat-error
+                    *ngIf="
+                      editProfileForm.controls.aadhar_back.errors &&
+                      editProfileForm.controls.aadhar_back.dirty
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        editProfileForm.controls.aadhar_back.errors
+                          .requiredFileDocument
+                      "
+                      translate
+                      >Aadhaar must be of type PDF / PNG / JPG / JPEG</span
+                    >
+                  </mat-error>
+                </div>
+              </ng-container>
+
+              <div class="from-block">
+                <label>Aadhaar Number <span>*</span></label>
+                <input formControlName="aadhar_number" type="text" matinput />
+              </div>
+
+              <!-- Player Upload   -->
+              <div class="from-block">
                 <label
-                  ><input
-                    type="radio"
-                    formControlName="associated_club"
-                    value="Image"
+                  >Player Photo Upload
+                  <i-feather
+                    matTooltip="This will be used only for verification purpose and will not be visible to anyone"
+                    name="info"
+                    class="info"
+                  ></i-feather>
+                  <span>*</span></label
+                >
+                <div class="file-wrapper">
+                  <input
+                    formControlName="player_photo"
+                    (change)="uploadPlayerPhoto($event.target.files)"
+                    type="file"
                   />
-                  <span>Image Format</span>
-                </label>
-                <label
-                  ><input
-                    type="radio"
-                    formControlName="associated_club"
-                    value="PDF"
+                  <a>View Document</a>
+                </div>
+              </div>
+
+              <!-- employee  -->
+              <div class="from-block" *ngIf="player_type === 'professional'">
+                <label>Employment Contract <span>*</span></label>
+                <div class="file-wrapper">
+                  <input
+                    formControlName="employment_contract"
+                    (change)="uploadEmploymentContract($event.target.files)"
+                    type="file"
                   />
-                  <span>PDF Format</span>
-                </label>
-              </div>
-            </div>
+                  <a
+                    *ngIf="employment_contract_url"
+                    href="{{
+                      employment_contract_url ? employment_contract_url : ''
+                    }}"
+                    target="_blank"
+                    >View Document</a
+                  >
+                </div>
 
-            <!-- Upload   -->
-            <div class="from-block">
-              <label>Upload Aadhaar <span>*</span></label>
-              <div class="file-wrapper">
-                <input
-                  formControlName="aadhar"
-                  (change)="uploadAadhar($event.target.files)"
-                  type="file"
-                />
-                <a
-                  *ngIf="aadhar_url"
-                  href="{{ aadhar_url ? aadhar_url : '' }}"
-                  target="_blank"
-                  >View Document</a
-                >
-              </div>
-              <mat-error
-                *ngIf="
-                  editProfileForm.controls.aadhar.errors &&
-                  editProfileForm.controls.aadhar.dirty
-                "
-              >
-                <span
+                <mat-error
                   *ngIf="
-                    editProfileForm.controls.aadhar.errors.requiredFileDocument
+                    editProfileForm.controls.employment_contract.errors &&
+                    editProfileForm.controls.employment_contract.dirty
                   "
-                  translate
-                  >Aadhaar must be of type PDF / PNG / JPG / JPEG</span
                 >
-              </mat-error>
-            </div>
-
-            <!-- Upload   -->
-            <div class="from-block">
-              <label>Upload Aadhaar Front <span>*</span></label>
-              <div class="file-wrapper">
-                <input
-                  formControlName="aadhar"
-                  (change)="uploadAadhar($event.target.files)"
-                  type="file"
-                />
-                <a
-                  *ngIf="aadhar_url"
-                  href="{{ aadhar_url ? aadhar_url : '' }}"
-                  target="_blank"
-                  >View Document</a
-                >
-              </div>
-              <mat-error
-                *ngIf="
-                  editProfileForm.controls.aadhar.errors &&
-                  editProfileForm.controls.aadhar.dirty
-                "
-              >
-                <span
-                  *ngIf="
-                    editProfileForm.controls.aadhar.errors.requiredFileDocument
-                  "
-                  translate
-                  >Aadhaar must be of type PDF / PNG / JPG / JPEG</span
-                >
-              </mat-error>
-            </div>
-
-            <!-- Upload   -->
-            <div class="from-block">
-              <label>Upload Aadhaar Back <span>*</span></label>
-              <div class="file-wrapper">
-                <input
-                  formControlName="aadhar"
-                  (change)="uploadAadhar($event.target.files)"
-                  type="file"
-                />
-                <a
-                  *ngIf="aadhar_url"
-                  href="{{ aadhar_url ? aadhar_url : '' }}"
-                  target="_blank"
-                  >View Document</a
-                >
-              </div>
-              <mat-error
-                *ngIf="
-                  editProfileForm.controls.aadhar.errors &&
-                  editProfileForm.controls.aadhar.dirty
-                "
-              >
-                <span
-                  *ngIf="
-                    editProfileForm.controls.aadhar.errors.requiredFileDocument
-                  "
-                  translate
-                  >Aadhaar must be of type PDF / PNG / JPG / JPEG</span
-                >
-              </mat-error>
-            </div>
-
-            <div class="from-block">
-              <label>Aadhaar Number <span>*</span></label>
-              <input type="text" matinput />
-            </div>
-
-            <!-- Player Upload   -->
-            <div class="from-block">
-              <label
-                >Player Photo Upload
-                <i-feather
-                  matTooltip="This will be used only for verification purpose and will not be visible to anyone"
-                  name="info"
-                  class="info"
-                ></i-feather>
-                <span>*</span></label
-              >
-              <div class="file-wrapper">
-                <input formControlName="aadhar" type="file" />
-                <a>View Document</a>
+                  <span
+                    *ngIf="
+                      editProfileForm.controls.employment_contract.errors
+                        .requiredFileDocument
+                    "
+                    translate
+                    >Employment Contract must be of type PDF / PNG / JPG /
+                    JPEG</span
+                  >
+                </mat-error>
               </div>
             </div>
-
-            <!-- employee  -->
-            <div class="from-block" *ngIf="player_type === 'professional'">
-              <label>Employment Contract <span>*</span></label>
-              <div class="file-wrapper">
-                <input
-                  formControlName="employment_contract"
-                  (change)="uploadEmploymentContract($event.target.files)"
-                  type="file"
-                />
-                <a
-                  *ngIf="employment_contract_url"
-                  href="{{
-                    employment_contract_url ? employment_contract_url : ''
-                  }}"
-                  target="_blank"
-                  >View Document</a
-                >
-              </div>
-
-              <mat-error
-                *ngIf="
-                  editProfileForm.controls.employment_contract.errors &&
-                  editProfileForm.controls.employment_contract.dirty
-                "
-              >
-                <span
-                  *ngIf="
-                    editProfileForm.controls.employment_contract.errors
-                      .requiredFileDocument
-                  "
-                  translate
-                  >Employment Contract must be of type PDF / PNG / JPG /
-                  JPEG</span
-                >
-              </mat-error>
-            </div>
-
-            <!-- <div class="from-block">
-              <label>Employment Number <span>*</span></label>
-              <input type="text" matinput />
-            </div> -->
           </div>
         </div>
-        <!-- <ng-container> {{ editProfileForm.value | json }}</ng-container> -->
-        <!-- <ng-container> {{ editProfileForm.value | json }}</ng-container> -->
-        <!-- {{ editProfileForm.valid }} -->
+
         <!-- Professional -->
         <div class="block">
           <div class="block-header border-bottom">

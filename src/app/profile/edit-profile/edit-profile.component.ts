@@ -60,6 +60,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   document: File;
   aadhar: File;
   employment_contract: File;
+  aadhar_front: File;
+  aadhar_back: File;
+  player_photo: File;
+  profile_status: string;
 
   aiff_url: String;
   document_url: String;
@@ -110,6 +114,26 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this.populateView();
     this.initValidations();
     this.getLocationStats();
+  }
+
+  checkVerifiedProfile() {
+    let controls = [
+      'aadhar',
+      'aadhar_front',
+      'aadhar_back',
+      'aadhar_number',
+      'aadhar_media_type',
+      'player_photo',
+      'employment_contract',
+      'dob'
+    ];
+    if (this.profile_status === 'verified') {
+      controls.forEach(control => {
+        if (this.editProfileForm.get(control).enabled) {
+          this.editProfileForm.get(control).disable();
+        }
+      });
+    }
   }
 
   initValidations() {
@@ -217,6 +241,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.profile = response.data;
+          this.profile_status = this.profile.profile_status.status;
           if (this.profile.documents && this.profile.documents.length) {
             if (this.profile.documents[0].type) {
               if (this.editProfileForm.controls.reg_number) {
@@ -238,6 +263,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           }
           this.populateFormFields();
           this.populateDocuments();
+          this.checkVerifiedProfile();
 
           if (
             this.profile.member_type === 'club' ||
@@ -318,6 +344,32 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     const head_coach_phone = this.editProfileForm.get('head_coach_phone');
     const head_coach_email = this.editProfileForm.get('head_coach_email');
     const head_coach_name = this.editProfileForm.get('head_coach_name');
+    const aadhar_front = this.editProfileForm.get('aadhar_front');
+    const aadhar_back = this.editProfileForm.get('aadhar_back');
+    const aadhar = this.editProfileForm.get('aadhar');
+
+    this.editProfileForm
+      .get('aadhar_media_type')
+      .valueChanges.subscribe(value => {
+        if (value == 'image') {
+          this.aadhar = null;
+          aadhar_front.setValue('');
+          aadhar_back.setValue('');
+          aadhar_front.setValidators([Validators.required]);
+          aadhar_back.setValidators([Validators.required]);
+          aadhar.clearValidators();
+        } else if (value == 'pdf') {
+          this.aadhar_front = null;
+          this.aadhar_back = null;
+          aadhar.setValue('');
+          aadhar.setValidators([Validators.required, requiredFileDocument]);
+          aadhar_front.clearValidators();
+          aadhar_back.clearValidators();
+        }
+        aadhar_front.updateValueAndValidity();
+        aadhar_back.updateValueAndValidity();
+        aadhar.updateValueAndValidity();
+      });
 
     let headCoachControl = {
       head_coach_phone: [
@@ -368,9 +420,9 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         }
       });
 
-    let aadharControl = {
-      aadhar: [Validators.required, requiredFileDocument]
-    };
+    // let aadharControl = {
+    //   aadhar: [Validators.required, requiredFileDocument]
+    // };
     let employmentContractControl = {
       employment_contract: [Validators.required, requiredFileDocument]
     };
@@ -395,7 +447,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       .valueChanges.subscribe(player_type => {
         // if(!this.profile.documents && this.profile.documents[0])
         // aadhar.setValidators([Validators.required, requiredFileDocument]);
-        this.setControlValidation(this.editProfileForm, aadharControl);
+        // this.setControlValidation(this.editProfileForm, aadharControl);
 
         if (player_type === 'professional') {
           // employmentContract.setValidators([
@@ -544,13 +596,21 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     if (this.member_type === 'player') {
       if (this.aadhar) requestData.set('aadhar', this.aadhar);
+      else if (this.aadhar_front && this.aadhar_back) {
+        requestData.set('aadhar_front', this.aadhar_front);
+        requestData.set('aadhar_back', this.aadhar_back);
+      }
+
+      if (this.player_photo) requestData.set('player_photo', this.player_photo);
+
       if (this.player_type === 'professional') {
         if (this.employment_contract)
           requestData.set('employment_contract', this.employment_contract);
       }
       this.setRequestDataObject(requestData, 'position');
 
-      requestData.set('dob', this.editProfileForm.get('dob').value);
+      if (this.profile_status === 'verified') requestData.delete('dob');
+      else requestData.set('dob', this.editProfileForm.get('dob').value);
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
       if (this.member_type === 'club') requestData.set('aiff', this.aiff);
       else requestData.set('document', this.document);
@@ -582,8 +642,20 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       );
   }
 
-  uploadAadhar(files: FileList) {
-    this.aadhar = files[0];
+  uploadPlayerPhoto(files: FileList) {
+    this.player_photo = files[0];
+  }
+
+  uploadAadhar(files: FileList, type?: string) {
+    if (type == 'single') {
+      this.aadhar = files[0];
+      this.aadhar_front = null;
+      this.aadhar_back = null;
+    } else {
+      this.aadhar = null;
+    }
+    if (type == 'front') this.aadhar_front = files[0];
+    if (type == 'back') this.aadhar_back = files[0];
   }
 
   uploadAiff(files: FileList) {
@@ -839,7 +911,20 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         school: ['', []],
         university: [''],
         college: [''],
-        aadhar: ['', []],
+        aadhar: [''], //pdf
+        aadhar_number: [
+          '123456789012',
+          [
+            Validators.required,
+            Validators.minLength(12),
+            Validators.maxLength(12),
+            Validators.pattern(/^\d+$/)
+          ]
+        ], //number
+        aadhar_media_type: ['pdf', [Validators.required]], //string
+        aadhar_front: ['', []], //img
+        aadhar_back: ['', []], //img
+        player_photo: ['', [Validators.required]], //img
         employment_contract: ['', []],
         position: this._formBuilder.array([]),
         strong_foot: ['', []],
