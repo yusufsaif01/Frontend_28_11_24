@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const routes = {
-  getPlayerStatus: (id: string) => `/player/${id}/documents`,
-  updatePlayerStatus: (id: string) => `/player/${id}/documents/status`,
-  getClubAcademyStatus: (id: string) => `/club-academy/${id}/documents`,
+  getPlayerStatus: (id: string) => `/admin/player/${id}/documents`,
+  updatePlayerStatus: (id: string) => `/admin/player/${id}/documents/status`,
+  getClubAcademyStatus: (id: string) => `/admin/club-academy/${id}/documents`,
   updateClubAcademyStatus: (id: string) =>
-    `/club-academy/${id}/documents/status`
+    `/admin/club-academy/${id}/documents/status`
 };
 
 @Injectable({
