@@ -167,19 +167,22 @@
           let-club_name="club_name"
         >
           <div
-            [matTooltip]="getToolTip(is_verified, club_name, member_type)"
+            [matTooltip]="
+              getStateToolTip(is_verified, club_name, member_type).message
+            "
             class="action-buttons"
           >
             <button
               (click)="sendFootPlayerRequest(user_id)"
               [ngClass]="{
-                'btn-disable':
-                  (!is_verified || club_name) &&
-                  (member_type !== 'academy' || own_member_type !== 'academy')
+                'btn-disable': getStateToolTip(
+                  is_verified,
+                  club_name,
+                  member_type
+                ).state
               }"
               [disabled]="
-                (!is_verified || club_name) &&
-                (member_type !== 'academy' || own_member_type !== 'academy')
+                getStateToolTip(is_verified, club_name, member_type).state
               "
               class="save"
             >
@@ -197,3 +200,8 @@
     </div>
   </div>
 </div>
+
+<!-- [ngClass]="{
+  'btn-disable':
+    (!is_verified || club_name) && own_member_type !== 'academy'
+}" -->

@@ -111,18 +111,28 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       );
   }
 
-  getToolTip(is_verified: boolean, club_name: string, member_type: string) {
+  getStateToolTip(
+    is_verified: boolean,
+    club_name: string,
+    member_type: string
+  ) {
     if (['club', 'academy'].includes(member_type)) {
-      return 'These details are for club/ academy';
+      return { message: 'These details are for club/ academy', state: true };
     } else if (
       is_verified &&
       (!club_name || this.own_member_type == 'academy')
     ) {
-      return 'ADD';
+      return { message: 'ADD', state: false };
     } else if (is_verified && club_name) {
-      return `This player is already a member of ${club_name}`;
+      return {
+        message: `This player is already a member of ${club_name}`,
+        state: true
+      };
     } else if (!is_verified) {
-      return 'These details are for not-verified player';
+      return {
+        message: 'These details are for not-verified player',
+        state: true
+      };
     }
   }
 
