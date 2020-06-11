@@ -77,6 +77,11 @@
           >
             <ng-container *ngIf="request.hide !== true">
               <button
+                [ngClass]="{
+                  'btn-disable':
+                    requested_by !== 'player' &&
+                    profile_status == 'non-verified'
+                }"
                 [disabled]="
                   requested_by !== 'player' && profile_status == 'non-verified'
                 "
@@ -87,6 +92,11 @@
                 Accept
               </button>
               <button
+                [ngClass]="{
+                  'btn-disable':
+                    requested_by !== 'player' &&
+                    profile_status == 'non-verified'
+                }"
                 [disabled]="
                   requested_by !== 'player' && profile_status == 'non-verified'
                 "

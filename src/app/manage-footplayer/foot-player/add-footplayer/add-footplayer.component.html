@@ -167,14 +167,22 @@
           let-club_name="club_name"
         >
           <div
-            [matTooltip]="getToolTip(is_verified, club_name, member_type)"
+            [matTooltip]="
+              getStateToolTip(is_verified, club_name, member_type).message
+            "
             class="action-buttons"
           >
             <button
               (click)="sendFootPlayerRequest(user_id)"
+              [ngClass]="{
+                'btn-disable': getStateToolTip(
+                  is_verified,
+                  club_name,
+                  member_type
+                ).state
+              }"
               [disabled]="
-                (!is_verified || club_name) &&
-                (member_type !== 'academy' || own_member_type !== 'academy')
+                getStateToolTip(is_verified, club_name, member_type).state
               "
               class="save"
             >
@@ -185,7 +193,9 @@
       </div>
       <div *ngIf="totalRecordSubject$ | async" class="notonportal">
         <h3>Player is not available on YFT Portal</h3>
-        <button (click)="sendFootPlayerInvite()">Send Invitation</button>
+        <button [mat-dialog-close]="true" (click)="sendFootPlayerInvite()">
+          Send Invitation
+        </button>
       </div>
     </div>
   </div>

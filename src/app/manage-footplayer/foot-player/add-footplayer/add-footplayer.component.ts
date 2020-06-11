@@ -7,6 +7,7 @@ import { FootPlayerService } from '../foot-player.service';
 import { untilDestroyed } from '@app/core';
 import { environment } from '@env/environment';
 import { Subject } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-footplayer',
   templateUrl: './add-footplayer.component.html',
@@ -30,6 +31,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
     private _footPlayerService: FootPlayerService,
     private _formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddFootplayerComponent>,
+    private _toastrService: ToastrService,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     this.createForm();
@@ -61,8 +63,13 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
           this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
           this.total_count = response.data.total;
+          if (!response.data.total) {
+            this._toastrService.error('No player found', 'Find Player');
+          }
         },
-        error => {}
+        error => {
+          this._toastrService.error(`${error.error.message}`, 'Find Player');
+        }
       );
   }
 
@@ -71,8 +78,15 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       .sendFootPlayerRequest({ to: user_id })
       .pipe(untilDestroyed(this))
       .subscribe(
-        response => {},
-        error => {}
+        response => {
+          this._toastrService.success(`Success`, 'Send request successfully');
+        },
+        error => {
+          this._toastrService.error(
+            `${error.error.message}`,
+            'Request Footplayer'
+          );
+        }
       );
   }
 
@@ -85,23 +99,40 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       .sendFootPlayerInvite(formValues)
       .pipe(untilDestroyed(this))
       .subscribe(
-        response => {},
-        error => {}
+        response => {
+          this._toastrService.success('Success', 'Send invite successfully');
+        },
+        error => {
+          this._toastrService.error(
+            `${error.error.message}`,
+            'Invite Footplayer'
+          );
+        }
       );
   }
 
-  getToolTip(is_verified: boolean, club_name: string, member_type: string) {
+  getStateToolTip(
+    is_verified: boolean,
+    club_name: string,
+    member_type: string
+  ) {
     if (['club', 'academy'].includes(member_type)) {
-      return 'These details are for club/ academy';
+      return { message: 'These details are for club/ academy', state: true };
     } else if (
       is_verified &&
       (!club_name || this.own_member_type == 'academy')
     ) {
-      return 'ADD';
+      return { message: 'ADD', state: false };
     } else if (is_verified && club_name) {
-      return `This player is already a member of ${club_name}`;
+      return {
+        message: `This player is already a member of ${club_name}`,
+        state: true
+      };
     } else if (!is_verified) {
-      return 'These details are for not-verified player';
+      return {
+        message: 'These details are for not-verified player',
+        state: true
+      };
     }
   }
 
