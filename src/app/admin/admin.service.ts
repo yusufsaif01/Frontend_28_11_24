@@ -3,26 +3,26 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CredentialsService } from '@app/core';
 const routes = {
-  getPlayerList: (c: CommonContext) => '/member/player/list',
-  getClubList: (c: CommonContext) => '/member/club/list',
-  getAcademyList: (c: CommonContext) => '/member/academy/list',
-  deleteUser: (c: DeleteUserContext) => '/member/delete',
-  activeUser: (c: StatusUserContext) => '/member/status-activate',
-  deactivateUser: (c: StatusUserContext) => '/member/status-deactivate',
-  addState: (c: AddStateContext) => '/master/state/add',
-  addCity: (c: AddCityContext) => '/master/city/add',
-  getMemberTypeList: () => '/member-type/list',
+  getPlayerList: (c: CommonContext) => '/admin/member/player/list',
+  getClubList: (c: CommonContext) => '/admin/member/club/list',
+  getAcademyList: (c: CommonContext) => '/admin/member/academy/list',
+  deleteUser: (c: DeleteUserContext) => '/admin/member/delete',
+  activeUser: (c: StatusUserContext) => '/admin/member/status-activate',
+  deactivateUser: (c: StatusUserContext) => '/admin/member/status-deactivate',
+  addState: (c: AddStateContext) => '/admin/master/state/add',
+  addCity: (c: AddCityContext) => '/admin/master/city/add',
+  getMemberTypeList: () => '/admin/member-type/list',
   addAbility: (c: AddAbilityContext) =>
-    '/master/player-specialization/ability/add',
-  getAbilityList: () => '/master/player-specialization/ability/list',
+    '/admin/master/player-specialization/ability/add',
+  getAbilityList: () => '/admin/master/player-specialization/ability/list',
   updateAbilityById: (c: UpdateAbilityByIdContext) =>
-    '/master/player-specialization/ability',
+    '/admin/master/player-specialization/ability',
   addParameter: (c: AddParameterContext) =>
-    '/master/player-specialization/parameter/add',
+    '/admin/master/player-specialization/parameter/add',
   getParameterListByAbility: (c: GetParameterListContext) =>
-    '/master/player-specialization/parameter/list',
+    '/admin/master/player-specialization/parameter/list',
   updateParameterById: (c: UpdateParameterByIdContext) =>
-    '/master/player-specialization/parameter'
+    '/admin/master/player-specialization/parameter'
 };
 
 interface AddParameterContext {

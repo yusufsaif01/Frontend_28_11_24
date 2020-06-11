@@ -5,7 +5,7 @@ import { CredentialsService } from '@app/core';
 
 const routes = {
   updateCity: (city_id: any, country_id: any, state_id: any) =>
-    `/master/city/${country_id}/${state_id}/${city_id}`
+    `/admin/master/city/${country_id}/${state_id}/${city_id}`
 };
 
 @Injectable({
