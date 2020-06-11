@@ -623,6 +623,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         requestData.delete('aadhar');
         requestData.set('aadhar_front', this.aadhar_front);
         requestData.set('aadhar_back', this.aadhar_back);
+      } else {
+        requestData.delete('aadhar_media_type');
       }
 
       if (this.player_photo) requestData.set('player_photo', this.player_photo);
