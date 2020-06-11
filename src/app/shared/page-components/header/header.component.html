@@ -73,6 +73,35 @@
             </span>
           </a>
         </li>
+        <li *ngIf="member_type === 'club' || member_type === 'academy'">
+          <a matTooltip="FootPlayers" (click)="onchangefootplayer()">
+            <span>
+              <i-feather name="Users" class="icon-size"></i-feather>
+            </span>
+          </a>
+          <div class="dropdown" [hidden]="this.isFootplayerActive">
+            <ul>
+              <li>
+                <a [routerLink]="['/member/manage-footplayer']">
+                  <i-feather name="Settings" class="icon-size"></i-feather>
+                  Manage FootPlayers
+                </a>
+              </li>
+              <li>
+                <a>
+                  <i-feather name="users" class="icon-size"></i-feather>
+                  {{ member_type | titlecase }}'s FootPlayers
+                </a>
+              </li>
+              <li>
+                <a>
+                  <i-feather name="file-text" class="icon-size"></i-feather>
+                  Contract Management
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
         <li>
           <a matTooltip="Footmail">
             <span>
@@ -92,42 +121,46 @@
             <span class="count">6</span>
           </a>
         </li>
+        <li>
+          <div class="profile" (click)="changeDropdown()">
+            <img [src]="avatar_url" alt="" />
+            <i-feather name="chevron-down" class="icon-size down"></i-feather>
+            <div class="dropdown" [hidden]="this.isActive">
+              <ul>
+                <li>
+                  <a [routerLink]="['/member/timeline']">
+                    <i-feather name="home" class="icon-size"></i-feather> Home
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/member/profile/view']">
+                    <i-feather name="user" class="icon-size"></i-feather> My
+                    Profile
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/member/profile/edit']">
+                    <i-feather name="edit" class="icon-size"></i-feather> Edit
+                    Profile
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/change-password']">
+                    <i-feather name="lock" class="icon-size"></i-feather> Change
+                    Password
+                  </a>
+                </li>
+                <li>
+                  <a (click)="logout()">
+                    <i-feather name="log-out" class="icon-size"></i-feather>
+                    Logout
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
       </ul>
-      <div class="profile" (click)="changeDropdown()">
-        <img [src]="avatar_url" alt="" />
-        <i-feather name="chevron-down" class="icon-size down"></i-feather>
-        <div class="dropdown" [hidden]="this.isActive">
-          <ul>
-            <li>
-              <a [routerLink]="['/member/timeline']">
-                <i-feather name="home" class="icon-size"></i-feather> Home
-              </a>
-            </li>
-            <li>
-              <a [routerLink]="['/member/profile/view']">
-                <i-feather name="user" class="icon-size"></i-feather> My Profile
-              </a>
-            </li>
-            <li>
-              <a [routerLink]="['/member/profile/edit']">
-                <i-feather name="edit" class="icon-size"></i-feather> Edit
-                Profile
-              </a>
-            </li>
-            <li>
-              <a [routerLink]="['/change-password']">
-                <i-feather name="lock" class="icon-size"></i-feather> Change
-                Password
-              </a>
-            </li>
-            <li>
-              <a (click)="logout()">
-                <i-feather name="log-out" class="icon-size"></i-feather> Logout
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
   </div>
 </header>

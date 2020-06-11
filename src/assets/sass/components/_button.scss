@@ -1,4 +1,5 @@
 @import "src/assets/sass/abstracts/variables";
+
 .btn {
   border: 0.1em solid $color-black;
   background: $blue;
@@ -8,18 +9,39 @@
   font-size: 1.8rem;
   outline: none;
   cursor: pointer;
+
   &-block {
     width: 100%;
     display: block;
   }
+
   &-gredient {
     color: $color-white;
     border-color: $color-primary;
     background-color: $blue;
   }
+
   &-primary {
     color: $color-white;
     border-color: $color-primary;
     background: $color-primary;
+  }
+}
+
+.btn-disable {
+  pointer-events: none;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.4;
+}
+
+.icon-disable {
+  pointer-events: none;
+  cursor: not-allowed;
+  user-select: none;
+
+  img {
+    filter: grayscale(1);
+    opacity: 0.4;
   }
 }

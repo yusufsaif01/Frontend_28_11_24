@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { CredentialsService } from '@app/core';
 
 const routes = {
-  getPositionList: () => '/master/player-specialization/position/list'
+  getPositionList: () => '/admin/master/player-specialization/position/list'
 };
 
 @Injectable({

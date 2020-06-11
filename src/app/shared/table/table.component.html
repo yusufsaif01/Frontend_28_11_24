@@ -11,14 +11,30 @@
       <div>
         <p
           *ngIf="
-            col !== 'name' &&
-            col !== 'media' &&
-            col !== 'type' &&
-            col !== 'email' &&
-            col !== 'status'
+            ![
+              'name',
+              'date_of_birth',
+              'added_on',
+              'media',
+              'aadhaarimg',
+              'document_image',
+              'profileimg',
+              'type',
+              'email',
+              'status',
+              'avatar',
+              'playerimg',
+              'user_photo',
+              'document'
+            ].includes(col)
           "
         >
           {{ tableConfig.columns[col].getValue(element) }}
+        </p>
+        <p *ngIf="col === 'added_on' || col === 'date_of_birth'">
+          {{
+            tableConfig.columns[col].getValue(element) | date: 'dd-LLLL-yyyy'
+          }}
         </p>
         <p
           *ngIf="col === 'name' || col === 'type'"
@@ -46,11 +62,19 @@
         <p
           *ngIf="col === 'status'"
           [ngClass]="{
-            red: element.status === 'non-verified',
-            black: element.status === 'verified'
+            red: ['non-verified', 'rejected', 'pending'].includes(
+              element.status
+            ),
+            black: ['verified'].includes(element.status),
+            green: ['added'].includes(element.status)
           }"
         >
           {{ tableConfig.columns[col].getValue(element) }}
+          <!-- <img
+            class="status-icon"
+            src="./../../../assets/images/icons/tick.png"
+            alt=""
+          /> -->
         </p>
         <p *ngIf="col === 'media'">
           <a
@@ -67,6 +91,57 @@
                   ? 'assets/images/pdf.png'
                   : tableConfig.columns[col].getValue(element)
               "
+              alt=""
+            />
+          </a>
+        </p>
+        <p *ngIf="col === 'avatar'">
+          <img
+            class="thumbnail"
+            [src]="tableConfig.columns[col].getValue(element)"
+            alt=""
+          />
+        </p>
+
+        <p *ngIf="col === 'aadhaarimg'">
+          <a
+            *ngIf="tableConfig.columns[col].getValue(element).includes('---')"
+            [href]="tableConfig.columns[col].getValue(element).split('---')[0]"
+            target="_blank"
+          >
+            <img
+              class="thumbnail"
+              [src]="tableConfig.columns[col].getValue(element).split('---')[0]"
+              alt=""
+            />
+          </a>
+          <a
+            *ngIf="tableConfig.columns[col].getValue(element).includes('---')"
+            [href]="tableConfig.columns[col].getValue(element).split('---')[1]"
+            target="_blank"
+          >
+            <img
+              class="thumbnail"
+              [src]="tableConfig.columns[col].getValue(element).split('---')[1]"
+              alt=""
+            />
+          </a>
+          <a
+            *ngIf="!tableConfig.columns[col].getValue(element).includes('---')"
+            [href]="tableConfig.columns[col].getValue(element)"
+            target="_blank"
+          >
+            <img class="thumbnail" src="assets/images/pdf.png" alt="" />
+          </a>
+        </p>
+        <p *ngIf="col === 'user_photo'">
+          <a
+            href="javascript:void(0);"
+            (click)="openDialog(tableConfig.columns[col].getValue(element))"
+          >
+            <img
+              class="thumbnail"
+              [src]="tableConfig.columns[col].getValue(element)"
               alt=""
             />
           </a>

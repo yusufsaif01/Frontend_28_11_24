@@ -126,16 +126,71 @@
           </div>
         </div>
 
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>View Player Image : </span>
+              <a
+                *ngIf="player_photo_url"
+                href="{{ player_photo_url ? player_photo_url : '' }}"
+                target="_blank"
+              >
+                Image</a
+              >
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Aadhaar Number : </span>
+              {{ aadhar_number ? aadhar_number : '' }}
+            </p>
+          </div>
+        </div>
+
+        <div
+          *ngIf="aadhar_front_url && aadhar_back_url"
+          class="block-middle border-bottom"
+        >
+          <div class="half">
+            <p>
+              <span>View Aadhaar Image Front : </span>
+              <a
+                *ngIf="aadhar_front_url"
+                href="{{ aadhar_front_url ? aadhar_front_url : '' }}"
+                target="_blank"
+              >
+                Document</a
+              >
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>View Aadhaar Image Back : </span>
+              <a
+                *ngIf="aadhar_back_url"
+                href="{{ aadhar_back_url ? aadhar_back_url : '' }}"
+                target="_blank"
+              >
+                Document</a
+              >
+            </p>
+          </div>
+        </div>
+
         <ng-container *ngIf="!isPublic">
-          <div class="block-middle border-bottom">
+          <div *ngIf="aadhar_url" class="block-middle border-bottom">
             <div class="full">
               <p>
-                <span>View Adhaar : </span>
+                <span>View Aadhaar : </span>
                 <a
-                  *ngIf="aadhar"
-                  href="{{ aadhar ? aadhar : '' }}"
+                  *ngIf="aadhar_url"
+                  href="{{ aadhar_url ? aadhar_url : '' }}"
                   target="_blank"
-                  >Document</a
+                >
+                  Document</a
                 >
               </p>
             </div>
@@ -151,8 +206,10 @@
               <p>
                 <span>View Employment : </span>
                 <a
-                  *ngIf="employment_contract"
-                  href="{{ employment_contract ? employment_contract : '' }}"
+                  *ngIf="employment_contract_url"
+                  href="{{
+                    employment_contract_url ? employment_contract_url : ''
+                  }}"
                   target="_blank"
                   >Document</a
                 >
@@ -382,23 +439,75 @@
             </p>
           </div>
         </div>
-
+        <!-- clubs AIFFS status  -->
         <ng-container *ngIf="!isPublic">
-          <div class="block-middle border-bottom">
-            <div class="half">
+          <div
+            class="block-middle border-bottom "
+            *ngIf="profile.member_type === 'club'"
+          >
+            <div class="full">
               <p>
-                <span>View Document Status : </span>
+                <span>AIFF Accreditation ID : </span
+                >{{ docNumber ? docNumber : '' }}
+              </p>
+            </div>
+          </div>
+          <div
+            class="block-middle border-bottom"
+            *ngIf="profile.member_type === 'club'"
+          >
+            <div class="full">
+              <p>
+                <span>View AIFF Accreditation Document Image : </span>
                 <a
-                  *ngIf="document"
-                  href="{{ document ? document : '' }}"
+                  *ngIf="document_url"
+                  href="{{ document_url ? document_url : '' }}"
                   target="_blank"
                   >Document</a
                 >
               </p>
             </div>
-            <div class="half">
+          </div>
+        </ng-container>
+
+        <!-- Academy document status -->
+        <ng-container *ngIf="!isPublic">
+          <div
+            class="block-middle border-bottom "
+            *ngIf="profile.member_type === 'academy'"
+          >
+            <div class="full">
               <p>
-                <span>Document Number : </span>{{ docNumber ? docNumber : '' }}
+                <span>Document Type : </span>
+                {{ document_type ? document_type : '' }}
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="block-middle border-bottom "
+            *ngIf="profile.member_type === 'academy'"
+          >
+            <div class="full">
+              <p>
+                <span>Document Number : </span> {{ docNumber ? docNumber : '' }}
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="block-middle border-bottom"
+            *ngIf="profile.member_type === 'academy'"
+          >
+            <div class="full">
+              <p>
+                <span>View Document Image : </span>
+                <a
+                  *ngIf="document_url"
+                  href="{{ document_url ? document_url : '' }}"
+                  target="_blank"
+                  >Document</a
+                >
               </p>
             </div>
           </div>

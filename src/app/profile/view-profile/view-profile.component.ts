@@ -14,13 +14,19 @@ export class ViewProfileComponent implements OnInit {
   environment = environment;
   profile: any;
   numbers: any;
-  aadhar: string;
-  employment_contract: string;
-  document: string;
+  aadhar_url: string;
+  aadhar_number: string;
+  aadhar_front_url: string;
+  aadhar_back_url: string;
+  player_photo_url: string;
+  employment_contract_url: string;
+  document_url: string;
+  document_type: string;
   panelOptions: Partial<PanelOptions> = {
     player_type: false,
     logout_link: true,
     achievements: true,
+    footplayers: true,
     is_public: false
   };
   docNumber: string;
@@ -49,7 +55,6 @@ export class ViewProfileComponent implements OnInit {
 
   logout() {
     this._authenticationService.logout();
-    this._router.navigateByUrl('/login');
   }
 
   getProfile(data: object) {
@@ -61,19 +66,29 @@ export class ViewProfileComponent implements OnInit {
   setDocuments() {
     if (this.profile.documents && this.profile.documents.length !== 0) {
       this.profile.documents.forEach((element: any) => {
-        let fileLink = this.environment.mediaUrl + element.link;
+        let fileLink: any = this.environment.mediaUrl;
+        let rootMedia: any = element.media;
+
         if (element.type === 'aadhar') {
-          this.aadhar = fileLink;
+          this.aadhar_number = element.document_number;
+          if (element.media.attachment_type === 'pdf') {
+            this.aadhar_url = fileLink + rootMedia.document;
+          } else if (element.media.attachment_type === 'image') {
+            this.aadhar_front_url = fileLink + rootMedia.doc_front;
+            this.aadhar_back_url = fileLink + rootMedia.doc_back;
+          }
+          this.player_photo_url = fileLink + rootMedia.user_photo;
         }
         if (element.type === 'employment_contract') {
-          this.employment_contract = fileLink;
+          this.employment_contract_url = fileLink + rootMedia.document;
         }
         if (
           element.type !== 'employment_contract' &&
           element.type !== 'aadhar'
         ) {
-          this.document = fileLink;
+          this.document_url = fileLink + rootMedia.document;
           this.docNumber = element.document_number;
+          this.document_type = element.type;
         }
       });
     }

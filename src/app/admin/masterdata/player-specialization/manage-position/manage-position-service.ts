@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 import { CredentialsService } from '@app/core';
 
 const routes = {
-  updatePosition: (id: any) => `/master/player-specialization/position/${id}`,
-  getPositionList: () => `/master/player-specialization/position/list`,
-  getAbilitiesList: () => `/master/player-specialization/ability/list`,
-  addPosition: () => `/master/player-specialization/position/add`
+  updatePosition: (id: any) =>
+    `/admin/master/player-specialization/position/${id}`,
+  getPositionList: () => `/admin/master/player-specialization/position/list`,
+  getAbilitiesList: () => `/admin/master/player-specialization/ability/list`,
+  addPosition: () => `/admin/master/player-specialization/position/add`
 };
 
 @Injectable({

@@ -1,9 +1,11 @@
 @import "src/assets/sass/abstracts/variables";
 @import "src/assets/sass/abstracts/mixins";
 @import url("https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&display=swap");
+
 body {
   background: red !important;
 }
+
 .wrapper {
   width: 85%;
   max-width: 180rem;
@@ -13,12 +15,14 @@ body {
 
   .left-section {
     width: 30%;
+
     .block-design {
       margin-top: 3rem;
       padding: 2rem;
       border: 1px solid $border-color;
       background-color: $color-white;
       border-radius: 0.8rem;
+
       .profile-section {
         // max-width: 23rem;
         width: 100%;
@@ -26,73 +30,87 @@ body {
         margin: 0rem auto;
         padding: 3rem;
         text-align: center;
+
         p {
           display: flex;
           justify-content: center;
           align-items: center;
           font-size: 1.8rem;
-          color: $error;
+          // color: $error;
           margin: 2rem 0;
         }
+
         h3 {
           font-size: 2.4rem;
           text-align: center;
           margin: 1.5rem auto 1rem;
           word-wrap: break-word;
         }
+
         img {
           width: 100%;
           border-radius: 30rem;
           max-width: 180px;
           max-height: 180px;
         }
+
         .add-btn {
           display: flex;
           justify-content: center;
           margin: 3rem auto 0;
           max-width: 15rem;
+
           .btn {
             max-width: 3rem;
             margin: 0 auto;
             color: #fff;
             position: relative;
             min-height: 5rem;
+
             span {
               position: absolute;
               top: 1.3rem;
               left: 2rem;
             }
           }
+
           .upload {
             background-color: #117a8b;
             border-color: #10707f;
           }
+
           .delete {
             background-color: $error;
             border-color: $error;
           }
+
           input {
             display: none;
           }
         }
       }
     }
+
     .block {
       margin-top: 3rem;
       background: $color-white;
       border-radius: 0.5rem;
+
       .block-heading {
         padding: 2rem;
+
         h4 {
           font-size: 2.4rem;
           margin-bottom: 0.5rem;
         }
+
         p {
           margin-bottom: 0px;
           font-size: 1.8rem;
           color: $text-muted;
           word-break: break-all;
         }
+
         textarea {
           width: 100%;
           display: block;
@@ -102,8 +120,10 @@ body {
           resize: none;
         }
       }
+
       .block-middle {
         padding: 2rem;
+
         label {
           width: 100%;
           display: block;
@@ -112,6 +132,7 @@ body {
           font-weight: 700;
           margin-bottom: 0.8rem;
         }
+
         textarea {
           width: 100%;
           display: block;
@@ -120,16 +141,19 @@ body {
           padding: 1rem;
           resize: none;
         }
+
         .social-link {
           margin-bottom: 1rem;
           width: 100%;
           position: relative;
+
           input {
             width: 100%;
             padding: 1rem 1rem 1rem 5rem;
             border: 1px solid $border-color;
             border-radius: 0.5rem;
           }
+
           .icon {
             position: absolute;
             top: 1.2rem;
@@ -137,8 +161,10 @@ body {
           }
         }
       }
+
       .block-bottom {
         padding: 2rem;
+
         button {
           width: 100%;
           color: $blue;
@@ -150,11 +176,13 @@ body {
           font-size: 2rem;
           border-radius: 0.8rem;
           border: 2px solid transparent;
+
           &:hover {
             color: $blue;
             background-color: $color-white;
             border: 2px solid $blue;
           }
+
           &:disabled {
             @include disable;
             background-color: #b7b9bb;
@@ -168,26 +196,32 @@ body {
   .right-section {
     width: 68%;
     margin-left: 4rem;
+
     .block {
       background-color: $color-white;
       border-radius: 0.8rem;
+
       .block-header {
         padding: 2rem;
         margin-top: 3rem;
+
         h4 {
           font-size: 2.4rem;
           margin-bottom: 0.5rem;
         }
+
         p {
           font-size: 1.8rem;
           color: $text-muted;
         }
       }
+
       .block-middle {
         padding: 2rem;
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
+
         .radio {
           display: flex;
           // max-width:40rem;
@@ -200,27 +234,32 @@ body {
             align-items: center;
             font-size: 1.8rem;
             font-weight: 700;
+
             input {
               margin-right: 0.5rem;
             }
           }
         }
+
         .from-block,
         .from-block-full {
           width: 48%;
           padding-bottom: 2rem;
           position: relative;
           margin-bottom: 1rem;
+
           label {
             display: block;
             margin-bottom: 1rem;
             margin-left: 0.5rem;
             font-size: 1.8rem;
             font-weight: 500;
+
             span {
               color: $error;
             }
           }
+
           input,
           select {
             width: 100%;
@@ -228,10 +267,12 @@ body {
             border-radius: 0.8rem;
             padding: 1.2rem 2rem;
             outline: none;
+
             &:focus {
               border: 1px solid $blue;
             }
           }
+
           select {
             appearance: none;
             background-image: url("../../../assets/icons/sort.svg");
@@ -239,10 +280,12 @@ body {
             background-repeat: no-repeat;
             background-position: calc(100% - 1rem) center;
           }
+
           .file-wrapper {
             display: flex;
             width: 100%;
             align-items: center;
+
             input[type="file"] {
               border: none;
               padding: 1.2rem 0rem;
@@ -250,6 +293,7 @@ body {
               margin-right: 2rem;
               cursor: pointer;
             }
+
             a {
               color: $blue;
               font-size: 2rem;
@@ -257,60 +301,74 @@ body {
               text-decoration: none;
             }
           }
+
           .double-input {
             display: flex;
+
             .height-input {
               width: 44%;
               margin-right: 2rem;
               position: relative;
               padding-bottom: 2rem;
+
               select,
               input {
                 width: 100%;
               }
+
               .mat-error {
                 position: static;
+
                 span {
                   position: absolute;
                   width: 100%;
                   bottom: 0rem;
                   left: 0rem;
                 }
+
                 span.min-max-height {
                   bottom: -2rem;
                 }
               }
             }
           }
+
           .datepicker {
             width: 100%;
+
             input {
               background: url("../../../assets/icons/calendar.svg");
               background-size: 2rem 2rem;
               background-repeat: no-repeat;
               background-position: calc(100% - 1rem) center;
             }
+
             .mat-datepicker-toggle {
               position: absolute;
               top: 2.2rem;
               right: 0rem;
               opacity: 0;
             }
+
             .mat-error {
               bottom: -0rem;
             }
           }
+
           .radio {
             display: flex;
             width: 100%;
             justify-content: flex-start;
+
             label {
               input {
                 display: inline-block;
                 // float: left;
                 width: 20px;
                 margin-top: 0.4rem;
+                transform: translateY(2px);
               }
+
               span {
                 display: inline-block;
                 color: $color-black;
@@ -318,22 +376,27 @@ body {
               }
             }
           }
+
           .contact-no {
             display: flex;
+
             .countrycode {
               width: 20%;
+
               input {
                 &:focus {
                   border: 1px solid $border-color;
                 }
               }
             }
+
             .phonenumber {
               width: 80%;
               margin-left: 1rem;
             }
           }
         }
+
         .input-wrapper {
           // margin-right: 2rem;
           input,
@@ -343,10 +406,12 @@ body {
             border-radius: 0.8rem;
             padding: 1.2rem 2rem;
             outline: none;
+
             &:focus {
               border: 1px solid $blue;
             }
           }
+
           select {
             min-width: 30rem;
             appearance: none;
@@ -380,20 +445,26 @@ body {
             display: inline-block;
             margin-top: 4rem;
           }
+
           .contact-no {
             display: flex;
             width: 30rem;
+
             .countrycode {
               width: 20%;
+
               input {
                 width: 100%;
               }
             }
+
             .phonenumber {
               width: 80%;
               margin-left: 1rem;
+
               input {
                 width: 100%;
+
                 &:focus {
                   border: 1px solid $blue;
                 }
@@ -401,6 +472,7 @@ body {
             }
           }
         }
+
         .form-block-clubs,
         .form-block-academy {
           display: flex;
@@ -418,10 +490,12 @@ body {
             font-weight: 500;
             width: 100%;
             margin-top: 1rem;
+
             span {
               color: $error;
             }
           }
+
           .input-wrapper,
           .input-wrapper-second,
           .input-wrapper-full,
@@ -429,6 +503,7 @@ body {
             position: relative;
             margin-bottom: 0.5rem;
             padding-bottom: 2rem;
+
             input,
             select {
               min-width: 34rem;
@@ -437,10 +512,12 @@ body {
               border-radius: 0.8rem;
               padding: 1.2rem 2rem;
               outline: none;
+
               &:focus {
                 border: 1px solid $blue;
               }
             }
+
             select {
               appearance: none;
               background-image: url("../../../assets/icons/sort.svg");
@@ -461,18 +538,22 @@ body {
               margin-top: 4rem;
             }
           }
+
           .input-wrapper-full {
             width: 24%;
+
             // margin-right: 1rem;
             input {
               width: 100%;
               min-width: 29rem;
               margin-right: 1rem;
+
               &:focus {
                 border: 1px solid $blue;
               }
             }
           }
+
           .input-wrapper-academy {
             width: 48%;
             margin-right: 0px;
@@ -480,6 +561,7 @@ body {
 
           .input-wrapper-second {
             width: 40%;
+
             // &:last-child {
             //   width: 10%;
             // }
@@ -490,9 +572,11 @@ body {
         }
       }
     }
+
     .block-bottom {
       display: block;
       text-align: right;
+
       a {
         color: $blue;
         font-size: 1.8rem;
@@ -503,6 +587,7 @@ body {
         text-decoration: none;
         cursor: pointer;
       }
+
       button {
         @include btn-primary;
         color: $color-white;
@@ -510,6 +595,7 @@ body {
         padding: 2rem 3rem;
         font-size: 1.8rem;
         font-weight: 700;
+
         &:disabled {
           @include disable;
         }
@@ -525,29 +611,36 @@ body {
     border-radius: 0.8rem;
     padding: 1.2rem 2rem;
     outline: none;
+
     &:focus {
       border: 1px solid $blue;
     }
   }
+
   .contact-no {
     display: flex;
     width: 34rem;
     position: relative;
+
     .countrycode {
       width: 30%;
+
       input {
         &:focus {
           border: 1px solid #eaebec !important;
         }
       }
     }
+
     .phonenumber {
       width: 70%;
       margin-left: 1rem;
+
       &:focus {
         border: 1px solid $blue;
       }
     }
+
     .mat-error {
       bottom: -2rem;
     }
@@ -567,6 +660,7 @@ body {
 .border-bottom {
   border-bottom: 1px solid $border-color;
 }
+
 .icon {
   width: 2rem;
   height: 2rem;
@@ -597,6 +691,7 @@ body {
   text-align: center;
   width: 16rem;
 }
+
 .star {
   font-size: 3rem !important;
 }
@@ -627,12 +722,15 @@ body {
 .w-60 {
   width: 60% !important;
 }
+
 .w-40 {
   width: 40% !important;
 }
+
 .w-50 {
   width: 48% !important;
 }
+
 .w-100 {
   width: 100% !important;
 }
@@ -641,6 +739,7 @@ body {
   margin-top: 0px !important;
   cursor: pointer;
 }
+
 .align-center {
   display: block;
   text-align: center;
@@ -650,6 +749,7 @@ body {
   display: block;
   text-align: right;
 }
+
 .error-border {
   border: 1px solid red;
 }
@@ -657,6 +757,7 @@ body {
 .error-text {
   color: red;
 }
+
 .block-part {
   display: block;
   width: 100%;
@@ -667,9 +768,26 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
 .wrap {
   flex-wrap: wrap;
 }
+
 .pb-0 {
   padding-bottom: 0rem !important;
+}
+
+.info {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+  transform: translate(0.5rem, 0.3rem);
+  cursor: pointer;
+}
+
+.green {
+  color: green;
+}
+.red {
+  color: red;
 }

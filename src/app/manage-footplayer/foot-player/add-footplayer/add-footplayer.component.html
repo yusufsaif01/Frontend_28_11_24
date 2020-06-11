@@ -1,0 +1,202 @@
+<div class="from-container">
+  <div class="header">
+    <div class="title">
+      <h3>Add New Player</h3>
+    </div>
+    <div class="close">
+      <img
+        [mat-dialog-close]
+        src="assets/images/icons/close-white.png"
+        alt=""
+      />
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <!-- form section -->
+    <form [formGroup]="findPlayerForm">
+      <div class="from-wrapper">
+        <!-- First Name  -->
+        <div class="from-block">
+          <label
+            >Name
+            <!-- <span>*</span> -->
+          </label>
+          <input
+            formControlName="name"
+            type="text"
+            matInput
+            placeholder="Name"
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Email  -->
+        <div class="from-block">
+          <label>Email </label>
+          <input
+            formControlName="email"
+            type="email"
+            matInput
+            placeholder="Email"
+            autocomplete="off"
+          />
+          <mat-error
+            *ngIf="
+              findPlayerForm.controls.email.invalid &&
+              findPlayerForm.controls.email.touched
+            "
+          >
+            <span
+              *ngIf="findPlayerForm.controls.email.errors.required"
+              translate
+              >Email is required
+            </span>
+            <span *ngIf="findPlayerForm.controls.email.errors.email" translate
+              >Email format is invalid
+            </span>
+          </mat-error>
+        </div>
+
+        <!-- Phone Number  -->
+        <div class="from-block">
+          <label>Phone Number </label>
+          <div class="phone">
+            <div class="country-code">
+              <input
+                type="text"
+                matInput
+                value="+91"
+                autocomplete="off"
+                readonly
+                tabindex="-1"
+              />
+            </div>
+            <div class="number">
+              <input
+                formControlName="phone"
+                type="text"
+                matInput
+                placeholder="Phone Number"
+                autocomplete="off"
+              />
+            </div>
+            <mat-error
+              *ngIf="
+                findPlayerForm.controls.phone.invalid &&
+                findPlayerForm.controls.phone.touched
+              "
+            >
+              <span
+                *ngIf="findPlayerForm.controls.phone.errors.required"
+                translate
+                >Phone Number is required</span
+              >
+              <ng-template #lengthBlock>
+                <span
+                  translate
+                  class="error-text"
+                  *ngIf="findPlayerForm.controls.phone.errors.minlength"
+                >
+                  Please provide number upto
+                  {{
+                    findPlayerForm.controls.phone.errors.minlength
+                      .requiredLength
+                  }}
+                  digits
+                </span>
+                <span
+                  translate
+                  class="error-text"
+                  *ngIf="findPlayerForm.controls.phone.errors.maxlength"
+                >
+                  Please provide number upto
+                  {{
+                    findPlayerForm.controls.phone.errors.maxlength
+                      .requiredLength
+                  }}
+                  digits
+                </span>
+              </ng-template>
+              <span
+                class="error-text"
+                *ngIf="
+                  findPlayerForm.controls.phone.errors.pattern;
+                  else lengthBlock
+                "
+                translate
+              >
+                Phone Number format is invalid
+              </span>
+            </mat-error>
+          </div>
+        </div>
+
+        <!-- find button  -->
+        <div class="find-btn">
+          <button (click)="findPlayer()" [disabled]="!findPlayerForm.valid">
+            Find
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Table on Data search -->
+    <div class="table">
+      <!-- table -->
+      <div *ngIf="!(totalRecordSubject$ | async)" class="table-container">
+        <app-table
+          [tableConfig]="tableConfig"
+          [NumberColumn]="'true'"
+          [rows]="dataSource"
+          [sortEnabled]="true"
+          [pageSize]="pageSize"
+          [TableActions]="ListAction"
+          [pageNo]="selectedPage"
+        >
+        </app-table>
+        <ng-template
+          #ListAction
+          let-user_id="user_id"
+          let-avatar="avatar"
+          let-name="name"
+          let-member_type="member_type"
+          let-category="category"
+          let-position="position"
+          let-is_verified="is_verified"
+          let-club_name="club_name"
+        >
+          <div
+            [matTooltip]="
+              getStateToolTip(is_verified, club_name, member_type).message
+            "
+            class="action-buttons"
+          >
+            <button
+              (click)="sendFootPlayerRequest(user_id)"
+              [ngClass]="{
+                'btn-disable': getStateToolTip(
+                  is_verified,
+                  club_name,
+                  member_type
+                ).state
+              }"
+              [disabled]="
+                getStateToolTip(is_verified, club_name, member_type).state
+              "
+              class="save"
+            >
+              Add
+            </button>
+          </div>
+        </ng-template>
+      </div>
+      <div *ngIf="totalRecordSubject$ | async" class="notonportal">
+        <h3>Player is not available on YFT Portal</h3>
+        <button [mat-dialog-close]="true" (click)="sendFootPlayerInvite()">
+          Send Invitation
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

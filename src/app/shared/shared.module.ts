@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { PaginationComponent } from './pagination/pagination.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { TrimPipe } from './pipes/trim.pipe';
+import { NgxImageCompressService } from 'ngx-image-compress';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { TrimPipe } from './pipes/trim.pipe';
     TruncatePipe,
     TrimPipe
   ],
+  providers: [NgxImageCompressService],
   exports: [
     LoaderComponent,
     TruncatePipe,

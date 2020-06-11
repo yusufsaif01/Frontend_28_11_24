@@ -16,6 +16,8 @@ import { ManagePositionComponent } from './masterdata/player-specialization/mana
 import { ManageAbilityComponent } from './masterdata/player-specialization/manage-ability/manage-ability.component';
 import { ManageParametersComponent } from './masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
 import { AdminComponent } from './admin.component';
+import { DocumentVerificationComponent } from './document-verification/document-verification.component';
+import { VerificationPopupComponent } from './verification-popup/verification-popup.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +34,16 @@ import { AdminComponent } from './admin.component';
     ManagePositionComponent,
     ManageAbilityComponent,
     ManageParametersComponent,
-    AdminComponent
+    AdminComponent,
+    DocumentVerificationComponent,
+    VerificationPopupComponent
   ],
   imports: [CommonModule, AdminRoutingModule, SharedModule],
   entryComponents: [
     FilterDialogPlayerComponent,
     FilterDialogClubComponent,
-    FilterDialogAcademyComponent
+    FilterDialogAcademyComponent,
+    VerificationPopupComponent
   ]
 })
 export class AdminModule {}

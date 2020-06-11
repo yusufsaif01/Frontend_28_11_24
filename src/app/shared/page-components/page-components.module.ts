@@ -23,6 +23,7 @@ import {
   MessageSquare,
   Bell,
   AlertCircle,
+  CheckCircle,
   Image,
   Delete,
   Trash2,
@@ -51,7 +52,9 @@ import {
   UserCheck,
   UserX,
   Send,
-  Info
+  Info,
+  Settings,
+  FileText
 } from 'angular-feather/icons';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LinkExpiredComponent } from './link-expired/link-expired.component';
@@ -69,6 +72,7 @@ const icons = {
   MessageSquare,
   Bell,
   AlertCircle,
+  CheckCircle,
   Image,
   Delete,
   Trash2,
@@ -97,7 +101,9 @@ const icons = {
   UserCheck,
   UserX,
   Send,
-  Info
+  Info,
+  Settings,
+  FileText
 };
 
 @NgModule({
