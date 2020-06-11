@@ -7,6 +7,7 @@ import { FootPlayerService } from '../foot-player.service';
 import { untilDestroyed } from '@app/core';
 import { environment } from '@env/environment';
 import { Subject } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-footplayer',
   templateUrl: './add-footplayer.component.html',
@@ -30,6 +31,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
     private _footPlayerService: FootPlayerService,
     private _formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddFootplayerComponent>,
+    private _toastrService: ToastrService,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     this.createForm();
@@ -61,8 +63,13 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
           this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
           this.total_count = response.data.total;
+          if (!response.data.total) {
+            this._toastrService.error('No player found', 'Find Player');
+          }
         },
-        error => {}
+        error => {
+          this._toastrService.error(`${error.error.message}`, 'Find Player');
+        }
       );
   }
 
@@ -71,8 +78,15 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       .sendFootPlayerRequest({ to: user_id })
       .pipe(untilDestroyed(this))
       .subscribe(
-        response => {},
-        error => {}
+        response => {
+          this._toastrService.success(`Success`, 'Send request successfully');
+        },
+        error => {
+          this._toastrService.error(
+            `${error.error.message}`,
+            'Request Footplayer'
+          );
+        }
       );
   }
 
@@ -85,8 +99,15 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       .sendFootPlayerInvite(formValues)
       .pipe(untilDestroyed(this))
       .subscribe(
-        response => {},
-        error => {}
+        response => {
+          this._toastrService.success('Success', 'Send invite successfully');
+        },
+        error => {
+          this._toastrService.error(
+            `${error.error.message}`,
+            'Invite Footplayer'
+          );
+        }
       );
   }
 

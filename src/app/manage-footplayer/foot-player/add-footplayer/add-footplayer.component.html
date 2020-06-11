@@ -172,6 +172,11 @@
           >
             <button
               (click)="sendFootPlayerRequest(user_id)"
+              [ngClass]="{
+                'btn-disable':
+                  (!is_verified || club_name) &&
+                  (member_type !== 'academy' || own_member_type !== 'academy')
+              }"
               [disabled]="
                 (!is_verified || club_name) &&
                 (member_type !== 'academy' || own_member_type !== 'academy')
@@ -185,7 +190,9 @@
       </div>
       <div *ngIf="totalRecordSubject$ | async" class="notonportal">
         <h3>Player is not available on YFT Portal</h3>
-        <button (click)="sendFootPlayerInvite()">Send Invitation</button>
+        <button [mat-dialog-close]="true" (click)="sendFootPlayerInvite()">
+          Send Invitation
+        </button>
       </div>
     </div>
   </div>

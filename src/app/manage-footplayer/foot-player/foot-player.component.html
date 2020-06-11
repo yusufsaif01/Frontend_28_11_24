@@ -65,6 +65,9 @@
           <div class="action-buttons">
             <button
               matTooltip="Resend Invitation"
+              [ngClass]="{
+                'btn-disable': ['pending', 'added', 'rejected'].includes(status)
+              }"
               [disabled]="['pending', 'added', 'rejected'].includes(status)"
               (click)="resendInvitationPopup(email)"
             >

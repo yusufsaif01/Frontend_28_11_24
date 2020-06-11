@@ -90,6 +90,11 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
         ...data
       }
     });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.getFootPlayerList(this.pageSize, 1);
+      }
+    });
   }
   // delete
   deletePopup(id: string) {
@@ -148,7 +153,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
             response => {
               this._toastrService.success(
                 `Success`,
-                'Resend Invite successfully'
+                'Resend invite successfully'
               );
             },
             error => {

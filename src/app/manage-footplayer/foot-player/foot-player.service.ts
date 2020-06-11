@@ -8,8 +8,7 @@ const routes = {
   findPlayer: (query: string) => `/footplayer/search${query}`,
   sendFootPlayerRequest: () => '/footplayer/request',
   sendFootPlayerInvite: () => '/footplayer/invite',
-  resendFootPlayerInvite: (params: string) =>
-    `/footplayer/resend-invite/${params}`
+  resendFootPlayerInvite: () => `/footplayer/resend-invite/`
 };
 
 interface ResendFootPlayerInviteContext {
@@ -143,13 +142,8 @@ export class FootPlayerService {
   resendFootPlayerInvite(
     context: ResendFootPlayerInviteContext
   ): Observable<CommonResponseContext> {
-    let params = '';
-    if (context['email']) {
-      params += context['email'];
-    }
-
     return this.httpClient.post<CommonResponseContext>(
-      routes.resendFootPlayerInvite(params),
+      routes.resendFootPlayerInvite(),
       context
     );
   }
