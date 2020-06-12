@@ -69,7 +69,7 @@
             green: ['added'].includes(element.status)
           }"
         >
-          {{ tableConfig.columns[col].getValue(element) }}
+          {{ tableConfig.columns[col].getValue(element) | titlecase }}
           <!-- <img
             class="status-icon"
             src="./../../../assets/images/icons/tick.png"
