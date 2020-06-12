@@ -14,8 +14,8 @@ export const environment = {
   production: false,
   hmr: false,
   version: env.npm_package_version + '-dev',
-  serverUrl: 'http://localhost:3000/api',
-  mediaUrl: 'http://localhost:4200',
+  serverUrl: 'http://yftchain.local/api', //'http://localhost:3000/api',
+  mediaUrl: 'http://yftchain.local', //'http://localhost:4200',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'fr-FR']
 };

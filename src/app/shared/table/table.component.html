@@ -105,6 +105,7 @@
 
         <p *ngIf="col === 'aadhaarimg'">
           <a
+            matTooltip="Front Image"
             *ngIf="tableConfig.columns[col].getValue(element).includes('---')"
             [href]="tableConfig.columns[col].getValue(element).split('---')[0]"
             target="_blank"
@@ -116,6 +117,7 @@
             />
           </a>
           <a
+            matTooltip="Back Image"
             *ngIf="tableConfig.columns[col].getValue(element).includes('---')"
             [href]="tableConfig.columns[col].getValue(element).split('---')[1]"
             target="_blank"
