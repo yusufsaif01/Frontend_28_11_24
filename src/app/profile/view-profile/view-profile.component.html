@@ -126,59 +126,65 @@
           </div>
         </div>
 
-        <div class="block-middle border-bottom">
-          <div class="full">
-            <p>
-              <span>View Player Image : </span>
-              <a
-                *ngIf="player_photo_url"
-                href="{{ player_photo_url ? player_photo_url : '' }}"
-                target="_blank"
-              >
-                Image</a
-              >
-            </p>
+        <ng-container *ngIf="!isPublic">
+          <div class="block-middle border-bottom">
+            <div class="full">
+              <p>
+                <span>View Player Image : </span>
+                <a
+                  *ngIf="player_photo_url"
+                  href="{{ player_photo_url ? player_photo_url : '' }}"
+                  target="_blank"
+                >
+                  Image</a
+                >
+              </p>
+            </div>
           </div>
-        </div>
+        </ng-container>
 
-        <div class="block-middle border-bottom">
-          <div class="full">
-            <p>
-              <span>Aadhaar Number : </span>
-              {{ aadhar_number ? aadhar_number : '' }}
-            </p>
+        <ng-container *ngIf="!isPublic">
+          <div class="block-middle border-bottom">
+            <div class="full">
+              <p>
+                <span>Aadhaar Number : </span>
+                {{ aadhar_number ? aadhar_number : '' }}
+              </p>
+            </div>
           </div>
-        </div>
+        </ng-container>
 
-        <div
-          *ngIf="aadhar_front_url && aadhar_back_url"
-          class="block-middle border-bottom"
-        >
-          <div class="half">
-            <p>
-              <span>View Aadhaar Image Front : </span>
-              <a
-                *ngIf="aadhar_front_url"
-                href="{{ aadhar_front_url ? aadhar_front_url : '' }}"
-                target="_blank"
-              >
-                Document</a
-              >
-            </p>
+        <ng-container *ngIf="!isPublic">
+          <div
+            *ngIf="aadhar_front_url && aadhar_back_url"
+            class="block-middle border-bottom"
+          >
+            <div class="half">
+              <p>
+                <span>View Aadhaar Image Front : </span>
+                <a
+                  *ngIf="aadhar_front_url"
+                  href="{{ aadhar_front_url ? aadhar_front_url : '' }}"
+                  target="_blank"
+                >
+                  Document</a
+                >
+              </p>
+            </div>
+            <div class="half">
+              <p>
+                <span>View Aadhaar Image Back : </span>
+                <a
+                  *ngIf="aadhar_back_url"
+                  href="{{ aadhar_back_url ? aadhar_back_url : '' }}"
+                  target="_blank"
+                >
+                  Document</a
+                >
+              </p>
+            </div>
           </div>
-          <div class="half">
-            <p>
-              <span>View Aadhaar Image Back : </span>
-              <a
-                *ngIf="aadhar_back_url"
-                href="{{ aadhar_back_url ? aadhar_back_url : '' }}"
-                target="_blank"
-              >
-                Document</a
-              >
-            </p>
-          </div>
-        </div>
+        </ng-container>
 
         <ng-container *ngIf="!isPublic">
           <div *ngIf="aadhar_url" class="block-middle border-bottom">
