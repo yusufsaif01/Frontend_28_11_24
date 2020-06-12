@@ -81,7 +81,7 @@ export class DocumentVerificationTableConfig extends TableConfig {
       },
       document_number: {
         code: 'document_number',
-        text: 'Document Number',
+        text: 'Aadhaar No.',
         getValue: (ele: any) => {
           return ele[this.columns.document_number.code];
         }
