@@ -1,6 +1,7 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
 
 export class DocumentVerificationTableConfig extends TableConfig {
+  text: string = 'Document Number';
   constructor(member_type: string) {
     super();
     console.log('Type of member', member_type);
@@ -15,6 +16,7 @@ export class DocumentVerificationTableConfig extends TableConfig {
         'user_photo',
         'status'
       ];
+      this.text = 'Aadhar No.';
     } else if (member_type === 'club') {
       this.allowedColumns = [
         'serialNumber',
@@ -81,7 +83,7 @@ export class DocumentVerificationTableConfig extends TableConfig {
       },
       document_number: {
         code: 'document_number',
-        text: 'Aadhaar No.',
+        text: this.text,
         getValue: (ele: any) => {
           return ele[this.columns.document_number.code];
         }
