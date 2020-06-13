@@ -1288,8 +1288,8 @@
       </div>
 
       <!-- clubs and acadmey -->
-      <ng-template #club_acadBlock>
-        <div class="academy-club">
+      <div class="academy-club">
+        <ng-template #club_acadBlock>
           <!-- personal detials -->
           <div class="block">
             <div class="block-header border-bottom">
@@ -2563,61 +2563,65 @@
                   </mat-error>
                 </div>
               </div>
+            </div>
+          </div>
+        </ng-template>
 
-              <div class="form-block-clubs">
-                <div class="input-wrapper-academy">
-                  <label
-                    >State association affiliated under<span>*</span></label
+        <div class="block">
+          <div class="block-middle">
+            <div class="form-block-clubs">
+              <div class="input-wrapper-academy">
+                <label
+                  >{{
+                    member_type === 'player'
+                      ? 'Current State Association'
+                      : 'State association affiliated under'
+                  }}<span>*</span></label
+                >
+                <select matNativeControl formControlName="association" required>
+                  <option value="">Select Association</option>
+                  <ng-container
+                    *ngFor="let association of stateAssociationArray"
                   >
-                  <select
-                    matNativeControl
-                    formControlName="association"
-                    required
-                  >
-                    <option value="">Select Association</option>
-                    <ng-container
-                      *ngFor="let association of stateAssociationArray"
-                    >
-                      <option value="{{ association.value }}">{{
-                        association.name
-                      }}</option>
-                    </ng-container>
-                  </select>
-                  <mat-error
-                    *ngIf="
-                      editProfileForm.controls.association.invalid &&
-                      editProfileForm.controls.association.touched
-                    "
-                  >
-                    <span
-                      *ngIf="
-                        editProfileForm.controls.association.errors.required
-                      "
-                      translate
-                      >Association is required</span
-                    >
-                  </mat-error>
-                </div>
-
-                <div
-                  class="input-wrapper-academy"
+                    <option value="{{ association.value }}">{{
+                      association.name
+                    }}</option>
+                  </ng-container>
+                </select>
+                <mat-error
                   *ngIf="
-                    editProfileForm.controls.association.value === 'Others'
+                    editProfileForm.controls.association.invalid &&
+                    editProfileForm.controls.association.touched
                   "
                 >
-                  <label>Other Association Name</label>
-                  <input
-                    type="text"
-                    matInput
-                    placeholder="Other"
-                    formControlName="association_other"
-                  />
-                </div>
+                  <span
+                    *ngIf="editProfileForm.controls.association.errors.required"
+                    translate
+                    >Association is required</span
+                  >
+                </mat-error>
+              </div>
+
+              <div
+                class="input-wrapper-academy"
+                *ngIf="editProfileForm.controls.association.value === 'Others'"
+              >
+                <label>{{
+                  member_type === 'player'
+                    ? 'Other State Association Name'
+                    : 'Other Association Name'
+                }}</label>
+                <input
+                  type="text"
+                  matInput
+                  placeholder="Other"
+                  formControlName="association_other"
+                />
               </div>
             </div>
           </div>
         </div>
-      </ng-template>
+      </div>
 
       <!-- bottom -->
       <div class="block-bottom">
