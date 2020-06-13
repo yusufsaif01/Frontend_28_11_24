@@ -565,7 +565,7 @@
 
             <!-- Phone -->
             <div class="from-block">
-              <label>Phone Number <span>*</span></label>
+              <label>Phone Number</label>
               <div class="contact-no">
                 <div class="countrycode">
                   <input type="text" value="+91" readonly tabindex="-1" />
@@ -1592,7 +1592,7 @@
 
               <!-- Phone -->
               <div class="from-block">
-                <label>Phone Number <span>*</span></label>
+                <label>Phone Number</label>
                 <div class="contact-no">
                   <div class="countrycode">
                     <input type="text" value="+91" readonly tabindex="-1" />
@@ -2533,38 +2533,6 @@
 
               <!-- No of associated Player -->
               <div class="form-block-clubs">
-                <div class="input-wrapper-academy">
-                  <label>Number of associated players <span>*</span></label>
-                  <input
-                    type="text"
-                    matInput
-                    placeholder="Number of Associated Players"
-                    formControlName="associated_players"
-                  />
-                  <mat-error
-                    *ngIf="
-                      editProfileForm.controls.associated_players.invalid &&
-                      editProfileForm.controls.associated_players.touched
-                    "
-                  >
-                    <span
-                      *ngIf="
-                        editProfileForm.controls.associated_players.errors
-                          .required
-                      "
-                      translate
-                      >Associated Players is required</span
-                    >
-                    <span
-                      *ngIf="
-                        editProfileForm.controls.associated_players.errors
-                          .pattern
-                      "
-                    >
-                      Associated Players format is invalid
-                    </span>
-                  </mat-error>
-                </div>
                 <div class="input-wrapper-academy">
                   <label
                     >Type of {{ member_type === 'club' ? 'Club' : 'Academy' }}

@@ -144,7 +144,7 @@
     <!-- Table on Data search -->
     <div class="table">
       <!-- table -->
-      <div *ngIf="!(totalRecordSubject$ | async)" class="table-container">
+      <div *ngIf="dataSource.data.length" class="table-container">
         <app-table
           [tableConfig]="tableConfig"
           [NumberColumn]="'true'"

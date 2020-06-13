@@ -806,7 +806,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       {
         name: 'phone',
         abstractControl: this._formBuilder.control('', [
-          Validators.required,
           Validators.minLength(10),
           Validators.maxLength(10),
           Validators.pattern(/^\d+$/)
@@ -864,13 +863,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         {
           name: 'contact_person',
           abstractControl: this._formBuilder.array([], [Validators.required])
-        },
-        {
-          name: 'associated_players',
-          abstractControl: this._formBuilder.control('', [
-            Validators.required,
-            Validators.pattern(/^\d+$/)
-          ])
         },
         {
           name: 'type',
@@ -1081,7 +1073,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         : '',
       contact_person: this.profile.contact_person,
       trophies: this.profile.trophies,
-      associated_players: this.profile.associated_players,
       former_club: this.profile.former_club ? this.profile.former_club : '',
       school:
         this.profile.institute && this.profile.institute.school
