@@ -331,312 +331,319 @@
     </div>
 
     <!-- clubs and academy -->
-    <div
-      class="clubs"
-      *ngIf="
-        profile.member_type === 'club' || profile.member_type === 'academy'
-      "
-    >
-      <!-- contact details -->
-      <div class="block">
-        <ng-container *ngIf="profile.contact_person">
-          <ng-container *ngFor="let person of profile.contact_person">
-            <div class="block-heading border-bottom">
-              <h2>Contact Details</h2>
+    <div class="clubs">
+      <ng-container
+        *ngIf="
+          profile.member_type === 'club' || profile.member_type === 'academy'
+        "
+      >
+        <!-- contact details -->
+        <div class="block">
+          <ng-container *ngIf="profile.contact_person">
+            <ng-container *ngFor="let person of profile.contact_person">
+              <div class="block-heading border-bottom">
+                <h2>Contact Details</h2>
+              </div>
+              <div class="block-middle border-bottom">
+                <div class="half">
+                  <p>
+                    <span>Designation :</span>
+                    {{ person?.designation | titlecase }}
+                  </p>
+                </div>
+                <div class="half">
+                  <p><span> Name :</span> {{ person?.name | titlecase }}</p>
+                </div>
+              </div>
+
+              <div class="block-middle border-bottom">
+                <div class="half">
+                  <p><span>Email :</span> {{ person?.email }}</p>
+                </div>
+                <div class="half">
+                  <p>
+                    <span> Phone Number :</span> +91 {{ person?.phone_number }}
+                  </p>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <!-- personal details -->
+        <div class="block">
+          <div class="block-heading border-bottom">
+            <h2 *ngIf="profile.member_type === 'club'">Club Details</h2>
+            <h2 *ngIf="profile.member_type === 'academy'">Academy Details</h2>
+          </div>
+          <div class="block-middle border-bottom">
+            <div class="half">
+              <p><span>Founded (Year) :</span> {{ profile.founded_in }}</p>
             </div>
-            <div class="block-middle border-bottom">
+            <div class="half">
+              <p>
+                <span *ngIf="profile.member_type === 'club'"
+                  >Short Club Name :</span
+                >
+                <span *ngIf="profile.member_type === 'academy'"
+                  >Short Academy Name :</span
+                >
+                {{ profile.short_name | titlecase }}
+              </p>
+            </div>
+          </div>
+
+          <div class="block-middle border-bottom">
+            <div class="half">
+              <p>
+                <span>Country :</span> {{ profile?.country?.name | titlecase }}
+              </p>
+            </div>
+            <div class="half">
+              <p><span>State :</span> {{ profile?.state?.name | titlecase }}</p>
+            </div>
+          </div>
+
+          <div class="block-middle border-bottom">
+            <div class="half">
+              <p><span>City :</span> {{ profile?.city?.name | titlecase }}</p>
+            </div>
+            <div class="half">
+              <p>
+                <span>Office address :</span>
+                {{ profile.address?.full_address | titlecase }}
+              </p>
+            </div>
+          </div>
+
+          <div class="block-middle border-bottom">
+            <div class="half">
+              <p><span>Zipcode/Pincode :</span> {{ profile.address?.pincode }}</p>
+            </div>
+            <ng-container *ngIf="!isPublic">
               <div class="half">
+                <p><span>Email :</span> {{ profile.email }}</p>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="block-middle border-bottom">
+            <ng-container *ngIf="!isPublic">
+              <div class="half">
+                <p><span>Phone :</span> +91 {{ profile.phone }}</p>
+              </div>
+            </ng-container>
+            <div
+              class="half"
+              *ngIf="
+                profile.member_type === 'club' ||
+                profile.member_type === 'academy'
+              "
+            >
+              <p>
+                <span>Stadium Name :</span>
+                {{ profile?.stadium_name | titlecase }}
+              </p>
+            </div>
+          </div>
+          <!-- clubs AIFFS status  -->
+          <ng-container *ngIf="!isPublic">
+            <div
+              class="block-middle border-bottom "
+              *ngIf="profile.member_type === 'club'"
+            >
+              <div class="full">
                 <p>
-                  <span>Designation :</span>
-                  {{ person?.designation | titlecase }}
+                  <span>AIFF Accreditation ID : </span
+                  >{{ docNumber ? docNumber : '' }}
                 </p>
               </div>
-              <div class="half">
-                <p><span> Name :</span> {{ person?.name | titlecase }}</p>
-              </div>
             </div>
-
-            <div class="block-middle border-bottom">
-              <div class="half">
-                <p><span>Email :</span> {{ person?.email }}</p>
-              </div>
-              <div class="half">
+            <div
+              class="block-middle border-bottom"
+              *ngIf="profile.member_type === 'club'"
+            >
+              <div class="full">
                 <p>
-                  <span> Phone Number :</span> +91 {{ person?.phone_number }}
+                  <span>View AIFF Accreditation Document Image : </span>
+                  <a
+                    *ngIf="document_url"
+                    href="{{ document_url ? document_url : '' }}"
+                    target="_blank"
+                    >Document</a
+                  >
                 </p>
               </div>
             </div>
           </ng-container>
-        </ng-container>
-      </div>
-      <!-- personal details -->
-      <div class="block">
-        <div class="block-heading border-bottom">
-          <h2 *ngIf="profile.member_type === 'club'">Club Details</h2>
-          <h2 *ngIf="profile.member_type === 'academy'">Academy Details</h2>
-        </div>
-        <div class="block-middle border-bottom">
-          <div class="half">
-            <p><span>Founded (Year) :</span> {{ profile.founded_in }}</p>
-          </div>
-          <div class="half">
-            <p>
-              <span *ngIf="profile.member_type === 'club'"
-                >Short Club Name :</span
-              >
-              <span *ngIf="profile.member_type === 'academy'"
-                >Short Academy Name :</span
-              >
-              {{ profile.short_name | titlecase }}
-            </p>
-          </div>
-        </div>
 
-        <div class="block-middle border-bottom">
-          <div class="half">
-            <p>
-              <span>Country :</span> {{ profile?.country?.name | titlecase }}
-            </p>
-          </div>
-          <div class="half">
-            <p><span>State :</span> {{ profile?.state?.name | titlecase }}</p>
-          </div>
-        </div>
-
-        <div class="block-middle border-bottom">
-          <div class="half">
-            <p><span>City :</span> {{ profile?.city?.name | titlecase }}</p>
-          </div>
-          <div class="half">
-            <p>
-              <span>Office address :</span>
-              {{ profile.address?.full_address | titlecase }}
-            </p>
-          </div>
-        </div>
-
-        <div class="block-middle border-bottom">
-          <div class="half">
-            <p><span>Zipcode/Pincode :</span> {{ profile.address?.pincode }}</p>
-          </div>
+          <!-- Academy document status -->
           <ng-container *ngIf="!isPublic">
-            <div class="half">
-              <p><span>Email :</span> {{ profile.email }}</p>
+            <div
+              class="block-middle border-bottom "
+              *ngIf="profile.member_type === 'academy'"
+            >
+              <div class="full">
+                <p>
+                  <span>Document Type : </span>
+                  {{ document_type ? document_type : '' }}
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="block-middle border-bottom "
+              *ngIf="profile.member_type === 'academy'"
+            >
+              <div class="full">
+                <p>
+                  <span>Document Number : </span> {{ docNumber ? docNumber : '' }}
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="block-middle border-bottom"
+              *ngIf="profile.member_type === 'academy'"
+            >
+              <div class="full">
+                <p>
+                  <span>View Document Image : </span>
+                  <a
+                    *ngIf="document_url"
+                    href="{{ document_url ? document_url : '' }}"
+                    target="_blank"
+                    >Document</a
+                  >
+                </p>
+              </div>
             </div>
           </ng-container>
         </div>
 
-        <div class="block-middle border-bottom">
-          <ng-container *ngIf="!isPublic">
-            <div class="half">
-              <p><span>Phone :</span> +91 {{ profile.phone }}</p>
-            </div>
-          </ng-container>
-          <div
-            class="half"
-            *ngIf="
-              profile.member_type === 'club' ||
-              profile.member_type === 'academy'
-            "
-          >
-            <p>
-              <span>Stadium Name :</span>
-              {{ profile?.stadium_name | titlecase }}
-            </p>
-          </div>
-        </div>
-        <!-- clubs AIFFS status  -->
-        <ng-container *ngIf="!isPublic">
-          <div
-            class="block-middle border-bottom "
-            *ngIf="profile.member_type === 'club'"
-          >
-            <div class="full">
-              <p>
-                <span>AIFF Accreditation ID : </span
-                >{{ docNumber ? docNumber : '' }}
-              </p>
-            </div>
-          </div>
-          <div
-            class="block-middle border-bottom"
-            *ngIf="profile.member_type === 'club'"
-          >
-            <div class="full">
-              <p>
-                <span>View AIFF Accreditation Document Image : </span>
-                <a
-                  *ngIf="document_url"
-                  href="{{ document_url ? document_url : '' }}"
-                  target="_blank"
-                  >Document</a
-                >
-              </p>
-            </div>
-          </div>
-        </ng-container>
-
-        <!-- Academy document status -->
-        <ng-container *ngIf="!isPublic">
-          <div
-            class="block-middle border-bottom "
-            *ngIf="profile.member_type === 'academy'"
-          >
-            <div class="full">
-              <p>
-                <span>Document Type : </span>
-                {{ document_type ? document_type : '' }}
-              </p>
-            </div>
+        <!-- perfessional details -->
+        <div class="block">
+          <div class="block-heading border-bottom">
+            <h2>Professional Details</h2>
           </div>
 
-          <div
-            class="block-middle border-bottom "
-            *ngIf="profile.member_type === 'academy'"
-          >
-            <div class="full">
-              <p>
-                <span>Document Number : </span> {{ docNumber ? docNumber : '' }}
-              </p>
-            </div>
-          </div>
-
-          <div
-            class="block-middle border-bottom"
-            *ngIf="profile.member_type === 'academy'"
-          >
-            <div class="full">
-              <p>
-                <span>View Document Image : </span>
-                <a
-                  *ngIf="document_url"
-                  href="{{ document_url ? document_url : '' }}"
-                  target="_blank"
-                  >Document</a
-                >
-              </p>
-            </div>
-          </div>
-        </ng-container>
-      </div>
-
-      <!-- perfessional details -->
-      <div class="block">
-        <div class="block-heading border-bottom">
-          <h2>Professional Details</h2>
-        </div>
-
-        <div class="block-middle border-bottom">
-          <div class="full">
-            <p>
-              <span>Major trophies won : </span>
-              <ng-container *ngIf="profile.trophies">
-                <ng-container
-                  *ngFor="let trophies of profile.trophies; let isLast = last"
-                >
-                  Name : {{ trophies.name | titlecase }} Year :
-                  {{ trophies.year }} Position Secured :
-                  {{ trophies.position | titlecase }}{{ isLast ? '' : ', ' }}
-                </ng-container>
-              </ng-container>
-            </p>
-          </div>
-        </div>
-        <div
-          class="block-middle border-bottom"
-          *ngIf="profile.league !== 'Other'; else otherLeague"
-        >
-          <div class="full">
-            <p><span>League : </span>{{ profile?.league | titlecase }}</p>
-          </div>
-        </div>
-
-        <ng-template #otherLeague>
           <div class="block-middle border-bottom">
             <div class="full">
               <p>
-                <span>League (Other) : </span
-                >{{ profile?.league_other | titlecase }}
+                <span>Major trophies won : </span>
+                <ng-container *ngIf="profile.trophies">
+                  <ng-container
+                    *ngFor="let trophies of profile.trophies; let isLast = last"
+                  >
+                    Name : {{ trophies.name | titlecase }} Year :
+                    {{ trophies.year }} Position Secured :
+                    {{ trophies.position | titlecase }}{{ isLast ? '' : ', ' }}
+                  </ng-container>
+                </ng-container>
               </p>
             </div>
           </div>
-        </ng-template>
+          <div
+            class="block-middle border-bottom"
+            *ngIf="profile.league !== 'Other'; else otherLeague"
+          >
+            <div class="full">
+              <p><span>League : </span>{{ profile?.league | titlecase }}</p>
+            </div>
+          </div>
 
-        <div
-          class="block-middle border-bottom"
-          *ngIf="profile.member_type === 'club'"
-        >
-          <div class="full">
-            <p>
-              <span>Top Signings : </span>
-              <ng-container *ngIf="profile.top_signings">
-                <ng-container
-                  *ngFor="
-                    let signings of profile.top_signings;
-                    let isLast = last
-                  "
-                >
-                  {{ signings.name | titlecase }}{{ isLast ? '' : ', ' }}
+          <ng-template #otherLeague>
+            <div class="block-middle border-bottom">
+              <div class="full">
+                <p>
+                  <span>League (Other) : </span
+                  >{{ profile?.league_other | titlecase }}
+                </p>
+              </div>
+            </div>
+          </ng-template>
+
+          <div
+            class="block-middle border-bottom"
+            *ngIf="profile.member_type === 'club'"
+          >
+            <div class="full">
+              <p>
+                <span>Top Signings : </span>
+                <ng-container *ngIf="profile.top_signings">
+                  <ng-container
+                    *ngFor="
+                      let signings of profile.top_signings;
+                      let isLast = last
+                    "
+                  >
+                    {{ signings.name | titlecase }}{{ isLast ? '' : ', ' }}
+                  </ng-container>
                 </ng-container>
-              </ng-container>
-            </p>
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div
-          class="block-middle border-bottom"
-          *ngIf="profile.member_type === 'academy'"
-        >
-          <div class="full">
-            <p>
-              <span>Top Academy Players : </span>
-              <ng-container *ngIf="profile.top_players">
-                <ng-container
-                  *ngFor="let players of profile.top_players; let isLast = last"
-                >
-                  {{ players.name | titlecase }}{{ isLast ? '' : ', ' }}
+          <div
+            class="block-middle border-bottom"
+            *ngIf="profile.member_type === 'academy'"
+          >
+            <div class="full">
+              <p>
+                <span>Top Academy Players : </span>
+                <ng-container *ngIf="profile.top_players">
+                  <ng-container
+                    *ngFor="let players of profile.top_players; let isLast = last"
+                  >
+                    {{ players.name | titlecase }}{{ isLast ? '' : ', ' }}
+                  </ng-container>
                 </ng-container>
-              </ng-container>
-            </p>
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div
-          class="block-middle border-bottom"
-          *ngIf="
-            profile.member_type === 'academy' || profile.member_type === 'club'
-          "
-        >
-          <div class="full">
-            <p>
-              <span>Number of associated players : </span
-              >{{ profile?.associated_players }}
-            </p>
+          <div
+            class="block-middle border-bottom"
+            *ngIf="
+              profile.member_type === 'academy' || profile.member_type === 'club'
+            "
+          >
+            <div class="full">
+              <p>
+                <span>Number of associated players : </span
+                >{{ profile?.associated_players }}
+              </p>
+            </div>
+          </div>
+          <div
+            class="block-middle border-bottom"
+            *ngIf="
+              profile.member_type === 'academy' || profile.member_type === 'club'
+            "
+          >
+            <div class="full">
+              <p>
+                <span>
+                  Type of
+                  {{ profile.member_type === 'club' ? 'Club' : 'Academy' }} :
+                </span>
+                {{ profile?.type }}
+              </p>
+            </div>
           </div>
         </div>
-        <div
-          class="block-middle border-bottom"
-          *ngIf="
-            profile.member_type === 'academy' || profile.member_type === 'club'
-          "
-        >
-          <div class="full">
-            <p>
-              <span>
-                Type of
-                {{ profile.member_type === 'club' ? 'Club' : 'Academy' }} :
-              </span>
-              {{ profile?.type }}
-            </p>
-          </div>
-        </div>
+      </ng-container>
+      <div class="block">
         <div
           class="block-middle border-bottom"
           *ngIf="profile.association !== 'Others'; else otherAssociation"
         >
           <div class="full">
             <p>
-              <span>State association affiliated under : </span
+              <span>{{
+                profile.member_type === 'player'
+                  ? 'Current State Association : '
+                  : 'State association affiliated under : '
+              }}</span
               >{{ profile?.association | titlecase }}
             </p>
           </div>
@@ -646,7 +653,12 @@
           <div class="block-middle border-bottom">
             <div class="full">
               <p>
-                <span>State association affiliated under (Other) : </span
+                <span
+                  >{{
+                    profile.member_type === 'player'
+                      ? 'Current State Association(Other) : '
+                      : 'State association affiliated under (Other) : '
+                  }} </span
                 >{{ profile?.association_other | titlecase }}
               </p>
             </div>

@@ -527,6 +527,14 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   }
 
   setCategoryValidators() {
+    const associationOther = this.editProfileForm.get('association_other');
+    this.editProfileForm
+      .get('association')
+      .valueChanges.subscribe(association => {
+        if (association !== 'Others') {
+          associationOther.setValue('');
+        }
+      });
     if (this.member_type === 'player') {
       this.setPlayerValidators();
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
@@ -534,7 +542,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       const pincode = this.editProfileForm.get('pincode');
       const trophies = this.editProfileForm.get('trophies');
       const leagueOther = this.editProfileForm.get('league_other');
-      const associationOther = this.editProfileForm.get('association_other');
       const documentNumber = this.editProfileForm.get('number');
 
       if (this.member_type === 'club') {
@@ -581,13 +588,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           });
       }
 
-      this.editProfileForm
-        .get('association')
-        .valueChanges.subscribe(association => {
-          if (association !== 'Others') {
-            associationOther.setValue('');
-          }
-        });
       this.editProfileForm.get('league').valueChanges.subscribe(league => {
         if (league !== 'Other') {
           leagueOther.setValue('');
@@ -806,11 +806,18 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       {
         name: 'phone',
         abstractControl: this._formBuilder.control('', [
-          Validators.required,
           Validators.minLength(10),
           Validators.maxLength(10),
           Validators.pattern(/^\d+$/)
         ])
+      },
+      {
+        name: 'association',
+        abstractControl: this._formBuilder.control('', [Validators.required])
+      },
+      {
+        name: 'association_other',
+        abstractControl: this._formBuilder.control('')
       }
     ];
     this.formControlAdder(this.editProfileForm, commonControls);
@@ -854,23 +861,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           ])
         },
         {
-          name: 'association',
-          abstractControl: this._formBuilder.control('', [Validators.required])
-        },
-        {
-          name: 'association_other',
-          abstractControl: this._formBuilder.control('')
-        },
-        {
           name: 'contact_person',
           abstractControl: this._formBuilder.array([], [Validators.required])
-        },
-        {
-          name: 'associated_players',
-          abstractControl: this._formBuilder.control('', [
-            Validators.required,
-            Validators.pattern(/^\d+$/)
-          ])
         },
         {
           name: 'type',
@@ -1081,7 +1073,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         : '',
       contact_person: this.profile.contact_person,
       trophies: this.profile.trophies,
-      associated_players: this.profile.associated_players,
       former_club: this.profile.former_club ? this.profile.former_club : '',
       school:
         this.profile.institute && this.profile.institute.school
