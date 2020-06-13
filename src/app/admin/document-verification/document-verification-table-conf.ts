@@ -16,7 +16,7 @@ export class DocumentVerificationTableConfig extends TableConfig {
         'user_photo',
         'status'
       ];
-      this.text = 'Aadhar No.';
+      this.text = 'Aadhaar No.';
     } else if (member_type === 'club') {
       this.allowedColumns = [
         'serialNumber',
