@@ -428,21 +428,17 @@
             </ng-container>
           </div>
 
-          <div class="block-middle border-bottom">
-            <ng-container *ngIf="!isPublic">
-              <div class="half">
-                <p>
-                  <span *ngIf="member_type === 'player'">Mobile :</span>
-                  <span *ngIf="member_type !== 'player'">Phone :</span> +91
-                  {{ profile?.phone }}
-                </p>
-              </div>
-            </ng-container>
-            <ng-container *ngIf="!isPublic">
-              <div class="half">
-                <p><span>Mobile :</span> +91 {{ profile.mobile_number }}</p>
-              </div>
-            </ng-container>
+          <div class="block-middle border-bottom" *ngIf="!isPublic">
+            <div class="half">
+              <p>
+                <span *ngIf="member_type === 'player'">Mobile :</span>
+                <span *ngIf="member_type !== 'player'">Phone :</span> +91
+                {{ profile?.phone }}
+              </p>
+            </div>
+            <div class="half">
+              <p><span>Mobile :</span> +91 {{ profile.mobile_number }}</p>
+            </div>
           </div>
 
           <div class="block-middle border-bottom">
