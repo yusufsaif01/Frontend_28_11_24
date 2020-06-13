@@ -417,7 +417,9 @@
 
           <div class="block-middle border-bottom">
             <div class="half">
-              <p><span>Zipcode/Pincode :</span> {{ profile.address?.pincode }}</p>
+              <p>
+                <span>Zipcode/Pincode :</span> {{ profile.address?.pincode }}
+              </p>
             </div>
             <ng-container *ngIf="!isPublic">
               <div class="half">
@@ -429,11 +431,23 @@
           <div class="block-middle border-bottom">
             <ng-container *ngIf="!isPublic">
               <div class="half">
-                <p><span>Phone :</span> +91 {{ profile.phone }}</p>
+                <p>
+                  <span *ngIf="member_type === 'player'">Mobile :</span>
+                  <span *ngIf="member_type !== 'player'">Phone :</span> +91
+                  {{ profile?.phone }}
+                </p>
               </div>
             </ng-container>
+            <ng-container *ngIf="!isPublic">
+              <div class="half">
+                <p><span>Mobile :</span> +91 {{ profile.mobile_number }}</p>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="block-middle border-bottom">
             <div
-              class="half"
+              class="full"
               *ngIf="
                 profile.member_type === 'club' ||
                 profile.member_type === 'academy'
@@ -496,7 +510,8 @@
             >
               <div class="full">
                 <p>
-                  <span>Document Number : </span> {{ docNumber ? docNumber : '' }}
+                  <span>Document Number : </span>
+                  {{ docNumber ? docNumber : '' }}
                 </p>
               </div>
             </div>
@@ -592,7 +607,10 @@
                 <span>Top Academy Players : </span>
                 <ng-container *ngIf="profile.top_players">
                   <ng-container
-                    *ngFor="let players of profile.top_players; let isLast = last"
+                    *ngFor="
+                      let players of profile.top_players;
+                      let isLast = last
+                    "
                   >
                     {{ players.name | titlecase }}{{ isLast ? '' : ', ' }}
                   </ng-container>
@@ -604,7 +622,8 @@
           <div
             class="block-middle border-bottom"
             *ngIf="
-              profile.member_type === 'academy' || profile.member_type === 'club'
+              profile.member_type === 'academy' ||
+              profile.member_type === 'club'
             "
           >
             <div class="full">
@@ -617,7 +636,8 @@
           <div
             class="block-middle border-bottom"
             *ngIf="
-              profile.member_type === 'academy' || profile.member_type === 'club'
+              profile.member_type === 'academy' ||
+              profile.member_type === 'club'
             "
           >
             <div class="full">

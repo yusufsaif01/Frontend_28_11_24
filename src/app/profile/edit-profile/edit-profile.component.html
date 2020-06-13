@@ -565,7 +565,8 @@
 
             <!-- Phone -->
             <div class="from-block">
-              <label>Phone Number</label>
+              <label *ngIf="member_type === 'player'">Mobile Number</label>
+              <label *ngIf="member_type !== 'player'">Phone Number</label>
               <div class="contact-no">
                 <div class="countrycode">
                   <input type="text" value="+91" readonly tabindex="-1" />
@@ -1655,6 +1656,80 @@
                 </div>
               </div>
 
+              <div
+                class="from-block"
+                *ngIf="member_type === 'club' || member_type === 'academy'"
+              >
+                <label>Mobile Number <span>*</span></label>
+                <div class="contact-no">
+                  <div class="countrycode">
+                    <input type="text" value="+91" readonly tabindex="-1" />
+                  </div>
+                  <div class="phonenumber">
+                    <input
+                      formControlName="mobile_number"
+                      placeholder="Mobile Number"
+                      type="text"
+                      matInput
+                    />
+                  </div>
+                </div>
+                <mat-error
+                  *ngIf="
+                    editProfileForm.controls.mobile_number.invalid &&
+                    editProfileForm.controls.mobile_number.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      editProfileForm.controls.mobile_number.errors.required
+                    "
+                    translate
+                    >Mobile Number is required</span
+                  >
+                  <ng-template #lengthBlock>
+                    <span
+                      translate
+                      class="error-text"
+                      *ngIf="
+                        editProfileForm.controls.mobile_number.errors.minlength
+                      "
+                    >
+                      Please provide number upto
+                      {{
+                        editProfileForm.controls.mobile_number.errors.minlength
+                          .requiredLength
+                      }}
+                      digits
+                    </span>
+                    <span
+                      translate
+                      class="error-text"
+                      *ngIf="
+                        editProfileForm.controls.mobile_number.errors.maxlength
+                      "
+                    >
+                      Please provide number upto
+                      {{
+                        editProfileForm.controls.mobile_number.errors.maxlength
+                          .requiredLength
+                      }}
+                      digits
+                    </span>
+                  </ng-template>
+                  <span
+                    class="error-text"
+                    *ngIf="
+                      editProfileForm.controls.mobile_number.errors.pattern;
+                      else lengthBlock
+                    "
+                    translate
+                  >
+                    Mobile Number format is invalid
+                  </span>
+                </mat-error>
+              </div>
+
               <!-- Stadium Name -->
               <div
                 class="from-block"
@@ -1669,10 +1744,10 @@
                 />
               </div>
 
-              <div
+              <!-- <div
                 class="from-block"
                 *ngIf="member_type === 'club' || member_type === 'academy'"
-              ></div>
+              ></div> -->
 
               <!-- Club owner
               <div class="from-block">
@@ -2533,7 +2608,7 @@
 
               <!-- No of associated Player -->
               <div class="form-block-clubs">
-                <div class="input-wrapper-academy">
+                <div class="input-wrapper-academy w-50">
                   <label
                     >Type of {{ member_type === 'club' ? 'Club' : 'Academy' }}
                     <span>*</span></label
