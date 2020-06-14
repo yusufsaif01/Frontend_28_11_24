@@ -62,11 +62,14 @@
         <p
           *ngIf="col === 'status'"
           [ngClass]="{
-            red: ['non-verified', 'rejected', 'pending'].includes(
-              element.status
-            ),
+            red: [
+              'non-verified',
+              'rejected',
+              'pending',
+              'disapproved'
+            ].includes(element.status),
             black: ['verified'].includes(element.status),
-            green: ['added'].includes(element.status)
+            green: ['added', 'approved'].includes(element.status)
           }"
         >
           {{ tableConfig.columns[col].getValue(element) | titlecase }}
