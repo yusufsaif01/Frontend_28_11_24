@@ -12,6 +12,10 @@
     >
       {{ profile.name | titlecase }}
     </h3>
+    <!-- <h6 *ngIf="profile.member_type === 'club'">
+      Non-Residential
+    </h6> -->
+
     <h6 *ngIf="profile.member_type === 'player'">
       {{
         (profile.position && profile.position[0]
@@ -122,6 +126,18 @@
     </div>
   </div>
 </div>
+
+<!-- League Name -->
+<!-- <div class="block-design">
+  <div class="block-middle">
+    <div class="league">
+      <h4>League Name</h4>
+    </div>
+    <div class="league">
+      <h5>Egyptian Premier League</h5>
+    </div>
+  </div>
+</div> -->
 
 <!-- achievements -->
 <ng-container *ngIf="options.my_achievements">

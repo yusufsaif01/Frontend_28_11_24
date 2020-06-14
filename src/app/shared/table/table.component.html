@@ -62,14 +62,17 @@
         <p
           *ngIf="col === 'status'"
           [ngClass]="{
-            red: ['non-verified', 'rejected', 'pending'].includes(
-              element.status
-            ),
+            red: [
+              'non-verified',
+              'rejected',
+              'pending',
+              'disapproved'
+            ].includes(element.status),
             black: ['verified'].includes(element.status),
-            green: ['added'].includes(element.status)
+            green: ['added', 'approved'].includes(element.status)
           }"
         >
-          {{ tableConfig.columns[col].getValue(element) }}
+          {{ tableConfig.columns[col].getValue(element) | titlecase }}
           <!-- <img
             class="status-icon"
             src="./../../../assets/images/icons/tick.png"
@@ -105,6 +108,7 @@
 
         <p *ngIf="col === 'aadhaarimg'">
           <a
+            matTooltip="Front Image"
             *ngIf="tableConfig.columns[col].getValue(element).includes('---')"
             [href]="tableConfig.columns[col].getValue(element).split('---')[0]"
             target="_blank"
@@ -116,6 +120,7 @@
             />
           </a>
           <a
+            matTooltip="Back Image"
             *ngIf="tableConfig.columns[col].getValue(element).includes('---')"
             [href]="tableConfig.columns[col].getValue(element).split('---')[1]"
             target="_blank"

@@ -846,6 +846,15 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           ])
         },
         {
+          name: 'mobile_number',
+          abstractControl: this._formBuilder.control('', [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^\d+$/)
+          ])
+        },
+        {
           name: 'stadium_name',
           abstractControl: this._formBuilder.control('', [])
         },
