@@ -12,9 +12,9 @@
     >
       {{ profile.name | titlecase }}
     </h3>
-    <h6 *ngIf="profile.member_type === 'club'">
+    <!-- <h6 *ngIf="profile.member_type === 'club'">
       Non-Residential
-    </h6>
+    </h6> -->
 
     <h6 *ngIf="profile.member_type === 'player'">
       {{
@@ -128,7 +128,7 @@
 </div>
 
 <!-- League Name -->
-<div class="block-design">
+<!-- <div class="block-design">
   <div class="block-middle">
     <div class="league">
       <h4>League Name</h4>
@@ -137,7 +137,7 @@
       <h5>Egyptian Premier League</h5>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- achievements -->
 <ng-container *ngIf="options.my_achievements">
