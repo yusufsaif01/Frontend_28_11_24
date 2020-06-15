@@ -16,7 +16,7 @@
       <a
         [routerLink]="['/member/manage/foot-requests']"
         [routerLinkActive]="['active']"
-        >Foot Requests <span>{{ foot_data.footmate_requests }}</span></a
+        >FootRequests <span>{{ foot_data.footmate_requests }}</span></a
       >
       <a
         [routerLink]="['/member/manage/foot-mates']"
@@ -127,7 +127,7 @@
     </div>
     <ng-container *ngIf="requestList.length === 0">
       <span class="no-data-found">
-        No Foot Requests Found
+        No FootRequests Found
       </span>
     </ng-container>
     <!-- pagination -->
