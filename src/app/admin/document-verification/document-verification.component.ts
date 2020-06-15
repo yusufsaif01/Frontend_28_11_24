@@ -105,18 +105,18 @@ export class DocumentVerificationComponent implements OnInit {
     if (status === 'approved') {
       switch (this.member_type) {
         case 'player':
-          'Aadhaar details';
+          message = 'Aadhaar details';
           break;
         case 'club':
-          'AIFF document details';
+          message = 'AIFF document details';
           break;
         case 'academy':
-          'document details';
+          message = 'document details';
           break;
       }
       data = {
         header: 'Approve',
-        message: `Do you want to approve ${message} of ${this.documentDetails.player_name} player ?`
+        message: `Do you want to approve ${message} of ${this.documentDetails.player_name} ${this.member_type} ?`
       };
     } else if (status === 'disapproved') {
       data = {
