@@ -131,7 +131,8 @@ export class DocumentVerificationComponent implements OnInit {
       }
       data = {
         header: 'Approve',
-        message: `Do you want to approve ${message} of ${this.documentDetails.player_name} ${this.member_type} ?`
+        message: `Do you want to approve ${message} of ${this.documentDetails
+          .player_name || this.documentDetails.name} ${this.member_type} ?`
       };
     } else if (status === 'disapproved') {
       data = {
