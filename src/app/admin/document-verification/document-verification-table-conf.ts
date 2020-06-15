@@ -22,8 +22,8 @@ export class DocumentVerificationTableConfig extends TableConfig {
         'serialNumber',
         'name',
         'added_on',
-        'document_number',
-        'document_image',
+        'aiff_id',
+        'aiff_image',
         'status'
       ];
     } else if (member_type === 'academy') {
@@ -100,6 +100,20 @@ export class DocumentVerificationTableConfig extends TableConfig {
         text: 'Aadhaar Image',
         getValue: (ele: any) => {
           return ele[this.columns.aadhaarimg.code];
+        }
+      },
+      aiff_id: {
+        code: 'aiff_id',
+        text: 'AIFF Accreditation ID',
+        getValue: (ele: any) => {
+          return ele[this.columns.aiff_id.code];
+        }
+      },
+      aiff_image: {
+        code: 'aiff_image',
+        text: 'AIFF Document Image',
+        getValue: (ele: any) => {
+          return ele[this.columns.aiff_image.code];
         }
       },
       user_photo: {
