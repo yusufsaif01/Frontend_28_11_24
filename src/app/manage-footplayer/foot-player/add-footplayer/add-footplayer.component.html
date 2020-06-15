@@ -144,7 +144,7 @@
     <!-- Table on Data search -->
     <div class="table">
       <!-- table -->
-      <div *ngIf="!(totalRecordSubject$ | async)" class="table-container">
+      <div *ngIf="dataSource.data.length" class="table-container">
         <app-table
           [tableConfig]="tableConfig"
           [NumberColumn]="'true'"
@@ -192,7 +192,7 @@
         </ng-template>
       </div>
       <div *ngIf="totalRecordSubject$ | async" class="notonportal">
-        <h3>Player is not available on YFT Portal</h3>
+        <h3>Player is not available on the YFTChain portal</h3>
         <button [mat-dialog-close]="true" (click)="sendFootPlayerInvite()">
           Send Invitation
         </button>

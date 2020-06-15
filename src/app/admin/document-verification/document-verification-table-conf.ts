@@ -1,6 +1,7 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
 
 export class DocumentVerificationTableConfig extends TableConfig {
+  text: string = 'Document Number';
   constructor(member_type: string) {
     super();
     console.log('Type of member', member_type);
@@ -15,13 +16,14 @@ export class DocumentVerificationTableConfig extends TableConfig {
         'user_photo',
         'status'
       ];
+      this.text = 'Aadhaar No.';
     } else if (member_type === 'club') {
       this.allowedColumns = [
         'serialNumber',
         'name',
         'added_on',
-        'document_number',
-        'document_image',
+        'aiff_id',
+        'aiff_image',
         'status'
       ];
     } else if (member_type === 'academy') {
@@ -81,7 +83,7 @@ export class DocumentVerificationTableConfig extends TableConfig {
       },
       document_number: {
         code: 'document_number',
-        text: 'Document Number',
+        text: this.text,
         getValue: (ele: any) => {
           return ele[this.columns.document_number.code];
         }
@@ -98,6 +100,20 @@ export class DocumentVerificationTableConfig extends TableConfig {
         text: 'Aadhaar Image',
         getValue: (ele: any) => {
           return ele[this.columns.aadhaarimg.code];
+        }
+      },
+      aiff_id: {
+        code: 'aiff_id',
+        text: 'AIFF Accreditation ID',
+        getValue: (ele: any) => {
+          return ele[this.columns.aiff_id.code];
+        }
+      },
+      aiff_image: {
+        code: 'aiff_image',
+        text: 'AIFF Document Image',
+        getValue: (ele: any) => {
+          return ele[this.columns.aiff_image.code];
         }
       },
       user_photo: {
