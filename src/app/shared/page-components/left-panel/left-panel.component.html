@@ -5,16 +5,12 @@
     <h3 *ngIf="profile.member_type === 'player'">
       {{ profile.first_name }} {{ profile.last_name }}
     </h3>
-    <h3
-      *ngIf="
-        profile.member_type === 'club' || profile.member_type === 'academy'
-      "
-    >
+    <h3 *ngIf="profile.member_type !== 'player'">
       {{ profile.name | titlecase }}
     </h3>
-    <!-- <h6 *ngIf="profile.member_type === 'club'">
-      Non-Residential
-    </h6> -->
+    <h6 *ngIf="profile.member_type !== 'player'">
+      {{ profile.type | titlecase }}
+    </h6>
 
     <h6 *ngIf="profile.member_type === 'player'">
       {{
@@ -128,16 +124,22 @@
 </div>
 
 <!-- League Name -->
-<!-- <div class="block-design">
+<div class="block-design" *ngIf="profile && profile.member_type !== 'player'">
   <div class="block-middle">
     <div class="league">
       <h4>League Name</h4>
     </div>
     <div class="league">
-      <h5>Egyptian Premier League</h5>
+      <h5>
+        {{
+          profile.league === 'Other'
+            ? profile.league_other
+            : (profile.league | titlecase)
+        }}
+      </h5>
     </div>
   </div>
-</div> -->
+</div>
 
 <!-- achievements -->
 <ng-container *ngIf="options.my_achievements">
