@@ -51,9 +51,10 @@
               <img [src]="request.avatar" alt="" />
             </div>
             <div class="name">
-              <strong [routerLink]="['/profile', request.user_id]">{{
-                request.name
-              }}</strong>
+              <strong
+                [routerLink]="['/member/profile/view/', request.user_id]"
+                >{{ request.name }}</strong
+              >
               <p>{{ request.position }}</p>
             </div>
           </div>
