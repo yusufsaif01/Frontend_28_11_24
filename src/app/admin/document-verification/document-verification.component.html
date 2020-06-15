@@ -33,7 +33,7 @@
         <div class="heading">
           <ng-container [ngSwitch]="member_type">
             <h2 *ngSwitchCase="'player'">Aadhaar Verification</h2>
-            <h2 *ngSwitchCase="'club'">AIFF Accreditation Verification</h2>
+            <h2 *ngSwitchCase="'club'">AIFF Accreditation ID Verification</h2>
             <h2 *ngSwitchCase="'academy'">Document Verification</h2>
           </ng-container>
         </div>
@@ -44,7 +44,7 @@
             [tableConfig]="tableConfig"
             [NumberColumn]="'true'"
             [TableActions]="ListAction"
-            [sortEnabled]="true"
+            [sortEnabled]="false"
             (imgLink)="openDialog($event)"
           ></app-table>
           <ng-template #ListAction let-account_status="account_status">

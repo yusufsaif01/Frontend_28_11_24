@@ -25,7 +25,8 @@
               'avatar',
               'playerimg',
               'user_photo',
-              'document'
+              'document',
+              'aiff_image'
             ].includes(col)
           "
         >
@@ -131,12 +132,36 @@
               alt=""
             />
           </a>
+        </p>
+        <p *ngIf="col === 'aiff_image'">
           <a
-            *ngIf="!tableConfig.columns[col].getValue(element).includes('---')"
-            [href]="tableConfig.columns[col].getValue(element)"
+            [href]="
+              tableConfig.columns[col].getValue(element).split('---')[0] +
+              tableConfig.columns[col].getValue(element).split('---')[1]
+            "
             target="_blank"
           >
-            <img class="thumbnail" src="assets/images/pdf.png" alt="" />
+            <img
+              *ngIf="
+                tableConfig.columns[col].getValue(element).split('---')[1] ===
+                '.pdf'
+              "
+              class="thumbnail"
+              src="assets/images/pdf.png"
+              alt=""
+            />
+            <img
+              *ngIf="
+                tableConfig.columns[col].getValue(element).split('---')[1] !==
+                '.pdf'
+              "
+              class="thumbnail"
+              [src]="
+                tableConfig.columns[col].getValue(element).split('---')[0] +
+                tableConfig.columns[col].getValue(element).split('---')[1]
+              "
+              alt=""
+            />
           </a>
         </p>
         <p *ngIf="col === 'user_photo'">

@@ -1154,13 +1154,9 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         if (element.type === 'employment_contract') {
           this.employment_contract_url = fileLink + rootMedia.document;
         }
-        if (element.type === 'aiff') {
-          this.aiff_url = fileLink + rootMedia.document;
-        }
         if (
           element.type !== 'employment_contract' &&
-          element.type !== 'aadhar' &&
-          element.type !== 'aiff'
+          element.type !== 'aadhar'
         ) {
           this.document_url = fileLink + rootMedia.document;
         }

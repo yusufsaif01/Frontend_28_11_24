@@ -2,12 +2,18 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { AddFootPlayerTableConfig } from './add-footplayer-table-conf';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  ValidatorFn
+} from '@angular/forms';
 import { FootPlayerService } from '../foot-player.service';
 import { untilDestroyed } from '@app/core';
 import { environment } from '@env/environment';
 import { Subject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'app-add-footplayer',
   templateUrl: './add-footplayer.component.html',
@@ -42,7 +48,9 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
   onNoClick(): void {
     this.dialogRef.close();
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.setValidators();
+  }
 
   findPlayer() {
     this._footPlayerService
@@ -136,18 +144,68 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
     }
   }
 
+  setControlValidation(
+    form: FormGroup,
+    controlObject: { [name: string]: ValidatorFn[] }
+  ) {
+    for (const name in controlObject) {
+      let controlName = form.get(name);
+      controlName.setValidators(controlObject[name]);
+      controlName.updateValueAndValidity();
+    }
+  }
+  checkRequiredValidator(controlname: any, paramname: any, type: number) {
+    if (type === 1)
+      paramname.includes(Validators.required)
+        ? controlname
+        : paramname.push(Validators.required);
+    else if (type === 2)
+      paramname.includes(Validators.required)
+        ? paramname.splice(paramname.findIndex(Validators.required), 1)
+        : controlname;
+  }
+
+  setValidators() {
+    const phone = this.findPlayerForm.get('phone');
+    const email = this.findPlayerForm.get('email');
+    let emailControl = {
+      email: [Validators.required, Validators.email]
+    };
+    let phoneControl = {
+      phone: [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern(/^[0-9]+$/)
+      ]
+    };
+    this.setControlValidation(this.findPlayerForm, emailControl);
+    this.setControlValidation(this.findPlayerForm, phoneControl);
+
+    phone.valueChanges.pipe(distinctUntilChanged()).subscribe(value => {
+      if (value) {
+        this.checkRequiredValidator(emailControl, emailControl.email, 2);
+      } else {
+        this.checkRequiredValidator(emailControl, emailControl.email, 1);
+      }
+      this.setControlValidation(this.findPlayerForm, emailControl);
+    });
+
+    email.valueChanges.pipe(distinctUntilChanged()).subscribe(value => {
+      if (value) {
+        this.checkRequiredValidator(phoneControl, phoneControl.phone, 2);
+      } else {
+        this.checkRequiredValidator(phoneControl, phoneControl.phone, 1);
+      }
+      this.setControlValidation(this.findPlayerForm, phoneControl);
+    });
+  }
+
   createForm() {
     this.findPlayerForm = this._formBuilder.group({
       name: [''],
-      email: ['', [Validators.required, Validators.email]],
-      phone: [
-        '',
-        [
-          Validators.minLength(10),
-          Validators.maxLength(10),
-          Validators.pattern(/^[0-9]+$/)
-        ]
-      ]
+      email: [''],
+      phone: ['']
     });
   }
 }
