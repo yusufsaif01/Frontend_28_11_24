@@ -35,9 +35,9 @@
         </p>
         <p *ngIf="col === 'document_type'">
           <ng-container [ngSwitch]="element.document_type">
-            <ng-container *ngSwitchCase="'coi'">COI</ng-container>
+            <ng-container *ngSwitchCase="'coi'">COI Number</ng-container>
             <ng-container *ngSwitchCase="'tin'">TIN Number</ng-container>
-            <ng-container *ngSwitchCase="'pan'">PAN</ng-container>
+            <ng-container *ngSwitchCase="'pan'">PAN Number</ng-container>
             <ng-container *ngSwitchCase="'aiff'"
               >AIFF Accreditation ID</ng-container
             >
