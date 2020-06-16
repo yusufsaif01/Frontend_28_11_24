@@ -1060,6 +1060,9 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       weight: this.profile.weight ? this.profile.weight : '',
       dob: this.profile.dob ? new Date(this.profile.dob) : '',
       phone: this.profile.phone ? this.profile.phone : '',
+      mobile_number: this.profile.mobile_number
+        ? this.profile.mobile_number
+        : '',
       country: this.profile.country ? this.profile.country.id : '',
       stadium_name: this.profile.stadium_name ? this.profile.stadium_name : '',
       league: this.profile.league ? this.profile.league : '',
