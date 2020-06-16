@@ -92,6 +92,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
+        this.selectedPage = 1;
         this.getFootPlayerList(this.pageSize, 1);
       }
     });
@@ -118,6 +119,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
                 `Success`,
                 'FootPlayer deleted successfully'
               );
+              this.selectedPage = 1;
               this.getFootPlayerList(this.pageSize, 1);
             },
             error => {
@@ -138,7 +140,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
       width: '40% ',
       panelClass: 'filterDialog',
       data: {
-        header: 'Please confirm',
+        header: 'Please Confirm',
         message: 'Do you want to Resend Invitation?',
         acceptText: 'Yes',
         rejectText: 'No'

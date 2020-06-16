@@ -4,7 +4,6 @@ export class DocumentVerificationTableConfig extends TableConfig {
   text: string = 'Document Number';
   constructor(member_type: string) {
     super();
-    console.log('Type of member', member_type);
     if (member_type === 'player') {
       this.allowedColumns = [
         'serialNumber',
@@ -97,7 +96,7 @@ export class DocumentVerificationTableConfig extends TableConfig {
       },
       aadhaarimg: {
         code: 'aadhaarimg',
-        text: 'Aadhaar Image',
+        text: 'Aadhaar Document',
         getValue: (ele: any) => {
           return ele[this.columns.aadhaarimg.code];
         }
