@@ -15,7 +15,7 @@ interface ResponseContext {
   name: string;
   player_name: string;
   document_type: string;
-  document_image: string;
+  document_image: any;
   document_number: string;
   status: string;
   aadhaarimg: any;
@@ -96,7 +96,10 @@ export class DocumentVerificationComponent implements OnInit {
           ? this.attachDocumentUrl(document.media.document)
           : ''
       },
-      document_image: this.attachDocumentUrl(document.media.document),
+      document_image: {
+        document: this.attachDocumentUrl(document.media.document),
+        attachment_type: document.media.attachment_type
+      },
       aiff_image: {
         document: this.attachDocumentUrl(document.media.document),
         attachment_type: document.media.attachment_type
