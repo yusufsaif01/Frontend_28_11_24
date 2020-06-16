@@ -138,7 +138,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
       width: '40% ',
       panelClass: 'filterDialog',
       data: {
-        header: 'Please confirm',
+        header: 'Please Confirm',
         message: 'Do you want to Resend Invitation?',
         acceptText: 'Yes',
         rejectText: 'No'
