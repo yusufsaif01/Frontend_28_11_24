@@ -18,6 +18,7 @@
               'media',
               'aadhaarimg',
               'document_image',
+              'document_type',
               'profileimg',
               'type',
               'email',
@@ -31,6 +32,16 @@
           "
         >
           {{ tableConfig.columns[col].getValue(element) }}
+        </p>
+        <p *ngIf="col === 'document_type'">
+          <ng-container [ngSwitch]="element.document_type">
+            <ng-container *ngSwitchCase="'coi'">COI</ng-container>
+            <ng-container *ngSwitchCase="'tin'">TIN Number</ng-container>
+            <ng-container *ngSwitchCase="'pan'">PAN</ng-container>
+            <ng-container *ngSwitchCase="'aiff'"
+              >AIFF Accreditation ID</ng-container
+            >
+          </ng-container>
         </p>
         <p *ngIf="col === 'added_on' || col === 'date_of_birth'">
           {{
