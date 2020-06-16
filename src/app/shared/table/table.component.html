@@ -151,7 +151,7 @@
             <img class="thumbnail" src="assets/images/pdf.png" alt="" />
           </a>
         </p>
-        <p *ngIf="col === 'aiff_image'">
+        <p *ngIf="col === 'aiff_image' || col === 'document_image'">
           <a
             [href]="tableConfig.columns[col].getValue(element).document"
             target="_blank"
