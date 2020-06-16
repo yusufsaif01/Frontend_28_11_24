@@ -159,7 +159,7 @@
             <img
               *ngIf="
                 tableConfig.columns[col].getValue(element).attachment_type ===
-                '.pdf'
+                'pdf'
               "
               class="thumbnail"
               src="assets/images/pdf.png"
@@ -168,7 +168,7 @@
             <img
               *ngIf="
                 tableConfig.columns[col].getValue(element).attachment_type !==
-                '.pdf'
+                'pdf'
               "
               class="thumbnail"
               [src]="tableConfig.columns[col].getValue(element).document"
