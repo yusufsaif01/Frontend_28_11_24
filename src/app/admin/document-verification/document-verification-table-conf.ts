@@ -4,7 +4,6 @@ export class DocumentVerificationTableConfig extends TableConfig {
   text: string = 'Document Number';
   constructor(member_type: string) {
     super();
-    console.log('Type of member', member_type);
     if (member_type === 'player') {
       this.allowedColumns = [
         'serialNumber',

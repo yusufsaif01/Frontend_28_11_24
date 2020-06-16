@@ -121,40 +121,44 @@
         <p *ngIf="col === 'aadhaarimg'">
           <a
             matTooltip="Front Image"
-            *ngIf="tableConfig.columns[col].getValue(element).includes('---')"
-            [href]="tableConfig.columns[col].getValue(element).split('---')[0]"
+            *ngIf="tableConfig.columns[col].getValue(element).doc_front"
+            [href]="tableConfig.columns[col].getValue(element).doc_front"
             target="_blank"
           >
             <img
               class="thumbnail"
-              [src]="tableConfig.columns[col].getValue(element).split('---')[0]"
+              [src]="tableConfig.columns[col].getValue(element).doc_front"
               alt=""
             />
           </a>
           <a
             matTooltip="Back Image"
-            *ngIf="tableConfig.columns[col].getValue(element).includes('---')"
-            [href]="tableConfig.columns[col].getValue(element).split('---')[1]"
+            *ngIf="tableConfig.columns[col].getValue(element).doc_back"
+            [href]="tableConfig.columns[col].getValue(element).doc_back"
             target="_blank"
           >
             <img
               class="thumbnail"
-              [src]="tableConfig.columns[col].getValue(element).split('---')[1]"
+              [src]="tableConfig.columns[col].getValue(element).doc_back"
               alt=""
             />
+          </a>
+          <a
+            *ngIf="tableConfig.columns[col].getValue(element).document"
+            [href]="tableConfig.columns[col].getValue(element).document"
+            target="_blank"
+          >
+            <img class="thumbnail" src="assets/images/pdf.png" alt="" />
           </a>
         </p>
         <p *ngIf="col === 'aiff_image'">
           <a
-            [href]="
-              tableConfig.columns[col].getValue(element).split('---')[0] +
-              tableConfig.columns[col].getValue(element).split('---')[1]
-            "
+            [href]="tableConfig.columns[col].getValue(element).document"
             target="_blank"
           >
             <img
               *ngIf="
-                tableConfig.columns[col].getValue(element).split('---')[1] ===
+                tableConfig.columns[col].getValue(element).attachment_type ===
                 '.pdf'
               "
               class="thumbnail"
@@ -163,14 +167,11 @@
             />
             <img
               *ngIf="
-                tableConfig.columns[col].getValue(element).split('---')[1] !==
+                tableConfig.columns[col].getValue(element).attachment_type !==
                 '.pdf'
               "
               class="thumbnail"
-              [src]="
-                tableConfig.columns[col].getValue(element).split('---')[0] +
-                tableConfig.columns[col].getValue(element).split('---')[1]
-              "
+              [src]="tableConfig.columns[col].getValue(element).document"
               alt=""
             />
           </a>

@@ -18,11 +18,11 @@ interface ResponseContext {
   document_image: string;
   document_number: string;
   status: string;
-  aadhaarimg: string;
+  aadhaarimg: any;
   document: string;
   user_photo: string;
   aiff_id: string;
-  aiff_image: string;
+  aiff_image: any;
 }
 
 @Component({
@@ -85,28 +85,26 @@ export class DocumentVerificationComponent implements OnInit {
       aiff_id: document.document_number ? document.document_number : '',
       document_type: document.type ? document.type : '',
       status: document.status,
-      aadhaarimg: document.media.doc_front
-        ? this.attachDocumentUrl(document.media.doc_front) +
-          '---' +
-          this.attachDocumentUrl(document.media.doc_back)
-        : '',
+      aadhaarimg: {
+        doc_front: document.media.doc_front
+          ? this.attachDocumentUrl(document.media.doc_front)
+          : '',
+        doc_back: document.media.doc_back
+          ? this.attachDocumentUrl(document.media.doc_back)
+          : '',
+        document: document.media.document
+          ? this.attachDocumentUrl(document.media.document)
+          : ''
+      },
       document_image: this.attachDocumentUrl(document.media.document),
-      aiff_image: document.media.document
-        ? this.attachDocumentUrlAppendName(document.media.document)
-        : '',
+      aiff_image: {
+        document: this.attachDocumentUrl(document.media.document),
+        attachment_type: document.media.attachment_type
+      },
       user_photo: this.attachDocumentUrl(document.media.user_photo)
     };
 
     return modifiedResponse;
-  }
-  attachDocumentUrlAppendName(documentUrl: string) {
-    return (
-      environment.mediaUrl +
-      documentUrl.split('.')[0] +
-      '---' +
-      '.' +
-      documentUrl.split('.')[1]
-    );
   }
 
   attachDocumentUrl(documentUrl: string) {
