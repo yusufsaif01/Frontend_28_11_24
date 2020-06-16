@@ -431,8 +431,9 @@
           <div class="block-middle border-bottom" *ngIf="!isPublic">
             <div class="half">
               <p>
-                <span *ngIf="member_type === 'player'">Mobile :</span>
-                <span *ngIf="member_type !== 'player'">Phone :</span> +91
+                <span *ngIf="profile.member_type === 'player'">Mobile :</span>
+                <span *ngIf="profile.member_type !== 'player'">Phone :</span>
+                +91
                 {{ profile?.phone }}
               </p>
             </div>
@@ -615,20 +616,6 @@
             </div>
           </div>
 
-          <div
-            class="block-middle border-bottom"
-            *ngIf="
-              profile.member_type === 'academy' ||
-              profile.member_type === 'club'
-            "
-          >
-            <div class="full">
-              <p>
-                <span>Number of associated players : </span
-                >{{ profile?.associated_players }}
-              </p>
-            </div>
-          </div>
           <div
             class="block-middle border-bottom"
             *ngIf="
