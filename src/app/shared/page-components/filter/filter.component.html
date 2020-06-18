@@ -1,4 +1,5 @@
 <button
+  *ngIf="allowedFilters.position"
   (click)="addActiveClass('activePosition')"
   [matMenuTriggerFor]="position"
   [ngClass]="{ active: switchClass.activePosition }"
@@ -7,6 +8,7 @@
   <i-feather class="icon-size" name="chevron-down"></i-feather>
 </button>
 <button
+  *ngIf="allowedFilters.playerCategory"
   (click)="addActiveClass('activePlayerCategory')"
   [matMenuTriggerFor]="playercategory"
   [ngClass]="{ active: switchClass.activePlayerCategory }"
@@ -15,6 +17,7 @@
   <i-feather class="icon-size" name="chevron-down"></i-feather>
 </button>
 <button
+  *ngIf="allowedFilters.age"
   (click)="addActiveClass('activeAge')"
   [matMenuTriggerFor]="age"
   [ngClass]="{ active: switchClass.activeAge }"
@@ -23,6 +26,7 @@
   <i-feather class="icon-size" name="chevron-down"></i-feather>
 </button>
 <button
+  *ngIf="allowedFilters.location"
   (click)="addActiveClass('activeLocation')"
   [matMenuTriggerFor]="location"
   [ngClass]="{ active: switchClass.activeLocation }"
@@ -31,6 +35,7 @@
   <i-feather class="icon-size" name="chevron-down"></i-feather>
 </button>
 <button
+  *ngIf="allowedFilters.strongFoot"
   (click)="addActiveClass('activeStrongFoot')"
   [matMenuTriggerFor]="strongfoot"
   [ngClass]="{ active: switchClass.activeStrongFoot }"
@@ -39,10 +44,19 @@
   <i-feather class="icon-size" name="chevron-down"></i-feather>
 </button>
 <button
-  (click)="addActiveClass('activeStrongFoot')"
-  [ngClass]="{ active: switchClass.activeStrongFoot }"
+  *ngIf="allowedFilters.teamTypes"
+  (click)="addActiveClass('activeTeamTypes')"
+  [ngClass]="{ active: switchClass.activeTeamTypes }"
 >
   Types Of Teams
+  <i-feather class="icon-size" name="chevron-down"></i-feather>
+</button>
+<button
+  *ngIf="allowedFilters.ability"
+  (click)="addActiveClass('activeAbility')"
+  [ngClass]="{ active: switchClass.activeAbility }"
+>
+  Ability
   <i-feather class="icon-size" name="chevron-down"></i-feather>
 </button>
 <button (click)="clearFilters()">Clear Filter</button>

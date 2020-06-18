@@ -16,6 +16,16 @@ export class ClubAcademyFootplayerComponent implements OnInit {
     is_public: false,
     is_league: true
   };
+
+  filtersList = {
+    position: true,
+    playerCategory: true,
+    age: true,
+    location: true,
+    strongFoot: true,
+    teamTypes: true,
+    ability: true
+  };
   constructor() {}
 
   ngOnInit() {}

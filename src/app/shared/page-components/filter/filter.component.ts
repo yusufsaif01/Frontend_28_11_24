@@ -11,6 +11,8 @@ interface ActiveClass {
   activeAge: boolean;
   activeLocation: boolean;
   activeStrongFoot: boolean;
+  activeTeamTypes: boolean;
+  activeAbility: boolean;
 }
 
 interface LocationRangeFilters {
@@ -35,8 +37,6 @@ interface LocationsIds {
   cityValue: string;
 }
 
-interface ShowFilterList {}
-
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
@@ -48,7 +48,15 @@ export class FilterComponent implements OnInit {
   locationRangeFilters: LocationRangeFilters;
   locationData: LocationsIds;
   checkFilters: boolean | undefined = undefined;
-  @Input() showFilerList: ShowFilterList;
+  @Input() allowedFilters = {
+    position: false,
+    playerCategory: false,
+    age: false,
+    location: false,
+    strongFoot: false,
+    teamTypes: false,
+    ability: false
+  };
 
   constructor(
     private toastrService: ToastrService,
@@ -68,7 +76,9 @@ export class FilterComponent implements OnInit {
       activePlayerCategory: false,
       activeAge: false,
       activeLocation: false,
-      activeStrongFoot: false
+      activeStrongFoot: false,
+      activeTeamTypes: false,
+      activeAbility: false
     };
   }
   initialize() {
