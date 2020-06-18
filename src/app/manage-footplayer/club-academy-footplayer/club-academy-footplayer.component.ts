@@ -29,4 +29,8 @@ export class ClubAcademyFootplayerComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  onChangeFilter(event: any) {
+    console.log(event);
+  }
 }

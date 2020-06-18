@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Constants } from '@app/shared/static-data/static-data';
 import { SharedService } from '@app/shared/shared.service';
 import { ToastrService } from 'ngx-toastr';
@@ -57,6 +57,7 @@ export class FilterComponent implements OnInit {
     teamTypes: false,
     ability: false
   };
+  @Output() filterChanges: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private toastrService: ToastrService,
@@ -124,8 +125,7 @@ export class FilterComponent implements OnInit {
       delete this.filter.state;
       delete this.filter.city;
     }
-    this.filter.page_no = 1;
-    // this.getFootMateList(this.pageSize, 1);
+    this.filterChanges.emit(this.filter);
   }
 
   onSelectState(event: any) {
@@ -141,8 +141,7 @@ export class FilterComponent implements OnInit {
       this.locationRangeFilters.cities = [];
       delete this.filter.state;
     }
-    this.filter.page_no = 1;
-    // this.getFootMateList(this.pageSize, 1);
+    this.filterChanges.emit(this.filter);
   }
 
   onSelectCity(event: any) {
@@ -152,8 +151,7 @@ export class FilterComponent implements OnInit {
     } else {
       delete this.filter.city;
     }
-    this.filter.page_no = 1;
-    // this.getFootMateList(this.pageSize, 1);
+    this.filterChanges.emit(this.filter);
   }
 
   getLocationStats() {
@@ -252,13 +250,11 @@ export class FilterComponent implements OnInit {
       });
     }
     this.filter[type] = filterArray.join(',');
-    this.filter.page_no = 1;
-    // this.getFootMateList(this.pageSize, 1);
+    this.filterChanges.emit(this.filter);
   }
 
   clearFilters() {
     this.filter = {};
-    this.filter.page_no = 1;
     this.deactivateAll();
     this.checkFilters = false;
     this.locationRangeFilters.positionsArray = [];
@@ -268,6 +264,6 @@ export class FilterComponent implements OnInit {
     this.locationData.countryValue = '';
     this.locationData.stateValue = '';
     this.locationData.cityValue = '';
-    // this.getFootMateList(this.pageSize, 1);
+    this.filterChanges.emit(false);
   }
 }

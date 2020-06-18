@@ -22,7 +22,10 @@
     <!-- filter -->
     <div class="filter">
       <button>Filters</button>
-      <app-filter [allowedFilters]="filtersList"></app-filter>
+      <app-filter
+        [allowedFilters]="filtersList"
+        (filterChanges)="onChangeFilter($event)"
+      ></app-filter>
     </div>
     <!-- search -->
     <div class="search">
