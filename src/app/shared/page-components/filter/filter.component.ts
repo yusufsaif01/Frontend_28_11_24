@@ -13,6 +13,7 @@ interface ActiveClass {
   activeStrongFoot: boolean;
   activeTeamTypes: boolean;
   activeAbility: boolean;
+  activeStatus: boolean;
 }
 
 interface LocationRangeFilters {
@@ -23,10 +24,16 @@ interface LocationRangeFilters {
   strongFoot: any[];
   states: any[];
   cities: any[];
+  teamTypes: any[];
+  status: any[];
+  ability: any[];
   positionsArray: any[];
   playerTypeArray: any[];
   ageRangeArray: any[];
   strongFootArray: any[];
+  teamTypesArray: any[];
+  statusArray: any[];
+  abilityArray: any[];
 }
 
 interface LocationsIds {
@@ -55,7 +62,8 @@ export class FilterComponent implements OnInit {
     location: false,
     strongFoot: false,
     teamTypes: false,
-    ability: false
+    ability: false,
+    status: false
   };
   @Output() filterChanges: EventEmitter<any> = new EventEmitter();
 
@@ -79,7 +87,8 @@ export class FilterComponent implements OnInit {
       activeLocation: false,
       activeStrongFoot: false,
       activeTeamTypes: false,
-      activeAbility: false
+      activeAbility: false,
+      activeStatus: false
     };
   }
   initialize() {
@@ -91,10 +100,16 @@ export class FilterComponent implements OnInit {
       strongFoot: [],
       states: [],
       cities: [],
+      teamTypes: [],
+      status: [],
+      ability: [],
       positionsArray: [],
       playerTypeArray: [],
       ageRangeArray: [],
-      strongFootArray: []
+      strongFootArray: [],
+      teamTypesArray: [],
+      statusArray: [],
+      abilityArray: []
     };
     this.locationData = {
       countryID: '',
@@ -109,6 +124,13 @@ export class FilterComponent implements OnInit {
     this.locationRangeFilters.strongFoot = Constants.STRONG_FOOT;
     this.locationRangeFilters.ageRange = Constants.AGE_RANGE;
     this.locationRangeFilters.playerType = Constants.PLAYER_TYPE;
+    this.locationRangeFilters.status = Constants.STATUS;
+    if (localStorage.getItem('member_type') === 'academy') {
+      this.locationRangeFilters.teamTypes = Constants.ACADEMY_TEAM_TYPES;
+    }
+    if (localStorage.getItem('member_type') === 'club') {
+      this.locationRangeFilters.teamTypes = Constants.CLUB_TEAM_TYPES;
+    }
     this.getPositionsListing();
   }
 
@@ -261,6 +283,9 @@ export class FilterComponent implements OnInit {
     this.locationRangeFilters.playerTypeArray = [];
     this.locationRangeFilters.ageRangeArray = [];
     this.locationRangeFilters.strongFootArray = [];
+    this.locationRangeFilters.statusArray = [];
+    this.locationRangeFilters.teamTypesArray = [];
+    this.locationRangeFilters.abilityArray = [];
     this.locationData.countryValue = '';
     this.locationData.stateValue = '';
     this.locationData.cityValue = '';

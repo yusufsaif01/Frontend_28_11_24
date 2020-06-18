@@ -24,7 +24,8 @@ export class ClubAcademyFootplayerComponent implements OnInit {
     location: true,
     strongFoot: true,
     teamTypes: true,
-    ability: true
+    ability: true,
+    status: true
   };
   constructor() {}
 

@@ -351,4 +351,25 @@ export abstract class Constants {
     { name: 'Residential', value: 'Residential' },
     { name: 'Non-Residential', value: 'Non-Residential' }
   ];
+
+  static readonly ACADEMY_TEAM_TYPES: any = [
+    'First team',
+    'B team',
+    'Under 19',
+    'Under 18',
+    'Under 16',
+    'Under 14',
+    'Under 12'
+  ];
+
+  static readonly CLUB_TEAM_TYPES: any = [
+    'First team',
+    'B team',
+    'Under 18',
+    'Under 16',
+    'Under 14',
+    'Under 12'
+  ];
+
+  static readonly STATUS: any = ['Pending', 'Invited', 'Added', 'Rejected'];
 }
