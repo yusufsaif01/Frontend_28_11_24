@@ -47,10 +47,6 @@
         Ability
         <i-feather class="icon-size" name="chevron-down"></i-feather>
       </button>
-      <button [matMenuTriggerFor]="status">
-        Status
-        <i-feather class="icon-size" name="chevron-down"></i-feather>
-      </button>
       <button>Clear Filter</button>
       <!-- postion -->
       <mat-menu #position="matMenu">
@@ -214,27 +210,6 @@
             </span>
             <span class="chk-box">
               <mat-checkbox>Acceleration</mat-checkbox>
-            </span>
-          </div>
-        </div>
-      </mat-menu>
-
-      <!-- ability -->
-      <mat-menu #status="matMenu">
-        <div (click)="$event.stopPropagation()">
-          <h3>Select Strong Foot</h3>
-          <div class="items">
-            <span class="chk-box">
-              <mat-checkbox>Pending</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Invited</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Added </mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Rejected</mat-checkbox>
             </span>
           </div>
         </div>
