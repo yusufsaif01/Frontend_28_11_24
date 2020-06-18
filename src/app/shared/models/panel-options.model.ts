@@ -8,4 +8,5 @@ export interface PanelOptions {
   achievements: boolean;
   footplayers: boolean;
   view_profile_link: boolean;
+  is_league: boolean;
 }

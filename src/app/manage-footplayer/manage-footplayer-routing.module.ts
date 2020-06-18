@@ -5,7 +5,7 @@ import { RoleGuardService } from '../core/authentication/role-guard.service';
 import { extract, AuthenticationGuard } from '@app/core';
 import { ManageFootPlayerComponent } from './manage-footplayer.component';
 import { FootPlayerComponent } from './foot-player/foot-player.component';
-
+import { ClubAcademyFootplayerComponent } from './club-academy-footplayer/club-academy-footplayer.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -16,6 +16,11 @@ const appRoutes: Routes = [
       {
         path: '',
         component: FootPlayerComponent,
+        data: { title: extract('Foot Player') }
+      },
+      {
+        path: 'club-academy',
+        component: ClubAcademyFootplayerComponent,
         data: { title: extract('Foot Player') }
       },
       { path: '**', component: FootPlayerComponent }

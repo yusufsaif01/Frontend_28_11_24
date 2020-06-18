@@ -1,0 +1,42 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <!-- left Sidebar -->
+  <div class="left-section">
+    <app-left-panel
+      [achievements]="total_count"
+      [options]="panelOptions"
+      [userId]="userId"
+    ></app-left-panel>
+  </div>
+  <div class="right-section">
+    <div class="award-heading">
+      <div class="left-part">
+        <h2>
+          Manage FootPlayers
+        </h2>
+      </div>
+      <div class="right-part" *ngIf="!isPublic">
+        <button (click)="onaddfootplayer()">Add Player</button>
+      </div>
+    </div>
+    <!-- filter -->
+    <div class="filter">
+      <button>Filters</button>
+    </div>
+    <!-- search -->
+    <div class="search">
+      <div class="search-form">
+        <form>
+          <input
+            (keyup)="applyFilter($event)"
+            type="text"
+            placeholder="Search player"
+          />
+          <span class="search-icon">
+            <i-feather name="search" class="icon-size"></i-feather>
+          </span>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

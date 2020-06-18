@@ -5,12 +5,14 @@ import { SharedModule } from '@app/shared';
 import { ManageFootplayerRoutingModule } from './manage-footplayer-routing.module';
 import { FootPlayerComponent } from './foot-player/foot-player.component';
 import { AddFootplayerComponent } from './foot-player/add-footplayer/add-footplayer.component';
+import { ClubAcademyFootplayerComponent } from './club-academy-footplayer/club-academy-footplayer.component';
 
 @NgModule({
   declarations: [
     ManageFootPlayerComponent,
     FootPlayerComponent,
-    AddFootplayerComponent
+    AddFootplayerComponent,
+    ClubAcademyFootplayerComponent
   ],
   imports: [CommonModule, SharedModule, ManageFootplayerRoutingModule],
   entryComponents: [AddFootplayerComponent]
