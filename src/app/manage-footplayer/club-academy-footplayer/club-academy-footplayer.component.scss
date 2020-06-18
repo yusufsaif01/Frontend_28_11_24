@@ -23,14 +23,19 @@
       border-bottom: 0.3rem solid #edf2f6;
 
       .left-part {
+        display: flex;
+        align-items: center;
+
         h2 {
           font-size: 2.8rem;
+        }
 
-          i-feather {
-            width: 2.8rem;
-            margin-right: 0.5rem;
-            transform: translateY(0.4rem);
-          }
+        span {
+          background-color: $blue;
+          color: $color-white;
+          padding: 0.5rem 1rem;
+          margin-left: 1rem;
+          border-radius: 0.8rem;
         }
       }
 
@@ -38,16 +43,6 @@
         button {
           @include btn-primary-outline;
         }
-      }
-    }
-
-    // Filters
-    .filter {
-      padding: 2rem;
-      border-bottom: 0.3rem solid #edf2f6;
-
-      button {
-        @include btn-primary-outline;
       }
     }
 
@@ -79,69 +74,172 @@
       }
     }
 
-    // table
-    .table {
+    // filters
+    .filter-buttons {
       padding: 2rem;
+      border-bottom: 0.3rem solid #edf2f6;
+      position: relative;
 
-      ::ng-deep {
-        .mat-cell:nth-of-type(2),
-        .mat-footer-cell:nth-of-type(2),
-        .mat-header-cell:nth-of-type(2) {
-          max-width: 12rem;
+      button {
+        padding: 1rem 3rem 1rem 2rem;
+        border-radius: 0.8rem;
+        border: 1px solid $blue;
+        color: $blue;
+        background: transparent;
+        margin: 0.5rem;
+        cursor: pointer;
+        position: relative;
+        outline: none;
+
+        i-feather {
+          position: absolute;
+          top: 1rem;
+          left: calc(100% - 2.5rem);
         }
 
-        .mat-cell:first-of-type,
-        .mat-footer-cell:first-of-type,
-        .mat-header-cell:first-of-type {
-          max-width: 12rem;
+        &:last-child {
+          padding: 1rem 2rem 1rem 2rem;
         }
 
-        .mat-table .mat-row .mat-cell img.thumbnail {
-          width: 5rem;
-          height: 5rem;
-          margin-top: 1rem;
+        &:hover,
+        &.active {
+          background: $blue;
+          color: $color-white;
+
+          span {
+            background: #289af5;
+          }
+        }
+      }
+    }
+
+    // players
+    .playerwrapper {
+      padding: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+
+      .playerbox {
+        border: 1px solid $border-color;
+        width: 31%;
+        border-radius: 0.5rem;
+        margin: 1.35rem;
+        box-shadow: 0px 0px 4px 0px rgba($color-black, 0.1);
+
+        &:hover {
+          box-shadow: 0px 0px 0px 0px rgba($color-black, 0.1);
+          cursor: pointer;
         }
 
-        .mat-table
-          .mat-row
-          .mat-cell
-          .action-buttons
-          button:nth-of-type(1)
-          img {
-          margin-top: 0px;
-          height: 2rem;
+        .top {
+          display: flex;
+          padding: 2rem;
+          align-items: center;
+
+          .dp {
+            img {
+              width: 35px;
+              height: 35px;
+              border-radius: 35px;
+            }
+          }
+
+          .name {
+            margin-left: 1rem;
+
+            strong {
+              font-size: 1.9rem;
+              user-select: none;
+
+              &:hover {
+                color: $blue;
+              }
+            }
+
+            a {
+              text-decoration: none;
+              color: $color-black;
+            }
+
+            p {
+              font-size: 1.6rem;
+              color: $text-muted;
+            }
+          }
         }
 
-        .mat-table .mat-row .mat-cell .action-buttons button:nth-of-type(1) {
-          transform: translateY(0px);
+        .middle {
+          padding: 2rem;
+          border-top: 1px solid $border-color;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          h4 {
+            font-size: 1.8rem;
+            font-weight: 700;
+
+            a {
+              color: $blue;
+            }
+          }
         }
       }
     }
   }
 }
 
-.icon-size {
-  width: 2rem;
-  height: 2rem;
-  margin-right: 1rem;
-}
+// mega dropdown
+::ng-deep {
+  .mat-menu-panel {
+    max-width: 100rem !important;
+    width: 100% !important;
+    padding: 2rem;
 
-.border-top {
-  border-top: 1px solid $border-color;
-}
+    .mat-menu-content {
+      h3 {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+      }
 
-.border-bottom {
-  border-bottom: 1px solid $border-color;
-}
+      .items {
+        span.chk-box {
+          display: inline-block;
+          font-size: 1.8rem;
+          margin: 1rem 2rem 1rem 0rem;
+          padding: 1rem 2rem;
+          box-shadow: 0rem 0rem 0.5rem 0rem rgba(0, 0, 0, 0.2);
 
-.border-left {
-  border-left: 1px solid $border-color;
-}
+          ::ng-deep {
+            .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+              background: $blue !important;
+            }
+          }
+        }
+      }
 
-.d-none {
-  display: none;
-}
+      .wrapper-location {
+        display: flex;
+        justify-content: space-between;
 
-i-feather.active {
-  fill: blue;
+        .slt-wrapper {
+          width: 25rem;
+          position: relative;
+          margin: 0 1rem;
+
+          select {
+            width: 100%;
+            padding: 1rem;
+            appearance: none;
+          }
+
+          i-feather {
+            position: absolute;
+            left: calc(100% - 3rem);
+            top: 1rem;
+          }
+        }
+      }
+    }
+  }
 }

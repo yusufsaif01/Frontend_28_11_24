@@ -16,7 +16,8 @@ export class ClubAcademyFootplayerComponent implements OnInit {
     is_public: false,
     is_league: true
   };
-  constructor() {}
 
   ngOnInit() {}
+
+  constructor() {}
 }
