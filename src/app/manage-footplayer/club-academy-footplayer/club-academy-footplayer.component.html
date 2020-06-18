@@ -6,18 +6,15 @@
       [achievements]="total_count"
       [options]="panelOptions"
       [userId]="userId"
-      (sendMemberType)="getMemberType($event)"
     ></app-left-panel>
   </div>
   <div class="right-section">
     <div class="award-heading">
       <div class="left-part">
         <h2>
-          Manage FootPlayers
+          Club's FootPlayers
         </h2>
-      </div>
-      <div class="right-part" *ngIf="!isPublic">
-        <button (click)="onaddfootplayer()">Add Player</button>
+        <span>89</span>
       </div>
     </div>
     <!-- filter -->
@@ -48,10 +45,6 @@
       </button>
       <button [matMenuTriggerFor]="ability">
         Ability
-        <i-feather class="icon-size" name="chevron-down"></i-feather>
-      </button>
-      <button [matMenuTriggerFor]="status">
-        Status
         <i-feather class="icon-size" name="chevron-down"></i-feather>
       </button>
       <button>Clear Filter</button>
@@ -221,98 +214,41 @@
           </div>
         </div>
       </mat-menu>
-
-      <!-- ability -->
-      <mat-menu #status="matMenu">
-        <div (click)="$event.stopPropagation()">
-          <h3>Select Status</h3>
-          <div class="items">
-            <span class="chk-box">
-              <mat-checkbox>Pending</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Invited</mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Added </mat-checkbox>
-            </span>
-            <span class="chk-box">
-              <mat-checkbox>Rejected</mat-checkbox>
-            </span>
-          </div>
-        </div>
-      </mat-menu>
     </div>
     <!-- search -->
     <div class="search">
       <div class="search-form">
         <form>
-          <input
-            (keyup)="applyFilter($event)"
-            type="text"
-            placeholder="Search player"
-          />
+          <input type="text" placeholder="Search player" />
           <span class="search-icon">
             <i-feather name="search" class="icon-size"></i-feather>
           </span>
         </form>
       </div>
     </div>
-    <div class="table">
-      <!-- table -->
-      <div class="table-container">
-        <app-table
-          [tableConfig]="tableConfig"
-          [NumberColumn]="'true'"
-          [rows]="dataSource"
-          [sortEnabled]="true"
-          [pageSize]="pageSize"
-          [TableActions]="ListAction"
-          [pageNo]="selectedPage"
-        >
-        </app-table>
-        <ng-template
-          #ListAction
-          let-id="id"
-          let-avatar="avatar"
-          let-category="category"
-          let-name="name"
-          let-position="position"
-          let-status="status"
-          let-email="email"
-        >
-          <div class="action-buttons">
-            <button
-              matTooltip="Resend Invitation"
-              [ngClass]="{
-                'btn-disable': ['pending', 'added', 'rejected'].includes(status)
-              }"
-              [disabled]="['pending', 'added', 'rejected'].includes(status)"
-              (click)="resendInvitationPopup(email)"
-            >
-              <img src="assets/images/icons/refresh01.png" alt="refresh" />
-            </button>
 
-            <button matTooltip="Add Contract">
-              <img src="assets/images/icons/plus.png" alt="Add" />
-            </button>
-
-            <button matTooltip="Delete" (click)="deletePopup(id)">
-              <img src="assets/images/icons/bin.png" alt="Delete" />
-            </button>
+    <div class="playerwrapper">
+      <div class="playerbox">
+        <div class="top">
+          <div class="dp">
+            <img src="./../../../assets/images/user-avatar.png" alt="" />
           </div>
-        </ng-template>
+          <div class="name">
+            <strong>
+              <a target="_blank">Ratan Singh </a>
+            </strong>
+            <p>Center Midfielder</p>
+          </div>
+        </div>
+        <div class="middle">
+          <h4 class="gray">Professional</h4>
+        </div>
       </div>
     </div>
-    <!-- pagination -->
-    <app-pagination
-      [showData]="false"
-      [showCount]="show_count"
-      [totalRows]="total_count"
-      [rowsPerPage]="pageSize"
-      [selectedPage]="selectedPage"
-      (onChange)="updatePage($event)"
-    >
-    </app-pagination>
+
+    <span class="no-data-found">
+      No FootMates Found
+    </span>
+    <app-pagination></app-pagination>
   </div>
 </div>

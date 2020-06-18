@@ -4,6 +4,7 @@
 
 header {
   background-color: #1d2f38;
+
   .header {
     width: 85%;
     margin: 0 auto;
@@ -16,6 +17,7 @@ header {
       width: 40%;
       display: flex;
       align-items: center;
+
       img {
         max-width: 120px;
         outline: none;
@@ -30,6 +32,7 @@ header {
       display: flex;
       position: relative;
       width: 100%;
+
       input {
         width: 100%;
         background-color: #1d1d1d;
@@ -38,10 +41,12 @@ header {
         border: none;
         outline: none;
         color: $text-muted;
+
         &::placeholder {
           color: $text-muted;
         }
       }
+
       span.search-icon {
         position: absolute;
         left: calc(100% - 4rem);
@@ -57,16 +62,19 @@ header {
       width: 20%;
       align-items: center;
       justify-content: flex-end;
+
       ul {
         list-style: none;
         display: flex;
         align-items: center;
         width: 100%;
         justify-content: space-between;
+
         li {
           // display: inline-block;
           // margin-left: 4rem;
           position: relative;
+
           a {
             font-size: 1.8rem;
             color: #ccced2;
@@ -74,9 +82,11 @@ header {
             align-items: center;
             position: relative;
             text-decoration: none;
+
             span {
               margin-right: 1rem;
             }
+
             span.count {
               position: absolute;
               height: 2rem;
@@ -90,24 +100,28 @@ header {
               color: #fff;
               padding-right: 0.1rem;
             }
+
             img {
               height: 2.4rem;
             }
           }
         }
       }
+
       .profile {
         // padding: 1rem 0px;
         border-radius: 10rem;
         cursor: pointer;
+
         img {
           width: 4rem;
           height: 4rem;
           border-radius: 10rem;
         }
+
         i-feather.down {
           color: $text-muted;
-          // transform: translateY(-1rem);
+          transform: translateY(-0.8rem);
         }
       }
     }
@@ -128,21 +142,26 @@ header {
   // top:2rem;
   background-color: #1d2f38;
   z-index: 999;
+
   ul {
     list-style: none;
     flex-direction: column;
     align-items: flex-start !important;
+
     li {
       display: block !important;
       margin-left: 0px !important;
       width: 100%;
+
       a {
         display: block;
         padding: 1rem;
+
         i-feather {
           transform: translateY(2px);
           margin-right: 1rem;
         }
+
         &:hover {
           background-color: #12181b;
         }
@@ -150,14 +169,17 @@ header {
     }
   }
 }
+
 // mat options
 .search-options {
   ::ng-deep {
     .mat-option {
       border-bottom: 1px solid $border-color;
+
       &:last-child {
         border: none;
       }
+
       .mat-option-text {
         img {
           width: 25px;
@@ -165,12 +187,15 @@ header {
           border-radius: 25px;
           transform: translateY(0.7rem);
         }
+
         strong {
           margin-left: 1rem;
         }
+
         small {
           margin-left: 1rem;
         }
+
         small.position {
           color: $blue;
         }
@@ -185,9 +210,11 @@ header {
     overflow: scroll !important;
     position: relative;
   }
+
   .mat-autocomplete-panel.mat-autocomplete-visible mat-option {
     position: static !important;
   }
+
   .autocomplete-height {
     width: 150% !important;
     position: absolute !important;
