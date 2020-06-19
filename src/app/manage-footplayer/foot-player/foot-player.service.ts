@@ -8,7 +8,7 @@ const routes = {
   findPlayer: (query: string) => `/footplayer/search${query}`,
   sendFootPlayerRequest: () => '/footplayer/request',
   sendFootPlayerInvite: () => '/footplayer/invite',
-  resendFootPlayerInvite: () => `/footplayer/resend-invite/`
+  resendFootPlayerInvite: () => `/footplayer/resend-invite`
 };
 
 interface ResendFootPlayerInviteContext {
@@ -57,6 +57,7 @@ interface GetFootPlayerListResponseContext {
   status: string;
   message: string;
   data: {
+    footplayers: number;
     total: number;
     records: {
       id: string;
@@ -74,6 +75,7 @@ interface GetFootPlayerListContext {
   search?: string;
   page_no?: number;
   page_size?: number;
+  footplayers?: number;
 }
 
 @Injectable({
@@ -94,6 +96,10 @@ export class FootPlayerService {
     }
     if (context['search']) {
       query += '&search=' + context['search'];
+    }
+
+    if (context['footplayers']) {
+      query += '&footplayers=' + context['footplayers'];
     }
     return this.httpClient.get<GetFootPlayerListResponseContext>(
       routes.getFootPlayerList(query)
