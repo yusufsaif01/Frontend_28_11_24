@@ -6,6 +6,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ProfileComponent } from './profile.component';
 import { RoleGuardService } from '../core/authentication/role-guard.service';
 import { extract, AuthenticationGuard } from '@app/core';
+import { AddEditEmployementContractComponent } from './add-edit-employement-contract/add-edit-employement-contract.component';
 
 const appRoutes: Routes = [
   {
@@ -28,6 +29,11 @@ const appRoutes: Routes = [
         path: 'edit',
         component: EditProfileComponent,
         data: { title: extract('Edit Profile') }
+      },
+      {
+        path: 'add-empolyement-contract',
+        component: AddEditEmployementContractComponent,
+        data: { title: extract('Add New Contract') }
       },
       { path: '**', component: ViewProfileComponent }
     ]
