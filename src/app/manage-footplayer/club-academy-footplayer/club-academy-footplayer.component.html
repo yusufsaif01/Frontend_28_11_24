@@ -12,7 +12,7 @@
     <div class="award-heading">
       <div class="left-part">
         <h2>{{ member_type | titlecase }}'s FootPlayers</h2>
-        <span>89</span>
+        <span>{{ footplayers }}</span>
       </div>
     </div>
     <!-- filter -->
@@ -248,7 +248,7 @@
             </div>
           </div>
           <div class="middle">
-            <h4 class="gray">{{ footPlayer.position }}</h4>
+            <h4 class="gray">{{ footPlayer.category }}</h4>
           </div>
         </div>
       </ng-container>

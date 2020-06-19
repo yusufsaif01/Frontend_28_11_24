@@ -26,6 +26,7 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
   show_count: number;
   total_count: number;
   member_type: string;
+  footplayers: number;
 
   // LEFT PANEL
   panelOptions: Partial<PanelOptions> = {
@@ -60,13 +61,14 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
 
   getFootPlayerList(page_size: number, page_no: number, search?: string) {
     this._footPlayerService
-      .getFootPlayerList({ page_no, page_size, search, status: 'added' })
+      .getFootPlayerList({ page_no, page_size, search, footplayers: 1 })
       .pipe(untilDestroyed(this))
       .subscribe(response => {
         let records = response.data.records;
         for (let i = 0; i < records.length; i++) {
           records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
         }
+        this.footplayers = response.data.footplayers;
         this.footPlayerList = records;
         this.show_count = response.data.records.length;
         this.total_count = response.data.total;
