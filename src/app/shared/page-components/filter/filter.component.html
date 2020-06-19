@@ -1,76 +1,78 @@
-<button
-  *ngIf="allowedFilters.position"
-  (click)="addActiveClass('activePosition')"
-  [matMenuTriggerFor]="position"
-  [ngClass]="{ active: switchClass.activePosition }"
->
-  Position
-  <i-feather class="icon-size" name="chevron-down"></i-feather>
-</button>
-<button
-  *ngIf="allowedFilters.playerCategory"
-  (click)="addActiveClass('activePlayerCategory')"
-  [matMenuTriggerFor]="playercategory"
-  [ngClass]="{ active: switchClass.activePlayerCategory }"
->
-  Player Category
-  <i-feather class="icon-size" name="chevron-down"></i-feather>
-</button>
-<button
-  *ngIf="allowedFilters.age"
-  (click)="addActiveClass('activeAge')"
-  [matMenuTriggerFor]="age"
-  [ngClass]="{ active: switchClass.activeAge }"
->
-  Age
-  <i-feather class="icon-size" name="chevron-down"></i-feather>
-</button>
-<button
-  *ngIf="allowedFilters.location"
-  (click)="addActiveClass('activeLocation')"
-  [matMenuTriggerFor]="location"
-  [ngClass]="{ active: switchClass.activeLocation }"
->
-  Location
-  <i-feather class="icon-size" name="chevron-down"></i-feather>
-</button>
-<button
-  *ngIf="allowedFilters.strongFoot"
-  (click)="addActiveClass('activeStrongFoot')"
-  [matMenuTriggerFor]="strongfoot"
-  [ngClass]="{ active: switchClass.activeStrongFoot }"
->
-  Strong Foot
-  <i-feather class="icon-size" name="chevron-down"></i-feather>
-</button>
-<button
-  *ngIf="allowedFilters.teamTypes"
-  (click)="addActiveClass('activeTeamTypes')"
-  [matMenuTriggerFor]="teamTypes"
-  [ngClass]="{ active: switchClass.activeTeamTypes }"
->
-  Types Of Teams
-  <i-feather class="icon-size" name="chevron-down"></i-feather>
-</button>
-<button
-  *ngIf="allowedFilters.ability"
-  (click)="addActiveClass('activeAbility')"
-  [matMenuTriggerFor]="ability"
-  [ngClass]="{ active: switchClass.activeAbility }"
->
-  Ability
-  <i-feather class="icon-size" name="chevron-down"></i-feather>
-</button>
-<button
-  *ngIf="allowedFilters.status"
-  (click)="addActiveClass('activeStatus')"
-  [matMenuTriggerFor]="status"
-  [ngClass]="{ active: switchClass.activeStatus }"
->
-  Status
-  <i-feather class="icon-size" name="chevron-down"></i-feather>
-</button>
-<button (click)="clearFilters()">Clear Filter</button>
+<div class="filter-buttons">
+  <button
+    *ngIf="allowedFilters.position"
+    (click)="addActiveClass('activePosition')"
+    [matMenuTriggerFor]="position"
+    [ngClass]="{ active: switchClass.activePosition }"
+  >
+    Position
+    <i-feather class="icon-size" name="chevron-down"></i-feather>
+  </button>
+  <button
+    *ngIf="allowedFilters.playerCategory"
+    (click)="addActiveClass('activePlayerCategory')"
+    [matMenuTriggerFor]="playercategory"
+    [ngClass]="{ active: switchClass.activePlayerCategory }"
+  >
+    Player Category
+    <i-feather class="icon-size" name="chevron-down"></i-feather>
+  </button>
+  <button
+    *ngIf="allowedFilters.age"
+    (click)="addActiveClass('activeAge')"
+    [matMenuTriggerFor]="age"
+    [ngClass]="{ active: switchClass.activeAge }"
+  >
+    Age
+    <i-feather class="icon-size" name="chevron-down"></i-feather>
+  </button>
+  <button
+    *ngIf="allowedFilters.location"
+    (click)="addActiveClass('activeLocation')"
+    [matMenuTriggerFor]="location"
+    [ngClass]="{ active: switchClass.activeLocation }"
+  >
+    Location
+    <i-feather class="icon-size" name="chevron-down"></i-feather>
+  </button>
+  <button
+    *ngIf="allowedFilters.strongFoot"
+    (click)="addActiveClass('activeStrongFoot')"
+    [matMenuTriggerFor]="strongfoot"
+    [ngClass]="{ active: switchClass.activeStrongFoot }"
+  >
+    Strong Foot
+    <i-feather class="icon-size" name="chevron-down"></i-feather>
+  </button>
+  <button
+    *ngIf="allowedFilters.teamTypes"
+    (click)="addActiveClass('activeTeamTypes')"
+    [matMenuTriggerFor]="teamTypes"
+    [ngClass]="{ active: switchClass.activeTeamTypes }"
+  >
+    Types Of Teams
+    <i-feather class="icon-size" name="chevron-down"></i-feather>
+  </button>
+  <button
+    *ngIf="allowedFilters.ability"
+    (click)="addActiveClass('activeAbility')"
+    [matMenuTriggerFor]="ability"
+    [ngClass]="{ active: switchClass.activeAbility }"
+  >
+    Ability
+    <i-feather class="icon-size" name="chevron-down"></i-feather>
+  </button>
+  <button
+    *ngIf="allowedFilters.status"
+    (click)="addActiveClass('activeStatus')"
+    [matMenuTriggerFor]="status"
+    [ngClass]="{ active: switchClass.activeStatus }"
+  >
+    Status
+    <i-feather class="icon-size" name="chevron-down"></i-feather>
+  </button>
+  <button (click)="clearFilters()">Clear Filter</button>
+</div>
 <!-- postion -->
 <mat-menu #position="matMenu">
   <div (click)="$event.stopPropagation()">

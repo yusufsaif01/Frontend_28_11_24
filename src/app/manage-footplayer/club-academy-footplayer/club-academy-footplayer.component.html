@@ -18,12 +18,10 @@
       </div>
     </div>
     <!-- filter -->
-    <div class="filter-buttons">
-      <app-filter
-        [allowedFilters]="filtersList"
-        (filterChanges)="onChangeFilter($event)"
-      ></app-filter>
-    </div>
+    <app-filter
+      [allowedFilters]="filtersList"
+      (filterChanges)="onChangeFilter($event)"
+    ></app-filter>
     <!-- search -->
     <div class="search">
       <div class="search-form">
