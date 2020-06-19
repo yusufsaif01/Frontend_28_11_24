@@ -8,7 +8,7 @@ const routes = {
   findPlayer: (query: string) => `/footplayer/search${query}`,
   sendFootPlayerRequest: () => '/footplayer/request',
   sendFootPlayerInvite: () => '/footplayer/invite',
-  resendFootPlayerInvite: () => `/footplayer/resend-invite/`
+  resendFootPlayerInvite: () => `/footplayer/resend-invite`
 };
 
 interface ResendFootPlayerInviteContext {
