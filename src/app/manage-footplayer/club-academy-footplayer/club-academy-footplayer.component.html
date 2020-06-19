@@ -12,16 +12,13 @@
     <div class="award-heading">
       <div class="left-part">
         <h2>
-          Manage FootPlayers
+          Club's FootPlayers
         </h2>
-      </div>
-      <div class="right-part" *ngIf="!isPublic">
-        <button (click)="onaddfootplayer()">Add Player</button>
+        <span>89</span>
       </div>
     </div>
     <!-- filter -->
-    <div class="filter">
-      <button>Filters</button>
+    <div class="filter-buttons">
       <app-filter
         [allowedFilters]="filtersList"
         (filterChanges)="onChangeFilter($event)"
@@ -31,16 +28,36 @@
     <div class="search">
       <div class="search-form">
         <form>
-          <input
-            (keyup)="applyFilter($event)"
-            type="text"
-            placeholder="Search player"
-          />
+          <input type="text" placeholder="Search player" />
           <span class="search-icon">
             <i-feather name="search" class="icon-size"></i-feather>
           </span>
         </form>
       </div>
     </div>
+
+    <div class="playerwrapper">
+      <div class="playerbox">
+        <div class="top">
+          <div class="dp">
+            <img src="./../../../assets/images/user-avatar.png" alt="" />
+          </div>
+          <div class="name">
+            <strong>
+              <a target="_blank">Ratan Singh </a>
+            </strong>
+            <p>Center Midfielder</p>
+          </div>
+        </div>
+        <div class="middle">
+          <h4 class="gray">Professional</h4>
+        </div>
+      </div>
+    </div>
+
+    <span class="no-data-found">
+      No FootMates Found
+    </span>
+    <app-pagination></app-pagination>
   </div>
 </div>

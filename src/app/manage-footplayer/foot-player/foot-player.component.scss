@@ -42,12 +42,42 @@
     }
 
     // Filters
-    .filter {
+    // filters
+    .filter-buttons {
       padding: 2rem;
       border-bottom: 0.3rem solid #edf2f6;
+      position: relative;
 
       button {
-        @include btn-primary-outline;
+        padding: 1rem 3rem 1rem 2rem;
+        border-radius: 0.8rem;
+        border: 1px solid $blue;
+        color: $blue;
+        background: transparent;
+        margin: 0.5rem;
+        cursor: pointer;
+        position: relative;
+        outline: none;
+
+        i-feather {
+          position: absolute;
+          top: 1rem;
+          left: calc(100% - 2.5rem);
+        }
+
+        &:last-child {
+          padding: 1rem 2rem 1rem 2rem;
+        }
+
+        &:hover,
+        &.active {
+          background: $blue;
+          color: $color-white;
+
+          span {
+            background: #289af5;
+          }
+        }
       }
     }
 
@@ -114,6 +144,61 @@
 
         .mat-table .mat-row .mat-cell .action-buttons button:nth-of-type(1) {
           transform: translateY(0px);
+        }
+      }
+    }
+  }
+}
+
+// mega dropdown
+::ng-deep {
+  .mat-menu-panel {
+    max-width: 100rem !important;
+    width: 100% !important;
+    padding: 2rem;
+
+    .mat-menu-content {
+      h3 {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+      }
+
+      .items {
+        span.chk-box {
+          display: inline-block;
+          font-size: 1.8rem;
+          margin: 1rem 2rem 1rem 0rem;
+          padding: 1rem 2rem;
+          box-shadow: 0rem 0rem 0.5rem 0rem rgba(0, 0, 0, 0.2);
+
+          ::ng-deep {
+            .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+              background: $blue !important;
+            }
+          }
+        }
+      }
+
+      .wrapper-location {
+        display: flex;
+        justify-content: space-between;
+
+        .slt-wrapper {
+          width: 25rem;
+          position: relative;
+          margin: 0 1rem;
+
+          select {
+            width: 100%;
+            padding: 1rem;
+            appearance: none;
+          }
+
+          i-feather {
+            position: absolute;
+            left: calc(100% - 3rem);
+            top: 1rem;
+          }
         }
       }
     }
