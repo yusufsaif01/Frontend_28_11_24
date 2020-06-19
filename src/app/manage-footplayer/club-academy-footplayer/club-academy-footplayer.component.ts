@@ -25,6 +25,7 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
   environment = environment;
   show_count: number;
   total_count: number;
+  member_type: string;
 
   // LEFT PANEL
   panelOptions: Partial<PanelOptions> = {
@@ -43,9 +44,23 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {}
 
+  getMemberType(value: string) {
+    this.member_type = value;
+  }
+
+  applyFilter(event: any) {
+    let filterValue = event.target.value;
+    this.getFootPlayerList(this.pageSize, 1, filterValue);
+  }
+
+  updatePage(event: any) {
+    this.selectedPage = event.selectedPage;
+    this.getFootPlayerList(this.pageSize, event.selectedPage);
+  }
+
   getFootPlayerList(page_size: number, page_no: number, search?: string) {
     this._footPlayerService
-      .getFootPlayerList({ page_no, page_size, search })
+      .getFootPlayerList({ page_no, page_size, search, status: 'added' })
       .pipe(untilDestroyed(this))
       .subscribe(response => {
         let records = response.data.records;
@@ -55,6 +70,7 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
         this.footPlayerList = records;
         this.show_count = response.data.records.length;
         this.total_count = response.data.total;
+        this.selectedPage = page_no;
       });
   }
 }
