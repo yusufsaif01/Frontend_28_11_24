@@ -223,12 +223,12 @@
     <div class="items">
       <span class="chk-box" *ngFor="let status of locationRangeFilters.status">
         <mat-checkbox
-          [value]="status"
+          [value]="status.value"
           (change)="
             onChangeChecker($event, locationRangeFilters.statusArray, 'status')
           "
           [checked]="checkFilters"
-          >{{ status }}</mat-checkbox
+          >{{ status.name }}</mat-checkbox
         >
       </span>
     </div>
@@ -245,7 +245,7 @@
         *ngFor="let ability of locationRangeFilters.ability"
       >
         <mat-checkbox
-          [value]="ability"
+          [value]="ability.name"
           (change)="
             onChangeChecker(
               $event,
@@ -254,7 +254,7 @@
             )
           "
           [checked]="checkFilters"
-          >{{ ability }}</mat-checkbox
+          >{{ ability.name }}</mat-checkbox
         >
       </span>
     </div>

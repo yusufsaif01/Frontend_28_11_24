@@ -191,12 +191,12 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   onChangeFilter(event: any) {
     if (event) {
       this.filter = event;
-      this.getFootPlayerList();
+      this.selectedPage = 1;
     } else {
       this.filter = {};
       this.filter.page_no = 1;
       this.filter.page_size = 10;
-      this.getFootPlayerList();
     }
+    this.getFootPlayerList();
   }
 }

@@ -371,5 +371,10 @@ export abstract class Constants {
     'Under 12'
   ];
 
-  static readonly STATUS: any = ['Pending', 'Invited', 'Added', 'Rejected'];
+  static readonly STATUS: any = [
+    { name: 'Pending', value: 'pending' },
+    { name: 'Invited', value: 'invited' },
+    { name: 'Added', value: 'added' },
+    { name: 'Rejected', value: 'rejected' }
+  ];
 }

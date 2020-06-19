@@ -119,8 +119,8 @@ export class FootPlayerService {
     if (context['status']) {
       query += '&status=' + context['status'];
     }
-    if (context['status']) {
-      query += '&status=' + context['status'];
+    if (context['ability']) {
+      query += '&ability=' + context['ability'];
     }
     return this.httpClient.get<GetFootPlayerListResponseContext>(
       routes.getFootPlayerList(query)

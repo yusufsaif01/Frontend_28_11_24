@@ -4,6 +4,7 @@ import { SharedService } from '@app/shared/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { FilterService } from './filter.service';
+import { AdminService } from '@app/admin/admin.service';
 
 interface ActiveClass {
   activePosition: boolean;
@@ -70,13 +71,27 @@ export class FilterComponent implements OnInit {
   constructor(
     private toastrService: ToastrService,
     private sharedService: SharedService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private adminService: AdminService
   ) {}
 
   ngOnInit() {
     this.initialize();
     this.deactivateAll();
     this.getLocationStats();
+    this.getAbilityList();
+  }
+  getAbilityList() {
+    this.adminService
+      .getAbilityList()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let records = response.data.records;
+          this.locationRangeFilters.ability = records;
+        },
+        error => {}
+      );
   }
 
   deactivateAll() {
