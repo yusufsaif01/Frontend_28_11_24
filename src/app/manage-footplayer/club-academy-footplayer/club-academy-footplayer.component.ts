@@ -5,7 +5,6 @@ import { untilDestroyed } from '@app/core';
 import { environment } from '@env/environment';
 
 interface FootPlayerContext {
-  id: string;
   user_id: string;
   avatar: string;
   category: string;

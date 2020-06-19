@@ -241,14 +241,14 @@
                 <a
                   target="_blank"
                   [routerLink]="['/member/profile/view/', footPlayer.user_id]"
-                  >{{ footPlayer.name }}</a
+                  >{{ footPlayer.name | titlecase }}</a
                 >
               </strong>
-              <p>{{ footPlayer.position }}</p>
+              <p>{{ footPlayer.position | titlecase }}</p>
             </div>
           </div>
           <div class="middle">
-            <h4 class="gray">{{ footPlayer.category }}</h4>
+            <h4 class="gray">{{ footPlayer.category | titlecase }}</h4>
           </div>
         </div>
       </ng-container>
