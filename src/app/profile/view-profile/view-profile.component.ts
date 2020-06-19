@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { ContractListTableConfig } from './../edit-profile/contract-listing-table-conf';
 
 @Component({
   selector: 'app-view-profile',
@@ -11,6 +13,9 @@ import { PanelOptions } from '@app/shared/models/panel-options.model';
   styleUrls: ['./view-profile.component.scss']
 })
 export class ViewProfileComponent implements OnInit {
+  public tableConfig: ContractListTableConfig = new ContractListTableConfig();
+  public dataSource = new MatTableDataSource([]);
+
   environment = environment;
   profile: any;
   numbers: any;

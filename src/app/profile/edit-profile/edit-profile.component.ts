@@ -7,6 +7,7 @@ import {
   AbstractControl,
   ValidatorFn
 } from '@angular/forms';
+import { ContractListTableConfig } from './contract-listing-table-conf';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
 import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
@@ -19,6 +20,7 @@ import { ViewProfileService } from '../view-profile/view-profile.service';
 import { SharedService } from '@app/shared/shared.service';
 import { untilDestroyed } from '@app/core';
 import { Constants } from '@app/shared/static-data/static-data';
+import { MatTableDataSource } from '@angular/material/table';
 
 interface trophyObject {
   name: string;
@@ -50,6 +52,9 @@ interface positionObject {
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
+  public tableConfig: ContractListTableConfig = new ContractListTableConfig();
+  public dataSource = new MatTableDataSource([]);
+
   @Input() max: Date | null;
   @ViewChild(HeaderComponent, { static: true }) header: HeaderComponent;
 
