@@ -95,6 +95,33 @@ export class FootPlayerService {
     if (context['search']) {
       query += '&search=' + context['search'];
     }
+    if (context['position']) {
+      query += '&position=' + context['position'];
+    }
+    if (context['player_category']) {
+      query += '&footplayer_category=' + context['player_category'];
+    }
+    if (context['age']) {
+      query += '&age=' + context['age'];
+    }
+    if (context['country']) {
+      query += '&country=' + context['country'];
+    }
+    if (context['state']) {
+      query += '&state=' + context['state'];
+    }
+    if (context['city']) {
+      query += '&city=' + context['city'];
+    }
+    if (context['strong_foot']) {
+      query += '&strong_foot=' + context['strong_foot'];
+    }
+    if (context['status']) {
+      query += '&status=' + context['status'];
+    }
+    if (context['status']) {
+      query += '&status=' + context['status'];
+    }
     return this.httpClient.get<GetFootPlayerListResponseContext>(
       routes.getFootPlayerList(query)
     );
