@@ -27,7 +27,9 @@
               'playerimg',
               'user_photo',
               'document',
-              'aiff_image'
+              'aiff_image',
+              'effectiveDate',
+              'expiryDate'
             ].includes(col)
           "
         >
@@ -47,6 +49,9 @@
           {{
             tableConfig.columns[col].getValue(element) | date: 'dd-LLLL-yyyy'
           }}
+        </p>
+        <p *ngIf="col === 'effectiveDate' || col === 'expiryDate'">
+          {{ tableConfig.columns[col].getValue(element) | date: 'dd-LLL-yyyy' }}
         </p>
         <p
           *ngIf="col === 'name' || col === 'type'"
