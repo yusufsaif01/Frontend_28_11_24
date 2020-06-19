@@ -164,9 +164,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           let records = response.data.records;
-          for (let i = 0; i < records.length; i++) {
-            records[i]['media'] = environment.mediaUrl + records[i]['media'];
-          }
           this.dataSource = new MatTableDataSource(records);
         },
         error => {
