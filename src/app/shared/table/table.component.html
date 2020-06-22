@@ -45,13 +45,19 @@
             >
           </ng-container>
         </p>
-        <p *ngIf="col === 'added_on' || col === 'date_of_birth'">
+        <p
+          *ngIf="
+            [
+              'added_on',
+              'date_of_birth',
+              'expiryDate',
+              'effectiveDate'
+            ].includes(col)
+          "
+        >
           {{
             tableConfig.columns[col].getValue(element) | date: 'dd-LLLL-yyyy'
           }}
-        </p>
-        <p *ngIf="col === 'effectiveDate' || col === 'expiryDate'">
-          {{ tableConfig.columns[col].getValue(element) | date: 'dd-LLL-yyyy' }}
         </p>
         <p
           *ngIf="col === 'name' || col === 'type'"
