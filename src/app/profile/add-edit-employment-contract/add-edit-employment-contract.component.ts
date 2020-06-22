@@ -46,13 +46,12 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   ngOnInit() {
-    this.getClubAcademyList();
     this.setValidators();
   }
 
   getClubAcademyList() {
     this._employmentContractService
-      .getClubAcademyList({ status: this.category })
+      .getClubAcademyList({ role: this.category })
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
@@ -91,111 +90,6 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     const otherName = this.addEditContractForm.get('otherName');
     const otherEmail = this.addEditContractForm.get('otherEmail');
     const otherPhoneNumber = this.addEditContractForm.get('otherPhoneNumber');
-
-    let otherNameControl = {
-      otherName: [Validators.required]
-    };
-
-    let otherEmailControl = {
-      otherEmail: [Validators.required, Validators.email]
-    };
-    let otherPhoneNumberControl = {
-      otherPhoneNumber: [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(10),
-        Validators.pattern(/^\d+$/)
-      ]
-    };
-    this.setControlValidation(this.addEditContractForm, otherNameControl);
-    this.setControlValidation(this.addEditContractForm, otherEmailControl);
-    this.setControlValidation(
-      this.addEditContractForm,
-      otherPhoneNumberControl
-    );
-
-    clubAcademyName.valueChanges.subscribe(value => {
-      if (value === 'Other') {
-        otherName.setValue('');
-        otherEmail.setValue('');
-        otherPhoneNumber.setValue('');
-        this.checkRequiredValidator(
-          otherNameControl,
-          otherNameControl.otherName,
-          1
-        );
-        this.setControlValidation(this.addEditContractForm, otherNameControl);
-        otherPhoneNumber.valueChanges
-          .pipe(distinctUntilChanged())
-          .subscribe(value => {
-            if (value) {
-              this.checkRequiredValidator(
-                otherEmailControl,
-                otherEmailControl.otherEmail,
-                2
-              );
-            } else {
-              this.checkRequiredValidator(
-                otherEmailControl,
-                otherEmailControl.otherEmail,
-                1
-              );
-            }
-            this.setControlValidation(
-              this.addEditContractForm,
-              otherEmailControl
-            );
-          });
-
-        otherEmail.valueChanges
-          .pipe(distinctUntilChanged())
-          .subscribe(value => {
-            if (value) {
-              this.checkRequiredValidator(
-                otherPhoneNumberControl,
-                otherPhoneNumberControl.otherPhoneNumber,
-                2
-              );
-            } else {
-              this.checkRequiredValidator(
-                otherPhoneNumberControl,
-                otherPhoneNumberControl.otherPhoneNumber,
-                1
-              );
-            }
-            this.setControlValidation(
-              this.addEditContractForm,
-              otherPhoneNumberControl
-            );
-          });
-      } else {
-        otherName.setValue('');
-        otherEmail.setValue('');
-        otherPhoneNumber.setValue('');
-        this.checkRequiredValidator(
-          otherNameControl,
-          otherNameControl.otherName,
-          2
-        );
-        this.checkRequiredValidator(
-          otherEmailControl,
-          otherEmailControl.otherEmail,
-          2
-        );
-        this.checkRequiredValidator(
-          otherPhoneNumberControl,
-          otherPhoneNumberControl.otherPhoneNumber,
-          2
-        );
-        this.setControlValidation(this.addEditContractForm, otherNameControl);
-        this.setControlValidation(this.addEditContractForm, otherEmailControl);
-        this.setControlValidation(
-          this.addEditContractForm,
-          otherPhoneNumberControl
-        );
-      }
-    });
-
     const clubAcademyUsesAgentServices = this.addEditContractForm.get(
       'clubAcademyUsesAgentServices'
     );
@@ -205,6 +99,84 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     const clubAcademyTransferFee = this.addEditContractForm.get(
       'clubAcademyTransferFee'
     );
+    const playerUsesAgentServices = this.addEditContractForm.get(
+      'playerUsesAgentServices'
+    );
+    const playerIntermediaryName = this.addEditContractForm.get(
+      'playerIntermediaryName'
+    );
+    const playerTransferFee = this.addEditContractForm.get('playerTransferFee');
+
+    let otherControl: { [name: string]: ValidatorFn[] } = {
+      otherName: [Validators.required],
+      otherEmail: [Validators.required, Validators.email],
+      otherPhoneNumber: [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern(/^\d+$/)
+      ]
+    };
+
+    this.setControlValidation(this.addEditContractForm, otherControl);
+    clubAcademyName.valueChanges.subscribe(value => {
+      if (value === 'Other') {
+        otherName.setValue('');
+        otherEmail.setValue('');
+        otherPhoneNumber.setValue('');
+        this.checkRequiredValidator(otherControl, otherControl.otherName, 1);
+        this.setControlValidation(this.addEditContractForm, otherControl);
+        otherPhoneNumber.valueChanges
+          .pipe(distinctUntilChanged())
+          .subscribe(value => {
+            if (value) {
+              this.checkRequiredValidator(
+                otherControl,
+                otherControl.otherEmail,
+                2
+              );
+            } else {
+              this.checkRequiredValidator(
+                otherControl,
+                otherControl.otherEmail,
+                1
+              );
+            }
+            this.setControlValidation(this.addEditContractForm, otherControl);
+          });
+
+        otherEmail.valueChanges
+          .pipe(distinctUntilChanged())
+          .subscribe(value => {
+            if (value) {
+              this.checkRequiredValidator(
+                otherControl,
+                otherControl.otherPhoneNumber,
+                2
+              );
+            } else {
+              this.checkRequiredValidator(
+                otherControl,
+                otherControl.otherPhoneNumber,
+                1
+              );
+            }
+            this.setControlValidation(this.addEditContractForm, otherControl);
+          });
+      } else {
+        otherName.setValue('');
+        otherEmail.setValue('');
+        otherPhoneNumber.setValue('');
+        this.checkRequiredValidator(otherControl, otherControl.otherName, 2);
+        this.checkRequiredValidator(otherControl, otherControl.otherEmail, 2);
+        this.checkRequiredValidator(
+          otherControl,
+          otherControl.otherPhoneNumber,
+          2
+        );
+        this.setControlValidation(this.addEditContractForm, otherControl);
+      }
+    });
 
     let clubAcademyServiceControl = {
       clubAcademyIntermediaryName: [Validators.required],
@@ -223,10 +195,6 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
           clubAcademyServiceControl.clubAcademyTransferFee,
           1
         );
-        this.setControlValidation(
-          this.addEditContractForm,
-          clubAcademyServiceControl
-        );
       } else if (value === 'false') {
         clubAcademyIntermediaryName.setValue('');
         clubAcademyTransferFee.setValue('');
@@ -241,20 +209,12 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
           clubAcademyServiceControl.clubAcademyTransferFee,
           2
         );
-        this.setControlValidation(
-          this.addEditContractForm,
-          clubAcademyServiceControl
-        );
       }
+      this.setControlValidation(
+        this.addEditContractForm,
+        clubAcademyServiceControl
+      );
     });
-
-    const playerUsesAgentServices = this.addEditContractForm.get(
-      'playerUsesAgentServices'
-    );
-    const playerIntermediaryName = this.addEditContractForm.get(
-      'playerIntermediaryName'
-    );
-    const playerTransferFee = this.addEditContractForm.get('playerTransferFee');
 
     let playerServiceControl = {
       playerIntermediaryName: [Validators.required],
@@ -273,10 +233,6 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
           playerServiceControl.playerTransferFee,
           1
         );
-        this.setControlValidation(
-          this.addEditContractForm,
-          playerServiceControl
-        );
       } else if (value === 'false') {
         playerIntermediaryName.setValue('');
         playerTransferFee.setValue('');
@@ -291,16 +247,14 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
           playerServiceControl.playerTransferFee,
           2
         );
-        this.setControlValidation(
-          this.addEditContractForm,
-          playerServiceControl
-        );
       }
+      this.setControlValidation(this.addEditContractForm, playerServiceControl);
     });
   }
 
   setCategory(value: string) {
     this.category = value;
+    this.getClubAcademyList();
   }
   toFormData<T>(formValue: T) {
     const formData = new FormData();
@@ -346,16 +300,9 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       category: ['', [Validators.required]],
       playerName: ['', [Validators.required]],
       clubAcademyName: ['', [Validators.required]],
-      otherName: ['', []], //m
-      otherEmail: ['', []], //om========
-      otherPhoneNumber: [
-        '',
-        [
-          Validators.minLength(10),
-          Validators.maxLength(10),
-          Validators.pattern(/^\d+$/)
-        ]
-      ], //om<-|
+      otherName: ['', []],
+      otherEmail: ['', []],
+      otherPhoneNumber: ['', []],
       signingDate: ['', [Validators.required]],
       effectiveDate: ['', [Validators.required]],
       expiryDate: ['', [Validators.required]],
@@ -374,7 +321,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       clubAcademyEmail: ['', [Validators.email]],
       aiffNumber: ['', []],
       crsUserName: ['', []],
-      legalGuardianName: ['', []], //m 18 yrs
+      legalGuardianName: ['', []],
       playerAddress: ['', []],
       playerMobileNumber: [
         '',
@@ -387,13 +334,13 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       ],
       playerEmail: ['', [Validators.email]],
 
-      clubAcademyUsesAgentServices: ['', []], //om yes/no
-      clubAcademyIntermediaryName: ['', []], //yes
-      clubAcademyTransferFee: ['', []], //yes
+      clubAcademyUsesAgentServices: ['', []],
+      clubAcademyIntermediaryName: ['', []],
+      clubAcademyTransferFee: ['', []],
 
-      playerUsesAgentServices: ['', []], //om yes/no
-      playerIntermediaryName: ['', []], //yes
-      playerTransferFee: [''] //yes
+      playerUsesAgentServices: ['', []],
+      playerIntermediaryName: ['', []],
+      playerTransferFee: ['']
     });
   }
 }
