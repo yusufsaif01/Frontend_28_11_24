@@ -69,10 +69,10 @@ export class FilterComponent implements OnInit {
   @Output() filterChanges: EventEmitter<any> = new EventEmitter();
 
   constructor(
-    private toastrService: ToastrService,
-    private sharedService: SharedService,
-    private filterService: FilterService,
-    private adminService: AdminService
+    private _toastrService: ToastrService,
+    private _sharedService: SharedService,
+    private _filterService: FilterService,
+    private _adminService: AdminService
   ) {}
 
   ngOnInit() {
@@ -82,7 +82,7 @@ export class FilterComponent implements OnInit {
     this.getAbilityList();
   }
   getAbilityList() {
-    this.adminService
+    this._adminService
       .getAbilityList()
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -192,7 +192,7 @@ export class FilterComponent implements OnInit {
   }
 
   getLocationStats() {
-    this.sharedService
+    this._sharedService
       .getLocationStats()
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -200,13 +200,13 @@ export class FilterComponent implements OnInit {
           this.locationRangeFilters.countryData = response.data;
         },
         error => {
-          this.toastrService.error('Error', error.error.message);
+          this._toastrService.error('Error', error.error.message);
         }
       );
   }
 
   getStatesListing(countryID: string) {
-    this.sharedService
+    this._sharedService
       .getStatesListing(countryID)
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -214,13 +214,13 @@ export class FilterComponent implements OnInit {
           this.locationRangeFilters.states = response.data.records;
         },
         error => {
-          this.toastrService.error('Error', error.error.message);
+          this._toastrService.error('Error', error.error.message);
         }
       );
   }
 
   getCitiesListing(countryID: string, stateID: string) {
-    this.sharedService
+    this._sharedService
       .getCitiesListing(countryID, stateID)
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -228,7 +228,7 @@ export class FilterComponent implements OnInit {
           this.locationRangeFilters.cities = response.data.records;
         },
         error => {
-          this.toastrService.error('Error', error.error.message);
+          this._toastrService.error('Error', error.error.message);
         }
       );
   }
@@ -241,7 +241,7 @@ export class FilterComponent implements OnInit {
   ngOnDestroy() {}
 
   getPositionsListing() {
-    this.filterService
+    this._filterService
       .getPositionsListing()
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -249,7 +249,7 @@ export class FilterComponent implements OnInit {
           this.locationRangeFilters.positions = response.data.records;
         },
         error => {
-          this.toastrService.error('Error', error.error.message);
+          this._toastrService.error('Error', error.error.message);
         }
       );
   }
