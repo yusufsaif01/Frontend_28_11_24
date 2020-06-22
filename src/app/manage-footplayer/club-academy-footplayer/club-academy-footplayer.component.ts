@@ -46,7 +46,7 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
     strongFoot: true,
     teamTypes: true,
     ability: true,
-    status: true
+    status: false
   };
 
   constructor(private _footPlayerService: FootPlayerService) {}

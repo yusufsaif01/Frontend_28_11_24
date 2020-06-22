@@ -1,80 +1,19 @@
 <div class="filter-buttons">
-  <button
-    *ngIf="allowedFilters.position"
-    (click)="addActiveClass('activePosition')"
-    [matMenuTriggerFor]="position"
-    [ngClass]="{ active: switchClass.activePosition }"
-  >
-    Position
-    <i-feather class="icon-size" name="chevron-down"></i-feather>
-  </button>
-  <button
-    *ngIf="allowedFilters.playerCategory"
-    (click)="addActiveClass('activePlayerCategory')"
-    [matMenuTriggerFor]="playercategory"
-    [ngClass]="{ active: switchClass.activePlayerCategory }"
-  >
-    Player Category
-    <i-feather class="icon-size" name="chevron-down"></i-feather>
-  </button>
-  <button
-    *ngIf="allowedFilters.age"
-    (click)="addActiveClass('activeAge')"
-    [matMenuTriggerFor]="age"
-    [ngClass]="{ active: switchClass.activeAge }"
-  >
-    Age
-    <i-feather class="icon-size" name="chevron-down"></i-feather>
-  </button>
-  <button
-    *ngIf="allowedFilters.location"
-    (click)="addActiveClass('activeLocation')"
-    [matMenuTriggerFor]="location"
-    [ngClass]="{ active: switchClass.activeLocation }"
-  >
-    Location
-    <i-feather class="icon-size" name="chevron-down"></i-feather>
-  </button>
-  <button
-    *ngIf="allowedFilters.strongFoot"
-    (click)="addActiveClass('activeStrongFoot')"
-    [matMenuTriggerFor]="strongfoot"
-    [ngClass]="{ active: switchClass.activeStrongFoot }"
-  >
-    Strong Foot
-    <i-feather class="icon-size" name="chevron-down"></i-feather>
-  </button>
-  <button
-    *ngIf="allowedFilters.teamTypes"
-    (click)="addActiveClass('activeTeamTypes')"
-    [matMenuTriggerFor]="teamTypes"
-    [ngClass]="{ active: switchClass.activeTeamTypes }"
-  >
-    Types Of Teams
-    <i-feather class="icon-size" name="chevron-down"></i-feather>
-  </button>
-  <button
-    *ngIf="allowedFilters.ability"
-    (click)="addActiveClass('activeAbility')"
-    [matMenuTriggerFor]="ability"
-    [ngClass]="{ active: switchClass.activeAbility }"
-  >
-    Ability
-    <i-feather class="icon-size" name="chevron-down"></i-feather>
-  </button>
-  <button
-    *ngIf="allowedFilters.status"
-    (click)="addActiveClass('activeStatus')"
-    [matMenuTriggerFor]="status"
-    [ngClass]="{ active: switchClass.activeStatus }"
-  >
-    Status
-    <i-feather class="icon-size" name="chevron-down"></i-feather>
-  </button>
+  <ng-container *ngFor="let button of buttons">
+    <button
+      *ngIf="allowedFilters[button.allowedFilters]"
+      (click)="addActiveClass(button.switchClass)"
+      [matMenuTriggerFor]="button.matMenu"
+      [ngClass]="{ active: switchClass[button.switchClass] }"
+    >
+      {{ button.filterName }}
+      <i-feather class="icon-size" name="chevron-down"></i-feather>
+    </button>
+  </ng-container>
   <button (click)="clearFilters()">Clear Filter</button>
 </div>
 <!-- postion -->
-<mat-menu #position="matMenu">
+<mat-menu #position>
   <div (click)="$event.stopPropagation()">
     <h3>Select Position</h3>
     <div class="items">
@@ -99,7 +38,7 @@
   </div>
 </mat-menu>
 <!-- playercatergory -->
-<mat-menu #playercategory="matMenu">
+<mat-menu #playercategory>
   <div (click)="$event.stopPropagation()">
     <h3>Select Player Category</h3>
     <div class="items">
@@ -124,7 +63,7 @@
   </div>
 </mat-menu>
 <!-- Age -->
-<mat-menu #age="matMenu">
+<mat-menu #age>
   <div (click)="$event.stopPropagation()">
     <h3>Select Age</h3>
     <div class="items">
@@ -141,7 +80,7 @@
     </div>
   </div>
 </mat-menu>
-<mat-menu #location="matMenu">
+<mat-menu #location>
   <!-- location -->
   <div (click)="$event.stopPropagation()">
     <h3>Select Location</h3>
@@ -192,7 +131,7 @@
   </div>
 </mat-menu>
 <!-- strong foot -->
-<mat-menu #strongfoot="matMenu">
+<mat-menu #strongfoot>
   <div (click)="$event.stopPropagation()">
     <h3>Select Strong Foot</h3>
     <div class="items">
@@ -217,7 +156,7 @@
   </div>
 </mat-menu>
 <!-- status -->
-<mat-menu #status="matMenu">
+<mat-menu #status>
   <div (click)="$event.stopPropagation()">
     <h3>Status</h3>
     <div class="items">
@@ -236,7 +175,7 @@
 </mat-menu>
 
 <!-- ability -->
-<mat-menu #ability="matMenu">
+<mat-menu #ability>
   <div (click)="$event.stopPropagation()">
     <h3>Ability</h3>
     <div class="items">
@@ -262,7 +201,7 @@
 </mat-menu>
 
 <!-- Type Of Teams -->
-<mat-menu #teamTypes="matMenu">
+<mat-menu #teamTypes>
   <div (click)="$event.stopPropagation()">
     <h3>Type Of Teams</h3>
     <div class="items">

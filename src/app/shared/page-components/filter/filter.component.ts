@@ -1,10 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild
+} from '@angular/core';
 import { Constants } from '@app/shared/static-data/static-data';
 import { SharedService } from '@app/shared/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { FilterService } from './filter.service';
 import { AdminService } from '@app/admin/admin.service';
+import { MatMenu } from '@angular/material';
 
 interface ActiveClass {
   activePosition: boolean;
@@ -67,6 +75,16 @@ export class FilterComponent implements OnInit {
     status: false
   };
   @Output() filterChanges: EventEmitter<any> = new EventEmitter();
+  @ViewChild('position', { static: true }) position: MatMenu;
+  @ViewChild('playercategory', { static: true }) playercategory: MatMenu;
+  @ViewChild('age', { static: true }) age: MatMenu;
+  @ViewChild('location', { static: true }) location: MatMenu;
+  @ViewChild('strongfoot', { static: true }) strongfoot: MatMenu;
+  @ViewChild('status', { static: true }) status: MatMenu;
+  @ViewChild('ability', { static: true }) ability: MatMenu;
+  @ViewChild('teamTypes', { static: true }) teamTypes: MatMenu;
+
+  buttons: any[] = [];
 
   constructor(
     private _toastrService: ToastrService,
@@ -80,6 +98,56 @@ export class FilterComponent implements OnInit {
     this.deactivateAll();
     this.getLocationStats();
     this.getAbilityList();
+  }
+  ngAfterViewInit() {
+    this.buttons.push({
+      allowedFilters: 'position',
+      switchClass: 'activePosition',
+      matMenu: this.position,
+      filterName: 'Position'
+    });
+    this.buttons.push({
+      allowedFilters: 'playerCategory',
+      switchClass: 'activePlayerCategory',
+      matMenu: this.playercategory,
+      filterName: 'Player Category'
+    });
+    this.buttons.push({
+      allowedFilters: 'age',
+      switchClass: 'activeAge',
+      matMenu: this.age,
+      filterName: 'Age'
+    });
+    this.buttons.push({
+      allowedFilters: 'location',
+      switchClass: 'activeLocation',
+      matMenu: this.location,
+      filterName: 'Location'
+    });
+    this.buttons.push({
+      allowedFilters: 'strongFoot',
+      switchClass: 'activeStrongFoot',
+      matMenu: this.strongfoot,
+      filterName: 'String Foot'
+    });
+    this.buttons.push({
+      allowedFilters: 'teamTypes',
+      switchClass: 'activeTeamTypes',
+      matMenu: this.teamTypes,
+      filterName: 'Types Of Teams'
+    });
+    this.buttons.push({
+      allowedFilters: 'ability',
+      switchClass: 'activeAbility',
+      matMenu: this.ability,
+      filterName: 'Ability'
+    });
+    this.buttons.push({
+      allowedFilters: 'status',
+      switchClass: 'activeStatus',
+      matMenu: this.status,
+      filterName: 'Status'
+    });
   }
   getAbilityList() {
     this._adminService
