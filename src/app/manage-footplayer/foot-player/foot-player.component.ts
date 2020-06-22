@@ -80,7 +80,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
     this.filter.search = search;
     this._footPlayerService
       .getFootPlayerList(this.filter)
-      .pipe(untilDestroyed(this))
+      // .pipe(untilDestroyed(this))
       .subscribe(response => {
         let records = response.data.records;
         for (let i = 0; i < records.length; i++) {
@@ -89,7 +89,6 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
         this.dataSource = new MatTableDataSource(response.data.records);
         this.show_count = response.data.records.length;
         this.total_count = response.data.total;
-        this.selectedPage = this.pageNo;
       });
   }
   applyFilter(event: any) {
@@ -192,12 +191,12 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   onChangeFilter(event: any) {
     if (event) {
       this.filter = event;
-      this.selectedPage = 1;
     } else {
       this.filter = {};
-      this.filter.page_no = 1;
-      this.filter.page_size = 10;
     }
+    this.selectedPage = 1;
+    this.filter.page_no = 1;
+    this.filter.page_size = 10;
     this.getFootPlayerList();
   }
 }

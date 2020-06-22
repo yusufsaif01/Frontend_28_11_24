@@ -18,6 +18,7 @@ interface FootPlayerContext {
   styleUrls: ['./club-academy-footplayer.component.scss']
 })
 export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
+  filter: any = {};
   footPlayerList: FootPlayerContext[] = [];
   pageSize: number = 18;
   selectedPage: number = 1;
@@ -48,13 +49,13 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
     status: true
   };
 
-  onChangeFilter(event: any) {
-    console.log(event);
-  }
   constructor(private _footPlayerService: FootPlayerService) {}
 
   ngOnInit() {
-    this.getFootPlayerList(this.pageSize, 1);
+    this.filter.page_size = this.pageSize;
+    this.filter.page_no = 1;
+    this.filter.footplayers = 1;
+    this.getFootPlayerList();
   }
 
   ngOnDestroy() {}
@@ -65,17 +66,19 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
 
   applyFilter(event: any) {
     let filterValue = event.target.value;
-    this.getFootPlayerList(this.pageSize, 1, filterValue);
+    this.getFootPlayerList(filterValue);
   }
 
   updatePage(event: any) {
     this.selectedPage = event.selectedPage;
-    this.getFootPlayerList(this.pageSize, event.selectedPage);
+    this.filter.page_no = this.selectedPage;
+    this.getFootPlayerList();
   }
 
-  getFootPlayerList(page_size: number, page_no: number, search?: string) {
+  getFootPlayerList(search?: string) {
+    this.filter.search = search;
     this._footPlayerService
-      .getFootPlayerList({ page_no, page_size, search, footplayers: 1 })
+      .getFootPlayerList(this.filter)
       .pipe(untilDestroyed(this))
       .subscribe(response => {
         let records = response.data.records;
@@ -86,7 +89,19 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
         this.footPlayerList = records;
         this.show_count = response.data.records.length;
         this.total_count = response.data.total;
-        this.selectedPage = page_no;
       });
+  }
+
+  onChangeFilter(event: any) {
+    if (event) {
+      this.filter = event;
+    } else {
+      this.filter = {};
+    }
+    this.filter.page_no = 1;
+    this.filter.footplayers = 1;
+    this.filter.page_size = 10;
+    this.selectedPage = 1;
+    this.getFootPlayerList();
   }
 }

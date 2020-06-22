@@ -76,6 +76,15 @@ interface GetFootPlayerListContext {
   page_no?: number;
   page_size?: number;
   footplayers?: number;
+  position?: string;
+  player_category?: string;
+  age?: string;
+  country?: string;
+  state?: string;
+  city?: string;
+  strong_foot?: string;
+  status?: string;
+  ability?: string;
 }
 
 @Injectable({
@@ -123,14 +132,13 @@ export class FootPlayerService {
     }
     if (context['ability']) {
       query += '&ability=' + context['ability'];
-
-      if (context['footplayers']) {
-        query += '&footplayers=' + context['footplayers'];
-      }
-      return this.httpClient.get<GetFootPlayerListResponseContext>(
-        routes.getFootPlayerList(query)
-      );
     }
+    if (context['footplayers']) {
+      query += '&footplayers=' + context['footplayers'];
+    }
+    return this.httpClient.get<GetFootPlayerListResponseContext>(
+      routes.getFootPlayerList(query)
+    );
   }
   deleteFootPlayer(id: string) {
     return this.httpClient.delete<any>(routes.deleteFootplayer(id));
