@@ -7,6 +7,10 @@ const routes = {
   getClubAcademyList: (query: string) => `/people/list${query}`
 };
 
+interface GetClubAcademyListContext {
+  role: string;
+}
+
 interface GetClubAcademyListResponseContext {
   status: string;
   message: string;
@@ -34,13 +38,13 @@ export class AddEditEmploymentContractService {
       context
     );
   }
-  getClubAcademyList(context: {
-    status: string;
-  }): Observable<GetClubAcademyListResponseContext> {
+  getClubAcademyList(
+    context: GetClubAcademyListContext
+  ): Observable<GetClubAcademyListResponseContext> {
     let query = '?';
 
-    if (context['status']) {
-      query += 'status=' + context['status'];
+    if (context['role']) {
+      query += 'role=' + context['role'];
     }
     return this.httpClient.get<GetClubAcademyListResponseContext>(
       routes.getClubAcademyList(query)
