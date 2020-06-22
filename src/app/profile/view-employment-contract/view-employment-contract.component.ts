@@ -3,6 +3,7 @@ import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { MatDialog } from '@angular/material/dialog';
 import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { DisapproveConfirmationComponent } from '@app/shared/dialog-box/disapprove-confirmation/disapprove-confirmation.component';
 
 @Component({
   selector: 'app-view-employment-contract',
@@ -39,7 +40,7 @@ export class ViewEmploymentContractComponent implements OnInit {
       data: {
         header: 'Please Confirm',
         message: 'Please specify a reason for disapproval',
-        inputbox: true
+        disApprove: true
       }
     });
   }

@@ -1,0 +1,56 @@
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+@Component({
+  selector: 'app-disapprove-confirmation',
+  templateUrl: './disapprove-confirmation.component.html',
+  styleUrls: ['./disapprove-confirmation.component.scss']
+})
+export class DisapproveConfirmationComponent implements OnInit {
+  public header: string = 'Please Confirm';
+  public message: string = '';
+  public acceptText: string = 'Confirm';
+  public rejectText: string = 'Cancel';
+  disApprove: boolean = false;
+  disApproveReason: string = '';
+  imageMode: boolean = false;
+  imageURL: string = '';
+
+  constructor(
+    private dialogRef: MatDialogRef<any>,
+    @Inject(MAT_DIALOG_DATA) data: any
+  ) {
+    if (data.imageURL) {
+      this.imageMode = true;
+      this.imageURL = data.imageURL;
+    }
+    if (data.header) {
+      this.header = data.header;
+    }
+    if (data.message) {
+      this.message = data.message;
+    }
+    if (data.acceptText) {
+      this.acceptText = data.acceptText;
+    }
+    if (data.rejectText) {
+      this.rejectText = data.rejectText;
+    }
+    if (data.disApprove) {
+      this.disApprove = data.disApprove;
+    }
+    // if (data.disApprove === 'Disapprove') {
+    //   this.disApprove = true;
+    // }
+  }
+
+  ngOnInit() {}
+
+  cofirmDialog() {
+    if (this.disApprove) {
+      this.dialogRef.close(this.disApproveReason);
+    } else {
+      this.dialogRef.close(true);
+    }
+  }
+}
