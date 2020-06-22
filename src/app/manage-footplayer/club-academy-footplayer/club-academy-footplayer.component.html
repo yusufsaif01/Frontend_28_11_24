@@ -5,16 +5,14 @@
     <app-left-panel
       [achievements]="total_count"
       [options]="panelOptions"
-      [userId]="userId"
+      (sendMemberType)="getMemberType($event)"
     ></app-left-panel>
   </div>
   <div class="right-section">
     <div class="award-heading">
       <div class="left-part">
-        <h2>
-          Club's FootPlayers
-        </h2>
-        <span>89</span>
+        <h2>{{ member_type | titlecase }}'s FootPlayers</h2>
+        <span>{{ footplayers }}</span>
       </div>
     </div>
     <!-- filter -->
@@ -26,7 +24,11 @@
     <div class="search">
       <div class="search-form">
         <form>
-          <input type="text" placeholder="Search player" />
+          <input
+            (keyup)="applyFilter($event)"
+            type="text"
+            placeholder="Search player"
+          />
           <span class="search-icon">
             <i-feather name="search" class="icon-size"></i-feather>
           </span>
@@ -35,27 +37,44 @@
     </div>
 
     <div class="playerwrapper">
-      <div class="playerbox">
-        <div class="top">
-          <div class="dp">
-            <img src="./../../../assets/images/user-avatar.png" alt="" />
+      <ng-container *ngFor="let footPlayer of footPlayerList">
+        <div class="playerbox">
+          <div class="top">
+            <div class="dp">
+              <img [src]="footPlayer.avatar" alt="" />
+            </div>
+            <div class="name">
+              <strong>
+                <a
+                  target="_blank"
+                  [routerLink]="['/member/profile/view/', footPlayer.user_id]"
+                  >{{ footPlayer.name | titlecase }}</a
+                >
+              </strong>
+              <p>{{ footPlayer.position | titlecase }}</p>
+            </div>
           </div>
-          <div class="name">
-            <strong>
-              <a target="_blank">Ratan Singh </a>
-            </strong>
-            <p>Center Midfielder</p>
+          <div class="middle">
+            <h4 class="gray">{{ footPlayer.category | titlecase }}</h4>
           </div>
         </div>
-        <div class="middle">
-          <h4 class="gray">Professional</h4>
-        </div>
-      </div>
+      </ng-container>
     </div>
 
-    <span class="no-data-found">
-      No FootMates Found
-    </span>
-    <app-pagination></app-pagination>
+    <ng-container *ngIf="footPlayerList.length === 0">
+      <span class="no-data-found">
+        No FootPlayer Found
+      </span>
+    </ng-container>
+    <app-pagination
+      *ngIf="footPlayerList.length !== 0"
+      [showData]="false"
+      [showCount]="show_count"
+      [totalRows]="total_count"
+      [rowsPerPage]="pageSize"
+      [selectedPage]="selectedPage"
+      (onChange)="updatePage($event)"
+    >
+    </app-pagination>
   </div>
 </div>

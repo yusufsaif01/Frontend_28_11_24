@@ -89,6 +89,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
         this.dataSource = new MatTableDataSource(response.data.records);
         this.show_count = response.data.records.length;
         this.total_count = response.data.total;
+        this.selectedPage = this.pageNo;
       });
   }
   applyFilter(event: any) {
