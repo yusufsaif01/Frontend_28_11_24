@@ -56,6 +56,20 @@
                 placeholder="Player name on contract"
                 matInput
               />
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.playerName.invalid &&
+                  addEditContractForm.controls.playerName.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.playerName.errors.required
+                  "
+                  translate
+                  >Player Name is required
+                </span>
+              </mat-error>
             </div>
 
             <!-- Club/ Academy Name -->
@@ -72,6 +86,20 @@
                 </ng-container>
                 <option value="Other">Other</option>
               </select>
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.clubAcademyName.invalid &&
+                  addEditContractForm.controls.clubAcademyName.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.clubAcademyName.errors.required
+                  "
+                  translate
+                  >{{ category | titlecase }} Name is required
+                </span>
+              </mat-error>
             </div>
 
             <ng-container
@@ -88,6 +116,21 @@
                   type="text"
                   matInput
                 />
+
+                <mat-error
+                  *ngIf="
+                    addEditContractForm.controls.otherName.invalid &&
+                    addEditContractForm.controls.otherName.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      addEditContractForm.controls.otherName.errors.required
+                    "
+                    translate
+                    >Other Name is required
+                  </span>
+                </mat-error>
               </div>
 
               <!-- Other emails -->
@@ -99,6 +142,25 @@
                   type="email"
                   matInput
                 />
+                <mat-error
+                  *ngIf="
+                    addEditContractForm.controls.otherEmail.invalid &&
+                    addEditContractForm.controls.otherEmail.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      addEditContractForm.controls.otherEmail.errors.required
+                    "
+                    translate
+                    >Other Email is required
+                  </span>
+                  <span
+                    *ngIf="addEditContractForm.controls.otherEmail.errors.email"
+                    translate
+                    >Other Email format is invalid
+                  </span>
+                </mat-error>
               </div>
 
               <!-- Other Phone -->
@@ -116,6 +178,22 @@
                       matInput
                     />
                   </div>
+
+                  <mat-error
+                    *ngIf="
+                      addEditContractForm.controls.otherPhoneNumber.invalid &&
+                      addEditContractForm.controls.otherPhoneNumber.touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        addEditContractForm.controls.otherPhoneNumber.errors
+                          .required
+                      "
+                      translate
+                      >Other Phone Number is required
+                    </span>
+                  </mat-error>
                 </div>
               </div>
             </ng-container>
@@ -132,9 +210,24 @@
                   [max]="yesterday"
                   readonly
                 />
+
                 <mat-datepicker-toggle [for]="signing"></mat-datepicker-toggle>
                 <mat-datepicker #signing></mat-datepicker>
               </div>
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.signingDate.invalid &&
+                  addEditContractForm.controls.signingDate.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.signingDate.errors.required
+                  "
+                  translate
+                  >Contract signing date is required
+                </span>
+              </mat-error>
             </div>
 
             <!-- Contract effective date -->
@@ -154,6 +247,20 @@
                 ></mat-datepicker-toggle>
                 <mat-datepicker #effective></mat-datepicker>
               </div>
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.effectiveDate.invalid &&
+                  addEditContractForm.controls.effectiveDate.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.effectiveDate.errors.required
+                  "
+                  translate
+                  >Contract effective date is required
+                </span>
+              </mat-error>
             </div>
 
             <!-- Contract expiry date -->
@@ -172,6 +279,20 @@
                 <mat-datepicker-toggle [for]="expiry"></mat-datepicker-toggle>
                 <mat-datepicker #expiry></mat-datepicker>
               </div>
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.expiryDate.invalid &&
+                  addEditContractForm.controls.expiryDate.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.expiryDate.errors.required
+                  "
+                  translate
+                  >Contract expiry date is required
+                </span>
+              </mat-error>
             </div>
 
             <!-- Place of signature  -->
@@ -223,6 +344,24 @@
                     type="text"
                     matInput
                   />
+                  <mat-error
+                    *ngIf="
+                      addEditContractForm.controls.clubAcademyPhoneNumber
+                        .invalid &&
+                      addEditContractForm.controls.clubAcademyPhoneNumber
+                        .touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        addEditContractForm.controls.clubAcademyPhoneNumber
+                          .errors.required
+                      "
+                      translate
+                    >
+                      {{ category | titlecase }} Phone Number is required
+                    </span>
+                  </mat-error>
                 </div>
               </div>
             </div>
@@ -287,6 +426,23 @@
                   />
                 </div>
               </div>
+
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.playerMobileNumber.invalid &&
+                  addEditContractForm.controls.playerMobileNumber.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.playerMobileNumber.errors
+                      .required
+                  "
+                  translate
+                >
+                  Player Phone Number is required
+                </span>
+              </mat-error>
             </div>
 
             <!-- Player email id  -->
@@ -351,6 +507,24 @@
                   type="text"
                   matInput
                 />
+                <mat-error
+                  *ngIf="
+                    addEditContractForm.controls.clubAcademyIntermediaryName
+                      .invalid &&
+                    addEditContractForm.controls.clubAcademyIntermediaryName
+                      .touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      addEditContractForm.controls.clubAcademyIntermediaryName
+                        .errors.required
+                    "
+                    translate
+                  >
+                    Name of intermediaries is required
+                  </span>
+                </mat-error>
               </div>
 
               <!-- Percentage of transfer fee paid to intermediaries  -->
@@ -364,6 +538,24 @@
                   type="text"
                   matInput
                 />
+                <mat-error
+                  *ngIf="
+                    addEditContractForm.controls.clubAcademyTransferFee
+                      .invalid &&
+                    addEditContractForm.controls.clubAcademyTransferFee.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      addEditContractForm.controls.clubAcademyTransferFee.errors
+                        .required
+                    "
+                    translate
+                  >
+                    Percentage of transfer fee paid to intermediaries is
+                    required
+                  </span>
+                </mat-error>
               </div>
             </ng-container>
 
@@ -405,6 +597,23 @@
                   type="text"
                   matInput
                 />
+                <mat-error
+                  *ngIf="
+                    addEditContractForm.controls.playerIntermediaryName
+                      .invalid &&
+                    addEditContractForm.controls.playerIntermediaryName.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      addEditContractForm.controls.playerIntermediaryName.errors
+                        .required
+                    "
+                    translate
+                  >
+                    Name of intermediaries is required
+                  </span>
+                </mat-error>
               </div>
 
               <!-- Percentage of transfer fee paid to intermediaries  -->
@@ -418,6 +627,23 @@
                   type="text"
                   matInput
                 />
+                <mat-error
+                  *ngIf="
+                    addEditContractForm.controls.playerTransferFee.invalid &&
+                    addEditContractForm.controls.playerTransferFee.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      addEditContractForm.controls.playerTransferFee.errors
+                        .required
+                    "
+                    translate
+                  >
+                    Percentage of transfer fee paid to intermediaries is
+                    required
+                  </span>
+                </mat-error>
               </div>
             </ng-container>
           </div>
