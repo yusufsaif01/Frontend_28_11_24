@@ -123,6 +123,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this.populateView();
     this.initValidations();
     this.getLocationStats();
+    this.getEmploymentContractList();
   }
 
   setControlState() {

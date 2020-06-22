@@ -967,12 +967,10 @@
               <div class="contract-listing"></div>
               <ng-container *ngIf="!dataSource.data.length">
                 <div class="default-text">
-                  <h3>No contract, please add a contract</h3>
+                  <h3>No Contract, please add a contract.</h3>
                 </div>
               </ng-container>
-              <ng-container *ngIf="dataSource.data.length"
-                >>
-
+              <ng-container *ngIf="dataSource.data.length">
                 <div class="table">
                   <div class="table-container">
                     <app-table
