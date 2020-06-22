@@ -225,6 +225,25 @@
         </ng-container>
       </div>
 
+      <!-- Employement Contract Details -->
+      <div class="contract">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Employment Contracts
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="table">
+              <div class="table-container">
+                <app-table [tableConfig]="tableConfig" [NumberColumn]="'true'">
+                </app-table>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+
       <!-- perfessional details -->
       <div class="block">
         <div class="block-heading border-bottom">
