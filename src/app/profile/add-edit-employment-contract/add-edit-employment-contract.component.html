@@ -191,7 +191,50 @@
                           .required
                       "
                       translate
-                      >Other Phone Number is required
+                      >Other Phone Number is required</span
+                    >
+                    <ng-template #lengthBlock>
+                      <span
+                        translate
+                        class="error-text"
+                        *ngIf="
+                          addEditContractForm.controls.otherPhoneNumber.errors
+                            .minlength
+                        "
+                      >
+                        Please provide number upto
+                        {{
+                          addEditContractForm.controls.otherPhoneNumber.errors
+                            .minlength.requiredLength
+                        }}
+                        digits
+                      </span>
+                      <span
+                        translate
+                        class="error-text"
+                        *ngIf="
+                          addEditContractForm.controls.otherPhoneNumber.errors
+                            .maxlength
+                        "
+                      >
+                        Please provide number upto
+                        {{
+                          addEditContractForm.controls.otherPhoneNumber.errors
+                            .maxlength.requiredLength
+                        }}
+                        digits
+                      </span>
+                    </ng-template>
+                    <span
+                      class="error-text"
+                      *ngIf="
+                        addEditContractForm.controls.otherPhoneNumber.errors
+                          .pattern;
+                        else lengthBlock
+                      "
+                      translate
+                    >
+                      Other Phone Number format is invalid
                     </span>
                   </mat-error>
                 </div>
@@ -358,8 +401,50 @@
                           .errors.required
                       "
                       translate
+                      >{{ category | titlecase }} Phone Number is required</span
                     >
-                      {{ category | titlecase }} Phone Number is required
+                    <ng-template #lengthBlock>
+                      <span
+                        translate
+                        class="error-text"
+                        *ngIf="
+                          addEditContractForm.controls.clubAcademyPhoneNumber
+                            .errors.minlength
+                        "
+                      >
+                        Please provide number upto
+                        {{
+                          addEditContractForm.controls.clubAcademyPhoneNumber
+                            .errors.minlength.requiredLength
+                        }}
+                        digits
+                      </span>
+                      <span
+                        translate
+                        class="error-text"
+                        *ngIf="
+                          addEditContractForm.controls.clubAcademyPhoneNumber
+                            .errors.maxlength
+                        "
+                      >
+                        Please provide number upto
+                        {{
+                          addEditContractForm.controls.clubAcademyPhoneNumber
+                            .errors.maxlength.requiredLength
+                        }}
+                        digits
+                      </span>
+                    </ng-template>
+                    <span
+                      class="error-text"
+                      *ngIf="
+                        addEditContractForm.controls.clubAcademyPhoneNumber
+                          .errors.pattern;
+                        else lengthBlock
+                      "
+                      translate
+                    >
+                      {{ category | titlecase }} Phone Number format is invalid
                     </span>
                   </mat-error>
                 </div>
@@ -440,7 +525,50 @@
                   "
                   translate
                 >
-                  Player Phone Number is required
+                  Player Phone Number is required</span
+                >
+                <ng-template #lengthBlock>
+                  <span
+                    translate
+                    class="error-text"
+                    *ngIf="
+                      addEditContractForm.controls.playerMobileNumber.errors
+                        .minlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      addEditContractForm.controls.playerMobileNumber.errors
+                        .minlength.requiredLength
+                    }}
+                    digits
+                  </span>
+                  <span
+                    translate
+                    class="error-text"
+                    *ngIf="
+                      addEditContractForm.controls.playerMobileNumber.errors
+                        .maxlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      addEditContractForm.controls.playerMobileNumber.errors
+                        .maxlength.requiredLength
+                    }}
+                    digits
+                  </span>
+                </ng-template>
+                <span
+                  class="error-text"
+                  *ngIf="
+                    addEditContractForm.controls.playerMobileNumber.errors
+                      .pattern;
+                    else lengthBlock
+                  "
+                  translate
+                >
+                  Player Phone Number format is invalid
                 </span>
               </mat-error>
             </div>
@@ -454,6 +582,18 @@
                 type="text"
                 matInput
               />
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.playerEmail.invalid &&
+                  addEditContractForm.controls.playerEmail.touched
+                "
+              >
+                <span
+                  *ngIf="addEditContractForm.controls.playerEmail.errors.email"
+                  translate
+                  >Player Email format is invalid
+                </span>
+              </mat-error>
             </div>
 
             <!-- Club Academy email id  -->
@@ -465,6 +605,21 @@
                 type="text"
                 matInput
               />
+
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.clubAcademyEmail.invalid &&
+                  addEditContractForm.controls.clubAcademyEmail.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.clubAcademyEmail.errors.email
+                  "
+                  translate
+                  >{{ category | titlecase }} Email format is invalid
+                </span>
+              </mat-error>
             </div>
 
             <!-- Did the club/ academy use the services of an agent?  -->
