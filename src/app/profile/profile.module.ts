@@ -6,14 +6,14 @@ import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ProfileComponent } from './profile.component';
 import { ProfileRoutingModule } from './profile-routing.module';
-import { AddEditEmployementContractComponent } from './add-edit-employement-contract/add-edit-employement-contract.component';
+import { AddEditEmploymentContractComponent } from './add-edit-employment-contract/add-edit-employment-contract.component';
 
 @NgModule({
   declarations: [
     ProfileComponent,
     ViewProfileComponent,
     EditProfileComponent,
-    AddEditEmployementContractComponent
+    AddEditEmploymentContractComponent
   ],
   imports: [
     CommonModule,
