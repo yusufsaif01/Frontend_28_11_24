@@ -2,12 +2,11 @@
 <div class="site-wrapper">
   <!-- Left section -->
   <div class="left-section">
-    <app-left-panel [options]="panelOptions" [userId]="userId">
-    </app-left-panel>
+    <app-left-panel [options]="panelOptions"> </app-left-panel>
   </div>
   <!-- Right seciton -->
   <div class="right-section">
-    <form>
+    <form [formGroup]="addEditContractForm">
       <!-- players -->
       <div class="player-details">
         <!-- player type -->
@@ -23,11 +22,24 @@
           </div>
           <div class="block-middle">
             <div class="radio">
-              <label
-                ><input type="radio" value="club" />
+              <label>
+                <input
+                  formControlName="category"
+                  type="radio"
+                  value="club"
+                  (click)="setCategory('club')"
+                />
                 Club
               </label>
-              <label><input type="radio" value="Academy" /> Academy </label>
+              <label
+                ><input
+                  formControlName="category"
+                  type="radio"
+                  value="academy"
+                  (click)="setCategory('academy')"
+                />
+                Academy
+              </label>
             </div>
           </div>
         </div>
@@ -38,6 +50,7 @@
             <div class="from-block">
               <label>Player name on contract <span>*</span></label>
               <input
+                formControlName="playerName"
                 class="error-border"
                 type="text"
                 placeholder="Player name on contract"
@@ -47,46 +60,76 @@
 
             <!-- Club/ Academy Name -->
             <div class="from-block">
-              <label>Club Name <span>*</span></label>
-              <select matNativeControl required>
+              <label>{{ category }} Name <span>*</span></label>
+              <select
+                formControlName="clubAcademyName"
+                matNativeControl
+                required
+              >
                 <option value="">Select Club Name</option>
+                <ng-container *ngFor="let ca of clubAcadArray">
+                  <option value="{{ ca.name }}">{{ ca.name }}</option>
+                </ng-container>
+                <option value="Other">Other</option>
               </select>
             </div>
 
-            <!-- Other name -->
-            <div class="from-block">
-              <label>Other Name <span>*</span></label>
-              <input placeholder="Other Name" type="text" matInput />
-            </div>
+            <ng-container
+              *ngIf="
+                addEditContractForm.get('clubAcademyName').value === 'Other'
+              "
+            >
+              <!-- Other name -->
+              <div class="from-block">
+                <label>Other Name <span>*</span></label>
+                <input
+                  formControlName="otherName"
+                  placeholder="Other Name"
+                  type="text"
+                  matInput
+                />
+              </div>
 
-            <!-- Other emails -->
-            <div class="from-block">
-              <label>Other Email </label>
-              <input placeholder="Other Email" type="email" matInput />
-            </div>
+              <!-- Other emails -->
+              <div class="from-block">
+                <label>Other Email </label>
+                <input
+                  formControlName="otherEmail"
+                  placeholder="Other Email"
+                  type="email"
+                  matInput
+                />
+              </div>
 
-            <!-- Other Phone -->
-            <div class="from-block">
-              <label>Other Phone Number</label>
-              <div class="contact-no">
-                <div class="countrycode">
-                  <input type="text" value="+91" readonly tabindex="-1" />
-                </div>
-                <div class="phonenumber">
-                  <input placeholder="Phone Number" type="text" matInput />
+              <!-- Other Phone -->
+              <div class="from-block">
+                <label>Other Phone Number</label>
+                <div class="contact-no">
+                  <div class="countrycode">
+                    <input type="text" value="+91" readonly tabindex="-1" />
+                  </div>
+                  <div class="phonenumber">
+                    <input
+                      formControlName="otherPhoneNumber"
+                      placeholder="Phone Number"
+                      type="text"
+                      matInput
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            </ng-container>
 
             <!-- Contract signing date -->
             <div class="from-block">
               <label>Contract signing date <span>*</span></label>
               <div class="datepicker">
                 <input
+                  formControlName="signingDate"
                   placeholder="Contract signing date"
                   matInput
                   [matDatepicker]="signing"
-                  [max]="tomorrow"
+                  [max]="yesterday"
                   readonly
                 />
                 <mat-datepicker-toggle [for]="signing"></mat-datepicker-toggle>
@@ -99,10 +142,11 @@
               <label>Contract effective date <span>*</span></label>
               <div class="datepicker">
                 <input
+                  formControlName="effectiveDate"
                   placeholder="Contract effective date"
                   matInput
                   [matDatepicker]="effective"
-                  [max]="tomorrow"
+                  [min]="addEditContractForm.get('signingDate').value"
                   readonly
                 />
                 <mat-datepicker-toggle
@@ -117,9 +161,11 @@
               <label>Contract expiry date <span>*</span></label>
               <div class="datepicker">
                 <input
+                  formControlName="expiryDate"
                   placeholder="Contract expiry date"
                   matInput
                   [matDatepicker]="expiry"
+                  [min]="addEditContractForm.get('effectiveDate').value"
                   [max]="tomorrow"
                   readonly
                 />
@@ -131,13 +177,19 @@
             <!-- Place of signature  -->
             <div class="from-block">
               <label>Place of signature</label>
-              <input placeholder="Place of signature " type="text" matInput />
+              <input
+                formControlName="placeOfSignature"
+                placeholder="Place of signature "
+                type="text"
+                matInput
+              />
             </div>
 
             <!-- Club/ Academy representative name  -->
             <div class="from-block">
-              <label>Club representative name</label>
+              <label>{{ category | titlecase }} representative name</label>
               <input
+                formControlName="clubAcademyRepresentativeName"
                 placeholder="Club representative name "
                 type="text"
                 matInput
@@ -146,19 +198,31 @@
 
             <!-- Club address  -->
             <div class="from-block">
-              <label>Club address</label>
-              <input placeholder="Club address" type="text" matInput />
+              <label>{{ category | titlecase }} address</label>
+              <input
+                formControlName="clubAcademyAddress"
+                placeholder="Club address"
+                type="text"
+                matInput
+              />
             </div>
 
             <!-- Club Phone -->
             <div class="from-block">
-              <label>Club Phone Number</label>
+              <label
+                >{{ category | titlecase }} Phone Number <span>*</span>
+              </label>
               <div class="contact-no">
                 <div class="countrycode">
                   <input type="text" value="+91" readonly tabindex="-1" />
                 </div>
                 <div class="phonenumber">
-                  <input placeholder="Phone Number" type="text" matInput />
+                  <input
+                    formControlName="clubAcademyPhoneNumber"
+                    placeholder="Phone Number"
+                    type="text"
+                    matInput
+                  />
                 </div>
               </div>
             </div>
@@ -167,6 +231,7 @@
             <div class="from-block">
               <label>AIFF accreditation number</label>
               <input
+                formControlName="aiffNumber"
                 placeholder="AIFF accreditation number"
                 type="text"
                 matInput
@@ -176,19 +241,34 @@
             <!-- CRS User Name  -->
             <div class="from-block">
               <label>CRS User Name</label>
-              <input placeholder="CRS User Name" type="text" matInput />
+              <input
+                formControlName="crsUserName"
+                placeholder="CRS User Name"
+                type="text"
+                matInput
+              />
             </div>
 
             <!-- Legal guardian name  -->
             <div class="from-block">
               <label>Legal guardian name</label>
-              <input placeholder="Legal guardian name" type="text" matInput />
+              <input
+                formControlName="legalGuardianName"
+                placeholder="Legal guardian name"
+                type="text"
+                matInput
+              />
             </div>
 
             <!-- Player address  -->
             <div class="from-block">
               <label>Player address</label>
-              <input placeholder="Player address" type="text" matInput />
+              <input
+                formControlName="playerAddress"
+                placeholder="Player address"
+                type="text"
+                matInput
+              />
             </div>
 
             <!-- Player Phone -->
@@ -200,6 +280,7 @@
                 </div>
                 <div class="phonenumber">
                   <input
+                    formControlName="playerMobileNumber"
                     placeholder="Player Phone Number"
                     type="text"
                     matInput
@@ -211,84 +292,144 @@
             <!-- Player email id  -->
             <div class="from-block">
               <label>Player email id</label>
-              <input placeholder="Player email id" type="text" matInput />
+              <input
+                formControlName="playerEmail"
+                placeholder="Player email id"
+                type="text"
+                matInput
+              />
             </div>
 
             <!-- Club Academy email id  -->
             <div class="from-block">
-              <label>Club email id </label>
-              <input placeholder="Club email id" type="text" matInput />
+              <label>{{ category | titlecase }} email id </label>
+              <input
+                formControlName="clubAcademyEmail"
+                placeholder="Club email id"
+                type="text"
+                matInput
+              />
             </div>
 
             <!-- Did the club/ academy use the services of an agent?  -->
             <div class="from-block-full">
-              <label>Did the club use the services of an agent? </label>
+              <label
+                >Did the {{ category }} use the services of an agent?
+              </label>
               <div class="radio">
                 <label
-                  ><input type="radio" value="Yes" />
+                  ><input
+                    formControlName="clubAcademyUsesAgentServices"
+                    type="radio"
+                    value="true"
+                  />
                   Yes
                 </label>
-                <label><input type="radio" value="No" /> No </label>
+                <label
+                  ><input
+                    formControlName="clubAcademyUsesAgentServices"
+                    type="radio"
+                    value="false"
+                  />
+                  No
+                </label>
               </div>
             </div>
 
-            <!-- Provide Name of intermediaries   -->
-            <div class="from-block">
-              <label>Provide Name of intermediaries </label>
-              <input
-                placeholder="Provide Name of intermediaries "
-                type="text"
-                matInput
-              />
-            </div>
+            <ng-container
+              *ngIf="
+                addEditContractForm.get('clubAcademyUsesAgentServices')
+                  .value === 'true'
+              "
+            >
+              <!-- Provide Name of intermediaries   -->
+              <div class="from-block">
+                <label>Provide Name of intermediaries </label>
+                <input
+                  formControlName="clubAcademyIntermediaryName"
+                  placeholder="Provide Name of intermediaries "
+                  type="text"
+                  matInput
+                />
+              </div>
 
-            <!-- Percentage of transfer fee paid to intermediaries  -->
-            <div class="from-block">
-              <label>Percentage of transfer fee paid to intermediaries </label>
-              <input
-                placeholder="Percentage of transfer fee paid to intermediaries"
-                type="text"
-                matInput
-              />
-            </div>
+              <!-- Percentage of transfer fee paid to intermediaries  -->
+              <div class="from-block">
+                <label
+                  >Percentage of transfer fee paid to intermediaries
+                </label>
+                <input
+                  formControlName="clubAcademyTransferFee"
+                  placeholder="Percentage of transfer fee paid to intermediaries"
+                  type="text"
+                  matInput
+                />
+              </div>
+            </ng-container>
 
             <!-- Did the club/ academy use the services of an agent?  -->
             <div class="from-block-full">
               <label>Did the player use services of an agent? </label>
               <div class="radio">
                 <label
-                  ><input type="radio" value="Yes" />
+                  ><input
+                    formControlName="playerUsesAgentServices"
+                    type="radio"
+                    value="true"
+                  />
                   Yes
                 </label>
-                <label><input type="radio" value="No" /> No </label>
+                <label
+                  ><input
+                    formControlName="playerUsesAgentServices"
+                    type="radio"
+                    value="false"
+                  />
+                  No
+                </label>
               </div>
             </div>
 
-            <!-- Provide Name of intermediaries   -->
-            <div class="from-block">
-              <label>Provide Name of intermediaries </label>
-              <input
-                placeholder="Provide Name of intermediaries "
-                type="text"
-                matInput
-              />
-            </div>
+            <ng-container
+              *ngIf="
+                addEditContractForm.get('playerUsesAgentServices').value ===
+                'true'
+              "
+            >
+              <!-- Provide Name of intermediaries   -->
+              <div class="from-block">
+                <label>Provide Name of intermediaries </label>
+                <input
+                  formControlName="playerIntermediaryName"
+                  placeholder="Provide Name of intermediaries "
+                  type="text"
+                  matInput
+                />
+              </div>
 
-            <!-- Percentage of transfer fee paid to intermediaries  -->
-            <div class="from-block">
-              <label>Percentage of transfer fee paid to intermediaries </label>
-              <input
-                placeholder="Percentage of transfer fee paid to intermediaries"
-                type="text"
-                matInput
-              />
-            </div>
+              <!-- Percentage of transfer fee paid to intermediaries  -->
+              <div class="from-block">
+                <label
+                  >Percentage of transfer fee paid to intermediaries
+                </label>
+                <input
+                  formControlName="playerTransferFee"
+                  placeholder="Percentage of transfer fee paid to intermediaries"
+                  type="text"
+                  matInput
+                />
+              </div>
+            </ng-container>
           </div>
         </div>
         <!-- bottom -->
         <div class="block-bottom">
-          <a> Cancel </a>
-          <button class="btn">
+          <a [routerLink]="['/member/profile/edit']"> Cancel </a>
+          <button
+            [disabled]="!addEditContractForm.valid"
+            class="btn"
+            (click)="addContract()"
+          >
             Save
           </button>
         </div>
