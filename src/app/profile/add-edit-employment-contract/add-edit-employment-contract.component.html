@@ -53,7 +53,7 @@
                 formControlName="playerName"
                 class="error-border"
                 type="text"
-                placeholder="Player name on contract"
+                placeholder="Player Name On Contract"
                 matInput
               />
               <mat-error
@@ -173,7 +173,7 @@
                   <div class="phonenumber">
                     <input
                       formControlName="otherPhoneNumber"
-                      placeholder="Phone Number"
+                      placeholder="Other Phone Number"
                       type="text"
                       matInput
                     />
@@ -243,11 +243,11 @@
 
             <!-- Contract signing date -->
             <div class="from-block">
-              <label>Contract signing date <span>*</span></label>
+              <label>Contract Signing Date <span>*</span></label>
               <div class="datepicker">
                 <input
                   formControlName="signingDate"
-                  placeholder="Contract signing date"
+                  placeholder="Contract Signing Date"
                   matInput
                   [matDatepicker]="signing"
                   [max]="yesterday"
@@ -268,18 +268,18 @@
                     addEditContractForm.controls.signingDate.errors.required
                   "
                   translate
-                  >Contract signing date is required
+                  >Contract Signing Date is required
                 </span>
               </mat-error>
             </div>
 
             <!-- Contract effective date -->
             <div class="from-block">
-              <label>Contract effective date <span>*</span></label>
+              <label>Contract Effective Date <span>*</span></label>
               <div class="datepicker">
                 <input
                   formControlName="effectiveDate"
-                  placeholder="Contract effective date"
+                  placeholder="Contract Effective Date"
                   matInput
                   [matDatepicker]="effective"
                   [min]="addEditContractForm.get('signingDate').value"
@@ -301,18 +301,18 @@
                     addEditContractForm.controls.effectiveDate.errors.required
                   "
                   translate
-                  >Contract effective date is required
+                  >Contract Effective Date is required
                 </span>
               </mat-error>
             </div>
 
             <!-- Contract expiry date -->
             <div class="from-block">
-              <label>Contract expiry date <span>*</span></label>
+              <label>Contract Expiry Date <span>*</span></label>
               <div class="datepicker">
                 <input
                   formControlName="expiryDate"
-                  placeholder="Contract expiry date"
+                  placeholder="Contract Expiry Date"
                   matInput
                   [matDatepicker]="expiry"
                   [min]="addEditContractForm.get('effectiveDate').value"
@@ -333,17 +333,17 @@
                     addEditContractForm.controls.expiryDate.errors.required
                   "
                   translate
-                  >Contract expiry date is required
+                  >Contract Expiry Date is required
                 </span>
               </mat-error>
             </div>
 
             <!-- Place of signature  -->
             <div class="from-block">
-              <label>Place of signature</label>
+              <label>Place Of Signature</label>
               <input
                 formControlName="placeOfSignature"
-                placeholder="Place of signature "
+                placeholder="Place Of Signature"
                 type="text"
                 matInput
               />
@@ -351,10 +351,10 @@
 
             <!-- Club/ Academy representative name  -->
             <div class="from-block">
-              <label>{{ category | titlecase }} representative name</label>
+              <label>{{ category | titlecase }} Representative Name</label>
               <input
                 formControlName="clubAcademyRepresentativeName"
-                placeholder="Club representative name "
+                placeholder="{{ category | titlecase }} Representative Name"
                 type="text"
                 matInput
               />
@@ -362,10 +362,10 @@
 
             <!-- Club address  -->
             <div class="from-block">
-              <label>{{ category | titlecase }} address</label>
+              <label>{{ category | titlecase }} Address</label>
               <input
                 formControlName="clubAcademyAddress"
-                placeholder="Club address"
+                placeholder="{{ category | titlecase }} Address"
                 type="text"
                 matInput
               />
@@ -383,7 +383,7 @@
                 <div class="phonenumber">
                   <input
                     formControlName="clubAcademyPhoneNumber"
-                    placeholder="Phone Number"
+                    placeholder="{{ category | titlecase }} Phone Number"
                     type="text"
                     matInput
                   />
@@ -453,10 +453,10 @@
 
             <!-- AIFF accreditation number -->
             <div class="from-block">
-              <label>AIFF accreditation number</label>
+              <label>AIFF Accreditation Number</label>
               <input
                 formControlName="aiffNumber"
-                placeholder="AIFF accreditation number"
+                placeholder="AIFF Accreditation Number"
                 type="text"
                 matInput
               />
@@ -475,10 +475,10 @@
 
             <!-- Legal guardian name  -->
             <div class="from-block">
-              <label>Legal guardian name</label>
+              <label>Legal Guardian Name</label>
               <input
                 formControlName="legalGuardianName"
-                placeholder="Legal guardian name"
+                placeholder="Legal Guardian Name"
                 type="text"
                 matInput
               />
@@ -486,10 +486,10 @@
 
             <!-- Player address  -->
             <div class="from-block">
-              <label>Player address</label>
+              <label>Player Address</label>
               <input
                 formControlName="playerAddress"
-                placeholder="Player address"
+                placeholder="Player Address"
                 type="text"
                 matInput
               />
@@ -497,7 +497,7 @@
 
             <!-- Player Phone -->
             <div class="from-block">
-              <label>Player Phone Number <span>*</span></label>
+              <label>Player Mobile Number <span>*</span></label>
               <div class="contact-no">
                 <div class="countrycode">
                   <input type="text" value="+91" readonly tabindex="-1" />
@@ -505,7 +505,7 @@
                 <div class="phonenumber">
                   <input
                     formControlName="playerMobileNumber"
-                    placeholder="Player Phone Number"
+                    placeholder="Player Mobile Number"
                     type="text"
                     matInput
                   />
@@ -525,7 +525,7 @@
                   "
                   translate
                 >
-                  Player Phone Number is required</span
+                  Player Mobile Number is required</span
                 >
                 <ng-template #lengthBlock>
                   <span
@@ -568,17 +568,17 @@
                   "
                   translate
                 >
-                  Player Phone Number format is invalid
+                  Player Mobile Number format is invalid
                 </span>
               </mat-error>
             </div>
 
             <!-- Player email id  -->
             <div class="from-block">
-              <label>Player email id</label>
+              <label>Player email Id</label>
               <input
                 formControlName="playerEmail"
-                placeholder="Player email id"
+                placeholder="Player Email Id"
                 type="text"
                 matInput
               />
@@ -598,10 +598,10 @@
 
             <!-- Club Academy email id  -->
             <div class="from-block">
-              <label>{{ category | titlecase }} email id </label>
+              <label>{{ category | titlecase }} Email Id </label>
               <input
                 formControlName="clubAcademyEmail"
-                placeholder="Club email id"
+                placeholder="{{ category | titlecase }} Email Id"
                 type="text"
                 matInput
               />
@@ -655,10 +655,10 @@
             >
               <!-- Provide Name of intermediaries   -->
               <div class="from-block">
-                <label>Provide Name of intermediaries </label>
+                <label>Provide Name Of Intermediaries </label>
                 <input
                   formControlName="clubAcademyIntermediaryName"
-                  placeholder="Provide Name of intermediaries "
+                  placeholder="Provide Name Of Intermediaries "
                   type="text"
                   matInput
                 />
@@ -685,11 +685,11 @@
               <!-- Percentage of transfer fee paid to intermediaries  -->
               <div class="from-block">
                 <label
-                  >Percentage of transfer fee paid to intermediaries
+                  >Percentage Of Transfer Fee Paid To Intermediaries
                 </label>
                 <input
                   formControlName="clubAcademyTransferFee"
-                  placeholder="Percentage of transfer fee paid to intermediaries"
+                  placeholder="Percentage Of Transfer Fee Paid To Intermediaries"
                   type="text"
                   matInput
                 />
@@ -707,7 +707,7 @@
                     "
                     translate
                   >
-                    Percentage of transfer fee paid to intermediaries is
+                    Percentage Of Transfer Fee Paid To Intermediaries is
                     required
                   </span>
                 </mat-error>
@@ -745,10 +745,10 @@
             >
               <!-- Provide Name of intermediaries   -->
               <div class="from-block">
-                <label>Provide Name of intermediaries </label>
+                <label>Provide Name Of Intermediaries </label>
                 <input
                   formControlName="playerIntermediaryName"
-                  placeholder="Provide Name of intermediaries "
+                  placeholder="Provide Name Of Intermediaries "
                   type="text"
                   matInput
                 />
@@ -766,7 +766,7 @@
                     "
                     translate
                   >
-                    Name of intermediaries is required
+                    Name Of Intermediaries is required
                   </span>
                 </mat-error>
               </div>
@@ -774,11 +774,11 @@
               <!-- Percentage of transfer fee paid to intermediaries  -->
               <div class="from-block">
                 <label
-                  >Percentage of transfer fee paid to intermediaries
+                  >Percentage Of Transfer Fee Paid To Intermediaries
                 </label>
                 <input
                   formControlName="playerTransferFee"
-                  placeholder="Percentage of transfer fee paid to intermediaries"
+                  placeholder="Percentage Of Transfer Fee Paid To Intermediaries"
                   type="text"
                   matInput
                 />
@@ -795,7 +795,7 @@
                     "
                     translate
                   >
-                    Percentage of transfer fee paid to intermediaries is
+                    Percentage Of Transfer Fee Paid To Intermediaries is
                     required
                   </span>
                 </mat-error>
