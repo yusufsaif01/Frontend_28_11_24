@@ -6,9 +6,15 @@ import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ProfileComponent } from './profile.component';
 import { ProfileRoutingModule } from './profile-routing.module';
+import { AddEditEmploymentContractComponent } from './add-edit-employment-contract/add-edit-employment-contract.component';
 
 @NgModule({
-  declarations: [ProfileComponent, ViewProfileComponent, EditProfileComponent],
+  declarations: [
+    ProfileComponent,
+    ViewProfileComponent,
+    EditProfileComponent,
+    AddEditEmploymentContractComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
