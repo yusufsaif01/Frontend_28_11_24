@@ -6,8 +6,25 @@ const routes = {
   editProfile: (c: any) => '/update-details',
   getPositionList: () => '/master/player-specialization/position/list',
   updateBio: (a: any) => '/update-bio',
-  removeAvatar: () => '/avatar'
+  removeAvatar: () => '/avatar',
+  getEmploymentContractList: () => '/employment-contract/list'
 };
+
+interface GetEmploymentContractListResponseContext {
+  status: string;
+  message: string;
+  data: {
+    total: number;
+    records: {
+      id: string;
+      name: string;
+      effectiveDate: string;
+      expiryDate: string;
+      created_by: string;
+      status: string;
+    }[];
+  };
+}
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +46,13 @@ export class EditProfileService {
 
   removeAvatar(): Observable<any> {
     return this.httpClient.delete(routes.removeAvatar());
+  }
+
+  getEmploymentContractList(): Observable<
+    GetEmploymentContractListResponseContext
+  > {
+    return this.httpClient.get<GetEmploymentContractListResponseContext>(
+      routes.getEmploymentContractList()
+    );
   }
 }

@@ -15,7 +15,7 @@ import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 import { requiredPdfDocument } from '@app/shared/validators/requiredPdfDocument';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '@app/shared/page-components/header/header.component';
-import { EditProfileService } from './edit-profile-service';
+import { EditProfileService } from './edit-profile.service';
 import { ViewProfileService } from '../view-profile/view-profile.service';
 import { SharedService } from '@app/shared/shared.service';
 import { untilDestroyed } from '@app/core';
@@ -123,6 +123,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this.populateView();
     this.initValidations();
     this.getLocationStats();
+    this.getEmploymentContractList();
   }
 
   setControlState() {
@@ -155,6 +156,21 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       this.editProfileForm.controls.document.disable();
       this.editProfileForm.controls.number.disable();
     }
+  }
+
+  getEmploymentContractList() {
+    this._editProfileService
+      .getEmploymentContractList()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let records = response.data.records;
+          this.dataSource = new MatTableDataSource(records);
+        },
+        error => {
+          this._toastrService.error(error.error.message, 'Error');
+        }
+      );
   }
 
   getLocationStats() {
