@@ -22,15 +22,18 @@ export class ViewEmploymentContractComponent implements OnInit {
 
   ngOnInit() {}
 
-  // onapproved(): void {
-  //   const dialogRef = this.dialog.open(StatusConfirmationComponent, {
-  //     width: '50%',
-  //   });
-  // }
+  onapproved(): void {
+    const dialogRef = this.dialog.open(StatusConfirmationComponent, {
+      width: '50%',
+      data: {
+        header: 'Yes'
+      }
+    });
+  }
 
-  // ondisapproved(): void {
-  //   const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-  //     width: '50%',
-  //   });
-  // }
+  ondisapproved(): void {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '50%'
+    });
+  }
 }
