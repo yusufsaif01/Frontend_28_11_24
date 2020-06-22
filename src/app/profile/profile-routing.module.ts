@@ -7,6 +7,9 @@ import { ProfileComponent } from './profile.component';
 import { RoleGuardService } from '../core/authentication/role-guard.service';
 import { extract, AuthenticationGuard } from '@app/core';
 import { AddEditEmploymentContractComponent } from './add-edit-employment-contract/add-edit-employment-contract.component';
+import { ViewEmploymentContractComponent } from './view-employment-contract/view-employment-contract.component';
+//import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
+// import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 
 const appRoutes: Routes = [
   {
@@ -36,6 +39,12 @@ const appRoutes: Routes = [
 
         data: { title: extract('Add New Contract') }
       },
+      {
+        path: 'view-employment-contract',
+        component: ViewEmploymentContractComponent,
+
+        data: { title: extract('View Contract') }
+      },
       { path: '**', component: ViewProfileComponent }
     ]
   }
@@ -45,5 +54,6 @@ const appRoutes: Routes = [
   declarations: [],
   imports: [CommonModule, RouterModule.forChild(appRoutes)],
   exports: [RouterModule]
+  //entryComponents: [DeleteConfirmationComponent, StatusConfirmationComponent]
 })
 export class ProfileRoutingModule {}

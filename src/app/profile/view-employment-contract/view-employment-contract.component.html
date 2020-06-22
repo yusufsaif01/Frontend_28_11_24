@@ -1,0 +1,220 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <!-- Left section -->
+  <div class="left-section">
+    <app-left-panel [options]="panelOptions" [userId]="userId">
+    </app-left-panel>
+  </div>
+  <!-- right-section -->
+  <div class="right-section">
+    <!-- player section -->
+    <div class="players">
+      <div class="block">
+        <div class="block-heading">
+          <h2>Employment Contract Details</h2>
+          <a class="btn">Edit Details</a>
+        </div>
+      </div>
+      <!-- personal details -->
+      <div class="block">
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Player name on Contract :</span>
+              Ramnath Singh
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Club Name :</span>
+              Other
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Other Name :</span>
+              FootStar Club
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Other Email :</span>
+              footstars@club.com
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Other Phone No :</span>
+              +91 8978897889
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Contract Signing Date :</span>
+              08 July 2021
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Contract effective date :</span>
+              09 July 2020
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Contract expiry date :</span>
+              +91 8938988998
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Place of signature :</span>
+              Shayam Bihari
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Club representative name :</span>
+              Ratan Lal Tiwari
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Club address :</span>
+              3886 Camel Back Road, TALLAPOOSA , MO Missouri
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Club Phone Number: </span>
+              +91 8978897889
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>AIFF accreditation number :</span>
+              89348920200
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>CRS User Name: </span>
+              +91 8978897889
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Legal guardian name :</span>
+              89348920200
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Player address :</span>
+              3886 Camel Back Road, TALLAPOOSA , MO Missouri
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Player Mobile number: </span>
+              +91 8978897889
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Player email id :</span>
+              Player@player.com
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Club email </span>
+              famous@club.com
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Did the club use the services of an agent ?</span>
+              Yes
+            </p>
+          </div>
+        </div>
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Provide Name of intermediaries : </span> Suraj Pal Singh
+              Tomar
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Transfer fee paid to intermediaries :</span>
+              30%
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Did the player use services of an agent ? </span>
+              Yes
+            </p>
+          </div>
+        </div>
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Provide Name of intermediaries : </span>
+              +91 8978897889
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Transfer fee paid to intermediaries:</span>
+              35%
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="approve" (click)="onapproved()">Approve</button>
+        <button class="disapprove" (click)="ondisapproved()">Disapprove</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading> Loading </ng-template>
