@@ -965,30 +965,35 @@
                 </a>
               </div>
               <div class="contract-listing"></div>
-              <div class="default-text">
-                <h3>No contract, please add a contract</h3>
-              </div>
-              <div class="table">
-                <div class="table-container">
-                  <app-table
-                    [tableConfig]="tableConfig"
-                    [NumberColumn]="'true'"
-                    [TableActions]="ListAction"
-                  >
-                  </app-table>
-                  <ng-template #ListAction>
-                    <div class="action-buttons">
-                      <button matTooltip="View">
-                        <img src="assets/images/icons/eyes.png" alt="View" />
-                      </button>
-
-                      <button matTooltip="Delete" (click)="deletePopup(id)">
-                        <img src="assets/images/icons/bin.png" alt="Delete" />
-                      </button>
-                    </div>
-                  </ng-template>
+              <ng-container *ngIf="!dataSource.data.length">
+                <div class="default-text">
+                  <h3>No Contract, please add a contract.</h3>
                 </div>
-              </div>
+              </ng-container>
+              <ng-container *ngIf="dataSource.data.length">
+                <div class="table">
+                  <div class="table-container">
+                    <app-table
+                      [tableConfig]="tableConfig"
+                      [NumberColumn]="'true'"
+                      [rows]="dataSource"
+                      [TableActions]="ListAction"
+                    >
+                    </app-table>
+                    <ng-template #ListAction>
+                      <div class="action-buttons">
+                        <button matTooltip="View">
+                          <img src="assets/images/icons/eyes.png" alt="View" />
+                        </button>
+
+                        <button matTooltip="Delete" (click)="deletePopup(id)">
+                          <img src="assets/images/icons/bin.png" alt="Delete" />
+                        </button>
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+              </ng-container>
             </mat-expansion-panel>
           </mat-accordion>
         </div>
