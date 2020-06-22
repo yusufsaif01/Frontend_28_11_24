@@ -26,14 +26,21 @@ export class ViewEmploymentContractComponent implements OnInit {
     const dialogRef = this.dialog.open(StatusConfirmationComponent, {
       width: '50%',
       data: {
-        header: 'Yes'
+        header: 'Please Confirm',
+        message:
+          'Do you want to approve the Employment Contract with XYZ club/ academy ?'
       }
     });
   }
 
   ondisapproved(): void {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      width: '50%'
+      width: '50%',
+      data: {
+        header: 'Please Confirm',
+        message: 'Please specify a reason for disapproval',
+        inputbox: true
+      }
     });
   }
 }

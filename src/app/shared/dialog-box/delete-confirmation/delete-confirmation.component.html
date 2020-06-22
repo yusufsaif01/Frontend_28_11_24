@@ -14,6 +14,9 @@
 
   <div class="popup-content">
     <h3>{{ message }}</h3>
+    <div class="input-wrapper" *ngIf="inputbox">
+      <input type="text" matinput />
+    </div>
     <div class="action-block">
       <button class="confirm" [mat-dialog-close]="true">
         {{ acceptText }}
