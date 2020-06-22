@@ -93,6 +93,8 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   }
   applyFilter(event: any) {
     let filterValue = event.target.value;
+    this.filter.page_no = 1;
+    this.selectedPage = 1;
     this.getFootPlayerList(filterValue);
   }
 
