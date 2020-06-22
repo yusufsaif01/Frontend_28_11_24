@@ -109,6 +109,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this._toastrService.success('Success', 'Send invite successfully');
+          this.dialogRef.close();
         },
         error => {
           this._toastrService.error(
