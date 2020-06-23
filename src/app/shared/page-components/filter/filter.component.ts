@@ -138,6 +138,7 @@ export class FilterComponent implements OnInit {
     this.getLocationStats();
     this.getAbilityList();
   }
+
   ngAfterViewInit() {
     this.filterData.forEach((filter: any) => {
       this.buttons.push(filter);
@@ -145,8 +146,8 @@ export class FilterComponent implements OnInit {
     this.templates.forEach((el: any, index: number) => {
       this.buttons[index].matMenu = el;
     });
-    console.log(this.templates);
   }
+
   getAbilityList() {
     this._adminService
       .getAbilityList()
@@ -174,6 +175,7 @@ export class FilterComponent implements OnInit {
       activeStatus: false
     };
   }
+
   initialize() {
     this.locationRangeFilters = {
       countryData: [],
@@ -203,6 +205,7 @@ export class FilterComponent implements OnInit {
     };
     this.setDefaultValues();
   }
+
   setDefaultValues() {
     this.locationRangeFilters.strongFoot = Constants.STRONG_FOOT;
     this.locationRangeFilters.ageRange = Constants.AGE_RANGE;
