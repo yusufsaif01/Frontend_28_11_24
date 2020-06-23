@@ -59,6 +59,8 @@ import {
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LinkExpiredComponent } from './link-expired/link-expired.component';
 import { LeftPanelComponent } from './left-panel/left-panel.component';
+import { FilterComponent } from './filter/filter.component';
+import { FormsModule } from '@angular/forms';
 
 const icons = {
   Camera,
@@ -116,14 +118,16 @@ const icons = {
     AdminSidebarComponent,
     NotFoundComponent,
     LinkExpiredComponent,
-    LeftPanelComponent
+    LeftPanelComponent,
+    FilterComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     MaterialModule,
     FeatherModule.pick(icons),
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    FormsModule
   ],
   exports: [
     SidebarComponent,
@@ -134,7 +138,9 @@ const icons = {
     AdminSidebarComponent,
     LeftPanelComponent,
     FeatherModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    FilterComponent,
+    FormsModule
   ]
 })
 export class PageComponentsModule {}
