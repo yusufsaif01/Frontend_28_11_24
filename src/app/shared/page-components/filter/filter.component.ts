@@ -114,14 +114,14 @@ export class FilterComponent implements OnInit {
       filterName: 'Status'
     },
     {
-      allowedFilters: 'teamTypes',
-      switchClass: 'activeTeamTypes',
-      filterName: 'Types Of Teams'
-    },
-    {
       allowedFilters: 'ability',
       switchClass: 'activeAbility',
       filterName: 'Ability'
+    },
+    {
+      allowedFilters: 'teamTypes',
+      switchClass: 'activeTeamTypes',
+      filterName: 'Types Of Teams'
     }
   ];
 
