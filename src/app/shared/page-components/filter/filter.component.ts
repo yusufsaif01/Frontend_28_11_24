@@ -4,7 +4,9 @@ import {
   Input,
   Output,
   EventEmitter,
-  ViewChild
+  ViewChild,
+  QueryList,
+  ViewChildren
 } from '@angular/core';
 import { Constants } from '@app/shared/static-data/static-data';
 import { SharedService } from '@app/shared/shared.service';
@@ -75,16 +77,54 @@ export class FilterComponent implements OnInit {
     status: false
   };
   @Output() filterChanges: EventEmitter<any> = new EventEmitter();
-  @ViewChild('position', { static: true }) position: MatMenu;
-  @ViewChild('playercategory', { static: true }) playercategory: MatMenu;
-  @ViewChild('age', { static: true }) age: MatMenu;
-  @ViewChild('location', { static: true }) location: MatMenu;
-  @ViewChild('strongfoot', { static: true }) strongfoot: MatMenu;
-  @ViewChild('status', { static: true }) status: MatMenu;
-  @ViewChild('ability', { static: true }) ability: MatMenu;
-  @ViewChild('teamTypes', { static: true }) teamTypes: MatMenu;
+  @ViewChildren(
+    'position, playercategory, age, location, strongfoot, status, ability, teamTypes'
+  )
+  templates: QueryList<MatMenu>;
 
   buttons: any[] = [];
+  filterData: any[] = [
+    {
+      allowedFilters: 'position',
+      switchClass: 'activePosition',
+      filterName: 'Position'
+    },
+    {
+      allowedFilters: 'playerCategory',
+      switchClass: 'activePlayerCategory',
+      filterName: 'Player Category'
+    },
+    {
+      allowedFilters: 'age',
+      switchClass: 'activeAge',
+      filterName: 'Age'
+    },
+    {
+      allowedFilters: 'location',
+      switchClass: 'activeLocation',
+      filterName: 'Location'
+    },
+    {
+      allowedFilters: 'strongFoot',
+      switchClass: 'activeStrongFoot',
+      filterName: 'String Foot'
+    },
+    {
+      allowedFilters: 'teamTypes',
+      switchClass: 'activeTeamTypes',
+      filterName: 'Types Of Teams'
+    },
+    {
+      allowedFilters: 'ability',
+      switchClass: 'activeAbility',
+      filterName: 'Ability'
+    },
+    {
+      allowedFilters: 'status',
+      switchClass: 'activeStatus',
+      filterName: 'Status'
+    }
+  ];
 
   constructor(
     private _toastrService: ToastrService,
@@ -100,54 +140,13 @@ export class FilterComponent implements OnInit {
     this.getAbilityList();
   }
   ngAfterViewInit() {
-    this.buttons.push({
-      allowedFilters: 'position',
-      switchClass: 'activePosition',
-      matMenu: this.position,
-      filterName: 'Position'
+    this.filterData.forEach((filter: any) => {
+      this.buttons.push(filter);
     });
-    this.buttons.push({
-      allowedFilters: 'playerCategory',
-      switchClass: 'activePlayerCategory',
-      matMenu: this.playercategory,
-      filterName: 'Player Category'
-    });
-    this.buttons.push({
-      allowedFilters: 'age',
-      switchClass: 'activeAge',
-      matMenu: this.age,
-      filterName: 'Age'
-    });
-    this.buttons.push({
-      allowedFilters: 'location',
-      switchClass: 'activeLocation',
-      matMenu: this.location,
-      filterName: 'Location'
-    });
-    this.buttons.push({
-      allowedFilters: 'strongFoot',
-      switchClass: 'activeStrongFoot',
-      matMenu: this.strongfoot,
-      filterName: 'String Foot'
-    });
-    this.buttons.push({
-      allowedFilters: 'teamTypes',
-      switchClass: 'activeTeamTypes',
-      matMenu: this.teamTypes,
-      filterName: 'Types Of Teams'
-    });
-    this.buttons.push({
-      allowedFilters: 'ability',
-      switchClass: 'activeAbility',
-      matMenu: this.ability,
-      filterName: 'Ability'
-    });
-    this.buttons.push({
-      allowedFilters: 'status',
-      switchClass: 'activeStatus',
-      matMenu: this.status,
-      filterName: 'Status'
-    });
+    for (let i = 0; i < this.buttons.length; i++) {
+      this.buttons[i].matMenu = this.templates._results[i];
+    }
+    console.log(this.templates);
   }
   getAbilityList() {
     this._adminService
