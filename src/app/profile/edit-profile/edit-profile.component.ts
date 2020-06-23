@@ -858,14 +858,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         abstractControl: this._formBuilder.control('', [Validators.required])
       },
       {
-        name: 'phone',
-        abstractControl: this._formBuilder.control('', [
-          Validators.minLength(10),
-          Validators.maxLength(10),
-          Validators.pattern(/^\d+$/)
-        ])
-      },
-      {
         name: 'association',
         abstractControl: this._formBuilder.control('', [Validators.required])
       },
@@ -896,6 +888,14 @@ export class EditProfileComponent implements OnInit, OnDestroy {
             Validators.minLength(4),
             Validators.maxLength(4),
             Validators.max(this.currentYear),
+            Validators.pattern(/^\d+$/)
+          ])
+        },
+        {
+          name: 'phone',
+          abstractControl: this._formBuilder.control('', [
+            Validators.minLength(10),
+            Validators.maxLength(10),
             Validators.pattern(/^\d+$/)
           ])
         },
@@ -945,6 +945,19 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         }
       ];
       this.formControlAdder(this.editProfileForm, clubAcadCommonControls);
+    } else if (this.member_type == 'player') {
+      let playerControls = [
+        {
+          name: 'phone',
+          abstractControl: this._formBuilder.control('', [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^\d+$/)
+          ])
+        }
+      ];
+      this.formControlAdder(this.editProfileForm, playerControls);
     }
   }
 
