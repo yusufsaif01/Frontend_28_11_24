@@ -10,10 +10,10 @@ import { MatDialog } from '@angular/material';
   templateUrl: './contract-management.component.html',
   styleUrls: ['./contract-management.component.scss']
 })
-export class ContractManagementComponent {
+export class ContractManagementComponent implements OnInit {
   public tableConfig: ContractManagementTableConfig = new ContractManagementTableConfig();
   public dataSource = new MatTableDataSource([]);
-  // LEFT PANEL
+
   panelOptions: Partial<PanelOptions> = {
     bio: true,
     member_type: true,
@@ -33,4 +33,6 @@ export class ContractManagementComponent {
       }
     });
   }
+
+  ngOnInit() {}
 }

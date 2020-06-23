@@ -53,14 +53,14 @@ export class ContractManagementTableConfig extends TableConfig {
         getValue: (ele: any) => {
           return ele[this.columns.status.code];
         }
+      },
+      action: {
+        code: 'action',
+        text: 'Action',
+        getValue: (ele: any) => {
+          return ele[this.columns.action.code];
+        }
       }
-      // action: {
-      //     code: 'action',
-      //     text: 'Action',
-      //     getValue: (ele: any) => {
-      //         return ele[this.columns.action.code];
-      //     }
-      // }
     };
   }
 }
