@@ -250,10 +250,9 @@
                   placeholder="Contract signing date"
                   matInput
                   [matDatepicker]="signing"
-                  [max]="yesterday"
                   readonly
                 />
-
+                <!-- [max]="tomorrow" -->
                 <mat-datepicker-toggle [for]="signing"></mat-datepicker-toggle>
                 <mat-datepicker #signing></mat-datepicker>
               </div>
@@ -282,9 +281,9 @@
                   placeholder="Contract effective date"
                   matInput
                   [matDatepicker]="effective"
-                  [min]="addEditContractForm.get('signingDate').value"
                   readonly
                 />
+                <!-- [max]="tomorrow" -->
                 <mat-datepicker-toggle
                   [for]="effective"
                 ></mat-datepicker-toggle>
@@ -315,10 +314,9 @@
                   placeholder="Contract expiry date"
                   matInput
                   [matDatepicker]="expiry"
-                  [min]="addEditContractForm.get('effectiveDate').value"
-                  [max]="tomorrow"
                   readonly
                 />
+                <!-- [max]="tomorrow" -->
                 <mat-datepicker-toggle [for]="expiry"></mat-datepicker-toggle>
                 <mat-datepicker #expiry></mat-datepicker>
               </div>
