@@ -61,8 +61,7 @@ export class ViewEmploymentContractComponent implements OnInit {
       width: '50%',
       data: {
         header: 'Please Confirm',
-        message:
-          'Do you want to approve the Employment Contract with XYZ club/ academy ?'
+        message: `Do you want to approve the Employment Contract with ${this.contractDetails.clubAcademyName} club/ academy ?`
       }
     });
   }
