@@ -106,7 +106,7 @@ export class FilterComponent implements OnInit {
     {
       allowedFilters: 'strongFoot',
       switchClass: 'activeStrongFoot',
-      filterName: 'String Foot'
+      filterName: 'Strong Foot'
     },
     {
       allowedFilters: 'teamTypes',
