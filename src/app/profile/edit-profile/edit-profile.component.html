@@ -565,7 +565,9 @@
 
             <!-- Phone -->
             <div class="from-block">
-              <label *ngIf="member_type === 'player'">Mobile Number</label>
+              <label *ngIf="member_type === 'player'"
+                >Mobile Number <span>*</span></label
+              >
               <label *ngIf="member_type !== 'player'">Phone Number</label>
               <div class="contact-no">
                 <div class="countrycode">
