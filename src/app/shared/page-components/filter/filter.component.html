@@ -158,7 +158,7 @@
 <!-- status -->
 <mat-menu #status>
   <div (click)="$event.stopPropagation()">
-    <h3>Status</h3>
+    <h3>Select Status</h3>
     <div class="items">
       <span class="chk-box" *ngFor="let status of locationRangeFilters.status">
         <mat-checkbox
@@ -177,7 +177,7 @@
 <!-- ability -->
 <mat-menu #ability>
   <div (click)="$event.stopPropagation()">
-    <h3>Ability</h3>
+    <h3>Select Ability</h3>
     <div class="items">
       <span
         class="chk-box"
@@ -203,7 +203,7 @@
 <!-- Type Of Teams -->
 <mat-menu #teamTypes>
   <div (click)="$event.stopPropagation()">
-    <h3>Type Of Teams</h3>
+    <h3>Select Type Of Teams</h3>
     <div class="items">
       <span class="chk-box" *ngFor="let team of locationRangeFilters.teamTypes">
         <mat-checkbox

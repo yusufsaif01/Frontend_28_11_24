@@ -77,7 +77,7 @@ export class FilterComponent implements OnInit {
   };
   @Output() filterChanges: EventEmitter<any> = new EventEmitter();
   @ViewChildren(
-    'position, playercategory, age, location, strongfoot, status, ability, teamTypes'
+    'position, playercategory, age, location, strongfoot, teamTypes, ability, status'
   )
   templates: QueryList<MatMenu>;
 
@@ -106,12 +106,12 @@ export class FilterComponent implements OnInit {
     {
       allowedFilters: 'strongFoot',
       switchClass: 'activeStrongFoot',
-      filterName: 'String Foot'
+      filterName: 'Strong Foot'
     },
     {
-      allowedFilters: 'teamTypes',
-      switchClass: 'activeTeamTypes',
-      filterName: 'Types Of Teams'
+      allowedFilters: 'status',
+      switchClass: 'activeStatus',
+      filterName: 'Status'
     },
     {
       allowedFilters: 'ability',
@@ -119,9 +119,9 @@ export class FilterComponent implements OnInit {
       filterName: 'Ability'
     },
     {
-      allowedFilters: 'status',
-      switchClass: 'activeStatus',
-      filterName: 'Status'
+      allowedFilters: 'teamTypes',
+      switchClass: 'activeTeamTypes',
+      filterName: 'Types Of Teams'
     }
   ];
 
