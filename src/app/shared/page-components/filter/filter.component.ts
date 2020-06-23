@@ -156,7 +156,9 @@ export class FilterComponent implements OnInit {
           let records = response.data.records;
           this.locationRangeFilters.ability = records;
         },
-        error => {}
+        error => {
+          this._toastrService.error(error.error.message, 'Error');
+        }
       );
   }
 
