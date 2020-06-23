@@ -565,7 +565,9 @@
 
             <!-- Phone -->
             <div class="from-block">
-              <label *ngIf="member_type === 'player'">Mobile Number</label>
+              <label *ngIf="member_type === 'player'"
+                >Mobile Number <span>*</span></label
+              >
               <label *ngIf="member_type !== 'player'">Phone Number</label>
               <div class="contact-no">
                 <div class="countrycode">
@@ -946,45 +948,56 @@
                 >
               </mat-error>
             </div>
-
-            <!-- employee  -->
-            <div class="from-block" *ngIf="player_type === 'professional'">
-              <label>Employment Contract <span>*</span></label>
-              <div class="file-wrapper">
-                <input
-                  formControlName="employment_contract"
-                  (change)="uploadEmploymentContract($event.target.files)"
-                  type="file"
-                />
-                <a
-                  *ngIf="employment_contract_url"
-                  href="{{
-                    employment_contract_url ? employment_contract_url : ''
-                  }}"
-                  target="_blank"
-                  >View Document</a
-                >
-              </div>
-
-              <mat-error
-                *ngIf="
-                  editProfileForm.controls.employment_contract.errors &&
-                  editProfileForm.controls.employment_contract.dirty
-                "
-              >
-                <span
-                  *ngIf="
-                    editProfileForm.controls.employment_contract.errors
-                      .requiredFileDocument
-                  "
-                  translate
-                  >Employment Contract must be of type PDF / PNG / JPG /
-                  JPEG</span
-                >
-              </mat-error>
-            </div>
-            <!-- </div> -->
           </div>
+        </div>
+
+        <!-- Employement Contract list -->
+        <div class="contract">
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Employment Contracts
+                  <span>*</span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="contract-btn">
+                <a>
+                  Add New Contract
+                </a>
+              </div>
+              <div class="contract-listing"></div>
+              <ng-container *ngIf="!dataSource.data.length">
+                <div class="default-text">
+                  <h3>No Contract, please add a contract.</h3>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="dataSource.data.length">
+                <div class="table">
+                  <div class="table-container">
+                    <app-table
+                      [tableConfig]="tableConfig"
+                      [NumberColumn]="'true'"
+                      [rows]="dataSource"
+                      [TableActions]="ListAction"
+                    >
+                    </app-table>
+                    <ng-template #ListAction>
+                      <div class="action-buttons">
+                        <button matTooltip="View">
+                          <img src="assets/images/icons/eyes.png" alt="View" />
+                        </button>
+
+                        <button matTooltip="Delete" (click)="deletePopup(id)">
+                          <img src="assets/images/icons/bin.png" alt="Delete" />
+                        </button>
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+              </ng-container>
+            </mat-expansion-panel>
+          </mat-accordion>
         </div>
 
         <!-- Professional -->

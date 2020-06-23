@@ -14,7 +14,7 @@ body {
   border-radius: 2rem;
 
   .left-section {
-    width: 30%;
+    width: 25%;
 
     .block-design {
       margin-top: 3rem;
@@ -194,7 +194,7 @@ body {
   }
 
   .right-section {
-    width: 68%;
+    width: 72%;
     margin-left: 4rem;
 
     .block {
@@ -647,6 +647,99 @@ body {
   }
 }
 
+// Contract Details
+.contract {
+  margin-top: 3rem;
+
+  .contract-btn {
+    a {
+      @include admin-btn;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+  }
+
+  .default-text {
+    min-height: 10rem;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+    h3 {
+      color: $text-muted;
+    }
+  }
+
+  ::ng-deep {
+    .mat-expansion-panel {
+      box-shadow: none !important;
+    }
+
+    .mat-expansion-panel-header {
+      padding: 0 14px !important;
+      border-bottom: 2px solid $border-color;
+    }
+
+    .mat-expansion-panel-header:hover {
+      background: transparent !important;
+    }
+
+    .mat-expansion-panel-header-title {
+      font-family: Muli;
+      font-weight: 700;
+      font-size: 2.4rem;
+
+      span {
+        color: $error;
+        margin-left: 0.5rem;
+      }
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0 14px 14px !important;
+    }
+  }
+
+  .table {
+    ::ng-deep {
+      // .mat-cell:nth-of-type(2),
+      // .mat-footer-cell:nth-of-type(2),
+      // .mat-header-cell:nth-of-type(2) {
+      //   max-width: 12rem;
+      // }
+
+      .mat-cell:first-of-type,
+      .mat-footer-cell:first-of-type,
+      .mat-header-cell:first-of-type {
+        max-width: 12rem;
+        padding-left: 12px !important;
+      }
+
+      .mat-cell:last-child,
+      .mat-footer-cell:last-child,
+      .mat-header-cell:last-child {
+        padding-right: 12px !important;
+      }
+
+      .mat-table .mat-row .mat-cell img.thumbnail {
+        width: 5rem;
+        height: 5rem;
+        margin-top: 1rem;
+      }
+
+      // .mat-table .mat-row .mat-cell .action-buttons button:nth-of-type(1) img {
+      //   margin-top: 0px;
+      //   height: 2rem;
+      // }
+
+      // .mat-table .mat-row .mat-cell .action-buttons button:nth-of-type(1) {
+      //   transform: translateY(0px);
+      // }
+    }
+  }
+}
+
 .icon-size {
   width: 2rem;
   height: 2rem;
@@ -788,6 +881,7 @@ body {
 .green {
   color: green;
 }
+
 .red {
   color: red;
 }

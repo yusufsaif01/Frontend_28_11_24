@@ -1,0 +1,297 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <!-- Left section -->
+  <div class="left-section">
+    <app-left-panel [options]="panelOptions"> </app-left-panel>
+  </div>
+  <!-- Right seciton -->
+  <div class="right-section">
+    <form>
+      <!-- players -->
+      <div class="player-details">
+        <!-- player type -->
+        <div class="block">
+          <div class="block-header border-bottom">
+            <h4>Add New Contract</h4>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-header border-bottom">
+            <h4>Select Category</h4>
+          </div>
+          <div class="block-middle">
+            <div class="radio">
+              <label
+                ><input type="radio" value="club" />
+                Club
+              </label>
+              <label><input type="radio" value="Academy" /> Academy </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-middle">
+            <!-- Player name on contract -->
+            <div class="from-block">
+              <label>Player name on contract <span>*</span></label>
+              <input
+                class="error-border"
+                type="text"
+                placeholder="Player name on contract"
+                matInput
+              />
+            </div>
+
+            <!-- Club/ Academy Name -->
+            <div class="from-block">
+              <label>Club Name <span>*</span></label>
+              <select matNativeControl required>
+                <option value="">Select Club Name</option>
+              </select>
+            </div>
+
+            <!-- Other name -->
+            <div class="from-block">
+              <label>Other Name <span>*</span></label>
+              <input placeholder="Other Name" type="text" matInput />
+            </div>
+
+            <!-- Other emails -->
+            <div class="from-block">
+              <label>Other Email </label>
+              <input placeholder="Other Email" type="email" matInput />
+            </div>
+
+            <!-- Other Phone -->
+            <div class="from-block">
+              <label>Other Phone Number</label>
+              <div class="contact-no">
+                <div class="countrycode">
+                  <input type="text" value="+91" readonly tabindex="-1" />
+                </div>
+                <div class="phonenumber">
+                  <input placeholder="Phone Number" type="text" matInput />
+                </div>
+              </div>
+            </div>
+
+            <!-- Contract signing date -->
+            <div class="from-block">
+              <label>Contract signing date <span>*</span></label>
+              <div class="datepicker">
+                <input
+                  placeholder="Contract signing date"
+                  matInput
+                  [matDatepicker]="signing"
+                  readonly
+                />
+                <!-- [max]="tomorrow" -->
+                <mat-datepicker-toggle [for]="signing"></mat-datepicker-toggle>
+                <mat-datepicker #signing></mat-datepicker>
+              </div>
+            </div>
+
+            <!-- Contract effective date -->
+            <div class="from-block">
+              <label>Contract effective date <span>*</span></label>
+              <div class="datepicker">
+                <input
+                  placeholder="Contract effective date"
+                  matInput
+                  [matDatepicker]="effective"
+                  readonly
+                />
+                <!-- [max]="tomorrow" -->
+                <mat-datepicker-toggle
+                  [for]="effective"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #effective></mat-datepicker>
+              </div>
+            </div>
+
+            <!-- Contract expiry date -->
+            <div class="from-block">
+              <label>Contract expiry date <span>*</span></label>
+              <div class="datepicker">
+                <input
+                  placeholder="Contract expiry date"
+                  matInput
+                  [matDatepicker]="expiry"
+                  readonly
+                />
+                <!-- [max]="tomorrow" -->
+                <mat-datepicker-toggle [for]="expiry"></mat-datepicker-toggle>
+                <mat-datepicker #expiry></mat-datepicker>
+              </div>
+            </div>
+
+            <!-- Place of signature  -->
+            <div class="from-block">
+              <label>Place of signature</label>
+              <input placeholder="Place of signature " type="text" matInput />
+            </div>
+
+            <!-- Club/ Academy representative name  -->
+            <div class="from-block">
+              <label>Club representative name</label>
+              <input
+                placeholder="Club representative name "
+                type="text"
+                matInput
+              />
+            </div>
+
+            <!-- Club address  -->
+            <div class="from-block">
+              <label>Club address</label>
+              <input placeholder="Club address" type="text" matInput />
+            </div>
+
+            <!-- Club Phone -->
+            <div class="from-block">
+              <label>Club Phone Number</label>
+              <div class="contact-no">
+                <div class="countrycode">
+                  <input type="text" value="+91" readonly tabindex="-1" />
+                </div>
+                <div class="phonenumber">
+                  <input placeholder="Phone Number" type="text" matInput />
+                </div>
+              </div>
+            </div>
+
+            <!-- AIFF accreditation number -->
+            <div class="from-block">
+              <label>AIFF accreditation number</label>
+              <input
+                placeholder="AIFF accreditation number"
+                type="text"
+                matInput
+              />
+            </div>
+
+            <!-- CRS User Name  -->
+            <div class="from-block">
+              <label>CRS User Name</label>
+              <input placeholder="CRS User Name" type="text" matInput />
+            </div>
+
+            <!-- Legal guardian name  -->
+            <div class="from-block">
+              <label>Legal guardian name</label>
+              <input placeholder="Legal guardian name" type="text" matInput />
+            </div>
+
+            <!-- Player address  -->
+            <div class="from-block">
+              <label>Player address</label>
+              <input placeholder="Player address" type="text" matInput />
+            </div>
+
+            <!-- Player Phone -->
+            <div class="from-block">
+              <label>Player Phone Number <span>*</span></label>
+              <div class="contact-no">
+                <div class="countrycode">
+                  <input type="text" value="+91" readonly tabindex="-1" />
+                </div>
+                <div class="phonenumber">
+                  <input
+                    placeholder="Player Phone Number"
+                    type="text"
+                    matInput
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Player email id  -->
+            <div class="from-block">
+              <label>Player email id</label>
+              <input placeholder="Player email id" type="text" matInput />
+            </div>
+
+            <!-- Club Academy email id  -->
+            <div class="from-block">
+              <label>Club email id </label>
+              <input placeholder="Club email id" type="text" matInput />
+            </div>
+
+            <!-- Did the club/ academy use the services of an agent?  -->
+            <div class="from-block-full">
+              <label>Did the club use the services of an agent? </label>
+              <div class="radio">
+                <label
+                  ><input type="radio" value="Yes" />
+                  Yes
+                </label>
+                <label><input type="radio" value="No" /> No </label>
+              </div>
+            </div>
+
+            <!-- Provide Name of intermediaries   -->
+            <div class="from-block">
+              <label>Provide Name of intermediaries </label>
+              <input
+                placeholder="Provide Name of intermediaries "
+                type="text"
+                matInput
+              />
+            </div>
+
+            <!-- Percentage of transfer fee paid to intermediaries  -->
+            <div class="from-block">
+              <label>Percentage of transfer fee paid to intermediaries </label>
+              <input
+                placeholder="Percentage of transfer fee paid to intermediaries"
+                type="text"
+                matInput
+              />
+            </div>
+
+            <!-- Did the club/ academy use the services of an agent?  -->
+            <div class="from-block-full">
+              <label>Did the player use services of an agent? </label>
+              <div class="radio">
+                <label
+                  ><input type="radio" value="Yes" />
+                  Yes
+                </label>
+                <label><input type="radio" value="No" /> No </label>
+              </div>
+            </div>
+
+            <!-- Provide Name of intermediaries   -->
+            <div class="from-block">
+              <label>Provide Name of intermediaries </label>
+              <input
+                placeholder="Provide Name of intermediaries "
+                type="text"
+                matInput
+              />
+            </div>
+
+            <!-- Percentage of transfer fee paid to intermediaries  -->
+            <div class="from-block">
+              <label>Percentage of transfer fee paid to intermediaries </label>
+              <input
+                placeholder="Percentage of transfer fee paid to intermediaries"
+                type="text"
+                matInput
+              />
+            </div>
+          </div>
+        </div>
+        <!-- bottom -->
+        <div class="block-bottom">
+          <a> Cancel </a>
+          <button class="btn">
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

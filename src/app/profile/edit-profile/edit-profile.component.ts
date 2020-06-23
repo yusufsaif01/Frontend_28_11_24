@@ -7,6 +7,7 @@ import {
   AbstractControl,
   ValidatorFn
 } from '@angular/forms';
+import { ContractListTableConfig } from './contract-listing-table-conf';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
 import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
@@ -14,11 +15,12 @@ import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 import { requiredPdfDocument } from '@app/shared/validators/requiredPdfDocument';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '@app/shared/page-components/header/header.component';
-import { EditProfileService } from './edit-profile-service';
+import { EditProfileService } from './edit-profile.service';
 import { ViewProfileService } from '../view-profile/view-profile.service';
 import { SharedService } from '@app/shared/shared.service';
 import { untilDestroyed } from '@app/core';
 import { Constants } from '@app/shared/static-data/static-data';
+import { MatTableDataSource } from '@angular/material/table';
 
 interface trophyObject {
   name: string;
@@ -50,6 +52,9 @@ interface positionObject {
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
+  public tableConfig: ContractListTableConfig = new ContractListTableConfig();
+  public dataSource = new MatTableDataSource([]);
+
   @Input() max: Date | null;
   @ViewChild(HeaderComponent, { static: true }) header: HeaderComponent;
 
@@ -118,6 +123,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this.populateView();
     this.initValidations();
     this.getLocationStats();
+    this.getEmploymentContractList();
   }
 
   setControlState() {
@@ -150,6 +156,21 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       this.editProfileForm.controls.document.disable();
       this.editProfileForm.controls.number.disable();
     }
+  }
+
+  getEmploymentContractList() {
+    this._editProfileService
+      .getEmploymentContractList()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let records = response.data.records;
+          this.dataSource = new MatTableDataSource(records);
+        },
+        error => {
+          this._toastrService.error(error.error.message, 'Error');
+        }
+      );
   }
 
   getLocationStats() {
@@ -804,14 +825,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         abstractControl: this._formBuilder.control('', [Validators.required])
       },
       {
-        name: 'phone',
-        abstractControl: this._formBuilder.control('', [
-          Validators.minLength(10),
-          Validators.maxLength(10),
-          Validators.pattern(/^\d+$/)
-        ])
-      },
-      {
         name: 'association',
         abstractControl: this._formBuilder.control('', [Validators.required])
       },
@@ -842,6 +855,14 @@ export class EditProfileComponent implements OnInit, OnDestroy {
             Validators.minLength(4),
             Validators.maxLength(4),
             Validators.max(this.currentYear),
+            Validators.pattern(/^\d+$/)
+          ])
+        },
+        {
+          name: 'phone',
+          abstractControl: this._formBuilder.control('', [
+            Validators.minLength(10),
+            Validators.maxLength(10),
             Validators.pattern(/^\d+$/)
           ])
         },
@@ -891,6 +912,19 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         }
       ];
       this.formControlAdder(this.editProfileForm, clubAcadCommonControls);
+    } else if (this.member_type == 'player') {
+      let playerControls = [
+        {
+          name: 'phone',
+          abstractControl: this._formBuilder.control('', [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^\d+$/)
+          ])
+        }
+      ];
+      this.formControlAdder(this.editProfileForm, playerControls);
     }
   }
 

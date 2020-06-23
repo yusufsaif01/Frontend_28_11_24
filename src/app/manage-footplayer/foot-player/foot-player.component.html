@@ -21,9 +21,10 @@
       </div>
     </div>
     <!-- filter -->
-    <div class="filter">
-      <button>Filters</button>
-    </div>
+    <app-filter
+      [allowedFilters]="filtersList"
+      (filterChanges)="onChangeFilter($event)"
+    ></app-filter>
     <!-- search -->
     <div class="search">
       <div class="search-form">
@@ -87,6 +88,7 @@
     </div>
     <!-- pagination -->
     <app-pagination
+      *ngIf="dataSource.data.length !== 0"
       [showData]="false"
       [showCount]="show_count"
       [totalRows]="total_count"

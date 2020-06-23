@@ -23,14 +23,19 @@
       border-bottom: 0.3rem solid #edf2f6;
 
       .left-part {
+        display: flex;
+        align-items: center;
+
         h2 {
           font-size: 2.8rem;
+        }
 
-          i-feather {
-            width: 2.8rem;
-            margin-right: 0.5rem;
-            transform: translateY(0.4rem);
-          }
+        span {
+          background-color: $blue;
+          color: $color-white;
+          padding: 0.5rem 1rem;
+          margin-left: 1rem;
+          border-radius: 0.8rem;
         }
       }
 
@@ -41,7 +46,34 @@
       }
     }
 
-    // Filters
+    // Search
+    .search {
+      display: block;
+      text-align: right;
+      width: 100%;
+      padding: 2rem 2rem 0rem;
+
+      .search-form {
+        form {
+          position: relative;
+
+          input {
+            padding: 1rem;
+            border-radius: 0.8rem;
+            outline: none;
+            border: 1px solid $text-color;
+          }
+
+          span.search-icon {
+            position: absolute;
+            left: calc(100% - 4rem);
+            top: 1.2rem;
+            color: $text-muted;
+          }
+        }
+      }
+    }
+
     // filters
     .filter-buttons {
       padding: 2rem;
@@ -81,69 +113,76 @@
       }
     }
 
-    // Search
-    .search {
-      display: block;
-      text-align: right;
-      width: 100%;
-      padding: 2rem 2rem 0rem;
+    // players
+    .playerwrapper {
+      padding: 1rem;
+      display: flex;
+      flex-wrap: wrap;
 
-      .search-form {
-        form {
-          position: relative;
+      .playerbox {
+        border: 1px solid $border-color;
+        width: 31%;
+        border-radius: 0.5rem;
+        margin: 1.35rem;
+        box-shadow: 0px 0px 4px 0px rgba($color-black, 0.1);
 
-          input {
-            padding: 1rem;
-            border-radius: 0.8rem;
-            outline: none;
-            border: 1px solid $text-color;
+        &:hover {
+          box-shadow: 0px 0px 0px 0px rgba($color-black, 0.1);
+          cursor: pointer;
+        }
+
+        .top {
+          display: flex;
+          padding: 2rem;
+          align-items: center;
+
+          .dp {
+            img {
+              width: 35px;
+              height: 35px;
+              border-radius: 35px;
+            }
           }
 
-          span.search-icon {
-            position: absolute;
-            left: calc(100% - 4rem);
-            top: 1.2rem;
-            color: $text-muted;
+          .name {
+            margin-left: 1rem;
+
+            strong {
+              font-size: 1.9rem;
+              user-select: none;
+
+              &:hover {
+                color: $blue;
+              }
+            }
+
+            a {
+              text-decoration: none;
+              color: $color-black;
+            }
+
+            p {
+              font-size: 1.6rem;
+              color: $text-muted;
+            }
           }
         }
-      }
-    }
 
-    // table
-    .table {
-      padding: 2rem;
+        .middle {
+          padding: 2rem;
+          border-top: 1px solid $border-color;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
 
-      ::ng-deep {
-        .mat-cell:nth-of-type(2),
-        .mat-footer-cell:nth-of-type(2),
-        .mat-header-cell:nth-of-type(2) {
-          max-width: 12rem;
-        }
+          h4 {
+            font-size: 1.8rem;
+            font-weight: 700;
 
-        .mat-cell:first-of-type,
-        .mat-footer-cell:first-of-type,
-        .mat-header-cell:first-of-type {
-          max-width: 12rem;
-        }
-
-        .mat-table .mat-row .mat-cell img.thumbnail {
-          width: 5rem;
-          height: 5rem;
-          margin-top: 1rem;
-        }
-
-        .mat-table
-          .mat-row
-          .mat-cell
-          .action-buttons
-          button:nth-of-type(1)
-          img {
-          margin-top: 0px;
-          height: 2rem;
-        }
-
-        .mat-table .mat-row .mat-cell .action-buttons button:nth-of-type(1) {
-          transform: translateY(0px);
+            a {
+              color: $blue;
+            }
+          }
         }
       }
     }
@@ -205,28 +244,6 @@
   }
 }
 
-.icon-size {
-  width: 2rem;
-  height: 2rem;
-  margin-right: 1rem;
-}
-
-.border-top {
-  border-top: 1px solid $border-color;
-}
-
-.border-bottom {
-  border-bottom: 1px solid $border-color;
-}
-
-.border-left {
-  border-left: 1px solid $border-color;
-}
-
-.d-none {
-  display: none;
-}
-
-i-feather.active {
-  fill: blue;
+.gray {
+  color: gray;
 }

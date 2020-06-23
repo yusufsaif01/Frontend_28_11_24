@@ -27,7 +27,9 @@
               'playerimg',
               'user_photo',
               'document',
-              'aiff_image'
+              'aiff_image',
+              'effectiveDate',
+              'expiryDate'
             ].includes(col)
           "
         >
@@ -43,7 +45,16 @@
             >
           </ng-container>
         </p>
-        <p *ngIf="col === 'added_on' || col === 'date_of_birth'">
+        <p
+          *ngIf="
+            [
+              'added_on',
+              'date_of_birth',
+              'expiryDate',
+              'effectiveDate'
+            ].includes(col)
+          "
+        >
           {{
             tableConfig.columns[col].getValue(element) | date: 'dd-LLLL-yyyy'
           }}

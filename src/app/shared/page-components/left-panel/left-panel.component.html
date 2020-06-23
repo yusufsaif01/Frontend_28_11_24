@@ -124,22 +124,24 @@
 </div>
 
 <!-- League Name -->
-<div class="block-design" *ngIf="profile && profile.member_type !== 'player'">
-  <div class="block-middle">
-    <div class="league">
-      <h4>League Name</h4>
-    </div>
-    <div class="league">
-      <h5>
-        {{
-          profile.league === 'Other'
-            ? profile.league_other
-            : (profile.league | titlecase)
-        }}
-      </h5>
+<ng-container *ngIf="options.is_league">
+  <div class="block-design" *ngIf="profile && profile.member_type !== 'player'">
+    <div class="block-middle">
+      <div class="league">
+        <h4>League Name</h4>
+      </div>
+      <div class="league">
+        <h5>
+          {{
+            profile.league === 'Other'
+              ? profile.league_other
+              : (profile.league | titlecase)
+          }}
+        </h5>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>
 
 <!-- achievements -->
 <ng-container *ngIf="options.my_achievements">

@@ -20,7 +20,9 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   // TABLE CONFIG
   public tableConfig: FootPlayerTableConfig = new FootPlayerTableConfig();
   public dataSource = new MatTableDataSource([]);
+  filter: any = {};
   pageSize: number = 10;
+  pageNo: number = 1;
   selectedPage: number = 1;
   environment = environment;
   player_type: string;
@@ -38,6 +40,16 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   };
   isPublic: boolean = false;
   userId: string;
+  filtersList = {
+    position: true,
+    playerCategory: true,
+    age: true,
+    location: true,
+    strongFoot: true,
+    teamTypes: true,
+    ability: true,
+    status: true
+  };
 
   constructor(
     private _footPlayerService: FootPlayerService,
@@ -46,7 +58,9 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.getFootPlayerList(this.pageSize, 1);
+    this.filter.page_size = this.pageSize;
+    this.filter.page_no = this.pageNo;
+    this.getFootPlayerList();
   }
 
   ngOnDestroy() {}
@@ -57,13 +71,16 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
 
   updatePage(event: any) {
     this.selectedPage = event.selectedPage;
-    this.getFootPlayerList(this.pageSize, event.selectedPage);
+    this.pageNo = this.selectedPage;
+    this.filter.page_no = this.pageNo;
+    this.getFootPlayerList();
   }
 
-  getFootPlayerList(page_size: number, page_no: number, search?: string) {
+  getFootPlayerList(search?: string) {
+    this.filter.search = search;
     this._footPlayerService
-      .getFootPlayerList({ page_no, page_size, search })
-      .pipe(untilDestroyed(this))
+      .getFootPlayerList(this.filter)
+      // .pipe(untilDestroyed(this))
       .subscribe(response => {
         let records = response.data.records;
         for (let i = 0; i < records.length; i++) {
@@ -76,7 +93,9 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   }
   applyFilter(event: any) {
     let filterValue = event.target.value;
-    this.getFootPlayerList(this.pageSize, 1, filterValue);
+    this.filter.page_no = 1;
+    this.selectedPage = 1;
+    this.getFootPlayerList(filterValue);
   }
 
   // AddPlayerPopUp
@@ -93,7 +112,8 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.selectedPage = 1;
-        this.getFootPlayerList(this.pageSize, 1);
+        this.filter.page_no = 1;
+        this.getFootPlayerList();
       }
     });
   }
@@ -120,7 +140,8 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
                 'FootPlayer deleted successfully'
               );
               this.selectedPage = 1;
-              this.getFootPlayerList(this.pageSize, 1);
+              this.filter.page_no = 1;
+              this.getFootPlayerList();
             },
             error => {
               // log.debug(`Login error: ${error}`);
@@ -167,5 +188,17 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
           );
       }
     });
+  }
+
+  onChangeFilter(event: any) {
+    if (event) {
+      this.filter = event;
+    } else {
+      this.filter = {};
+    }
+    this.selectedPage = 1;
+    this.filter.page_no = 1;
+    this.filter.page_size = 10;
+    this.getFootPlayerList();
   }
 }
