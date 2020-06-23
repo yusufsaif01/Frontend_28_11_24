@@ -4,6 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { DisapproveConfirmationComponent } from '@app/shared/dialog-box/disapprove-confirmation/disapprove-confirmation.component';
+import { ContractService } from './contract.service';
+import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-employment-contract',
@@ -18,10 +21,40 @@ export class ViewEmploymentContractComponent implements OnInit {
     footplayers: true,
     is_public: false
   };
+  contractId: string = '';
+  contractDetails: any = {};
+  memberType: string = '';
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private _contractService: ContractService,
+    private _route: ActivatedRoute,
+    private _toastrService: ToastrService
+  ) {
+    this._route.params.subscribe(params => {
+      this.contractId = params['id'];
+    });
+    this.memberType = localStorage.getItem('member_type');
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getContractDetails();
+  }
+
+  getContractDetails() {
+    this._contractService.getContractDetails(this.contractId).subscribe(
+      (response: any) => {
+        this.contractDetails = response.data;
+      },
+      error => {
+        this._toastrService.error(error.error.message, 'Error');
+      }
+    );
+  }
+
+  editDetails() {
+    //navigate to edit
+  }
 
   onapproved(): void {
     const dialogRef = this.dialog.open(StatusConfirmationComponent, {

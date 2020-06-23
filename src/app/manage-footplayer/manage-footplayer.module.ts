@@ -6,15 +6,15 @@ import { ManageFootplayerRoutingModule } from './manage-footplayer-routing.modul
 import { FootPlayerComponent } from './foot-player/foot-player.component';
 import { AddFootplayerComponent } from './foot-player/add-footplayer/add-footplayer.component';
 import { ClubAcademyFootplayerComponent } from './club-academy-footplayer/club-academy-footplayer.component';
-import { ContractManagementComponent } from './contract-management/contract-management.component';
+// import { ContractManagementComponent } from './contract-management/contract-management.component';
 
 @NgModule({
   declarations: [
     ManageFootPlayerComponent,
     FootPlayerComponent,
     AddFootplayerComponent,
-    ClubAcademyFootplayerComponent,
-    ContractManagementComponent
+    ClubAcademyFootplayerComponent
+    // ContractManagementComponent
   ],
   imports: [CommonModule, SharedModule, ManageFootplayerRoutingModule],
   entryComponents: [AddFootplayerComponent]
