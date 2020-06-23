@@ -1,0 +1,47 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <!-- left Sidebar -->
+  <div class="left-section">
+    <app-left-panel [achievements]="total_count" [options]="panelOptions">
+    </app-left-panel>
+  </div>
+  <div class="right-section">
+    <div class="award-heading">
+      <div class="left-part">
+        <h2>Contract Management</h2>
+      </div>
+    </div>
+    <!-- table -->
+    <div class="table">
+      <app-table
+        [tableConfig]="tableConfig"
+        [NumberColumn]="'true'"
+        [TableActions]="ListAction"
+      >
+      </app-table>
+      <ng-template #ListAction>
+        <div class="action-buttons">
+          <button matTooltip="View">
+            <img src="assets/images/icons/eyes.png" alt="View" />
+          </button>
+
+          <button matTooltip="Delete" (click)="deletePopup()">
+            <img src="assets/images/icons/bin.png" alt="Delete" />
+          </button>
+
+          <button matTooltip="Activity log">
+            <img src="assets/images/icons/log.png" alt="log" />
+          </button>
+        </div>
+      </ng-template>
+    </div>
+    <app-pagination
+      [showData]="false"
+      [showCount]="show_count"
+      [totalRows]="total_count"
+      [rowsPerPage]="pageSize"
+      [selectedPage]="selectedPage"
+    >
+    </app-pagination>
+  </div>
+</div>
