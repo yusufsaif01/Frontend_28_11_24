@@ -172,6 +172,15 @@
     .mat-table .mat-row .mat-cell .action-buttons button:nth-of-type(1) {
       transform: translateY(0px);
     }
+
+    .mat-table .mat-row .mat-cell .action-buttons button.view-icon img {
+      margin-top: 0px;
+      height: 2.4rem;
+    }
+
+    .mat-table .mat-row .mat-cell .action-buttons button.view-icon {
+      transform: translateY(2px);
+    }
   }
 }
 
