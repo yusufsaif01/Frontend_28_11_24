@@ -4,7 +4,6 @@ import {
   Input,
   Output,
   EventEmitter,
-  ViewChild,
   QueryList,
   ViewChildren
 } from '@angular/core';
@@ -143,9 +142,9 @@ export class FilterComponent implements OnInit {
     this.filterData.forEach((filter: any) => {
       this.buttons.push(filter);
     });
-    for (let i = 0; i < this.buttons.length; i++) {
-      this.buttons[i].matMenu = this.templates._results[i];
-    }
+    this.templates.forEach((el: any, index: number) => {
+      this.buttons[index].matMenu = el;
+    });
     console.log(this.templates);
   }
   getAbilityList() {
