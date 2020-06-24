@@ -225,24 +225,30 @@
         </ng-container>
       </div>
 
-      <!-- Employement Contract Details -->
-      <div class="contract">
-        <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Employment Contracts
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="table">
-              <div class="table-container">
-                <app-table [tableConfig]="tableConfig" [NumberColumn]="'true'">
-                </app-table>
+      <ng-container *ngIf="!isPublic && profile.member_type === 'player'">
+        <!-- Employement Contract Details -->
+        <div class="contract">
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Employment Contracts
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="table">
+                <div class="table-container">
+                  <app-table
+                    [tableConfig]="tableConfig"
+                    [NumberColumn]="'true'"
+                    [rows]="dataSource"
+                  >
+                  </app-table>
+                </div>
               </div>
-            </div>
-          </mat-expansion-panel>
-        </mat-accordion>
-      </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </ng-container>
 
       <!-- perfessional details -->
       <div class="block">

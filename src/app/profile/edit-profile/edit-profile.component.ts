@@ -21,6 +21,8 @@ import { SharedService } from '@app/shared/shared.service';
 import { untilDestroyed } from '@app/core';
 import { Constants } from '@app/shared/static-data/static-data';
 import { MatTableDataSource } from '@angular/material/table';
+import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { MatDialog } from '@angular/material';
 
 interface trophyObject {
   name: string;
@@ -109,7 +111,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     private _editProfileService: EditProfileService,
     private _sharedService: SharedService,
     private _toastrService: ToastrService,
-    private _router: Router
+    private _router: Router,
+    public dialog: MatDialog
   ) {
     this.createForm();
     this.manageCommonControls();
@@ -157,7 +160,37 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       this.editProfileForm.controls.number.disable();
     }
   }
+  deletePopup(id: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '40% ',
+      panelClass: 'filterDialog',
+      data: {
+        message: 'Are you sure you want to delete?',
+        acceptText: 'Confirm',
+        rejectText: 'Cancel'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this._editProfileService
+          .deleteContract({ id })
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this._toastrService.success(
+                'Successful',
+                'Employment Contract Deleted successfully'
+              );
 
+              this.getEmploymentContractList();
+            },
+            error => {
+              this._toastrService.error(`${error.error.message}`, 'Error');
+            }
+          );
+      }
+    });
+  }
   getEmploymentContractList() {
     this._editProfileService
       .getEmploymentContractList()
@@ -825,14 +858,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         abstractControl: this._formBuilder.control('', [Validators.required])
       },
       {
-        name: 'phone',
-        abstractControl: this._formBuilder.control('', [
-          Validators.minLength(10),
-          Validators.maxLength(10),
-          Validators.pattern(/^\d+$/)
-        ])
-      },
-      {
         name: 'association',
         abstractControl: this._formBuilder.control('', [Validators.required])
       },
@@ -863,6 +888,14 @@ export class EditProfileComponent implements OnInit, OnDestroy {
             Validators.minLength(4),
             Validators.maxLength(4),
             Validators.max(this.currentYear),
+            Validators.pattern(/^\d+$/)
+          ])
+        },
+        {
+          name: 'phone',
+          abstractControl: this._formBuilder.control('', [
+            Validators.minLength(10),
+            Validators.maxLength(10),
             Validators.pattern(/^\d+$/)
           ])
         },
@@ -912,6 +945,19 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         }
       ];
       this.formControlAdder(this.editProfileForm, clubAcadCommonControls);
+    } else if (this.member_type == 'player') {
+      let playerControls = [
+        {
+          name: 'phone',
+          abstractControl: this._formBuilder.control('', [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^\d+$/)
+          ])
+        }
+      ];
+      this.formControlAdder(this.editProfileForm, playerControls);
     }
   }
 

@@ -2,8 +2,7 @@
 <div class="site-wrapper">
   <!-- Left section -->
   <div class="left-section">
-    <app-left-panel [options]="panelOptions" [userId]="userId">
-    </app-left-panel>
+    <app-left-panel [options]="panelOptions"> </app-left-panel>
   </div>
   <!-- Right seciton -->
   <div class="right-section">
@@ -86,9 +85,9 @@
                   placeholder="Contract signing date"
                   matInput
                   [matDatepicker]="signing"
-                  [max]="tomorrow"
                   readonly
                 />
+                <!-- [max]="tomorrow" -->
                 <mat-datepicker-toggle [for]="signing"></mat-datepicker-toggle>
                 <mat-datepicker #signing></mat-datepicker>
               </div>
@@ -102,9 +101,9 @@
                   placeholder="Contract effective date"
                   matInput
                   [matDatepicker]="effective"
-                  [max]="tomorrow"
                   readonly
                 />
+                <!-- [max]="tomorrow" -->
                 <mat-datepicker-toggle
                   [for]="effective"
                 ></mat-datepicker-toggle>
@@ -120,9 +119,9 @@
                   placeholder="Contract expiry date"
                   matInput
                   [matDatepicker]="expiry"
-                  [max]="tomorrow"
                   readonly
                 />
+                <!-- [max]="tomorrow" -->
                 <mat-datepicker-toggle [for]="expiry"></mat-datepicker-toggle>
                 <mat-datepicker #expiry></mat-datepicker>
               </div>

@@ -7,8 +7,17 @@ const routes = {
   getPositionList: () => '/master/player-specialization/position/list',
   updateBio: (a: any) => '/update-bio',
   removeAvatar: () => '/avatar',
-  getEmploymentContractList: () => '/employment-contract/list'
+  getEmploymentContractList: () => '/employment-contract/list',
+  deleteContract: (params: string) => `/employment-contract/${params}`
 };
+
+interface CommonResponseContext {
+  status: string;
+  message: string;
+}
+interface DeleteContractContext {
+  id: string;
+}
 
 interface GetEmploymentContractListResponseContext {
   status: string;
@@ -53,6 +62,18 @@ export class EditProfileService {
   > {
     return this.httpClient.get<GetEmploymentContractListResponseContext>(
       routes.getEmploymentContractList()
+    );
+  }
+
+  deleteContract(
+    context: DeleteContractContext
+  ): Observable<CommonResponseContext> {
+    let params = '';
+    if (context['id']) {
+      params += context['id'];
+    }
+    return this.httpClient.delete<CommonResponseContext>(
+      routes.deleteContract(params)
     );
   }
 }
