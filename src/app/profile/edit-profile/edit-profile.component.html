@@ -982,13 +982,30 @@
                       [TableActions]="ListAction"
                     >
                     </app-table>
-                    <ng-template #ListAction>
+                    <ng-template
+                      #ListAction
+                      let-id="id"
+                      let-created_by="created_by"
+                      let-status="status"
+                    >
                       <div class="action-buttons">
-                        <button matTooltip="View">
+                        <button matTooltip="View" type="button">
                           <img src="assets/images/icons/eyes.png" alt="View" />
                         </button>
 
-                        <button matTooltip="Delete" (click)="deletePopup(id)">
+                        <button
+                          *ngIf="['player'].includes(created_by)"
+                          [ngClass]="{
+                            'icon-disable': [
+                              'active',
+                              'yet_to_start',
+                              'completed'
+                            ].includes(status)
+                          }"
+                          matTooltip="Delete"
+                          (click)="deletePopup(id)"
+                          type="button"
+                        >
                           <img src="assets/images/icons/bin.png" alt="Delete" />
                         </button>
                       </div>
