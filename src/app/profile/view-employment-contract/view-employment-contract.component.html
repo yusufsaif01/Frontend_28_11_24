@@ -15,8 +15,7 @@
           <a
             (click)="editDetails()"
             *ngIf="
-              contractDetails.created_by === 'player' &&
-              memberType !== 'player' &&
+              contractDetails.created_by === memberType &&
               (contractDetails.status === 'disapproved' ||
                 contractDetails.status === 'pending')
             "
@@ -42,7 +41,10 @@
           </div>
         </div>
 
-        <div class="block-middle border-bottom">
+        <div
+          class="block-middle border-bottom"
+          *ngIf="contractDetails.otherEmail"
+        >
           <div class="half">
             <p>
               <span>Other Name :</span>
@@ -58,7 +60,7 @@
         </div>
 
         <div class="block-middle border-bottom">
-          <div class="half">
+          <div class="half" *ngIf="contractDetails.otherPhoneNumber">
             <p>
               <span>Other Phone No :</span>
               {{
@@ -234,14 +236,21 @@
           </div>
         </div>
       </div>
-      <div
-        class="actions"
-        *ngIf="
-          contractDetails.created_by !== 'player' && memberType === 'player'
-        "
-      >
-        <button class="approve" (click)="onapproved()">Approve</button>
-        <button class="disapprove" (click)="ondisapproved()">Disapprove</button>
+      <div class="actions" *ngIf="contractDetails.created_by !== memberType">
+        <button
+          [disabled]="contractDetails.status === 'approved'"
+          class="approve"
+          (click)="onapproved()"
+        >
+          Approve
+        </button>
+        <button
+          [disabled]="contractDetails.status === 'disapproved'"
+          class="disapprove"
+          (click)="ondisapproved()"
+        >
+          Disapprove
+        </button>
       </div>
     </div>
   </div>
