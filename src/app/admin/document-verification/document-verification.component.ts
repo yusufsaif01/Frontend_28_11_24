@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { DocumentVerificationTableConfig } from './document-verification-table-conf';
+import { ContractListAdminTableConfig } from './contract-verification-admin-table-conf';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentVerificationService } from './document-verification-service';
 import { ToastrService } from 'ngx-toastr';
@@ -35,6 +36,9 @@ export class DocumentVerificationComponent implements OnInit {
   public tableConfig: DocumentVerificationTableConfig;
   public dataSource = new MatTableDataSource([]);
 
+  public contracttableConfig: ContractListAdminTableConfig;
+  public contractdataSource = new MatTableDataSource([]);
+
   member_type: string;
   user_id: string;
   documentDetails: any;
@@ -48,6 +52,7 @@ export class DocumentVerificationComponent implements OnInit {
       this.user_id = param.id;
       this.member_type = param.member_type;
       this.tableConfig = new DocumentVerificationTableConfig(this.member_type);
+      this.contracttableConfig = new ContractListAdminTableConfig();
     });
   }
 
@@ -67,6 +72,7 @@ export class DocumentVerificationComponent implements OnInit {
           this.documentDetails = response.data;
           let modifiedResponse = this.prepareResponse(this.documentDetails);
           this.dataSource = new MatTableDataSource([modifiedResponse]);
+          this.contractdataSource = new MatTableDataSource([modifiedResponse]);
         },
         error => {
           console.log(error);

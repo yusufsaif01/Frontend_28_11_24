@@ -69,6 +69,47 @@
           </ng-template>
         </div>
       </div>
+
+      <!-- Contract Verification -->
+
+      <div class="middle-part">
+        <div class="heading">
+          <h2>Contract Verification</h2>
+        </div>
+        <!-- table -->
+        <div class="table-container">
+          <app-table
+            [rows]="contractdataSource"
+            [tableConfig]="contracttableConfig"
+            [NumberColumn]="'true'"
+            [TableActions]="ContractListAction"
+            [sortEnabled]="false"
+          ></app-table>
+          <ng-template #ContractListAction>
+            <div class="action-buttons">
+              <button matTooltip="View" class="view-icon">
+                <img src="assets/images/icons/eyes.png" alt="View" />
+              </button>
+              <button
+                [disabled]="documentDetails.documents[0].status === 'approved'"
+                matTooltip="Approve"
+                (click)="updateDocumentStatus('approved')"
+              >
+                <img src="assets/images/icons/tick.png" alt="approve" />
+              </button>
+              <button
+                [disabled]="
+                  documentDetails.documents[0].status === 'disapproved'
+                "
+                matTooltip="Disapprove"
+                (click)="updateDocumentStatus('disapproved')"
+              >
+                <img src="assets/images/icons/close01.png" alt="Disapprove" />
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
     </div>
   </div>
 </mat-drawer-container>
