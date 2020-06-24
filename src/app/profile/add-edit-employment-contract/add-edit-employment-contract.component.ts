@@ -40,12 +40,6 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   yesterday = new Date();
   category = 'club';
   clubAcadArray: clubAcadArrayContext[] = [];
-  currentClubAcad = {
-    address: '',
-    phone: '',
-    aiff: '',
-    email: ''
-  };
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -121,10 +115,23 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     );
     const playerTransferFee = this.addEditContractForm.get('playerTransferFee');
 
+    const clubAcademyPhoneNumber = this.addEditContractForm.get(
+      'clubAcademyPhoneNumber'
+    );
+
     let otherControl: { [name: string]: ValidatorFn[] } = {
       otherName: [Validators.required],
       otherEmail: [Validators.required, Validators.email],
       otherPhoneNumber: [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern(/^\d+$/)
+      ]
+    };
+
+    let clubAcademyPhoneNumberControl = {
+      clubAcademyPhoneNumber: [
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(10),
@@ -138,8 +145,21 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
         otherName.setValue('');
         otherEmail.setValue('');
         otherPhoneNumber.setValue('');
+        clubAcademyPhoneNumber.setValue('');
+
         this.checkRequiredValidator(otherControl, otherControl.otherName, 1);
         this.setControlValidation(this.addEditContractForm, otherControl);
+
+        this.checkRequiredValidator(
+          clubAcademyPhoneNumberControl,
+          clubAcademyPhoneNumberControl.clubAcademyPhoneNumber,
+          2
+        );
+        this.setControlValidation(
+          this.addEditContractForm,
+          clubAcademyPhoneNumberControl
+        );
+
         otherPhoneNumber.valueChanges
           .pipe(distinctUntilChanged())
           .subscribe(value => {
@@ -181,6 +201,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
         otherName.setValue('');
         otherEmail.setValue('');
         otherPhoneNumber.setValue('');
+        clubAcademyPhoneNumber.setValue('');
         this.checkRequiredValidator(otherControl, otherControl.otherName, 2);
         this.checkRequiredValidator(otherControl, otherControl.otherEmail, 2);
         this.checkRequiredValidator(
@@ -189,6 +210,16 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
           2
         );
         this.setControlValidation(this.addEditContractForm, otherControl);
+
+        this.checkRequiredValidator(
+          clubAcademyPhoneNumberControl,
+          clubAcademyPhoneNumberControl.clubAcademyPhoneNumber,
+          1
+        );
+        this.setControlValidation(
+          this.addEditContractForm,
+          clubAcademyPhoneNumberControl
+        );
       }
     });
 
@@ -327,12 +358,12 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   onSelectOption(c: HTMLSelectElement) {
     let identity = c.selectedOptions[0].attributes['identity'];
     if (!identity) {
-      this.currentClubAcad = {
-        address: '',
-        phone: '',
-        aiff: '',
-        email: ''
-      };
+      this.addEditContractForm.patchValue({
+        clubAcademyAddress: '',
+        clubAcademyPhoneNumber: '',
+        aiffNumber: '',
+        clubAcademyEmail: ''
+      });
       return;
     }
 
@@ -342,10 +373,12 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     );
 
     let item = selectedClubAcad[0];
-    this.currentClubAcad.address = item.address;
-    this.currentClubAcad.aiff = item.aiffNumber;
-    this.currentClubAcad.email = item.email;
-    this.currentClubAcad.phone = item.mobile;
+    this.addEditContractForm.patchValue({
+      clubAcademyAddress: item.address ? item.address : '',
+      clubAcademyPhoneNumber: item.mobile ? item.mobile : '',
+      aiffNumber: item.aiffNumber ? item.aiffNumber : '',
+      clubAcademyEmail: item.email ? item.email : ''
+    });
   }
 
   createForm() {
@@ -362,15 +395,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       placeOfSignature: ['', []],
       clubAcademyRepresentativeName: ['', []],
       clubAcademyAddress: ['', []],
-      clubAcademyPhoneNumber: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(10),
-          Validators.pattern(/^\d+$/)
-        ]
-      ],
+      clubAcademyPhoneNumber: ['', []],
       clubAcademyEmail: ['', [Validators.email]],
       aiffNumber: ['', []],
       crsUserName: ['', []],
