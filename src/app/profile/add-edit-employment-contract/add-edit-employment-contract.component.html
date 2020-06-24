@@ -2,7 +2,11 @@
 <div class="site-wrapper">
   <!-- Left section -->
   <div class="left-section">
-    <app-left-panel [options]="panelOptions"> </app-left-panel>
+    <app-left-panel
+      [options]="panelOptions"
+      (sendProfileData)="getProfileData($event)"
+    >
+    </app-left-panel>
   </div>
   <!-- Right seciton -->
   <div class="right-section">
@@ -74,15 +78,21 @@
 
             <!-- Club/ Academy Name -->
             <div class="from-block">
-              <label>{{ category }} Name <span>*</span></label>
+              <label>{{ category | titlecase }} Name <span>*</span></label>
               <select
+                #SelectTag
                 formControlName="clubAcademyName"
                 matNativeControl
                 required
+                (change)="onSelectOption(SelectTag)"
               >
-                <option value="">Select Club Name</option>
-                <ng-container *ngFor="let ca of clubAcadArray">
-                  <option value="{{ ca.name }}">{{ ca.name }}</option>
+                <option value="">Select {{ category | titlecase }} Name</option>
+                <ng-container *ngFor="let item of clubAcadArray">
+                  <option
+                    [attr.identity]="item.email"
+                    value="{{ item.name }}"
+                    >{{ item.name }}</option
+                  >
                 </ng-container>
                 <option value="Other">Other</option>
               </select>
@@ -367,6 +377,7 @@
                 placeholder="{{ category | titlecase }} Address"
                 type="text"
                 matInput
+                [value]="currentClubAcad.address"
               />
             </div>
 
@@ -385,6 +396,7 @@
                     placeholder="{{ category | titlecase }} Phone Number"
                     type="text"
                     matInput
+                    [value]="currentClubAcad.phone"
                   />
                   <mat-error
                     *ngIf="
@@ -458,6 +470,7 @@
                 placeholder="AIFF Accreditation Number"
                 type="text"
                 matInput
+                [value]="currentClubAcad.aiff"
               />
             </div>
 
@@ -603,6 +616,7 @@
                 placeholder="{{ category | titlecase }} Email Id"
                 type="text"
                 matInput
+                [value]="currentClubAcad.email"
               />
 
               <mat-error

@@ -12,6 +12,14 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { distinctUntilChanged } from 'rxjs/operators';
 
+interface clubAcadArrayContext {
+  name: string;
+  email: string;
+  address: string;
+  mobile: string;
+  aiffNumber: string;
+}
+
 @Component({
   selector: 'app-add-edit-employment-contract',
   templateUrl: './add-edit-employment-contract.component.html',
@@ -26,12 +34,18 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     is_public: false
   };
 
+  profile: any;
   addEditContractForm: FormGroup;
   tomorrow = new Date();
   yesterday = new Date();
   category = 'club';
-
-  clubAcadArray: any[] = [];
+  clubAcadArray: clubAcadArrayContext[] = [];
+  currentClubAcad = {
+    address: '',
+    phone: '',
+    aiff: '',
+    email: ''
+  };
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -256,6 +270,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     this.category = value;
     this.getClubAcademyList();
   }
+
   toFormData<T>(formValue: T) {
     const formData = new FormData();
     for (const key of Object.keys(formValue)) {
@@ -287,12 +302,49 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
             'Successful',
             'Profile updated successfully'
           );
-          // this._router.navigate(['']);///member/profile/view
+          // this._router.navigate(['']);///member/profile/view-employment-contract
         },
         err => {
           this._toastrService.error('Error', err.error.message);
         }
       );
+  }
+
+  getProfileData(data: Object) {
+    this.profile = data;
+    this.populateFormFields();
+  }
+
+  populateFormFields() {
+    if (this.profile) {
+      this.addEditContractForm.patchValue({
+        playerMobileNumber: this.profile.phone ? this.profile.phone : '',
+        playerEmail: this.profile.email ? this.profile.email : ''
+      });
+    }
+  }
+
+  onSelectOption(c: HTMLSelectElement) {
+    let identity = c.selectedOptions[0].attributes['identity'];
+    if (!identity) {
+      this.currentClubAcad = {
+        address: '',
+        phone: '',
+        aiff: '',
+        email: ''
+      };
+      return;
+    }
+
+    let email = identity.value;
+    let selectedClubAcad = this.clubAcadArray.filter(
+      value => value.email === email
+    );
+    let item = selectedClubAcad[0];
+    this.currentClubAcad.address = item.address;
+    this.currentClubAcad.aiff = item.aiffNumber;
+    this.currentClubAcad.email = item.email;
+    this.currentClubAcad.phone = item.mobile;
   }
 
   createForm() {

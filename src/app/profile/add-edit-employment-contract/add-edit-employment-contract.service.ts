@@ -15,9 +15,11 @@ interface GetClubAcademyListResponseContext {
   status: string;
   message: string;
   data: {
-    user_id: string;
     name: string;
     email: string;
+    address: string;
+    mobile: string;
+    aiffNumber: string;
   }[];
 }
 
