@@ -16,7 +16,7 @@
         <!-- player type -->
         <div class="block">
           <div class="block-header border-bottom">
-            <h4>Add New Contract</h4>
+            <h4>{{ isEditMode ? 'Edit Contract' : 'Add New Contract' }}</h4>
           </div>
         </div>
 
@@ -828,13 +828,13 @@
         </div>
         <!-- bottom -->
         <div class="block-bottom">
-          <a [routerLink]="['/member/profile/edit']"> Cancel </a>
+          <a [routerLink]="getCancelRoute()"> Cancel </a>
           <button
             [disabled]="!addEditContractForm.valid"
             class="btn"
-            (click)="addContract()"
+            (click)="addUpdateContract()"
           >
-            Save
+            {{ isEditMode ? 'Save and Send For Approval' : 'Save' }}
           </button>
         </div>
       </div>
