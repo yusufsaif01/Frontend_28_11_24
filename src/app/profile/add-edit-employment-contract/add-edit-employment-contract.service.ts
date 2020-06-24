@@ -23,6 +23,12 @@ interface GetClubAcademyListResponseContext {
   }[];
 }
 
+interface addContractResponseContext {
+  data: { id: string };
+  status: string;
+  message: string;
+}
+
 interface CommonResponseContext {
   status: string;
   message: string;
@@ -34,8 +40,8 @@ interface CommonResponseContext {
 export class AddEditEmploymentContractService {
   constructor(private httpClient: HttpClient) {}
 
-  addContract(context: FormData): Observable<CommonResponseContext> {
-    return this.httpClient.post<CommonResponseContext>(
+  addContract(context: FormData): Observable<addContractResponseContext> {
+    return this.httpClient.post<addContractResponseContext>(
       routes.addContract(),
       context
     );

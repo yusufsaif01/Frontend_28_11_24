@@ -335,12 +335,16 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         res => {
+          let { id } = res.data;
           this._toastrService.success(
             'Successful',
             'Profile updated successfully'
           );
           this.addEditContractForm.reset();
-          // this._router.navigate(['']);///member/profile/view-employment-contract
+          this._router.navigate([
+            '/member/profile/view-employment-contract/',
+            id
+          ]);
         },
         err => {
           this._toastrService.error('Error', err.error.message);
