@@ -339,6 +339,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
             'Successful',
             'Profile updated successfully'
           );
+          this.addEditContractForm.reset();
           // this._router.navigate(['']);///member/profile/view-employment-contract
         },
         err => {
