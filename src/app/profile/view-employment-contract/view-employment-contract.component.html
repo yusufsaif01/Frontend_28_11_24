@@ -236,18 +236,23 @@
           </div>
         </div>
       </div>
-      <div class="actions" *ngIf="contractDetails.created_by !== memberType">
+      <div
+        class="actions"
+        *ngIf="
+          contractDetails.status && contractDetails.created_by !== memberType
+        "
+      >
         <button
-          [disabled]="contractDetails.status === 'approved'"
+          [disabled]="contractDetails.status === 'active'"
           class="approve"
-          (click)="onapproved()"
+          (click)="updateContractStatus('approved')"
         >
           Approve
         </button>
         <button
           [disabled]="contractDetails.status === 'disapproved'"
           class="disapprove"
-          (click)="ondisapproved()"
+          (click)="updateContractStatus('disapproved')"
         >
           Disapprove
         </button>
