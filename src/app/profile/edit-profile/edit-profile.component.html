@@ -979,6 +979,7 @@
                       [tableConfig]="tableConfig"
                       [NumberColumn]="'true'"
                       [TableActions]="ListAction"
+                      [rows]="dataSource"
                     >
                     </app-table>
                     <ng-template
@@ -988,7 +989,14 @@
                       let-status="status"
                     >
                       <div class="action-buttons">
-                        <button matTooltip="View" type="button">
+                        <button
+                          [routerLink]="[
+                            '/member/profile/view-employment-contract/',
+                            id
+                          ]"
+                          matTooltip="View"
+                          type="button"
+                        >
                           <img src="assets/images/icons/eyes.png" alt="View" />
                         </button>
 
