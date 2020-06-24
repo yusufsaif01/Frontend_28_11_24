@@ -148,6 +148,12 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
         clubAcademyPhoneNumber.setValue('');
 
         this.checkRequiredValidator(otherControl, otherControl.otherName, 1);
+        this.checkRequiredValidator(otherControl, otherControl.otherEmail, 1);
+        this.checkRequiredValidator(
+          otherControl,
+          otherControl.otherPhoneNumber,
+          1
+        );
         this.setControlValidation(this.addEditContractForm, otherControl);
 
         this.checkRequiredValidator(
