@@ -340,6 +340,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     let selectedClubAcad = this.clubAcadArray.filter(
       value => value.email === email
     );
+
     let item = selectedClubAcad[0];
     this.currentClubAcad.address = item.address;
     this.currentClubAcad.aiff = item.aiffNumber;
