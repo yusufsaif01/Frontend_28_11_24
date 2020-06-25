@@ -9,7 +9,7 @@ import {
 import { AddEditEmploymentContractService } from './add-edit-employment-contract.service';
 import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { distinctUntilChanged } from 'rxjs/operators';
 
 interface clubAcadArrayContext {
@@ -41,15 +41,27 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   category = 'club';
   clubAcadArray: clubAcadArrayContext[] = [];
 
+  user_id: string;
+  contractData: any;
+  isEditMode = false;
+
   constructor(
     private _formBuilder: FormBuilder,
     private _employmentContractService: AddEditEmploymentContractService,
     private _toastrService: ToastrService,
-    private _router: Router
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
   ) {
     this.createForm();
     this.yesterday.setDate(this.yesterday.getDate() - 1);
     this.tomorrow.setDate(this.tomorrow.getDate() + 1);
+    this._activatedRoute.params.subscribe(param => {
+      this.user_id = param.id;
+      if (this.user_id) {
+        this.isEditMode = true;
+        this.populateView();
+      }
+    });
   }
   ngOnDestroy() {}
 
@@ -328,6 +340,16 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     );
   }
 
+  getCancelRoute() {
+    return this.isEditMode
+      ? ['/member/profile/view-employment-contract/', this.user_id]
+      : ['/member/profile/edit'];
+  }
+
+  addUpdateContract() {
+    this.isEditMode ? this.updateContract() : this.addContract();
+  }
+
   addContract() {
     let requestData = this.toFormData(this.addEditContractForm.value);
     this._employmentContractService
@@ -338,7 +360,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
           let { id } = res.data;
           this._toastrService.success(
             'Successful',
-            'Profile updated successfully'
+            'Contract Added successfully'
           );
           this.addEditContractForm.reset();
           this._router.navigate([
@@ -352,18 +374,138 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       );
   }
 
-  getProfileData(data: Object) {
-    this.profile = data;
-    this.populateFormFields();
+  updateContract() {
+    let requestData = this.toFormData(this.addEditContractForm.value);
+    this._employmentContractService
+      .updateContract({ user_id: this.user_id, requestData })
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        res => {
+          this._toastrService.success(
+            'Successful',
+            'Contract Updated successfully'
+          );
+          this.addEditContractForm.reset();
+          this._router.navigate([
+            '/member/profile/view-employment-contract/',
+            this.user_id
+          ]);
+        },
+        err => {
+          this._toastrService.error('Error', err.error.message);
+        }
+      );
   }
 
-  populateFormFields() {
+  getProfileData(data: Object) {
+    this.profile = data;
+    this.setProfileData();
+  }
+
+  setProfileData() {
     if (this.profile) {
       this.addEditContractForm.patchValue({
         playerMobileNumber: this.profile.phone ? this.profile.phone : '',
         playerEmail: this.profile.email ? this.profile.email : ''
       });
     }
+  }
+
+  populateView() {
+    this._employmentContractService
+      .getContract({ user_id: this.user_id })
+      .subscribe(
+        response => {
+          this.contractData = response.data;
+          this.populateFormFields();
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
+        }
+      );
+  }
+
+  populateFormFields() {
+    this.setCategory(this.contractData.category);
+    this.addEditContractForm.patchValue({
+      category: this.contractData.category ? this.contractData.category : '',
+      playerName: this.contractData.playerName
+        ? this.contractData.playerName
+        : '',
+      clubAcademyName: this.contractData.clubAcademyName
+        ? this.contractData.clubAcademyName
+        : '',
+      signingDate: this.contractData.signingDate
+        ? this.contractData.signingDate
+        : '',
+      effectiveDate: this.contractData.effectiveDate
+        ? this.contractData.effectiveDate
+        : '',
+      expiryDate: this.contractData.expiryDate
+        ? this.contractData.expiryDate
+        : '',
+      placeOfSignature: this.contractData.placeOfSignature
+        ? this.contractData.placeOfSignature
+        : '',
+      clubAcademyRepresentativeName: this.contractData
+        .clubAcademyRepresentativeName
+        ? this.contractData.clubAcademyRepresentativeName
+        : '',
+      clubAcademyAddress: this.contractData.clubAcademyAddress
+        ? this.contractData.clubAcademyAddress
+        : '',
+      clubAcademyPhoneNumber: this.contractData.clubAcademyPhoneNumber
+        ? this.contractData.clubAcademyPhoneNumber
+        : '',
+      clubAcademyEmail: this.contractData.clubAcademyEmail
+        ? this.contractData.clubAcademyEmail
+        : '',
+      aiffNumber: this.contractData.aiffNumber
+        ? this.contractData.aiffNumber
+        : '',
+      crsUserName: this.contractData.crsUserName
+        ? this.contractData.crsUserName
+        : '',
+      legalGuardianName: this.contractData.legalGuardianName
+        ? this.contractData.legalGuardianName
+        : '',
+      playerAddress: this.contractData.playerAddress
+        ? this.contractData.playerAddress
+        : '',
+      playerMobileNumber: this.contractData.playerMobileNumber
+        ? this.contractData.playerMobileNumber
+        : '',
+      playerEmail: this.contractData.playerEmail
+        ? this.contractData.playerEmail
+        : '',
+      clubAcademyUsesAgentServices: this.contractData
+        .clubAcademyUsesAgentServices
+        ? String(this.contractData.clubAcademyUsesAgentServices)
+        : '',
+      clubAcademyIntermediaryName: this.contractData.clubAcademyIntermediaryName
+        ? this.contractData.clubAcademyIntermediaryName
+        : '',
+      clubAcademyTransferFee: this.contractData.clubAcademyTransferFee
+        ? this.contractData.clubAcademyTransferFee
+        : '',
+      playerUsesAgentServices: this.contractData.playerUsesAgentServices
+        ? String(this.contractData.playerUsesAgentServices)
+        : '',
+      playerIntermediaryName: this.contractData.playerIntermediaryName
+        ? this.contractData.playerIntermediaryName
+        : '',
+      playerTransferFee: this.contractData.playerTransferFee
+        ? this.contractData.playerTransferFee
+        : '',
+
+      otherName: this.contractData.otherName ? this.contractData.otherName : '',
+      otherEmail: this.contractData.otherEmail
+        ? this.contractData.otherEmail
+        : '',
+      otherPhoneNumber: this.contractData.otherPhoneNumber
+        ? this.contractData.otherPhoneNumber
+        : ''
+    });
   }
 
   onSelectOption(c: HTMLSelectElement) {
