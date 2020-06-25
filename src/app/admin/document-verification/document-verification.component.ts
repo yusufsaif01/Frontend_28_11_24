@@ -58,6 +58,7 @@ export class DocumentVerificationComponent implements OnInit {
 
   ngOnInit() {
     this.getDocumentStatus();
+    this.getEmploymentContractList();
   }
 
   updateSidebar($event: any) {
@@ -72,7 +73,6 @@ export class DocumentVerificationComponent implements OnInit {
           this.documentDetails = response.data;
           let modifiedResponse = this.prepareResponse(this.documentDetails);
           this.dataSource = new MatTableDataSource([modifiedResponse]);
-          this.contractdataSource = new MatTableDataSource([modifiedResponse]);
         },
         error => {
           console.log(error);
@@ -196,5 +196,20 @@ export class DocumentVerificationComponent implements OnInit {
       autoFocus: false,
       data: { imageURL: event }
     });
+  }
+
+  getEmploymentContractList() {
+    this._documentVerficationService
+      .getEmploymentContractList(this.user_id)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let records = response.data.records;
+          this.contractdataSource = new MatTableDataSource(records);
+        },
+        error => {
+          this._toastrService.error(error.error.message, 'Error');
+        }
+      );
   }
 }
