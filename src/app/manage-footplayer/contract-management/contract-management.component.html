@@ -30,7 +30,10 @@
         let-status="status"
       >
         <div class="action-buttons">
-          <button matTooltip="View">
+          <button
+            [routerLink]="['/member/profile/view-employment-contract/', id]"
+            matTooltip="View"
+          >
             <img src="assets/images/icons/eyes.png" alt="View" />
           </button>
 
