@@ -8,7 +8,7 @@ import { ProfileComponent } from './profile.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { AddEditEmploymentContractComponent } from './add-edit-employment-contract/add-edit-employment-contract.component';
 import { ViewEmploymentContractComponent } from './view-employment-contract/view-employment-contract.component';
-import { DisapproveConfirmationComponent } from '@app/shared/dialog-box/disapprove-confirmation/disapprove-confirmation.component';
+import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
 @NgModule({
   declarations: [
     ProfileComponent,
@@ -16,7 +16,7 @@ import { DisapproveConfirmationComponent } from '@app/shared/dialog-box/disappro
     EditProfileComponent,
     AddEditEmploymentContractComponent,
     ViewEmploymentContractComponent,
-    DisapproveConfirmationComponent
+    VerificationPopupComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +24,6 @@ import { DisapproveConfirmationComponent } from '@app/shared/dialog-box/disappro
     ReactiveFormsModule,
     ProfileRoutingModule
   ],
-  entryComponents: [DisapproveConfirmationComponent]
+  entryComponents: [VerificationPopupComponent]
 })
 export class ProfileModule {}

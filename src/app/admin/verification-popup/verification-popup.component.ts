@@ -39,6 +39,9 @@ export class VerificationPopupComponent implements OnInit {
     if (data.header === 'Disapprove') {
       this.disApprove = true;
     }
+    if (data.disApprove) {
+      this.disApprove = true;
+    }
   }
 
   ngOnInit() {}
