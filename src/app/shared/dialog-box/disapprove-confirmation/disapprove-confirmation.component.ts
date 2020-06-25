@@ -2,11 +2,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-  selector: 'app-verification-popup',
-  templateUrl: './verification-popup.component.html',
-  styleUrls: ['./verification-popup.component.scss']
+  selector: 'app-disapprove-confirmation',
+  templateUrl: './disapprove-confirmation.component.html',
+  styleUrls: ['./disapprove-confirmation.component.scss']
 })
-export class VerificationPopupComponent implements OnInit {
+export class DisapproveConfirmationComponent implements OnInit {
   public header: string = 'Please Confirm';
   public message: string = '';
   public acceptText: string = 'Confirm';
@@ -36,12 +36,12 @@ export class VerificationPopupComponent implements OnInit {
     if (data.rejectText) {
       this.rejectText = data.rejectText;
     }
-    if (data.header === 'Disapprove') {
-      this.disApprove = true;
-    }
     if (data.disApprove) {
-      this.disApprove = true;
+      this.disApprove = data.disApprove;
     }
+    // if (data.disApprove === 'Disapprove') {
+    //   this.disApprove = true;
+    // }
   }
 
   ngOnInit() {}

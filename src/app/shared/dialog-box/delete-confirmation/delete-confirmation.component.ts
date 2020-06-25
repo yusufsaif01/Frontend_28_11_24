@@ -11,6 +11,7 @@ export class DeleteConfirmationComponent implements OnInit {
   public message: string = 'Are you sure you want to delete the user?';
   public acceptText: string = 'Confirm';
   public rejectText: string = 'Cancel';
+  public inputbox: boolean = false;
 
   constructor(
     private dialogRef: MatDialogRef<any>,
@@ -27,6 +28,9 @@ export class DeleteConfirmationComponent implements OnInit {
     }
     if (data.rejectText) {
       this.rejectText = data.rejectText;
+    }
+    if (data.inputbox) {
+      this.inputbox = data.inputbox;
     }
   }
 

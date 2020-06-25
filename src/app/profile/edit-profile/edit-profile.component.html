@@ -962,7 +962,7 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div class="contract-btn">
-                <a>
+                <a [routerLink]="['/member/profile/add-employment-contract']">
                   Add New Contract
                 </a>
               </div>
@@ -978,8 +978,8 @@
                     <app-table
                       [tableConfig]="tableConfig"
                       [NumberColumn]="'true'"
-                      [rows]="dataSource"
                       [TableActions]="ListAction"
+                      [rows]="dataSource"
                     >
                     </app-table>
                     <ng-template
@@ -989,7 +989,14 @@
                       let-status="status"
                     >
                       <div class="action-buttons">
-                        <button matTooltip="View" type="button">
+                        <button
+                          [routerLink]="[
+                            '/member/profile/view-employment-contract/',
+                            id
+                          ]"
+                          matTooltip="View"
+                          type="button"
+                        >
                           <img src="assets/images/icons/eyes.png" alt="View" />
                         </button>
 
