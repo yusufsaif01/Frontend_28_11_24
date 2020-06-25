@@ -4,7 +4,8 @@ import {
   FormGroup,
   FormBuilder,
   Validators,
-  ValidatorFn
+  ValidatorFn,
+  AbstractControl
 } from '@angular/forms';
 import { AddEditEmploymentContractService } from './add-edit-employment-contract.service';
 import { untilDestroyed } from '@app/core';
@@ -45,6 +46,8 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   contractData: any;
   isEditMode = false;
 
+  member_type: string = localStorage.getItem('member_type');
+
   constructor(
     private _formBuilder: FormBuilder,
     private _employmentContractService: AddEditEmploymentContractService,
@@ -53,6 +56,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute
   ) {
     this.createForm();
+    this.manageCommonControls();
     this.yesterday.setDate(this.yesterday.getDate() - 1);
     this.tomorrow.setDate(this.tomorrow.getDate() + 1);
     this._activatedRoute.params.subscribe(param => {
@@ -63,10 +67,18 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   ngOnDestroy() {}
 
   ngOnInit() {
     this.setValidators();
+  }
+
+  getMemberType(value: string) {
+    this.member_type = value;
+    if (['club', 'academy'].includes(this.member_type)) {
+      this.setCategory(this.member_type);
+    }
   }
 
   getClubAcademyList() {
@@ -105,27 +117,11 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
         : controlname;
   }
 
-  setValidators() {
+  setPlayerValidators() {
     const clubAcademyName = this.addEditContractForm.get('clubAcademyName');
     const otherName = this.addEditContractForm.get('otherName');
     const otherEmail = this.addEditContractForm.get('otherEmail');
     const otherPhoneNumber = this.addEditContractForm.get('otherPhoneNumber');
-    const clubAcademyUsesAgentServices = this.addEditContractForm.get(
-      'clubAcademyUsesAgentServices'
-    );
-    const clubAcademyIntermediaryName = this.addEditContractForm.get(
-      'clubAcademyIntermediaryName'
-    );
-    const clubAcademyTransferFee = this.addEditContractForm.get(
-      'clubAcademyTransferFee'
-    );
-    const playerUsesAgentServices = this.addEditContractForm.get(
-      'playerUsesAgentServices'
-    );
-    const playerIntermediaryName = this.addEditContractForm.get(
-      'playerIntermediaryName'
-    );
-    const playerTransferFee = this.addEditContractForm.get('playerTransferFee');
 
     const clubAcademyPhoneNumber = this.addEditContractForm.get(
       'clubAcademyPhoneNumber'
@@ -240,6 +236,29 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
         );
       }
     });
+  }
+
+  setValidators() {
+    if (this.member_type === 'player') {
+      this.setPlayerValidators();
+    }
+
+    const clubAcademyUsesAgentServices = this.addEditContractForm.get(
+      'clubAcademyUsesAgentServices'
+    );
+    const clubAcademyIntermediaryName = this.addEditContractForm.get(
+      'clubAcademyIntermediaryName'
+    );
+    const clubAcademyTransferFee = this.addEditContractForm.get(
+      'clubAcademyTransferFee'
+    );
+    const playerUsesAgentServices = this.addEditContractForm.get(
+      'playerUsesAgentServices'
+    );
+    const playerIntermediaryName = this.addEditContractForm.get(
+      'playerIntermediaryName'
+    );
+    const playerTransferFee = this.addEditContractForm.get('playerTransferFee');
 
     let clubAcademyServiceControl = {
       clubAcademyIntermediaryName: [Validators.required],
@@ -317,7 +336,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
   setCategory(value: string) {
     this.category = value;
-    this.getClubAcademyList();
+    if (this.member_type === 'player') this.getClubAcademyList();
   }
 
   toFormData<T>(formValue: T) {
@@ -341,9 +360,15 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   }
 
   getCancelRoute() {
-    return this.isEditMode
-      ? ['/member/profile/view-employment-contract/', this.user_id]
-      : ['/member/profile/edit'];
+    if (this.member_type === 'player') {
+      return this.isEditMode
+        ? ['/member/profile/view-employment-contract/', this.user_id]
+        : ['/member/profile/edit'];
+    } else {
+      return this.isEditMode
+        ? ['/member/profile/view-employment-contract/', this.user_id]
+        : ['/member/manage-footplayer'];
+    }
   }
 
   addUpdateContract() {
@@ -363,10 +388,14 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
             'Contract Added successfully'
           );
           this.addEditContractForm.reset();
-          this._router.navigate([
-            '/member/profile/view-employment-contract/',
-            id
-          ]);
+          if (this.member_type === 'player') {
+            this._router.navigate([
+              '/member/profile/view-employment-contract/',
+              id
+            ]);
+          } else {
+            this._router.navigate(['/member/manage-footplayer']);
+          }
         },
         err => {
           this._toastrService.error('Error', err.error.message);
@@ -404,10 +433,30 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
   setProfileData() {
     if (this.profile) {
-      this.addEditContractForm.patchValue({
-        playerMobileNumber: this.profile.phone ? this.profile.phone : '',
-        playerEmail: this.profile.email ? this.profile.email : ''
-      });
+      if (this.member_type === 'player') {
+        this.addEditContractForm.patchValue({
+          playerName:
+            this.profile.first_name && this.profile.last_name
+              ? `${this.profile.first_name} ${this.profile.last_name}`
+              : '',
+          playerMobileNumber: this.profile.phone ? this.profile.phone : '',
+          playerEmail: this.profile.email ? this.profile.email : ''
+        });
+      } else {
+        this.addEditContractForm.patchValue({
+          clubAcademyName: this.profile.name ? this.profile.name : '',
+          clubAcademyPhoneNumber: this.profile.phone ? this.profile.phone : '',
+          clubAcademyEmail: this.profile.email ? this.profile.email : '',
+          clubAcademyAddress:
+            this.profile.address && this.profile.address.full_address
+              ? this.profile.address.full_address
+              : '',
+          aiffNumber:
+            this.profile.documents && this.profile.documents.length
+              ? this.profile.documents[0].document_number
+              : ''
+        });
+      }
     }
   }
 
@@ -427,6 +476,26 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
   populateFormFields() {
     this.setCategory(this.contractData.category);
+
+    if (
+      this.contractData.clubAcademyIntermediaryName &&
+      this.contractData.clubAcademyTransferFee
+    )
+      this.addEditContractForm
+        .get('clubAcademyUsesAgentServices')
+        .setValue('true');
+    else
+      this.addEditContractForm
+        .get('clubAcademyUsesAgentServices')
+        .setValue('false');
+    if (
+      this.contractData.playerIntermediaryName &&
+      this.contractData.playerTransferFee
+    )
+      this.addEditContractForm.get('playerUsesAgentServices').setValue('true');
+    else
+      this.addEditContractForm.get('playerUsesAgentServices').setValue('false');
+
     this.addEditContractForm.patchValue({
       category: this.contractData.category ? this.contractData.category : '',
       playerName: this.contractData.playerName
@@ -478,18 +547,11 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       playerEmail: this.contractData.playerEmail
         ? this.contractData.playerEmail
         : '',
-      clubAcademyUsesAgentServices: this.contractData
-        .clubAcademyUsesAgentServices
-        ? String(this.contractData.clubAcademyUsesAgentServices)
-        : '',
       clubAcademyIntermediaryName: this.contractData.clubAcademyIntermediaryName
         ? this.contractData.clubAcademyIntermediaryName
         : '',
       clubAcademyTransferFee: this.contractData.clubAcademyTransferFee
         ? this.contractData.clubAcademyTransferFee
-        : '',
-      playerUsesAgentServices: this.contractData.playerUsesAgentServices
-        ? String(this.contractData.playerUsesAgentServices)
         : '',
       playerIntermediaryName: this.contractData.playerIntermediaryName
         ? this.contractData.playerIntermediaryName
@@ -534,44 +596,123 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     });
   }
 
-  createForm() {
-    this.addEditContractForm = this._formBuilder.group({
-      category: ['', [Validators.required]],
-      playerName: ['', [Validators.required]],
-      clubAcademyName: ['', [Validators.required]],
-      otherName: ['', []],
-      otherEmail: ['', []],
-      otherPhoneNumber: ['', []],
-      signingDate: ['', [Validators.required]],
-      effectiveDate: ['', [Validators.required]],
-      expiryDate: ['', [Validators.required]],
-      placeOfSignature: ['', []],
-      clubAcademyRepresentativeName: ['', []],
-      clubAcademyAddress: ['', []],
-      clubAcademyPhoneNumber: ['', []],
-      clubAcademyEmail: ['', [Validators.email]],
-      aiffNumber: ['', []],
-      crsUserName: ['', []],
-      legalGuardianName: ['', []],
-      playerAddress: ['', []],
-      playerMobileNumber: [
-        '',
-        [
+  formControlAdder(
+    form: FormGroup,
+    controls: { name: string; abstractControl: AbstractControl }[]
+  ) {
+    controls.forEach(control => {
+      form.addControl(control.name, control.abstractControl);
+    });
+  }
+
+  manageCommonControls() {
+    let commonControls = [
+      {
+        name: 'playerName',
+        abstractControl: this._formBuilder.control('', [Validators.required])
+      },
+      {
+        name: 'clubAcademyName',
+        abstractControl: this._formBuilder.control('', [Validators.required])
+      },
+      {
+        name: 'signingDate',
+        abstractControl: this._formBuilder.control('', [Validators.required])
+      },
+      {
+        name: 'effectiveDate',
+        abstractControl: this._formBuilder.control('', [Validators.required])
+      },
+      {
+        name: 'expiryDate',
+        abstractControl: this._formBuilder.control('', [Validators.required])
+      },
+      {
+        name: 'placeOfSignature',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'clubAcademyRepresentativeName',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'clubAcademyAddress',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'clubAcademyPhoneNumber',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'clubAcademyEmail',
+        abstractControl: this._formBuilder.control('', [Validators.email])
+      },
+      {
+        name: 'aiffNumber',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'crsUserName',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'legalGuardianName',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'playerAddress',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'playerMobileNumber',
+        abstractControl: this._formBuilder.control('', [
           Validators.required,
           Validators.minLength(10),
           Validators.maxLength(10),
           Validators.pattern(/^\d+$/)
-        ]
-      ],
-      playerEmail: ['', [Validators.email]],
+        ])
+      },
+      {
+        name: 'playerEmail',
+        abstractControl: this._formBuilder.control('', [Validators.email])
+      },
+      {
+        name: 'clubAcademyUsesAgentServices',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'clubAcademyIntermediaryName',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'clubAcademyTransferFee',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'playerUsesAgentServices',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'playerIntermediaryName',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'playerTransferFee',
+        abstractControl: this._formBuilder.control('')
+      }
+    ];
+    this.formControlAdder(this.addEditContractForm, commonControls);
+  }
 
-      clubAcademyUsesAgentServices: ['', []],
-      clubAcademyIntermediaryName: ['', []],
-      clubAcademyTransferFee: ['', []],
-
-      playerUsesAgentServices: ['', []],
-      playerIntermediaryName: ['', []],
-      playerTransferFee: ['']
-    });
+  createForm() {
+    this.addEditContractForm = this._formBuilder.group({});
+    if (this.member_type === 'player') {
+      this.addEditContractForm = this._formBuilder.group({
+        category: ['', [Validators.required]],
+        otherName: ['', []],
+        otherEmail: ['', []],
+        otherPhoneNumber: ['', []]
+      });
+    }
   }
 }
