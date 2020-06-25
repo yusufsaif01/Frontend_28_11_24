@@ -2,7 +2,10 @@
 <div class="site-wrapper">
   <!-- left Sidebar -->
   <div class="left-section">
-    <app-left-panel [achievements]="total_count" [options]="panelOptions">
+    <app-left-panel
+      [options]="panelOptions"
+      (sendMemberType)="getMemberType($event)"
+    >
     </app-left-panel>
   </div>
   <div class="right-section">
@@ -17,15 +20,30 @@
         [tableConfig]="tableConfig"
         [NumberColumn]="'true'"
         [TableActions]="ListAction"
+        [rows]="dataSource"
       >
       </app-table>
-      <ng-template #ListAction>
+      <ng-template
+        #ListAction
+        let-id="id"
+        let-created_by="created_by"
+        let-status="status"
+      >
         <div class="action-buttons">
           <button matTooltip="View">
             <img src="assets/images/icons/eyes.png" alt="View" />
           </button>
 
-          <button matTooltip="Delete" (click)="deletePopup()">
+          <button
+            *ngIf="['club', 'academy'].includes(created_by)"
+            [ngClass]="{
+              'icon-disable': ['active', 'yet_to_start', 'completed'].includes(
+                status
+              )
+            }"
+            matTooltip="Delete"
+            (click)="deletePopup(id)"
+          >
             <img src="assets/images/icons/bin.png" alt="Delete" />
           </button>
 
@@ -36,11 +54,13 @@
       </ng-template>
     </div>
     <app-pagination
+      *ngIf="dataSource.data.length !== 0"
       [showData]="false"
       [showCount]="show_count"
       [totalRows]="total_count"
       [rowsPerPage]="pageSize"
       [selectedPage]="selectedPage"
+      (onChange)="updatePage($event)"
     >
     </app-pagination>
   </div>
