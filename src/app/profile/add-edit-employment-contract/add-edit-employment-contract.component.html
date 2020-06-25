@@ -365,7 +365,7 @@
                   matInput
                   [matDatepicker]="expiry"
                   [min]="addEditContractForm.get('effectiveDate').value"
-                  [max]="tomorrow"
+                  [max]="fiveYearFromNow"
                   readonly
                 />
                 <mat-datepicker-toggle [for]="expiry"></mat-datepicker-toggle>

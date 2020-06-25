@@ -37,7 +37,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
   profile: any;
   addEditContractForm: FormGroup;
-  tomorrow = new Date();
+  fiveYearFromNow = new Date();
   yesterday = new Date();
   category = 'club';
   clubAcadArray: clubAcadArrayContext[] = [];
@@ -57,8 +57,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   ) {
     this.createForm();
     this.manageCommonControls();
-    this.yesterday.setDate(this.yesterday.getDate() - 1);
-    this.tomorrow.setDate(this.tomorrow.getDate() + 1);
+    this.setYears();
     this._activatedRoute.params.subscribe(param => {
       this.user_id = param.id;
       if (this.user_id) {
@@ -72,6 +71,10 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setValidators();
+  }
+
+  setYears() {
+    this.yesterday.setDate(this.yesterday.getDate() - 1);
   }
 
   getMemberType(value: string) {
@@ -259,6 +262,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       'playerIntermediaryName'
     );
     const playerTransferFee = this.addEditContractForm.get('playerTransferFee');
+    const effectiveDate = this.addEditContractForm.get('effectiveDate');
 
     let clubAcademyServiceControl = {
       clubAcademyIntermediaryName: [Validators.required],
@@ -331,6 +335,12 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
         );
       }
       this.setControlValidation(this.addEditContractForm, playerServiceControl);
+    });
+
+    effectiveDate.valueChanges.subscribe(value => {
+      let date = new Date(value);
+      date.setFullYear(date.getFullYear() + 5);
+      this.fiveYearFromNow = date;
     });
   }
 
