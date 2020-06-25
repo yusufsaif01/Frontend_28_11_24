@@ -13,7 +13,10 @@
         <div class="block-heading">
           <h2>Employment Contract Details</h2>
           <a
-            (click)="editDetails()"
+            [routerLink]="[
+              '/member/profile/edit-employment-contract/',
+              contractId
+            ]"
             *ngIf="
               contractDetails.created_by === memberType &&
               (contractDetails.status === 'disapproved' ||
@@ -239,11 +242,15 @@
       <div
         class="actions"
         *ngIf="
-          contractDetails.status && contractDetails.created_by !== memberType
+          contractDetails.status !== 'completed' &&
+          contractDetails.created_by !== memberType
         "
       >
         <button
-          [disabled]="contractDetails.status === 'active'"
+          [disabled]="
+            contractDetails.status === 'active' ||
+            contractDetails.status === 'yet_to_start'
+          "
           class="approve"
           (click)="updateContractStatus('approved')"
         >
