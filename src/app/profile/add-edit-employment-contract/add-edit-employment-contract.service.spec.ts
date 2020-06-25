@@ -6,7 +6,9 @@ describe('AddEditEmploymentContractService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: AddEditEmploymentContractService = TestBed.get(AddEditEmploymentContractService);
+    const service: AddEditEmploymentContractService = TestBed.get(
+      AddEditEmploymentContractService
+    );
     expect(service).toBeTruthy();
   });
 });
