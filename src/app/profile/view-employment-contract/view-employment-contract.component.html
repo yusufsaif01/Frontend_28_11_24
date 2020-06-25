@@ -13,7 +13,10 @@
         <div class="block-heading">
           <h2>Employment Contract Details</h2>
           <a
-            (click)="editDetails()"
+            [routerLink]="[
+              '/member/profile/edit-employment-contract/',
+              contractId
+            ]"
             *ngIf="
               contractDetails.created_by === memberType &&
               (contractDetails.status === 'disapproved' ||
