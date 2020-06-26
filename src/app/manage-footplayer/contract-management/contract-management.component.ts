@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material';
 import { ContractManagementService } from './contract-management.service';
 import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-contract-management',
@@ -14,15 +15,14 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./contract-management.component.scss']
 })
 export class ContractManagementComponent implements OnInit, OnDestroy {
-  public tableConfig: ContractManagementTableConfig = new ContractManagementTableConfig(
-    ''
-  );
+  public tableConfig: ContractManagementTableConfig = new ContractManagementTableConfig();
   public dataSource = new MatTableDataSource([]);
   pageSize: number = 10;
   selectedPage: number = 1;
   member_type: string;
   show_count: number;
   total_count: number;
+  environment = environment;
 
   panelOptions: Partial<PanelOptions> = {
     bio: true,
@@ -47,7 +47,6 @@ export class ContractManagementComponent implements OnInit, OnDestroy {
 
   getMemberType(value: string) {
     this.member_type = value;
-    this.tableConfig = new ContractManagementTableConfig(this.member_type);
   }
 
   updatePage(event: any) {
@@ -93,7 +92,11 @@ export class ContractManagementComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this.dataSource = new MatTableDataSource(response.data.records);
+          let records = response.data.records;
+          for (let i = 0; i < records.length; i++) {
+            records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
+          }
+          this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
           this.total_count = response.data.total;
           this.selectedPage = page_no;
