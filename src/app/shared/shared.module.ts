@@ -13,6 +13,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { TrimPipe } from './pipes/trim.pipe';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
 
 @NgModule({
   imports: [
@@ -30,8 +31,10 @@ import { NgxImageCompressService } from 'ngx-image-compress';
     MasterTableComponent,
     PaginationComponent,
     TruncatePipe,
-    TrimPipe
+    TrimPipe,
+    VerificationPopupComponent
   ],
+  entryComponents: [VerificationPopupComponent],
   providers: [NgxImageCompressService],
   exports: [
     LoaderComponent,
@@ -45,7 +48,8 @@ import { NgxImageCompressService } from 'ngx-image-compress';
     PaginationComponent,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    VerificationPopupComponent
   ]
 })
 export class SharedModule {}
