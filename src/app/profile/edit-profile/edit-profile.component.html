@@ -958,7 +958,7 @@
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   Employment Contracts
-                  <span>*</span>
+                  <span *ngIf="['professional'].includes(player_type)">*</span>
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div class="contract-btn">
