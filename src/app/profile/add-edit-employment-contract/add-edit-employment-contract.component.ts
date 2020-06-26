@@ -39,7 +39,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   addEditContractForm: FormGroup;
   fiveYearFromNow = new Date();
   yesterday = new Date();
-  category = 'club';
+  category = '';
   clubAcadArray: clubAcadArrayContext[] = [];
 
   user_id: string;
@@ -57,6 +57,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   ) {
     this.createForm();
     this.manageCommonControls();
+    this.setCategory('club');
     this.setYears();
     this._activatedRoute.params.subscribe(param => {
       this.user_id = param.id;
@@ -346,7 +347,12 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
   setCategory(value: string) {
     this.category = value;
-    if (this.member_type === 'player') this.getClubAcademyList();
+    if (this.member_type === 'player') {
+      this.getClubAcademyList();
+      this.addEditContractForm.patchValue({
+        category: this.category ? this.category : ''
+      });
+    }
   }
 
   toFormData<T>(formValue: T) {
