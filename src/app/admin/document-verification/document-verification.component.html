@@ -104,7 +104,7 @@
                 </button>
               </a>
               <button
-                *ngIf="canUpdateStatus"
+                *ngIf="canUpdateStatus && status !== 'completed'"
                 [disabled]="
                   status === 'active' ||
                   status === 'yet_to_start' ||
@@ -116,7 +116,7 @@
                 <img src="assets/images/icons/tick.png" alt="approve" />
               </button>
               <button
-                *ngIf="canUpdateStatus"
+                *ngIf="canUpdateStatus && status !== 'completed'"
                 [disabled]="status === 'disapproved'"
                 matTooltip="Disapprove"
                 (click)="
