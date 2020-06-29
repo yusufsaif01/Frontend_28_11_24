@@ -50,10 +50,6 @@ export class ViewEmploymentContractComponent implements OnInit {
     );
   }
 
-  editDetails() {
-    //navigate to edit
-  }
-
   updateContractStatus(status: string) {
     let message: string = '';
     let header: string = '';
@@ -67,9 +63,7 @@ export class ViewEmploymentContractComponent implements OnInit {
       (header = 'Please Confirm'),
         (message = `Do you want to approve the Employment Contract with ${
           this.contractDetails.clubAcademyName
-        } ${
-          this.contractDetails.created_by === 'club' ? 'club' : 'academy'
-        } ?`);
+        } ${this.contractDetails.category === 'club' ? 'club' : 'academy'} ?`);
       disApprove = false;
     }
     const dialogRef = this.dialog.open(VerificationPopupComponent, {
@@ -93,7 +87,7 @@ export class ViewEmploymentContractComponent implements OnInit {
               this.getContractDetails();
               this._toastrService.success(
                 response.status,
-                'Status update success'
+                'Status updated successfully'
               );
             },
             (error: any) => {

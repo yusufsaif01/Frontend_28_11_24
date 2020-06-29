@@ -1,9 +1,10 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
 export class ContractManagementTableConfig extends TableConfig {
-  constructor(member_type: string) {
+  constructor() {
     super();
     this.allowedColumns = [
       'serialNumber',
+      'avatar',
       'name',
       'effectiveDate',
       'expiryDate',
@@ -19,9 +20,16 @@ export class ContractManagementTableConfig extends TableConfig {
           return ele[this.columns.serialNumber.code];
         }
       },
+      avatar: {
+        code: 'avatar',
+        text: 'DP',
+        getValue: (ele: any) => {
+          return ele[this.columns.avatar.code];
+        }
+      },
       name: {
         code: 'name',
-        text: member_type === 'academy' ? 'Academy Name' : 'Club Name',
+        text: 'Player Name',
         getValue: (ele: any) => {
           return ele[this.columns.name.code];
         }

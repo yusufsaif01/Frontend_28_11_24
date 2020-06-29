@@ -2,8 +2,7 @@
 <div class="site-wrapper">
   <!-- Left section -->
   <div class="left-section">
-    <app-left-panel [options]="panelOptions" [userId]="userId">
-    </app-left-panel>
+    <app-left-panel [options]="panelOptions"> </app-left-panel>
   </div>
   <!-- right-section -->
   <div class="right-section">
@@ -32,13 +31,13 @@
         <div class="block-middle border-bottom">
           <div class="half">
             <p>
-              <span>Player name on Contract :</span>
+              <span>Player name on Contract : </span>
               {{ contractDetails.playerName }}
             </p>
           </div>
           <div class="half">
             <p>
-              <span>{{ contractDetails.created_by | titlecase }} Name :</span>
+              <span>{{ contractDetails.category | titlecase }} Name : </span>
               {{ contractDetails.clubAcademyName }}
             </p>
           </div>
@@ -50,13 +49,13 @@
         >
           <div class="half">
             <p>
-              <span>Other Name :</span>
+              <span>Other Name : </span>
               {{ contractDetails.otherName ? contractDetails.otherName : '' }}
             </p>
           </div>
           <div class="half">
             <p>
-              <span>Other Email :</span>
+              <span>Other Email : </span>
               {{ contractDetails.otherEmail ? contractDetails.otherEmail : '' }}
             </p>
           </div>
@@ -65,7 +64,7 @@
         <div class="block-middle border-bottom">
           <div class="half" *ngIf="contractDetails.otherPhoneNumber">
             <p>
-              <span>Other Phone No :</span>
+              <span>Other Phone No : </span>
               {{
                 contractDetails.otherPhoneNumber
                   ? contractDetails.otherPhoneNumber
@@ -75,7 +74,7 @@
           </div>
           <div class="half">
             <p>
-              <span>Contract Signing Date :</span>
+              <span>Contract Signing Date : </span>
               {{ contractDetails.signingDate | date }}
             </p>
           </div>
@@ -84,13 +83,13 @@
         <div class="block-middle border-bottom">
           <div class="half">
             <p>
-              <span>Contract effective date :</span>
+              <span>Contract effective date : </span>
               {{ contractDetails.effectiveDate | date }}
             </p>
           </div>
           <div class="half">
             <p>
-              <span>Contract expiry date :</span>
+              <span>Contract expiry date : </span>
               {{ contractDetails.expiryDate | date }}
             </p>
           </div>
@@ -99,16 +98,16 @@
         <div class="block-middle border-bottom">
           <div class="half">
             <p>
-              <span>Place of signature :</span>
+              <span>Place of signature : </span>
               {{ contractDetails.placeOfSignature }}
             </p>
           </div>
           <div class="half">
             <p>
               <span
-                >{{ contractDetails.created_by | titlecase }} representative
-                name :</span
-              >
+                >{{ contractDetails.category | titlecase }} representative name
+                :
+              </span>
               {{ contractDetails.clubAcademyRepresentativeName }}
             </p>
           </div>
@@ -117,9 +116,7 @@
         <div class="block-middle border-bottom">
           <div class="full">
             <p>
-              <span
-                >{{ contractDetails.created_by | titlecase }} address :</span
-              >
+              <span>{{ contractDetails.category | titlecase }} address : </span>
               {{ contractDetails.clubAcademyAddress }}
             </p>
           </div>
@@ -129,14 +126,14 @@
           <div class="half">
             <p>
               <span
-                >{{ contractDetails.created_by | titlecase }} Phone Number:
+                >{{ contractDetails.category | titlecase }} Phone Number:
               </span>
               {{ contractDetails.clubAcademyPhoneNumber }}
             </p>
           </div>
           <div class="half">
             <p>
-              <span>AIFF accreditation number :</span>
+              <span>AIFF accreditation number : </span>
               {{ contractDetails.aiffNumber }}
             </p>
           </div>
@@ -151,7 +148,7 @@
           </div>
           <div class="half">
             <p>
-              <span>Legal guardian name :</span>
+              <span>Legal guardian name : </span>
               {{ contractDetails.legalGuardianName }}
             </p>
           </div>
@@ -160,7 +157,7 @@
         <div class="block-middle border-bottom">
           <div class="full">
             <p>
-              <span>Player address :</span>
+              <span>Player address : </span>
               {{ contractDetails.playerAddress }}
             </p>
           </div>
@@ -175,7 +172,7 @@
           </div>
           <div class="half">
             <p>
-              <span>Player email id :</span>
+              <span>Player email id : </span>
               {{ contractDetails.playerEmail }}
             </p>
           </div>
@@ -184,7 +181,7 @@
         <div class="block-middle border-bottom">
           <div class="full">
             <p>
-              <span>{{ contractDetails.created_by | titlecase }} email </span>
+              <span>{{ contractDetails.category | titlecase }} email : </span>
               {{ contractDetails.clubAcademyEmail }}
             </p>
           </div>
@@ -194,14 +191,17 @@
           <div class="full">
             <p>
               <span
-                >Did the {{ contractDetails.created_by }} use the services of an
-                agent ?</span
-              >
-              {{ 'Yes' ? contractDetails.clubAcademyUsesAgentServices : 'No' }}
+                >Did the {{ contractDetails.category }} use the services of an
+                agent ? :
+              </span>
+              {{ contractDetails.clubAcademyUsesAgentServices ? 'Yes' : 'No' }}
             </p>
           </div>
         </div>
-        <div class="block-middle border-bottom">
+        <div
+          class="block-middle border-bottom"
+          *ngIf="contractDetails.clubAcademyUsesAgentServices"
+        >
           <div class="half">
             <p>
               <span>Provide Name of intermediaries : </span>
@@ -210,7 +210,7 @@
           </div>
           <div class="half">
             <p>
-              <span>Transfer fee paid to intermediaries :</span>
+              <span>Transfer fee paid to intermediaries : </span>
               {{ contractDetails.playerTransferFee }}
             </p>
           </div>
@@ -219,12 +219,15 @@
         <div class="block-middle border-bottom">
           <div class="full">
             <p>
-              <span>Did the player use services of an agent ? </span>
-              {{ Yes ? contractDetails.playerUsesAgentServices : 'No' }}
+              <span>Did the player use services of an agent ? : </span>
+              {{ contractDetails.playerUsesAgentServices ? 'Yes' : 'No' }}
             </p>
           </div>
         </div>
-        <div class="block-middle border-bottom">
+        <div
+          class="block-middle border-bottom"
+          *ngIf="contractDetails.playerUsesAgentServices"
+        >
           <div class="half">
             <p>
               <span>Provide Name of intermediaries : </span>
@@ -233,7 +236,7 @@
           </div>
           <div class="half">
             <p>
-              <span>Transfer fee paid to intermediaries:</span>
+              <span>Transfer fee paid to intermediaries : </span>
               {{ contractDetails.clubAcademyTransferFee }}
             </p>
           </div>

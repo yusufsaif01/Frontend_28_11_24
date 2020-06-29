@@ -25,7 +25,6 @@ export class ViewProfileComponent implements OnInit, OnDestroy {
   aadhar_front_url: string;
   aadhar_back_url: string;
   player_photo_url: string;
-  employment_contract_url: string;
   document_url: string;
   document_type: string;
   panelOptions: Partial<PanelOptions> = {
@@ -103,13 +102,7 @@ export class ViewProfileComponent implements OnInit, OnDestroy {
           }
           this.player_photo_url = fileLink + rootMedia.user_photo;
         }
-        if (element.type === 'employment_contract') {
-          this.employment_contract_url = fileLink + rootMedia.document;
-        }
-        if (
-          element.type !== 'employment_contract' &&
-          element.type !== 'aadhar'
-        ) {
+        if (element.type !== 'aadhar') {
           this.document_url = fileLink + rootMedia.document;
           this.docNumber = element.document_number;
           this.document_type = element.type;
