@@ -153,7 +153,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
     this.setControlValidation(this.addEditContractForm, otherControl);
     clubAcademyName.valueChanges.subscribe(value => {
-      if (value === 'Other') {
+      if (value === 'Others') {
         otherName.setValue('');
         otherEmail.setValue('');
         otherPhoneNumber.setValue('');

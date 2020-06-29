@@ -130,7 +130,7 @@
                       >{{ item.name }}</option
                     >
                   </ng-container>
-                  <option value="Other">Other</option>
+                  <option value="Others">Others</option>
                 </select>
                 <mat-error
                   *ngIf="
@@ -151,7 +151,7 @@
 
               <ng-container
                 *ngIf="
-                  addEditContractForm.get('clubAcademyName').value === 'Other'
+                  addEditContractForm.get('clubAcademyName').value === 'Others'
                 "
               >
                 <!-- Other name -->
@@ -422,7 +422,7 @@
 
             <ng-container
               *ngIf="
-                addEditContractForm.get('clubAcademyName').value !== 'Other' ||
+                addEditContractForm.get('clubAcademyName').value !== 'Others' ||
                 ['club', 'academy'].includes(member_type)
               "
             >
@@ -656,7 +656,7 @@
 
             <ng-container
               *ngIf="
-                addEditContractForm.get('clubAcademyName').value !== 'Other' ||
+                addEditContractForm.get('clubAcademyName').value !== 'Others' ||
                 ['club', 'academy'].includes(member_type)
               "
             >
