@@ -202,27 +202,6 @@
             </div>
           </div>
         </ng-container>
-
-        <!-- <ng-container *ngIf="!isPublic">
-          <div
-            class="block-middle border-bottom"
-            *ngIf="profile.player_type === 'professional'"
-          >
-            <div class="full">
-              <p>
-                <span>View Employment : </span>
-                <a
-                  *ngIf="employment_contract_url"
-                  href="{{
-                    employment_contract_url ? employment_contract_url : ''
-                  }}"
-                  target="_blank"
-                  >Document</a
-                >
-              </p>
-            </div>
-          </div>
-        </ng-container> -->
       </div>
 
       <ng-container *ngIf="!isPublic && profile.member_type === 'player'">
