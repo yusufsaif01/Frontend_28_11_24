@@ -17,6 +17,7 @@
               contractId
             ]"
             *ngIf="
+              member_type &&
               contractDetails.created_by === memberType &&
               (contractDetails.status === 'disapproved' ||
                 contractDetails.status === 'pending')
@@ -245,6 +246,7 @@
       <div
         class="actions"
         *ngIf="
+          member_type &&
           contractDetails.status !== 'completed' &&
           contractDetails.created_by !== memberType
         "

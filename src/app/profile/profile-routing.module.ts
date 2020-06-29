@@ -14,7 +14,7 @@ const appRoutes: Routes = [
     path: '',
     component: ProfileComponent,
     canActivate: [RoleGuardService, AuthenticationGuard],
-    data: { expectedRole: ['player', 'club', 'academy'] },
+    data: { expectedRole: ['player', 'club', 'academy', 'admin'] },
     children: [
       {
         path: 'view',

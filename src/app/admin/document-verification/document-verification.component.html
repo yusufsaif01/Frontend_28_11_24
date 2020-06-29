@@ -79,30 +79,51 @@
         <!-- table -->
         <div class="table-container">
           <app-table
-            [rows]="contractdataSource"
-            [tableConfig]="contracttableConfig"
+            [rows]="contractDataSource"
+            [tableConfig]="contractTableConfig"
             [NumberColumn]="'true'"
             [TableActions]="ContractListAction"
             [sortEnabled]="false"
           ></app-table>
-          <ng-template #ContractListAction>
+          <ng-template
+            #ContractListAction
+            let-canUpdateStatus="canUpdateStatus"
+            let-status="status"
+            let-id="id"
+            let-name="name"
+            ,
+            let-created_by="created_by"
+            ,
+            let-id="id"
+          >
             <div class="action-buttons">
-              <button matTooltip="View" class="view-icon">
-                <img src="assets/images/icons/eyes.png" alt="View" />
-              </button>
+              <a
+                target="_blank"
+                [routerLink]="['/member/profile/view-employment-contract/', id]"
+              >
+                <button matTooltip="View" class="view-icon">
+                  <img src="assets/images/icons/eyes.png" alt="View" />
+                </button>
+              </a>
               <button
-                [disabled]="documentDetails.documents[0].status === 'approved'"
+                *ngIf="canUpdateStatus"
+                [disabled]="
+                  status === 'active' ||
+                  status === 'yet_to_start' ||
+                  status === 'completed'
+                "
                 matTooltip="Approve"
-                (click)="updateDocumentStatus('approved')"
+                (click)="updateContractStatus('approved', name, created_by, id)"
               >
                 <img src="assets/images/icons/tick.png" alt="approve" />
               </button>
               <button
-                [disabled]="
-                  documentDetails.documents[0].status === 'disapproved'
-                "
+                *ngIf="canUpdateStatus"
+                [disabled]="status === 'disapproved'"
                 matTooltip="Disapprove"
-                (click)="updateDocumentStatus('disapproved')"
+                (click)="
+                  updateContractStatus('disapproved', name, created_by, id)
+                "
               >
                 <img src="assets/images/icons/close01.png" alt="Disapprove" />
               </button>

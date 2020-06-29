@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material';
 import { untilDestroyed } from '@app/core';
 import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
 import { environment } from '@env/environment';
+import { ContractService } from '@app/profile/view-employment-contract/contract.service';
 
 interface ResponseContext {
   added_on: string;
@@ -36,8 +37,8 @@ export class DocumentVerificationComponent implements OnInit {
   public tableConfig: DocumentVerificationTableConfig;
   public dataSource = new MatTableDataSource([]);
 
-  public contracttableConfig: ContractListAdminTableConfig;
-  public contractdataSource = new MatTableDataSource([]);
+  public contractTableConfig: ContractListAdminTableConfig;
+  public contractDataSource = new MatTableDataSource([]);
 
   member_type: string;
   user_id: string;
@@ -46,13 +47,14 @@ export class DocumentVerificationComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private _documentVerficationService: DocumentVerificationService,
     private _toastrService: ToastrService,
+    private _contractService: ContractService,
     public dialog: MatDialog
   ) {
     this.activatedRoute.params.subscribe(param => {
       this.user_id = param.id;
       this.member_type = param.member_type;
       this.tableConfig = new DocumentVerificationTableConfig(this.member_type);
-      this.contracttableConfig = new ContractListAdminTableConfig();
+      this.contractTableConfig = new ContractListAdminTableConfig();
     });
   }
 
@@ -205,11 +207,62 @@ export class DocumentVerificationComponent implements OnInit {
       .subscribe(
         response => {
           let records = response.data.records;
-          this.contractdataSource = new MatTableDataSource(records);
+          this.contractDataSource = new MatTableDataSource(records);
         },
         error => {
           this._toastrService.error(error.error.message, 'Error');
         }
       );
+  }
+
+  updateContractStatus(
+    status: string,
+    name: string,
+    created_by: string,
+    id: string
+  ) {
+    let message: string = '';
+    let header: string = '';
+    let disApprove: boolean = false;
+    if (status === 'disapproved') {
+      header = 'Please Confirm';
+      message = 'Please specify a reason for disapproval';
+      disApprove = true;
+    }
+    if (status === 'approved') {
+      (header = 'Please Confirm'),
+        (message = `Do you want to approve the Employment Contract with ${name} ${
+          created_by === 'club' ? 'club' : 'academy'
+        } ?`);
+      disApprove = false;
+    }
+    const dialogRef = this.dialog.open(VerificationPopupComponent, {
+      width: '50%',
+      data: {
+        header: header,
+        message: message,
+        disApprove: disApprove
+      }
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        let data = {
+          remarks: status === 'disapproved' ? result : ' ',
+          status: status
+        };
+        this._contractService.updateContractStatus(id, data).subscribe(
+          (response: any) => {
+            this.getEmploymentContractList();
+            this._toastrService.success(
+              'Status updated successfully',
+              response.status
+            );
+          },
+          (error: any) => {
+            this._toastrService.error(error.error.message, 'Error');
+          }
+        );
+      }
+    });
   }
 }
