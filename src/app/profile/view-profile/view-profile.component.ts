@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '@app/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AuthenticationService, untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { ContractListTableConfig } from './../edit-profile/contract-listing-table-conf';
+import { EditProfileService } from '../edit-profile/edit-profile.service';
 
 @Component({
   selector: 'app-view-profile',
   templateUrl: './view-profile.component.html',
   styleUrls: ['./view-profile.component.scss']
 })
-export class ViewProfileComponent implements OnInit {
+export class ViewProfileComponent implements OnInit, OnDestroy {
   public tableConfig: ContractListTableConfig = new ContractListTableConfig();
   public dataSource = new MatTableDataSource([]);
 
@@ -24,7 +25,6 @@ export class ViewProfileComponent implements OnInit {
   aadhar_front_url: string;
   aadhar_back_url: string;
   player_photo_url: string;
-  employment_contract_url: string;
   document_url: string;
   document_type: string;
   panelOptions: Partial<PanelOptions> = {
@@ -42,7 +42,8 @@ export class ViewProfileComponent implements OnInit {
     private _authenticationService: AuthenticationService,
     private _toastrService: ToastrService,
     private _router: Router,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _editProfileService: EditProfileService
   ) {
     this._activatedRoute.params.subscribe(params => {
       if (params['handle']) {
@@ -52,10 +53,12 @@ export class ViewProfileComponent implements OnInit {
       }
     });
   }
+  ngOnDestroy() {}
 
   ngOnInit() {
     this.numbers = [1, 2, 3, 4, 5];
     this.getProfile({});
+    this.getEmploymentContractList();
   }
 
   logout() {
@@ -66,6 +69,21 @@ export class ViewProfileComponent implements OnInit {
     this.profile = data;
     if (!this.isPublic && this.profile) this.setDocuments();
     this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
+
+  getEmploymentContractList() {
+    this._editProfileService
+      .getEmploymentContractList()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let records = response.data.records;
+          this.dataSource = new MatTableDataSource(records);
+        },
+        error => {
+          this._toastrService.error(error.error.message, 'Error');
+        }
+      );
   }
 
   setDocuments() {
@@ -84,13 +102,7 @@ export class ViewProfileComponent implements OnInit {
           }
           this.player_photo_url = fileLink + rootMedia.user_photo;
         }
-        if (element.type === 'employment_contract') {
-          this.employment_contract_url = fileLink + rootMedia.document;
-        }
-        if (
-          element.type !== 'employment_contract' &&
-          element.type !== 'aadhar'
-        ) {
+        if (element.type !== 'aadhar') {
           this.document_url = fileLink + rootMedia.document;
           this.docNumber = element.document_number;
           this.document_type = element.type;

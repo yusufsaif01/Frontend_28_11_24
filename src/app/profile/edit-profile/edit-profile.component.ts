@@ -21,6 +21,8 @@ import { SharedService } from '@app/shared/shared.service';
 import { untilDestroyed } from '@app/core';
 import { Constants } from '@app/shared/static-data/static-data';
 import { MatTableDataSource } from '@angular/material/table';
+import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { MatDialog } from '@angular/material';
 
 interface trophyObject {
   name: string;
@@ -65,7 +67,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   aiff: File;
   document: File;
   aadhar: File;
-  employment_contract: File;
   aadhar_front: File;
   aadhar_back: File;
   player_photo: File;
@@ -76,7 +77,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   aadhar_url: String;
   aadhar_front_url: string;
   aadhar_back_url: string;
-  employment_contract_url: String;
   player_photo_url: String;
 
   profile: any;
@@ -109,7 +109,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     private _editProfileService: EditProfileService,
     private _sharedService: SharedService,
     private _toastrService: ToastrService,
-    private _router: Router
+    private _router: Router,
+    public dialog: MatDialog
   ) {
     this.createForm();
     this.manageCommonControls();
@@ -134,7 +135,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       'aadhar_number',
       'aadhar_media_type',
       'player_photo',
-      'employment_contract',
       'dob',
       'aiff_id',
       'aiff',
@@ -157,7 +157,37 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       this.editProfileForm.controls.number.disable();
     }
   }
+  deletePopup(id: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '40% ',
+      panelClass: 'filterDialog',
+      data: {
+        message: 'Are you sure you want to delete?',
+        acceptText: 'Confirm',
+        rejectText: 'Cancel'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this._editProfileService
+          .deleteContract({ id })
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this._toastrService.success(
+                'Successful',
+                'Employment Contract Deleted successfully'
+              );
 
+              this.getEmploymentContractList();
+            },
+            error => {
+              this._toastrService.error(`${error.error.message}`, 'Error');
+            }
+          );
+      }
+    });
+  }
   getEmploymentContractList() {
     this._editProfileService
       .getEmploymentContractList()
@@ -370,7 +400,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   }
 
   setPlayerValidators() {
-    const employmentContract = this.editProfileForm.get('employment_contract');
     const head_coach_phone = this.editProfileForm.get('head_coach_phone');
     const head_coach_email = this.editProfileForm.get('head_coach_email');
     const head_coach_name = this.editProfileForm.get('head_coach_name');
@@ -455,10 +484,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         }
       });
 
-    let employmentContractControl = {
-      employment_contract: [Validators.required, requiredFileDocument]
-    };
-
     let heightControl = {
       height_feet: [
         Validators.required,
@@ -484,20 +509,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       .valueChanges.subscribe(player_type => {
         // if(!this.profile.documents && this.profile.documents[0])
         // aadhar.setValidators([Validators.required, requiredFileDocument]);
-
-        if (player_type === 'professional') {
-          // employmentContract.setValidators([
-          //   Validators.required,
-          //   requiredFileDocument
-          // ]);
-          this.setControlValidation(
-            this.editProfileForm,
-            employmentContractControl
-          );
-        }
-        if (player_type === 'amateur' || player_type === 'grassroot') {
-          employmentContract.setValidators(null);
-        }
 
         if (player_type === 'amateur' || player_type === 'professional') {
           this.checkRequiredValidator(
@@ -530,7 +541,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         }
 
         // aadhar.updateValueAndValidity();
-        employmentContract.updateValueAndValidity();
 
         this.checkFileValidations();
       });
@@ -650,10 +660,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
       if (this.player_photo) requestData.set('player_photo', this.player_photo);
 
-      if (this.player_type === 'professional') {
-        if (this.employment_contract)
-          requestData.set('employment_contract', this.employment_contract);
-      }
       this.setRequestDataObject(requestData, 'position');
 
       if (this.profile_status === 'verified') requestData.delete('dob');
@@ -737,10 +743,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           }
         );
     }
-  }
-
-  uploadEmploymentContract(files: FileList) {
-    this.employment_contract = files[0];
   }
 
   removeAvatar() {
@@ -980,7 +982,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         aadhar_front: ['', []], //img
         aadhar_back: ['', []], //img
         player_photo: ['', [Validators.required, requiredFileAvatar]], //img
-        employment_contract: ['', []],
         position: this._formBuilder.array([]),
         strong_foot: ['', []],
         associated_club: ['', []],
@@ -1016,9 +1017,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   checkFileValidations() {
     if (this.profile.documents) {
       this.profile.documents.forEach((data: any) => {
-        if (data.type === 'employment_contract') {
-          this.removeFileValidations(data.type);
-        }
         if (data.type === 'aiff' && this.member_type == 'club') {
           this.removeFileValidations(data.type);
         }
@@ -1188,13 +1186,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           }
           this.player_photo_url = fileLink + rootMedia.user_photo;
         }
-        if (element.type === 'employment_contract') {
-          this.employment_contract_url = fileLink + rootMedia.document;
-        }
-        if (
-          element.type !== 'employment_contract' &&
-          element.type !== 'aadhar'
-        ) {
+        if (element.type !== 'aadhar') {
           this.document_url = fileLink + rootMedia.document;
         }
       });

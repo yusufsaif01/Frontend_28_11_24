@@ -1,0 +1,273 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <!-- Left section -->
+  <div class="left-section">
+    <app-left-panel [options]="panelOptions"> </app-left-panel>
+  </div>
+  <!-- right-section -->
+  <div class="right-section">
+    <!-- player section -->
+    <div class="players">
+      <div class="block">
+        <div class="block-heading">
+          <h2>Employment Contract Details</h2>
+          <a
+            [routerLink]="[
+              '/member/profile/edit-employment-contract/',
+              contractId
+            ]"
+            *ngIf="
+              contractDetails.created_by === memberType &&
+              (contractDetails.status === 'disapproved' ||
+                contractDetails.status === 'pending')
+            "
+            class="btn"
+            >Edit Details</a
+          >
+        </div>
+      </div>
+      <!-- personal details -->
+      <div class="block">
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Player name on Contract : </span>
+              {{ contractDetails.playerName }}
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>{{ contractDetails.category | titlecase }} Name : </span>
+              {{ contractDetails.clubAcademyName }}
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="block-middle border-bottom"
+          *ngIf="contractDetails.otherEmail"
+        >
+          <div class="half">
+            <p>
+              <span>Other Name : </span>
+              {{ contractDetails.otherName ? contractDetails.otherName : '' }}
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Other Email : </span>
+              {{ contractDetails.otherEmail ? contractDetails.otherEmail : '' }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half" *ngIf="contractDetails.otherPhoneNumber">
+            <p>
+              <span>Other Phone No : </span>
+              {{
+                contractDetails.otherPhoneNumber
+                  ? contractDetails.otherPhoneNumber
+                  : ''
+              }}
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Contract Signing Date : </span>
+              {{ contractDetails.signingDate | date }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Contract effective date : </span>
+              {{ contractDetails.effectiveDate | date }}
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Contract expiry date : </span>
+              {{ contractDetails.expiryDate | date }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Place of signature : </span>
+              {{ contractDetails.placeOfSignature }}
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span
+                >{{ contractDetails.category | titlecase }} representative name
+                :
+              </span>
+              {{ contractDetails.clubAcademyRepresentativeName }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>{{ contractDetails.category | titlecase }} address : </span>
+              {{ contractDetails.clubAcademyAddress }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span
+                >{{ contractDetails.category | titlecase }} Phone Number:
+              </span>
+              {{ contractDetails.clubAcademyPhoneNumber }}
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>AIFF accreditation number : </span>
+              {{ contractDetails.aiffNumber }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>CRS User Name: </span>
+              {{ contractDetails.crsUserName }}
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Legal guardian name : </span>
+              {{ contractDetails.legalGuardianName }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Player address : </span>
+              {{ contractDetails.playerAddress }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="half">
+            <p>
+              <span>Player Mobile number: </span>
+              {{ contractDetails.playerMobileNumber }}
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Player email id : </span>
+              {{ contractDetails.playerEmail }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>{{ contractDetails.category | titlecase }} email : </span>
+              {{ contractDetails.clubAcademyEmail }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span
+                >Did the {{ contractDetails.category }} use the services of an
+                agent ? :
+              </span>
+              {{ contractDetails.clubAcademyUsesAgentServices ? 'Yes' : 'No' }}
+            </p>
+          </div>
+        </div>
+        <div
+          class="block-middle border-bottom"
+          *ngIf="contractDetails.clubAcademyUsesAgentServices"
+        >
+          <div class="half">
+            <p>
+              <span>Provide Name of intermediaries : </span>
+              {{ contractDetails.playerIntermediaryName }}
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Transfer fee paid to intermediaries : </span>
+              {{ contractDetails.playerTransferFee }}
+            </p>
+          </div>
+        </div>
+
+        <div class="block-middle border-bottom">
+          <div class="full">
+            <p>
+              <span>Did the player use services of an agent ? : </span>
+              {{ contractDetails.playerUsesAgentServices ? 'Yes' : 'No' }}
+            </p>
+          </div>
+        </div>
+        <div
+          class="block-middle border-bottom"
+          *ngIf="contractDetails.playerUsesAgentServices"
+        >
+          <div class="half">
+            <p>
+              <span>Provide Name of intermediaries : </span>
+              {{ contractDetails.clubAcademyIntermediaryName }}
+            </p>
+          </div>
+          <div class="half">
+            <p>
+              <span>Transfer fee paid to intermediaries : </span>
+              {{ contractDetails.clubAcademyTransferFee }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="actions"
+        *ngIf="
+          contractDetails.status !== 'completed' &&
+          contractDetails.created_by !== memberType
+        "
+      >
+        <button
+          [disabled]="
+            contractDetails.status === 'active' ||
+            contractDetails.status === 'yet_to_start'
+          "
+          class="approve"
+          (click)="updateContractStatus('approved')"
+        >
+          Approve
+        </button>
+        <button
+          [disabled]="contractDetails.status === 'disapproved'"
+          class="disapprove"
+          (click)="updateContractStatus('disapproved')"
+        >
+          Disapprove
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading> Loading </ng-template>

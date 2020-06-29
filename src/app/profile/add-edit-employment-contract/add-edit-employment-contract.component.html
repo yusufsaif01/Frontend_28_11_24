@@ -2,34 +2,54 @@
 <div class="site-wrapper">
   <!-- Left section -->
   <div class="left-section">
-    <app-left-panel [options]="panelOptions"> </app-left-panel>
+    <app-left-panel
+      [options]="panelOptions"
+      (sendProfileData)="getProfileData($event)"
+      (sendMemberType)="getMemberType($event)"
+    >
+    </app-left-panel>
   </div>
   <!-- Right seciton -->
   <div class="right-section">
-    <form>
+    <form [formGroup]="addEditContractForm">
       <!-- players -->
       <div class="player-details">
         <!-- player type -->
         <div class="block">
           <div class="block-header border-bottom">
-            <h4>Add New Contract</h4>
+            <h4>{{ isEditMode ? 'Edit Contract' : 'Add New Contract' }}</h4>
           </div>
         </div>
 
-        <div class="block">
-          <div class="block-header border-bottom">
-            <h4>Select Category</h4>
-          </div>
-          <div class="block-middle">
-            <div class="radio">
-              <label
-                ><input type="radio" value="club" />
-                Club
-              </label>
-              <label><input type="radio" value="Academy" /> Academy </label>
+        <ng-container *ngIf="member_type === 'player'">
+          <div class="block">
+            <div class="block-header border-bottom">
+              <h4>Select Category</h4>
+            </div>
+            <div class="block-middle">
+              <div class="radio">
+                <label>
+                  <input
+                    formControlName="category"
+                    type="radio"
+                    value="club"
+                    (click)="setCategory('club')"
+                  />
+                  Club
+                </label>
+                <label
+                  ><input
+                    formControlName="category"
+                    type="radio"
+                    value="academy"
+                    (click)="setCategory('academy')"
+                  />
+                  Academy
+                </label>
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>
 
         <div class="block">
           <div class="block-middle">
@@ -37,107 +57,353 @@
             <div class="from-block">
               <label>Player name on contract <span>*</span></label>
               <input
+                formControlName="playerName"
                 class="error-border"
                 type="text"
-                placeholder="Player name on contract"
+                placeholder="Player Name On Contract"
                 matInput
               />
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.playerName.invalid &&
+                  addEditContractForm.controls.playerName.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.playerName.errors.required
+                  "
+                  translate
+                  >Player Name is required
+                </span>
+              </mat-error>
             </div>
 
-            <!-- Club/ Academy Name -->
-            <div class="from-block">
-              <label>Club Name <span>*</span></label>
-              <select matNativeControl required>
-                <option value="">Select Club Name</option>
-              </select>
-            </div>
-
-            <!-- Other name -->
-            <div class="from-block">
-              <label>Other Name <span>*</span></label>
-              <input placeholder="Other Name" type="text" matInput />
-            </div>
-
-            <!-- Other emails -->
-            <div class="from-block">
-              <label>Other Email </label>
-              <input placeholder="Other Email" type="email" matInput />
-            </div>
-
-            <!-- Other Phone -->
-            <div class="from-block">
-              <label>Other Phone Number</label>
-              <div class="contact-no">
-                <div class="countrycode">
-                  <input type="text" value="+91" readonly tabindex="-1" />
-                </div>
-                <div class="phonenumber">
-                  <input placeholder="Phone Number" type="text" matInput />
-                </div>
+            <ng-template #clubAcadTextField>
+              <div class="from-block">
+                <label>{{ category | titlecase }} Name <span>*</span></label>
+                <input
+                  formControlName="clubAcademyName"
+                  class="error-border"
+                  type="text"
+                  placeholder="{{ category | titlecase }} Name "
+                  matInput
+                />
+                <mat-error
+                  *ngIf="
+                    addEditContractForm.controls.clubAcademyName.invalid &&
+                    addEditContractForm.controls.clubAcademyName.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      addEditContractForm.controls.clubAcademyName.errors
+                        .required
+                    "
+                    translate
+                    >{{ category | titlecase }} Name is required
+                  </span>
+                </mat-error>
               </div>
-            </div>
+            </ng-template>
+
+            <ng-container
+              *ngIf="member_type === 'player'; else clubAcadTextField"
+            >
+              <!-- Club/ Academy Name -->
+              <div class="from-block">
+                <label>{{ category | titlecase }} Name <span>*</span></label>
+                <select
+                  #SelectTag
+                  formControlName="clubAcademyName"
+                  matNativeControl
+                  required
+                  (change)="onSelectOption(SelectTag)"
+                >
+                  <option value=""
+                    >Select {{ category | titlecase }} Name</option
+                  >
+                  <ng-container *ngFor="let item of clubAcadArray">
+                    <option
+                      [attr.identity]="item.email"
+                      value="{{ item.name }}"
+                      >{{ item.name }}</option
+                    >
+                  </ng-container>
+                  <option value="Other">Other</option>
+                </select>
+                <mat-error
+                  *ngIf="
+                    addEditContractForm.controls.clubAcademyName.invalid &&
+                    addEditContractForm.controls.clubAcademyName.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      addEditContractForm.controls.clubAcademyName.errors
+                        .required
+                    "
+                    translate
+                    >{{ category | titlecase }} Name is required
+                  </span>
+                </mat-error>
+              </div>
+
+              <ng-container
+                *ngIf="
+                  addEditContractForm.get('clubAcademyName').value === 'Other'
+                "
+              >
+                <!-- Other name -->
+                <div class="from-block">
+                  <label>Other Name <span>*</span></label>
+                  <input
+                    formControlName="otherName"
+                    placeholder="Other Name"
+                    type="text"
+                    matInput
+                  />
+
+                  <mat-error
+                    *ngIf="
+                      addEditContractForm.controls.otherName.invalid &&
+                      addEditContractForm.controls.otherName.touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        addEditContractForm.controls.otherName.errors.required
+                      "
+                      translate
+                      >Other Name is required
+                    </span>
+                  </mat-error>
+                </div>
+
+                <!-- Other emails -->
+                <div class="from-block">
+                  <label>Other Email </label>
+                  <input
+                    formControlName="otherEmail"
+                    placeholder="Other Email"
+                    type="email"
+                    matInput
+                  />
+                  <mat-error
+                    *ngIf="
+                      addEditContractForm.controls.otherEmail.invalid &&
+                      addEditContractForm.controls.otherEmail.touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        addEditContractForm.controls.otherEmail.errors.required
+                      "
+                      translate
+                      >Other Email is required
+                    </span>
+                    <span
+                      *ngIf="
+                        addEditContractForm.controls.otherEmail.errors.email
+                      "
+                      translate
+                      >Other Email format is invalid
+                    </span>
+                  </mat-error>
+                </div>
+
+                <!-- Other Phone -->
+                <div class="from-block">
+                  <label>Other Phone Number</label>
+                  <div class="contact-no">
+                    <div class="countrycode">
+                      <input type="text" value="+91" readonly tabindex="-1" />
+                    </div>
+                    <div class="phonenumber">
+                      <input
+                        formControlName="otherPhoneNumber"
+                        placeholder="Other Phone Number"
+                        type="text"
+                        matInput
+                      />
+                    </div>
+
+                    <mat-error
+                      *ngIf="
+                        addEditContractForm.controls.otherPhoneNumber.invalid &&
+                        addEditContractForm.controls.otherPhoneNumber.touched
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          addEditContractForm.controls.otherPhoneNumber.errors
+                            .required
+                        "
+                        translate
+                        >Other Phone Number is required</span
+                      >
+                      <ng-template #lengthBlock>
+                        <span
+                          translate
+                          class="error-text"
+                          *ngIf="
+                            addEditContractForm.controls.otherPhoneNumber.errors
+                              .minlength
+                          "
+                        >
+                          Please provide number upto
+                          {{
+                            addEditContractForm.controls.otherPhoneNumber.errors
+                              .minlength.requiredLength
+                          }}
+                          digits
+                        </span>
+                        <span
+                          translate
+                          class="error-text"
+                          *ngIf="
+                            addEditContractForm.controls.otherPhoneNumber.errors
+                              .maxlength
+                          "
+                        >
+                          Please provide number upto
+                          {{
+                            addEditContractForm.controls.otherPhoneNumber.errors
+                              .maxlength.requiredLength
+                          }}
+                          digits
+                        </span>
+                      </ng-template>
+                      <span
+                        class="error-text"
+                        *ngIf="
+                          addEditContractForm.controls.otherPhoneNumber.errors
+                            .pattern;
+                          else lengthBlock
+                        "
+                        translate
+                      >
+                        Other Phone Number format is invalid
+                      </span>
+                    </mat-error>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
 
             <!-- Contract signing date -->
             <div class="from-block">
-              <label>Contract signing date <span>*</span></label>
+              <label>Contract Signing Date <span>*</span></label>
               <div class="datepicker">
                 <input
-                  placeholder="Contract signing date"
+                  formControlName="signingDate"
+                  placeholder="Contract Signing Date"
                   matInput
                   [matDatepicker]="signing"
+                  [max]="yesterday"
                   readonly
                 />
-                <!-- [max]="tomorrow" -->
                 <mat-datepicker-toggle [for]="signing"></mat-datepicker-toggle>
                 <mat-datepicker #signing></mat-datepicker>
               </div>
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.signingDate.invalid &&
+                  addEditContractForm.controls.signingDate.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.signingDate.errors.required
+                  "
+                  translate
+                  >Contract Signing Date is required
+                </span>
+              </mat-error>
             </div>
 
             <!-- Contract effective date -->
             <div class="from-block">
-              <label>Contract effective date <span>*</span></label>
+              <label>Contract Effective Date <span>*</span></label>
               <div class="datepicker">
                 <input
-                  placeholder="Contract effective date"
+                  formControlName="effectiveDate"
+                  placeholder="Contract Effective Date"
                   matInput
                   [matDatepicker]="effective"
+                  [min]="addEditContractForm.get('signingDate').value"
                   readonly
                 />
-                <!-- [max]="tomorrow" -->
                 <mat-datepicker-toggle
                   [for]="effective"
                 ></mat-datepicker-toggle>
                 <mat-datepicker #effective></mat-datepicker>
               </div>
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.effectiveDate.invalid &&
+                  addEditContractForm.controls.effectiveDate.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.effectiveDate.errors.required
+                  "
+                  translate
+                  >Contract Effective Date is required
+                </span>
+              </mat-error>
             </div>
 
             <!-- Contract expiry date -->
             <div class="from-block">
-              <label>Contract expiry date <span>*</span></label>
+              <label>Contract Expiry Date <span>*</span></label>
               <div class="datepicker">
                 <input
-                  placeholder="Contract expiry date"
+                  formControlName="expiryDate"
+                  placeholder="Contract Expiry Date"
                   matInput
                   [matDatepicker]="expiry"
+                  [min]="addEditContractForm.get('effectiveDate').value"
+                  [max]="fiveYearFromNow"
                   readonly
                 />
-                <!-- [max]="tomorrow" -->
                 <mat-datepicker-toggle [for]="expiry"></mat-datepicker-toggle>
                 <mat-datepicker #expiry></mat-datepicker>
               </div>
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.expiryDate.invalid &&
+                  addEditContractForm.controls.expiryDate.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.expiryDate.errors.required
+                  "
+                  translate
+                  >Contract Expiry Date is required
+                </span>
+              </mat-error>
             </div>
 
             <!-- Place of signature  -->
             <div class="from-block">
-              <label>Place of signature</label>
-              <input placeholder="Place of signature " type="text" matInput />
+              <label>Place Of Signature</label>
+              <input
+                formControlName="placeOfSignature"
+                placeholder="Place Of Signature"
+                type="text"
+                matInput
+              />
             </div>
 
             <!-- Club/ Academy representative name  -->
             <div class="from-block">
-              <label>Club representative name</label>
+              <label>{{ category | titlecase }} Representative Name</label>
               <input
-                placeholder="Club representative name "
+                formControlName="clubAcademyRepresentativeName"
+                placeholder="{{ category | titlecase }} Representative Name"
                 type="text"
                 matInput
               />
@@ -145,28 +411,110 @@
 
             <!-- Club address  -->
             <div class="from-block">
-              <label>Club address</label>
-              <input placeholder="Club address" type="text" matInput />
+              <label>{{ category | titlecase }} Address</label>
+              <input
+                formControlName="clubAcademyAddress"
+                placeholder="{{ category | titlecase }} Address"
+                type="text"
+                matInput
+              />
             </div>
 
-            <!-- Club Phone -->
-            <div class="from-block">
-              <label>Club Phone Number</label>
-              <div class="contact-no">
-                <div class="countrycode">
-                  <input type="text" value="+91" readonly tabindex="-1" />
-                </div>
-                <div class="phonenumber">
-                  <input placeholder="Phone Number" type="text" matInput />
+            <ng-container
+              *ngIf="
+                addEditContractForm.get('clubAcademyName').value !== 'Other' ||
+                ['club', 'academy'].includes(member_type)
+              "
+            >
+              <!-- Club Phone -->
+              <div class="from-block">
+                <label
+                  >{{ category | titlecase }} Phone Number <span>*</span>
+                </label>
+                <div class="contact-no">
+                  <div class="countrycode">
+                    <input type="text" value="+91" readonly tabindex="-1" />
+                  </div>
+                  <div class="phonenumber">
+                    <input
+                      formControlName="clubAcademyPhoneNumber"
+                      placeholder="{{ category | titlecase }} Phone Number"
+                      type="text"
+                      matInput
+                    />
+                    <mat-error
+                      *ngIf="
+                        addEditContractForm.controls.clubAcademyPhoneNumber
+                          .invalid &&
+                        addEditContractForm.controls.clubAcademyPhoneNumber
+                          .touched
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          addEditContractForm.controls.clubAcademyPhoneNumber
+                            .errors.required
+                        "
+                        translate
+                        >{{ category | titlecase }} Phone Number is
+                        required</span
+                      >
+                      <ng-template #lengthBlock>
+                        <span
+                          translate
+                          class="error-text"
+                          *ngIf="
+                            addEditContractForm.controls.clubAcademyPhoneNumber
+                              .errors.minlength
+                          "
+                        >
+                          Please provide number upto
+                          {{
+                            addEditContractForm.controls.clubAcademyPhoneNumber
+                              .errors.minlength.requiredLength
+                          }}
+                          digits
+                        </span>
+                        <span
+                          translate
+                          class="error-text"
+                          *ngIf="
+                            addEditContractForm.controls.clubAcademyPhoneNumber
+                              .errors.maxlength
+                          "
+                        >
+                          Please provide number upto
+                          {{
+                            addEditContractForm.controls.clubAcademyPhoneNumber
+                              .errors.maxlength.requiredLength
+                          }}
+                          digits
+                        </span>
+                      </ng-template>
+                      <span
+                        class="error-text"
+                        *ngIf="
+                          addEditContractForm.controls.clubAcademyPhoneNumber
+                            .errors.pattern;
+                          else lengthBlock
+                        "
+                        translate
+                      >
+                        {{ category | titlecase }} Phone Number format is
+                        invalid
+                      </span>
+                    </mat-error>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ng-container>
 
             <!-- AIFF accreditation number -->
             <div class="from-block">
-              <label>AIFF accreditation number</label>
+              <label>AIFF Accreditation Number</label>
               <input
-                placeholder="AIFF accreditation number"
+                formControlName="aiffNumber"
+                placeholder="AIFF Accreditation Number"
                 type="text"
                 matInput
               />
@@ -175,120 +523,360 @@
             <!-- CRS User Name  -->
             <div class="from-block">
               <label>CRS User Name</label>
-              <input placeholder="CRS User Name" type="text" matInput />
+              <input
+                formControlName="crsUserName"
+                placeholder="CRS User Name"
+                type="text"
+                matInput
+              />
             </div>
 
             <!-- Legal guardian name  -->
             <div class="from-block">
-              <label>Legal guardian name</label>
-              <input placeholder="Legal guardian name" type="text" matInput />
+              <label>Legal Guardian Name</label>
+              <input
+                formControlName="legalGuardianName"
+                placeholder="Legal Guardian Name"
+                type="text"
+                matInput
+              />
             </div>
 
             <!-- Player address  -->
             <div class="from-block">
-              <label>Player address</label>
-              <input placeholder="Player address" type="text" matInput />
+              <label>Player Address</label>
+              <input
+                formControlName="playerAddress"
+                placeholder="Player Address"
+                type="text"
+                matInput
+              />
             </div>
 
             <!-- Player Phone -->
             <div class="from-block">
-              <label>Player Phone Number <span>*</span></label>
+              <label>Player Mobile Number <span>*</span></label>
               <div class="contact-no">
                 <div class="countrycode">
                   <input type="text" value="+91" readonly tabindex="-1" />
                 </div>
                 <div class="phonenumber">
                   <input
-                    placeholder="Player Phone Number"
+                    formControlName="playerMobileNumber"
+                    placeholder="Player Mobile Number"
                     type="text"
                     matInput
                   />
                 </div>
               </div>
+
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.playerMobileNumber.invalid &&
+                  addEditContractForm.controls.playerMobileNumber.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.playerMobileNumber.errors
+                      .required
+                  "
+                  translate
+                >
+                  Player Mobile Number is required</span
+                >
+                <ng-template #lengthBlock>
+                  <span
+                    translate
+                    class="error-text"
+                    *ngIf="
+                      addEditContractForm.controls.playerMobileNumber.errors
+                        .minlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      addEditContractForm.controls.playerMobileNumber.errors
+                        .minlength.requiredLength
+                    }}
+                    digits
+                  </span>
+                  <span
+                    translate
+                    class="error-text"
+                    *ngIf="
+                      addEditContractForm.controls.playerMobileNumber.errors
+                        .maxlength
+                    "
+                  >
+                    Please provide number upto
+                    {{
+                      addEditContractForm.controls.playerMobileNumber.errors
+                        .maxlength.requiredLength
+                    }}
+                    digits
+                  </span>
+                </ng-template>
+                <span
+                  class="error-text"
+                  *ngIf="
+                    addEditContractForm.controls.playerMobileNumber.errors
+                      .pattern;
+                    else lengthBlock
+                  "
+                  translate
+                >
+                  Player Mobile Number format is invalid
+                </span>
+              </mat-error>
             </div>
 
             <!-- Player email id  -->
             <div class="from-block">
-              <label>Player email id</label>
-              <input placeholder="Player email id" type="text" matInput />
+              <label>Player email Id</label>
+              <input
+                formControlName="playerEmail"
+                placeholder="Player Email Id"
+                type="text"
+                matInput
+              />
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.playerEmail.invalid &&
+                  addEditContractForm.controls.playerEmail.touched
+                "
+              >
+                <span
+                  *ngIf="addEditContractForm.controls.playerEmail.errors.email"
+                  translate
+                  >Player Email format is invalid
+                </span>
+              </mat-error>
             </div>
 
-            <!-- Club Academy email id  -->
-            <div class="from-block">
-              <label>Club email id </label>
-              <input placeholder="Club email id" type="text" matInput />
-            </div>
+            <ng-container
+              *ngIf="
+                addEditContractForm.get('clubAcademyName').value !== 'Other' ||
+                ['club', 'academy'].includes(member_type)
+              "
+            >
+              <!-- Club Academy email id  -->
+              <div class="from-block">
+                <label>{{ category | titlecase }} Email Id </label>
+                <input
+                  formControlName="clubAcademyEmail"
+                  placeholder="{{ category | titlecase }} Email Id"
+                  type="text"
+                  matInput
+                />
+
+                <mat-error
+                  *ngIf="
+                    addEditContractForm.controls.clubAcademyEmail.invalid &&
+                    addEditContractForm.controls.clubAcademyEmail.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      addEditContractForm.controls.clubAcademyEmail.errors.email
+                    "
+                    translate
+                    >{{ category | titlecase }} Email format is invalid
+                  </span>
+                </mat-error>
+              </div>
+            </ng-container>
 
             <!-- Did the club/ academy use the services of an agent?  -->
             <div class="from-block-full">
-              <label>Did the club use the services of an agent? </label>
+              <label
+                >Did the {{ category }} use the services of an agent?
+              </label>
               <div class="radio">
                 <label
-                  ><input type="radio" value="Yes" />
+                  ><input
+                    formControlName="clubAcademyUsesAgentServices"
+                    type="radio"
+                    value="true"
+                  />
                   Yes
                 </label>
-                <label><input type="radio" value="No" /> No </label>
+                <label
+                  ><input
+                    formControlName="clubAcademyUsesAgentServices"
+                    type="radio"
+                    value="false"
+                  />
+                  No
+                </label>
               </div>
             </div>
 
-            <!-- Provide Name of intermediaries   -->
-            <div class="from-block">
-              <label>Provide Name of intermediaries </label>
-              <input
-                placeholder="Provide Name of intermediaries "
-                type="text"
-                matInput
-              />
-            </div>
+            <ng-container
+              *ngIf="
+                addEditContractForm.get('clubAcademyUsesAgentServices')
+                  .value === 'true'
+              "
+            >
+              <!-- Provide Name of intermediaries   -->
+              <div class="from-block">
+                <label>Provide Name Of Intermediaries </label>
+                <input
+                  formControlName="clubAcademyIntermediaryName"
+                  placeholder="Provide Name Of Intermediaries "
+                  type="text"
+                  matInput
+                />
+                <mat-error
+                  *ngIf="
+                    addEditContractForm.controls.clubAcademyIntermediaryName
+                      .invalid &&
+                    addEditContractForm.controls.clubAcademyIntermediaryName
+                      .touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      addEditContractForm.controls.clubAcademyIntermediaryName
+                        .errors.required
+                    "
+                    translate
+                  >
+                    Name of intermediaries is required
+                  </span>
+                </mat-error>
+              </div>
 
-            <!-- Percentage of transfer fee paid to intermediaries  -->
-            <div class="from-block">
-              <label>Percentage of transfer fee paid to intermediaries </label>
-              <input
-                placeholder="Percentage of transfer fee paid to intermediaries"
-                type="text"
-                matInput
-              />
-            </div>
+              <!-- Percentage of transfer fee paid to intermediaries  -->
+              <div class="from-block">
+                <label
+                  >Percentage Of Transfer Fee Paid To Intermediaries
+                </label>
+                <input
+                  formControlName="clubAcademyTransferFee"
+                  placeholder="Percentage Of Transfer Fee Paid To Intermediaries"
+                  type="text"
+                  matInput
+                />
+                <mat-error
+                  *ngIf="
+                    addEditContractForm.controls.clubAcademyTransferFee
+                      .invalid &&
+                    addEditContractForm.controls.clubAcademyTransferFee.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      addEditContractForm.controls.clubAcademyTransferFee.errors
+                        .required
+                    "
+                    translate
+                  >
+                    Percentage Of Transfer Fee Paid To Intermediaries is
+                    required
+                  </span>
+                </mat-error>
+              </div>
+            </ng-container>
 
             <!-- Did the club/ academy use the services of an agent?  -->
             <div class="from-block-full">
               <label>Did the player use services of an agent? </label>
               <div class="radio">
                 <label
-                  ><input type="radio" value="Yes" />
+                  ><input
+                    formControlName="playerUsesAgentServices"
+                    type="radio"
+                    value="true"
+                  />
                   Yes
                 </label>
-                <label><input type="radio" value="No" /> No </label>
+                <label
+                  ><input
+                    formControlName="playerUsesAgentServices"
+                    type="radio"
+                    value="false"
+                  />
+                  No
+                </label>
               </div>
             </div>
 
-            <!-- Provide Name of intermediaries   -->
-            <div class="from-block">
-              <label>Provide Name of intermediaries </label>
-              <input
-                placeholder="Provide Name of intermediaries "
-                type="text"
-                matInput
-              />
-            </div>
+            <ng-container
+              *ngIf="
+                addEditContractForm.get('playerUsesAgentServices').value ===
+                'true'
+              "
+            >
+              <!-- Provide Name of intermediaries   -->
+              <div class="from-block">
+                <label>Provide Name Of Intermediaries </label>
+                <input
+                  formControlName="playerIntermediaryName"
+                  placeholder="Provide Name Of Intermediaries "
+                  type="text"
+                  matInput
+                />
+                <mat-error
+                  *ngIf="
+                    addEditContractForm.controls.playerIntermediaryName
+                      .invalid &&
+                    addEditContractForm.controls.playerIntermediaryName.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      addEditContractForm.controls.playerIntermediaryName.errors
+                        .required
+                    "
+                    translate
+                  >
+                    Name Of Intermediaries is required
+                  </span>
+                </mat-error>
+              </div>
 
-            <!-- Percentage of transfer fee paid to intermediaries  -->
-            <div class="from-block">
-              <label>Percentage of transfer fee paid to intermediaries </label>
-              <input
-                placeholder="Percentage of transfer fee paid to intermediaries"
-                type="text"
-                matInput
-              />
-            </div>
+              <!-- Percentage of transfer fee paid to intermediaries  -->
+              <div class="from-block">
+                <label
+                  >Percentage Of Transfer Fee Paid To Intermediaries
+                </label>
+                <input
+                  formControlName="playerTransferFee"
+                  placeholder="Percentage Of Transfer Fee Paid To Intermediaries"
+                  type="text"
+                  matInput
+                />
+                <mat-error
+                  *ngIf="
+                    addEditContractForm.controls.playerTransferFee.invalid &&
+                    addEditContractForm.controls.playerTransferFee.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      addEditContractForm.controls.playerTransferFee.errors
+                        .required
+                    "
+                    translate
+                  >
+                    Percentage Of Transfer Fee Paid To Intermediaries is
+                    required
+                  </span>
+                </mat-error>
+              </div>
+            </ng-container>
           </div>
         </div>
         <!-- bottom -->
         <div class="block-bottom">
-          <a> Cancel </a>
-          <button class="btn">
-            Save
+          <a [routerLink]="getCancelRoute()"> Cancel </a>
+          <button
+            [disabled]="!addEditContractForm.valid"
+            class="btn"
+            (click)="addUpdateContract()"
+          >
+            {{ isEditMode ? 'Save and Send For Approval' : 'Save' }}
           </button>
         </div>
       </div>

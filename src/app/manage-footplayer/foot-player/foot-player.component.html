@@ -62,12 +62,15 @@
           let-position="position"
           let-status="status"
           let-email="email"
+          let-canAddContract="canAddContract"
         >
           <div class="action-buttons">
             <button
               matTooltip="Resend Invitation"
               [ngClass]="{
-                'btn-disable': ['pending', 'added', 'rejected'].includes(status)
+                'icon-disable': ['pending', 'added', 'rejected'].includes(
+                  status
+                )
               }"
               [disabled]="['pending', 'added', 'rejected'].includes(status)"
               (click)="resendInvitationPopup(email)"
@@ -75,7 +78,13 @@
               <img src="assets/images/icons/refresh01.png" alt="refresh" />
             </button>
 
-            <button matTooltip="Add Contract">
+            <button
+              [ngClass]="{
+                'icon-disable': !canAddContract
+              }"
+              [routerLink]="['/member/profile/add-employment-contract']"
+              matTooltip="Add Contract"
+            >
               <img src="assets/images/icons/plus.png" alt="Add" />
             </button>
 

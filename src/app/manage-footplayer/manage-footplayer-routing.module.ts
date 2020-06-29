@@ -6,6 +6,7 @@ import { extract, AuthenticationGuard } from '@app/core';
 import { ManageFootPlayerComponent } from './manage-footplayer.component';
 import { FootPlayerComponent } from './foot-player/foot-player.component';
 import { ClubAcademyFootplayerComponent } from './club-academy-footplayer/club-academy-footplayer.component';
+import { ContractManagementComponent } from './contract-management/contract-management.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -16,12 +17,17 @@ const appRoutes: Routes = [
       {
         path: '',
         component: FootPlayerComponent,
-        data: { title: extract('Foot Player') }
+        data: { title: extract('FootPlayers') }
       },
       {
         path: 'club-academy',
         component: ClubAcademyFootplayerComponent,
-        data: { title: extract('Foot Player') }
+        data: { title: extract('FootPlayers') }
+      },
+      {
+        path: 'contract-management',
+        component: ContractManagementComponent,
+        data: { title: extract('Contract Management') }
       },
       { path: '**', component: FootPlayerComponent }
     ]
