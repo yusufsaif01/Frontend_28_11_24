@@ -102,10 +102,7 @@ export class ViewProfileComponent implements OnInit, OnDestroy {
           }
           this.player_photo_url = fileLink + rootMedia.user_photo;
         }
-        if (
-          element.type !== 'employment_contract' &&
-          element.type !== 'aadhar'
-        ) {
+        if (element.type !== 'aadhar') {
           this.document_url = fileLink + rootMedia.document;
           this.docNumber = element.document_number;
           this.document_type = element.type;
