@@ -18,7 +18,7 @@ const appRoutes: Routes = [
       {
         path: 'foot-requests',
         component: FootRequestComponent,
-        data: { title: extract('Foot Requests') }
+        data: { title: extract('FootRequests') }
       },
       {
         path: 'foot-mates',
