@@ -130,7 +130,7 @@
                       >{{ item.name }}</option
                     >
                   </ng-container>
-                  <option value="Other">Other</option>
+                  <option value="Others">Others</option>
                 </select>
                 <mat-error
                   *ngIf="
@@ -151,7 +151,7 @@
 
               <ng-container
                 *ngIf="
-                  addEditContractForm.get('clubAcademyName').value === 'Other'
+                  addEditContractForm.get('clubAcademyName').value === 'Others'
                 "
               >
                 <!-- Other name -->
@@ -422,7 +422,7 @@
 
             <ng-container
               *ngIf="
-                addEditContractForm.get('clubAcademyName').value !== 'Other' ||
+                addEditContractForm.get('clubAcademyName').value !== 'Others' ||
                 ['club', 'academy'].includes(member_type)
               "
             >
@@ -633,7 +633,12 @@
 
             <!-- Player email id  -->
             <div class="from-block">
-              <label>Player email Id</label>
+              <label
+                >Player email Id
+                <span *ngIf="['club', 'academy'].includes(member_type)"
+                  >*</span
+                ></label
+              >
               <input
                 formControlName="playerEmail"
                 placeholder="Player Email Id"
@@ -647,6 +652,14 @@
                 "
               >
                 <span
+                  *ngIf="
+                    addEditContractForm.controls.playerEmail.errors.required
+                  "
+                  translate
+                >
+                  Player Email is required
+                </span>
+                <span
                   *ngIf="addEditContractForm.controls.playerEmail.errors.email"
                   translate
                   >Player Email format is invalid
@@ -656,7 +669,7 @@
 
             <ng-container
               *ngIf="
-                addEditContractForm.get('clubAcademyName').value !== 'Other' ||
+                addEditContractForm.get('clubAcademyName').value !== 'Others' ||
                 ['club', 'academy'].includes(member_type)
               "
             >
@@ -689,7 +702,7 @@
 
             <!-- Did the club/ academy use the services of an agent?  -->
             <div class="from-block-full">
-              <label
+              <label class="text-reset"
                 >Did the {{ category }} use the services of an agent?
               </label>
               <div class="radio">
@@ -781,7 +794,9 @@
 
             <!-- Did the club/ academy use the services of an agent?  -->
             <div class="from-block-full">
-              <label>Did the player use services of an agent? </label>
+              <label class="text-reset"
+                >Did the player use services of an agent?
+              </label>
               <div class="radio">
                 <label
                   ><input

@@ -67,7 +67,9 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
           } else {
             this.totalRecordSubject$.next(true);
           }
-
+          if (records.length) {
+            this.prepareResponse(records);
+          }
           this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
           this.total_count = response.data.total;
@@ -79,6 +81,18 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
           this._toastrService.error(`${error.error.message}`, 'Find Player');
         }
       );
+  }
+  prepareResponse(records: any) {
+    records.forEach((element: any) => {
+      element.playerName = {
+        name: element.name,
+        profileUrl:
+          environment.mediaUrl + '/member/profile/view/' + element.user_id
+      };
+    });
+  }
+  attachDocumentUrl(documentUrl: string) {
+    return environment.mediaUrl + documentUrl;
   }
 
   sendFootPlayerRequest(user_id: string) {

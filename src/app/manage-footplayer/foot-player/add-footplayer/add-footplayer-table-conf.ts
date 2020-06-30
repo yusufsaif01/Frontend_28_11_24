@@ -5,7 +5,7 @@ export class AddFootPlayerTableConfig extends TableConfig {
     this.allowedColumns = [
       'serialNumber',
       'avatar',
-      'name',
+      'playerName',
       'category',
       'position'
     ];
@@ -25,11 +25,11 @@ export class AddFootPlayerTableConfig extends TableConfig {
           return ele[this.columns.avatar.code];
         }
       },
-      name: {
-        code: 'name',
+      playerName: {
+        code: 'playerName',
         text: 'Name',
         getValue: (ele: any) => {
-          return ele[this.columns.name.code];
+          return ele[this.columns.playerName.code];
         }
       },
       category: {

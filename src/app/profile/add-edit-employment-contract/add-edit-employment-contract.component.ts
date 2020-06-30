@@ -153,7 +153,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
     this.setControlValidation(this.addEditContractForm, otherControl);
     clubAcademyName.valueChanges.subscribe(value => {
-      if (value === 'Other') {
+      if (value === 'Others') {
         otherName.setValue('');
         otherEmail.setValue('');
         otherPhoneNumber.setValue('');
@@ -245,6 +245,16 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   setValidators() {
     if (this.member_type === 'player') {
       this.setPlayerValidators();
+    } else if (['club', 'academy'].includes(this.member_type)) {
+      let playerEmailControl = {
+        playerEmail: [Validators.required, Validators.email]
+      };
+      this.checkRequiredValidator(
+        playerEmailControl,
+        playerEmailControl.playerEmail,
+        1
+      );
+      this.setControlValidation(this.addEditContractForm, playerEmailControl);
     }
 
     const clubAcademyUsesAgentServices = this.addEditContractForm.get(

@@ -99,10 +99,20 @@
 
       button.approve {
         background-color: $success;
+
+        &:disabled {
+          opacity: 0.4 !important;
+        }
       }
 
       button.disapprove {
         background-color: $error;
+        cursor: not-allowed;
+
+        &:disabled {
+          opacity: 0.4 !important;
+          cursor: not-allowed;
+        }
       }
     }
   }
@@ -116,4 +126,8 @@
 
 .border-bottom {
   border-bottom: 1px solid $border-color;
+}
+
+.text-reset {
+  text-transform: none !important;
 }

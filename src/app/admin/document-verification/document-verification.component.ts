@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material';
 import { untilDestroyed } from '@app/core';
 import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
 import { environment } from '@env/environment';
+import { ContractService } from '@app/profile/view-employment-contract/contract.service';
 
 interface ResponseContext {
   added_on: string;
@@ -36,8 +37,8 @@ export class DocumentVerificationComponent implements OnInit {
   public tableConfig: DocumentVerificationTableConfig;
   public dataSource = new MatTableDataSource([]);
 
-  public contracttableConfig: ContractListAdminTableConfig;
-  public contractdataSource = new MatTableDataSource([]);
+  public contractTableConfig: ContractListAdminTableConfig;
+  public contractDataSource = new MatTableDataSource([]);
 
   member_type: string;
   user_id: string;
@@ -46,18 +47,20 @@ export class DocumentVerificationComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private _documentVerficationService: DocumentVerificationService,
     private _toastrService: ToastrService,
+    private _contractService: ContractService,
     public dialog: MatDialog
   ) {
     this.activatedRoute.params.subscribe(param => {
       this.user_id = param.id;
       this.member_type = param.member_type;
       this.tableConfig = new DocumentVerificationTableConfig(this.member_type);
-      this.contracttableConfig = new ContractListAdminTableConfig();
+      this.contractTableConfig = new ContractListAdminTableConfig();
     });
   }
 
   ngOnInit() {
     this.getDocumentStatus();
+    this.getEmploymentContractList();
   }
 
   updateSidebar($event: any) {
@@ -72,7 +75,6 @@ export class DocumentVerificationComponent implements OnInit {
           this.documentDetails = response.data;
           let modifiedResponse = this.prepareResponse(this.documentDetails);
           this.dataSource = new MatTableDataSource([modifiedResponse]);
-          this.contractdataSource = new MatTableDataSource([modifiedResponse]);
         },
         error => {
           console.log(error);
@@ -195,6 +197,82 @@ export class DocumentVerificationComponent implements OnInit {
       width: '40%',
       autoFocus: false,
       data: { imageURL: event }
+    });
+  }
+
+  getEmploymentContractList() {
+    this._documentVerficationService
+      .getEmploymentContractList(this.user_id)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let records = response.data.records;
+          let modifiedResponse: any = this.prepareContractResponse(records);
+          this.contractDataSource = new MatTableDataSource(modifiedResponse);
+        },
+        error => {
+          this._toastrService.error(error.error.message, 'Error');
+        }
+      );
+  }
+  prepareContractResponse(records: any) {
+    records.forEach((element: any) => {
+      if (element.canUpdateStatus) {
+        element.clubAcademyName = { name: element.name };
+      } else {
+        element.clubAcademyName = {
+          name: element.name,
+          profileUrl:
+            environment.mediaUrl +
+            '/member/profile/view/' +
+            element.clubAcademyUserId
+        };
+      }
+    });
+    return records;
+  }
+
+  updateContractStatus(status: string, id: string, playerName: string) {
+    let message: string = '';
+    let header: string = '';
+    let disApprove: boolean = false;
+    if (status === 'disapproved') {
+      header = 'Please Confirm';
+      message = 'Please specify a reason for disapproval';
+      disApprove = true;
+    }
+    if (status === 'approved') {
+      (header = 'Please Confirm'),
+        (message = `Do you want to approve the Employment Contract of ${playerName} player ?`);
+      disApprove = false;
+    }
+    const dialogRef = this.dialog.open(VerificationPopupComponent, {
+      width: '50%',
+      data: {
+        header: header,
+        message: message,
+        disApprove: disApprove
+      }
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        let data = {
+          remarks: status === 'disapproved' ? result : ' ',
+          status: status
+        };
+        this._contractService.updateContractStatus(id, data).subscribe(
+          (response: any) => {
+            this.getEmploymentContractList();
+            this._toastrService.success(
+              'Status updated successfully',
+              response.status
+            );
+          },
+          (error: any) => {
+            this._toastrService.error(error.error.message, 'Error');
+          }
+        );
+      }
     });
   }
 }
