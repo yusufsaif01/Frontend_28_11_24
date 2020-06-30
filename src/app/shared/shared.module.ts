@@ -14,6 +14,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { TrimPipe } from './pipes/trim.pipe';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
+import { SearchBoxComponent } from './search-box/search-box.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { VerificationPopupComponent } from '@app/admin/verification-popup/verifi
     PaginationComponent,
     TruncatePipe,
     TrimPipe,
-    VerificationPopupComponent
+    VerificationPopupComponent,
+    SearchBoxComponent
   ],
   entryComponents: [VerificationPopupComponent],
   providers: [NgxImageCompressService],
@@ -49,7 +51,8 @@ import { VerificationPopupComponent } from '@app/admin/verification-popup/verifi
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
-    VerificationPopupComponent
+    VerificationPopupComponent,
+    SearchBoxComponent
   ]
 })
 export class SharedModule {}
