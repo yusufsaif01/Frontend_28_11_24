@@ -222,9 +222,10 @@ export class DocumentVerificationComponent implements OnInit {
       } else {
         element.clubAcademyName = {
           name: element.name,
-          profileUrl: this.attachDocumentUrl(
-            '/member/profile/view/' + element.clubAcademyUserId
-          )
+          profileUrl:
+            environment.mediaUrl +
+            '/member/profile/view/' +
+            element.clubAcademyUserId
         };
       }
     });

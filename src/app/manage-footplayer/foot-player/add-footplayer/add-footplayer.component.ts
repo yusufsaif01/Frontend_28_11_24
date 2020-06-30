@@ -86,12 +86,10 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
     records.forEach((element: any) => {
       element.playerName = {
         name: element.name,
-        profileUrl: this.attachDocumentUrl(
-          '/member/profile/view/' + element.user_id
-        )
+        profileUrl:
+          environment.mediaUrl + '/member/profile/view/' + element.user_id
       };
     });
-    return records;
   }
   attachDocumentUrl(documentUrl: string) {
     return environment.mediaUrl + documentUrl;
