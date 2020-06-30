@@ -32,7 +32,6 @@ export class ViewEmploymentContractComponent implements OnInit {
     this._route.params.subscribe(params => {
       this.contractId = params['id'];
     });
-    this.memberType = localStorage.getItem('member_type');
   }
 
   ngOnInit() {
@@ -43,6 +42,7 @@ export class ViewEmploymentContractComponent implements OnInit {
     this._contractService.getContractDetails(this.contractId).subscribe(
       (response: any) => {
         this.contractDetails = response.data;
+        this.memberType = localStorage.getItem('member_type');
       },
       error => {
         this._toastrService.error(error.error.message, 'Error');
