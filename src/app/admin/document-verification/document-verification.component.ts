@@ -218,14 +218,14 @@ export class DocumentVerificationComponent implements OnInit {
   prepareContractResponse(records: any) {
     records.forEach((element: any) => {
       if (element.canUpdateStatus) {
-        element.clubAcademyName = element.name;
+        element.clubAcademyName = { name: element.name };
       } else {
-        element.clubAcademyName =
-          element.name +
-          '---' +
-          environment.mediaUrl +
-          '/member/profile/view/' +
-          element.clubAcademyUserId;
+        element.clubAcademyName = {
+          name: element.name,
+          profileUrl: this.attachDocumentUrl(
+            '/member/profile/view/' + element.clubAcademyUserId
+          )
+        };
       }
     });
     return records;

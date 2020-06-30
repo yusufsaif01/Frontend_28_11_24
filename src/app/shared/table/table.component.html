@@ -203,16 +203,16 @@
         </p>
         <p *ngIf="col === 'clubAcademyName' || col === 'playerName'">
           <a
-            *ngIf="tableConfig.columns[col].getValue(element).includes('---')"
-            [href]="tableConfig.columns[col].getValue(element).split('---')[1]"
+            *ngIf="tableConfig.columns[col].getValue(element).profileUrl"
+            [href]="tableConfig.columns[col].getValue(element).profileUrl"
             target="_blank"
           >
-            {{ tableConfig.columns[col].getValue(element).split('---')[0] }}
+            {{ tableConfig.columns[col].getValue(element).name }}
           </a>
           <ng-container
-            *ngIf="!tableConfig.columns[col].getValue(element).includes('---')"
+            *ngIf="!tableConfig.columns[col].getValue(element).profileUrl"
           >
-            {{ tableConfig.columns[col].getValue(element).split('---')[0] }}
+            {{ tableConfig.columns[col].getValue(element).name }}
           </ng-container>
         </p>
       </div>
