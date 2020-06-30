@@ -633,7 +633,12 @@
 
             <!-- Player email id  -->
             <div class="from-block">
-              <label>Player email Id</label>
+              <label
+                >Player email Id
+                <span *ngIf="['club', 'academy'].includes(member_type)"
+                  >*</span
+                ></label
+              >
               <input
                 formControlName="playerEmail"
                 placeholder="Player Email Id"
@@ -646,6 +651,14 @@
                   addEditContractForm.controls.playerEmail.touched
                 "
               >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.playerEmail.errors.required
+                  "
+                  translate
+                >
+                  Player Email is required
+                </span>
                 <span
                   *ngIf="addEditContractForm.controls.playerEmail.errors.email"
                   translate
