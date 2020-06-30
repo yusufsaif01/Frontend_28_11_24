@@ -90,8 +90,7 @@
             let-canUpdateStatus="canUpdateStatus"
             let-status="status"
             let-id="id"
-            let-name="name"
-            let-created_by="created_by"
+            let-playerName="playerName"
             let-id="id"
           >
             <div class="action-buttons">
@@ -111,7 +110,7 @@
                   status === 'completed'
                 "
                 matTooltip="Approve"
-                (click)="updateContractStatus('approved', name, created_by, id)"
+                (click)="updateContractStatus('approved', id, playerName)"
               >
                 <img src="assets/images/icons/tick.png" alt="approve" />
               </button>
@@ -119,9 +118,7 @@
                 *ngIf="canUpdateStatus && status !== 'completed'"
                 [disabled]="status === 'disapproved'"
                 matTooltip="Disapprove"
-                (click)="
-                  updateContractStatus('disapproved', name, created_by, id)
-                "
+                (click)="updateContractStatus('disapproved', id, playerName)"
               >
                 <img src="assets/images/icons/close01.png" alt="Disapprove" />
               </button>

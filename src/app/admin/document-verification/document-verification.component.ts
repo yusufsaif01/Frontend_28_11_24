@@ -215,12 +215,7 @@ export class DocumentVerificationComponent implements OnInit {
       );
   }
 
-  updateContractStatus(
-    status: string,
-    name: string,
-    created_by: string,
-    id: string
-  ) {
+  updateContractStatus(status: string, id: string, playerName: string) {
     let message: string = '';
     let header: string = '';
     let disApprove: boolean = false;
@@ -231,9 +226,7 @@ export class DocumentVerificationComponent implements OnInit {
     }
     if (status === 'approved') {
       (header = 'Please Confirm'),
-        (message = `Do you want to approve the Employment Contract with ${name} ${
-          created_by === 'club' ? 'club' : 'academy'
-        } ?`);
+        (message = `Do you want to approve the Employment Contract of ${playerName} player ?`);
       disApprove = false;
     }
     const dialogRef = this.dialog.open(VerificationPopupComponent, {
