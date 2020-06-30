@@ -29,7 +29,9 @@
               'document',
               'aiff_image',
               'effectiveDate',
-              'expiryDate'
+              'expiryDate',
+              'clubAcademyName',
+              'playerName'
             ].includes(col)
           "
         >
@@ -198,6 +200,20 @@
               alt=""
             />
           </a>
+        </p>
+        <p *ngIf="col === 'clubAcademyName' || col === 'playerName'">
+          <a
+            *ngIf="tableConfig.columns[col].getValue(element).includes('---')"
+            [href]="tableConfig.columns[col].getValue(element).split('---')[1]"
+            target="_blank"
+          >
+            {{ tableConfig.columns[col].getValue(element).split('---')[0] }}
+          </a>
+          <ng-container
+            *ngIf="!tableConfig.columns[col].getValue(element).includes('---')"
+          >
+            {{ tableConfig.columns[col].getValue(element).split('---')[0] }}
+          </ng-container>
         </p>
       </div>
     </mat-cell>
