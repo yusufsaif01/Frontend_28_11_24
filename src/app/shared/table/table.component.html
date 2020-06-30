@@ -97,7 +97,11 @@
             green: ['added', 'approved'].includes(element.status)
           }"
         >
-          {{ tableConfig.columns[col].getValue(element) | titlecase }}
+          {{
+            element.status === 'yet_to_start'
+              ? 'Yet to Start'
+              : (tableConfig.columns[col].getValue(element) | titlecase)
+          }}
           <!-- <img
             class="status-icon"
             src="./../../../assets/images/icons/tick.png"
