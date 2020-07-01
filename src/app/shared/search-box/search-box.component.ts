@@ -17,9 +17,7 @@ import { untilDestroyed } from '@app/core';
 })
 export class SearchBoxComponent implements OnInit, OnDestroy {
   @Input() placeholder = '';
-
   @Output() sendSearchText = new EventEmitter<string>();
-
   subject: Subject<{ searchText: string }> = new Subject();
 
   constructor() {}
