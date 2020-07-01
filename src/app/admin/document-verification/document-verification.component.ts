@@ -207,12 +207,29 @@ export class DocumentVerificationComponent implements OnInit {
       .subscribe(
         response => {
           let records = response.data.records;
-          this.contractDataSource = new MatTableDataSource(records);
+          let modifiedResponse: any = this.prepareContractResponse(records);
+          this.contractDataSource = new MatTableDataSource(modifiedResponse);
         },
         error => {
           this._toastrService.error(error.error.message, 'Error');
         }
       );
+  }
+  prepareContractResponse(records: any) {
+    records.forEach((element: any) => {
+      if (element.canUpdateStatus) {
+        element.clubAcademyName = { name: element.name };
+      } else {
+        element.clubAcademyName = {
+          name: element.name,
+          profileUrl:
+            environment.mediaUrl +
+            '/member/profile/view/' +
+            element.clubAcademyUserId
+        };
+      }
+    });
+    return records;
   }
 
   updateContractStatus(status: string, id: string, playerName: string) {
