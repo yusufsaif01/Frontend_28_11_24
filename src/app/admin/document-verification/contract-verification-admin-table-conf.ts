@@ -4,7 +4,7 @@ export class ContractListAdminTableConfig extends TableConfig {
     super();
     this.allowedColumns = [
       'serialNumber',
-      'name',
+      'clubAcademyName',
       'effectiveDate',
       'expiryDate',
       'created_by',
@@ -19,11 +19,11 @@ export class ContractListAdminTableConfig extends TableConfig {
           return ele[this.columns.serialNumber.code];
         }
       },
-      name: {
-        code: 'name',
+      clubAcademyName: {
+        code: 'clubAcademyName',
         text: 'Club/Academy',
         getValue: (ele: any) => {
-          return ele[this.columns.name.code];
+          return ele[this.columns.clubAcademyName.code];
         }
       },
       effectiveDate: {
