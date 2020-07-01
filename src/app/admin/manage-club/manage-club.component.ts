@@ -209,8 +209,8 @@ export class ManageClubComponent implements OnInit, OnDestroy {
     });
   }
 
-  applyFilter(event: any) {
-    let filterValue = event.target.value;
+  getSearchText(value: string) {
+    let filterValue = value;
     this.getClubList(this.pageSize, 1, filterValue);
     // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
