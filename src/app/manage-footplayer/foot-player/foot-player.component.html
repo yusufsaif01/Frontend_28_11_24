@@ -26,20 +26,11 @@
       (filterChanges)="onChangeFilter($event)"
     ></app-filter>
     <!-- search -->
-    <div class="search">
-      <div class="search-form">
-        <form>
-          <input
-            (keyup)="applyFilter($event)"
-            type="text"
-            placeholder="Search player"
-          />
-          <span class="search-icon">
-            <i-feather name="search" class="icon-size"></i-feather>
-          </span>
-        </form>
-      </div>
-    </div>
+    <app-grid-search-box
+      placeholder="Search Player"
+      (sendSearchText)="getSearchText($event)"
+    >
+    </app-grid-search-box>
     <div class="table">
       <!-- table -->
       <div class="table-container">

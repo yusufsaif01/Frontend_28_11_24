@@ -11,11 +11,11 @@ import { debounceTime, distinctUntilKeyChanged } from 'rxjs/operators';
 import { untilDestroyed } from '@app/core';
 
 @Component({
-  selector: 'app-search-box',
-  templateUrl: './search-box.component.html',
-  styleUrls: ['./search-box.component.scss']
+  selector: 'app-grid-search-box',
+  templateUrl: './grid-search-box.component.html',
+  styleUrls: ['./grid-search-box.component.scss']
 })
-export class SearchBoxComponent implements OnInit, OnDestroy {
+export class GridSearchBoxComponent implements OnInit, OnDestroy {
   @Input() placeholder = '';
   @Output() sendSearchText = new EventEmitter<string>();
   subject: Subject<{ searchText: string }> = new Subject();

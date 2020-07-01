@@ -21,11 +21,11 @@
       (filterChanges)="onChangeFilter($event)"
     ></app-filter>
     <!-- search -->
-    <app-search-box
+    <app-grid-search-box
       placeholder="Search Player"
       (sendSearchText)="getSearchText($event)"
     >
-    </app-search-box>
+    </app-grid-search-box>
 
     <div class="playerwrapper">
       <ng-container *ngFor="let footPlayer of footPlayerList">
