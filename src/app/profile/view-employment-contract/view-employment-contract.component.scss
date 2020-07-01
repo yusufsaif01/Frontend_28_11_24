@@ -102,12 +102,12 @@
 
         &:disabled {
           opacity: 0.4 !important;
+          cursor: not-allowed;
         }
       }
 
       button.disapprove {
         background-color: $error;
-        cursor: not-allowed;
 
         &:disabled {
           opacity: 0.4 !important;
