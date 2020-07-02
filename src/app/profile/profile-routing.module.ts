@@ -32,6 +32,11 @@ const appRoutes: Routes = [
         data: { title: extract('Edit Profile') }
       },
       {
+        path: 'add-employment-contract',
+        component: AddEditEmploymentContractComponent,
+        data: { title: extract('Add New Contract') }
+      },
+      {
         path: 'add-employment-contract/:send_to',
         component: AddEditEmploymentContractComponent,
         data: { title: extract('Add New Contract') }
