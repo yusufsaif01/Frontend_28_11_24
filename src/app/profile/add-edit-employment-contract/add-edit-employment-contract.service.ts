@@ -5,15 +5,16 @@ import { Observable } from 'rxjs';
 const routes = {
   addContract: () => '/employment-contract',
   getClubAcademyList: (query: string) => `/people/list${query}`,
+  getPlayerDetails: (params: string) => `/people/${params}`,
   getContract: (params: string) => `/employment-contract/${params}`,
   updateContract: (params: string) => `/employment-contract/${params}`
 };
 
 interface GetContractContext {
-  user_id: string;
+  contract_id: string;
 }
 interface UpdateContractContext {
-  user_id: string;
+  contract_id: string;
   requestData: FormData;
 }
 
@@ -94,6 +95,7 @@ export class AddEditEmploymentContractService {
       context
     );
   }
+
   getClubAcademyList(
     context: GetClubAcademyListContext
   ): Observable<GetClubAcademyListResponseContext> {
@@ -111,8 +113,8 @@ export class AddEditEmploymentContractService {
     context: GetContractContext
   ): Observable<GetContractResponseContext> {
     let params = '';
-    if (context['user_id']) {
-      params += context['user_id'];
+    if (context['contract_id']) {
+      params += context['contract_id'];
     }
 
     return this.httpClient.get<GetContractResponseContext>(
@@ -120,12 +122,25 @@ export class AddEditEmploymentContractService {
     );
   }
 
+  getPlayerDetails(
+    context: GetContractContext
+  ): Observable<GetContractResponseContext> {
+    let params = '';
+    if (context['user_id']) {
+      params += context['user_id'];
+    }
+
+    return this.httpClient.get<GetContractResponseContext>(
+      routes.getPlayerDetails(params)
+    );
+  }
+
   updateContract(
     context: UpdateContractContext
   ): Observable<CommonResponseContext> {
     let params = '';
-    if (context['user_id']) {
-      params += context['user_id'];
+    if (context['contract_id']) {
+      params += context['contract_id'];
     }
 
     return this.httpClient.put<CommonResponseContext>(

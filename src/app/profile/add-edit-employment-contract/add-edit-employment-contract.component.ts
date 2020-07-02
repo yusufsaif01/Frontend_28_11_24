@@ -42,7 +42,8 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   category = '';
   clubAcadArray: clubAcadArrayContext[] = [];
 
-  user_id: string;
+  send_to: string;
+  contract_id: string;
   contractData: any;
   isEditMode = false;
 
@@ -60,10 +61,14 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     this.setCategory('club');
     this.setYears();
     this._activatedRoute.params.subscribe(param => {
-      this.user_id = param.id;
-      if (this.user_id) {
-        this.isEditMode = true;
-        this.populateView();
+      if (param.send_to) {
+        this.send_to = param.send_to;
+      } else if (param.contract_id) {
+        this.contract_id = param.contract_id;
+        if (this.contractData) {
+          this.isEditMode = true;
+          this.populateView();
+        }
       }
     });
   }
@@ -299,11 +304,11 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   getCancelRoute() {
     if (this.member_type === 'player') {
       return this.isEditMode
-        ? ['/member/profile/view-employment-contract/', this.user_id]
+        ? ['/member/profile/view-employment-contract/', this.contract_id]
         : ['/member/profile/edit'];
     } else {
       return this.isEditMode
-        ? ['/member/profile/view-employment-contract/', this.user_id]
+        ? ['/member/profile/view-employment-contract/', this.contract_id]
         : ['/member/manage-footplayer'];
     }
   }
@@ -343,7 +348,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   updateContract() {
     let requestData = this.toFormData(this.addEditContractForm.value);
     this._employmentContractService
-      .updateContract({ user_id: this.user_id, requestData })
+      .updateContract({ contract_id: this.contract_id, requestData })
       .pipe(untilDestroyed(this))
       .subscribe(
         res => {
@@ -354,7 +359,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
           this.addEditContractForm.reset();
           this._router.navigate([
             '/member/profile/view-employment-contract/',
-            this.user_id
+            this.contract_id
           ]);
         },
         err => {
@@ -399,7 +404,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
   populateView() {
     this._employmentContractService
-      .getContract({ user_id: this.user_id })
+      .getContract({ contract_id: this.contract_id })
       .subscribe(
         response => {
           this.contractData = response.data;
