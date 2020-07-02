@@ -639,9 +639,15 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
   editProfile() {
     let aadhar_media_type = this.editProfileForm.get('aadhar_media_type');
+    let name = this.editProfileForm.get('name');
+    let short_name = this.editProfileForm.get('short_name');
+    let first_name = this.editProfileForm.get('first_name');
+    let last_name = this.editProfileForm.get('last_name');
     let requestData = this.toFormData(this.editProfileForm.value);
 
     if (this.member_type === 'player') {
+      requestData.set('first_name', first_name.value.trim());
+      requestData.set('last_name', last_name.value.trim());
       if (aadhar_media_type.value === 'pdf' && this.aadhar) {
         requestData.set('aadhar', this.aadhar);
         requestData.delete('aadhar_front');
@@ -665,6 +671,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       if (this.profile_status === 'verified') requestData.delete('dob');
       else requestData.set('dob', this.editProfileForm.get('dob').value);
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
+      requestData.set('name', name.value.trim());
+      requestData.set('short_name', short_name.value.trim());
       if (this.member_type === 'club') requestData.set('aiff', this.aiff);
       else requestData.set('document', this.document);
 
