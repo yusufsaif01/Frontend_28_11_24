@@ -100,6 +100,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     if (this.activeForm === 'player') {
       delete form_data.name;
     }
+    for (const key in form_data) {
+      form_data[key] = form_data[key].trim();
+    }
     this._authenticationService
       .register(form_data)
       .pipe(untilDestroyed(this))
