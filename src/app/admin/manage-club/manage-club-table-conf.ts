@@ -3,7 +3,7 @@ import { TableConfig } from '@app/shared/table/TableConfig';
 export class ManageClubTableConfig extends TableConfig {
   constructor() {
     super();
-    this.allowedColumns = ['name', 'no_of_players', 'email', 'status'];
+    this.allowedColumns = ['name', 'no_of_footplayers', 'email', 'status'];
 
     this.columns = {
       name: {
@@ -13,11 +13,11 @@ export class ManageClubTableConfig extends TableConfig {
           return ele[this.columns.name.code];
         }
       },
-      no_of_players: {
-        code: 'no_of_players',
-        text: 'No. of Players',
+      no_of_footplayers: {
+        code: 'no_of_footplayers',
+        text: 'No. of FootPlayers',
         getValue: (ele: any) => {
-          return ele[this.columns.no_of_players.code];
+          return ele[this.columns.no_of_footplayers.code];
         }
       },
       email: {
