@@ -36,6 +36,8 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     is_public: false
   };
 
+  playerAge: number;
+  showLegalGuardStar = false;
   profile: any;
   addEditContractForm: FormGroup;
   fiveYearFromNow = new Date();
@@ -71,6 +73,10 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
         this.isEditMode = true;
         this.populateView();
       }
+      // else {
+      //   this.send_to = localStorage.getItem('user_id');
+      //   this.getPlayerDetails();
+      // }
     });
   }
 
@@ -78,6 +84,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setValidators();
+    this.setAsyncValidators();
   }
 
   setYears() {
@@ -112,7 +119,11 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.playerDetails = response.data;
-          this.setPlayerDetails();
+          this.playerAge = this.playerDetails.age;
+          if (['club', 'academy'].includes(this.member_type)) {
+            this.setPlayerDetails();
+          }
+          this.setAsyncValidators();
         },
         error => {
           this._toastrService.error('Error', error.error.message);
@@ -298,6 +309,32 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     });
   }
 
+  setAsyncValidators() {
+    let legalGuardianNameControl = {
+      legalGuardianName: [Validators.required]
+    };
+
+    if (this.playerAge < 18) {
+      this.showLegalGuardStar = true;
+      this.checkRequiredValidator(
+        legalGuardianNameControl,
+        legalGuardianNameControl.legalGuardianName,
+        1
+      );
+    } else {
+      this.showLegalGuardStar = false;
+      this.checkRequiredValidator(
+        legalGuardianNameControl,
+        legalGuardianNameControl.legalGuardianName,
+        2
+      );
+    }
+    this.setControlValidation(
+      this.addEditContractForm,
+      legalGuardianNameControl
+    );
+  }
+
   setCategory(value: string) {
     this.category = value;
     if (this.member_type === 'player') {
@@ -405,6 +442,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   getProfileData(data: Object) {
     this.profile = data;
     this.setProfileData();
+    this.setAsyncValidators();
   }
 
   setProfileData() {
