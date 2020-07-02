@@ -41,6 +41,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   yesterday = new Date();
   category = '';
   clubAcadArray: clubAcadArrayContext[] = [];
+  playerDetails: any = {};
 
   send_to: string;
   contract_id: string;
@@ -63,12 +64,11 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     this._activatedRoute.params.subscribe(param => {
       if (param.send_to) {
         this.send_to = param.send_to;
+        this.getPlayerDetails();
       } else if (param.contract_id) {
         this.contract_id = param.contract_id;
-        if (this.contractData) {
-          this.isEditMode = true;
-          this.populateView();
-        }
+        this.isEditMode = true;
+        this.populateView();
       }
     });
   }
@@ -97,6 +97,20 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.clubAcadArray = response.data;
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
+        }
+      );
+  }
+
+  getPlayerDetails() {
+    this._employmentContractService
+      .getPlayerDetails({ user_id: this.send_to })
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.playerDetails = response.data;
         },
         error => {
           this._toastrService.error('Error', error.error.message);

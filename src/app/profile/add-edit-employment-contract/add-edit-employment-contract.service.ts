@@ -13,6 +13,10 @@ const routes = {
 interface GetContractContext {
   contract_id: string;
 }
+
+interface GetPlayerDetailContext {
+  user_id: string;
+}
 interface UpdateContractContext {
   contract_id: string;
   requestData: FormData;
@@ -123,7 +127,7 @@ export class AddEditEmploymentContractService {
   }
 
   getPlayerDetails(
-    context: GetContractContext
+    context: GetPlayerDetailContext
   ): Observable<GetContractResponseContext> {
     let params = '';
     if (context['user_id']) {
