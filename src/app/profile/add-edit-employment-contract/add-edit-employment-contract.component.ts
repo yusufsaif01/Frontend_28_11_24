@@ -19,6 +19,7 @@ interface clubAcadArrayContext {
   address: string;
   mobile: string;
   aiffNumber: string;
+  user_id: string;
 }
 
 @Component({
@@ -111,12 +112,23 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.playerDetails = response.data;
-          this.populateFormFields();
+          this.setPlayerDetails();
         },
         error => {
           this._toastrService.error('Error', error.error.message);
         }
       );
+  }
+
+  setPlayerDetails() {
+    this.addEditContractForm.patchValue({
+      playerName: this.playerDetails.name ? this.playerDetails.name : '',
+      playerMobileNumber: this.playerDetails.mobile ? this.profile.mobile : '',
+      playerEmail: this.playerDetails.email ? this.playerDetails.email : '',
+      playerAddress: this.playerDetails.address
+        ? this.playerDetails.address
+        : ''
+    });
   }
 
   setControlValidation(
@@ -333,7 +345,11 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   }
 
   addContract() {
-    let requestData = this.toFormData(this.addEditContractForm.value);
+    let requestData = this.toFormData({
+      user_id: this.send_to,
+      ...this.addEditContractForm.value
+    });
+
     this._employmentContractService
       .addContract(requestData)
       .pipe(untilDestroyed(this))
@@ -361,7 +377,10 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   }
 
   updateContract() {
-    let requestData = this.toFormData(this.addEditContractForm.value);
+    let requestData = this.toFormData({
+      user_id: this.send_to,
+      ...this.addEditContractForm.value
+    });
     this._employmentContractService
       .updateContract({ contract_id: this.contract_id, requestData })
       .pipe(untilDestroyed(this))
@@ -432,6 +451,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   }
 
   populateFormFields() {
+    this.send_to = this.contractData.send_to;
     this.setCategory(this.contractData.category);
 
     if (
@@ -546,6 +566,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     );
 
     let item = selectedClubAcad[0];
+    this.send_to = item.user_id;
     this.addEditContractForm.patchValue({
       clubAcademyAddress: item.address ? item.address : '',
       clubAcademyPhoneNumber: item.mobile ? item.mobile : '',

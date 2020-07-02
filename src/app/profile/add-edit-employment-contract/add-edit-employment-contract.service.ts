@@ -73,6 +73,7 @@ interface GetClubAcademyListResponseContext {
     address: string;
     mobile: string;
     aiffNumber: string;
+    user_id: string;
   }[];
 }
 
