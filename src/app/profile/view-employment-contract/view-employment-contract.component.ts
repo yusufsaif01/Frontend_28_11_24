@@ -61,9 +61,7 @@ export class ViewEmploymentContractComponent implements OnInit {
     }
     if (status === 'approved') {
       (header = 'Please Confirm'),
-        (message = `Do you want to approve the Employment Contract with ${
-          this.contractDetails.clubAcademyName
-        } ${this.contractDetails.category === 'club' ? 'club' : 'academy'} ?`);
+        (message = `Do you want to approve the Employment Contract with ${this.contractDetails.clubAcademyName} Club/Academy ?`);
       disApprove = false;
     }
     const dialogRef = this.dialog.open(VerificationPopupComponent, {
