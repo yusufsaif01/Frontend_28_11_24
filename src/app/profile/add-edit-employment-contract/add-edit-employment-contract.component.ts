@@ -111,6 +111,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.playerDetails = response.data;
+          this.populateFormFields();
         },
         error => {
           this._toastrService.error('Error', error.error.message);
@@ -454,9 +455,10 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
     this.addEditContractForm.patchValue({
       category: this.contractData.category ? this.contractData.category : '',
-      playerName: this.contractData.playerName
-        ? this.contractData.playerName
-        : '',
+      playerName:
+        this.contractData.playerName != ''
+          ? this.contractData.playerName
+          : this.playerDetails.name,
       clubAcademyName: this.contractData.clubAcademyName
         ? this.contractData.clubAcademyName
         : '',
