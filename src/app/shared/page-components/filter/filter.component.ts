@@ -14,7 +14,6 @@ import { untilDestroyed } from '@app/core';
 import { FilterService } from './filter.service';
 import { AdminService } from '@app/admin/admin.service';
 import { MatMenu } from '@angular/material';
-import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/custom-http-param-encoder.component';
 
 interface ActiveClass {
   activePosition: boolean;
@@ -125,7 +124,6 @@ export class FilterComponent implements OnInit {
       filterName: 'Types Of Teams'
     }
   ];
-  encoder: CustomHttpParamEncoder = new CustomHttpParamEncoder();
 
   constructor(
     private _toastrService: ToastrService,
