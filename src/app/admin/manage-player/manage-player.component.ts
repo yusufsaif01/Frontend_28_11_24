@@ -36,7 +36,6 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
   showFiller = false;
   list: any;
   pageSize: number = 20;
-  totalRecords = 10;
   selectedPage: number;
   players_count: number;
   grassroot_count: number;
@@ -45,6 +44,7 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
   show_count: number;
   tzoffset = new Date().getTimezoneOffset() * 60000;
   dialogData: FilterDialogContext;
+  filterValues: any = {};
 
   public tableConfig: ManagePlayerTableConfig = new ManagePlayerTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -58,6 +58,7 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   ngOnInit() {
+    this.filterValues = {};
     this.getPlayerList(this.pageSize, 1);
     this.refreshDialogData();
   }
@@ -82,9 +83,12 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
   getPlayerList(page_size: number, page_no: number, search?: string) {
     this.adminService
       .getPlayerList({
-        page_no: page_no,
-        page_size: page_size,
-        search: search
+        ...{
+          page_no: page_no,
+          page_size: page_size,
+          search: search
+        },
+        ...this.filterValues
       })
       .pipe(untilDestroyed(this))
       .subscribe(response => {
@@ -130,6 +134,9 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
           result['to'] = new Date(result['to']).setHours(23, 59, 59);
           result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
+        result.page_size = this.pageSize;
+        result.page_no = 1;
+        this.filterValues = result;
         this.adminService
           .getPlayerList(result)
           .pipe(untilDestroyed(this))
@@ -139,6 +146,8 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
             this.dataSource = new MatTableDataSource(response.data.records);
             this.selectedPage = 1;
           });
+      } else {
+        this.filterValues = {};
       }
     });
   }
