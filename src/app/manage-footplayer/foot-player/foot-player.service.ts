@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/custom-http-param-encoder.component';
 
 const routes = {
   getFootPlayerList: (query: string) => `/footplayers${query}`,
@@ -136,6 +137,9 @@ export class FootPlayerService {
     if (context['footplayers']) {
       query += '&footplayers=' + context['footplayers'];
     }
+    let encoder = new CustomHttpParamEncoder();
+    // encoder.encodeValue(context);
+    // let HttpParams : new HttpParams({});
     return this.httpClient.get<GetFootPlayerListResponseContext>(
       routes.getFootPlayerList(query)
     );
