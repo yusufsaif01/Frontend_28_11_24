@@ -64,8 +64,8 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
     this.member_type = value;
   }
 
-  applyFilter(event: any) {
-    let filterValue = event.target.value;
+  getSearchText(value: string) {
+    let filterValue = value;
     this.filter.page_no = 1;
     this.selectedPage = 1;
     this.getFootPlayerList(filterValue);
