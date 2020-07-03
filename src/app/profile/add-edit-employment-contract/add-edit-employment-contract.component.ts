@@ -19,6 +19,7 @@ interface clubAcadArrayContext {
   address: string;
   mobile: string;
   aiffNumber: string;
+  user_id: string;
 }
 
 @Component({
@@ -35,14 +36,18 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     is_public: false
   };
 
+  playerAge: number;
+  showLegalGuardStar = false;
   profile: any;
   addEditContractForm: FormGroup;
   fiveYearFromNow = new Date();
   yesterday = new Date();
   category = '';
   clubAcadArray: clubAcadArrayContext[] = [];
+  playerDetails: any = {};
 
-  user_id: string;
+  send_to: string;
+  contract_id: string;
   contractData: any;
   isEditMode = false;
 
@@ -60,10 +65,15 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     this.setCategory('club');
     this.setYears();
     this._activatedRoute.params.subscribe(param => {
-      this.user_id = param.id;
-      if (this.user_id) {
+      if (param.send_to) {
+        this.send_to = param.send_to;
+        this.getPlayerDetails(this.send_to);
+      } else if (param.contract_id) {
+        this.contract_id = param.contract_id;
         this.isEditMode = true;
         this.populateView();
+      } else {
+        this.getPlayerDetails(localStorage.getItem('user_id'));
       }
     });
   }
@@ -97,6 +107,38 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
           this._toastrService.error('Error', error.error.message);
         }
       );
+  }
+
+  getPlayerDetails(player_id: string) {
+    this._employmentContractService
+      .getPlayerDetails({ user_id: player_id })
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.playerDetails = response.data;
+          this.playerAge = this.playerDetails.age;
+          if (
+            ['club', 'academy'].includes(this.member_type) &&
+            !this.isEditMode
+          ) {
+            this.setPlayerDetails();
+          }
+          this.setAsyncValidators();
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
+        }
+      );
+  }
+
+  setPlayerDetails() {
+    this.addEditContractForm.patchValue({
+      playerName: this.playerDetails.name ? this.playerDetails.name : '',
+      playerMobileNumber: this.playerDetails.mobile
+        ? this.playerDetails.mobile
+        : '',
+      playerEmail: this.playerDetails.email ? this.playerDetails.email : ''
+    });
   }
 
   setControlValidation(
@@ -266,6 +308,32 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     });
   }
 
+  setAsyncValidators() {
+    let legalGuardianNameControl = {
+      legalGuardianName: [Validators.required]
+    };
+
+    if (this.playerAge < 18) {
+      this.showLegalGuardStar = true;
+      this.checkRequiredValidator(
+        legalGuardianNameControl,
+        legalGuardianNameControl.legalGuardianName,
+        1
+      );
+    } else {
+      this.showLegalGuardStar = false;
+      this.checkRequiredValidator(
+        legalGuardianNameControl,
+        legalGuardianNameControl.legalGuardianName,
+        2
+      );
+    }
+    this.setControlValidation(
+      this.addEditContractForm,
+      legalGuardianNameControl
+    );
+  }
+
   setCategory(value: string) {
     this.category = value;
     if (this.member_type === 'player') {
@@ -299,11 +367,11 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   getCancelRoute() {
     if (this.member_type === 'player') {
       return this.isEditMode
-        ? ['/member/profile/view-employment-contract/', this.user_id]
+        ? ['/member/profile/view-employment-contract/', this.contract_id]
         : ['/member/profile/edit'];
     } else {
       return this.isEditMode
-        ? ['/member/profile/view-employment-contract/', this.user_id]
+        ? ['/member/profile/view-employment-contract/', this.contract_id]
         : ['/member/manage-footplayer'];
     }
   }
@@ -313,7 +381,11 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   }
 
   addContract() {
-    let requestData = this.toFormData(this.addEditContractForm.value);
+    let requestData = this.toFormData({
+      user_id: this.send_to,
+      ...this.addEditContractForm.value
+    });
+
     this._employmentContractService
       .addContract(requestData)
       .pipe(untilDestroyed(this))
@@ -341,9 +413,12 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   }
 
   updateContract() {
-    let requestData = this.toFormData(this.addEditContractForm.value);
+    let requestData = this.toFormData({
+      user_id: this.send_to,
+      ...this.addEditContractForm.value
+    });
     this._employmentContractService
-      .updateContract({ user_id: this.user_id, requestData })
+      .updateContract({ contract_id: this.contract_id, requestData })
       .pipe(untilDestroyed(this))
       .subscribe(
         res => {
@@ -354,7 +429,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
           this.addEditContractForm.reset();
           this._router.navigate([
             '/member/profile/view-employment-contract/',
-            this.user_id
+            this.contract_id
           ]);
         },
         err => {
@@ -399,7 +474,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
   populateView() {
     this._employmentContractService
-      .getContract({ user_id: this.user_id })
+      .getContract({ contract_id: this.contract_id })
       .subscribe(
         response => {
           this.contractData = response.data;
@@ -412,6 +487,12 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   }
 
   populateFormFields() {
+    this.send_to = this.contractData.send_to;
+    if (['club', 'academy'].includes(this.member_type)) {
+      this.getPlayerDetails(this.send_to);
+    } else {
+      this.getPlayerDetails(this.contractData.sent_by);
+    }
     this.setCategory(this.contractData.category);
 
     if (
@@ -435,9 +516,10 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
     this.addEditContractForm.patchValue({
       category: this.contractData.category ? this.contractData.category : '',
-      playerName: this.contractData.playerName
-        ? this.contractData.playerName
-        : '',
+      playerName:
+        this.contractData.playerName != ''
+          ? this.contractData.playerName
+          : this.playerDetails.name,
       clubAcademyName: this.contractData.clubAcademyName
         ? this.contractData.clubAcademyName
         : '',
@@ -510,6 +592,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   onSelectOption(c: HTMLSelectElement) {
     let identity = c.selectedOptions[0].attributes['identity'];
     if (!identity) {
+      this.send_to = '';
       this.addEditContractForm.patchValue({
         clubAcademyAddress: '',
         clubAcademyPhoneNumber: '',
@@ -525,6 +608,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     );
 
     let item = selectedClubAcad[0];
+    this.send_to = item.user_id ? item.user_id : '';
     this.addEditContractForm.patchValue({
       clubAcademyAddress: item.address ? item.address : '',
       clubAcademyPhoneNumber: item.mobile ? item.mobile : '',

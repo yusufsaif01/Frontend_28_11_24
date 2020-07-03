@@ -533,13 +533,31 @@
 
             <!-- Legal guardian name  -->
             <div class="from-block">
-              <label>Legal Guardian Name</label>
+              <label
+                >Legal Guardian Name <span *ngIf="showLegalGuardStar">*</span>
+              </label>
               <input
                 formControlName="legalGuardianName"
                 placeholder="Legal Guardian Name"
                 type="text"
                 matInput
               />
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.legalGuardianName.invalid &&
+                  addEditContractForm.controls.legalGuardianName.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.legalGuardianName.errors
+                      .required
+                  "
+                  translate
+                >
+                  Legal Guardian Name is required
+                </span>
+              </mat-error>
             </div>
 
             <!-- Player address  -->
