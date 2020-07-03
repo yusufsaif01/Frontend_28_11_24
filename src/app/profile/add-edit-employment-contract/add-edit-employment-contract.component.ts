@@ -67,16 +67,12 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     this._activatedRoute.params.subscribe(param => {
       if (param.send_to) {
         this.send_to = param.send_to;
-        this.getPlayerDetails();
+        this.getPlayerDetails(this.send_to);
       } else if (param.contract_id) {
         this.contract_id = param.contract_id;
         this.isEditMode = true;
         this.populateView();
       }
-      // else {
-      //   this.send_to = localStorage.getItem('user_id');
-      //   this.getPlayerDetails();
-      // }
     });
   }
 
@@ -84,7 +80,6 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setValidators();
-    this.setAsyncValidators();
   }
 
   setYears() {
@@ -112,15 +107,18 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       );
   }
 
-  getPlayerDetails() {
+  getPlayerDetails(player_id: string) {
     this._employmentContractService
-      .getPlayerDetails({ user_id: this.send_to })
+      .getPlayerDetails({ user_id: player_id })
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this.playerDetails = response.data;
           this.playerAge = this.playerDetails.age;
-          if (['club', 'academy'].includes(this.member_type)) {
+          if (
+            ['club', 'academy'].includes(this.member_type) &&
+            !this.isEditMode
+          ) {
             this.setPlayerDetails();
           }
           this.setAsyncValidators();
@@ -134,7 +132,9 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   setPlayerDetails() {
     this.addEditContractForm.patchValue({
       playerName: this.playerDetails.name ? this.playerDetails.name : '',
-      playerMobileNumber: this.playerDetails.mobile ? this.profile.mobile : '',
+      playerMobileNumber: this.playerDetails.mobile
+        ? this.playerDetails.mobile
+        : '',
       playerEmail: this.playerDetails.email ? this.playerDetails.email : '',
       playerAddress: this.playerDetails.address
         ? this.playerDetails.address
@@ -310,6 +310,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   }
 
   setAsyncValidators() {
+    console.log(this.playerAge);
     let legalGuardianNameControl = {
       legalGuardianName: [Validators.required]
     };
@@ -442,7 +443,6 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   getProfileData(data: Object) {
     this.profile = data;
     this.setProfileData();
-    this.setAsyncValidators();
   }
 
   setProfileData() {
@@ -490,6 +490,11 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
   populateFormFields() {
     this.send_to = this.contractData.send_to;
+    if (['club', 'academy'].includes(this.member_type)) {
+      this.getPlayerDetails(this.send_to);
+    } else {
+      this.getPlayerDetails(this.contractData.sent_by);
+    }
     this.setCategory(this.contractData.category);
 
     if (
