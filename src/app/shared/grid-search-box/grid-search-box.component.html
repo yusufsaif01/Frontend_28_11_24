@@ -1,0 +1,14 @@
+<div class="search">
+  <div class="search-form">
+    <form>
+      <input
+        (keyup)="getSearchText($event)"
+        type="text"
+        [placeholder]="placeholder"
+      />
+      <span class="search-icon">
+        <i-feather name="search" class="icon-size"></i-feather>
+      </span>
+    </form>
+  </div>
+</div>

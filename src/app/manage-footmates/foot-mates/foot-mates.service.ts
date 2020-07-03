@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/custom-http-param-encoder.component';
 // /connection/list?page_no=1&page_size=20&position=<positions>&player_category=<player_category>&age=<age_range>&country=<country>&city=<city>&state=<state>&strong_foot=<strong_foot>
 const routes = {
-  getFootMateList: (c: GetFootMateListContext) => '/connection/list',
+  getFootMateList: (query: string) => `/connection/list?${query}`,
   getPositionsList: () => `/master/player-specialization/position/list`,
   getCitiesList: (countryID: any, stateID: any) =>
     `/master/city/list/${countryID}/${stateID}`,
@@ -46,36 +47,12 @@ export class FootMatesService {
   getFootMateList(
     context: GetFootMateListContext
   ): Observable<GetFootMateListResponseContext> {
-    let query = '?';
-    if (context['page_no']) {
-      query += 'page_no=' + context['page_no'];
-    }
-    if (context['page_size']) {
-      query += '&page_size=' + context['page_size'];
-    }
-    if (context['position']) {
-      query += '&position=' + context['position'];
-    }
-    if (context['country']) {
-      query += '&country=' + context['country'];
-    }
-    if (context['state']) {
-      query += '&state=' + context['state'];
-    }
-    if (context['city']) {
-      query += '&city=' + context['city'];
-    }
-    if (context['player_category']) {
-      query += '&player_category=' + context['player_category'];
-    }
-    if (context['age']) {
-      query += '&age=' + context['age'];
-    }
-    if (context['strong_foot']) {
-      query += '&strong_foot=' + context['strong_foot'];
-    }
+    let httpParams = new HttpParams({ encoder: new CustomHttpParamEncoder() });
+    Object.keys(context).forEach(key => {
+      if (context[key]) httpParams = httpParams.append(key, context[key]);
+    });
     return this.httpClient.get<GetFootMateListResponseContext>(
-      routes.getFootMateList(context) + query
+      routes.getFootMateList(httpParams.toString())
     );
   }
 

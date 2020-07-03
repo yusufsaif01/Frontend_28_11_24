@@ -33,6 +33,7 @@ export class ManageClubComponent implements OnInit, OnDestroy {
   show_count: number;
   tzoffset = new Date().getTimezoneOffset() * 60000;
   dialogData: FilterDialogContext;
+  filterValues: any = {};
 
   public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -46,6 +47,7 @@ export class ManageClubComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   ngOnInit() {
+    this.filterValues = {};
     this.getClubList(this.pageSize, 1);
     this.refreshDialogData();
   }
@@ -68,9 +70,12 @@ export class ManageClubComponent implements OnInit, OnDestroy {
   getClubList(page_size: number, page_no: number, search?: string) {
     this.adminService
       .getClubList({
-        page_no: page_no,
-        page_size: page_size,
-        search: search
+        ...{
+          page_no: page_no,
+          page_size: page_size,
+          search: search
+        },
+        ...this.filterValues
       })
       .pipe(untilDestroyed(this))
       .subscribe(response => {
@@ -111,6 +116,9 @@ export class ManageClubComponent implements OnInit, OnDestroy {
           result['to'] = new Date(result['to']).setHours(23, 59, 59);
           result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
+        result.page_size = this.pageSize;
+        result.page_no = 1;
+        this.filterValues = result;
         this.adminService
           .getClubList(result)
           .pipe(untilDestroyed(this))
@@ -118,7 +126,10 @@ export class ManageClubComponent implements OnInit, OnDestroy {
             this.clubs_count = response.data.total;
             this.show_count = response.data.records.length;
             this.dataSource = new MatTableDataSource(response.data.records);
+            this.selectedPage = 1;
           });
+      } else {
+        this.filterValues = {};
       }
     });
   }
@@ -209,8 +220,8 @@ export class ManageClubComponent implements OnInit, OnDestroy {
     });
   }
 
-  applyFilter(event: any) {
-    let filterValue = event.target.value;
+  getSearchText(value: string) {
+    let filterValue = value;
     this.getClubList(this.pageSize, 1, filterValue);
     // this.dataSource.filter = filterValue.trim().toLowerCase();
   }

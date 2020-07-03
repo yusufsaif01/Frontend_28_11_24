@@ -6,7 +6,8 @@
       [achievements]="total_count"
       [options]="panelOptions"
       (sendMemberType)="getMemberType($event)"
-    ></app-left-panel>
+    >
+    </app-left-panel>
   </div>
   <div class="right-section">
     <div class="award-heading">
@@ -22,20 +23,12 @@
     ></app-filter>
     <!-- search -->
     <div class="search">
-      <div class="search-form">
-        <form>
-          <input
-            (keyup)="applyFilter($event)"
-            type="text"
-            placeholder="Search player"
-          />
-          <span class="search-icon">
-            <i-feather name="search" class="icon-size"></i-feather>
-          </span>
-        </form>
-      </div>
+      <app-grid-search-box
+        placeholder="Search Player"
+        (sendSearchText)="getSearchText($event)"
+      >
+      </app-grid-search-box>
     </div>
-
     <div class="playerwrapper">
       <ng-container *ngFor="let footPlayer of footPlayerList">
         <div class="playerbox">

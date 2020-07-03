@@ -31,11 +31,15 @@
               'effectiveDate',
               'expiryDate',
               'clubAcademyName',
-              'playerName'
+              'playerName',
+              'created_by'
             ].includes(col)
           "
         >
           {{ tableConfig.columns[col].getValue(element) }}
+        </p>
+        <p *ngIf="col === 'created_by'">
+          {{ tableConfig.columns[col].getValue(element) | titlecase }}
         </p>
         <p *ngIf="col === 'document_type'">
           <ng-container [ngSwitch]="element.document_type">

@@ -27,18 +27,11 @@
     ></app-filter>
     <!-- search -->
     <div class="search">
-      <div class="search-form">
-        <form>
-          <input
-            (keyup)="applyFilter($event)"
-            type="text"
-            placeholder="Search player"
-          />
-          <span class="search-icon">
-            <i-feather name="search" class="icon-size"></i-feather>
-          </span>
-        </form>
-      </div>
+      <app-grid-search-box
+        placeholder="Search Player"
+        (sendSearchText)="getSearchText($event)"
+      >
+      </app-grid-search-box>
     </div>
     <div class="table">
       <!-- table -->
@@ -62,6 +55,7 @@
           let-position="position"
           let-status="status"
           let-email="email"
+          let-user_id="user_id"
           let-canAddContract="canAddContract"
         >
           <div class="action-buttons">
@@ -82,7 +76,10 @@
               [ngClass]="{
                 'icon-disable': !canAddContract
               }"
-              [routerLink]="['/member/profile/add-employment-contract']"
+              [routerLink]="[
+                '/member/profile/add-employment-contract',
+                user_id
+              ]"
               matTooltip="Add Contract"
             >
               <img src="assets/images/icons/plus.png" alt="Add" />

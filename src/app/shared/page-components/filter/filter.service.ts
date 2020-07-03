@@ -3,11 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 const routes = {
-  getPositionsList: () => `/master/player-specialization/position/list`,
-  getCitiesList: (countryID: any, stateID: any) =>
-    `/master/city/list/${countryID}/${stateID}`,
-  getStatesList: (countryID: any) => `/master/state/list/${countryID}`,
-  getLocationStats: () => `/master/location/stats`
+  getPositionsList: () => `/master/player-specialization/position/list`
 };
 
 @Injectable({
