@@ -8,6 +8,8 @@ import { ProfileComponent } from './profile.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { AddEditEmploymentContractComponent } from './add-edit-employment-contract/add-edit-employment-contract.component';
 import { ViewEmploymentContractComponent } from './view-employment-contract/view-employment-contract.component';
+import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
+
 @NgModule({
   declarations: [
     ProfileComponent,
@@ -20,7 +22,8 @@ import { ViewEmploymentContractComponent } from './view-employment-contract/view
     CommonModule,
     SharedModule,
     ReactiveFormsModule,
-    ProfileRoutingModule
+    ProfileRoutingModule,
+    NgxTrimDirectiveModule
   ]
 })
 export class ProfileModule {}
