@@ -62,6 +62,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
   currentYear = new Date().getFullYear();
   tomorrow = new Date();
+  today = new Date();
   environment = environment;
   avatar: File;
   aiff: File;
