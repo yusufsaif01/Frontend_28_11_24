@@ -94,6 +94,8 @@ interface GetFootPlayerListContext {
 export class FootPlayerService {
   constructor(private httpClient: HttpClient) {}
 
+  httpParams = new HttpParams({ encoder: new CustomHttpParamEncoder() });
+
   getFootPlayerList(
     context: GetFootPlayerListContext
   ): Observable<GetFootPlayerListResponseContext> {
@@ -137,9 +139,14 @@ export class FootPlayerService {
     if (context['footplayers']) {
       query += '&footplayers=' + context['footplayers'];
     }
-    let encoder = new CustomHttpParamEncoder();
+
+    // let encoder = new CustomHttpParamEncoder();
     // encoder.encodeValue(context);
     // let HttpParams : new HttpParams({});
+    Object.keys(context).forEach(function(key) {
+      this.httpParams = this.httpParams.append(key, context[key]);
+    });
+
     return this.httpClient.get<GetFootPlayerListResponseContext>(
       routes.getFootPlayerList(query)
     );
