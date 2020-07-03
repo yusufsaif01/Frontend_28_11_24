@@ -137,10 +137,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       playerMobileNumber: this.playerDetails.mobile
         ? this.playerDetails.mobile
         : '',
-      playerEmail: this.playerDetails.email ? this.playerDetails.email : '',
-      playerAddress: this.playerDetails.address
-        ? this.playerDetails.address
-        : ''
+      playerEmail: this.playerDetails.email ? this.playerDetails.email : ''
     });
   }
 
@@ -595,6 +592,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   onSelectOption(c: HTMLSelectElement) {
     let identity = c.selectedOptions[0].attributes['identity'];
     if (!identity) {
+      this.send_to = '';
       this.addEditContractForm.patchValue({
         clubAcademyAddress: '',
         clubAcademyPhoneNumber: '',
@@ -610,7 +608,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     );
 
     let item = selectedClubAcad[0];
-    this.send_to = item.user_id;
+    this.send_to = item.user_id ? item.user_id : '';
     this.addEditContractForm.patchValue({
       clubAcademyAddress: item.address ? item.address : '',
       clubAcademyPhoneNumber: item.mobile ? item.mobile : '',
