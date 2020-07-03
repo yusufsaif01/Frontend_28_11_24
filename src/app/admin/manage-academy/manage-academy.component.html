@@ -74,14 +74,12 @@
                 <option value="35">35</option>
               </select>
             </div>
-            <div class="search-box">
-              <input
-                matInput
-                placeholder="Search academy"
-                class="search-icon"
-                (keyup)="applyFilter($event)"
-              />
-            </div>
+
+            <app-grid-search-box
+              placeholder="Search Academy"
+              (sendSearchText)="getSearchText($event)"
+            >
+            </app-grid-search-box>
           </div>
         </div>
         <!-- filter-seciton -->

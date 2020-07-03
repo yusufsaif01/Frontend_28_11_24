@@ -91,8 +91,8 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
         this.total_count = response.data.total;
       });
   }
-  applyFilter(event: any) {
-    let filterValue = event.target.value;
+  getSearchText(value: string) {
+    let filterValue = value;
     this.filter.page_no = 1;
     this.selectedPage = 1;
     this.getFootPlayerList(filterValue);
