@@ -641,13 +641,13 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     let aadhar_media_type = this.editProfileForm.get('aadhar_media_type');
     let name = this.editProfileForm.get('name');
     let short_name = this.editProfileForm.get('short_name');
-    let first_name = this.editProfileForm.get('first_name');
-    let last_name = this.editProfileForm.get('last_name');
+    // let first_name = this.editProfileForm.get('first_name');
+    // let last_name = this.editProfileForm.get('last_name');
     let requestData = this.toFormData(this.editProfileForm.value);
 
     if (this.member_type === 'player') {
-      requestData.set('first_name', first_name.value.trim());
-      requestData.set('last_name', last_name.value.trim());
+      // requestData.set('first_name', first_name.value.trim());
+      // requestData.set('last_name', last_name.value.trim());
       if (aadhar_media_type.value === 'pdf' && this.aadhar) {
         requestData.set('aadhar', this.aadhar);
         requestData.delete('aadhar_front');
