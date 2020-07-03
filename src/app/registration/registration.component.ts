@@ -90,7 +90,15 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
   }
 
+  trimForm(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(key => {
+      if (formGroup.get(key).value)
+        formGroup.get(key).setValue(formGroup.get(key).value.trim());
+    });
+  }
+
   register() {
+    this.trimForm(this.registrationForm);
     let form_data = this.registrationForm.value;
     form_data.member_type = this.activeForm;
     if (this.activeForm === 'club' || this.activeForm === 'academy') {
@@ -99,9 +107,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
     if (this.activeForm === 'player') {
       delete form_data.name;
-    }
-    for (const key in form_data) {
-      form_data[key] = form_data[key].trim();
     }
     this._authenticationService
       .register(form_data)
