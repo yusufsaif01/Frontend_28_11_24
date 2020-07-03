@@ -26,11 +26,13 @@
       (filterChanges)="onChangeFilter($event)"
     ></app-filter>
     <!-- search -->
-    <app-grid-search-box
-      placeholder="Search Player"
-      (sendSearchText)="getSearchText($event)"
-    >
-    </app-grid-search-box>
+    <div class="search">
+      <app-grid-search-box
+        placeholder="Search Player"
+        (sendSearchText)="getSearchText($event)"
+      >
+      </app-grid-search-box>
+    </div>
     <div class="table">
       <!-- table -->
       <div class="table-container">
