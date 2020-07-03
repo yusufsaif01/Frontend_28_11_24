@@ -72,6 +72,8 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
         this.contract_id = param.contract_id;
         this.isEditMode = true;
         this.populateView();
+      } else {
+        this.getPlayerDetails(localStorage.getItem('user_id'));
       }
     });
   }
@@ -310,7 +312,6 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   }
 
   setAsyncValidators() {
-    console.log(this.playerAge);
     let legalGuardianNameControl = {
       legalGuardianName: [Validators.required]
     };
