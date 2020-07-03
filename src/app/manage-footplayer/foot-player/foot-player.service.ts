@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/custom-http-param-encoder.component';
 
 const routes = {
-  getFootPlayerList: (query: string) => `/footplayers${query}`,
+  getFootPlayerList: (query: string) => `/footplayers?${query}`,
   deleteFootplayer: (id: string) => `/footplayers/${id}`,
   findPlayer: (query: string) => `/footplayer/search${query}`,
   sendFootPlayerRequest: () => '/footplayer/request',
@@ -96,48 +97,12 @@ export class FootPlayerService {
   getFootPlayerList(
     context: GetFootPlayerListContext
   ): Observable<GetFootPlayerListResponseContext> {
-    let query = '?';
-    if (context['page_no']) {
-      query += 'page_no=' + context['page_no'];
-    }
-    if (context['page_size']) {
-      query += '&page_size=' + context['page_size'];
-    }
-    if (context['search']) {
-      query += '&search=' + context['search'];
-    }
-    if (context['position']) {
-      query += '&position=' + context['position'];
-    }
-    if (context['player_category']) {
-      query += '&footplayer_category=' + context['player_category'];
-    }
-    if (context['age']) {
-      query += '&age=' + context['age'];
-    }
-    if (context['country']) {
-      query += '&country=' + context['country'];
-    }
-    if (context['state']) {
-      query += '&state=' + context['state'];
-    }
-    if (context['city']) {
-      query += '&city=' + context['city'];
-    }
-    if (context['strong_foot']) {
-      query += '&strong_foot=' + context['strong_foot'];
-    }
-    if (context['status']) {
-      query += '&status=' + context['status'];
-    }
-    if (context['ability']) {
-      query += '&ability=' + context['ability'];
-    }
-    if (context['footplayers']) {
-      query += '&footplayers=' + context['footplayers'];
-    }
+    let httpParams = new HttpParams({ encoder: new CustomHttpParamEncoder() });
+    Object.keys(context).forEach(key => {
+      if (context[key]) httpParams = httpParams.append(key, context[key]);
+    });
     return this.httpClient.get<GetFootPlayerListResponseContext>(
-      routes.getFootPlayerList(query)
+      routes.getFootPlayerList(httpParams.toString())
     );
   }
   deleteFootPlayer(id: string) {
