@@ -36,7 +36,6 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
   showFiller = false;
   list: any;
   pageSize: number = 20;
-  totalRecords = 10;
   selectedPage: number;
   players_count: number;
   grassroot_count: number;
@@ -130,6 +129,8 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
           result['to'] = new Date(result['to']).setHours(23, 59, 59);
           result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
+        result.page_size = this.pageSize;
+        result.page_no = 1;
         this.adminService
           .getPlayerList(result)
           .pipe(untilDestroyed(this))

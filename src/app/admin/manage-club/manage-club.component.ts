@@ -111,6 +111,8 @@ export class ManageClubComponent implements OnInit, OnDestroy {
           result['to'] = new Date(result['to']).setHours(23, 59, 59);
           result['to'] = new Date(result['to'] - this.tzoffset).toISOString();
         }
+        result.page_size = this.pageSize;
+        result.page_no = 1;
         this.adminService
           .getClubList(result)
           .pipe(untilDestroyed(this))
