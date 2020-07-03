@@ -137,6 +137,7 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
             this.players_count = response.data.total;
             this.show_count = response.data.records.length;
             this.dataSource = new MatTableDataSource(response.data.records);
+            this.selectedPage = 1;
           });
       }
     });

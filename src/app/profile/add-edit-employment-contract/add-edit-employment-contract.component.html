@@ -182,7 +182,7 @@
 
                 <!-- Other emails -->
                 <div class="from-block">
-                  <label>Other Email </label>
+                  <label>Other Email <span>*</span></label>
                   <input
                     formControlName="otherEmail"
                     placeholder="Other Email"
@@ -533,13 +533,31 @@
 
             <!-- Legal guardian name  -->
             <div class="from-block">
-              <label>Legal Guardian Name</label>
+              <label
+                >Legal Guardian Name <span *ngIf="showLegalGuardStar">*</span>
+              </label>
               <input
                 formControlName="legalGuardianName"
                 placeholder="Legal Guardian Name"
                 type="text"
                 matInput
               />
+              <mat-error
+                *ngIf="
+                  addEditContractForm.controls.legalGuardianName.invalid &&
+                  addEditContractForm.controls.legalGuardianName.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    addEditContractForm.controls.legalGuardianName.errors
+                      .required
+                  "
+                  translate
+                >
+                  Legal Guardian Name is required
+                </span>
+              </mat-error>
             </div>
 
             <!-- Player address  -->
@@ -740,24 +758,6 @@
                   type="text"
                   matInput
                 />
-                <mat-error
-                  *ngIf="
-                    addEditContractForm.controls.clubAcademyIntermediaryName
-                      .invalid &&
-                    addEditContractForm.controls.clubAcademyIntermediaryName
-                      .touched
-                  "
-                >
-                  <span
-                    *ngIf="
-                      addEditContractForm.controls.clubAcademyIntermediaryName
-                        .errors.required
-                    "
-                    translate
-                  >
-                    Name of intermediaries is required
-                  </span>
-                </mat-error>
               </div>
 
               <!-- Percentage of transfer fee paid to intermediaries  -->
@@ -771,24 +771,6 @@
                   type="text"
                   matInput
                 />
-                <mat-error
-                  *ngIf="
-                    addEditContractForm.controls.clubAcademyTransferFee
-                      .invalid &&
-                    addEditContractForm.controls.clubAcademyTransferFee.touched
-                  "
-                >
-                  <span
-                    *ngIf="
-                      addEditContractForm.controls.clubAcademyTransferFee.errors
-                        .required
-                    "
-                    translate
-                  >
-                    Percentage Of Transfer Fee Paid To Intermediaries is
-                    required
-                  </span>
-                </mat-error>
               </div>
             </ng-container>
 
@@ -832,23 +814,6 @@
                   type="text"
                   matInput
                 />
-                <mat-error
-                  *ngIf="
-                    addEditContractForm.controls.playerIntermediaryName
-                      .invalid &&
-                    addEditContractForm.controls.playerIntermediaryName.touched
-                  "
-                >
-                  <span
-                    *ngIf="
-                      addEditContractForm.controls.playerIntermediaryName.errors
-                        .required
-                    "
-                    translate
-                  >
-                    Name Of Intermediaries is required
-                  </span>
-                </mat-error>
               </div>
 
               <!-- Percentage of transfer fee paid to intermediaries  -->
@@ -862,23 +827,6 @@
                   type="text"
                   matInput
                 />
-                <mat-error
-                  *ngIf="
-                    addEditContractForm.controls.playerTransferFee.invalid &&
-                    addEditContractForm.controls.playerTransferFee.touched
-                  "
-                >
-                  <span
-                    *ngIf="
-                      addEditContractForm.controls.playerTransferFee.errors
-                        .required
-                    "
-                    translate
-                  >
-                    Percentage Of Transfer Fee Paid To Intermediaries is
-                    required
-                  </span>
-                </mat-error>
               </div>
             </ng-container>
           </div>

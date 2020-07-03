@@ -53,6 +53,7 @@
           let-position="position"
           let-status="status"
           let-email="email"
+          let-user_id="user_id"
           let-canAddContract="canAddContract"
         >
           <div class="action-buttons">
@@ -73,7 +74,10 @@
               [ngClass]="{
                 'icon-disable': !canAddContract
               }"
-              [routerLink]="['/member/profile/add-employment-contract']"
+              [routerLink]="[
+                '/member/profile/add-employment-contract',
+                user_id
+              ]"
               matTooltip="Add Contract"
             >
               <img src="assets/images/icons/plus.png" alt="Add" />

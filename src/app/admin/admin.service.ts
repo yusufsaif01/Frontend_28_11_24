@@ -288,7 +288,7 @@ export class AdminService {
     if (context['email_verified']) {
       query += '&email_verified=' + context['email_verified'];
     }
-    if (context['']) {
+    if (context['profile_status']) {
       query += '&profile_status=' + context['profile_status'];
     }
 
