@@ -103,12 +103,11 @@
           <!-- search form -->
           <div class="search">
             <div class="search-box">
-              <input
-                matInput
-                placeholder="Search city"
-                class="search-icon"
-                (keyup)="applyFilter($event)"
-              />
+              <app-grid-search-box
+                placeholder="Search City"
+                (sendSearchText)="getSearchText($event)"
+              >
+              </app-grid-search-box>
             </div>
           </div>
         </div>

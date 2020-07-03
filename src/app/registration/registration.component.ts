@@ -90,7 +90,15 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
   }
 
+  trimForm(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(key => {
+      if (formGroup.get(key).value)
+        formGroup.get(key).setValue(formGroup.get(key).value.trim());
+    });
+  }
+
   register() {
+    this.trimForm(this.registrationForm);
     let form_data = this.registrationForm.value;
     form_data.member_type = this.activeForm;
     if (this.activeForm === 'club' || this.activeForm === 'academy') {

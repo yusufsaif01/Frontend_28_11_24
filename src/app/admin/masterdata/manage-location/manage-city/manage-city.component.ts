@@ -137,8 +137,9 @@ export class ManageCityComponent implements OnInit, OnDestroy {
     this.selectedPage = event.selectedPage;
     this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
   }
-  applyFilter(event: any) {
-    let filterValue = event.target.value;
+
+  getSearchText(value: string) {
+    let filterValue = value;
     this.getCityListByState(this.state_id, this.pageSize, 1, filterValue);
   }
 
