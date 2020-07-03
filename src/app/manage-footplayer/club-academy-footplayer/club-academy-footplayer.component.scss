@@ -46,32 +46,11 @@
       }
     }
 
-    // Search
     .search {
       display: block;
       text-align: right;
       width: 100%;
       padding: 2rem 2rem 0rem;
-
-      .search-form {
-        form {
-          position: relative;
-
-          input {
-            padding: 1rem;
-            border-radius: 0.8rem;
-            outline: none;
-            border: 1px solid $text-color;
-          }
-
-          span.search-icon {
-            position: absolute;
-            left: calc(100% - 4rem);
-            top: 1.2rem;
-            color: $text-muted;
-          }
-        }
-      }
     }
 
     // filters

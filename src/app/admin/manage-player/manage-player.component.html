@@ -101,14 +101,11 @@
                 <option value="35">35</option>
               </select>
             </div>
-            <div class="search-box">
-              <input
-                matInput
-                placeholder="Search player"
-                class="search-icon"
-                (keyup)="applyFilter($event)"
-              />
-            </div>
+            <app-grid-search-box
+              placeholder="Search Player"
+              (sendSearchText)="getSearchText($event)"
+            >
+            </app-grid-search-box>
           </div>
         </div>
         <!-- filter-seciton -->
