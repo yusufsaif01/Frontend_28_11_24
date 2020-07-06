@@ -88,10 +88,13 @@ export class ManageClubComponent implements OnInit, OnDestroy {
 
   recordsPerPage(event: any) {
     this.pageSize = event.target.value;
+    this.filterValues.page_size = event.target.value;
+    this.filterValues.page_no = 1;
     this.getClubList(this.pageSize, 1);
   }
 
   updatePage(event: any) {
+    this.filterValues.page_no = event.selectedPage;
     this.getClubList(this.pageSize, event.selectedPage);
   }
 
