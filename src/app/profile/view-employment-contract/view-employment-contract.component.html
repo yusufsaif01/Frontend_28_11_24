@@ -38,7 +38,7 @@
           </div>
           <div class="half">
             <p>
-              <span>Club/Academy Name : </span>
+              <span>{{ contractWith | titlecase }} Name : </span>
               {{ contractDetails.clubAcademyName }}
             </p>
           </div>
@@ -105,7 +105,7 @@
           </div>
           <div class="half">
             <p>
-              <span>Club/Academy representative name : </span>
+              <span>{{ contractWith | titlecase }} representative name : </span>
               {{ contractDetails.clubAcademyRepresentativeName }}
             </p>
           </div>
@@ -114,7 +114,7 @@
         <div class="block-middle border-bottom">
           <div class="full">
             <p>
-              <span>Club/Academy address : </span>
+              <span>{{ contractWith | titlecase }} address : </span>
               {{ contractDetails.clubAcademyAddress }}
             </p>
           </div>
@@ -123,7 +123,7 @@
         <div class="block-middle border-bottom">
           <div class="half">
             <p>
-              <span>Club/Academy Phone Number: </span>
+              <span>{{ contractWith | titlecase }} Phone Number: </span>
               {{ contractDetails.clubAcademyPhoneNumber }}
             </p>
           </div>
@@ -177,7 +177,7 @@
         <div class="block-middle border-bottom">
           <div class="full">
             <p>
-              <span>Club/Academy email : </span>
+              <span>{{ contractWith | titlecase }} email : </span>
               {{ contractDetails.clubAcademyEmail }}
             </p>
           </div>
@@ -187,7 +187,7 @@
           <div class="full">
             <p>
               <span class="text-reset"
-                >Did the club/academy use the services of an agent ? :
+                >Did the {{ contractWith }} use the services of an agent ? :
               </span>
               {{ contractDetails.clubAcademyUsesAgentServices ? 'Yes' : 'No' }}
             </p>
