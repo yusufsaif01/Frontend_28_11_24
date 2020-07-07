@@ -18,7 +18,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
 // import { HomeComponent } from './pages/home/home.component';
-import { LoginFrontendModule } from './login-frontend/login-frontend.module';
 import { LoaderInterceptor } from './core/http/loader.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 // import { FrontendModule } from './frontend/frontend.module';
@@ -99,7 +98,6 @@ const icons = {
     // ShellModule,
     // HomeModule,
     LoginModule,
-    LoginFrontendModule,
     HomeModule,
     FeatherModule.pick(icons),
     // FrontendModule,
