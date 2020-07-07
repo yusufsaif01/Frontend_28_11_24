@@ -22,6 +22,7 @@ export class ViewEmploymentContractComponent implements OnInit {
   contractId: string = '';
   contractDetails: any = {};
   memberType: string = '';
+  contractWith: string = '';
 
   constructor(
     public dialog: MatDialog,
@@ -42,12 +43,24 @@ export class ViewEmploymentContractComponent implements OnInit {
     this._contractService.getContractDetails(this.contractId).subscribe(
       (response: any) => {
         this.contractDetails = response.data;
+        this.findPlayerContractWithDetails();
         this.memberType = localStorage.getItem('member_type');
+        if (this.memberType == 'undefined') this.memberType = '';
       },
       error => {
         this._toastrService.error(error.error.message, 'Error');
       }
     );
+  }
+  findPlayerContractWithDetails() {
+    switch (this.contractDetails.created_by) {
+      case 'club' || 'academy':
+        this.contractWith = this.contractDetails.created_by;
+        break;
+      case 'player':
+        this.contractWith = this.contractDetails.category;
+        break;
+    }
   }
 
   updateContractStatus(status: string) {
@@ -61,7 +74,7 @@ export class ViewEmploymentContractComponent implements OnInit {
     }
     if (status === 'approved') {
       (header = 'Please Confirm'),
-        (message = `Do you want to approve the Employment Contract with ${this.contractDetails.clubAcademyName} Club/Academy ?`);
+        (message = `Do you want to approve the Employment Contract with ${this.contractDetails.clubAcademyName} ${this.contractWith} ?`);
       disApprove = false;
     }
     const dialogRef = this.dialog.open(VerificationPopupComponent, {

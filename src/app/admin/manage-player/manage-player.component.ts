@@ -104,11 +104,13 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
 
   recordsPerPage(event: any) {
     this.pageSize = event.target.value;
-
+    this.filterValues.page_size = event.target.value;
+    this.filterValues.page_no = 1;
     this.getPlayerList(this.pageSize, 1);
   }
 
   updatePage(event: any) {
+    this.filterValues.page_no = event.selectedPage;
     this.getPlayerList(this.pageSize, event.selectedPage);
   }
 

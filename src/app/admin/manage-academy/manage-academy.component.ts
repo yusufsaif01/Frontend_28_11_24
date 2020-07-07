@@ -68,6 +68,7 @@ export class ManageAcademyComponent implements OnInit, OnDestroy {
   }
 
   updatePage(event: any) {
+    this.filterValues.page_no = event.selectedPage;
     this.getAcademyList(this.pageSize, event.selectedPage);
   }
 
@@ -92,6 +93,8 @@ export class ManageAcademyComponent implements OnInit, OnDestroy {
 
   recordsPerPage(event: any) {
     this.pageSize = event.target.value;
+    this.filterValues.page_size = event.target.value;
+    this.filterValues.page_no = 1;
     this.getAcademyList(this.pageSize, 1);
   }
 
