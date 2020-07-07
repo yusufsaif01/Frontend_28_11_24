@@ -58,6 +58,7 @@ import { RoleGuardService } from './core/authentication/role-guard.service';
 import { JwtInterceptor } from './core/http/jwt.interceptor';
 import { ErrorInterceptor } from './core/http/error.interceptor';
 import { FootPlayerComponent } from './manage-footplayer/foot-player/foot-player.component';
+import { HomeModule } from './home/home.module';
 const icons = {
   Camera,
   Heart,
@@ -99,6 +100,7 @@ const icons = {
     // HomeModule,
     LoginModule,
     LoginFrontendModule,
+    HomeModule,
     FeatherModule.pick(icons),
     // FrontendModule,
     Angulartics2Module.forRoot(),
