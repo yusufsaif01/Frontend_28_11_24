@@ -48,17 +48,24 @@
         <div class="form-block">
           <label
             >Password <span>*</span>
-            <a [routerLink]="['/forgot-password']">
-              Forgot password ?
-            </a></label
-          >
-          <input
-            type="Password"
-            matInput
-            formControlName="password"
-            autocomplete="off"
-            required
-          />
+            <div class="forget-text">
+              <a [routerLink]="['/forgot-password']">
+                Forgot password ?
+              </a>
+            </div>
+          </label>
+          <div class="pass-fields">
+            <input
+              type="Password"
+              matInput
+              formControlName="password"
+              autocomplete="off"
+              required
+            />
+            <mat-icon class="material-icons">
+              visibility
+            </mat-icon>
+          </div>
           <mat-error
             *ngIf="password.invalid && password.touched"
             class="error-text"

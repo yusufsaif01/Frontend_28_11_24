@@ -16,13 +16,6 @@
       margin-left: 0.5rem;
       color: $primary-color;
     }
-
-    a {
-      display: block;
-      text-align: right;
-      width: 100%;
-      color: $primary-color;
-    }
   }
 
   input {
@@ -34,7 +27,7 @@
     -webkit-border-radius: 0.5rem;
     -moz-border-radius: 0.5rem;
     border-radius: 0.5rem;
-    color: $Second-color;
+    color: $second-color;
     font-size: $heading-fourth;
 
     &:focus {
@@ -54,5 +47,18 @@
     position: absolute;
     bottom: 0rem;
     left: 0px;
+  }
+}
+
+.pass-fields {
+  position: relative;
+
+  .mat-icon {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    font-size: 2.8rem;
+    color: $second-color;
   }
 }
