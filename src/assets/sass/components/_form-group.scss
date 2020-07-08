@@ -5,7 +5,9 @@
   padding-bottom: 2.5rem;
   margin-top: 1rem;
 
-  label {
+  label,
+  label.forgetlink,
+  label.info-icon {
     font-size: $heading-fourth;
     display: block;
     font-weight: 500;
@@ -18,9 +20,10 @@
     }
   }
 
-  input {
+  input,
+  select {
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 1rem;
     border: 1px solid transparent;
     outline: none;
     background: $third-color;
@@ -32,6 +35,23 @@
 
     &:focus {
       background: $fifth-color;
+    }
+  }
+
+  select {
+    background: url("assets/images/global/down.svg") no-repeat, $third-color;
+    background-position: calc(100% - 1rem);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &:focus {
+      background: url("assets/images/global/down.svg") no-repeat, $fifth-color;
+      background-position: calc(100% - 1rem);
+    }
+
+    option {
+      outline: none;
     }
   }
 
@@ -50,6 +70,32 @@
   }
 }
 
+.phone-block {
+  display: flex;
+  justify-content: space-between;
+
+  .country-code {
+    width: 25%;
+  }
+
+  .phone-number {
+    width: 73%;
+  }
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .half {
+    width: 48%;
+  }
+
+  .one-third {
+    width: 31.33%;
+  }
+}
 .pass-fields {
   position: relative;
 

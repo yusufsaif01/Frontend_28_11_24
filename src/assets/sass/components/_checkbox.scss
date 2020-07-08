@@ -1,50 +1,83 @@
 @import "../abstracts/variables";
 
 .mat-checkbox {
-  &.custom-checkbox {
-    .mat-checkbox-layout {
-      margin-bottom: 0;
-    }
+  .mat-checkbox-layout {
+    align-items: center !important;
+
     .mat-checkbox-inner-container {
-      height: 1.7rem;
-      width: 1.7rem;
-      .mat-checkbox-frame {
-        border-radius: 0.3rem;
-        background-color: #f8f8f8;
-        border: 0.1rem solid #d7d7d7;
-      }
-      .mat-checkbox-background {
-        background: transparent;
-        background-image: url("./assets/images/icons/checkbox-tick.png");
-        background-size: 1.7rem;
-        background-position: top right;
-        background-repeat: no-repeat;
-        margin-top: -0.4rem;
-        margin-right: -0.4rem;
-        display: none;
-      }
-      .mat-checkbox-ripple {
-        position: absolute;
-        left: calc(50% - 1.7rem);
-        top: calc(50% - 1.7rem);
-        height: 3.4rem;
-        width: 3.4rem;
-        z-index: 1;
-        pointer-events: none;
-      }
+      height: 20px;
+      width: 20px;
     }
-    &.mat-checkbox-checked {
-      .mat-checkbox-inner-container {
-        .mat-checkbox-background {
-          display: inline-block;
-          .mat-checkbox-mixedmark {
-            display: none;
-          }
-          .mat-checkbox-checkmark {
-            display: none;
-          }
-        }
-      }
+
+    .mat-checkbox-label {
+      line-height: 2.4px;
+      font-size: $heading-fourth !important;
+      font-family: $primary-text;
+      color: $second-color;
+      font-weight: 500;
+    }
+  }
+
+  .mat-checkbox-frame {
+    border-color: $second-color !important;
+    border-radius: 3px;
+  }
+}
+
+//
+.radio-block {
+  padding-bottom: 2rem;
+}
+
+.mat-radio-button {
+  margin-right: 2rem;
+
+  .mat-radio-label {
+    font-size: $heading-third;
+  }
+
+  .mat-radio-container {
+    height: 16px;
+    width: 16px;
+
+    .mat-radio-outer-circle {
+      border-color: $primary-color;
+      height: 16px;
+      width: 16px;
+    }
+
+    .mat-radio-inner-circle {
+      background-color: $primary-color;
+      height: 16px;
+      width: 16px;
+    }
+
+    .mat-radio-button.mat-accent.mat-radio-checked
+      .mat-radio-persistent-ripple {
+      background-color: $primary-color !important;
+    }
+
+    .mat-radio-label-content {
+      font-size: $heading-fourth !important;
+      color: $second-color !important;
+    }
+  }
+}
+
+.mat-checkbox-checked {
+  .mat-checkbox-background {
+    background-color: $primary-color !important;
+  }
+}
+
+.mat-radio-checked {
+  .mat-radio-container {
+    .mat-radio-outer-circle {
+      border-color: $primary-color !important;
+    }
+
+    .mat-radio-inner-circle {
+      background-color: $primary-color !important;
     }
   }
 }
