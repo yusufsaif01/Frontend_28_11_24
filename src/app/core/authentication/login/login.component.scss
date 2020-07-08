@@ -41,6 +41,7 @@
       font-family: $secondary-text;
       position: relative;
       padding-bottom: 2rem;
+      letter-spacing: 1px;
 
       span {
         display: block;
@@ -67,13 +68,23 @@
     .form-box {
       width: 60%;
       margin: auto;
-      -webkit-box-shadow: 0rem 0.5rem 1rem 0rem rgba($fourth-color, 0.05);
-      -moz-box-shadow: 0rem 0.5rem 1rem 0rem rgba($fourth-color, 0.05);
-      box-shadow: 0rem 0.5rem 1rem 0rem rgba($fourth-color, 0.05);
+      -webkit-box-shadow: 0rem 0rem 1.8rem 0rem rgba($fourth-color, 0.12);
+      -moz-box-shadow: 0rem 0rem 1.8rem 0rem rgba($fourth-color, 0.12);
+      box-shadow: 0rem 0rem 1.8rem 0rem rgba($fourth-color, 0.12);
       -webkit-border-radius: 1rem;
       -moz-border-radius: 1rem;
       border-radius: 1rem;
       padding: 3rem 4rem;
+
+      .forget-text {
+        display: block;
+        text-align: right;
+        width: 100%;
+
+        a {
+          color: $primary-color;
+        }
+      }
 
       h2 {
         font-size: $heading-primary;
