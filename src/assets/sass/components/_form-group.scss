@@ -17,13 +17,6 @@
       margin-left: 0.5rem;
       color: $primary-color;
     }
-
-    a {
-      display: block;
-      text-align: right;
-      width: 100%;
-      color: $primary-color;
-    }
   }
 
   input,
@@ -100,5 +93,17 @@
 
   .one-third {
     width: 31.33%;
+  }
+}
+.pass-fields {
+  position: relative;
+
+  .mat-icon {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    font-size: 2.8rem;
+    color: $second-color;
   }
 }
