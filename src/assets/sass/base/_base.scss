@@ -1,301 +1,75 @@
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
-}
-
-html {
-  font-size: 10px;
-}
-
-@media (min-width: 320px) {
-  html {
-    font-size: 5.3px;
-  }
-}
-
-@media (min-width: 1024px) {
-  html {
-    font-size: 5.3px;
-  }
-}
-
-@media (min-width: 1152px) {
-  html {
-    font-size: 6px;
-  }
-}
-
-@media (min-width: 1199px) {
-  html {
-    font-size: 6.4px;
-  }
-}
-
-@media (min-width: 1280px) {
-  html {
-    font-size: 6.6px;
-  }
-}
-
-@media (min-width: 1344px) {
-  html {
-    font-size: 7px;
-  }
-}
-
-@media (min-width: 1366px) {
-  html {
-    font-size: 7.11px;
-  }
-}
-
-@media (min-width: 1400px) {
-  html {
-    font-size: 7.29px;
-  }
-}
-
-@media (min-width: 1440px) {
-  html {
-    font-size: 7.5px;
-  }
-}
-
-@media (min-width: 1536px) {
-  html {
-    font-size: 8px;
-  }
-}
-
-@media (min-width: 1600px) {
-  html {
-    font-size: 8.33px;
-  }
-}
-
-@media (min-width: 1680px) {
-  html {
-    font-size: 8.75px;
-  }
-}
-
-@media (min-width: 1728px) {
-  html {
-    font-size: 9px;
-  }
-}
-
-@media (min-width: 1856px) {
-  html {
-    font-size: 9.66px;
-  }
-}
-
-@media (min-width: 1920px) {
-  html {
-    font-size: 10px;
-  }
-}
-
-@media (min-width: 2448px) {
-  html {
-    font-size: 12.75px;
-  }
-}
-
-@media (min-width: 2448px) {
-  html {
-    font-size: 12.75px;
-  }
-}
-
-@media (min-width: 2960px) {
-  html {
-    font-size: 15.41px;
-  }
-}
-
-@media (min-width: 3840px) {
-  html {
-    font-size: 20px;
-  }
-}
-
-@media (min-width: 7680px) {
-  html {
-    font-size: 40px;
-  }
-}
-
-body {
-  font-family: "Muli", sans-serif;
-  box-sizing: border-box;
-  font-size: 1.4rem;
-}
+@import "./../abstracts/variables";
 
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
+body,
 html {
   font-size: 10px;
-}
-
-@media (min-width: 320px) {
-  html {
-    font-size: 5.3px;
-  }
-}
-
-@media (min-width: 1024px) {
-  html {
-    font-size: 5.3px;
-  }
-}
-
-@media (min-width: 1152px) {
-  html {
-    font-size: 6px;
-  }
-}
-
-@media (min-width: 1199px) {
-  html {
-    font-size: 6.4px;
-  }
-}
-
-@media (min-width: 1280px) {
-  html {
-    font-size: 6.6px;
-  }
-}
-
-@media (min-width: 1344px) {
-  html {
-    font-size: 7px;
-  }
-}
-
-@media (min-width: 1366px) {
-  html {
-    font-size: 7.11px;
-  }
-}
-
-@media (min-width: 1400px) {
-  html {
-    font-size: 7.29px;
-  }
-}
-
-@media (min-width: 1440px) {
-  html {
-    font-size: 7.5px;
-  }
-}
-
-@media (min-width: 1536px) {
-  html {
-    font-size: 8px;
-  }
-}
-
-@media (min-width: 1600px) {
-  html {
-    font-size: 8.33px;
-  }
-}
-
-@media (min-width: 1680px) {
-  html {
-    font-size: 8.75px;
-  }
-}
-
-@media (min-width: 1728px) {
-  html {
-    font-size: 9px;
-  }
-}
-
-@media (min-width: 1856px) {
-  html {
-    font-size: 9.66px;
-  }
-}
-
-@media (min-width: 1920px) {
-  html {
-    font-size: 10px;
-  }
-}
-
-@media (min-width: 2448px) {
-  html {
-    font-size: 12.75px;
-  }
-}
-
-@media (min-width: 2448px) {
-  html {
-    font-size: 12.75px;
-  }
-}
-
-@media (min-width: 2960px) {
-  html {
-    font-size: 15.41px;
-  }
-}
-
-@media (min-width: 3840px) {
-  html {
-    font-size: 20px;
-  }
-}
-
-@media (min-width: 7680px) {
-  html {
-    font-size: 40px;
-  }
-}
-
-body {
-  font-family: "Muli", sans-serif;
-  box-sizing: border-box;
-  font-size: 1.4rem;
-  outline: none;
 }
 
 a {
-  cursor: pointer;
   text-decoration: none;
+  color: $second-color;
+  user-select: none;
+  cursor: pointer;
+
+  &:hover,
+  &:visited,
+  &:active {
+    color: $primary-color;
+  }
 }
 
-/* width */
-::-webkit-scrollbar {
-  width: 0px;
+@media (max-width: 1920px) {
+  html {
+    font-size: 10px;
+  }
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #fff;
+@media (max-width: 1366px) {
+  html {
+    font-size: 8px;
+  }
 }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #fff;
+@media (max-width: 1199px) {
+  html {
+    font-size: 7px;
+  }
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #fff;
+@media (max-width: 991px) {
+  html {
+    font-size: 6.6px;
+  }
+}
+
+@media (max-width: 767px) {
+  html {
+    font-size: 6.4px;
+  }
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 5.3px;
+  }
+}
+
+@media (max-width: 320px) {
+  html {
+    font-size: 5.3px;
+  }
 }

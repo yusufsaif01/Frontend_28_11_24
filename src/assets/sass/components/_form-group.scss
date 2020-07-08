@@ -1,72 +1,63 @@
 @import "../abstracts/variables";
 
-.form-group {
-  margin-bottom: 5rem;
+.form-block {
+  position: relative;
+  padding-bottom: 2.5rem;
+  margin-top: 1rem;
+
   label {
-    font-size: 2rem;
-    line-height: 1;
-    color: #222223;
-    font-weight: 700;
-    margin-bottom: 1.3rem;
+    font-size: $heading-fourth;
     display: block;
+    font-weight: 500;
+    display: flex;
+
+    span {
+      margin-left: 0.5rem;
+      color: $primary-color;
+    }
   }
-  .input__text {
-    border-radius: 0.7rem;
-    border: 0.1rem solid #cccccc;
-    height: 5.9rem;
+
+  input {
     width: 100%;
-    font-size: 1.5rem;
-    color: #a7a7a7;
-    font-weight: 400;
-    padding-right: 2.7rem;
-    padding-left: 2.7rem;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding: 1rem 2rem;
+    border: 1px solid transparent;
     outline: none;
-  }
-  .input__group {
-    position: relative;
-    &.date {
-      .input__text {
-        background-image: url("./assets/images/icons/calender.png");
-        background-repeat: no-repeat;
-        background-size: 1.8rem;
-        background-position: calc(100% - 2.1rem);
-      }
-      .mat-datepicker-toggle-default-icon {
-        visibility: hidden;
-      }
-    }
-    .input__text {
-      padding-right: 5.7rem;
-    }
-    &--addon {
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
+    background: $third-color;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    border-radius: 0.5rem;
+    color: $second-color;
+    font-size: $heading-fourth;
+
+    &:focus {
+      background: $fifth-color;
     }
   }
-  select {
-    background-color: #ffffff;
+
+  .error-input {
+    background-color: rgba($error, 0.1) !important;
+    border: 1px solid $error;
+  }
+
+  .error-text {
+    color: $error;
+    padding: 0.5rem 0;
     width: 100%;
-    color: #a7a7a7;
-    font-weight: 400;
-    outline: none;
-    -webkit-appearance: none;
-    appearance: none;
-    background-image: url("./assets/images/icons/drowdown-caret.png");
-    background-repeat: no-repeat;
-    background-size: 1.5rem;
-    background-position: calc(100% - 2.1rem);
+    position: absolute;
+    bottom: 0rem;
+    left: 0px;
   }
 }
-.mat-error {
-  color: red;
-  position: absolute;
-  left: 0rem;
-  bottom: 0rem;
-}
-select {
-  cursor: pointer;
+
+.pass-fields {
+  position: relative;
+
+  .mat-icon {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    font-size: 2.8rem;
+    color: $second-color;
+  }
 }

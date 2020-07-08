@@ -17,19 +17,39 @@ $color-white: #fff;
 $color-black: #000;
 
 $success: #27ae60;
-$error: #eb2f06;
+
 $white: #fff;
 $blue: #117ab5;
 
 $cancel: #6c757d;
-
 $grey: #e0e0e0;
 $text-muted: #6c757d;
-
 $border-color: #eaebec;
 $comment: #f8f9fa;
-
 // admin
 $text-color: #848484;
 
-// sidenav
+// New Design Variables
+
+// fontfamilies
+$primary-text: "Montserrat";
+$secondary-text: "Paytone One";
+
+// fontSize
+$heading-primary: 3.6rem;
+$heading-Seoncdary: 3rem;
+$heading-third: 2.4rem;
+$heading-fourth: 1.8rem;
+$heading-fifth: 1.6rem;
+$heading-sixth: 1.4rem;
+
+// Colors
+$primary-color: #ff9933;
+$second-color: #626262;
+$third-color: #f6f6f6;
+$fourth-color: #323232;
+$fifth-color: #fff0d3;
+$white-color: #fff;
+
+// toaster color
+$error: #e74c3c;
