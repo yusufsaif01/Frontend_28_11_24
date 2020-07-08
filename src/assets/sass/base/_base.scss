@@ -15,7 +15,7 @@ html {
 
 a {
   text-decoration: none;
-  color: $Second-color;
+  color: $second-color;
   user-select: none;
   cursor: pointer;
 
@@ -24,6 +24,13 @@ a {
   &:active {
     color: $primary-color;
   }
+}
+
+.info {
+  font-size: inherit;
+  display: inline-block;
+  margin-right: 0.5rem;
+  margin-bottom: 2px;
 }
 
 @media (max-width: 1920px) {
