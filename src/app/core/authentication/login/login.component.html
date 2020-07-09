@@ -64,7 +64,8 @@
           </label>
           <div class="pass-fields">
             <input
-              [type]="showPassword ? 'text' : 'password'"
+              appPassword
+              type="password"
               matInput
               formControlName="password"
               autocomplete="off"
@@ -77,9 +78,9 @@
                   (password.errors.required || password.errors.password)
               }"
             />
-            <mat-icon (click)="showHidePassword()" class=" material-icons">
+            <!-- <mat-icon (click)="showHidePassword()" class=" material-icons">
               {{ showPassword ? 'visibility' : 'visibility_off' }}
-            </mat-icon>
+            </mat-icon> -->
           </div>
           <mat-error
             *ngIf="password.invalid && password.touched"
