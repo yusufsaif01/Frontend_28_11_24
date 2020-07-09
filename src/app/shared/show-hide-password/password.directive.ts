@@ -25,7 +25,10 @@ export class PasswordDirective {
     const parent = this.el.nativeElement.parentNode;
     const icon = document.createElement('mat-icon');
     icon.innerHTML = `visibility_off`;
-    icon.setAttribute('class', 'material-icons');
+    icon.setAttribute(
+      'class',
+      'material-icons mat-icon notranslate mat-icon-no-color'
+    );
     icon.addEventListener('click', (event: any) => {
       this.toggle(icon);
     });
