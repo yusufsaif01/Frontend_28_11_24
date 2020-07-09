@@ -17,6 +17,8 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   isLinkExpired: boolean = false;
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
+  tooltip: string =
+    'Please provide at least 1 special character, 1 number and 1 alphabet';
 
   constructor(
     private _formBuilder: FormBuilder,
