@@ -22,7 +22,7 @@
       <h2>Sign in</h2>
       <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
         <div class="form-block">
-          <label>Email <span>*</span></label>
+          <label>Email</label>
           <input
             type="email"
             matinput
@@ -47,7 +47,14 @@
         </div>
         <div class="form-block">
           <label
-            >Password <span>*</span>
+            >Password
+            <span [matTooltip]="tooltip" matTooltipPosition="above">
+              <img
+                src="assets/images/global/info.svg"
+                alt="info"
+                class="info"
+              />
+            </span>
             <div class="forget-text">
               <a [routerLink]="['/forgot-password']">
                 Forgot password ?
@@ -61,8 +68,14 @@
               formControlName="password"
               autocomplete="off"
               required
+              [ngClass]="{
+                'error-input':
+                  password.invalid &&
+                  password.touched &&
+                  (password.errors.required || password.errors.password)
+              }"
             />
-            <mat-icon class="material-icons">
+            <mat-icon class=" material-icons">
               visibility
             </mat-icon>
           </div>

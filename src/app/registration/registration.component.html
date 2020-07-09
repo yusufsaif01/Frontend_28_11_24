@@ -49,13 +49,12 @@
         <div class="form-group" *ngIf="activeForm === 'player'">
           <div class="half">
             <div class="form-block">
-              <label>First Name <span>*</span></label>
+              <label>First Name </label>
               <input
                 formControlName="first_name"
                 type="text"
                 matInput
                 required
-                placeholder="First Name"
               />
               <ng-container
                 *ngIf="
@@ -94,12 +93,11 @@
 
           <div class="half">
             <div class="form-block">
-              <label>Last Name <span>*</span></label>
+              <label>Last Name </label>
               <input
                 formControlName="last_name"
                 type="text"
                 matInput
-                placeholder="Last Name"
                 required
               />
               <ng-container
@@ -129,13 +127,8 @@
         </div>
 
         <div class="form-block" *ngIf="activeForm === 'club'">
-          <label>Club Name <span>*</span></label>
-          <input
-            formControlName="name"
-            type="text"
-            matInput
-            placeholder="Club Name"
-          />
+          <label>Club Name </label>
+          <input formControlName="name" type="text" matInput />
           <ng-container
             *ngIf="
               registrationForm.controls.name.invalid &&
@@ -171,14 +164,8 @@
         </div>
 
         <div class="form-block" *ngIf="activeForm === 'academy'">
-          <label>Academy Name <span>*</span></label>
-          <input
-            formControlName="name"
-            type="text"
-            placeholder="Academy Name"
-            matInput
-            required
-          />
+          <label>Academy Name </label>
+          <input formControlName="name" type="text" matInput required />
           <ng-container
             *ngIf="
               registrationForm.controls.name.invalid &&
@@ -214,12 +201,11 @@
         </div>
 
         <div class="form-block">
-          <label>Email <span>*</span></label>
+          <label>Email </label>
           <input
             formControlName="email"
             type="text"
             matInput
-            placeholder="Email"
             autocomplete="off"
           />
           <ng-container
@@ -243,10 +229,10 @@
           </ng-container>
         </div>
         <div class="form-block">
-          <label>Contact number <span>*</span></label>
+          <label>Contact no. </label>
           <div class="phone-block">
             <div class="country-code">
-              <select>
+              <select disabled>
                 <option>+91</option>
               </select>
             </div>
@@ -255,7 +241,6 @@
                 formControlName="phone"
                 type="text"
                 matInput
-                placeholder="Contact Number"
                 autocomplete="off"
               />
             </div>
@@ -312,7 +297,11 @@
           <label
             >Type
             <span [matTooltip]="tooltip" matTooltipPosition="above">
-              <i-feather name="info" class="info"> </i-feather> </span
+              <img
+                src="assets/images/global/info.svg"
+                alt="info"
+                class="info"
+              /> </span
           ></label>
           <select
             formControlName="type"
@@ -356,7 +345,7 @@
           Agree & Join
         </button>
       </form>
-      <p>Already have account ? <a [routerLink]="['/login']">Sign in</a></p>
+      <p>Already have an account ? <a [routerLink]="['/login']">Sign in</a></p>
     </div>
   </div>
 </div>
