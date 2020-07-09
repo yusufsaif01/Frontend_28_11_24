@@ -10,7 +10,6 @@ import { untilDestroyed } from '@app/core';
 })
 export class ForgotPasswordComponent implements OnInit, OnDestroy {
   forgetPasswordForm: FormGroup;
-  linkSent: boolean = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -29,7 +28,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this.linkSent = true;
           this._toastrService.success('Successful', 'Reset Link Sent');
         },
         error => {

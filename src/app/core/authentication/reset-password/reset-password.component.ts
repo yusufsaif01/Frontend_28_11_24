@@ -15,6 +15,8 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   resetPasswordForm: FormGroup;
   token: string;
   isLinkExpired: boolean = false;
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -96,5 +98,12 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         validator: matchingPassword
       }
     );
+  }
+  showHidePassword(showHidePassword: string) {
+    if (this[showHidePassword]) {
+      this[showHidePassword] = false;
+    } else {
+      this[showHidePassword] = true;
+    }
   }
 }

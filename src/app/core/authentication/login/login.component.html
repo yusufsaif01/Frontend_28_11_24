@@ -63,7 +63,7 @@
           </label>
           <div class="pass-fields">
             <input
-              type="Password"
+              [type]="showPassword ? 'text' : 'password'"
               matInput
               formControlName="password"
               autocomplete="off"
@@ -75,8 +75,8 @@
                   (password.errors.required || password.errors.password)
               }"
             />
-            <mat-icon class=" material-icons">
-              visibility
+            <mat-icon (click)="showHidePassword()" class=" material-icons">
+              {{ showPassword ? 'visibility' : 'visibility_off' }}
             </mat-icon>
           </div>
           <mat-error

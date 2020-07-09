@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   error: string | undefined;
   loginForm!: FormGroup;
   isLoading = false;
+  showPassword: boolean = false;
 
   constructor(
     private router: Router,
@@ -128,5 +129,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
   get password() {
     return this.loginForm.get('password');
+  }
+  showHidePassword() {
+    if (this.showPassword) {
+      this.showPassword = false;
+    } else {
+      this.showPassword = true;
+    }
   }
 }
