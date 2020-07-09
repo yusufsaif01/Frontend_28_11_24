@@ -11,7 +11,7 @@ const routes = {
   register: (c: RegisterContext) => '/register',
   resetPassword: (c: ResetPasswordContext) => '/reset-password',
   changePasssword: (c: ChangePasswordContext) => '/change-password',
-  forgetPassword: (c: ForgotPasswordContext) => '/forgot-password',
+  forgotPassword: (c: ForgotPasswordContext) => '/forgot-password',
   createPassword: (c: ResetPasswordContext) => '/create-password',
   emailVerification: () => '/activate',
   resetLinkStatus: () => '/link/status'
@@ -134,8 +134,8 @@ export class AuthenticationService {
     return this.httpClient.post(routes.changePasssword(context), context);
   }
 
-  forgetPassword(context: ForgotPasswordContext): Observable<any> {
-    return this.httpClient.post(routes.forgetPassword(context), context);
+  forgotPassword(context: ForgotPasswordContext): Observable<any> {
+    return this.httpClient.post(routes.forgotPassword(context), context);
   }
 
   emailVerification(token: string): Observable<any> {

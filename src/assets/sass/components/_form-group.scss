@@ -96,6 +96,7 @@
     width: 31.33%;
   }
 }
+
 .pass-fields {
   position: relative;
 
@@ -106,5 +107,6 @@
     transform: translateY(-50%);
     font-size: 2.8rem;
     color: $second-color;
+    cursor: pointer;
   }
 }

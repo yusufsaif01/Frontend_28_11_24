@@ -1,0 +1,11 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+.copyright {
+  background-color: $fourth-color;
+  padding: 2rem 0;
+  text-align: center;
+  display: block;
+  color: $white-color;
+  font-size: $heading-fifth;
+}

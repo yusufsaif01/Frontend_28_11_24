@@ -16,6 +16,7 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
 import { GridSearchBoxComponent } from './grid-search-box/grid-search-box.component';
 import { TextSectionComponent } from '@app/core/authentication/text-section/text-section.component';
+import { PasswordDirective } from './show-hide-password/password.directive';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { TextSectionComponent } from '@app/core/authentication/text-section/text
     TrimPipe,
     VerificationPopupComponent,
     GridSearchBoxComponent,
-    TextSectionComponent
+    TextSectionComponent,
+    PasswordDirective
   ],
   entryComponents: [VerificationPopupComponent],
   providers: [NgxImageCompressService],
@@ -55,7 +57,8 @@ import { TextSectionComponent } from '@app/core/authentication/text-section/text
     RouterModule,
     VerificationPopupComponent,
     GridSearchBoxComponent,
-    TextSectionComponent
+    TextSectionComponent,
+    PasswordDirective
   ]
 })
 export class SharedModule {}

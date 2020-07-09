@@ -22,13 +22,14 @@
       <h2>Sign in</h2>
       <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
         <div class="form-block">
-          <label>Email <span>*</span></label>
+          <label>Email</label>
           <input
             type="email"
             matinput
             formControlName="email"
             autocomplete="off"
             required
+            placeholder="Email"
             [ngClass]="{
               'error-input':
                 email.invalid &&
@@ -47,7 +48,14 @@
         </div>
         <div class="form-block">
           <label
-            >Password <span>*</span>
+            >Password
+            <span [matTooltip]="tooltip" matTooltipPosition="above">
+              <img
+                src="assets/images/global/info.svg"
+                alt="info"
+                class="info"
+              />
+            </span>
             <div class="forget-text">
               <a [routerLink]="['/forgot-password']">
                 Forgot password ?
@@ -56,15 +64,23 @@
           </label>
           <div class="pass-fields">
             <input
-              type="Password"
+              appPassword
+              type="password"
               matInput
               formControlName="password"
               autocomplete="off"
+              placeholder="Password"
               required
+              [ngClass]="{
+                'error-input':
+                  password.invalid &&
+                  password.touched &&
+                  (password.errors.required || password.errors.password)
+              }"
             />
-            <mat-icon class="material-icons">
-              visibility
-            </mat-icon>
+            <!-- <mat-icon (click)="showHidePassword()" class=" material-icons">
+              {{ showPassword ? 'visibility' : 'visibility_off' }}
+            </mat-icon> -->
           </div>
           <mat-error
             *ngIf="password.invalid && password.touched"
@@ -85,57 +101,4 @@
     </div>
   </div>
 </div>
-<footer class="footer">
-  <div class="mainfooter">
-    <div class="wrapper">
-      <div class="logo">
-        <a href="">
-          <img src="assets/images/website/footer-logo.png" alt="footer-logo" />
-        </a>
-        <p>
-          “Youth football technology chain is the scouting platform for talented
-          football players.”
-        </p>
-      </div>
-      <div class="links">
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Sign up</a></li>
-          <li><a href="#">Sign in</a></li>
-        </ul>
-      </div>
-      <div class="links">
-        <ul>
-          <li><a href="#">Privacy policy</a></li>
-          <li><a href="#">Copyright policy</a></li>
-          <li><a href="#">Brand policy</a></li>
-          <li><a href="#">Cookie policy</a></li>
-        </ul>
-      </div>
-      <div class="social">
-        <ul>
-          <li>
-            <a href="#">
-              <img src="assets/images/website/social/instagram.svg" />
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="assets/images/website/social/facebook.svg" />
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="assets/images/website/social/linkdien.svg" />
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <!-- copyright -->
-  <div class="copyright">
-    <p>@ 2020 YFTChain. All rights reserved</p>
-  </div>
-</footer>
+<app-footer></app-footer>

@@ -49,13 +49,20 @@
         <div class="form-group" *ngIf="activeForm === 'player'">
           <div class="half">
             <div class="form-block">
-              <label>First Name <span>*</span></label>
+              <label>First name </label>
               <input
                 formControlName="first_name"
                 type="text"
                 matInput
+                placeholder="First name"
                 required
-                placeholder="First Name"
+                [ngClass]="{
+                  'error-input':
+                    registrationForm.controls.first_name.invalid &&
+                    registrationForm.controls.first_name.touched &&
+                    (registrationForm.controls.first_name.errors.required ||
+                      registrationForm.controls.first_name.errors.email)
+                }"
               />
               <ng-container
                 *ngIf="
@@ -67,7 +74,7 @@
                   class="error-text"
                   *ngIf="registrationForm.controls.first_name.errors.required"
                 >
-                  First Name is required
+                  First name is required
                 </mat-error>
                 <mat-error
                   class="error-text"
@@ -76,7 +83,7 @@
                     registrationForm.controls.first_name.errors.pattern
                   "
                 >
-                  First Name is invalid
+                  First name is invalid
                 </mat-error>
                 <mat-error
                   class="error-text"
@@ -86,7 +93,7 @@
                     registrationForm.controls.first_name.errors.maxlength
                   "
                 >
-                  First Name cannot exceed 25 characters
+                  First name cannot exceed 25 characters
                 </mat-error>
               </ng-container>
             </div>
@@ -94,13 +101,20 @@
 
           <div class="half">
             <div class="form-block">
-              <label>Last Name <span>*</span></label>
+              <label>Last name </label>
               <input
                 formControlName="last_name"
                 type="text"
                 matInput
-                placeholder="Last Name"
+                placeholder="Last name"
                 required
+                [ngClass]="{
+                  'error-input':
+                    registrationForm.controls.last_name.invalid &&
+                    registrationForm.controls.last_name.touched &&
+                    (registrationForm.controls.last_name.errors.required ||
+                      registrationForm.controls.last_name.errors.email)
+                }"
               />
               <ng-container
                 *ngIf="
@@ -112,7 +126,7 @@
                   class="error-text"
                   *ngIf="registrationForm.controls.last_name.errors.required"
                 >
-                  Last Name is required
+                  Last name is required
                 </mat-error>
                 <mat-error
                   class="error-text"
@@ -121,7 +135,7 @@
                     registrationForm.controls.last_name.errors.pattern
                   "
                 >
-                  Last Name is invalid
+                  Last name is invalid
                 </mat-error>
               </ng-container>
             </div>
@@ -129,12 +143,19 @@
         </div>
 
         <div class="form-block" *ngIf="activeForm === 'club'">
-          <label>Club Name <span>*</span></label>
+          <label>Club name </label>
           <input
             formControlName="name"
             type="text"
             matInput
-            placeholder="Club Name"
+            placeholder="Club name"
+            [ngClass]="{
+              'error-input':
+                registrationForm.controls.name.invalid &&
+                registrationForm.controls.name.touched &&
+                (registrationForm.controls.name.errors.required ||
+                  registrationForm.controls.name.errors.email)
+            }"
           />
           <ng-container
             *ngIf="
@@ -146,7 +167,7 @@
               class="error-text"
               *ngIf="registrationForm.controls.name.errors.required"
             >
-              Club Name is required
+              Club name is required
             </mat-error>
             <mat-error
               class="error-text"
@@ -155,7 +176,7 @@
                 registrationForm.controls.name.errors.pattern
               "
             >
-              Club Name is invalid
+              Club name is invalid
             </mat-error>
             <mat-error
               class="error-text"
@@ -171,13 +192,20 @@
         </div>
 
         <div class="form-block" *ngIf="activeForm === 'academy'">
-          <label>Academy Name <span>*</span></label>
+          <label>Academy name </label>
           <input
             formControlName="name"
             type="text"
-            placeholder="Academy Name"
             matInput
+            placeholder="Academy name"
             required
+            [ngClass]="{
+              'error-input':
+                registrationForm.controls.name.invalid &&
+                registrationForm.controls.name.touched &&
+                (registrationForm.controls.name.errors.required ||
+                  registrationForm.controls.name.errors.email)
+            }"
           />
           <ng-container
             *ngIf="
@@ -189,7 +217,7 @@
               class="error-text"
               *ngIf="registrationForm.controls.name.errors.required"
             >
-              Academy Name is required
+              Academy name is required
             </mat-error>
             <mat-error
               class="error-text"
@@ -198,7 +226,7 @@
                 registrationForm.controls.name.errors.pattern
               "
             >
-              Academy Name is invalid
+              Academy name is invalid
             </mat-error>
             <mat-error
               class="error-text"
@@ -208,19 +236,26 @@
                 registrationForm.controls.name.errors.maxlength
               "
             >
-              Academy Name cannot exceed 25 characters
+              Academy name cannot exceed 25 characters
             </mat-error>
           </ng-container>
         </div>
 
         <div class="form-block">
-          <label>Email <span>*</span></label>
+          <label>Email </label>
           <input
             formControlName="email"
             type="text"
             matInput
-            placeholder="Email"
             autocomplete="off"
+            placeholder="Email"
+            [ngClass]="{
+              'error-input':
+                registrationForm.controls.email.invalid &&
+                registrationForm.controls.email.touched &&
+                (registrationForm.controls.email.errors.required ||
+                  registrationForm.controls.email.errors.email)
+            }"
           />
           <ng-container
             *ngIf="
@@ -243,10 +278,10 @@
           </ng-container>
         </div>
         <div class="form-block">
-          <label>Contact number <span>*</span></label>
+          <label>Contact no. </label>
           <div class="phone-block">
             <div class="country-code">
-              <select>
+              <select disabled>
                 <option>+91</option>
               </select>
             </div>
@@ -255,8 +290,15 @@
                 formControlName="phone"
                 type="text"
                 matInput
-                placeholder="Contact Number"
                 autocomplete="off"
+                placeholder="Contact no."
+                [ngClass]="{
+                  'error-input':
+                    registrationForm.controls.phone.invalid &&
+                    registrationForm.controls.phone.touched &&
+                    (registrationForm.controls.phone.errors.required ||
+                      registrationForm.controls.phone.errors.phone)
+                }"
               />
             </div>
             <ng-container
@@ -269,7 +311,7 @@
                 class="error-text"
                 *ngIf="registrationForm.controls.phone.errors.required"
               >
-                Contact Number is required
+                Contact number is required
               </mat-error>
               <ng-template #lengthBlock>
                 <mat-error
@@ -302,7 +344,7 @@
                   else lengthBlock
                 "
               >
-                Contact Number format is invalid
+                Contact number format is invalid
               </mat-error>
             </ng-container>
           </div>
@@ -312,13 +354,24 @@
           <label
             >Type
             <span [matTooltip]="tooltip" matTooltipPosition="above">
-              <i-feather name="info" class="info"> </i-feather> </span
+              <img
+                src="assets/images/global/info.svg"
+                alt="info"
+                class="info"
+              /> </span
           ></label>
           <select
             formControlName="type"
             matNativeControl
             required
             (change)="onSelectType($event.target.value)"
+            [ngClass]="{
+              'error-input':
+                registrationForm.controls.type.invalid &&
+                registrationForm.controls.type.touched &&
+                (registrationForm.controls.type.errors.required ||
+                  registrationForm.controls.type.errors.type)
+            }"
           >
             <option value="">Select Type</option>
             <option *ngFor="let type of typeArray" [value]="type.value">{{
@@ -356,61 +409,8 @@
           Agree & Join
         </button>
       </form>
-      <p>Already have account ? <a [routerLink]="['/login']">Sign in</a></p>
+      <p>Already have an account ? <a [routerLink]="['/login']">Sign in</a></p>
     </div>
   </div>
 </div>
-<footer class="footer">
-  <div class="mainfooter">
-    <div class="wrapper">
-      <div class="logo">
-        <a href="">
-          <img src="assets/images/website/footer-logo.png" alt="footer-logo" />
-        </a>
-        <p>
-          “Youth football technology chain is the scouting platform for talented
-          football players.”
-        </p>
-      </div>
-      <div class="links">
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Sign up</a></li>
-          <li><a href="#">Sign in</a></li>
-        </ul>
-      </div>
-      <div class="links">
-        <ul>
-          <li><a href="#">Privacy policy</a></li>
-          <li><a href="#">Copyright policy</a></li>
-          <li><a href="#">Brand policy</a></li>
-          <li><a href="#">Cookie policy</a></li>
-        </ul>
-      </div>
-      <div class="social">
-        <ul>
-          <li>
-            <a href="#">
-              <img src="assets/images/website/social/instagram.svg" />
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="assets/images/website/social/facebook.svg" />
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="assets/images/website/social/linkdien.svg" />
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <!-- copyright -->
-  <div class="copyright">
-    <p>@ 2020 YFTChain. All rights reserved</p>
-  </div>
-</footer>
+<app-footer></app-footer>
