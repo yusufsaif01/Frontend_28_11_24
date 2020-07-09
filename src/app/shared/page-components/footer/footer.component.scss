@@ -1,24 +1,103 @@
 @import "src/assets/sass/abstracts/variables";
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: block;
-  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-  text-align: center;
-  font-size: 1.8rem;
-  line-height: 5rem;
-  color: #66788a;
-  z-index: 1;
-  font-family: "Muli";
-  font-weight: 700;
-  padding: 1rem 0;
-  background: $color-white;
-  a {
-    color: $color-primary;
-    text-decoration: none;
-    .mat-icon {
-      fill: $blue !important;
+// footer {
+//   position: fixed;
+//   bottom: 0;
+//   width: 100%;
+//   display: block;
+//   box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+//   text-align: center;
+//   font-size: 1.8rem;
+//   line-height: 5rem;
+//   color: #66788a;
+//   z-index: 1;
+//   font-family: "Muli";
+//   font-weight: 700;
+//   padding: 1rem 0;
+//   background: $color-white;
+//   a {
+//     color: $color-primary;
+//     text-decoration: none;
+//     .mat-icon {
+//       fill: $blue !important;
+//     }
+//   }
+// }
+
+.footer {
+  .mainfooter {
+    padding: 3rem 0;
+    background-color: $third-color;
+
+    .wrapper {
+      width: 90%;
+      margin: auto;
+      display: flex;
+
+      .logo {
+        width: 40%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        img {
+          max-width: 25rem;
+        }
+
+        p {
+          font-size: 1.8rem;
+          font-weight: 700;
+          font-style: italic;
+          padding-left: 2rem;
+        }
+      }
+
+      .links {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        ul {
+          list-style: none;
+
+          li {
+            a {
+              font-size: $heading-fourth;
+              font-weight: 500;
+              display: inline-block;
+              margin-bottom: 0.5rem;
+            }
+          }
+        }
+      }
+
+      .social {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        ul {
+          list-style: none;
+
+          li {
+            display: inline-block;
+            margin-right: 2rem;
+
+            a {
+              display: inline-block;
+
+              img {
+                max-width: 3rem;
+
+                &:hover {
+                  opacity: 0.5;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
