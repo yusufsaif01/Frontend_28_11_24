@@ -27,10 +27,10 @@ a {
 }
 
 .info {
-  font-size: inherit;
+  font-size: $heading-sixth;
   display: inline-block;
   margin-right: 0.5rem;
-  margin-bottom: 2px;
+  cursor: pointer;
 }
 
 @media (max-width: 1920px) {
