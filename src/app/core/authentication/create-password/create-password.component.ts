@@ -15,8 +15,6 @@ export class CreatePasswordComponent implements OnInit, OnDestroy {
   createPasswordForm: FormGroup;
   token: string;
   isLinkExpired: boolean = false;
-  showPassword: boolean = false;
-  showConfirmPassword: boolean = false;
   tooltip: string =
     'Please provide at least 1 special character, 1 number and 1 alphabet';
 
@@ -101,12 +99,5 @@ export class CreatePasswordComponent implements OnInit, OnDestroy {
         validator: matchingPassword
       }
     );
-  }
-  showHidePassword(showHidePassword: string) {
-    if (this[showHidePassword]) {
-      this[showHidePassword] = false;
-    } else {
-      this[showHidePassword] = true;
-    }
   }
 }
