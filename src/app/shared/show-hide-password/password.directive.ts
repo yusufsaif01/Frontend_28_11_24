@@ -24,6 +24,7 @@ export class PasswordDirective {
   setup() {
     const parent = this.el.nativeElement.parentNode;
     const icon = document.createElement('mat-icon');
+    this.el.nativeElement.setAttribute('type', 'password');
     icon.innerHTML = `visibility_off`;
     icon.setAttribute(
       'class',
