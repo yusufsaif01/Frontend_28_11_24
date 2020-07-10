@@ -496,7 +496,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   }
 
   populateFormFields() {
-    this.send_to = this.contractData.send_to;
+    this.send_to = this.contractData.send_to || '';
     if (['club', 'academy'].includes(this.member_type)) {
       this.getPlayerDetails(this.send_to);
     } else {
