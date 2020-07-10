@@ -1,35 +1,43 @@
-<div class="login-container">
-  <div class="loginbox">
-    <div class="header-login">
-      <img src="assets/images/logo.png" alt="brand-logo" />
-      <h3>Welcome Back</h3>
-      <p>
-        Don't miss your next opportunity. Sign in to stay updated on your
-        professional world.
-      </p>
-    </div>
-    <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
-      <ul>
-        <li>
-          <label>Email </label>
-          <i-feather name="User" class="icon-size"></i-feather>
-          <!-- <img src="assets/icons/mail.svg" alt="" /> -->
+<header class="header">
+  <div class="logo">
+    <span>
+      <img src="assets/images/website/logo.png" alt="brand-logo" />
+    </span>
+  </div>
+</header>
+<div class="site-wrapper">
+  <div class="text-section">
+    <h2>
+      <span>Digitize,</span>
+      <span>Democratize,</span>and Develop.
+      <img
+        src="assets/images/website/footballer-Icon.png"
+        alt="footballer-Icon"
+      />
+    </h2>
+    <p>The showcase of youth talent in Indian football</p>
+  </div>
+  <div class="form-section">
+    <div class="form-box">
+      <h2>Sign in</h2>
+      <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
+        <div class="form-block">
+          <label>Email</label>
           <input
             type="email"
-            placeholder="Enter Email"
-            matInput
+            matinput
             formControlName="email"
             autocomplete="off"
-            [placeholder]="'Email' | translate"
             required
+            placeholder="Email"
             [ngClass]="{
-              'error-border':
+              'error-input':
                 email.invalid &&
                 email.touched &&
                 (email.errors.required || email.errors.email)
             }"
           />
-          <mat-error *ngIf="email.invalid && email.touched">
+          <mat-error *ngIf="email.invalid && email.touched" class="error-text">
             <span *ngIf="email.errors.required" translate
               >Email is required</span
             >
@@ -37,56 +45,56 @@
               >Invalid Email Format</span
             >
           </mat-error>
-        </li>
-        <li>
-          <label>Password</label>
-          <i-feather name="lock" class="icon-size"></i-feather>
-          <!-- <img src="assets/icons/lock.svg" alt="" /> -->
-          <input
-            type="password"
-            placeholder="Enter Password"
-            matInput
-            formControlName="password"
-            autocomplete="off"
-            [placeholder]="'Password' | translate"
-            required
-          />
-          <mat-error *ngIf="password.invalid && password.touched">
+        </div>
+        <div class="form-block">
+          <label
+            >Password
+            <span [matTooltip]="tooltip" matTooltipPosition="above">
+              <img
+                src="assets/images/global/info.svg"
+                alt="info"
+                class="info"
+              />
+            </span>
+            <div class="forget-text">
+              <a [routerLink]="['/forgot-password']">
+                Forgot password ?
+              </a>
+            </div>
+          </label>
+          <div class="pass-fields">
+            <input
+              appPassword
+              matInput
+              formControlName="password"
+              autocomplete="off"
+              placeholder="Password"
+              required
+              [ngClass]="{
+                'error-input':
+                  password.invalid &&
+                  password.touched &&
+                  (password.errors.required || password.errors.password)
+              }"
+            />
+          </div>
+          <mat-error
+            *ngIf="password.invalid && password.touched"
+            class="error-text"
+          >
             <span translate>Password is required</span>
           </mat-error>
-        </li>
-
-        <!-- <li class="pb-0 mt-1">
-          <div class="remember-me pb-0">
-            <mat-checkbox formControlName="remember" class="remember-me">
-              Remember Me
-            </mat-checkbox>
-          </div> -->
-
-        <!-- <div class="custom-checkbox">
-              <input type="checkbox" checked formControlName="remember" id="remember">
-            <label for="remember">Remember Me</label> 
-          </div> -->
-        <!-- </li> -->
-        <!-- <mat-error class="login-error" [hidden]="!error || isLoading" translate>
-          Incorrect email or password
-        </mat-error> -->
-        <li class="pb-0">
-          <button
-            type="submit"
-            class="btn"
-            [disabled]="loginForm.invalid || isLoading"
-          >
-            Sign In
-          </button>
-        </li>
-      </ul>
-      <div class="login-footer">
-        <p><a [routerLink]="['/forgot-password']">Forgot password?</a></p>
-        <p>
-          New to YFTChain? <b><a [routerLink]="['/register']">Join now</a></b>
-        </p>
-      </div>
-    </form>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          [disabled]="loginForm.invalid || isLoading"
+        >
+          Sign in
+        </button>
+      </form>
+      <p>New to YFTChain ? <a [routerLink]="['/register']">Join now</a></p>
+    </div>
   </div>
 </div>
+<app-footer></app-footer>

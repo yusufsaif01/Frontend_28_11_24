@@ -1,0 +1,30 @@
+@import "src/assets/sass/abstracts/variables";
+
+.text-section {
+  // width: 45%;
+
+  h2 {
+    font-size: 6.5rem;
+    color: $fourth-color;
+    font-family: $secondary-text;
+    position: relative;
+    padding-bottom: 2rem;
+
+    span {
+      display: block;
+    }
+
+    img {
+      position: absolute;
+      bottom: 0;
+      right: 3.5rem;
+      max-width: 8rem;
+    }
+  }
+
+  p {
+    font-size: $heading-Seoncdary;
+    padding-right: 2rem;
+    color: $fourth-color;
+  }
+}

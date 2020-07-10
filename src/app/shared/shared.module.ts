@@ -15,6 +15,8 @@ import { TrimPipe } from './pipes/trim.pipe';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
 import { GridSearchBoxComponent } from './grid-search-box/grid-search-box.component';
+import { TextSectionComponent } from '@app/core/authentication/text-section/text-section.component';
+import { PasswordDirective } from './show-hide-password/password.directive';
 
 @NgModule({
   imports: [
@@ -34,7 +36,9 @@ import { GridSearchBoxComponent } from './grid-search-box/grid-search-box.compon
     TruncatePipe,
     TrimPipe,
     VerificationPopupComponent,
-    GridSearchBoxComponent
+    GridSearchBoxComponent,
+    TextSectionComponent,
+    PasswordDirective
   ],
   entryComponents: [VerificationPopupComponent],
   providers: [NgxImageCompressService],
@@ -52,7 +56,9 @@ import { GridSearchBoxComponent } from './grid-search-box/grid-search-box.compon
     FormsModule,
     RouterModule,
     VerificationPopupComponent,
-    GridSearchBoxComponent
+    GridSearchBoxComponent,
+    TextSectionComponent,
+    PasswordDirective
   ]
 })
 export class SharedModule {}

@@ -61,6 +61,7 @@ import { LinkExpiredComponent } from './link-expired/link-expired.component';
 import { LeftPanelComponent } from './left-panel/left-panel.component';
 import { FilterComponent } from './filter/filter.component';
 import { FormsModule } from '@angular/forms';
+import { CopyrightComponent } from './copyright/copyright.component';
 
 const icons = {
   Camera,
@@ -119,7 +120,8 @@ const icons = {
     NotFoundComponent,
     LinkExpiredComponent,
     LeftPanelComponent,
-    FilterComponent
+    FilterComponent,
+    CopyrightComponent
   ],
   imports: [
     CommonModule,
@@ -140,7 +142,8 @@ const icons = {
     FeatherModule,
     InfiniteScrollModule,
     FilterComponent,
-    FormsModule
+    FormsModule,
+    CopyrightComponent
   ]
 })
 export class PageComponentsModule {}

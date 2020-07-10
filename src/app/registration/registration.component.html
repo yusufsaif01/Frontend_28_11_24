@@ -1,269 +1,305 @@
-<div class="registration">
-  <div class="registration-wrapper">
-    <!-- header section -->
-    <div class="registration-wrapper-header">
-      <img src="assets/images/logo.png" alt="brand-logo" />
-      <p>
-        Make the most of your professional life
-      </p>
+<header class="header">
+  <div class="logo">
+    <span>
+      <img src="assets/images/website/logo.png" alt="brand-logo" />
+    </span>
+  </div>
+</header>
+<div class="site-wrapper">
+  <div class="text-section">
+    <div class="register-img">
+      <img src="assets/images/website/goalpost.png" alt="goalpost" />
     </div>
-    <!-- Registration forms -->
-    <div class="registration-wrapper-forms">
-      <div class="register-type">
-        <button
-          (click)="toggleForm('player')"
-          [ngClass]="{ active: activeForm == 'player' }"
-        >
-          Player
-        </button>
-        <button
-          (click)="toggleForm('club')"
-          [ngClass]="{ active: activeForm == 'club' }"
-        >
-          Club
-        </button>
-        <button
-          (click)="toggleForm('academy')"
-          [ngClass]="{ active: activeForm == 'academy' }"
-        >
-          Academy
-        </button>
-      </div>
+  </div>
+  <div class="form-section">
+    <div class="form-box">
+      <h2>Join us</h2>
       <form
         (ngSubmit)="register()"
         [formGroup]="registrationForm"
         class="form"
         id="player"
       >
-        <!-- firstName LastName  -->
-        <div class="form-row">
-          <!-- Club name -->
-          <div class="input-wrapper-full" *ngIf="activeForm === 'club'">
-            <i-feather name="User" class="icon-size"></i-feather>
-            <!-- <img src="assets/icons/user.svg" alt="" /> -->
-            <label>Club Name</label>
-            <input
-              formControlName="name"
-              type="text"
-              matInput
-              placeholder="Club Name"
-            />
-            <ng-container
-              *ngIf="
-                registrationForm.controls.name.invalid &&
-                registrationForm.controls.name.touched
-              "
+        <div class="radio-block">
+          <mat-radio-group class="example-radio-group">
+            <mat-radio-button
+              (click)="toggleForm('player')"
+              class="example-radio-button"
+              checked
+              value="player"
             >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.name.errors.required"
-              >
-                Club Name is required
-              </mat-error>
-              <mat-error
-                class="error-text"
-                *ngIf="
-                  !registrationForm.controls.name.errors.required &&
-                  registrationForm.controls.name.errors.pattern
-                "
-              >
-                Club Name is invalid
-              </mat-error>
-              <mat-error
-                class="error-text"
-                *ngIf="
-                  !registrationForm.controls.name.errors.required &&
-                  !registrationForm.controls.name.errors.pattern &&
-                  registrationForm.controls.name.errors.maxlength
-                "
-              >
-                Club Name cannot exceed 25 characters
-              </mat-error>
-            </ng-container>
-          </div>
-          <!-- Academy name -->
-          <div class="input-wrapper-full" *ngIf="activeForm === 'academy'">
-            <i-feather name="User" class="icon-size"></i-feather>
-            <!-- <img src="assets/icons/user.svg" alt="" /> -->
-            <label>Academy Name</label>
-            <input
-              formControlName="name"
-              type="text"
-              placeholder="Academy Name"
-              matInput
-              required
-            />
-            <ng-container
-              *ngIf="
-                registrationForm.controls.name.invalid &&
-                registrationForm.controls.name.touched
-              "
+              Player
+            </mat-radio-button>
+            <mat-radio-button
+              (click)="toggleForm('club')"
+              class="example-radio-button"
+              value="club"
             >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.name.errors.required"
-              >
-                Academy Name is required
-              </mat-error>
-              <mat-error
-                class="error-text"
+              Club
+            </mat-radio-button>
+            <mat-radio-button
+              (click)="toggleForm('academy')"
+              class="example-radio-button"
+              value="academy"
+            >
+              Academy
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="form-group" *ngIf="activeForm === 'player'">
+          <div class="half">
+            <div class="form-block">
+              <label>First name </label>
+              <input
+                formControlName="first_name"
+                type="text"
+                matInput
+                placeholder="First name"
+                required
+                [ngClass]="{
+                  'error-input':
+                    registrationForm.controls.first_name.invalid &&
+                    registrationForm.controls.first_name.touched &&
+                    (registrationForm.controls.first_name.errors.required ||
+                      registrationForm.controls.first_name.errors.email)
+                }"
+              />
+              <ng-container
                 *ngIf="
-                  !registrationForm.controls.name.errors.required &&
-                  registrationForm.controls.name.errors.pattern
+                  registrationForm.controls.first_name.invalid &&
+                  registrationForm.controls.first_name.touched
                 "
               >
-                Academy Name is invalid
-              </mat-error>
-              <mat-error
-                class="error-text"
-                *ngIf="
-                  !registrationForm.controls.name.errors.required &&
-                  !registrationForm.controls.name.errors.pattern &&
-                  registrationForm.controls.name.errors.maxlength
-                "
-              >
-                Academy Name cannot exceed 25 characters
-              </mat-error>
-            </ng-container>
+                <mat-error
+                  class="error-text"
+                  *ngIf="registrationForm.controls.first_name.errors.required"
+                >
+                  First name is required
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    !registrationForm.controls.first_name.errors.required &&
+                    registrationForm.controls.first_name.errors.pattern
+                  "
+                >
+                  First name is invalid
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    !registrationForm.controls.first_name.errors.required &&
+                    !registrationForm.controls.first_name.errors.pattern &&
+                    registrationForm.controls.first_name.errors.maxlength
+                  "
+                >
+                  First name cannot exceed 25 characters
+                </mat-error>
+              </ng-container>
+            </div>
           </div>
 
-          <div class="input-wrapper" *ngIf="activeForm === 'player'">
-            <i-feather name="User" class="icon-size"></i-feather>
-            <!-- <img src="assets/icons/user.svg" alt="" /> -->
-            <label>First Name</label>
-            <input
-              formControlName="first_name"
-              type="text"
-              matInput
-              required
-              placeholder="First Name"
-            />
-            <ng-container
-              *ngIf="
-                registrationForm.controls.first_name.invalid &&
-                registrationForm.controls.first_name.touched
-              "
-            >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.first_name.errors.required"
-              >
-                First Name is required
-              </mat-error>
-              <mat-error
-                class="error-text"
+          <div class="half">
+            <div class="form-block">
+              <label>Last name </label>
+              <input
+                formControlName="last_name"
+                type="text"
+                matInput
+                placeholder="Last name"
+                required
+                [ngClass]="{
+                  'error-input':
+                    registrationForm.controls.last_name.invalid &&
+                    registrationForm.controls.last_name.touched &&
+                    (registrationForm.controls.last_name.errors.required ||
+                      registrationForm.controls.last_name.errors.email)
+                }"
+              />
+              <ng-container
                 *ngIf="
-                  !registrationForm.controls.first_name.errors.required &&
-                  registrationForm.controls.first_name.errors.pattern
+                  registrationForm.controls.last_name.invalid &&
+                  registrationForm.controls.last_name.touched
                 "
               >
-                First Name is invalid
-              </mat-error>
-              <mat-error
-                class="error-text"
-                *ngIf="
-                  !registrationForm.controls.first_name.errors.required &&
-                  !registrationForm.controls.first_name.errors.pattern &&
-                  registrationForm.controls.first_name.errors.maxlength
-                "
-              >
-                First Name cannot exceed 25 characters
-              </mat-error>
-            </ng-container>
-          </div>
-
-          <div class="input-wrapper" *ngIf="activeForm === 'player'">
-            <i-feather name="User" class="icon-size"></i-feather>
-            <!-- <img src="assets/icons/user.svg" alt="" /> -->
-            <label>Last Name</label>
-            <input
-              formControlName="last_name"
-              type="text"
-              matInput
-              placeholder="Last Name"
-              required
-            />
-            <ng-container
-              *ngIf="
-                registrationForm.controls.last_name.invalid &&
-                registrationForm.controls.last_name.touched
-              "
-            >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.last_name.errors.required"
-              >
-                Last Name is required
-              </mat-error>
-              <mat-error
-                class="error-text"
-                *ngIf="
-                  !registrationForm.controls.last_name.errors.required &&
-                  registrationForm.controls.last_name.errors.pattern
-                "
-              >
-                Last Name is invalid
-              </mat-error>
-            </ng-container>
+                <mat-error
+                  class="error-text"
+                  *ngIf="registrationForm.controls.last_name.errors.required"
+                >
+                  Last name is required
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    !registrationForm.controls.last_name.errors.required &&
+                    registrationForm.controls.last_name.errors.pattern
+                  "
+                >
+                  Last name is invalid
+                </mat-error>
+              </ng-container>
+            </div>
           </div>
         </div>
 
-        <!-- Email / Contact Number -->
-        <div class="form-row">
-          <div class="input-wrapper">
-            <i-feather name="at-sign" class="icon-size"></i-feather>
-            <!-- <img src="assets/icons/at-sign.svg" alt="" /> -->
-            <label>Email</label>
-            <input
-              formControlName="email"
-              type="text"
-              matInput
-              placeholder="Email"
-              autocomplete="off"
-            />
-            <ng-container
+        <div class="form-block" *ngIf="activeForm === 'club'">
+          <label>Club name </label>
+          <input
+            formControlName="name"
+            type="text"
+            matInput
+            placeholder="Club name"
+            [ngClass]="{
+              'error-input':
+                registrationForm.controls.name.invalid &&
+                registrationForm.controls.name.touched &&
+                (registrationForm.controls.name.errors.required ||
+                  registrationForm.controls.name.errors.email)
+            }"
+          />
+          <ng-container
+            *ngIf="
+              registrationForm.controls.name.invalid &&
+              registrationForm.controls.name.touched
+            "
+          >
+            <mat-error
+              class="error-text"
+              *ngIf="registrationForm.controls.name.errors.required"
+            >
+              Club name is required
+            </mat-error>
+            <mat-error
+              class="error-text"
               *ngIf="
-                registrationForm.controls.email.invalid &&
-                registrationForm.controls.email.touched
+                !registrationForm.controls.name.errors.required &&
+                registrationForm.controls.name.errors.pattern
               "
             >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.email.errors.required"
-              >
-                Email is required
-              </mat-error>
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.email.errors.email"
-              >
-                Email format is Invalid
-              </mat-error>
-            </ng-container>
-          </div>
+              Club name is invalid
+            </mat-error>
+            <mat-error
+              class="error-text"
+              *ngIf="
+                !registrationForm.controls.name.errors.required &&
+                !registrationForm.controls.name.errors.pattern &&
+                registrationForm.controls.name.errors.maxlength
+              "
+            >
+              Club Name cannot exceed 25 characters
+            </mat-error>
+          </ng-container>
+        </div>
 
-          <div class="input-wrapper">
-            <label>Contact Number</label>
-            <div class="contact">
-              <div class="country-code">
-                <input
-                  type="text"
-                  matInput
-                  value="+91"
-                  readonly
-                  tabindex="-1"
-                />
-              </div>
-              <div class="contact-number">
-                <i-feather name="phone-call" class="icon-size"></i-feather>
-                <input
-                  formControlName="phone"
-                  type="text"
-                  matInput
-                  placeholder="Contact Number"
-                  autocomplete="off"
-                />
-              </div>
+        <div class="form-block" *ngIf="activeForm === 'academy'">
+          <label>Academy name </label>
+          <input
+            formControlName="name"
+            type="text"
+            matInput
+            placeholder="Academy name"
+            required
+            [ngClass]="{
+              'error-input':
+                registrationForm.controls.name.invalid &&
+                registrationForm.controls.name.touched &&
+                (registrationForm.controls.name.errors.required ||
+                  registrationForm.controls.name.errors.email)
+            }"
+          />
+          <ng-container
+            *ngIf="
+              registrationForm.controls.name.invalid &&
+              registrationForm.controls.name.touched
+            "
+          >
+            <mat-error
+              class="error-text"
+              *ngIf="registrationForm.controls.name.errors.required"
+            >
+              Academy name is required
+            </mat-error>
+            <mat-error
+              class="error-text"
+              *ngIf="
+                !registrationForm.controls.name.errors.required &&
+                registrationForm.controls.name.errors.pattern
+              "
+            >
+              Academy name is invalid
+            </mat-error>
+            <mat-error
+              class="error-text"
+              *ngIf="
+                !registrationForm.controls.name.errors.required &&
+                !registrationForm.controls.name.errors.pattern &&
+                registrationForm.controls.name.errors.maxlength
+              "
+            >
+              Academy name cannot exceed 25 characters
+            </mat-error>
+          </ng-container>
+        </div>
+
+        <div class="form-block">
+          <label>Email </label>
+          <input
+            formControlName="email"
+            type="text"
+            matInput
+            autocomplete="off"
+            placeholder="Email"
+            [ngClass]="{
+              'error-input':
+                registrationForm.controls.email.invalid &&
+                registrationForm.controls.email.touched &&
+                (registrationForm.controls.email.errors.required ||
+                  registrationForm.controls.email.errors.email)
+            }"
+          />
+          <ng-container
+            *ngIf="
+              registrationForm.controls.email.invalid &&
+              registrationForm.controls.email.touched
+            "
+          >
+            <mat-error
+              class="error-text"
+              *ngIf="registrationForm.controls.email.errors.required"
+            >
+              Email is required
+            </mat-error>
+            <mat-error
+              class="error-text"
+              *ngIf="registrationForm.controls.email.errors.email"
+            >
+              Email format is Invalid
+            </mat-error>
+          </ng-container>
+        </div>
+        <div class="form-block">
+          <label>Contact no. </label>
+          <div class="phone-block">
+            <div class="country-code">
+              <select disabled>
+                <option>+91</option>
+              </select>
+            </div>
+            <div class="phone-number">
+              <input
+                formControlName="phone"
+                type="text"
+                matInput
+                autocomplete="off"
+                placeholder="Contact no."
+                [ngClass]="{
+                  'error-input':
+                    registrationForm.controls.phone.invalid &&
+                    registrationForm.controls.phone.touched &&
+                    (registrationForm.controls.phone.errors.required ||
+                      registrationForm.controls.phone.errors.phone)
+                }"
+              />
             </div>
             <ng-container
               *ngIf="
@@ -275,7 +311,7 @@
                 class="error-text"
                 *ngIf="registrationForm.controls.phone.errors.required"
               >
-                Contact Number is required
+                Contact number is required
               </mat-error>
               <ng-template #lengthBlock>
                 <mat-error
@@ -308,73 +344,73 @@
                   else lengthBlock
                 "
               >
-                Contact Number format is invalid
+                Contact number format is invalid
               </mat-error>
             </ng-container>
           </div>
         </div>
-        <!-- captcha -->
-        <div class="form-row">
-          <div class="input-wrapper">
-            <label
-              >Type
-              <span [matTooltip]="tooltip" matTooltipPosition="above">
-                <i-feather name="info" class="info"> </i-feather> </span
-            ></label>
-            <select
-              formControlName="type"
-              matNativeControl
-              required
-              (change)="onSelectType($event.target.value)"
-            >
-              <option value="">Select Type</option>
-              <option *ngFor="let type of typeArray" [value]="type.value">{{
-                type.name
-              }}</option>
-            </select>
-            <ng-container
-              *ngIf="
+
+        <div class="form-block">
+          <label
+            >Type
+            <span [matTooltip]="tooltip" matTooltipPosition="above">
+              <img
+                src="assets/images/global/info.svg"
+                alt="info"
+                class="info"
+              /> </span
+          ></label>
+          <select
+            formControlName="type"
+            matNativeControl
+            required
+            (change)="onSelectType($event.target.value)"
+            [ngClass]="{
+              'error-input':
                 registrationForm.controls.type.invalid &&
-                registrationForm.controls.type.touched
-              "
+                registrationForm.controls.type.touched &&
+                (registrationForm.controls.type.errors.required ||
+                  registrationForm.controls.type.errors.type)
+            }"
+          >
+            <option value="">Select Type</option>
+            <option *ngFor="let type of typeArray" [value]="type.value">{{
+              type.name
+            }}</option>
+          </select>
+          <ng-container
+            *ngIf="
+              registrationForm.controls.type.invalid &&
+              registrationForm.controls.type.touched
+            "
+          >
+            <mat-error
+              class="error-text"
+              *ngIf="registrationForm.controls.type.errors.required"
             >
-              <mat-error
-                class="error-text"
-                *ngIf="registrationForm.controls.type.errors.required"
-              >
-                Type is required
-              </mat-error>
-            </ng-container>
-          </div>
-          <div class="img-wrapper">
-            <img src="assets/images/capcha.png" alt="" />
-          </div>
+              Type is required
+            </mat-error>
+          </ng-container>
+        </div>
+        <div class="recapcha">
+          <img src="assets/images/website/recaptcha.png" alt="recaptcha" />
         </div>
 
-        <div class="form-row">
-          <div class="input-wrapper-full zero">
-            <p>
-              You agree to the YFTChain <a>User Agreement</a> and
-              <a>Privacy Policy</a>
-            </p>
-          </div>
+        <div class="remberme">
+          <mat-checkbox class="example-margin"
+            >Accept terms and conditions
+          </mat-checkbox>
         </div>
-
-        <div class="form-row">
-          <div class="input-wrapper-full pd-zero">
-            <button
-              type="submit"
-              class="btn"
-              [disabled]="registrationForm.invalid"
-            >
-              Agree & Join
-            </button>
-          </div>
-        </div>
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          [disabled]="registrationForm.invalid"
+        >
+          Agree & Join
+        </button>
       </form>
-      <div class="form-row">
-        <p>Already on YFTChain? <a [routerLink]="['/login']">Sign in</a></p>
-      </div>
+      <p>Already have an account ? <a [routerLink]="['/login']">Sign in</a></p>
     </div>
   </div>
 </div>
+<app-footer></app-footer>

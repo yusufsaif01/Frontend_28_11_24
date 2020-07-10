@@ -9,7 +9,7 @@ import { untilDestroyed } from '@app/core';
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit, OnDestroy {
-  forgetPasswordForm: FormGroup;
+  forgotPasswordForm: FormGroup;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -22,9 +22,9 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
 
   ngOnInit() {}
 
-  forgetPassword() {
+  forgotPassword() {
     this._authenticationService
-      .forgetPassword(this.forgetPasswordForm.value)
+      .forgotPassword(this.forgotPasswordForm.value)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
@@ -37,7 +37,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
 
   createForm() {
-    this.forgetPasswordForm = this._formBuilder.group({
+    this.forgotPasswordForm = this._formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }

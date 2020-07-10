@@ -18,7 +18,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
 // import { HomeComponent } from './pages/home/home.component';
-import { LoginFrontendModule } from './login-frontend/login-frontend.module';
 import { LoaderInterceptor } from './core/http/loader.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 // import { FrontendModule } from './frontend/frontend.module';
@@ -58,6 +57,7 @@ import { RoleGuardService } from './core/authentication/role-guard.service';
 import { JwtInterceptor } from './core/http/jwt.interceptor';
 import { ErrorInterceptor } from './core/http/error.interceptor';
 import { FootPlayerComponent } from './manage-footplayer/foot-player/foot-player.component';
+import { HomeModule } from './home/home.module';
 const icons = {
   Camera,
   Heart,
@@ -98,7 +98,7 @@ const icons = {
     // ShellModule,
     // HomeModule,
     LoginModule,
-    LoginFrontendModule,
+    HomeModule,
     FeatherModule.pick(icons),
     // FrontendModule,
     Angulartics2Module.forRoot(),
