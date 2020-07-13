@@ -20,7 +20,6 @@ a {
   cursor: pointer;
 
   &:hover,
-  &:visited,
   &:active {
     color: $primary-color;
   }
