@@ -13,23 +13,15 @@ html {
   font-size: 10px;
 }
 
-a {
-  text-decoration: none;
-  color: $second-color;
-  user-select: none;
-  cursor: pointer;
-
-  &:hover,
-  &:active {
-    color: $primary-color;
-  }
-}
-
 .info {
   font-size: $heading-sixth;
   display: inline-block;
   margin-right: 0.5rem;
   cursor: pointer;
+}
+
+.active {
+  color: $primary-color;
 }
 
 @media (max-width: 1920px) {

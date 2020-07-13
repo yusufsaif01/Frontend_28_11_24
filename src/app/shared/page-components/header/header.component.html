@@ -1,6 +1,5 @@
-<header>
+<!-- <header>
   <div class="header">
-    <!-- header logo -->
     <div class="header-logo">
       <img
         [routerLink]="['/member/timeline']"
@@ -60,7 +59,7 @@
         </span>
       </div>
     </div>
-    <!-- header right -->
+    <!-- header right 
     <div class="header-menu">
       <ul>
         <li *ngIf="member_type === 'player'">
@@ -165,6 +164,85 @@
           </div>
         </li>
       </ul>
+    </div>
+  </div>
+</header> -->
+
+<!-- new Ui -->
+<header class="header">
+  <div class="header-wrapper">
+    <div class="logo">
+      <a>
+        <img src="../../../../assets/images/member/logo.png" alt="brand-logo" />
+      </a>
+    </div>
+    <div class="search">
+      <form>
+        <div class="search-box">
+          <input type="text" placeholder="Search..." />
+          <button type="submit">
+            <mat-icon class="material-icons">search</mat-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="links">
+      <ul>
+        <li>
+          <a>
+            <mat-icon class="material-icons">mail_outline</mat-icon>
+            <span>9</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <mat-icon class="material-icons">people_outline</mat-icon>
+            <span>9</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <mat-icon class="material-icons">notifications_none</mat-icon>
+            <span>9</span>
+          </a>
+        </li>
+      </ul>
+      <div class="profile-head">
+        <a mat-icon-button [matMenuTriggerFor]="menu">
+          <img
+            src="assets/images/member/header-profile.png"
+            alt="header-profile"
+          />
+        </a>
+        <mat-menu #menu="matMenu">
+          <ul class="menu">
+            <li>
+              <a>
+                <mat-icon class="material-icons">home</mat-icon>
+                My Profile
+              </a>
+            </li>
+            <li>
+              <a>
+                <mat-icon class="material-icons">public</mat-icon>
+                Public Profile
+              </a>
+            </li>
+            <li>
+              <a>
+                <mat-icon class="material-icons">lock_open</mat-icon>
+                Change Password
+              </a>
+            </li>
+            <li>
+              <a>
+                <mat-icon class="material-icons">exit_to_app</mat-icon>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </mat-menu>
+      </div>
     </div>
   </div>
 </header>

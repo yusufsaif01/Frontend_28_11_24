@@ -25,6 +25,13 @@
       background: rgba($primary-color, 0.3);
     }
   }
+
+  &-shadow {
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04),
+      0px 2px 6px rgba(255, 153, 51, 0.12),
+      0px 10px 20px rgba(255, 153, 51, 0.18);
+    border-radius: 25px;
+  }
 }
 
 .btn-disable {
@@ -47,4 +54,10 @@
 
 .pb-3 {
   padding-bottom: 3rem;
+}
+
+.big-icons {
+  height: 3.6rem !important;
+  width: 3.6rem !important;
+  font-size: 3.6rem !important;
 }

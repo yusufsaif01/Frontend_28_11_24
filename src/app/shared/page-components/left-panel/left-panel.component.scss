@@ -220,5 +220,169 @@
 
 // left seciton
 .left-panel {
-  width: 25%;
+  width: 23.75%;
+  padding: 2rem 3rem;
+  display: block;
+  text-align: center;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 0px 1rem rgba($fourth-color, 0.04),
+    0px 0.2rem 0.6rem rgba($fourth-color, 0.04),
+    0px 1.6rem 2.4rem rgba($fourth-color, 0.06);
+  box-shadow: 0px 0px 1rem rgba($fourth-color, 0.04),
+    0px 0.2rem 0.6rem rgba($fourth-color, 0.04),
+    0px 1.6rem 2.4rem rgba($fourth-color, 0.06);
+  // position: fixed;
+  // left: 0px;
+  // top: 0rem;
+
+  .profile {
+    width: 100%;
+    border: 1px solid $third-color;
+    border-radius: 0.5rem;
+
+    &-img {
+      position: relative;
+
+      img {
+        max-width: 25rem;
+        width: 100%;
+        border-radius: 25rem;
+        margin-top: 5%;
+        z-index: 9;
+        position: relative;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        background: $primary-color;
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+        width: 100%;
+        height: 55%;
+        left: 0;
+        top: 0;
+        z-index: 1;
+      }
+    }
+
+    &-name {
+      h3 {
+        color: $fourth-color;
+        font-weight: 500;
+      }
+    }
+
+    &-position {
+      h5 {
+        color: $grey;
+        font-weight: 300;
+      }
+    }
+
+    &-catergory {
+      h4 {
+        color: $fourth-color;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $primary-color;
+        margin: 0.5rem 0;
+        transform: translateX(-1rem);
+        -moz-transform: translateX(-1rem);
+        -webkit-transform: translateX(-1rem);
+
+        span {
+          color: $success;
+        }
+      }
+    }
+
+    &-counts {
+      display: flex;
+      margin: 1rem auto;
+
+      .count {
+        display: block;
+        text-align: center;
+        width: 90%;
+        margin: auto;
+        position: relative;
+
+        &::before {
+          content: "";
+          height: 3rem;
+          width: 0.1rem;
+          background: $grey;
+          position: absolute;
+          right: 0rem;
+          top: 1rem;
+
+          &:last-child {
+            display: none;
+          }
+        }
+
+        span {
+          display: inline-block;
+          font-size: $heading-fourth;
+          border-radius: 10rem;
+          padding: 1rem 2rem;
+          font-weight: 300;
+          font-size: $heading-Seoncdary;
+          background: $fifth-color;
+        }
+
+        h5 {
+          font-weight: 500;
+          margin: 1rem auto;
+          color: $fourth-color;
+        }
+      }
+    }
+  }
+
+  .menus {
+    margin: 2rem 0;
+
+    ul {
+      list-style: none;
+
+      li {
+        padding: 1rem 0;
+
+        a {
+          display: flex;
+          align-items: center;
+
+          &:hover {
+            span.icon {
+              opacity: 0.6;
+            }
+          }
+
+          span.icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10rem;
+            width: 5rem;
+            height: 5rem;
+            background: $fifth-color;
+            margin-right: 3rem;
+
+            img {
+              width: 2.4rem;
+            }
+          }
+
+          span.text {
+            font-size: $heading-fourth;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
 }
