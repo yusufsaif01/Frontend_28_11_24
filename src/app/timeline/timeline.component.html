@@ -371,7 +371,12 @@
             <span></span>
           </div>
           <div class="profile-details">
-            <h2>{{ post.posted_by.name }}</h2>
+            <a
+              target="_blank"
+              [routerLink]="['/member/profile/view/', post.posted_by.user_id]"
+            >
+              <h2>{{ post.posted_by.name }}</h2>
+            </a>
             <h5>{{ post.posted_by.position }}</h5>
             <h5>{{ post.created_at | datePipe }}</h5>
             <!-- <h5 *ngIf="post.days == 0">

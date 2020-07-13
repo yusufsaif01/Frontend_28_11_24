@@ -20,7 +20,11 @@ export class DatePipe implements PipeTransform {
       created_at = minutes + ' min';
     }
     if (minutes >= 60 && hours < 24) {
-      created_at = hours + ' hours';
+      if (hours == 1) {
+        created_at = hours + ' hour ago';
+      } else {
+        created_at = hours + ' hours ago';
+      }
     }
     if (hours >= 24) {
       let finalDate = new DatePipeAngular('en-US');
