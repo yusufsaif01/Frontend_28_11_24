@@ -218,9 +218,9 @@ export class DocumentVerificationComponent implements OnInit {
   prepareContractResponse(records: any) {
     records.forEach((element: any) => {
       if (element.canUpdateStatus) {
-        element.clubAcademyName = { name: element.name };
+        element.club_academy_name = { name: element.name };
       } else {
-        element.clubAcademyName = {
+        element.club_academy_name = {
           name: element.name,
           profileUrl:
             environment.mediaUrl +
