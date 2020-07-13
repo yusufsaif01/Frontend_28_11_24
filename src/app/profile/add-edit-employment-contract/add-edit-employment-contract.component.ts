@@ -304,6 +304,36 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
 
     const effectiveDate = this.addEditContractForm.get('effective_date');
 
+    const playerUsesAgentServices = this.addEditContractForm.get(
+      'player_uses_agent_services'
+    );
+    const playerIntermediaryName = this.addEditContractForm.get(
+      'player_intermediary_name'
+    );
+    const playerTransferFee = this.addEditContractForm.get(
+      'player_transfer_fee'
+    );
+    const clubAcademyUsesAgentServices = this.addEditContractForm.get(
+      'club_academy_uses_agent_services'
+    );
+    const clubAcademyIntermediaryName = this.addEditContractForm.get(
+      'club_academy_intermediary_name'
+    );
+    const clubAcademyTransferFee = this.addEditContractForm.get(
+      'club_academy_transfer_fee'
+    );
+    clubAcademyUsesAgentServices.valueChanges.subscribe(value => {
+      if (value === 'false') {
+        clubAcademyIntermediaryName.setValue('');
+        clubAcademyTransferFee.setValue('');
+      }
+    });
+    playerUsesAgentServices.valueChanges.subscribe(value => {
+      if (value === 'false') {
+        playerIntermediaryName.setValue('');
+        playerTransferFee.setValue('');
+      }
+    });
     effectiveDate.valueChanges.subscribe(value => {
       let date = new Date(value);
       date.setFullYear(date.getFullYear() + 5);
@@ -504,10 +534,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     }
     this.setCategory(this.contractData.category);
 
-    if (
-      this.contractData.club_academy_intermediary_name &&
-      this.contractData.club_academy_transfer_fee
-    )
+    if (this.contractData.club_academy_uses_agent_services === true)
       this.addEditContractForm
         .get('club_academy_uses_agent_services')
         .setValue('true');
@@ -515,10 +542,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       this.addEditContractForm
         .get('club_academy_uses_agent_services')
         .setValue('false');
-    if (
-      this.contractData.player_intermediary_name &&
-      this.contractData.player_transfer_fee
-    )
+    if (this.contractData.player_uses_agent_services === true)
       this.addEditContractForm
         .get('player_uses_agent_services')
         .setValue('true');
