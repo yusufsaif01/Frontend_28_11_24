@@ -20,6 +20,33 @@ html {
   cursor: pointer;
 }
 
+.partition {
+  position: relative;
+  width: 100%;
+  padding: 2rem 0 1rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0rem;
+    top: 3rem;
+    width: 66%;
+    height: 1px;
+    background: $grey;
+  }
+
+  a {
+    font-size: $heading-fourth;
+    color: $fourth-color;
+    font-weight: 600;
+    display: inline-block;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
 .active {
   color: $primary-color;
 }

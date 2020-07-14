@@ -338,7 +338,11 @@
         margin: 0rem;
         border-bottom: 1px solid $grey;
 
-        :hover {
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &:hover {
           border-bottom: 1px solid $primary-color;
         }
 

@@ -608,66 +608,159 @@
     ></app-left-panel>
   </div>
   <div class="right-panel">
-    <div class="post-container">
-      <div class="create">
-        <button class="btn btn-primary btn-shadow">
-          <img src="assets/images/member/create.png" alt="share-post" /> Share a
-          FooTPost
-        </button>
+    <div class="right-wrapper">
+      <div class="post-container">
+        <div class="advertise">
+          <img src="assets/images/member/banner.png" alt="" />
+          <h5>Sponsored by XYZ2020</h5>
+          <h3>Register yourself in the biggest football tournament 2020.</h3>
+        </div>
+
+        <div class="create">
+          <button class="btn btn-primary btn-shadow" (click)="openDialog()">
+            <img src=" assets/images/member/create.png" alt="share-post" />
+            Share a FooTPost
+          </button>
+        </div>
+        <!-- postwrapper -->
+        <div class="post-wrapper">
+          <!-- postHeader -->
+          <div class="post-header">
+            <!-- PostProfile -->
+            <div class="profile">
+              <div class="profile-img">
+                <img src="assets/images/member/profile.png" alt="profile" />
+              </div>
+              <div class="details">
+                <h3>James Jordon</h3>
+                <p><span>Grassroot</span> CenterMidfielder , 2 hours</p>
+              </div>
+            </div>
+            <!-- icons -->
+            <div class="actions">
+              <span>
+                <a>
+                  <mat-icon class="material-icons">edit</mat-icon>
+                </a>
+              </span>
+              <span>
+                <a>
+                  <mat-icon class="material-icons">delete</mat-icon>
+                </a>
+              </span>
+            </div>
+          </div>
+          <!-- postbody -->
+          <div class="postbody">
+            <div class="post-content">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet
+                ultrices pretium, urna urna. Lobortis velit netus sed euismod
+                cursus. Aliquam semper read more...
+              </p>
+            </div>
+            <div class="post-img">
+              <img src="assets/images/member/post.png" alt="" />
+            </div>
+          </div>
+          <!-- like comment -->
+          <div class="like">
+            <span>
+              <mat-icon class="material-icons big-icons active"
+                >favorite</mat-icon
+              >
+              1.3k
+            </span>
+            <span>
+              <mat-icon class="material-icons big-icons">mode_comment</mat-icon>
+              1.3k
+            </span>
+          </div>
+          <div class="comment">
+            <div class="partition">
+              <a>View previous comments</a>
+            </div>
+            <div class="comment-box">
+              <div class="commnet">
+                <div class="profile">
+                  <div class="profile-img">
+                    <img src="assets/images/member/profile.png" alt="profile" />
+                  </div>
+                  <div class="details">
+                    <h4>James Jordon</h4>
+                    <div class="commenter-details">
+                      <p><span>Grassroot</span> CenterMidfielder ,</p>
+                      <p>2 hours</p>
+                    </div>
+                    <div class="message">
+                      <p>You Played well</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post-comment">
+              <div class="profile-img">
+                <img src="assets/images/member/profile.png" alt="profile" />
+              </div>
+              <div class="comment-input">
+                <input type="text" placeholder="Add a comment" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- postwrapper -->
-      <div class="post-wrapper">
-        <!-- postHeader -->
-        <div class="post-header">
-          <!-- PostProfile -->
-          <div class="profile">
-            <div class="profile-img">
-              <img src="assets/images/member/profile.png" alt="profile" />
-            </div>
-            <div class="details">
-              <h3>James Jordon</h3>
-              <p><span>Grassroot</span> CenterMidfielder , 2 hours</p>
-            </div>
+      <!-- Right pannel -->
+      <div class="third-panel">
+        <div class="suggestion">
+          <div class="heading">
+            <h3>Player you might know</h3>
           </div>
-          <!-- icons -->
-          <div class="actions">
-            <span>
-              <a>
-                <mat-icon class="material-icons">edit</mat-icon>
-              </a>
-            </span>
-            <span>
-              <a>
-                <mat-icon class="material-icons">delete</mat-icon>
-              </a>
-            </span>
+          <div class="suggestion-player">
+            <div class="profile">
+              <img src="assets/images/member/profile.png" alt="" />
+              <h3>Jonathan Jed</h3>
+              <button>
+                <mat-icon class="material-icons">person_add_alt_1</mat-icon>
+              </button>
+            </div>
+            <div class="profile">
+              <img src="assets/images/member/profile.png" alt="" />
+              <h3>Jonathan Jed</h3>
+              <button>
+                <mat-icon class="material-icons">person_add_alt_1</mat-icon>
+              </button>
+            </div>
+            <div class="profile">
+              <img src="assets/images/member/profile.png" alt="" />
+              <h3>Jonathan Jed</h3>
+              <button>
+                <mat-icon class="material-icons">person_add_alt_1</mat-icon>
+              </button>
+            </div>
+            <div class="profile">
+              <img src="assets/images/member/profile.png" alt="" />
+              <h3>Jonathan Jed</h3>
+              <button>
+                <mat-icon class="material-icons">person_add_alt_1</mat-icon>
+              </button>
+            </div>
+            <div class="partition">
+              <a>Show more</a>
+            </div>
           </div>
         </div>
-        <!-- postbody -->
-        <div class="postbody">
-          <div class="post-content">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet
-              ultrices pretium, urna urna. Lobortis velit netus sed euismod
-              cursus. Aliquam semper read more...
-            </p>
+
+        <!-- promotion -->
+        <div class="promotions">
+          <img src="assets/images/member/promotion.png" alt="" />
+          <p>
+            IFA is organizing a football trial for grassroot level players. Top
+            20 players will get direct entry in FPL matches 2020.
+          </p>
+          <div class="partition">
+            <a>Register</a>
           </div>
-          <div class="post-img">
-            <img src="assets/images/member/post.png" alt="" />
-          </div>
-        </div>
-        <!-- like comment -->
-        <div class="like">
-          <span>
-            <mat-icon class="material-icons big-icons active"
-              >favorite</mat-icon
-            >
-            1.3k
-          </span>
-          <span>
-            <mat-icon class="material-icons big-icons">mode_comment</mat-icon>
-            1.3k
-          </span>
         </div>
       </div>
     </div>
