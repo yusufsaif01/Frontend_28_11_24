@@ -618,10 +618,36 @@
   >
     <div class="right-wrapper">
       <div class="post-container">
-        <div class="advertise">
-          <img src="assets/images/member/banner.png" alt="" />
-          <h5>Sponsored by XYZ2020</h5>
-          <h3>Register yourself in the biggest football tournament 2020.</h3>
+        <div class="slider">
+          <owl-carousel-o [options]="customOptions">
+            <ng-template carouselSlide>
+              <div class="advertise">
+                <img src="assets/images/member/banner.png" alt="" />
+                <h5>Sponsored by XYZ2020</h5>
+                <h3>
+                  Register yourself in the biggest football tournament 2020.
+                </h3>
+              </div>
+            </ng-template>
+            <ng-template carouselSlide>
+              <div class="advertise">
+                <img src="assets/images/member/banner.png" alt="" />
+                <h5>Sponsored by XYZ2020</h5>
+                <h3>
+                  Register yourself in the biggest football tournament 2020.
+                </h3>
+              </div>
+            </ng-template>
+            <ng-template carouselSlide>
+              <div class="advertise">
+                <img src="assets/images/member/banner.png" alt="" />
+                <h5>Sponsored by XYZ2020</h5>
+                <h3>
+                  Register yourself in the biggest football tournament 2020.
+                </h3>
+              </div>
+            </ng-template>
+          </owl-carousel-o>
         </div>
 
         <div class="create">

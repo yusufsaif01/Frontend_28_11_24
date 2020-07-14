@@ -19,28 +19,35 @@
         margin-top: 2rem;
         padding-bottom: 10rem;
 
-        .advertise {
+        .slider {
+          max-width: 100rem;
+          margin-bottom: 2rem;
+          @include shadow;
           position: relative;
-          width: 100%;
 
-          img {
+          .advertise {
+            position: relative;
             width: 100%;
-          }
 
-          h5 {
-            position: absolute;
-            color: $white-color;
-            left: 3rem;
-            top: 2rem;
-          }
+            img {
+              width: 100%;
+            }
 
-          h3 {
-            position: absolute;
-            color: $white-color;
-            width: 60%;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            h5 {
+              position: absolute;
+              color: $white-color;
+              left: 3rem;
+              top: 2rem;
+            }
+
+            h3 {
+              position: absolute;
+              color: $white-color;
+              width: 60%;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+            }
           }
         }
 
@@ -264,6 +271,7 @@
 
               h3 {
                 font-weight: 500;
+                font-size: 2rem;
               }
 
               button {
@@ -308,4 +316,11 @@
       }
     }
   }
+}
+
+.owl-nav.ng-star-inserted {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  left: 3rem;
 }
