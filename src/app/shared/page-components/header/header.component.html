@@ -212,15 +212,12 @@
       </ul>
       <div class="profile-head">
         <a mat-icon-button [matMenuTriggerFor]="menu">
-          <img
-            src="assets/images/member/header-profile.png"
-            alt="header-profile"
-          />
+          <img [src]="avatar_url" alt="header-profile" />
         </a>
         <mat-menu #menu="matMenu">
           <ul class="menu">
             <li>
-              <a>
+              <a [routerLink]="['/member/profile/view']">
                 <mat-icon class="material-icons">home</mat-icon>
                 My Profile
               </a>
@@ -237,7 +234,7 @@
                 Change Password
               </a>
             </li>
-            <li class="border-none ">
+            <li class="border-none">
               <a (click)="logout()">
                 <mat-icon class="material-icons">exit_to_app</mat-icon>
                 Logout
