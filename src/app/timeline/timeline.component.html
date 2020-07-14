@@ -721,11 +721,20 @@
             <ng-container *ngIf="post.addComment$ | async"></ng-container>
             <ng-container
               *ngIf="!['amateur', 'grassroot'].includes(player_type)"
-            ></ng-container>
-            <span>
-              <mat-icon class="material-icons big-icons">mode_comment</mat-icon>
-              {{ post.comments.total }}
-            </span>
+            >
+              <span
+                (click)="activateCommentBox(post)"
+                [ngClass]="{
+                  chatdisable:
+                    !player_type && !['academy', 'club'].includes(member_type)
+                }"
+              >
+                <mat-icon class="material-icons big-icons"
+                  >mode_comment</mat-icon
+                >
+                {{ post.comments.total }}
+              </span>
+            </ng-container>
           </div>
           <div class="comment">
             <div class="partition">
@@ -771,12 +780,12 @@
                     autocomplete="off"
                     placeholder="Add a comment"
                   />
-                  <button
+                  <!-- <button
                     [disabled]="!post.commentForm.valid"
                     (click)="addComment(post)"
                   >
                     <i-feather name="send"></i-feather>
-                  </button>
+                  </button> -->
                   <mat-error
                     *ngIf="
                       post.commentForm.controls.comment.invalid &&
