@@ -1,24 +1,13 @@
-<app-header></app-header>
-<div class="site-wrapper">
-  <!-- Left section -->
-  <div class="left-section">
-    <app-left-panel
-      [options]="panelOptions"
-      (sendPlayerType)="getPlayerType($event)"
-      (sendMemberType)="getMemberType($event)"
-    ></app-left-panel>
-  </div>
-  <!-- middle -->
-  <div
-    class="middle-section"
-    infiniteScroll
-    [infiniteScrollUpDistance]="1.5"
-    [infiniteScrollDistance]="0"
-    [infiniteScrollThrottle]="100"
-    (scrolled)="onScrollDown()"
-    (scrolledUp)="onScrollUp()"
-  >
-    <!-- share-post -->
+<!-- <div class="site-wrapper">
+   Left section 
+  <div class="left-panel">
+    <app-left-panel [options]="panelOptions" (sendPlayerType)="getPlayerType($event)"
+      (sendMemberType)="getMemberType($event)"></app-left-panel>
+  </div> -->
+<!-- middle 
+  <div class="middle-section" infiniteScroll [infiniteScrollUpDistance]="1.5" [infiniteScrollDistance]="0"
+    [infiniteScrollThrottle]="100" (scrolled)="onScrollDown()" (scrolledUp)="onScrollUp()">
+     share-post 
     <div class="share-post">
       <div class="share-left">
         <h4>
@@ -39,8 +28,8 @@
         </ul>
       </div>
     </div>
-    <!-- small post -->
-    <!-- <div class="post">
+     small post -->
+<!-- <div class="post">
       <div class="post-header border-bottom">
         <div class="post-header-left">
           <div class="profile-img">
@@ -134,6 +123,7 @@
                 The point of using Lorem Ipsum is that it has a more-or-less
                 normal distribution
               </p>
+
             </div>
           </div>
         </div>
@@ -215,8 +205,8 @@
       </div>
     </div> -->
 
-    <!-- carsouels div -->
-    <!-- <div class="slider">
+<!-- carsouels div -->
+<!-- <div class="slider">
       <owl-carousel-o [options]="customOptions">
         <ng-template carouselSlide>
           <div class="block">
@@ -360,288 +350,327 @@
         </ng-template>
       </owl-carousel-o>
     </div> -->
-    <!-- corsuels end -->
+<!-- corsuels end -->
 
-    <!-- post header -->
-    <div class="post" *ngFor="let post of postListing">
-      <div class="post-header border-bottom">
-        <div class="post-header-left">
-          <div class="profile-img">
-            <img [src]="post.posted_by.avatar" alt="" />
-            <span></span>
-          </div>
-          <div class="profile-details">
-            <a
-              target="_blank"
-              [routerLink]="['/member/profile/view/', post.posted_by.user_id]"
-            >
-              <h2>{{ post.posted_by.name }}</h2>
-            </a>
-            <h5>{{ post.posted_by.position }}</h5>
-            <h5>{{ post.created_at | datePipe }}</h5>
-            <!-- <h5 *ngIf="post.days == 0">
+<!-- post header 
+<div class="post" *ngFor="let post of postListing">
+  <div class="post-header border-bottom">
+    <div class="post-header-left">
+      <div class="profile-img">
+        <img [src]="post.posted_by.avatar" alt="" />
+        <span></span>
+      </div>
+      <div class="profile-details">
+        <a
+          target="_blank"
+          [routerLink]="['/member/profile/view/', post.posted_by.user_id]"
+        >
+          <h2>{{ post.posted_by.name }}</h2>
+        </a>
+        <h5>{{ post.posted_by.position }}</h5>
+        <h5>{{ post.created_at | datePipe }}</h5>
+        <h5 *ngIf="post.days == 0">
               {{post.created_at | toDaysPipe}}
-            </h5> -->
-          </div>
-        </div>
+            </h5>
+      </div>
+    </div>
 
-        <div class="post-header-right" *ngIf="userId == post.posted_by.user_id">
-          <ul>
-            <li>
-              <a>
-                <i-feather
-                  (click)="editPost(post)"
-                  name="edit"
-                  class="icon-size"
-                ></i-feather>
-              </a>
-            </li>
-            <li>
-              <a>
-                <i-feather
-                  (click)="deletePost(post.id)"
-                  name="trash"
-                  class="icon-size"
-                ></i-feather>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="post-middle border-bottom">
-        <div class="post-content">
-          <p>
-            {{ post.post.text }}
-          </p>
-        </div>
-        <div class="post-media" *ngIf="post.post.media_url">
-          <img [src]="post.post.media_url" alt="" />
-        </div>
-      </div>
-      <div class="post-icons border-bottom">
-        <ng-container *ngIf="post.like$ | async"></ng-container>
-        <ul>
-          <li [ngClass]="{ like: post.is_liked }">
-            <i-feather
-              name="thumbs-up"
-              class="icon-size"
-              (click)="toggleLike(post)"
-            ></i-feather>
-            <span>{{ post.likes }}</span>
-          </li>
-          <ng-container *ngIf="post.addComment$ | async"></ng-container>
-          <ng-container *ngIf="!['amateur', 'grassroot'].includes(player_type)">
-            <li>
-              <i-feather
-                name="message-square"
-                class="icon-size"
-                (click)="activateCommentBox(post)"
-                [ngClass]="{
-                  chatdisable:
-                    !player_type && !['academy', 'club'].includes(member_type)
-                }"
-              >
-              </i-feather>
-              <span>{{ post.comments.total }}</span>
-            </li>
-          </ng-container>
-        </ul>
-      </div>
-      <div class="comment-wrapper  border-bottom">
-        <div class="previous-list">
-          <a
-            *ngIf="
-              post.comments.total > 3 &&
-              post.comments.total !== post.commentListing.length
-            "
-            (click)="loadComments(post)"
-            >View Previous Comments</a
-          >
-        </div>
-        <ng-container *ngFor="let comment of post.commentListing">
-          <div class="comment">
-            <div class="img-commnet">
-              <div class="profile-img">
-                <img [src]="comment.commented_by.avatar" alt="" />
-                <span></span>
-              </div>
-            </div>
-            <div class="profile-details">
-              <div class="details">
-                <div class="name-time">
-                  <div class="name">
-                    <h3>{{ comment.commented_by.name }}</h3>
-                    <h5>{{ comment.commented_by.position }}</h5>
-                  </div>
-                  <p>
-                    {{ comment.commented_at | datePipe }}
-                  </p>
-                </div>
-                <p>{{ comment.comment }}</p>
-              </div>
-            </div>
-          </div>
-        </ng-container>
-      </div>
-      <ng-container *ngIf="post.show_comment_box">
-        <div class="comment-box">
-          <div class="profile-icon">
-            <img [src]="avatar_url" alt="" />
-            <span></span>
-          </div>
-          <div class="input-wrapper">
-            <form [formGroup]="post.commentForm">
-              <input
-                formControlName="comment"
-                matInput
-                autocomplete="off"
-                placeholder="Add Comments..."
-              />
-              <button
-                [disabled]="!post.commentForm.valid"
-                (click)="addComment(post)"
-              >
-                <i-feather name="send"></i-feather>
-              </button>
-              <mat-error
-                *ngIf="
-                  post.commentForm.controls.comment.invalid &&
-                  post.commentForm.controls.comment.touched
-                "
-              >
-                <span
-                  *ngIf="post.commentForm.controls.comment.errors.wordCount"
-                >
-                  Please provide upto 60 words
-                </span>
-              </mat-error>
-            </form>
-          </div>
-        </div>
-      </ng-container>
+    <div class="post-header-right" *ngIf="userId == post.posted_by.user_id">
+      <ul>
+        <li>
+          <a>
+            <i-feather (click)="editPost(post)" name="edit" class="icon-size"></i-feather>
+          </a>
+        </li>
+        <li>
+          <a>
+            <i-feather (click)="deletePost(post.id)" name="trash" class="icon-size"></i-feather>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
-
-  <!-- Right seciton -->
-  <div class="right-section">
-    <div class="block">
-      <div class="block-heading border-bottom">
-        <h2>People you might know</h2>
+  <div class="post-middle border-bottom">
+    <div class="post-content">
+      <p>
+        {{ post.post.text }}
+      </p>
+    </div>
+    <div class="post-media" *ngIf="post.post.media_url">
+      <img [src]="post.post.media_url" alt="" />
+    </div>
+  </div>
+  <div class="post-icons border-bottom">
+    <ng-container *ngIf="post.like$ | async"></ng-container>
+    <ul>
+      <li [ngClass]="{ like: post.is_liked }">
+        <i-feather name="thumbs-up" class="icon-size" (click)="toggleLike(post)"></i-feather>
+        <span>{{ post.likes }}</span>
+      </li>
+      <ng-container *ngIf="post.addComment$ | async"></ng-container>
+      <ng-container *ngIf="!['amateur', 'grassroot'].includes(player_type)">
+        <li>
+          <i-feather name="message-square" class="icon-size" (click)="activateCommentBox(post)" [ngClass]="{
+                  chatdisable:
+                    !player_type && !['academy', 'club'].includes(member_type)
+                }">
+          </i-feather>
+          <span>{{ post.comments.total }}</span>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+  <div class="comment-wrapper  border-bottom">
+    <div class="previous-list">
+      <a *ngIf="
+              post.comments.total > 3 &&
+              post.comments.total !== post.commentListing.length
+            " (click)="loadComments(post)">View Previous Comments</a>
+    </div>
+    <ng-container *ngFor="let comment of post.commentListing">
+      <div class="comment">
+        <div class="img-commnet">
+          <div class="profile-img">
+            <img [src]="comment.commented_by.avatar" alt="" />
+            <span></span>
+          </div>
+        </div>
+        <div class="profile-details">
+          <div class="details">
+            <div class="name-time">
+              <div class="name">
+                <h3>{{ comment.commented_by.name }}</h3>
+                <h5>{{ comment.commented_by.position }}</h5>
+              </div>
+              <p>
+                {{ comment.commented_at | datePipe }}
+              </p>
+            </div>
+            <p>{{ comment.comment }}</p>
+          </div>
+        </div>
       </div>
-      <div class="block-middle">
-        <!-- one -->
-        <div class="profile-list">
-          <div class="profile-icon">
-            <img src="assets/images/profile-icon.png" alt="" />
-            <span></span>
-          </div>
-          <div class="profile-details">
-            <h5>Sophia Lee</h5>
-            <h6>Wide midfield</h6>
-          </div>
-          <div class="profile-btn">
-            <button>
-              <i-feather name="user-plus" class="icon-size"></i-feather>
-            </button>
-          </div>
+    </ng-container>
+  </div>
+  <ng-container *ngIf="post.show_comment_box">
+    <div class="comment-box">
+      <div class="profile-icon">
+        <img [src]="avatar_url" alt="" />
+        <span></span>
+      </div>
+      <div class="input-wrapper">
+        <form [formGroup]="post.commentForm">
+          <input formControlName="comment" matInput autocomplete="off" placeholder="Add Comments..." />
+          <button [disabled]="!post.commentForm.valid" (click)="addComment(post)">
+            <i-feather name="send"></i-feather>
+          </button>
+          <mat-error *ngIf="
+                  post.commentForm.controls.comment.invalid &&
+                  post.commentForm.controls.comment.touched
+                ">
+            <span *ngIf="post.commentForm.controls.comment.errors.wordCount">
+              Please provide upto 60 words
+            </span>
+          </mat-error>
+        </form>
+      </div>
+    </div>
+  </ng-container>
+</div>
+</div>
+
+<!-- Right seciton 
+<div class="right-section">
+  <div class="block">
+    <div class="block-heading border-bottom">
+      <h2>People you might know</h2>
+    </div>
+    <div class="block-middle">
+      <div class="profile-list">
+        <div class="profile-icon">
+          <img src="assets/images/profile-icon.png" alt="" />
+          <span></span>
         </div>
-        <!-- two -->
-        <div class="profile-list">
-          <div class="profile-icon">
-            <img src="assets/images/profile-icon.png" alt="" />
-            <span></span>
-          </div>
-          <div class="profile-details">
-            <h5>Sophia Lee</h5>
-            <h6>Wide midfield</h6>
-          </div>
-          <div class="profile-btn">
-            <button>
-              <i-feather name="user-plus" class="icon-size"></i-feather>
-            </button>
-          </div>
+        <div class="profile-details">
+          <h5>Sophia Lee</h5>
+          <h6>Wide midfield</h6>
         </div>
-        <!-- three -->
-        <div class="profile-list">
-          <div class="profile-icon">
-            <img src="assets/images/profile-icon.png" alt="" />
-            <span></span>
-          </div>
-          <div class="profile-details">
-            <h5>Sophia Lee</h5>
-            <h6>Wide midfield</h6>
-          </div>
-          <div class="profile-btn">
-            <button>
-              <i-feather name="user-plus" class="icon-size"></i-feather>
-            </button>
-          </div>
+        <div class="profile-btn">
+          <button>
+            <i-feather name="user-plus" class="icon-size"></i-feather>
+          </button>
         </div>
-        <!-- four -->
-        <div class="profile-list">
-          <div class="profile-icon">
-            <img src="assets/images/profile-icon.png" alt="" />
-            <span></span>
-          </div>
-          <div class="profile-details">
-            <h5>Sophia Lee</h5>
-            <h6>Wide midfield</h6>
-          </div>
-          <div class="profile-btn">
-            <button>
-              <i-feather name="user-plus" class="icon-size"></i-feather>
-            </button>
-          </div>
+      </div>
+      <div class="profile-list">
+        <div class="profile-icon">
+          <img src="assets/images/profile-icon.png" alt="" />
+          <span></span>
         </div>
-        <!-- five -->
-        <div class="profile-list">
-          <div class="profile-icon">
-            <img src="assets/images/profile-icon.png" alt="" />
-            <span></span>
-          </div>
-          <div class="profile-details">
-            <h5>Sophia Lee</h5>
-            <h6>Wide midfield</h6>
-          </div>
-          <div class="profile-btn">
-            <button>
-              <i-feather name="user-plus" class="icon-size"></i-feather>
-            </button>
-          </div>
+        <div class="profile-details">
+          <h5>Sophia Lee</h5>
+          <h6>Wide midfield</h6>
         </div>
-        <!-- six -->
-        <div class="profile-list">
-          <div class="profile-icon">
-            <img src="assets/images/profile-icon.png" alt="" />
-            <span></span>
-          </div>
-          <div class="profile-details">
-            <h5>Sophia Lee</h5>
-            <h6>Wide midfield</h6>
-          </div>
-          <div class="profile-btn">
-            <button>
-              <i-feather name="user-plus" class="icon-size"></i-feather>
-            </button>
-          </div>
+        <div class="profile-btn">
+          <button>
+            <i-feather name="user-plus" class="icon-size"></i-feather>
+          </button>
+        </div>
+      </div>
+      <div class="profile-list">
+        <div class="profile-icon">
+          <img src="assets/images/profile-icon.png" alt="" />
+          <span></span>
+        </div>
+        <div class="profile-details">
+          <h5>Sophia Lee</h5>
+          <h6>Wide midfield</h6>
+        </div>
+        <div class="profile-btn">
+          <button>
+            <i-feather name="user-plus" class="icon-size"></i-feather>
+          </button>
+        </div>
+      </div>
+      <div class="profile-list">
+        <div class="profile-icon">
+          <img src="assets/images/profile-icon.png" alt="" />
+          <span></span>
+        </div>
+        <div class="profile-details">
+          <h5>Sophia Lee</h5>
+          <h6>Wide midfield</h6>
+        </div>
+        <div class="profile-btn">
+          <button>
+            <i-feather name="user-plus" class="icon-size"></i-feather>
+          </button>
+        </div>
+      </div>
+      <div class="profile-list">
+        <div class="profile-icon">
+          <img src="assets/images/profile-icon.png" alt="" />
+          <span></span>
+        </div>
+        <div class="profile-details">
+          <h5>Sophia Lee</h5>
+          <h6>Wide midfield</h6>
+        </div>
+        <div class="profile-btn">
+          <button>
+            <i-feather name="user-plus" class="icon-size"></i-feather>
+          </button>
+        </div>
+      </div> -->
+<!-- six 
+      <div class="profile-list">
+        <div class="profile-icon">
+          <img src="assets/images/profile-icon.png" alt="" />
+          <span></span>
+        </div>
+        <div class="profile-details">
+          <h5>Sophia Lee</h5>
+          <h6>Wide midfield</h6>
+        </div>
+        <div class="profile-btn">
+          <button>
+            <i-feather name="user-plus" class="icon-size"></i-feather>
+          </button>
         </div>
       </div>
     </div>
+  </div>-->
 
-    <!-- yft chain premium -->
-    <div class="block">
-      <div class="block-img">
-        <img src="assets/images/ads.png" alt="" />
-      </div>
-      <div class="block-middle border-bottom">
-        <div class="premium">
-          <h4>YFTChain Premium</h4>
-          <p>Grow & nurture your network</p>
-        </div>
-      </div>
-      <div class="block-bottom">
-        <button>Activate</button>
+<!-- yft chain premium 
+  <div class="block">
+    <div class="block-img">
+      <img src="assets/images/ads.png" alt="" />
+    </div>
+    <div class="block-middle border-bottom">
+      <div class="premium">
+        <h4>YFTChain Premium</h4>
+        <p>Grow & nurture your network</p>
       </div>
     </div>
+    <div class="block-bottom">
+      <button>Activate</button>
+    </div>
+  </div>
+</div>
+
+</div> -->
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel">
+    <app-left-panel
+      [options]="panelOptions"
+      (sendPlayerType)="getPlayerType($event)"
+      (sendMemberType)="getMemberType($event)"
+    ></app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="post-container">
+      <div class="create">
+        <button class="btn btn-primary btn-shadow">
+          <img src="assets/images/member/create.png" alt="share-post" /> Share a
+          FooTPost
+        </button>
+      </div>
+      <!-- postwrapper -->
+      <div class="post-wrapper">
+        <!-- postHeader -->
+        <div class="post-header">
+          <!-- PostProfile -->
+          <div class="profile">
+            <div class="profile-img">
+              <img src="assets/images/member/profile.png" alt="profile" />
+            </div>
+            <div class="details">
+              <h3>James Jordon</h3>
+              <p><span>Grassroot</span> CenterMidfielder , 2 hours</p>
+            </div>
+          </div>
+          <!-- icons -->
+          <div class="actions">
+            <span>
+              <a>
+                <mat-icon class="material-icons">edit</mat-icon>
+              </a>
+            </span>
+            <span>
+              <a>
+                <mat-icon class="material-icons">delete</mat-icon>
+              </a>
+            </span>
+          </div>
+        </div>
+        <!-- postbody -->
+        <div class="postbody">
+          <div class="post-content">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet
+              ultrices pretium, urna urna. Lobortis velit netus sed euismod
+              cursus. Aliquam semper read more...
+            </p>
+          </div>
+          <div class="post-img">
+            <img src="assets/images/member/post.png" alt="" />
+          </div>
+        </div>
+        <!-- like comment -->
+        <div class="like">
+          <span>
+            <mat-icon class="material-icons big-icons active"
+              >favorite</mat-icon
+            >
+            1.3k
+          </span>
+          <span>
+            <mat-icon class="material-icons big-icons">mode_comment</mat-icon>
+            1.3k
+          </span>
+        </div>
+      </div>
+    </div>
+    <app-copyright></app-copyright>
   </div>
 </div>

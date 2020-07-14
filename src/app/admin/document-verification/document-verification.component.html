@@ -87,10 +87,10 @@
           ></app-table>
           <ng-template
             #ContractListAction
-            let-canUpdateStatus="canUpdateStatus"
+            let-can_update_status="can_update_status"
             let-status="status"
             let-id="id"
-            let-playerName="playerName"
+            let-player_name="player_name"
             let-id="id"
           >
             <div class="action-buttons">
@@ -103,22 +103,22 @@
                 </button>
               </a>
               <button
-                *ngIf="canUpdateStatus && status !== 'completed'"
+                *ngIf="can_update_status && status !== 'completed'"
                 [disabled]="
                   status === 'active' ||
                   status === 'yet_to_start' ||
                   status === 'completed'
                 "
                 matTooltip="Approve"
-                (click)="updateContractStatus('approved', id, playerName)"
+                (click)="updateContractStatus('approved', id, player_name)"
               >
                 <img src="assets/images/icons/tick.png" alt="approve" />
               </button>
               <button
-                *ngIf="canUpdateStatus && status !== 'completed'"
+                *ngIf="can_update_status && status !== 'completed'"
                 [disabled]="status === 'disapproved'"
                 matTooltip="Disapprove"
-                (click)="updateContractStatus('disapproved', id, playerName)"
+                (click)="updateContractStatus('disapproved', id, player_name)"
               >
                 <img src="assets/images/icons/close01.png" alt="Disapprove" />
               </button>
