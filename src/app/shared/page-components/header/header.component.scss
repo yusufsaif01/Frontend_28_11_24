@@ -222,6 +222,9 @@
 
 .header {
   background-color: $fourth-color;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
 
   &-wrapper {
     width: 95%;
