@@ -6,7 +6,9 @@ describe('ContractManagementService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ContractManagementService = TestBed.get(ContractManagementService);
+    const service: ContractManagementService = TestBed.get(
+      ContractManagementService
+    );
     expect(service).toBeTruthy();
   });
 });

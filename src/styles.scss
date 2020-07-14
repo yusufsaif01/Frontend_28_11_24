@@ -1,8 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import "assets/sass/main";
 @import "~ngx-toastr/toastr";
-
 @import "assets/webfont/stylesheet.css";
+@import "~ngx-owl-carousel-o/lib/styles/scss/owl.carousel";
+@import "~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default";
 
 body {
   font-family: $primary-text, sans-serif;

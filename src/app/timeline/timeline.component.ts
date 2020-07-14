@@ -90,25 +90,29 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   customOptions: OwlOptions = {
     loop: true,
-    mouseDrag: true,
-    touchDrag: true,
     pullDrag: false,
     autoplay: true,
     dots: false,
+    nav: true,
     margin: 10,
+    navText: [
+      '<span class= "material-icons">keyboard_arrow_left</span>',
+      '<span class= "material-icons">keyboard_arrow_right</span>'
+    ],
     navSpeed: 700,
+
     responsive: {
       0: {
         items: 1
       },
       400: {
-        items: 2
+        items: 1
       },
       740: {
-        items: 3
+        items: 1
       },
       940: {
-        items: 3
+        items: 1
       }
     }
   };
@@ -166,8 +170,8 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(PostPopupComponent, {
-      width: '40%',
-      panelClass: 'postpopup'
+      width: '50%',
+      panelClass: 'dialogbox'
     });
 
     dialogRef.afterClosed().subscribe(result => {
