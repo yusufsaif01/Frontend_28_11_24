@@ -27,10 +27,44 @@
   }
 
   &-shadow {
-    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04),
-      0px 2px 6px rgba(255, 153, 51, 0.12),
-      0px 10px 20px rgba(255, 153, 51, 0.18);
+    box-shadow: 0px 0px 0.1rem rgba($primary-color, 0.04),
+      0px 0.2rem 0.6rem rgba($primary-color, 0.12),
+      0px 10px 20px rgba($primary-color, 0.18);
     border-radius: 25px;
+  }
+}
+
+.btn {
+  padding: 1.5rem 3rem;
+  line-height: 1;
+  font-family: $primary-text;
+  font-size: $heading-third;
+  outline: none;
+  -webkit-border-radius: 5rem;
+  -moz-border-radius: 5rem;
+  border-radius: 5rem;
+  cursor: pointer;
+  border: none;
+
+  &-block {
+    width: 100%;
+  }
+
+  &-secondary {
+    color: $color-white;
+    background: $fourth-color;
+    margin-top: 1rem;
+
+    &:disabled {
+      background: rgba($fourth-color, 0.3);
+    }
+  }
+
+  &-shadow-secondary {
+    box-shadow: 0px 0px 1px rgba($fourth-color, 0.04),
+      0px 2px 6px rgba($fourth-color, 0.12),
+      0px 10px 20px rgba($fourth-color, 0.18);
+    border-radius: 5rem;
   }
 }
 
