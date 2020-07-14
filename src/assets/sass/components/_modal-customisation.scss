@@ -1,7 +1,9 @@
-.enterLinkModal {
-  margin-left: 14%;
-  .mat-dialog-container {
-    padding: 9.2rem 9.6rem 10rem 7.5rem;
-    box-shadow: none;
+::ng-deep {
+  .dialogbox {
+    width: 50% !important;
   }
+}
+
+.mat-dialog-container {
+  border-radius: 2rem !important;
 }
