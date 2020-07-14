@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService, untilDestroyed } from '@app/core';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { matchingPassword } from '@app/shared/validators/matchingPassword';
 
@@ -12,12 +11,13 @@ import { matchingPassword } from '@app/shared/validators/matchingPassword';
 })
 export class ChangePasswordComponent implements OnInit, OnDestroy {
   changePasswordForm: FormGroup;
+  tooltip: string =
+    'Please provide at least 1 special character, 1 number and 1 alphabet';
 
   constructor(
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
-    private _toastrService: ToastrService,
-    private _router: Router
+    private _toastrService: ToastrService
   ) {
     this.createForm();
   }
