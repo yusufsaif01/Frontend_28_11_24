@@ -607,13 +607,47 @@
       (sendMemberType)="getMemberType($event)"
     ></app-left-panel>
   </div>
-  <div class="right-panel">
+  <div
+    class="right-panel"
+    infiniteScroll
+    [infiniteScrollUpDistance]="1.5"
+    [infiniteScrollDistance]="0"
+    [infiniteScrollThrottle]="100"
+    (scrolled)="onScrollDown()"
+    (scrolledUp)="onScrollUp()"
+  >
     <div class="right-wrapper">
       <div class="post-container">
-        <div class="advertise">
-          <img src="assets/images/member/banner.png" alt="" />
-          <h5>Sponsored by XYZ2020</h5>
-          <h3>Register yourself in the biggest football tournament 2020.</h3>
+        <div class="slider">
+          <owl-carousel-o [options]="customOptions">
+            <ng-template carouselSlide>
+              <div class="advertise">
+                <img src="assets/images/member/banner.png" alt="" />
+                <h5>Sponsored by XYZ2020</h5>
+                <h3>
+                  Register yourself in the biggest football tournament 2020.
+                </h3>
+              </div>
+            </ng-template>
+            <ng-template carouselSlide>
+              <div class="advertise">
+                <img src="assets/images/member/banner.png" alt="" />
+                <h5>Sponsored by XYZ2020</h5>
+                <h3>
+                  Register yourself in the biggest football tournament 2020.
+                </h3>
+              </div>
+            </ng-template>
+            <ng-template carouselSlide>
+              <div class="advertise">
+                <img src="assets/images/member/banner.png" alt="" />
+                <h5>Sponsored by XYZ2020</h5>
+                <h3>
+                  Register yourself in the biggest football tournament 2020.
+                </h3>
+              </div>
+            </ng-template>
+          </owl-carousel-o>
         </div>
 
         <div class="create">
@@ -623,28 +657,39 @@
           </button>
         </div>
         <!-- postwrapper -->
-        <div class="post-wrapper">
+        <div class="post-wrapper" *ngFor="let post of postListing">
           <!-- postHeader -->
           <div class="post-header">
             <!-- PostProfile -->
             <div class="profile">
-              <div class="profile-img">
-                <img src="assets/images/member/profile.png" alt="profile" />
+              <div class="profile-img" *ngIf="post.post.media_url">
+                <img [src]="post.posted_by.avatar" alt="profile" />
               </div>
               <div class="details">
-                <h3>James Jordon</h3>
-                <p><span>Grassroot</span> CenterMidfielder , 2 hours</p>
+                <a
+                  target="_blank"
+                  [routerLink]="[
+                    '/member/profile/view/',
+                    post.posted_by.user_id
+                  ]"
+                >
+                  <h3>{{ post.posted_by.name }}</h3>
+                </a>
+                <p>
+                  <span>{{ player_type }}</span> {{ post.posted_by.position }} ,
+                  {{ post.created_at | datePipe }}
+                </p>
               </div>
             </div>
             <!-- icons -->
-            <div class="actions">
+            <div class="actions" *ngIf="userId == post.posted_by.user_id">
               <span>
-                <a>
+                <a (click)="editPost(post)">
                   <mat-icon class="material-icons">edit</mat-icon>
                 </a>
               </span>
               <span>
-                <a>
+                <a (click)="deletePost(post.id)">
                   <mat-icon class="material-icons">delete</mat-icon>
                 </a>
               </span>
@@ -654,57 +699,106 @@
           <div class="postbody">
             <div class="post-content">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet
-                ultrices pretium, urna urna. Lobortis velit netus sed euismod
-                cursus. Aliquam semper read more...
+                {{ post.post.text }}
               </p>
             </div>
             <div class="post-img">
-              <img src="assets/images/member/post.png" alt="" />
+              <img [src]="post.post.media_url" alt="" />
             </div>
           </div>
           <!-- like comment -->
           <div class="like">
+            <ng-container *ngIf="post.like$ | async"></ng-container>
             <span>
-              <mat-icon class="material-icons big-icons active"
+              <mat-icon
+                (click)="toggleLike(post)"
+                [ngClass]="{ active: post.is_liked }"
+                class="material-icons big-icons"
                 >favorite</mat-icon
               >
-              1.3k
+              {{ post.likes }}
             </span>
-            <span>
-              <mat-icon class="material-icons big-icons">mode_comment</mat-icon>
-              1.3k
-            </span>
+            <ng-container *ngIf="post.addComment$ | async"></ng-container>
+            <ng-container
+              *ngIf="!['amateur', 'grassroot'].includes(player_type)"
+            >
+              <span
+                (click)="activateCommentBox(post)"
+                [ngClass]="{
+                  chatdisable:
+                    !player_type && !['academy', 'club'].includes(member_type)
+                }"
+              >
+                <mat-icon class="material-icons big-icons"
+                  >mode_comment</mat-icon
+                >
+                {{ post.comments.total }}
+              </span>
+            </ng-container>
           </div>
           <div class="comment">
             <div class="partition">
-              <a>View previous comments</a>
+              <a
+                *ngIf="
+                  post.comments.total > 3 &&
+                  post.comments.total !== post.commentListing.length
+                "
+                (click)="loadComments(post)"
+                >View Previous Comments</a
+              >
             </div>
             <div class="comment-box">
-              <div class="commnet">
+              <div class="commnet" *ngFor="let comment of post.commentListing">
                 <div class="profile">
                   <div class="profile-img">
-                    <img src="assets/images/member/profile.png" alt="profile" />
+                    <img [src]="comment.commented_by.avatar" alt="profile" />
                   </div>
                   <div class="details">
-                    <h4>James Jordon</h4>
+                    <h4>{{ comment.commented_by.name }}</h4>
                     <div class="commenter-details">
-                      <p><span>Grassroot</span> CenterMidfielder ,</p>
-                      <p>2 hours</p>
+                      <p>
+                        <span>{{ player_type }}</span>
+                        {{ comment.commented_by.position }}
+                      </p>
+                      <p>{{ comment.commented_at | datePipe }}</p>
                     </div>
                     <div class="message">
-                      <p>You Played well</p>
+                      <p>{{ comment.comment }}</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="post-comment">
+            <div class="post-comment" *ngIf="post.show_comment_box">
               <div class="profile-img">
-                <img src="assets/images/member/profile.png" alt="profile" />
+                <img [src]="avatar_url" alt="profile" />
               </div>
               <div class="comment-input">
-                <input type="text" placeholder="Add a comment" />
+                <form [formGroup]="post.commentForm">
+                  <input
+                    formControlName="comment"
+                    autocomplete="off"
+                    placeholder="Add a comment"
+                  />
+                  <!-- <button
+                    [disabled]="!post.commentForm.valid"
+                    (click)="addComment(post)"
+                  >
+                    <i-feather name="send"></i-feather>
+                  </button> -->
+                  <mat-error
+                    *ngIf="
+                      post.commentForm.controls.comment.invalid &&
+                      post.commentForm.controls.comment.touched
+                    "
+                  >
+                    <span
+                      *ngIf="post.commentForm.controls.comment.errors.wordCount"
+                    >
+                      Please provide upto 60 words
+                    </span>
+                  </mat-error>
+                </form>
               </div>
             </div>
           </div>

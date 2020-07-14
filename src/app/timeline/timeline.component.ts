@@ -90,13 +90,17 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   customOptions: OwlOptions = {
     loop: true,
-    mouseDrag: true,
-    touchDrag: true,
     pullDrag: false,
     autoplay: true,
     dots: false,
+    nav: true,
     margin: 10,
+    navText: [
+      '<span class= "material-icons">keyboard_arrow_left</span>',
+      '<span class= "material-icons">keyboard_arrow_right</span>'
+    ],
     navSpeed: 700,
+
     responsive: {
       0: {
         items: 1
