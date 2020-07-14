@@ -172,8 +172,8 @@
 <header class="header">
   <div class="header-wrapper">
     <div class="logo">
-      <a>
-        <img src="../../../../assets/images/member/logo.png" alt="brand-logo" />
+      <a [routerLink]="['/member/timeline']">
+        <img src="assets/images/member/logo.png" alt="brand-logo" />
       </a>
     </div>
     <div class="search">
@@ -195,9 +195,12 @@
           </a>
         </li>
         <li>
-          <a>
+          <a
+            matTooltip="FootMates"
+            [routerLink]="['/member/manage/foot-requests']"
+          >
             <mat-icon class="material-icons">people_outline</mat-icon>
-            <span>9</span>
+            <!-- <span>9</span> -->
           </a>
         </li>
         <li>
@@ -209,33 +212,30 @@
       </ul>
       <div class="profile-head">
         <a mat-icon-button [matMenuTriggerFor]="menu">
-          <img
-            src="assets/images/member/header-profile.png"
-            alt="header-profile"
-          />
+          <img [src]="avatar_url" alt="header-profile" />
         </a>
         <mat-menu #menu="matMenu">
           <ul class="menu">
             <li>
-              <a>
+              <a [routerLink]="['/member/profile/view']">
                 <mat-icon class="material-icons">home</mat-icon>
                 My Profile
               </a>
             </li>
             <li>
-              <a>
+              <a [routerLink]="['/member/profile/view']">
                 <mat-icon class="material-icons">public</mat-icon>
                 Public Profile
               </a>
             </li>
             <li>
-              <a>
+              <a [routerLink]="['/change-password']">
                 <mat-icon class="material-icons">lock_open</mat-icon>
                 Change Password
               </a>
             </li>
-            <li class="border-none ">
-              <a>
+            <li class="border-none">
+              <a (click)="logout()">
                 <mat-icon class="material-icons">exit_to_app</mat-icon>
                 Logout
               </a>
