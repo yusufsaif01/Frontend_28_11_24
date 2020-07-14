@@ -607,7 +607,15 @@
       (sendMemberType)="getMemberType($event)"
     ></app-left-panel>
   </div>
-  <div class="right-panel">
+  <div
+    class="right-panel"
+    infiniteScroll
+    [infiniteScrollUpDistance]="1.5"
+    [infiniteScrollDistance]="0"
+    [infiniteScrollThrottle]="100"
+    (scrolled)="onScrollDown()"
+    (scrolledUp)="onScrollUp()"
+  >
     <div class="right-wrapper">
       <div class="post-container">
         <div class="advertise">
