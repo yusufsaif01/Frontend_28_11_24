@@ -29,13 +29,8 @@ const appRoutes: Routes = [
       },
       {
         path: 'edit',
-        component: EditProfileComponent,
-        data: { title: extract('Edit Profile') }
-      },
-      {
-        path: 'my-profile',
         component: ViewEditProfileComponent,
-        data: { title: extract('My Profile') }
+        data: { title: extract('Edit Profile') }
       },
       {
         path: 'add-employment-contract',
