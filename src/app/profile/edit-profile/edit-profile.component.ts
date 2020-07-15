@@ -23,7 +23,7 @@ import { Constants } from '@app/shared/static-data/static-data';
 import { MatTableDataSource } from '@angular/material/table';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { MatDialog } from '@angular/material';
-import { DatePipe } from '@angular/common';
+import { DateConversion } from '@app/shared/utilities/date-conversion';
 
 interface trophyObject {
   name: string;
@@ -53,7 +53,7 @@ interface positionObject {
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
-  providers: [DatePipe]
+  providers: [DateConversion]
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
   public tableConfig: ContractListTableConfig = new ContractListTableConfig();
@@ -113,7 +113,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     private _sharedService: SharedService,
     private _toastrService: ToastrService,
     private _router: Router,
-    private datePipe: DatePipe,
+    private _dateConversion: DateConversion,
     public dialog: MatDialog
   ) {
     this.createForm();
@@ -670,12 +670,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       else
         requestData.set(
           'dob',
-          this.datePipe
-            .transform(
-              new Date(this.editProfileForm.get('dob').value),
-              'yyyy-MM-dd'
-            )
-            .toString()
+          this._dateConversion.convert(this.editProfileForm.get('dob').value)
         );
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
       if (this.member_type === 'club') requestData.set('aiff', this.aiff);

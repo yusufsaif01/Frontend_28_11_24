@@ -12,7 +12,7 @@ import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { DatePipe } from '@angular/common';
+import { DateConversion } from '@app/shared/utilities/date-conversion';
 
 interface clubAcadArrayContext {
   name: string;
@@ -27,7 +27,7 @@ interface clubAcadArrayContext {
   selector: 'app-add-edit-employment-contract',
   templateUrl: './add-edit-employment-contract.component.html',
   styleUrls: ['./add-edit-employment-contract.component.scss'],
-  providers: [DatePipe]
+  providers: [DateConversion]
 })
 export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   panelOptions: Partial<PanelOptions> = {
@@ -61,7 +61,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     private _toastrService: ToastrService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
-    private datePipe: DatePipe
+    private _dateConversion: DateConversion
   ) {
     this.createForm();
     this.manageCommonControls();
@@ -778,14 +778,11 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   }
 
   dateModifier() {
-    ['signing_date', 'effective_date', 'expiry_date'].map(result => {
-      let finalDate = this.datePipe
-        .transform(
-          new Date(this.addEditContractForm.get(result).value),
-          'yyyy-MM-dd'
-        )
-        .toString();
-      this.addEditContractForm.get(result).setValue(finalDate);
+    ['signing_date', 'effective_date', 'expiry_date'].forEach(value => {
+      let finalDate = this._dateConversion.convert(
+        this.addEditContractForm.get(value).value
+      );
+      this.addEditContractForm.get(value).setValue(finalDate);
     });
   }
 }
