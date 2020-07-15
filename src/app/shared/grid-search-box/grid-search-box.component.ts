@@ -43,7 +43,7 @@ export class GridSearchBoxComponent implements OnInit, OnDestroy {
         untilDestroyed(this)
       )
       .subscribe(value => {
-        this.sendSearchText.emit(value.searchText);
+        this.sendSearchText.emit(value.searchText.trim());
       });
   }
 }

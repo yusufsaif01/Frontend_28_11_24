@@ -26,7 +26,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MatSortModule } from '@angular/material/sort';
 import { FeatherModule } from 'angular-feather';
-
+import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import {
   Camera,
   Heart,
@@ -109,7 +109,8 @@ const icons = {
       positionClass: 'toast-top-right',
       preventDuplicates: true,
       closeButton: true
-    })
+    }),
+    NgxTrimDirectiveModule
   ],
   declarations: [
     AppComponent,
