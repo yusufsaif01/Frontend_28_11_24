@@ -21,7 +21,7 @@
         <p>Max character length 0 / 350</p>
       </div>
       <div class="uploaded-images">
-        <img [src]="imageURL" alt="" />
+        <img *ngIf="imageURL" [src]="imageURL" alt="" />
       </div>
     </div>
     <div class="modal-footer">
