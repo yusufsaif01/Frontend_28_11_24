@@ -57,7 +57,7 @@
             <div class="from-block">
               <label>Player name on contract <span>*</span></label>
               <input
-                formControlName="playerName"
+                formControlName="player_name"
                 class="error-border"
                 type="text"
                 placeholder="Player Name On Contract"
@@ -65,13 +65,13 @@
               />
               <mat-error
                 *ngIf="
-                  addEditContractForm.controls.playerName.invalid &&
-                  addEditContractForm.controls.playerName.touched
+                  addEditContractForm.controls.player_name.invalid &&
+                  addEditContractForm.controls.player_name.touched
                 "
               >
                 <span
                   *ngIf="
-                    addEditContractForm.controls.playerName.errors.required
+                    addEditContractForm.controls.player_name.errors.required
                   "
                   translate
                   >Player Name is required
@@ -83,7 +83,7 @@
               <div class="from-block">
                 <label>{{ category | titlecase }} Name <span>*</span></label>
                 <input
-                  formControlName="clubAcademyName"
+                  formControlName="club_academy_name"
                   class="error-border"
                   type="text"
                   placeholder="{{ category | titlecase }} Name "
@@ -91,13 +91,13 @@
                 />
                 <mat-error
                   *ngIf="
-                    addEditContractForm.controls.clubAcademyName.invalid &&
-                    addEditContractForm.controls.clubAcademyName.touched
+                    addEditContractForm.controls.club_academy_name.invalid &&
+                    addEditContractForm.controls.club_academy_name.touched
                   "
                 >
                   <span
                     *ngIf="
-                      addEditContractForm.controls.clubAcademyName.errors
+                      addEditContractForm.controls.club_academy_name.errors
                         .required
                     "
                     translate
@@ -115,7 +115,7 @@
                 <label>{{ category | titlecase }} Name <span>*</span></label>
                 <select
                   #SelectTag
-                  formControlName="clubAcademyName"
+                  formControlName="club_academy_name"
                   matNativeControl
                   required
                   (change)="onSelectOption(SelectTag)"
@@ -134,13 +134,13 @@
                 </select>
                 <mat-error
                   *ngIf="
-                    addEditContractForm.controls.clubAcademyName.invalid &&
-                    addEditContractForm.controls.clubAcademyName.touched
+                    addEditContractForm.controls.club_academy_name.invalid &&
+                    addEditContractForm.controls.club_academy_name.touched
                   "
                 >
                   <span
                     *ngIf="
-                      addEditContractForm.controls.clubAcademyName.errors
+                      addEditContractForm.controls.club_academy_name.errors
                         .required
                     "
                     translate
@@ -151,14 +151,15 @@
 
               <ng-container
                 *ngIf="
-                  addEditContractForm.get('clubAcademyName').value === 'Others'
+                  addEditContractForm.get('club_academy_name').value ===
+                  'Others'
                 "
               >
                 <!-- Other name -->
                 <div class="from-block">
                   <label>Other Name <span>*</span></label>
                   <input
-                    formControlName="otherName"
+                    formControlName="other_name"
                     placeholder="Other Name"
                     type="text"
                     matInput
@@ -166,13 +167,13 @@
 
                   <mat-error
                     *ngIf="
-                      addEditContractForm.controls.otherName.invalid &&
-                      addEditContractForm.controls.otherName.touched
+                      addEditContractForm.controls.other_name.invalid &&
+                      addEditContractForm.controls.other_name.touched
                     "
                   >
                     <span
                       *ngIf="
-                        addEditContractForm.controls.otherName.errors.required
+                        addEditContractForm.controls.other_name.errors.required
                       "
                       translate
                       >Other Name is required
@@ -184,27 +185,27 @@
                 <div class="from-block">
                   <label>Other Email <span>*</span></label>
                   <input
-                    formControlName="otherEmail"
+                    formControlName="other_email"
                     placeholder="Other Email"
                     type="email"
                     matInput
                   />
                   <mat-error
                     *ngIf="
-                      addEditContractForm.controls.otherEmail.invalid &&
-                      addEditContractForm.controls.otherEmail.touched
+                      addEditContractForm.controls.other_email.invalid &&
+                      addEditContractForm.controls.other_email.touched
                     "
                   >
                     <span
                       *ngIf="
-                        addEditContractForm.controls.otherEmail.errors.required
+                        addEditContractForm.controls.other_email.errors.required
                       "
                       translate
                       >Other Email is required
                     </span>
                     <span
                       *ngIf="
-                        addEditContractForm.controls.otherEmail.errors.email
+                        addEditContractForm.controls.other_email.errors.email
                       "
                       translate
                       >Other Email format is invalid
@@ -221,7 +222,7 @@
                     </div>
                     <div class="phonenumber">
                       <input
-                        formControlName="otherPhoneNumber"
+                        formControlName="other_phone_number"
                         placeholder="Other Phone Number"
                         type="text"
                         matInput
@@ -230,13 +231,14 @@
 
                     <mat-error
                       *ngIf="
-                        addEditContractForm.controls.otherPhoneNumber.invalid &&
-                        addEditContractForm.controls.otherPhoneNumber.touched
+                        addEditContractForm.controls.other_phone_number
+                          .invalid &&
+                        addEditContractForm.controls.other_phone_number.touched
                       "
                     >
                       <span
                         *ngIf="
-                          addEditContractForm.controls.otherPhoneNumber.errors
+                          addEditContractForm.controls.other_phone_number.errors
                             .required
                         "
                         translate
@@ -247,14 +249,14 @@
                           translate
                           class="error-text"
                           *ngIf="
-                            addEditContractForm.controls.otherPhoneNumber.errors
-                              .minlength
+                            addEditContractForm.controls.other_phone_number
+                              .errors.minlength
                           "
                         >
                           Please provide number upto
                           {{
-                            addEditContractForm.controls.otherPhoneNumber.errors
-                              .minlength.requiredLength
+                            addEditContractForm.controls.other_phone_number
+                              .errors.minlength.requiredLength
                           }}
                           digits
                         </span>
@@ -262,14 +264,14 @@
                           translate
                           class="error-text"
                           *ngIf="
-                            addEditContractForm.controls.otherPhoneNumber.errors
-                              .maxlength
+                            addEditContractForm.controls.other_phone_number
+                              .errors.maxlength
                           "
                         >
                           Please provide number upto
                           {{
-                            addEditContractForm.controls.otherPhoneNumber.errors
-                              .maxlength.requiredLength
+                            addEditContractForm.controls.other_phone_number
+                              .errors.maxlength.requiredLength
                           }}
                           digits
                         </span>
@@ -277,7 +279,7 @@
                       <span
                         class="error-text"
                         *ngIf="
-                          addEditContractForm.controls.otherPhoneNumber.errors
+                          addEditContractForm.controls.other_phone_number.errors
                             .pattern;
                           else lengthBlock
                         "
@@ -296,7 +298,7 @@
               <label>Contract Signing Date <span>*</span></label>
               <div class="datepicker">
                 <input
-                  formControlName="signingDate"
+                  formControlName="signing_date"
                   placeholder="Contract Signing Date"
                   matInput
                   [matDatepicker]="signing"
@@ -308,13 +310,13 @@
               </div>
               <mat-error
                 *ngIf="
-                  addEditContractForm.controls.signingDate.invalid &&
-                  addEditContractForm.controls.signingDate.touched
+                  addEditContractForm.controls.signing_date.invalid &&
+                  addEditContractForm.controls.signing_date.touched
                 "
               >
                 <span
                   *ngIf="
-                    addEditContractForm.controls.signingDate.errors.required
+                    addEditContractForm.controls.signing_date.errors.required
                   "
                   translate
                   >Contract Signing Date is required
@@ -327,11 +329,11 @@
               <label>Contract Effective Date <span>*</span></label>
               <div class="datepicker">
                 <input
-                  formControlName="effectiveDate"
+                  formControlName="effective_date"
                   placeholder="Contract Effective Date"
                   matInput
                   [matDatepicker]="effective"
-                  [min]="addEditContractForm.get('signingDate').value"
+                  [min]="addEditContractForm.get('signing_date').value"
                   readonly
                 />
                 <mat-datepicker-toggle
@@ -341,13 +343,13 @@
               </div>
               <mat-error
                 *ngIf="
-                  addEditContractForm.controls.effectiveDate.invalid &&
-                  addEditContractForm.controls.effectiveDate.touched
+                  addEditContractForm.controls.effective_date.invalid &&
+                  addEditContractForm.controls.effective_date.touched
                 "
               >
                 <span
                   *ngIf="
-                    addEditContractForm.controls.effectiveDate.errors.required
+                    addEditContractForm.controls.effective_date.errors.required
                   "
                   translate
                   >Contract Effective Date is required
@@ -360,11 +362,11 @@
               <label>Contract Expiry Date <span>*</span></label>
               <div class="datepicker">
                 <input
-                  formControlName="expiryDate"
+                  formControlName="expiry_date"
                   placeholder="Contract Expiry Date"
                   matInput
                   [matDatepicker]="expiry"
-                  [min]="addEditContractForm.get('effectiveDate').value"
+                  [min]="addEditContractForm.get('effective_date').value"
                   [max]="fiveYearFromNow"
                   readonly
                 />
@@ -373,13 +375,13 @@
               </div>
               <mat-error
                 *ngIf="
-                  addEditContractForm.controls.expiryDate.invalid &&
-                  addEditContractForm.controls.expiryDate.touched
+                  addEditContractForm.controls.expiry_date.invalid &&
+                  addEditContractForm.controls.expiry_date.touched
                 "
               >
                 <span
                   *ngIf="
-                    addEditContractForm.controls.expiryDate.errors.required
+                    addEditContractForm.controls.expiry_date.errors.required
                   "
                   translate
                   >Contract Expiry Date is required
@@ -391,7 +393,7 @@
             <div class="from-block">
               <label>Place Of Signature</label>
               <input
-                formControlName="placeOfSignature"
+                formControlName="place_of_signature"
                 placeholder="Place Of Signature"
                 type="text"
                 matInput
@@ -402,7 +404,7 @@
             <div class="from-block">
               <label>{{ category | titlecase }} Representative Name</label>
               <input
-                formControlName="clubAcademyRepresentativeName"
+                formControlName="club_academy_representative_name"
                 placeholder="{{ category | titlecase }} Representative Name"
                 type="text"
                 matInput
@@ -413,7 +415,7 @@
             <div class="from-block">
               <label>{{ category | titlecase }} Address</label>
               <input
-                formControlName="clubAcademyAddress"
+                formControlName="club_academy_address"
                 placeholder="{{ category | titlecase }} Address"
                 type="text"
                 matInput
@@ -422,8 +424,8 @@
 
             <ng-container
               *ngIf="
-                addEditContractForm.get('clubAcademyName').value !== 'Others' ||
-                ['club', 'academy'].includes(member_type)
+                addEditContractForm.get('club_academy_name').value !==
+                  'Others' || ['club', 'academy'].includes(member_type)
               "
             >
               <!-- Club Phone -->
@@ -437,22 +439,22 @@
                   </div>
                   <div class="phonenumber">
                     <input
-                      formControlName="clubAcademyPhoneNumber"
+                      formControlName="club_academy_phone_number"
                       placeholder="{{ category | titlecase }} Phone Number"
                       type="text"
                       matInput
                     />
                     <mat-error
                       *ngIf="
-                        addEditContractForm.controls.clubAcademyPhoneNumber
+                        addEditContractForm.controls.club_academy_phone_number
                           .invalid &&
-                        addEditContractForm.controls.clubAcademyPhoneNumber
+                        addEditContractForm.controls.club_academy_phone_number
                           .touched
                       "
                     >
                       <span
                         *ngIf="
-                          addEditContractForm.controls.clubAcademyPhoneNumber
+                          addEditContractForm.controls.club_academy_phone_number
                             .errors.required
                         "
                         translate
@@ -464,14 +466,15 @@
                           translate
                           class="error-text"
                           *ngIf="
-                            addEditContractForm.controls.clubAcademyPhoneNumber
-                              .errors.minlength
+                            addEditContractForm.controls
+                              .club_academy_phone_number.errors.minlength
                           "
                         >
                           Please provide number upto
                           {{
-                            addEditContractForm.controls.clubAcademyPhoneNumber
-                              .errors.minlength.requiredLength
+                            addEditContractForm.controls
+                              .club_academy_phone_number.errors.minlength
+                              .requiredLength
                           }}
                           digits
                         </span>
@@ -479,14 +482,15 @@
                           translate
                           class="error-text"
                           *ngIf="
-                            addEditContractForm.controls.clubAcademyPhoneNumber
-                              .errors.maxlength
+                            addEditContractForm.controls
+                              .club_academy_phone_number.errors.maxlength
                           "
                         >
                           Please provide number upto
                           {{
-                            addEditContractForm.controls.clubAcademyPhoneNumber
-                              .errors.maxlength.requiredLength
+                            addEditContractForm.controls
+                              .club_academy_phone_number.errors.maxlength
+                              .requiredLength
                           }}
                           digits
                         </span>
@@ -494,7 +498,7 @@
                       <span
                         class="error-text"
                         *ngIf="
-                          addEditContractForm.controls.clubAcademyPhoneNumber
+                          addEditContractForm.controls.club_academy_phone_number
                             .errors.pattern;
                           else lengthBlock
                         "
@@ -513,7 +517,7 @@
             <div class="from-block">
               <label>AIFF Accreditation Number</label>
               <input
-                formControlName="aiffNumber"
+                formControlName="aiff_number"
                 placeholder="AIFF Accreditation Number"
                 type="text"
                 matInput
@@ -524,7 +528,7 @@
             <div class="from-block">
               <label>CRS User Name</label>
               <input
-                formControlName="crsUserName"
+                formControlName="crs_user_name"
                 placeholder="CRS User Name"
                 type="text"
                 matInput
@@ -537,20 +541,20 @@
                 >Legal Guardian Name <span *ngIf="showLegalGuardStar">*</span>
               </label>
               <input
-                formControlName="legalGuardianName"
+                formControlName="legal_guardian_name"
                 placeholder="Legal Guardian Name"
                 type="text"
                 matInput
               />
               <mat-error
                 *ngIf="
-                  addEditContractForm.controls.legalGuardianName.invalid &&
-                  addEditContractForm.controls.legalGuardianName.touched
+                  addEditContractForm.controls.legal_guardian_name.invalid &&
+                  addEditContractForm.controls.legal_guardian_name.touched
                 "
               >
                 <span
                   *ngIf="
-                    addEditContractForm.controls.legalGuardianName.errors
+                    addEditContractForm.controls.legal_guardian_name.errors
                       .required
                   "
                   translate
@@ -564,7 +568,7 @@
             <div class="from-block">
               <label>Player Address</label>
               <input
-                formControlName="playerAddress"
+                formControlName="player_address"
                 placeholder="Player Address"
                 type="text"
                 matInput
@@ -580,7 +584,7 @@
                 </div>
                 <div class="phonenumber">
                   <input
-                    formControlName="playerMobileNumber"
+                    formControlName="player_mobile_number"
                     placeholder="Player Mobile Number"
                     type="text"
                     matInput
@@ -590,13 +594,13 @@
 
               <mat-error
                 *ngIf="
-                  addEditContractForm.controls.playerMobileNumber.invalid &&
-                  addEditContractForm.controls.playerMobileNumber.touched
+                  addEditContractForm.controls.player_mobile_number.invalid &&
+                  addEditContractForm.controls.player_mobile_number.touched
                 "
               >
                 <span
                   *ngIf="
-                    addEditContractForm.controls.playerMobileNumber.errors
+                    addEditContractForm.controls.player_mobile_number.errors
                       .required
                   "
                   translate
@@ -608,13 +612,13 @@
                     translate
                     class="error-text"
                     *ngIf="
-                      addEditContractForm.controls.playerMobileNumber.errors
+                      addEditContractForm.controls.player_mobile_number.errors
                         .minlength
                     "
                   >
                     Please provide number upto
                     {{
-                      addEditContractForm.controls.playerMobileNumber.errors
+                      addEditContractForm.controls.player_mobile_number.errors
                         .minlength.requiredLength
                     }}
                     digits
@@ -623,13 +627,13 @@
                     translate
                     class="error-text"
                     *ngIf="
-                      addEditContractForm.controls.playerMobileNumber.errors
+                      addEditContractForm.controls.player_mobile_number.errors
                         .maxlength
                     "
                   >
                     Please provide number upto
                     {{
-                      addEditContractForm.controls.playerMobileNumber.errors
+                      addEditContractForm.controls.player_mobile_number.errors
                         .maxlength.requiredLength
                     }}
                     digits
@@ -638,7 +642,7 @@
                 <span
                   class="error-text"
                   *ngIf="
-                    addEditContractForm.controls.playerMobileNumber.errors
+                    addEditContractForm.controls.player_mobile_number.errors
                       .pattern;
                     else lengthBlock
                   "
@@ -658,27 +662,27 @@
                 ></label
               >
               <input
-                formControlName="playerEmail"
+                formControlName="player_email"
                 placeholder="Player Email Id"
                 type="text"
                 matInput
               />
               <mat-error
                 *ngIf="
-                  addEditContractForm.controls.playerEmail.invalid &&
-                  addEditContractForm.controls.playerEmail.touched
+                  addEditContractForm.controls.player_email.invalid &&
+                  addEditContractForm.controls.player_email.touched
                 "
               >
                 <span
                   *ngIf="
-                    addEditContractForm.controls.playerEmail.errors.required
+                    addEditContractForm.controls.player_email.errors.required
                   "
                   translate
                 >
                   Player Email is required
                 </span>
                 <span
-                  *ngIf="addEditContractForm.controls.playerEmail.errors.email"
+                  *ngIf="addEditContractForm.controls.player_email.errors.email"
                   translate
                   >Player Email format is invalid
                 </span>
@@ -687,15 +691,15 @@
 
             <ng-container
               *ngIf="
-                addEditContractForm.get('clubAcademyName').value !== 'Others' ||
-                ['club', 'academy'].includes(member_type)
+                addEditContractForm.get('club_academy_name').value !==
+                  'Others' || ['club', 'academy'].includes(member_type)
               "
             >
               <!-- Club Academy email id  -->
               <div class="from-block">
                 <label>{{ category | titlecase }} Email Id </label>
                 <input
-                  formControlName="clubAcademyEmail"
+                  formControlName="club_academy_email"
                   placeholder="{{ category | titlecase }} Email Id"
                   type="text"
                   matInput
@@ -703,13 +707,14 @@
 
                 <mat-error
                   *ngIf="
-                    addEditContractForm.controls.clubAcademyEmail.invalid &&
-                    addEditContractForm.controls.clubAcademyEmail.touched
+                    addEditContractForm.controls.club_academy_email.invalid &&
+                    addEditContractForm.controls.club_academy_email.touched
                   "
                 >
                   <span
                     *ngIf="
-                      addEditContractForm.controls.clubAcademyEmail.errors.email
+                      addEditContractForm.controls.club_academy_email.errors
+                        .email
                     "
                     translate
                     >{{ category | titlecase }} Email format is invalid
@@ -726,7 +731,7 @@
               <div class="radio">
                 <label
                   ><input
-                    formControlName="clubAcademyUsesAgentServices"
+                    formControlName="club_academy_uses_agent_services"
                     type="radio"
                     value="true"
                   />
@@ -734,7 +739,7 @@
                 </label>
                 <label
                   ><input
-                    formControlName="clubAcademyUsesAgentServices"
+                    formControlName="club_academy_uses_agent_services"
                     type="radio"
                     value="false"
                   />
@@ -745,7 +750,7 @@
 
             <ng-container
               *ngIf="
-                addEditContractForm.get('clubAcademyUsesAgentServices')
+                addEditContractForm.get('club_academy_uses_agent_services')
                   .value === 'true'
               "
             >
@@ -753,7 +758,7 @@
               <div class="from-block">
                 <label>Provide Name Of Intermediaries </label>
                 <input
-                  formControlName="clubAcademyIntermediaryName"
+                  formControlName="club_academy_intermediary_name"
                   placeholder="Provide Name Of Intermediaries "
                   type="text"
                   matInput
@@ -766,7 +771,7 @@
                   >Percentage Of Transfer Fee Paid To Intermediaries
                 </label>
                 <input
-                  formControlName="clubAcademyTransferFee"
+                  formControlName="club_academy_transfer_fee"
                   placeholder="Percentage Of Transfer Fee Paid To Intermediaries"
                   type="text"
                   matInput
@@ -782,7 +787,7 @@
               <div class="radio">
                 <label
                   ><input
-                    formControlName="playerUsesAgentServices"
+                    formControlName="player_uses_agent_services"
                     type="radio"
                     value="true"
                   />
@@ -790,7 +795,7 @@
                 </label>
                 <label
                   ><input
-                    formControlName="playerUsesAgentServices"
+                    formControlName="player_uses_agent_services"
                     type="radio"
                     value="false"
                   />
@@ -801,7 +806,7 @@
 
             <ng-container
               *ngIf="
-                addEditContractForm.get('playerUsesAgentServices').value ===
+                addEditContractForm.get('player_uses_agent_services').value ===
                 'true'
               "
             >
@@ -809,7 +814,7 @@
               <div class="from-block">
                 <label>Provide Name Of Intermediaries </label>
                 <input
-                  formControlName="playerIntermediaryName"
+                  formControlName="player_intermediary_name"
                   placeholder="Provide Name Of Intermediaries "
                   type="text"
                   matInput
@@ -822,7 +827,7 @@
                   >Percentage Of Transfer Fee Paid To Intermediaries
                 </label>
                 <input
-                  formControlName="playerTransferFee"
+                  formControlName="player_transfer_fee"
                   placeholder="Percentage Of Transfer Fee Paid To Intermediaries"
                   type="text"
                   matInput

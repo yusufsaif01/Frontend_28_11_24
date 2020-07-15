@@ -1,0 +1,40 @@
+h1 {
+  font-size: $heading-primary;
+}
+
+h2 {
+  font-size: $heading-Seoncdary;
+}
+
+h3 {
+  font-size: $heading-third;
+}
+
+h4 {
+  font-size: $heading-fourth;
+}
+
+h5 {
+  font-size: $heading-fifth;
+}
+
+h6 {
+  font-size: $heading-sixth;
+}
+
+p {
+  font-size: $heading-fifth;
+  word-break: break-all;
+}
+
+a {
+  text-decoration: none;
+  color: $second-color;
+  user-select: none;
+  cursor: pointer;
+
+  &:hover,
+  &:active {
+    color: $primary-color;
+  }
+}

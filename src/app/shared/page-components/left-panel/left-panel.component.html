@@ -1,4 +1,4 @@
-<!-- profile  -->
+<!-- profile  
 <div class="block-design" *ngIf="profile">
   <div class="profile-section border-bottom">
     <img src="{{ profile.avatar_url }}" alt="profile-icon" />
@@ -20,16 +20,11 @@
         ) | titlecase
       }}
     </h6>
-    <p
-      [ngClass]="{
+    <p [ngClass]="{
         green: profile_status === 'verified',
         red: profile_status === 'non-verified'
-      }"
-    >
-      <i-feather
-        [name]="profile_status === 'verified' ? 'check-circle' : 'alert-circle'"
-        class="icon-size"
-      ></i-feather>
+      }">
+      <i-feather [name]="profile_status === 'verified' ? 'check-circle' : 'alert-circle'" class="icon-size"></i-feather>
 
       {{ profile_status === 'verified' ? 'Verified' : 'Not Verified' }}
     </p>
@@ -40,79 +35,53 @@
       <p>Achievements</p>
     </div>
     <ng-container *ngIf="profile">
-      <div
-        class="part border-left text-center"
-        *ngIf="profile.member_type === 'player'"
-      >
+      <div class="part border-left text-center" *ngIf="profile.member_type === 'player'">
         <h4>{{ count.tournaments }}</h4>
         <p>Tournaments</p>
       </div>
-      <div
-        class="part border-left text-center"
-        *ngIf="profile.member_type !== 'player'"
-      >
+      <div class="part border-left text-center" *ngIf="profile.member_type !== 'player'">
         <h4>{{ followers }}</h4>
         <p>Followers</p>
       </div>
     </ng-container>
-  </div>
-  <!-- make footmate unfollow -->
-  <div
-    class="btn-follow"
-    *ngIf="options.is_public && userId !== loggedin_userid"
-  >
-    <button
-      *ngIf="profile.member_type === 'player' && member_type === 'player'"
-      (click)="toggleFootMate()"
-      [innerText]="
+  </div> -->
+<!-- make footmate unfollow 
+  <div class="btn-follow" *ngIf="options.is_public && userId !== loggedin_userid">
+    <button *ngIf="profile.member_type === 'player' && member_type === 'player'" (click)="toggleFootMate()" [innerText]="
         is_footmate === 'Accepted'
           ? 'Cancel FootMate'
           : is_footmate === 'Not_footmate'
           ? 'Make FootMate'
           : 'Pending'
-      "
-    >
+      ">
       Make FootMate
     </button>
     <ng-container *ngIf="following$ | async"></ng-container>
-    <button
-      *ngIf="is_footmate !== 'Pending'"
-      [innerText]="is_following ? 'Unfollow' : 'Follow'"
-      (click)="toggleFollow()"
-    >
+    <button *ngIf="is_footmate !== 'Pending'" [innerText]="is_following ? 'Unfollow' : 'Follow'"
+      (click)="toggleFollow()">
       Follow
     </button>
-  </div>
-  <!-- pending btn -->
-  <!-- <div class="btn-follow">
-    <button>Pending</button>
   </div> -->
+<!-- pending btn -->
+<!-- <div class="btn-follow">
+    <button>Pending</button>
+  </div> 
 
-  <ng-container
-    *ngIf="
+  <ng-container *ngIf="
       (options.view_profile_link && !options.is_public) ||
       (options.logout_link && !options.is_public)
-    "
-  >
+    ">
     <div class="block-bottom">
-      <a
-        *ngIf="options.view_profile_link && !options.is_public"
-        [routerLink]="['/member/profile/view']"
-      >
-        View my profile</a
-      >
+      <a *ngIf="options.view_profile_link && !options.is_public" [routerLink]="['/member/profile/view']">
+        View my profile</a>
       <a *ngIf="options.logout_link && !options.is_public" (click)="logout()">
-        Logout</a
-      >
+        Logout</a>
     </div>
   </ng-container>
-</div>
+</div> -->
 
-<!-- player type -->
-<div
-  class="block-design"
-  *ngIf="profile && profile.member_type === 'player' && options.player_type"
->
+<!-- player type 
+<div class="block-design" *ngIf="profile && profile.member_type === 'player' && options.player_type">
   <div class="block-middle">
     <div class="part">
       <h4>Player Type</h4>
@@ -121,9 +90,9 @@
       <h5>{{ profile?.player_type | titlecase }}</h5>
     </div>
   </div>
-</div>
+</div> -->
 
-<!-- League Name -->
+<!-- League Name 
 <ng-container *ngIf="options.is_league">
   <div class="block-design" *ngIf="profile && profile.member_type !== 'player'">
     <div class="block-middle">
@@ -141,9 +110,9 @@
       </div>
     </div>
   </div>
-</ng-container>
+</ng-container> -->
 
-<!-- achievements -->
+<!-- achievements 
 <ng-container *ngIf="options.my_achievements">
   <div class="block-design">
     <div class="achievement">
@@ -158,23 +127,20 @@
       <a [routerLink]="['/member/awardcertification', userId]">Achievements</a>
     </div>
   </div>
-</ng-container>
+</ng-container> -->
 
-<!-- AcademyFootplayer / ClubsFootplayer -->
+<!-- AcademyFootplayer / ClubsFootplayer
 <ng-container *ngIf="options.footplayers && options.is_public">
-  <div
-    class="block-design"
-    *ngIf="
+  <div class="block-design" *ngIf="
       profile?.member_type === 'club' || profile?.member_type === 'academy'
-    "
-  >
+    ">
     <div class="achievement">
       <a> {{ profile.member_type | titlecase }}'s FootPlayers</a>
     </div>
   </div>
-</ng-container>
+</ng-container> -->
 
-<!-- player bio -->
+<!-- player bio 
 <ng-container *ngIf="options.bio">
   <div class="block-design" *ngIf="profile">
     <div class="boi">
@@ -188,4 +154,111 @@
       </div>
     </div>
   </div>
-</ng-container>
+</ng-container> -->
+
+<!-- New UI Character -->
+<div class="">
+  <div class="profile" *ngIf="profile">
+    <div class="profile-img">
+      <img src="{{ profile.avatar_url }}" alt="Profile Image" />
+    </div>
+    <div class="profile-name">
+      <h3 *ngIf="profile.member_type === 'player'">
+        {{ profile.first_name }} {{ profile.last_name }}
+      </h3>
+    </div>
+    <div class="profile-position">
+      <h5>
+        {{
+          (profile.position && profile.position[0]
+            ? profile.position[0].name
+            : ''
+          ) | titlecase
+        }}
+      </h5>
+    </div>
+    <div class="profile-catergory">
+      <h4>
+        <span>
+          <mat-icon *ngIf="profile_status === 'verified'" class="material-icons"
+            >verified_user</mat-icon
+          >
+        </span>
+
+        {{ profile?.player_type | titlecase }}
+      </h4>
+    </div>
+    <div class="profile-counts">
+      <div class="count">
+        <span>{{ achievements }}</span>
+        <h5>Achievement</h5>
+      </div>
+      <div class="count">
+        <span>{{ count.tournaments }}</span>
+        <h5>Tournaments</h5>
+      </div>
+    </div>
+  </div>
+
+  <!-- menu -->
+  <div class="menus">
+    <ul>
+      <li>
+        <a>
+          <span class="icon">
+            <img src="assets/images/global/timeline.svg" alt="timeline" />
+          </span>
+          <span class="text">Timeline</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/member/profile/view']">
+          <span class="icon">
+            <img src="assets/images/global/profile.svg" alt="profile" />
+          </span>
+          <span class="text">My Profile</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/member/awardcertification']">
+          <span class="icon">
+            <img src="assets/images/global/achievement.svg" alt="achievement" />
+          </span>
+          <span class="text">Awards & Certificates</span>
+        </a>
+      </li>
+      <li>
+        <a>
+          <span class="icon">
+            <img src="assets/images/global/gallery.svg" alt="gallery" />
+          </span>
+          <span class="text">Gallery</span>
+        </a>
+      </li>
+      <li>
+        <a>
+          <span class="icon">
+            <img src="assets/images/global/timer.svg" alt="trial" />
+          </span>
+          <span class="text">My trial</span>
+        </a>
+      </li>
+      <li>
+        <a>
+          <span class="icon">
+            <img src="assets/images/global/contracts.svg" alt="contracts" />
+          </span>
+          <span class="text">My contracts</span>
+        </a>
+      </li>
+      <li>
+        <a>
+          <span class="icon">
+            <img src="assets/images/global/report-icon.svg" alt="Report" />
+          </span>
+          <span class="text">Report card</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

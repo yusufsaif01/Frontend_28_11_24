@@ -1,3 +1,5 @@
+@import "./variables";
+
 // MEDIA QUERY MANAGER
 @mixin for-size($size) {
   @if $size==phone-only {
@@ -164,4 +166,14 @@
     background: $text-color;
     cursor: not-allowed;
   }
+}
+
+//
+@mixin shadow {
+  -webkit-box-shadow: 0px 0px 1px rgba($fourth-color, 0.04),
+    0px 2px 6px rgba($fourth-color, 0.04),
+    0px 10px 20px rgba($fourth-color, 0.04);
+  box-shadow: 0px 0px 1px rgba($fourth-color, 0.04),
+    0px 2px 6px rgba($fourth-color, 0.04),
+    0px 10px 20px rgba($fourth-color, 0.04);
 }

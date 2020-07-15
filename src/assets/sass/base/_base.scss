@@ -13,24 +13,74 @@ html {
   font-size: 10px;
 }
 
-a {
-  text-decoration: none;
-  color: $second-color;
-  user-select: none;
-  cursor: pointer;
-
-  &:hover,
-  &:visited,
-  &:active {
-    color: $primary-color;
-  }
-}
-
 .info {
   font-size: $heading-sixth;
   display: inline-block;
   margin-right: 0.5rem;
   cursor: pointer;
+}
+
+.partition {
+  position: relative;
+  width: 100%;
+  padding: 2rem 0 1rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0rem;
+    top: 3rem;
+    width: 66%;
+    height: 1px;
+    background: $grey;
+  }
+
+  a {
+    font-size: $heading-fourth;
+    color: $fourth-color;
+    font-weight: 600;
+    display: inline-block;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+.active {
+  color: $primary-color;
+}
+
+// Owl Navigation
+.owl-nav {
+  position: absolute;
+  top: 30%;
+  transform: translateY(-50%);
+  width: 100%;
+
+  .material-icons {
+    font-size: 5rem;
+  }
+
+  .owl-prev {
+    position: absolute;
+    left: 2rem;
+    font-size: 4rem;
+  }
+
+  .owl-next {
+    position: absolute;
+    right: 2rem;
+    font-size: 4rem;
+  }
+}
+
+.owl-theme .owl-nav [class*="owl-"] {
+  background: transparent !important;
+}
+
+body::-webkit-scrollbar-button {
+  display: none;
 }
 
 @media (max-width: 1920px) {

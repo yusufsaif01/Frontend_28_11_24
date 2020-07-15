@@ -2,28 +2,29 @@
   <form [formGroup]="createPostForm">
     <div class="header">
       <div class="title">
-        <h3 *ngIf="!data">Create a post</h3>
-        <h3 *ngIf="data">Edit post</h3>
+        <h3 *ngIf="!data">Create a FooTPost</h3>
+        <h3 *ngIf="data">Edit FooTPost</h3>
       </div>
       <div class="close">
-        <img
-          mat-dialog-close
-          src="assets/images/icons/close-white.png"
-          alt=""
-        />
+        <mat-icon mat-dialog-close class="material-icons">close</mat-icon>
       </div>
     </div>
     <div class="modal-body">
-      <div class="message-box">
+      <div class="form-block">
         <textarea
           formControlName="text"
+          row="5"
           matinput
-          maxlength="60"
+          maxlength="350"
           placeholder="Write a FooTPost"
         ></textarea>
+        <p>
+          Max character length {{ createPostForm.controls.text.value.length }} /
+          350
+        </p>
       </div>
       <div class="uploaded-images">
-        <img [src]="imageURL" alt="" />
+        <img *ngIf="imageURL" [src]="imageURL" alt="" />
       </div>
     </div>
     <div class="modal-footer">
@@ -31,7 +32,7 @@
         <ul>
           <li>
             <label>
-              <i-feather name="camera"></i-feather>
+              <mat-icon class="material-icons">camera_alt</mat-icon>
               <input
                 formControlName="media"
                 type="file"
@@ -42,9 +43,9 @@
         </ul>
       </div>
       <div class="right">
-        <button mat-dialog-close class="cancel">Cancel</button>
+        <button mat-dialog-close class="btn btn-secondary ">Cancel</button>
         <button
-          class="save"
+          class="btn btn-primary "
           [disabled]="!createPostForm.value.text && !convertedFile"
           (click)="onClickSave()"
         >
