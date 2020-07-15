@@ -15,13 +15,16 @@
           formControlName="text"
           row="5"
           matinput
-          maxlength="60"
+          maxlength="350"
           placeholder="Write a FooTPost"
         ></textarea>
-        <p>Max character length 0 / 350</p>
+        <p>
+          Max character length {{ createPostForm.controls.text.value.length }} /
+          350
+        </p>
       </div>
       <div class="uploaded-images">
-        <img [src]="imageURL" alt="" />
+        <img *ngIf="imageURL" [src]="imageURL" alt="" />
       </div>
     </div>
     <div class="modal-footer">

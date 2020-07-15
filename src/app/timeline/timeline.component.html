@@ -737,7 +737,13 @@
             </ng-container>
           </div>
           <div class="comment">
-            <div class="partition">
+            <div
+              class="partition"
+              *ngIf="
+                post.comments.total > 3 &&
+                post.comments.total !== post.commentListing.length
+              "
+            >
               <a
                 *ngIf="
                   post.comments.total > 3 &&
@@ -775,29 +781,33 @@
               </div>
               <div class="comment-input">
                 <form [formGroup]="post.commentForm">
-                  <input
-                    formControlName="comment"
-                    autocomplete="off"
-                    placeholder="Add a comment"
-                  />
-                  <!-- <button
-                    [disabled]="!post.commentForm.valid"
-                    (click)="addComment(post)"
-                  >
-                    <i-feather name="send"></i-feather>
-                  </button> -->
-                  <mat-error
-                    *ngIf="
-                      post.commentForm.controls.comment.invalid &&
-                      post.commentForm.controls.comment.touched
-                    "
-                  >
-                    <span
-                      *ngIf="post.commentForm.controls.comment.errors.wordCount"
+                  <div class="input-wrapper">
+                    <input
+                      formControlName="comment"
+                      autocomplete="off"
+                      placeholder="Add a comment"
+                    />
+                    <button
+                      [disabled]="!post.commentForm.valid"
+                      (click)="addComment(post)"
                     >
-                      Please provide upto 60 words
-                    </span>
-                  </mat-error>
+                      <mat-icon class="material-icons">send</mat-icon>
+                    </button>
+                    <mat-error
+                      *ngIf="
+                        post.commentForm.controls.comment.invalid &&
+                        post.commentForm.controls.comment.touched
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          post.commentForm.controls.comment.errors.wordCount
+                        "
+                      >
+                        Please provide upto 60 words
+                      </span>
+                    </mat-error>
+                  </div>
                 </form>
               </div>
             </div>
