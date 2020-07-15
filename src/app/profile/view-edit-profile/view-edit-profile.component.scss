@@ -1,0 +1,16 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+.site-wrapper {
+  width: 100%;
+  display: flex;
+  background: $third-color;
+  margin-top: 8.5rem;
+
+  .right-panel {
+    width: 76.25%;
+
+    .right-wrapper {
+      display: flex;
+    }
+  }
+}

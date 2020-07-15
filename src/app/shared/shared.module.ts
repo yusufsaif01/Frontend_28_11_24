@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { MaterialModule } from './material/material.module';
 import { LoaderComponent } from './loader/loader.component';
@@ -26,7 +27,8 @@ import { PasswordDirective } from './show-hide-password/password.directive';
     PageComponentsModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    MatTabsModule
   ],
   declarations: [
     LoaderComponent,
@@ -58,7 +60,8 @@ import { PasswordDirective } from './show-hide-password/password.directive';
     VerificationPopupComponent,
     GridSearchBoxComponent,
     TextSectionComponent,
-    PasswordDirective
+    PasswordDirective,
+    MatTabsModule
   ]
 })
 export class SharedModule {}
