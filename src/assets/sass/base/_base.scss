@@ -79,6 +79,10 @@ html {
   background: transparent !important;
 }
 
+body::-webkit-scrollbar-button {
+  display: none;
+}
+
 @media (max-width: 1920px) {
   html {
     font-size: 10px;
