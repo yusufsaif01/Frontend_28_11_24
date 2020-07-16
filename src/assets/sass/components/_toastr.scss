@@ -1,0 +1,51 @@
+.toast-container .ngx-toastr {
+  box-shadow: 0 0 1rem rgba($second-color, 0.2) !important;
+
+  &:hover {
+    box-shadow: 0 0 1rem rgba($second-color, 0.3);
+  }
+}
+
+.toast-error {
+  background: $white-color !important;
+  background-image: url("./assets/images/toastr/error.png") !important;
+  border-left: 0.5rem solid $error;
+  max-width: 280px;
+  width: 100%;
+
+  .toast-title {
+    font-size: 2rem;
+    font-weight: 500;
+    color: $second-color;
+    font-family: $primary-text;
+    margin-bottom: 0.5rem;
+  }
+
+  .toast-message {
+    font-size: 1.6rem;
+    color: $second-color;
+    font-family: $primary-text;
+  }
+}
+
+.toast-success {
+  background: $white-color !important;
+  background-image: url("./assets/images/toastr/error.png") !important;
+  border-left: 0.5rem solid $success;
+  max-width: 280px;
+  width: 100%;
+
+  .toast-title {
+    font-size: 2rem;
+    font-weight: 500;
+    color: $second-color;
+    font-family: $primary-text;
+    margin-bottom: 0.5rem;
+  }
+
+  .toast-message {
+    font-size: 1.6rem;
+    color: $second-color;
+    font-family: $primary-text;
+  }
+}
