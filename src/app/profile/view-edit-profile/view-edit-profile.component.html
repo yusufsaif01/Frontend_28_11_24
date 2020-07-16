@@ -5,7 +5,7 @@
   </div>
   <div class="right-panel">
     <div class="right-wrapper">
-      <div>
+      <div class="btn-group">
         <button
           *ngFor="let componentName of components"
           (click)="switch(componentName.value)"
@@ -13,15 +13,19 @@
           {{ componentName.name }}
         </button>
       </div>
-      <div [ngSwitch]="componentName">
-        <app-personal-details *ngSwitchCase="'personal'"></app-personal-details>
-        <app-professional-details
-          *ngSwitchCase="'professional'"
-        ></app-professional-details>
-        <app-documents *ngSwitchCase="'documents'"></app-documents>
-        <app-employment-contracts
-          *ngSwitchCase="'contracts'"
-        ></app-employment-contracts>
+      <div class="main mt-2">
+        <div [ngSwitch]="componentName">
+          <app-personal-details
+            *ngSwitchCase="'personal'"
+          ></app-personal-details>
+          <app-professional-details
+            *ngSwitchCase="'professional'"
+          ></app-professional-details>
+          <app-documents *ngSwitchCase="'documents'"></app-documents>
+          <app-employment-contracts
+            *ngSwitchCase="'contracts'"
+          ></app-employment-contracts>
+        </div>
       </div>
     </div>
   </div>

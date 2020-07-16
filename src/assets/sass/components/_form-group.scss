@@ -84,20 +84,6 @@
   }
 }
 
-.form-group {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-
-  .half {
-    width: 48%;
-  }
-
-  .one-third {
-    width: 31.33%;
-  }
-}
-
 .pass-fields {
   position: relative;
 
@@ -109,5 +95,40 @@
     font-size: 2.8rem;
     color: $second-color;
     cursor: pointer;
+  }
+}
+
+.txtarea-height {
+  min-height: 15rem;
+}
+
+.double {
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    width: 48%;
+  }
+}
+
+.date {
+  position: relative;
+
+  input {
+    background: url("assets/images/global/calender.svg") no-repeat, $third-color;
+    background-position: calc(100% - 1rem);
+
+    &:focus {
+      background: url("assets/images/global/calender.svg") no-repeat,
+        $fifth-color;
+      background-position: calc(100% - 1rem);
+    }
+  }
+
+  .mat-datepicker-toggle {
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: -0.5rem;
   }
 }
