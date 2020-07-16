@@ -107,7 +107,8 @@ const icons = {
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-top-right',
-      preventDuplicates: true,
+      // toastClass: "toast border-red",
+      // preventDuplicates: true,
       closeButton: true
     })
   ],
