@@ -105,7 +105,7 @@ const icons = {
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
     NgxSpinnerModule,
     ToastrModule.forRoot({
-      timeOut: 100000000000,
+      timeOut: 10000,
       positionClass: 'toast-top-right',
       // toastClass: "toast border-red",
       // preventDuplicates: true,
