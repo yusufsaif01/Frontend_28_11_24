@@ -10,8 +10,6 @@ import {
   Validators,
   ValidatorFn
 } from '@angular/forms';
-import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
-import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
 
 @Component({
   selector: 'app-personal-details',
