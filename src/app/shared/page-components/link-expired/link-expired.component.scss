@@ -2,9 +2,10 @@
 @import "src/assets/sass/abstracts/mixins";
 
 .bg-wapper {
-  background-image: url("../../../../assets/images/error.png");
+  background-image: url("../../../../assets/images/bg-link.png");
   background-size: cover;
   background-repeat: no-repeat;
+
   .middle {
     margin: 0 auto;
     width: 85%;
@@ -12,10 +13,12 @@
     justify-content: space-between;
     align-items: center;
     height: 100vh;
+
     .left-panel {
       width: 50%;
       display: flex;
       justify-content: center;
+
       h3 {
         font-size: 20rem;
         color: $blue;
@@ -25,6 +28,7 @@
         letter-spacing: -1rem;
         margin-left: -1.8rem;
       }
+
       h4 {
         font-size: 3rem;
         color: $text-color;
@@ -32,6 +36,7 @@
         letter-spacing: 0.5rem;
         font-weight: 500;
       }
+
       a {
         @include admin-btn;
         text-decoration: none;
@@ -41,10 +46,12 @@
         margin-top: 2rem;
       }
     }
+
     .right-panel {
       width: 50%;
       display: flex;
       justify-content: center;
+
       .img-container {
         img {
           width: 100%;
