@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -41,7 +41,7 @@ import { PasswordDirective } from './show-hide-password/password.directive';
     PasswordDirective
   ],
   entryComponents: [VerificationPopupComponent],
-  providers: [NgxImageCompressService],
+  providers: [NgxImageCompressService, DatePipe],
   exports: [
     LoaderComponent,
     TruncatePipe,
