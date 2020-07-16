@@ -11,22 +11,18 @@ import { Angulartics2Module } from 'angulartics2';
 import { environment } from '@env/environment';
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
-// import { HomeModule } from './home/home.module';
-// import { ShellModule } from './shell/shell.module';
 import { LoginModule } from './core/authentication/login/login.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
-// import { HomeComponent } from './pages/home/home.component';
 import { LoaderInterceptor } from './core/http/loader.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
-// import { FrontendModule } from './frontend/frontend.module';
 import { ToastrModule } from 'ngx-toastr';
 import { RegistrationComponent } from './registration/registration.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MatSortModule } from '@angular/material/sort';
 import { FeatherModule } from 'angular-feather';
-
+import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import {
   Camera,
   Heart,
@@ -48,7 +44,7 @@ import {
   Star,
   Edit
 } from 'angular-feather/icons';
-import { from } from 'rxjs';
+
 import { DeleteConfirmationComponent } from './shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from './shared/dialog-box/status-confirmation/status-confirmation.component';
 import { AddEditPopupComponent } from './admin/masterdata/player-specialization/manage-position/add-edit-popup/add-edit-popup.component';
@@ -56,7 +52,7 @@ import { AddpopupComponent } from './admin/masterdata/player-specialization/addp
 import { RoleGuardService } from './core/authentication/role-guard.service';
 import { JwtInterceptor } from './core/http/jwt.interceptor';
 import { ErrorInterceptor } from './core/http/error.interceptor';
-import { FootPlayerComponent } from './manage-footplayer/foot-player/foot-player.component';
+
 import { HomeModule } from './home/home.module';
 const icons = {
   Camera,
@@ -95,12 +91,9 @@ const icons = {
     SharedModule,
     MaterialModule,
     CommonModule,
-    // ShellModule,
-    // HomeModule,
     LoginModule,
     HomeModule,
     FeatherModule.pick(icons),
-    // FrontendModule,
     Angulartics2Module.forRoot(),
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
     NgxSpinnerModule,
@@ -110,7 +103,8 @@ const icons = {
       // toastClass: "toast border-red",
       // preventDuplicates: true,
       closeButton: true
-    })
+    }),
+    NgxTrimDirectiveModule
   ],
   declarations: [
     AppComponent,

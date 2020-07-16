@@ -39,7 +39,12 @@
       <!-- player -->
       <div class="input__group">
         <label>Club Name</label>
-        <input formControlName="name" type="text" placeholder="Club Name" />
+        <input
+          formControlName="name"
+          type="text"
+          placeholder="Club Name"
+          trim="blur"
+        />
       </div>
 
       <!-- email type -->
@@ -50,6 +55,7 @@
           type="email"
           matinput
           placeholder="Email"
+          trim="blur"
         />
       </div>
 

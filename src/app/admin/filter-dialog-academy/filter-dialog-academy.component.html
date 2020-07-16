@@ -39,7 +39,12 @@
       <!-- player -->
       <div class="input__group">
         <label>Academy Name</label>
-        <input formControlName="name" type="text" placeholder="Academy Name" />
+        <input
+          formControlName="name"
+          type="text"
+          placeholder="Academy Name"
+          trim="blur"
+        />
       </div>
 
       <!-- email type -->
@@ -50,6 +55,7 @@
           type="email"
           matinput
           placeholder="Email"
+          trim="blur"
         />
       </div>
 
