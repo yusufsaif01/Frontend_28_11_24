@@ -17,6 +17,7 @@ import { ManageAbilityComponent } from './masterdata/player-specialization/manag
 import { ManageParametersComponent } from './masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
 import { AdminComponent } from './admin.component';
 import { DocumentVerificationComponent } from './document-verification/document-verification.component';
+import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,12 @@ import { DocumentVerificationComponent } from './document-verification/document-
     AdminComponent,
     DocumentVerificationComponent
   ],
-  imports: [CommonModule, AdminRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    SharedModule,
+    NgxTrimDirectiveModule
+  ],
   entryComponents: [
     FilterDialogPlayerComponent,
     FilterDialogClubComponent,

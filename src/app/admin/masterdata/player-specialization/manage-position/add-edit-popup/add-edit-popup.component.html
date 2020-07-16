@@ -11,7 +11,12 @@
     <!-- position -->
     <div class="input__group">
       <label>Position</label>
-      <input formControlName="name" type="text" placeholder="Position" />
+      <input
+        formControlName="name"
+        type="text"
+        placeholder="Position"
+        trim="blur"
+      />
       <mat-error
         *ngIf="
           positionForm.controls.name.invalid &&
@@ -36,6 +41,7 @@
         type="text"
         matinput
         placeholder="Abbreviation"
+        trim="blur"
       />
       <mat-error
         *ngIf="

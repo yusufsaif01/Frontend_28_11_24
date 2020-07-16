@@ -17,6 +17,7 @@ import { VerificationPopupComponent } from '@app/admin/verification-popup/verifi
 import { GridSearchBoxComponent } from './grid-search-box/grid-search-box.component';
 import { TextSectionComponent } from '@app/core/authentication/text-section/text-section.component';
 import { PasswordDirective } from './show-hide-password/password.directive';
+import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { PasswordDirective } from './show-hide-password/password.directive';
     PageComponentsModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    NgxTrimDirectiveModule
   ],
   declarations: [
     LoaderComponent,
