@@ -5,28 +5,24 @@
   </div>
   <div class="right-panel">
     <div class="right-wrapper">
-      <mat-tab-group animationDuration="0ms">
-        <mat-tab label="Personal details">
-          <ng-template matTabContent>
-            <app-personal-details></app-personal-details>
-          </ng-template>
-        </mat-tab>
-        <mat-tab label="Professional details">
-          <ng-template matTabContent>
-            <app-professional-details></app-professional-details>
-          </ng-template>
-        </mat-tab>
-        <mat-tab label="Documents">
-          <ng-template matTabContent>
-            <app-documents></app-documents>
-          </ng-template>
-        </mat-tab>
-        <mat-tab label="Employment Contracts">
-          <ng-template matTabContent>
-            <app-employment-contracts></app-employment-contracts>
-          </ng-template>
-        </mat-tab>
-      </mat-tab-group>
+      <div>
+        <button
+          *ngFor="let componentName of components"
+          (click)="switch(componentName.value)"
+        >
+          {{ componentName.name }}
+        </button>
+      </div>
+      <div [ngSwitch]="componentName">
+        <app-personal-details *ngSwitchCase="'personal'"></app-personal-details>
+        <app-professional-details
+          *ngSwitchCase="'professional'"
+        ></app-professional-details>
+        <app-documents *ngSwitchCase="'documents'"></app-documents>
+        <app-employment-contracts
+          *ngSwitchCase="'contracts'"
+        ></app-employment-contracts>
+      </div>
     </div>
   </div>
 </div>
