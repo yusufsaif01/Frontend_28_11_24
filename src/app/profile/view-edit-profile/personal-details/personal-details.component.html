@@ -62,7 +62,7 @@
             <h4>Weight</h4>
           </div>
           <div class="right">
-            <p>{{ profile.weight }} kg</p>
+            <p *ngIf="profile.weight">{{ profile.weight }} kg</p>
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@
             <h4>Height</h4>
           </div>
           <div class="right">
-            <p>
+            <p *ngIf="profile.height">
               {{ profile.height?.feet }} feets
               {{ profile.height?.inches }} inches
             </p>
@@ -595,11 +595,6 @@
                   placeholder="Pick Date"
                   readonly
                 />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="picker"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
                 <mat-error
                   class="error-text"
                   *ngIf="
@@ -615,6 +610,11 @@
                     >Date of Birth is required</span
                   >
                 </mat-error>
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
               </div>
             </div>
           </div>
@@ -659,23 +659,22 @@
                     country.country
                   }}</option>
                 </ng-container>
-                <mat-error
-                  class="error-text"
-                  *ngIf="
-                    personalProfileDetailsForm.controls.country.invalid &&
-                    personalProfileDetailsForm.controls.country.touched
-                  "
-                >
-                  <span
-                    *ngIf="
-                      personalProfileDetailsForm.controls.country.errors
-                        .required
-                    "
-                    translate
-                    >Nationality is required</span
-                  >
-                </mat-error>
               </select>
+              <mat-error
+                class="error-text"
+                *ngIf="
+                  personalProfileDetailsForm.controls.country.invalid &&
+                  personalProfileDetailsForm.controls.country.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    personalProfileDetailsForm.controls.country.errors.required
+                  "
+                  translate
+                  >Nationality is required</span
+                >
+              </mat-error>
             </div>
           </div>
         </div>

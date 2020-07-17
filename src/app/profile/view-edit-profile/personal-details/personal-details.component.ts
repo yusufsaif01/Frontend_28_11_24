@@ -140,8 +140,10 @@ export class PersonalDetailsComponent implements OnInit {
   }
   populateFormFields(profileData: any) {
     this.personalProfileDetailsForm.patchValue(profileData);
-    this.getStatesListing(this.profile.country.id);
-    this.getCitiesListing(this.profile.country.id, this.profile.state.id);
+    if (this.profile.country) {
+      this.getStatesListing(this.profile.country.id);
+      this.getCitiesListing(this.profile.country.id, this.profile.state.id);
+    }
     this.personalProfileDetailsForm.patchValue({
       country: this.profile.country ? this.profile.country.id : ''
     });
