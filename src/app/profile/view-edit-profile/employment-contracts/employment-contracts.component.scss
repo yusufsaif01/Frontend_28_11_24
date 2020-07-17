@@ -1,0 +1,43 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+.wrapper {
+  padding: 0 1rem 10rem 1rem;
+
+  // heading css
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 0rem;
+    color: $fourth-color;
+  }
+}
+
+.notfound {
+  background: $third-color;
+  height: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h3 {
+    color: $second-color;
+    font-weight: 500;
+  }
+}
+
+.active-status {
+  background-color: $success;
+}
+
+.complete-status {
+  background-color: $warning;
+}
+
+.pending-status {
+  background-color: $info;
+}
+
+.yet-status {
+  background-color: $yet;
+}

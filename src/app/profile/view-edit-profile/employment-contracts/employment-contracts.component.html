@@ -1,1 +1,56 @@
-<p>employment-contracts works!</p>
+<div class="wrapper">
+  <!-- view container -->
+  <div class="view-wrapper">
+    <div class="heading">
+      <h2>Employment contract</h2>
+      <button class="icon-btn">
+        <mat-icon class="material-icons">create</mat-icon>
+      </button>
+    </div>
+    <!-- TABLE -->
+    <div class="table">
+      <app-table
+        [tableConfig]="tableConfig"
+        [NumberColumn]="'true'"
+        [rows]="dataSource"
+      >
+      </app-table>
+    </div>
+    <div class="notfound">
+      <h3>No contract, please add a contract.</h3>
+    </div>
+  </div>
+  <!-- edit container -->
+  <div class="edit-wrapper">
+    <div class="heading">
+      <h2>Employment contract</h2>
+      <button class="secondary-btn">
+        Add new contract
+      </button>
+    </div>
+    <!-- TABLE -->
+    <div class="table">
+      <app-table
+        [tableConfig]="tableConfig"
+        [NumberColumn]="'true'"
+        [TableActions]="ListAction"
+        [rows]="dataSource"
+      >
+      </app-table>
+      <ng-template #ListAction>
+        <div class="action-buttons">
+          <button type="button">
+            <mat-icon class="material-icons">visibility</mat-icon>
+          </button>
+
+          <button type="button">
+            <mat-icon class="material-icons">delete</mat-icon>
+          </button>
+        </div>
+      </ng-template>
+    </div>
+    <div class="notfound">
+      <h3>No contract, please add a contract.</h3>
+    </div>
+  </div>
+</div>
