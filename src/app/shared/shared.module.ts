@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatTabsModule } from '@angular/material/tabs';
 
 import { MaterialModule } from './material/material.module';
 import { LoaderComponent } from './loader/loader.component';
@@ -29,7 +28,6 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
-    MatTabsModule,
     NgxTrimDirectiveModule
   ],
   declarations: [
@@ -62,8 +60,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     VerificationPopupComponent,
     GridSearchBoxComponent,
     TextSectionComponent,
-    PasswordDirective,
-    MatTabsModule
+    PasswordDirective
   ]
 })
 export class SharedModule {}
