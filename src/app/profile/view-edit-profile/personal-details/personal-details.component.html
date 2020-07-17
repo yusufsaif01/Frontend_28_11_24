@@ -381,6 +381,16 @@
                 >
                   Weight format is invalid
                 </span>
+                <span
+                  *ngIf="
+                    !personalProfileDetailsForm.controls.weight.errors
+                      .pattern &&
+                      personalProfileDetailsForm.controls.weight.errors.max;
+                    else minBlock
+                  "
+                >
+                  Weight should not exceed 200 kgs
+                </span>
                 <ng-template #minBlock>
                   <span
                     *ngIf="

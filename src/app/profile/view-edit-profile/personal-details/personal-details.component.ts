@@ -100,7 +100,14 @@ export class PersonalDetailsComponent implements OnInit {
             Validators.pattern(/^\d+$/)
           ]
         ],
-        weight: ['', [Validators.min(1), Validators.pattern(/^\d+(\.\d)?$/)]],
+        weight: [
+          '',
+          [
+            Validators.min(1),
+            Validators.max(200),
+            Validators.pattern(/^\d+(\.\d)?$/)
+          ]
+        ],
         school: ['', []],
         university: [''],
         college: ['']
