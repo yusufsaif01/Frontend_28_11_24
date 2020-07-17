@@ -45,6 +45,12 @@ export class PersonalDetailsComponent implements OnInit {
   transformURL(url: string): SafeHtml {
     return this._sanitizer.bypassSecurityTrustResourceUrl(url);
   }
+  appendURL(url: string): SafeHtml {
+    if (url.includes('http')) {
+      return this._sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+    return this._sanitizer.bypassSecurityTrustResourceUrl(`https://${url}`);
+  }
   toggleMode() {
     this.editMode = !this.editMode;
   }
