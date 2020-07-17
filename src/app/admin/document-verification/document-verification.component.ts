@@ -9,7 +9,6 @@ import { MatDialog } from '@angular/material';
 import { untilDestroyed } from '@app/core';
 import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
 import { environment } from '@env/environment';
-import { ContractService } from '@app/profile/view-employment-contract/contract.service';
 
 interface ResponseContext {
   added_on: string;
