@@ -1,1 +1,421 @@
-<p>professional-details works!</p>
+<div class="wrapper">
+  <div class="view-wrapper">
+    <ng-container *ngIf="viewMode; else editMode">
+      <div class="heading">
+        <h2>Professional Details</h2>
+        <button (click)="toggleMode()">
+          <mat-icon class="material-icons">create</mat-icon>
+        </button>
+      </div>
+
+      <div class="second-section">
+        <!-- first row -->
+        <h4>Preferred Playing Position :</h4>
+        <div class="input-container">
+          <div class="half">
+            <div class="form-block">
+              <div class="double">
+                <p
+                  *ngFor="
+                    let data of professionalDetailsForm.get('position')[
+                      'controls'
+                    ];
+                    let i = index
+                  "
+                >
+                  <span>{{ i + 1 }} </span>
+                  {{ data.get('name').value }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>Strong Foot</h4>
+            </div>
+            <div class="right">
+              <p>left</p>
+            </div>
+          </div>
+        </div>
+        <!-- second row -->
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>Weak Foot</h4>
+            </div>
+            <div class="right">
+              <input
+                (onclick)="editProfileForm.controls.weak_foot.value = 5"
+                type="radio"
+                id="5-stars"
+                value="5"
+              />
+              <label for="5-stars" class="star">&#9733;</label>
+              <input
+                (onclick)="editProfileForm.controls.weak_foot.value = 4"
+                type="radio"
+                id="4-stars"
+                value="4"
+              />
+              <label for="4-stars" class="star">&#9733;</label>
+              <input
+                (onclick)="editProfileForm.controls.weak_foot.value = 3"
+                type="radio"
+                id="3-stars"
+                value="3"
+              />
+              <label for="3-stars" class="star">&#9733;</label>
+              <input
+                (onclick)="editProfileForm.controls.weak_foot.value = 2"
+                type="radio"
+                id="2-stars"
+                value="2"
+              />
+              <label for="2-stars" class="star">&#9733;</label>
+              <input
+                (onclick)="editProfileForm.controls.weak_foot.value = 1"
+                type="radio"
+                id="1-star"
+                value="1"
+              />
+              <label for="1-star" class="star">&#9733;</label>
+            </div>
+          </div>
+        </div>
+        <!-- third row -->
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>Current State Association</h4>
+            </div>
+            <div class="right">
+              <p>Chandigarh Football Association</p>
+            </div>
+          </div>
+        </div>
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>Former Club/Academy</h4>
+            </div>
+            <div class="right">
+              <p>Chandigarh Football Association</p>
+            </div>
+          </div>
+        </div>
+
+        <!--  row -->
+        <h4>Current Associated Club/Academy :</h4>
+        <h4>Head Coach Details</h4>
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>Name</h4>
+            </div>
+            <div class="right">
+              <p>name surname</p>
+            </div>
+          </div>
+        </div>
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>Mobile Number</h4>
+            </div>
+            <div class="right">
+              <p>+919876543210</p>
+            </div>
+          </div>
+        </div>
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>Email</h4>
+            </div>
+            <div class="right">
+              <p>s@gm.com</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- editwrapper -->
+    <ng-template #editMode>
+      <div class="edit-wrapper">
+        <form [formGroup]="professionalDetailsForm">
+          <div class="heading">
+            <h2>Professional Details</h2>
+          </div>
+
+          <div class="second-section">
+            <h4>Preferred Playing Position</h4>
+            <div class="input-container">
+              <ng-container
+                formArrayName="position"
+                *ngFor="
+                  let data of professionalDetailsForm.get('position')[
+                    'controls'
+                  ];
+                  let i = index
+                "
+              >
+                <div class="third" [formGroupName]="i">
+                  <div class="form-block">
+                    <label
+                      >{{
+                        i == 0
+                          ? 'First'
+                          : i == 1
+                          ? 'Second'
+                          : i == 2
+                          ? 'Third'
+                          : ''
+                      }}
+                      Position <span>*</span></label
+                    >
+                    <select formControlName="id" matNativeControl required>
+                      <option value="">Select Position</option>
+
+                      <option
+                        *ngFor="let position of positionArray"
+                        [value]="position.id"
+                        >{{ position.name }}</option
+                      >
+                    </select>
+                    <mat-error class="error-text"> </mat-error>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <label>Strong Foot<span>*</span></label>
+                  <select
+                    formControlName="strong_foot"
+                    matNativeControl
+                    required
+                  >
+                    <option value="">Select Strong Foot</option>
+
+                    <option
+                      *ngFor="let foot of strongFootArray"
+                      [value]="foot.value"
+                      >{{ foot.name }}</option
+                    >
+                  </select>
+                  <mat-error class="error-text"> </mat-error>
+                </div>
+              </div>
+              <div class="third">
+                <div class="form-block">
+                  <label>Weak Foot</label>
+                  <div class="details">
+                    <div class="right">
+                      <input
+                        formControlName="weak_foot"
+                        (onclick)="
+                          professionalDetailsForm.get('weak_foot').value = 5
+                        "
+                        type="radio"
+                        id="5-stars"
+                        value="5"
+                      />
+                      <label for="5-stars" class="star">&#9733;</label>
+                      <input
+                        formControlName="weak_foot"
+                        (onclick)="
+                          professionalDetailsForm.get('weak_foot').value = 4
+                        "
+                        type="radio"
+                        id="4-stars"
+                        value="4"
+                      />
+                      <label for="4-stars" class="star">&#9733;</label>
+                      <input
+                        formControlName="weak_foot"
+                        (onclick)="
+                          professionalDetailsForm.get('weak_foot').value = 3
+                        "
+                        type="radio"
+                        id="3-stars"
+                        value="3"
+                      />
+                      <label for="3-stars" class="star">&#9733;</label>
+                      <input
+                        formControlName="weak_foot"
+                        (onclick)="
+                          professionalDetailsForm.get('weak_foot').value = 2
+                        "
+                        type="radio"
+                        id="2-stars"
+                        value="2"
+                      />
+                      <label for="2-stars" class="star">&#9733;</label>
+                      <input
+                        formControlName="weak_foot"
+                        (onclick)="
+                          professionalDetailsForm.get('weak_foot').value = 1
+                        "
+                        type="radio"
+                        id="1-star"
+                        value="1"
+                      />
+                      <label for="1-star" class="star">&#9733;</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <label>Current State Association<span>*</span></label>
+                  <select
+                    formControlName="association"
+                    matNativeControl
+                    required
+                  >
+                    <option value="">Select Association</option>
+
+                    <option
+                      *ngFor="let association of stateAssociationArray"
+                      [value]="association.value"
+                      >{{ association.name }}</option
+                    >
+                  </select>
+                  <mat-error class="error-text"> </mat-error>
+                </div>
+              </div>
+              <ng-container
+                *ngIf="
+                  professionalDetailsForm.get('association').value === 'Others'
+                "
+              >
+                <div class="third">
+                  <div class="form-block">
+                    <label>Other State Association Name</label>
+                    <input
+                      formControlName="association_other"
+                      type="text"
+                      matInput
+                      autocomplete="off"
+                      placeholder="Other"
+                    />
+                    <mat-error class="error-text"> </mat-error>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            <div class="input-container">
+              <div class="full">
+                <h4>Currently Associated With Club/Academy?</h4>
+                <div class="radio-block">
+                  <mat-radio-group
+                    formControlName="associated_club_academy"
+                    class="example-radio-group"
+                  >
+                    <mat-radio-button value="yes">
+                      Yes
+                    </mat-radio-button>
+                    <mat-radio-button value="no">
+                      No
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+
+            <h4>Head Coach</h4>
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <label>Name<span>*</span></label>
+                  <input
+                    formControlName="head_coach_name"
+                    type="text"
+                    matInput
+                    autocomplete="off"
+                    required
+                    placeholder="Name"
+                  />
+                  <mat-error class="error-text"> </mat-error>
+                </div>
+              </div>
+              <div class="third">
+                <div class="form-block">
+                  <label>Mobile Number<span>*</span></label>
+                  <div class="phone-block">
+                    <div class="country-code">
+                      <select disabled>
+                        <option>+91</option>
+                      </select>
+                    </div>
+                    <div class="phone-number">
+                      <input
+                        formControlName="head_coach_phone"
+                        type="text"
+                        matInput
+                        autocomplete="off"
+                        required
+                        placeholder="Mobile Number"
+                      />
+                    </div>
+                  </div>
+                  <mat-error class="error-text"> </mat-error>
+                </div>
+              </div>
+              <div class="third">
+                <div class="form-block">
+                  <label>Email Address</label>
+                  <input
+                    formControlName="head_coach_email"
+                    type="email"
+                    matInput
+                    autocomplete="off"
+                    required
+                    placeholder="Email"
+                  />
+                  <mat-error class="error-text"> </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <label>Former Club/Academy (optional, if any)</label>
+                  <input
+                    formControlName="former_club_academy"
+                    type="text"
+                    matInput
+                    autocomplete="off"
+                    required
+                    placeholder="Name"
+                  />
+                  <mat-error class="error-text"> </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="actions mt-2 mb-2">
+              <div class="btn-group">
+                <button (click)="toggleMode()" class="btn-normal">
+                  Cancel
+                </button>
+                <button (click)="editProfessionalDetails()" class="btn-active">
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+  </div>
+</div>
