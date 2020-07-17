@@ -48,41 +48,14 @@
               <h4>Weak Foot</h4>
             </div>
             <div class="right">
-              <input
-                (onclick)="professionalDetailsForm.controls.weak_foot.value = 5"
-                type="radio"
-                id="5-stars"
-                value="5"
-              />
-              <label for="5-stars" class="star">&#9733;</label>
-              <input
-                (onclick)="professionalDetailsForm.controls.weak_foot.value = 4"
-                type="radio"
-                id="4-stars"
-                value="4"
-              />
-              <label for="4-stars" class="star">&#9733;</label>
-              <input
-                (onclick)="professionalDetailsForm.controls.weak_foot.value = 3"
-                type="radio"
-                id="3-stars"
-                value="3"
-              />
-              <label for="3-stars" class="star">&#9733;</label>
-              <input
-                (onclick)="professionalDetailsForm.controls.weak_foot.value = 2"
-                type="radio"
-                id="2-stars"
-                value="2"
-              />
-              <label for="2-stars" class="star">&#9733;</label>
-              <input
-                (onclick)="professionalDetailsForm.controls.weak_foot.value = 1"
-                type="radio"
-                id="1-star"
-                value="1"
-              />
-              <label for="1-star" class="star">&#9733;</label>
+              <ng-container *ngFor="let number of [1, 2, 3, 4, 5]">
+                <ng-container *ngIf="number <= professionalDetails?.weak_foot">
+                  <i-feather name="star" class="icon-size active"></i-feather>
+                </ng-container>
+                <ng-container *ngIf="number > professionalDetails?.weak_foot">
+                  <i-feather name="star" class="icon-size"></i-feather>
+                </ng-container>
+              </ng-container>
             </div>
           </div>
         </div>
@@ -124,7 +97,7 @@
         <div class="view-details">
           <div class="details">
             <div class="left">
-              <h4>Current Associated Club/Academy :</h4>
+              <h4>Current Associated With Club/Academy :</h4>
             </div>
             <div class="right">
               <p>
@@ -226,7 +199,37 @@
                         >{{ position.name }}</option
                       >
                     </select>
-                    <mat-error class="error-text"> </mat-error>
+                    <mat-error
+                      class="error-text"
+                      *ngIf="
+                        professionalDetailsForm
+                          .get('position')
+                          ['controls'][i].get('id').invalid &&
+                        professionalDetailsForm
+                          .get('position')
+                          ['controls'][i].get('id').touched
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          professionalDetailsForm
+                            .get('position')
+                            ['controls'][i].get('id')
+                            .hasError('required')
+                        "
+                        translate
+                        >{{
+                          i == 0
+                            ? 'First'
+                            : i == 1
+                            ? 'Second'
+                            : i == 2
+                            ? 'Third'
+                            : ''
+                        }}
+                        Position is required</span
+                      >
+                    </mat-error>
                   </div>
                 </div>
               </ng-container>
@@ -374,6 +377,7 @@
                       matInput
                       autocomplete="off"
                       placeholder="Other"
+                      trim="blur"
                     />
                     <mat-error class="error-text"> </mat-error>
                   </div>
@@ -417,6 +421,7 @@
                       autocomplete="off"
                       required
                       placeholder="Name"
+                      trim="blur"
                     />
                     <mat-error
                       class="error-text"
@@ -462,6 +467,7 @@
                           autocomplete="off"
                           required
                           placeholder="Mobile Number"
+                          trim="blur"
                         />
                       </div>
                     </div>
@@ -532,8 +538,8 @@
                       type="email"
                       matInput
                       autocomplete="off"
-                      required
                       placeholder="Email"
+                      trim="blur"
                     />
                     <mat-error
                       class="error-text"
@@ -543,14 +549,7 @@
                         professionalDetailsForm.controls.head_coach_email
                           .touched
                       "
-                      ><span
-                        *ngIf="
-                          professionalDetailsForm.controls.head_coach_email
-                            .errors.required
-                        "
-                        translate
-                        >Head Coach Email is required
-                      </span>
+                    >
                       <span
                         *ngIf="
                           professionalDetailsForm.controls.head_coach_email
@@ -574,8 +573,8 @@
                     type="text"
                     matInput
                     autocomplete="off"
-                    required
-                    placeholder="Name"
+                    placeholder="Former Club/Academy"
+                    trim="blur"
                   />
                   <mat-error class="error-text"> </mat-error>
                 </div>
