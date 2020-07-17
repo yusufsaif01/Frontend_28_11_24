@@ -11,6 +11,7 @@ import {
   ValidatorFn
 } from '@angular/forms';
 import { environment } from '@env/environment';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-personal-details',
@@ -33,12 +34,16 @@ export class PersonalDetailsComponent implements OnInit {
     private _editProfileService: ViewEditProfileService,
     private _sharedService: SharedService,
     private _toastrService: ToastrService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private _sanitizer: DomSanitizer
   ) {
     this.createForm();
     this.manageCommonControls();
     // this.setCategoryValidators();
     this.tomorrow.setDate(this.tomorrow.getDate() + 1);
+  }
+  transformURL(url: string): SafeHtml {
+    return this._sanitizer.bypassSecurityTrustResourceUrl(url);
   }
   toggleMode() {
     this.editMode = !this.editMode;

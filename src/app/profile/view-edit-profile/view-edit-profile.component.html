@@ -7,6 +7,7 @@
     <div class="right-wrapper">
       <div class="btn-group">
         <button
+          [ngClass]="{ 'btn-active': componentName === componentName.value }"
           *ngFor="let componentName of components"
           (click)="switch(componentName.value)"
         >
