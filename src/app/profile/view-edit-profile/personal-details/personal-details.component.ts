@@ -10,6 +10,7 @@ import {
   Validators,
   ValidatorFn
 } from '@angular/forms';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-personal-details',
@@ -26,6 +27,8 @@ export class PersonalDetailsComponent implements OnInit {
   profile: any = {};
   personalProfileDetailsForm: FormGroup;
   profile_status: string;
+  editMode: boolean = false;
+  player_type: string = 'grassroot';
   constructor(
     private _editProfileService: ViewEditProfileService,
     private _sharedService: SharedService,
@@ -34,27 +37,40 @@ export class PersonalDetailsComponent implements OnInit {
   ) {
     this.createForm();
     this.manageCommonControls();
-    this.setCategoryValidators();
+    // this.setCategoryValidators();
     this.tomorrow.setDate(this.tomorrow.getDate() + 1);
   }
+  toggleMode() {
+    this.editMode = !this.editMode;
+  }
   createForm() {
-    this.personalProfileDetailsForm = this._formBuilder.group({
-      bio: ['', [Validators.maxLength(1000)]],
-      facebook: [''],
-      twitter: [''],
-      instagram: [''],
-      youtube: [''],
-      linked_in: ['']
-    });
-
     if (this.member_type === 'player') {
       this.personalProfileDetailsForm = this._formBuilder.group({
+        bio: ['', [Validators.maxLength(350)]],
+        email: [
+          { value: '', disabled: true },
+          [Validators.required, Validators.email]
+        ],
+        facebook: [''],
+        twitter: [''],
+        instagram: [''],
+        youtube: [''],
+        linked_in: [''],
+        phone: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^\d+$/)
+          ]
+        ],
+        gender: ['', Validators.required],
         player_type: ['', [Validators.required]],
         first_name: [
           '',
           [
             Validators.required,
-            Validators.maxLength(25),
             Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
           ]
         ],
@@ -66,121 +82,30 @@ export class PersonalDetailsComponent implements OnInit {
           ]
         ],
         dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
-        height_feet: ['', []],
-        height_inches: ['', []],
+        height_feet: [
+          '',
+          [
+            Validators.required,
+            Validators.min(1),
+            Validators.max(10),
+            Validators.pattern(/^\d+$/)
+          ]
+        ],
+        height_inches: [
+          '',
+          [
+            Validators.required,
+            Validators.min(0),
+            Validators.max(12),
+            Validators.pattern(/^\d+$/)
+          ]
+        ],
         weight: ['', [Validators.min(1), Validators.pattern(/^\d+(\.\d)?$/)]],
         school: ['', []],
         university: [''],
         college: ['']
       });
-    } else if (this.member_type === 'club') {
-      this.personalProfileDetailsForm = this._formBuilder.group({
-        top_signings: this._formBuilder.array([], [])
-      });
-    } else if (this.member_type === 'academy') {
-      this.personalProfileDetailsForm = this._formBuilder.group({
-        number: ['']
-      });
     }
-  }
-  setCategoryValidators() {
-    if (this.member_type === 'player') {
-      this.setPlayerValidators();
-    } else if (this.member_type === 'club' || this.member_type === 'academy') {
-      const address = this.personalProfileDetailsForm.get('address');
-      const pincode = this.personalProfileDetailsForm.get('pincode');
-      const trophies = this.personalProfileDetailsForm.get('trophies');
-      const leagueOther = this.personalProfileDetailsForm.get('league_other');
-      const documentNumber = this.personalProfileDetailsForm.get('number');
-
-      if (this.member_type === 'club') {
-        address.setValidators(null);
-        pincode.setValidators([Validators.pattern(/^\d+$/)]);
-      }
-
-      if (this.member_type === 'academy') {
-        address.setValidators([Validators.required]);
-        pincode.setValidators([
-          Validators.required,
-          Validators.pattern(/^\d+$/)
-        ]);
-      }
-      address.updateValueAndValidity();
-      pincode.updateValueAndValidity();
-    }
-  }
-  setPlayerValidators() {
-    let heightControl = {
-      height_feet: [
-        Validators.required,
-        Validators.min(1),
-        Validators.max(10),
-        Validators.pattern(/^\d+$/)
-      ],
-      height_inches: [
-        Validators.required,
-        Validators.min(0),
-        Validators.max(12),
-        Validators.pattern(/^\d+$/)
-      ]
-    };
-
-    this.personalProfileDetailsForm
-      .get('player_type')
-      .valueChanges.subscribe(player_type => {
-        if (player_type === 'amateur' || player_type === 'professional') {
-          this.checkRequiredValidator(
-            heightControl,
-            heightControl.height_feet,
-            1
-          );
-          this.checkRequiredValidator(
-            heightControl,
-            heightControl.height_inches,
-            1
-          );
-          this.setControlValidation(
-            this.personalProfileDetailsForm,
-            heightControl
-          );
-        }
-        if (player_type === 'grassroot') {
-          this.checkRequiredValidator(
-            heightControl,
-            heightControl.height_feet,
-            2
-          );
-          this.checkRequiredValidator(
-            heightControl,
-            heightControl.height_inches,
-            2
-          );
-          this.setControlValidation(
-            this.personalProfileDetailsForm,
-            heightControl
-          );
-        }
-      });
-  }
-  setControlValidation(
-    form: FormGroup,
-    controlObject: { [name: string]: ValidatorFn[] }
-  ) {
-    for (const name in controlObject) {
-      let controlName = form.get(name);
-      controlName.setValidators(controlObject[name]);
-      controlName.updateValueAndValidity();
-    }
-  }
-  checkRequiredValidator(controlname: any, paramname: any, type: number) {
-    if (type === 1)
-      paramname.includes(Validators.required)
-        ? controlname
-        : paramname.push(Validators.required);
-    else if (type === 2)
-      paramname.includes(Validators.required)
-        ? paramname.splice(paramname.findIndex(Validators.required), 1)
-        : controlname;
   }
   ngOnInit() {
     this.getLocationStats();
@@ -198,11 +123,52 @@ export class PersonalDetailsComponent implements OnInit {
           );
           this.profile = response.data;
           this.profile_status = this.profile.profile_status.status;
+          this.player_type = this.profile.player_type;
+          if (this.profile.avatar_url) {
+            this.profile.avatar_url =
+              environment.mediaUrl + this.profile.avatar_url;
+          } else {
+            this.profile.avatar_url =
+              environment.mediaUrl + '/uploads/avatar/user-avatar.png';
+          }
+          this.populateFormFields(this.profile);
         },
         error => {
           this._toastrService.error(error.error.message, 'Error');
         }
       );
+  }
+  populateFormFields(profileData: any) {
+    this.personalProfileDetailsForm.patchValue(profileData);
+    this.getStatesListing(this.profile.country.id);
+    this.getCitiesListing(this.profile.country.id, this.profile.state.id);
+    this.personalProfileDetailsForm.patchValue({
+      country: this.profile.country ? this.profile.country.id : ''
+    });
+    this.personalProfileDetailsForm.patchValue({
+      state: this.profile.state ? this.profile.state.id : '',
+      city: this.profile.city ? this.profile.city.id : '',
+      height_feet:
+        this.profile.height && this.profile.height.feet
+          ? this.profile.height.feet
+          : '',
+      height_inches:
+        this.profile.height && this.profile.height.inches
+          ? this.profile.height.inches
+          : '',
+      school:
+        this.profile.institute && this.profile.institute.school
+          ? this.profile.institute.school
+          : '',
+      university:
+        this.profile.institute && this.profile.institute.university
+          ? this.profile.institute.university
+          : '',
+      college:
+        this.profile.institute && this.profile.institute.college
+          ? this.profile.institute.college
+          : ''
+    });
   }
   formControlAdder(
     form: FormGroup,
@@ -228,82 +194,6 @@ export class PersonalDetailsComponent implements OnInit {
       }
     ];
     this.formControlAdder(this.personalProfileDetailsForm, commonControls);
-    if (this.member_type == 'academy' || this.member_type === 'club') {
-      let clubAcadCommonControls = [
-        {
-          name: 'name',
-          abstractControl: this._formBuilder.control('', [
-            Validators.required,
-            Validators.maxLength(25),
-            Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
-          ])
-        },
-        {
-          name: 'short_name',
-          abstractControl: this._formBuilder.control('', [])
-        },
-        {
-          name: 'founded_in',
-          abstractControl: this._formBuilder.control('', [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(4),
-            Validators.max(this.currentYear),
-            Validators.pattern(/^\d+$/)
-          ])
-        },
-        {
-          name: 'phone',
-          abstractControl: this._formBuilder.control('', [
-            Validators.minLength(10),
-            Validators.maxLength(10),
-            Validators.pattern(/^\d+$/)
-          ])
-        },
-        {
-          name: 'mobile_number',
-          abstractControl: this._formBuilder.control('', [
-            Validators.required,
-            Validators.minLength(10),
-            Validators.maxLength(10),
-            Validators.pattern(/^\d+$/)
-          ])
-        },
-        {
-          name: 'stadium_name',
-          abstractControl: this._formBuilder.control('', [])
-        },
-        {
-          name: 'type',
-          abstractControl: this._formBuilder.control('', [Validators.required])
-        },
-        {
-          name: 'address',
-          abstractControl: this._formBuilder.control('')
-        },
-        {
-          name: 'pincode',
-          abstractControl: this._formBuilder.control('')
-        }
-      ];
-      this.formControlAdder(
-        this.personalProfileDetailsForm,
-        clubAcadCommonControls
-      );
-    } else if (this.member_type == 'player') {
-      let playerControls = [
-        {
-          name: 'phone',
-          abstractControl: this._formBuilder.control('', [
-            Validators.required,
-            Validators.minLength(10),
-            Validators.maxLength(10),
-            Validators.pattern(/^\d+$/)
-          ])
-        }
-      ];
-      this.formControlAdder(this.personalProfileDetailsForm, playerControls);
-    }
   }
   getLocationStats() {
     this._sharedService
@@ -377,7 +267,8 @@ export class PersonalDetailsComponent implements OnInit {
     this.personalProfileDetailsForm.controls.city.patchValue('');
   }
   updatePersonalProfileDetails() {
-    let body: any = {};
+    let body: any = this.personalProfileDetailsForm.value;
+    if (this.profile_status === 'verified') delete body.dob;
     this._editProfileService
       .updatePersonalProfileDetails(body)
       .pipe(untilDestroyed(this))
@@ -387,6 +278,8 @@ export class PersonalDetailsComponent implements OnInit {
             'Successful',
             'Profile updated successfully'
           );
+          this.getPersonalProfileDetails();
+          this.toggleMode();
         },
         error => {
           this._toastrService.error(error.error.message, 'Error');

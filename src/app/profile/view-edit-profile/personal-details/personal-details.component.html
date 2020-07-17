@@ -1,20 +1,20 @@
 <div class="wrapper">
   <!-- editwrapper -->
-  <div class="view-wrapper">
+  <div class="view-wrapper" [hidden]="editMode">
     <div class="heading">
       <h2>Personal Details</h2>
-      <button>
+      <button (click)="toggleMode()">
         <mat-icon class="material-icons">create</mat-icon>
       </button>
     </div>
     <div class="first-section">
       <div class="left-part">
         <div class="dp">
-          <img src="assets/images/member/profile.png" alt="" />
+          <img [src]="profile.avatar_url" alt="" />
         </div>
         <div class="details">
-          <h3>James Jordon</h3>
-          <p>Grassroot</p>
+          <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
+          <p>{{ profile.player_type | titlecase }}</p>
         </div>
       </div>
       <div class="right-part">
@@ -42,12 +42,9 @@
 
     <div class="second-section">
       <div class="boi">
-        <h4>Boi</h4>
+        <h4>Bio</h4>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lobortis eget
-          ultrices sed suspendisse amet vitae, neque in. Eu tempor porttitor
-          eget eget nisl ligula. Id massa consectetur sed nunc lacus morb ctetur
-          adipiscing elit. Lobortis eget ultrice
+          {{ profile.bio }}
         </p>
       </div>
       <!-- first row -->
@@ -57,7 +54,7 @@
             <h4>Email</h4>
           </div>
           <div class="right">
-            <p>jamesJordan@gmail.com</p>
+            <p>{{ profile.email }}</p>
           </div>
         </div>
         <div class="details">
@@ -65,7 +62,7 @@
             <h4>Weight</h4>
           </div>
           <div class="right">
-            <p>65 kg</p>
+            <p>{{ profile.weight }} kg</p>
           </div>
         </div>
       </div>
@@ -76,7 +73,7 @@
             <h4>Mobile number</h4>
           </div>
           <div class="right">
-            <p>9689854795</p>
+            <p>{{ profile.phone }}</p>
           </div>
         </div>
         <div class="details">
@@ -84,7 +81,10 @@
             <h4>Height</h4>
           </div>
           <div class="right">
-            <p>6 feets 4 inches</p>
+            <p>
+              {{ profile.height?.feet }} feets
+              {{ profile.height?.inches }} inches
+            </p>
           </div>
         </div>
       </div>
@@ -95,7 +95,7 @@
             <h4>D.O.B</h4>
           </div>
           <div class="right">
-            <p>6 July 2000</p>
+            <p>{{ profile.dob }}</p>
           </div>
         </div>
       </div>
@@ -107,7 +107,7 @@
             <h4>Gender</h4>
           </div>
           <div class="right">
-            <p>Male</p>
+            <p>{{ profile.gender }}</p>
           </div>
         </div>
       </div>
@@ -119,7 +119,7 @@
             <h4>Country</h4>
           </div>
           <div class="right">
-            <p>India</p>
+            <p>{{ profile.country?.name }}</p>
           </div>
         </div>
       </div>
@@ -131,7 +131,7 @@
             <h4>State / UT</h4>
           </div>
           <div class="right">
-            <p>Delhi</p>
+            <p>{{ profile.state?.name }}</p>
           </div>
         </div>
       </div>
@@ -143,7 +143,7 @@
             <h4>City</h4>
           </div>
           <div class="right">
-            <p>Delhi</p>
+            <p>{{ profile.city?.name }}</p>
           </div>
         </div>
       </div>
@@ -152,10 +152,10 @@
       <div class="view-details">
         <div class="details">
           <div class="left">
-            <h4>School name</h4>
+            <h4>School</h4>
           </div>
           <div class="right">
-            <p>A.B.C. public school</p>
+            <p>{{ profile.institute?.school }}</p>
           </div>
         </div>
       </div>
@@ -167,7 +167,7 @@
             <h4>College</h4>
           </div>
           <div class="right">
-            <p>A.B.C. public college</p>
+            <p>{{ profile.institute?.college }}</p>
           </div>
         </div>
       </div>
@@ -179,7 +179,7 @@
             <h4>University</h4>
           </div>
           <div class="right">
-            <p>A.B.C. International University</p>
+            <p>{{ profile.institute?.university }}</p>
           </div>
         </div>
       </div>
@@ -187,8 +187,8 @@
   </div>
 
   <!-- editwrapper -->
-  <div class="edit-wrapper">
-    <form>
+  <div class="edit-wrapper" [hidden]="!editMode">
+    <form [formGroup]="personalProfileDetailsForm">
       <div class="heading">
         <h3>Personal Details</h3>
       </div>
@@ -210,15 +210,18 @@
               <div class="full">
                 <h3 class="mb-1">Player type</h3>
                 <div class="radio-block">
-                  <mat-radio-group class="example-radio-group">
-                    <mat-radio-button checked value="player">
-                      Player
+                  <mat-radio-group
+                    formControlName="player_type"
+                    class="example-radio-group"
+                  >
+                    <mat-radio-button checked value="grassroot">
+                      Grassroot
                     </mat-radio-button>
-                    <mat-radio-button value="club">
-                      Club
+                    <mat-radio-button value="amateur">
+                      Amateur
                     </mat-radio-button>
-                    <mat-radio-button value="academy">
-                      Academy
+                    <mat-radio-button value="professional">
+                      Professional
                     </mat-radio-button>
                   </mat-radio-group>
                 </div>
@@ -230,26 +233,78 @@
                 <div class="form-block">
                   <label>First name <span>*</span></label>
                   <input
+                    formControlName="first_name"
                     type="Name"
                     matinput
                     autocomplete="off"
                     required
                     placeholder="First name"
                   />
-                  <mat-error class="error-text"> </mat-error>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      personalProfileDetailsForm.controls.first_name.invalid &&
+                      personalProfileDetailsForm.controls.first_name.touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        personalProfileDetailsForm.controls.first_name.errors
+                          .required
+                      "
+                      translate
+                      >First Name is required</span
+                    >
+                    <span
+                      *ngIf="
+                        !personalProfileDetailsForm.controls.first_name.errors
+                          .required &&
+                        personalProfileDetailsForm.controls.first_name.errors
+                          .pattern
+                      "
+                      translate
+                      >First Name is invalid</span
+                    >
+                  </mat-error>
                 </div>
               </div>
               <div class="half">
                 <div class="form-block">
                   <label>Last name <span>*</span></label>
                   <input
+                    formControlName="last_name"
                     type="Name"
                     matinput
                     autocomplete="off"
                     required
                     placeholder="Last name"
                   />
-                  <mat-error class="error-text"> </mat-error>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      personalProfileDetailsForm.controls.last_name.invalid &&
+                      personalProfileDetailsForm.controls.last_name.touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        personalProfileDetailsForm.controls.last_name.errors
+                          .required
+                      "
+                      translate
+                      >Last Name is required</span
+                    >
+                    <span
+                      *ngIf="
+                        !personalProfileDetailsForm.controls.last_name.errors
+                          .required &&
+                        personalProfileDetailsForm.controls.last_name.errors
+                          .pattern
+                      "
+                      translate
+                      >Last Name is invalid</span
+                    >
+                  </mat-error>
                 </div>
               </div>
             </div>
@@ -262,10 +317,27 @@
           <div class="full">
             <div class="form-block">
               <textarea
+                formControlName="bio"
                 class="txtarea-height"
                 matinput
-                placeholder="Write a Boi"
+                placeholder="Write a Bio"
+                maxlength="350"
               ></textarea>
+              <mat-error
+                class="error-text"
+                *ngIf="
+                  personalProfileDetailsForm.controls.bio.invalid &&
+                  personalProfileDetailsForm.controls.bio.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    personalProfileDetailsForm.controls.bio.errors.maxlength
+                  "
+                  translate
+                  >Bio cannot be greater than 350 characters</span
+                >
+              </mat-error>
             </div>
           </div>
         </div>
@@ -274,26 +346,51 @@
             <div class="form-block">
               <label>Email <span>*</span></label>
               <input
+                formControlName="email"
                 type="Name"
                 matinput
                 autocomplete="off"
                 required
                 placeholder="Email"
               />
-              <mat-error class="error-text"> </mat-error>
             </div>
           </div>
           <div class="third">
             <div class="form-block">
-              <label>Weight (kg) <span>*</span></label>
+              <label>Weight (kg) </label>
               <input
+                formControlName="weight"
                 type="Name"
                 matinput
                 autocomplete="off"
                 required
-                placeholder="Email"
+                placeholder="Weight"
               />
-              <mat-error class="error-text"> </mat-error>
+              <mat-error
+                class="error-text"
+                *ngIf="
+                  personalProfileDetailsForm.controls.weight.invalid &&
+                  personalProfileDetailsForm.controls.weight.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    personalProfileDetailsForm.controls.weight.errors.pattern;
+                    else minBlock
+                  "
+                >
+                  Weight format is invalid
+                </span>
+                <ng-template #minBlock>
+                  <span
+                    *ngIf="
+                      personalProfileDetailsForm.controls.weight.errors.min
+                    "
+                  >
+                    Weight must be greater than 0
+                  </span>
+                </ng-template>
+              </mat-error>
             </div>
           </div>
           <div class="third">
@@ -301,28 +398,115 @@
               <label>Height <span>*</span></label>
               <div class="double">
                 <input
+                  formControlName="height_feet"
                   type="text"
                   matinput
                   autocomplete="off"
                   required
                   placeholder="Feets"
                 />
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    personalProfileDetailsForm.controls.height_feet.invalid &&
+                    personalProfileDetailsForm.controls.height_feet.touched
+                  "
+                >
+                  <span
+                    class="height-required"
+                    *ngIf="
+                      personalProfileDetailsForm.controls.height_feet.errors
+                        .required;
+                      else patternBlock
+                    "
+                    translate
+                    >Height in Feet is required</span
+                  >
+                  <ng-template #patternBlock>
+                    <span
+                      class="error-text format-invalid"
+                      *ngIf="
+                        personalProfileDetailsForm.controls.height_feet.errors
+                          .pattern;
+                        else maxBlock
+                      "
+                    >
+                      Height in Feet format is invalid
+                    </span>
+                  </ng-template>
+                  <ng-template #maxBlock>
+                    <span
+                      class="error-text min-max-height"
+                      *ngIf="
+                        personalProfileDetailsForm.controls.height_feet.errors
+                          .max ||
+                        personalProfileDetailsForm.controls.height_feet.errors
+                          .min
+                      "
+                    >
+                      Height in Feet must be between 1 and 10
+                    </span>
+                  </ng-template>
+                </mat-error>
                 <input
+                  formControlName="height_inches"
                   type="text"
                   matinput
                   autocomplete="off"
                   required
                   placeholder="Inches"
                 />
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    personalProfileDetailsForm.controls.height_inches.invalid &&
+                    personalProfileDetailsForm.controls.height_inches.touched
+                  "
+                >
+                  <span
+                    class="height-required"
+                    *ngIf="
+                      personalProfileDetailsForm.controls.height_inches.errors
+                        .required;
+                      else patternBlock
+                    "
+                    translate
+                    >Height in Inches is required</span
+                  >
+                  <ng-template #patternBlock>
+                    <span
+                      class="error-text format-invalid"
+                      *ngIf="
+                        personalProfileDetailsForm.controls.height_inches.errors
+                          .pattern;
+                        else maxBlock
+                      "
+                    >
+                      Height in Inches format is invalid
+                    </span>
+                  </ng-template>
+                  <ng-template #maxBlock>
+                    <span
+                      class="error-text min-max-height"
+                      *ngIf="
+                        personalProfileDetailsForm.controls.height_inches.errors
+                          .max ||
+                        personalProfileDetailsForm.controls.height_inches.errors
+                          .min
+                      "
+                    >
+                      Height in Inches must be between 0 and 12
+                    </span>
+                  </ng-template>
+                </mat-error>
               </div>
-              <mat-error class="error-text"> </mat-error>
             </div>
           </div>
         </div>
         <div class="input-container">
           <div class="third">
             <div class="form-block">
-              <label>Mobile number </label>
+              <label>Mobile number <span>*</span></label>
               <div class="phone-block">
                 <div class="country-code">
                   <select disabled>
@@ -331,11 +515,71 @@
                 </div>
                 <div class="phone-number">
                   <input
+                    formControlName="phone"
                     type="text"
                     matInput
                     autocomplete="off"
                     placeholder="Mobile number"
                   />
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      personalProfileDetailsForm.controls.phone.invalid &&
+                      personalProfileDetailsForm.controls.phone.touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        personalProfileDetailsForm.controls.phone.errors
+                          .required
+                      "
+                      translate
+                      >Phone Number is required</span
+                    >
+                    <ng-template #lengthBlock>
+                      <span
+                        translate
+                        class="error-text"
+                        *ngIf="
+                          personalProfileDetailsForm.controls.phone.errors
+                            .minlength
+                        "
+                      >
+                        Please provide number upto
+                        {{
+                          personalProfileDetailsForm.controls.phone.errors
+                            .minlength.requiredLength
+                        }}
+                        digits
+                      </span>
+                      <span
+                        translate
+                        class="error-text"
+                        *ngIf="
+                          personalProfileDetailsForm.controls.phone.errors
+                            .maxlength
+                        "
+                      >
+                        Please provide number upto
+                        {{
+                          personalProfileDetailsForm.controls.phone.errors
+                            .maxlength.requiredLength
+                        }}
+                        digits
+                      </span>
+                    </ng-template>
+                    <span
+                      class="error-text"
+                      *ngIf="
+                        personalProfileDetailsForm.controls.phone.errors
+                          .pattern;
+                        else lengthBlock
+                      "
+                      translate
+                    >
+                      Phone Number format is invalid
+                    </span>
+                  </mat-error>
                 </div>
               </div>
             </div>
@@ -345,17 +589,33 @@
               <label>D.O.B <span>*</span></label>
               <div class="date">
                 <input
+                  formControlName="dob"
                   matInput
                   [matDatepicker]="picker"
                   placeholder="Pick Date"
+                  readonly
                 />
                 <mat-datepicker-toggle
                   matSuffix
                   [for]="picker"
                 ></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    personalProfileDetailsForm.controls.dob.invalid &&
+                    personalProfileDetailsForm.controls.dob.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      personalProfileDetailsForm.controls.dob.errors.required
+                    "
+                    translate
+                    >Date of Birth is required</span
+                  >
+                </mat-error>
               </div>
-              <mat-error class="error-text"> </mat-error>
             </div>
           </div>
           <div class="third"></div>
@@ -364,21 +624,58 @@
           <div class="third">
             <div class="form-block">
               <label>Gender <span>*</span></label>
-              <select>
+              <select formControlName="gender">
                 <option value="">Select gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
-              <mat-error class="error-text"> </mat-error>
+              <mat-error
+                class="error-text"
+                *ngIf="
+                  personalProfileDetailsForm.controls.gender.invalid &&
+                  personalProfileDetailsForm.controls.gender.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    personalProfileDetailsForm.controls.gender.errors.required
+                  "
+                  translate
+                  >Gender is required</span
+                >
+              </mat-error>
             </div>
           </div>
           <div class="third">
             <div class="form-block">
-              <label>Country <span>*</span></label>
-              <select>
-                <option value="">Select country</option>
+              <label>Nationality <span>*</span></label>
+              <select
+                formControlName="country"
+                (change)="onSelectCountry($event)"
+              >
+                <option value="">Select Nationality</option>
+                <ng-container *ngFor="let country of countryArray">
+                  <option value="{{ country.country_id }}">{{
+                    country.country
+                  }}</option>
+                </ng-container>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    personalProfileDetailsForm.controls.country.invalid &&
+                    personalProfileDetailsForm.controls.country.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      personalProfileDetailsForm.controls.country.errors
+                        .required
+                    "
+                    translate
+                    >Nationality is required</span
+                  >
+                </mat-error>
               </select>
-              <mat-error class="error-text"> </mat-error>
             </div>
           </div>
         </div>
@@ -386,19 +683,52 @@
           <div class="third">
             <div class="form-block">
               <label>State / UT <span>*</span></label>
-              <select>
+              <select formControlName="state" (change)="onSelectState($event)">
                 <option value="">Select State/UT </option>
+                <ng-container *ngFor="let state of stateArray">
+                  <option value="{{ state.id }}">{{ state.name }}</option>
+                </ng-container>
               </select>
-              <mat-error class="error-text"> </mat-error>
+              <mat-error
+                class="error-text"
+                *ngIf="
+                  personalProfileDetailsForm.controls.state.invalid &&
+                  personalProfileDetailsForm.controls.state.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    personalProfileDetailsForm.controls.state.errors.required
+                  "
+                  translate
+                  >State is required</span
+                >
+              </mat-error>
             </div>
           </div>
           <div class="third">
             <div class="form-block">
               <label>City <span>*</span></label>
-              <select>
+              <select formControlName="city">
                 <option value="">Select city</option>
+                <ng-container *ngFor="let city of cityArray">
+                  <option value="{{ city.id }}">{{ city.name }}</option>
+                </ng-container>
               </select>
-              <mat-error class="error-text"> </mat-error>
+              <mat-error
+                *ngIf="
+                  personalProfileDetailsForm.controls.city.invalid &&
+                  personalProfileDetailsForm.controls.city.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    personalProfileDetailsForm.controls.city.errors.required
+                  "
+                  translate
+                  >Current City is required</span
+                >
+              </mat-error>
             </div>
           </div>
         </div>
@@ -406,125 +736,127 @@
         <div class="input-container">
           <div class="two-third">
             <div class="form-block">
-              <label>School name <span>*</span></label>
+              <label>School </label>
               <input
+                formControlName="school"
                 type="text"
                 matinput
                 autocomplete="off"
-                required
-                placeholder="Email"
+                placeholder="School"
               />
-              <mat-error class="error-text"> </mat-error>
             </div>
           </div>
         </div>
-        <div class="input-container">
-          <div class="two-third">
-            <div class="form-block">
-              <label>College <span>*</span></label>
-              <input
-                type="text"
-                matinput
-                autocomplete="off"
-                required
-                placeholder="Email"
-              />
-              <mat-error class="error-text"> </mat-error>
+        <ng-container
+          *ngIf="player_type === 'amateur' || player_type === 'professional'"
+        >
+          <div class="input-container">
+            <div class="two-third">
+              <div class="form-block">
+                <label>College </label>
+                <input
+                  formControlName="college"
+                  type="text"
+                  matinput
+                  autocomplete="off"
+                  placeholder="College"
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <div class="input-container">
-          <div class="two-third">
-            <div class="form-block">
-              <label>University <span>*</span></label>
-              <input
-                type="text"
-                matinput
-                autocomplete="off"
-                required
-                placeholder="Email"
-              />
-              <mat-error class="error-text"> </mat-error>
+          <div class="input-container">
+            <div class="two-third">
+              <div class="form-block">
+                <label>University </label>
+                <input
+                  formControlName="university"
+                  type="text"
+                  matinput
+                  autocomplete="off"
+                  placeholder="University"
+                />
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
       <div class="socials">
         <h3>Social media links</h3>
         <div class="input-container">
           <div class="third">
             <div class="form-block">
-              <label>Facebook <span>*</span></label>
+              <label>Facebook </label>
               <input
+                formControlName="facebook"
                 type="text"
                 matinput
                 autocomplete="off"
-                required
                 placeholder="FacebookLink"
               />
-              <mat-error class="error-text"> </mat-error>
             </div>
           </div>
           <div class="third">
             <div class="form-block">
-              <label>Instagram <span>*</span></label>
+              <label>Instagram </label>
               <input
+                formControlName="instagram"
                 type="text"
                 matinput
                 autocomplete="off"
-                required
                 placeholder="Instagramlink"
               />
-              <mat-error class="error-text"> </mat-error>
             </div>
           </div>
           <div class="third">
             <div class="form-block">
-              <label>Linkedin <span>*</span></label>
+              <label>Linkedin </label>
               <input
+                formControlName="linked_in"
                 type="text"
                 matinput
                 autocomplete="off"
-                required
                 placeholder="Linkedinlink"
               />
-              <mat-error class="error-text"> </mat-error>
             </div>
           </div>
         </div>
         <div class="input-container">
           <div class="third">
             <div class="form-block">
-              <label>Twitter <span>*</span></label>
+              <label>Twitter </label>
               <input
+                formControlName="twitter"
                 type="text"
                 matinput
                 autocomplete="off"
-                required
                 placeholder="Twitterlink"
               />
-              <mat-error class="error-text"> </mat-error>
             </div>
           </div>
           <div class="third">
             <div class="form-block">
-              <label>Youtube <span>*</span></label>
+              <label>Youtube </label>
               <input
+                formControlName="youtube"
                 type="text"
                 matinput
                 autocomplete="off"
-                required
                 placeholder="Youtubelink"
               />
-              <mat-error class="error-text"> </mat-error>
             </div>
           </div>
         </div>
       </div>
       <div class="actions mt-2 mb-2">
         <div class="btn-group">
-          <button class="btn-normal">Cancel</button>
-          <button class="btn-active">Save changes</button>
+          <button class="btn-normal" (click)="toggleMode()">Cancel</button>
+          <button
+            class="btn-active"
+            (click)="updatePersonalProfileDetails()"
+            [disabled]="personalProfileDetailsForm.invalid"
+          >
+            Save changes
+          </button>
         </div>
       </div>
     </form>
