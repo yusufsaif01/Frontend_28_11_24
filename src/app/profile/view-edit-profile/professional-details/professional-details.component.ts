@@ -1,11 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  ProfessionalDetailsService,
-  GetProfessionalDetailsResponseContext,
-  GetPositionListResponseContext
-} from './professional-details.service';
 import { untilDestroyed } from '@app/core';
 import { Constants } from '@app/shared/static-data/static-data';
+import { environment } from '@env/environment';
+import { ToastrService } from 'ngx-toastr';
 import {
   FormBuilder,
   FormGroup,
@@ -14,7 +11,11 @@ import {
   AbstractControl,
   FormArray
 } from '@angular/forms';
-import { environment } from '@env/environment';
+import {
+  ProfessionalDetailsService,
+  GetProfessionalDetailsResponseContext,
+  GetPositionListResponseContext
+} from './professional-details.service';
 
 interface TrophyContext {
   name: string;
@@ -38,6 +39,7 @@ interface TopAcademyPlayerContext {
 
 interface PositionContext {
   id: string;
+  name: string;
 }
 
 @Component({
@@ -62,10 +64,12 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   professionalDetailsForm: FormGroup;
   professionalDetails: GetProfessionalDetailsResponseContext['data'];
   member_type: string = localStorage.getItem('member_type');
+  viewMode = true;
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _professionalDetailsService: ProfessionalDetailsService
+    private _professionalDetailsService: ProfessionalDetailsService,
+    private _toastrService: ToastrService
   ) {
     this.populateView();
     this.createForm();
@@ -74,6 +78,10 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {}
+
+  toggleMode() {
+    this.viewMode = !this.viewMode;
+  }
 
   addContactPerson = (data?: ContactPersonContext) => {
     this.contact_person = this.professionalDetailsForm.get(
@@ -220,7 +228,8 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       this.position.push(
         this._formBuilder.group({
           priority: index + 1,
-          id: [data.id, []]
+          id: [data.id, []],
+          name: data.name
         })
       );
     } else {
@@ -232,7 +241,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       );
     }
   }
-  
+
   populateDynamicControl(data: any, func: any) {
     if (data.length !== 0) {
       for (let i = 0; i < data.length; i++) {
@@ -240,22 +249,25 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       }
     }
   }
-                populateDynamicPosition() {
-                  for (let i = 0; i < 3; i++) {
-                    this.preparePosition(this.professionalDetails.position[i], i);
-                  }
-                }
-                getPositionList() {
-                  this._professionalDetailsService
-                    .getPositionList()
-                    .pipe(untilDestroyed(this))
-                    .subscribe(
-                      response => {
-                        this.positionArray = response.data.records;
-                      },
-                      error => {}
-                    );
-                }
+
+  populateDynamicPosition() {
+    for (let i = 0; i < 3; i++) {
+      this.preparePosition(this.professionalDetails.position[i], i);
+    }
+  }
+
+  getPositionList() {
+    this._professionalDetailsService
+      .getPositionList()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.positionArray = response.data.records;
+        },
+        error => {}
+      );
+  }
+
   populateView() {
     this._professionalDetailsService
       .getProfessionalDetails()
@@ -294,28 +306,32 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
             this.getPositionList();
             this.populateDynamicPosition();
           }
+
+          this._toastrService.success(
+            'Successful',
+            'Data retrieved successfully'
+          );
         },
-        error => {}
+        error => {
+          this._toastrService.error(error.error.message, 'Error');
+        }
       );
   }
 
-
   populateFormFields() {
-    if (this.member_type === 'player') {
-      if (this.professionalDetails.member_type === 'player') {
-        if (
-          this.professionalDetails.club_academy_details &&
-          this.professionalDetails.club_academy_details.head_coach_phone &&
-          this.professionalDetails.club_academy_details.head_coach_name
-        )
-          this.professionalDetailsForm
-            .get('associated_club_academy')
-            .setValue('yes');
-        else
-          this.professionalDetailsForm
-            .get('associated_club_academy')
-            .setValue('no');
-      }
+    if (this.professionalDetails.member_type === 'player') {
+      if (
+        this.professionalDetails.club_academy_details &&
+        this.professionalDetails.club_academy_details.head_coach_phone &&
+        this.professionalDetails.club_academy_details.head_coach_name
+      )
+        this.professionalDetailsForm
+          .get('associated_club_academy')
+          .setValue('yes');
+      else
+        this.professionalDetailsForm
+          .get('associated_club_academy')
+          .setValue('no');
     }
 
     this.professionalDetailsForm.patchValue({
@@ -409,6 +425,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       );
     }
   }
+
   createForm() {
     if (this.member_type === 'player') {
       this.professionalDetailsForm = this._formBuilder.group({
@@ -431,6 +448,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       });
     }
   }
+
   setControlValidation(
     form: FormGroup,
     controlObject: { [name: string]: ValidatorFn[] }
@@ -532,6 +550,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       trophies.updateValueAndValidity();
     }
   }
+
   toFormData<T>(formValue: T) {
     const formData = new FormData();
     for (const key of Object.keys(formValue)) {
@@ -572,8 +591,15 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       .editProfessionalDetails(requestData)
       .pipe(untilDestroyed(this))
       .subscribe(
-        res => {},
-        err => {}
+        response => {
+          this._toastrService.success(
+            'Successful',
+            'Professional Details updated successfully'
+          );
+        },
+        error => {
+          this._toastrService.error(error.error.message, 'Error');
+        }
       );
   }
 
@@ -599,5 +625,6 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
     controlName.setValidators(validationArray);
     controlName.updateValueAndValidity();
   }
+
   ngOnDestroy() {}
 }
