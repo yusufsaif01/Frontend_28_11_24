@@ -124,10 +124,10 @@ export class PersonalDetailsComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this._toastrService.success(
-            'Successful',
-            'Data retrieved successfully'
-          );
+          // this._toastrService.success(
+          //   'Successful',
+          //   'Data retrieved successfully'
+          // );
           this.profile = response.data;
           this.profile_status = this.profile.profile_status.status;
           this.player_type = this.profile.player_type;
