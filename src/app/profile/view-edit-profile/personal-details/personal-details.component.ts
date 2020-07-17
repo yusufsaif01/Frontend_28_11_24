@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ViewEditProfileService } from '../view-edit-profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
@@ -7,11 +7,11 @@ import {
   FormGroup,
   FormBuilder,
   AbstractControl,
-  Validators,
-  ValidatorFn
+  Validators
 } from '@angular/forms';
 import { environment } from '@env/environment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { HeaderComponent } from '@app/shared/page-components/header/header.component';
 
 @Component({
   selector: 'app-personal-details',
@@ -30,6 +30,7 @@ export class PersonalDetailsComponent implements OnInit {
   profile_status: string;
   editMode: boolean = false;
   player_type: string = 'grassroot';
+  @ViewChild(HeaderComponent, { static: true }) header: HeaderComponent;
   constructor(
     private _editProfileService: ViewEditProfileService,
     private _sharedService: SharedService,
@@ -128,6 +129,33 @@ export class PersonalDetailsComponent implements OnInit {
   ngOnInit() {
     this.getLocationStats();
     this.getPersonalProfileDetails();
+  }
+  uploadAvatar(files: FileList) {
+    const requestData = new FormData();
+    requestData.set('avatar', files[0]);
+    this._editProfileService
+      .updateAvatar(requestData)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        res => {
+          if (res.data.avatar_url) {
+            this.profile.avatar_url =
+              environment.mediaUrl + res.data.avatar_url;
+          }
+          localStorage.setItem(
+            'avatar_url',
+            environment.mediaUrl + res.data.avatar_url
+          );
+          this.header.avatar_url = localStorage.getItem('avatar_url');
+          this._toastrService.success(
+            'Successful',
+            'Avatar updated successfully'
+          );
+        },
+        err => {
+          this._toastrService.error('Error', err.error.message);
+        }
+      );
   }
   getPersonalProfileDetails() {
     this._editProfileService

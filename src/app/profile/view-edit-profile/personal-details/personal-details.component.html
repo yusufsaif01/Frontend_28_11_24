@@ -253,11 +253,15 @@
       <div class="seciton-wrapper">
         <div class="left-seciton">
           <div class="dp-wrapper">
-            <img src="assets/images/member/profile.png" />
+            <img [src]="profile.avatar_url" />
             <span>
               <label for="upload">
                 <mat-icon class="material-icons">create</mat-icon>
-                <input type="file" id="upload" />
+                <input
+                  (change)="uploadAvatar($event.target.files)"
+                  type="file"
+                  id="upload"
+                />
               </label>
             </span>
           </div>
@@ -272,7 +276,7 @@
                     formControlName="player_type"
                     class="example-radio-group"
                   >
-                    <mat-radio-button checked value="grassroot">
+                    <mat-radio-button value="grassroot">
                       Grassroot
                     </mat-radio-button>
                     <mat-radio-button value="amateur">
