@@ -17,14 +17,12 @@
               <div class="double">
                 <p
                   *ngFor="
-                    let data of professionalDetailsForm.get('position')[
-                      'controls'
-                    ];
+                    let data of professionalDetails?.position;
                     let i = index
                   "
                 >
                   <span>{{ i + 1 }} </span>
-                  {{ data.get('name').value }}
+                  {{ data.name | titlecase }}
                 </p>
               </div>
             </div>
@@ -37,7 +35,9 @@
               <h4>Strong Foot</h4>
             </div>
             <div class="right">
-              <p>left</p>
+              <p>
+                {{ professionalDetails?.strong_foot | titlecase }}
+              </p>
             </div>
           </div>
         </div>
@@ -49,35 +49,35 @@
             </div>
             <div class="right">
               <input
-                (onclick)="editProfileForm.controls.weak_foot.value = 5"
+                (onclick)="professionalDetailsForm.controls.weak_foot.value = 5"
                 type="radio"
                 id="5-stars"
                 value="5"
               />
               <label for="5-stars" class="star">&#9733;</label>
               <input
-                (onclick)="editProfileForm.controls.weak_foot.value = 4"
+                (onclick)="professionalDetailsForm.controls.weak_foot.value = 4"
                 type="radio"
                 id="4-stars"
                 value="4"
               />
               <label for="4-stars" class="star">&#9733;</label>
               <input
-                (onclick)="editProfileForm.controls.weak_foot.value = 3"
+                (onclick)="professionalDetailsForm.controls.weak_foot.value = 3"
                 type="radio"
                 id="3-stars"
                 value="3"
               />
               <label for="3-stars" class="star">&#9733;</label>
               <input
-                (onclick)="editProfileForm.controls.weak_foot.value = 2"
+                (onclick)="professionalDetailsForm.controls.weak_foot.value = 2"
                 type="radio"
                 id="2-stars"
                 value="2"
               />
               <label for="2-stars" class="star">&#9733;</label>
               <input
-                (onclick)="editProfileForm.controls.weak_foot.value = 1"
+                (onclick)="professionalDetailsForm.controls.weak_foot.value = 1"
                 type="radio"
                 id="1-star"
                 value="1"
@@ -90,10 +90,22 @@
         <div class="view-details">
           <div class="details">
             <div class="left">
-              <h4>Current State Association</h4>
+              <h4>
+                Current State Association
+                {{
+                  professionalDetails?.association === 'Others' ? '(Other)' : ''
+                }}
+              </h4>
             </div>
             <div class="right">
-              <p>Chandigarh Football Association</p>
+              <p>
+                {{
+                  (professionalDetails?.association === 'Others'
+                    ? professionalDetails?.association_other
+                    : professionalDetails?.association
+                  ) | titlecase
+                }}
+              </p>
             </div>
           </div>
         </div>
@@ -103,44 +115,71 @@
               <h4>Former Club/Academy</h4>
             </div>
             <div class="right">
-              <p>Chandigarh Football Association</p>
+              <p>{{ professionalDetails?.former_club_academy | titlecase }}</p>
             </div>
           </div>
         </div>
 
         <!--  row -->
-        <h4>Current Associated Club/Academy :</h4>
-        <h4>Head Coach Details</h4>
         <div class="view-details">
           <div class="details">
             <div class="left">
-              <h4>Name</h4>
+              <h4>Current Associated Club/Academy :</h4>
             </div>
             <div class="right">
-              <p>name surname</p>
+              <p>
+                {{ professionalDetails?.associated_club_academy | titlecase }}
+              </p>
             </div>
           </div>
         </div>
-        <div class="view-details">
-          <div class="details">
-            <div class="left">
-              <h4>Mobile Number</h4>
-            </div>
-            <div class="right">
-              <p>+919876543210</p>
+        <ng-container
+          *ngIf="professionalDetails?.associated_club_academy === 'yes'"
+        >
+          <h4>Head Coach Details</h4>
+          <div class="view-details">
+            <div class="details">
+              <div class="left">
+                <h4>Name</h4>
+              </div>
+              <div class="right">
+                <p>
+                  {{
+                    professionalDetails?.club_academy_details?.head_coach_phone
+                  }}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="view-details">
-          <div class="details">
-            <div class="left">
-              <h4>Email</h4>
-            </div>
-            <div class="right">
-              <p>s@gm.com</p>
+          <div class="view-details">
+            <div class="details">
+              <div class="left">
+                <h4>Mobile Number</h4>
+              </div>
+              <div class="right">
+                <p>
+                  {{
+                    professionalDetails?.club_academy_details?.head_coach_phone
+                  }}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+          <div class="view-details">
+            <div class="details">
+              <div class="left">
+                <h4>Email</h4>
+              </div>
+              <div class="right">
+                <p>
+                  {{
+                    professionalDetails?.club_academy_details?.head_coach_email
+                  }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </ng-container>
 
@@ -209,7 +248,22 @@
                       >{{ foot.name }}</option
                     >
                   </select>
-                  <mat-error class="error-text"> </mat-error>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      professionalDetailsForm.controls.strong_foot.invalid &&
+                      professionalDetailsForm.controls.strong_foot.touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        professionalDetailsForm.controls.strong_foot.errors
+                          .required
+                      "
+                      translate
+                      >Strong Foot is required</span
+                    >
+                  </mat-error>
                 </div>
               </div>
               <div class="third">
@@ -289,7 +343,21 @@
                       >{{ association.name }}</option
                     >
                   </select>
-                  <mat-error class="error-text"> </mat-error>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      professionalDetailsForm.controls.association.invalid &&
+                      professionalDetailsForm.controls.association.touched
+                    "
+                    ><span
+                      *ngIf="
+                        professionalDetailsForm.controls.association.errors
+                          .required
+                      "
+                      translate
+                      >Association is required</span
+                    >
+                  </mat-error>
                 </div>
               </div>
               <ng-container
@@ -331,60 +399,171 @@
               </div>
             </div>
 
-            <h4>Head Coach</h4>
-            <div class="input-container">
-              <div class="third">
-                <div class="form-block">
-                  <label>Name<span>*</span></label>
-                  <input
-                    formControlName="head_coach_name"
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                    required
-                    placeholder="Name"
-                  />
-                  <mat-error class="error-text"> </mat-error>
-                </div>
-              </div>
-              <div class="third">
-                <div class="form-block">
-                  <label>Mobile Number<span>*</span></label>
-                  <div class="phone-block">
-                    <div class="country-code">
-                      <select disabled>
-                        <option>+91</option>
-                      </select>
-                    </div>
-                    <div class="phone-number">
-                      <input
-                        formControlName="head_coach_phone"
-                        type="text"
-                        matInput
-                        autocomplete="off"
-                        required
-                        placeholder="Mobile Number"
-                      />
-                    </div>
+            <ng-container
+              *ngIf="
+                professionalDetailsForm.get('associated_club_academy').value ===
+                'yes'
+              "
+            >
+              <h4>Head Coach</h4>
+              <div class="input-container">
+                <div class="third">
+                  <div class="form-block">
+                    <label>Name<span>*</span></label>
+                    <input
+                      formControlName="head_coach_name"
+                      type="text"
+                      matInput
+                      autocomplete="off"
+                      required
+                      placeholder="Name"
+                    />
+                    <mat-error
+                      class="error-text"
+                      *ngIf="
+                        professionalDetailsForm.controls.head_coach_name
+                          .invalid &&
+                        professionalDetailsForm.controls.head_coach_name.touched
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.head_coach_name
+                            .errors.required
+                        "
+                        translate
+                        >Head Coach Name is required
+                      </span>
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.head_coach_name
+                            .errors.pattern
+                        "
+                        translate
+                        >Head Coach Name format is invalid
+                      </span>
+                    </mat-error>
                   </div>
-                  <mat-error class="error-text"> </mat-error>
+                </div>
+                <div class="third">
+                  <div class="form-block">
+                    <label>Mobile Number<span>*</span></label>
+                    <div class="phone-block">
+                      <div class="country-code">
+                        <select disabled>
+                          <option>+91</option>
+                        </select>
+                      </div>
+                      <div class="phone-number">
+                        <input
+                          formControlName="head_coach_phone"
+                          type="text"
+                          matInput
+                          autocomplete="off"
+                          required
+                          placeholder="Mobile Number"
+                        />
+                      </div>
+                    </div>
+                    <mat-error
+                      class="error-text"
+                      *ngIf="
+                        professionalDetailsForm.controls.head_coach_phone
+                          .invalid &&
+                        professionalDetailsForm.controls.head_coach_phone
+                          .touched
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.head_coach_phone
+                            .errors.required
+                        "
+                        translate
+                        >Head Coach Phone is required</span
+                      >
+                      <ng-template #lengthBlock>
+                        <span
+                          *ngIf="
+                            professionalDetailsForm.controls.head_coach_phone
+                              .errors.minlength
+                          "
+                        >
+                          Please provide number upto
+                          {{
+                            professionalDetailsForm.controls.head_coach_phone
+                              .errors.minlength.requiredLength
+                          }}
+                          digits
+                        </span>
+                        <span
+                          *ngIf="
+                            professionalDetailsForm.controls.head_coach_phone
+                              .errors.maxlength
+                          "
+                        >
+                          Please provide number upto
+                          {{
+                            professionalDetailsForm.controls.head_coach_phone
+                              .errors.maxlength.requiredLength
+                          }}
+                          digits
+                        </span>
+                      </ng-template>
+                      <span
+                        translate
+                        class="error-text"
+                        *ngIf="
+                          professionalDetailsForm.controls.head_coach_phone
+                            .errors.pattern;
+                          else lengthBlock
+                        "
+                      >
+                        Phone Number format is invalid
+                      </span>
+                    </mat-error>
+                  </div>
+                </div>
+                <div class="third">
+                  <div class="form-block">
+                    <label>Email Address</label>
+                    <input
+                      formControlName="head_coach_email"
+                      type="email"
+                      matInput
+                      autocomplete="off"
+                      required
+                      placeholder="Email"
+                    />
+                    <mat-error
+                      class="error-text"
+                      *ngIf="
+                        professionalDetailsForm.controls.head_coach_email
+                          .invalid &&
+                        professionalDetailsForm.controls.head_coach_email
+                          .touched
+                      "
+                      ><span
+                        *ngIf="
+                          professionalDetailsForm.controls.head_coach_email
+                            .errors.required
+                        "
+                        translate
+                        >Head Coach Email is required
+                      </span>
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.head_coach_email
+                            .errors.email
+                        "
+                        translate
+                        >Head Coach Email format is invalid
+                      </span>
+                    </mat-error>
+                  </div>
                 </div>
               </div>
-              <div class="third">
-                <div class="form-block">
-                  <label>Email Address</label>
-                  <input
-                    formControlName="head_coach_email"
-                    type="email"
-                    matInput
-                    autocomplete="off"
-                    required
-                    placeholder="Email"
-                  />
-                  <mat-error class="error-text"> </mat-error>
-                </div>
-              </div>
-            </div>
+            </ng-container>
 
             <div class="input-container">
               <div class="third">
@@ -408,7 +587,11 @@
                 <button (click)="toggleMode()" class="btn-normal">
                   Cancel
                 </button>
-                <button (click)="editProfessionalDetails()" class="btn-active">
+                <button
+                  [disabled]="!professionalDetailsForm.valid"
+                  (click)="editProfessionalDetails()"
+                  class="btn-active"
+                >
                   Save Changes
                 </button>
               </div>
