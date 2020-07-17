@@ -181,6 +181,26 @@ export class PersonalDetailsComponent implements OnInit {
       college:
         this.profile.institute && this.profile.institute.college
           ? this.profile.institute.college
+          : '',
+      youtube:
+        this.profile.social_profiles && this.profile.social_profiles.youtube
+          ? this.profile.social_profiles.youtube
+          : '',
+      facebook:
+        this.profile.social_profiles && this.profile.social_profiles.facebook
+          ? this.profile.social_profiles.facebook
+          : '',
+      twitter:
+        this.profile.social_profiles && this.profile.social_profiles.twitter
+          ? this.profile.social_profiles.twitter
+          : '',
+      instagram:
+        this.profile.social_profiles && this.profile.social_profiles.instagram
+          ? this.profile.social_profiles.instagram
+          : '',
+      linked_in:
+        this.profile.social_profiles && this.profile.social_profiles.linked_in
+          ? this.profile.social_profiles.linked_in
           : ''
     });
   }
