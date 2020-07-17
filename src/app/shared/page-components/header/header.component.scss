@@ -341,7 +341,7 @@
         border-bottom: 1px solid $grey;
 
         &:last-child {
-          border-bottom: none;
+          border-bottom: none !important;
         }
 
         &:hover {

@@ -232,7 +232,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       );
     }
   }
-  
+
   populateDynamicControl(data: any, func: any) {
     if (data.length !== 0) {
       for (let i = 0; i < data.length; i++) {
@@ -240,22 +240,22 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       }
     }
   }
-                populateDynamicPosition() {
-                  for (let i = 0; i < 3; i++) {
-                    this.preparePosition(this.professionalDetails.position[i], i);
-                  }
-                }
-                getPositionList() {
-                  this._professionalDetailsService
-                    .getPositionList()
-                    .pipe(untilDestroyed(this))
-                    .subscribe(
-                      response => {
-                        this.positionArray = response.data.records;
-                      },
-                      error => {}
-                    );
-                }
+  populateDynamicPosition() {
+    for (let i = 0; i < 3; i++) {
+      this.preparePosition(this.professionalDetails.position[i], i);
+    }
+  }
+  getPositionList() {
+    this._professionalDetailsService
+      .getPositionList()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.positionArray = response.data.records;
+        },
+        error => {}
+      );
+  }
   populateView() {
     this._professionalDetailsService
       .getProfessionalDetails()
@@ -298,7 +298,6 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
         error => {}
       );
   }
-
 
   populateFormFields() {
     if (this.member_type === 'player') {
