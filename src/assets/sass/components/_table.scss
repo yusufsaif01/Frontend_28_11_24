@@ -3,14 +3,16 @@
 .mat-table {
   // ::ng-deep{
   .mat-header-row {
-    background-color: $color-white;
-    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    margin-bottom: 1rem;
+    background-color: $third-color;
+    border-radius: 0.4rem;
+    border: none;
 
     .mat-header-cell {
+      font-family: $primary-text;
       font-size: 2rem;
       line-height: 3rem;
-      color: $text-color;
+      color: $fourth-color;
+      font-weight: 600;
 
       &.mat-column-position {
         padding: 0;
@@ -26,18 +28,21 @@
   }
 
   .mat-row {
-    border-top: none;
+    border-bottom: 1px solid $grey;
     background: $color-white;
-    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-    margin-bottom: 1rem;
 
     &:last-child {
-      margin-bottom: 0rem;
+      border-bottom: none;
     }
 
     .mat-cell {
-      font-size: 2rem;
-      line-height: 3rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+
+      p {
+        font-size: 2rem;
+        line-height: 3rem;
+      }
 
       &.mat-column-position {
         padding: 0;
@@ -65,28 +70,13 @@
         button {
           border: none;
           background: transparent;
-          margin-right: 2rem;
+          margin-right: 1rem;
           outline: none;
           cursor: pointer;
-
-          &:nth-of-type(1) {
-            transform: translateY(2px);
-
-            img {
-              margin-top: 5px;
-              height: 2.4rem;
-            }
-          }
-
-          img {
-            height: 2rem;
-          }
+          color: $second-color;
 
           &:hover {
-            img {
-              filter: grayscale(100%);
-              opacity: 0.5;
-            }
+            color: $primary-color;
           }
         }
       }
