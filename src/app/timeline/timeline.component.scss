@@ -9,6 +9,7 @@
 
   .right-panel {
     width: 76.25%;
+    position: relative;
 
     .right-wrapper {
       display: flex;
@@ -360,6 +361,12 @@
           }
         }
       }
+    }
+
+    .footer-fix {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
     }
   }
 }

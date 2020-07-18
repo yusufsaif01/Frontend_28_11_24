@@ -8,14 +8,12 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthenticationService } from '../authentication/authentication.service';
-import { Router, RouterStateSnapshot } from '@angular/router';
-import { CredentialsService } from '../authentication/credentials.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private authenticationService: AuthenticationService,
-    private credentialService: CredentialsService,
     private router: Router
   ) {}
 
@@ -26,7 +24,8 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError(err => {
         if (err.status === 401 || err.status === 402) {
-          this.authenticationService.logout();
+          if (!this.router.routerState.snapshot.url.includes('login'))
+            this.authenticationService.logout('unauthorized');
         }
         const error = err;
         return throwError(error);

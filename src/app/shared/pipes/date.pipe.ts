@@ -14,13 +14,13 @@ export class DatePipe implements PipeTransform {
     diff = diff / 60;
     let hours = Math.abs(Math.round(diff));
     if (second < 60) {
-      created_at = second + ' sec';
+      created_at = second <= 1 ? second + ' sec ago' : second + ' secs ago';
     }
     if (second >= 60 && minutes < 60) {
-      created_at = minutes + ' min';
+      created_at = minutes <= 1 ? minutes + ' min ago' : minutes + ' mins ago';
     }
     if (minutes >= 60 && hours < 24) {
-      created_at = hours == 1 ? hours + ' hour ago' : hours + ' hours ago';
+      created_at = hours <= 1 ? hours + ' hour ago' : hours + ' hours ago';
     }
     if (hours >= 24) {
       let finalDate = new DatePipeAngular('en-US');

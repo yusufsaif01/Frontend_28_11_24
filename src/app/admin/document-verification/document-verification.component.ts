@@ -9,7 +9,6 @@ import { MatDialog } from '@angular/material';
 import { untilDestroyed } from '@app/core';
 import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
 import { environment } from '@env/environment';
-import { ContractService } from '@app/profile/view-employment-contract/contract.service';
 
 interface ResponseContext {
   added_on: string;
@@ -47,7 +46,6 @@ export class DocumentVerificationComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private _documentVerficationService: DocumentVerificationService,
     private _toastrService: ToastrService,
-    private _contractService: ContractService,
     public dialog: MatDialog
   ) {
     this.activatedRoute.params.subscribe(param => {
@@ -260,18 +258,20 @@ export class DocumentVerificationComponent implements OnInit {
           remarks: status === 'disapproved' ? result : ' ',
           status: status
         };
-        this._contractService.updateContractStatus(id, data).subscribe(
-          (response: any) => {
-            this.getEmploymentContractList();
-            this._toastrService.success(
-              'Status updated successfully',
-              response.status
-            );
-          },
-          (error: any) => {
-            this._toastrService.error(error.error.message, 'Error');
-          }
-        );
+        this._documentVerficationService
+          .updateContractStatus(id, data)
+          .subscribe(
+            (response: any) => {
+              this.getEmploymentContractList();
+              this._toastrService.success(
+                'Status updated successfully',
+                response.status
+              );
+            },
+            (error: any) => {
+              this._toastrService.error(error.error.message, 'Error');
+            }
+          );
       }
     });
   }
