@@ -18,7 +18,8 @@ export class EmploymentContractsComponent implements OnInit {
 
   constructor(
     private _editProfileService: ViewEditProfileService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -40,6 +41,37 @@ export class EmploymentContractsComponent implements OnInit {
           this._toastrService.error(error.error.message, 'Error');
         }
       );
+  }
+  deletePopup(id: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '40% ',
+      panelClass: 'filterDialog',
+      data: {
+        message: 'Are you sure you want to delete?',
+        acceptText: 'Confirm',
+        rejectText: 'Cancel'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this._editProfileService
+          .deleteContract(id)
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this._toastrService.success(
+                'Successful',
+                'Employment Contract Deleted successfully'
+              );
+
+              this.getEmploymentContractList();
+            },
+            error => {
+              this._toastrService.error(`${error.error.message}`, 'Error');
+            }
+          );
+      }
+    });
   }
   ngOnDestroy() {}
 }
