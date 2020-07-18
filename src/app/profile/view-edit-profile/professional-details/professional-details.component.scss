@@ -109,14 +109,36 @@
         }
       }
 
+      .associated {
+        h4 {
+          span {
+            font-weight: 500;
+            margin-left: 2rem;
+          }
+        }
+      }
+
       .view-details {
         display: flex;
         width: 100%;
 
         .details {
           display: flex;
-          width: 50%;
+          width: 70%;
           margin: 1rem 0;
+
+          .full {
+            width: 100%;
+            display: flex;
+
+            p {
+              width: 33%;
+
+              span {
+                font-weight: 600;
+              }
+            }
+          }
 
           .left {
             width: 40%;
@@ -129,6 +151,10 @@
 
           .right {
             width: 60%;
+
+            .stars {
+              transform: translateY(-1rem);
+            }
 
             p {
               font-size: $heading-fourth;

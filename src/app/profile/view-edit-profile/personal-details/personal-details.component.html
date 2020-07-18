@@ -21,6 +21,9 @@
         <ul>
           <li>
             <a
+              *ngIf="
+                profile.social_profiles && profile.social_profiles.facebook
+              "
               [target]="
                 profile.social_profiles && profile.social_profiles.facebook
                   ? '_blank'
@@ -36,6 +39,9 @@
           </li>
           <li>
             <a
+              *ngIf="
+                profile.social_profiles && profile.social_profiles.instagram
+              "
               [target]="
                 profile.social_profiles && profile.social_profiles.instagram
                   ? '_blank'
@@ -51,6 +57,9 @@
           </li>
           <li>
             <a
+              *ngIf="
+                profile.social_profiles && profile.social_profiles.linked_in
+              "
               [target]="
                 profile.social_profiles && profile.social_profiles.linked_in
                   ? '_blank'
@@ -66,6 +75,7 @@
           </li>
           <li>
             <a
+              *ngIf="profile.social_profiles && profile.social_profiles.youtube"
               [target]="
                 profile.social_profiles && profile.social_profiles.youtube
                   ? '_blank'
@@ -81,6 +91,7 @@
           </li>
           <li>
             <a
+              *ngIf="profile.social_profiles && profile.social_profiles.twitter"
               [target]="
                 profile.social_profiles && profile.social_profiles.twitter
                   ? '_blank'

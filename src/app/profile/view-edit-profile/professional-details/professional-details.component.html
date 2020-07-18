@@ -9,22 +9,21 @@
       </div>
 
       <div class="second-section">
-        <!-- first row -->
+        <!-- row -->
         <h4>Preferred Playing Position :</h4>
-        <div class="input-container">
-          <div class="half">
-            <div class="form-block">
-              <div class="double">
-                <p
-                  *ngFor="
-                    let data of professionalDetails?.position;
-                    let i = index
-                  "
-                >
-                  <span>{{ i + 1 }} </span>
-                  {{ data.name | titlecase }}
-                </p>
-              </div>
+
+        <div class="view-details">
+          <div class="details">
+            <div class="full">
+              <p
+                *ngFor="
+                  let data of professionalDetails?.position;
+                  let i = index
+                "
+              >
+                <span>{{ i + 1 }} </span>
+                {{ data.name | titlecase }}
+              </p>
             </div>
           </div>
         </div>
@@ -48,14 +47,20 @@
               <h4>Weak Foot</h4>
             </div>
             <div class="right">
-              <ng-container *ngFor="let number of [1, 2, 3, 4, 5]">
-                <ng-container *ngIf="number <= professionalDetails?.weak_foot">
-                  <i-feather name="star" class="icon-size active"></i-feather>
+              <div class="stars">
+                <ng-container *ngFor="let number of [1, 2, 3, 4, 5]">
+                  <ng-container
+                    *ngIf="number <= professionalDetails?.weak_foot"
+                  >
+                    <mat-icon class="material-icons active">
+                      star_border
+                    </mat-icon>
+                  </ng-container>
+                  <ng-container *ngIf="number > professionalDetails?.weak_foot">
+                    <mat-icon class="material-icons "> star_border </mat-icon>
+                  </ng-container>
                 </ng-container>
-                <ng-container *ngIf="number > professionalDetails?.weak_foot">
-                  <i-feather name="star" class="icon-size"></i-feather>
-                </ng-container>
-              </ng-container>
+              </div>
             </div>
           </div>
         </div>
@@ -93,23 +98,19 @@
           </div>
         </div>
 
-        <!--  row -->
-        <div class="view-details">
-          <div class="details">
-            <div class="left">
-              <h4>Current Associated With Club/Academy :</h4>
-            </div>
-            <div class="right">
-              <p>
-                {{ professionalDetails?.associated_club_academy | titlecase }}
-              </p>
-            </div>
-          </div>
+        <div class="associated mt-2">
+          <h4>
+            Current Associated With Club/Academy :
+            <span>
+              {{ professionalDetails?.associated_club_academy | titlecase }}
+            </span>
+          </h4>
         </div>
+
         <ng-container
           *ngIf="professionalDetails?.associated_club_academy === 'yes'"
         >
-          <h4>Head Coach Details</h4>
+          <h4 class="mt-1 mb-1">Head Coach Details</h4>
           <div class="view-details">
             <div class="details">
               <div class="left">
@@ -274,56 +275,63 @@
                   <label>Weak Foot</label>
                   <div class="details">
                     <div class="right">
-                      <input
-                        formControlName="weak_foot"
-                        (onclick)="
-                          professionalDetailsForm.get('weak_foot').value = 5
-                        "
-                        type="radio"
-                        id="5-stars"
-                        value="5"
-                      />
-                      <label for="5-stars" class="star">&#9733;</label>
-                      <input
-                        formControlName="weak_foot"
-                        (onclick)="
-                          professionalDetailsForm.get('weak_foot').value = 4
-                        "
-                        type="radio"
-                        id="4-stars"
-                        value="4"
-                      />
-                      <label for="4-stars" class="star">&#9733;</label>
-                      <input
-                        formControlName="weak_foot"
-                        (onclick)="
-                          professionalDetailsForm.get('weak_foot').value = 3
-                        "
-                        type="radio"
-                        id="3-stars"
-                        value="3"
-                      />
-                      <label for="3-stars" class="star">&#9733;</label>
-                      <input
-                        formControlName="weak_foot"
-                        (onclick)="
-                          professionalDetailsForm.get('weak_foot').value = 2
-                        "
-                        type="radio"
-                        id="2-stars"
-                        value="2"
-                      />
-                      <label for="2-stars" class="star">&#9733;</label>
-                      <input
-                        formControlName="weak_foot"
-                        (onclick)="
-                          professionalDetailsForm.get('weak_foot').value = 1
-                        "
-                        type="radio"
-                        id="1-star"
-                        value="1"
-                      />
-                      <label for="1-star" class="star">&#9733;</label>
+                      <div class="star-rating">
+                        <input
+                          id="star-5"
+                          type="radio"
+                          name="rating"
+                          value="star-5"
+                        />
+                        <label for="star-5" title="5 stars">
+                          <mat-icon class="material-icons"
+                            >star_border</mat-icon
+                          >
+                        </label>
+                        <input
+                          id="star-4"
+                          type="radio"
+                          name="rating"
+                          value="star-4"
+                        />
+                        <label for="star-4" title="4 stars">
+                          <mat-icon class="material-icons"
+                            >star_border</mat-icon
+                          >
+                        </label>
+                        <input
+                          id="star-3"
+                          type="radio"
+                          name="rating"
+                          value="star-3"
+                        />
+                        <label for="star-3" title="3 stars">
+                          <mat-icon class="material-icons"
+                            >star_border</mat-icon
+                          >
+                        </label>
+                        <input
+                          id="star-2"
+                          type="radio"
+                          name="rating"
+                          value="star-2"
+                        />
+                        <label for="star-2" title="2 stars">
+                          <mat-icon class="material-icons"
+                            >star_border</mat-icon
+                          >
+                        </label>
+                        <input
+                          id="star-1"
+                          type="radio"
+                          name="rating"
+                          value="star-1"
+                        />
+                        <label for="star-1" title="1 star">
+                          <mat-icon class="material-icons"
+                            >star_border</mat-icon
+                          >
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -343,7 +351,8 @@
                     <option
                       *ngFor="let association of stateAssociationArray"
                       [value]="association.value"
-                      >{{ association.name }}</option
+                    >
+                      {{ association.name }}</option
                     >
                   </select>
                   <mat-error
@@ -386,7 +395,7 @@
             </div>
             <div class="input-container">
               <div class="full">
-                <h4>Currently Associated With Club/Academy?</h4>
+                <h4 class="mb-1">Currently Associated With Club/Academy?</h4>
                 <div class="radio-block">
                   <mat-radio-group
                     formControlName="associated_club_academy"
@@ -567,7 +576,9 @@
             <div class="input-container">
               <div class="third">
                 <div class="form-block">
-                  <label>Former Club/Academy (optional, if any)</label>
+                  <label class="label-small"
+                    >Former Club/Academy (optional, if any)</label
+                  >
                   <input
                     formControlName="former_club_academy"
                     type="text"
