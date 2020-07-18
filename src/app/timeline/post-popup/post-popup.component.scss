@@ -42,6 +42,7 @@
     textarea {
       min-height: 15rem;
       font-family: $primary-text;
+      font-weight: 500;
 
       &::placeholder {
         font-weight: 600;
@@ -52,6 +53,7 @@
       font-size: $heading-fifth;
       margin: 1rem 0;
       color: $second-color;
+      font-weight: 500;
     }
   }
 
