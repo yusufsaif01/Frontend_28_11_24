@@ -108,7 +108,17 @@
                   color: $second-color;
 
                   span {
-                    font-weight: 600;
+                    font-weight: 500;
+                    margin-right: 0.5rem;
+                    text-transform: capitalize;
+                  }
+
+                  span.playertype {
+                    color: $primary-color;
+                  }
+
+                  span.playerposition {
+                    color: $success;
                   }
                 }
               }
@@ -199,7 +209,17 @@
                       font-size: $heading-sixth;
 
                       span {
-                        font-weight: 600;
+                        font-weight: 500;
+                        margin-right: 0.5rem;
+                        text-transform: capitalize;
+                      }
+
+                      span.playertype {
+                        color: $primary-color;
+                      }
+
+                      span.playerposition {
+                        color: $success;
                       }
                     }
                   }

@@ -9,16 +9,7 @@
         {{ profile.first_name }} {{ profile.last_name }}
       </h3>
     </div>
-    <div class="profile-position">
-      <h5>
-        {{
-          (profile.position && profile.position[0]
-            ? profile.position[0].name
-            : ''
-          ) | titlecase
-        }}
-      </h5>
-    </div>
+
     <div class="profile-catergory">
       <h4>
         <span>
@@ -30,14 +21,24 @@
         {{ profile?.player_type | titlecase }}
       </h4>
     </div>
+    <div class="profile-position">
+      <h4>
+        {{
+          (profile.position && profile.position[0]
+            ? profile.position[0].name
+            : ''
+          ) | titlecase
+        }}
+      </h4>
+    </div>
     <div class="profile-counts">
       <div class="count line">
         <span>{{ achievements }}</span>
-        <h5>Achievement</h5>
+        <h5>Followers</h5>
       </div>
       <div class="count">
         <span>{{ count.tournaments }}</span>
-        <h5>Tournaments</h5>
+        <h5>Videos</h5>
       </div>
     </div>
   </div>
