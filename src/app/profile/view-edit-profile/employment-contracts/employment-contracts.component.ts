@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { EmploymentContractListTableConfig } from './employment-contract-listing-table-conf';
+import { ViewEditProfileService } from '../view-edit-profile.service';
+import { ToastrService } from 'ngx-toastr';
+import { untilDestroyed } from '@app/core';
 @Component({
   selector: 'app-employment-contracts',
   templateUrl: './employment-contracts.component.html',
@@ -8,31 +11,33 @@ import { EmploymentContractListTableConfig } from './employment-contract-listing
 })
 export class EmploymentContractsComponent implements OnInit {
   public tableConfig: EmploymentContractListTableConfig = new EmploymentContractListTableConfig();
-  public dataSource = new MatTableDataSource([
-    {
-      name: 'Bayern München',
-      effective_date: '2 Jun 2020',
-      expiry_date: '2 Jun 2020',
-      created_by: 'Club',
-      status: 'Completed'
-    },
-    {
-      name: 'Bayern München',
-      effective_date: '2 Jun 2020',
-      expiry_date: '2 Jun 2020',
-      created_by: '2 Jun 2020',
-      status: 'Yet to start'
-    },
-    {
-      name: 'Bayern München',
-      effective_date: '2 Jun 2020',
-      expiry_date: '2 Jun 2020',
-      created_by: '2 Jun 2020',
-      status: 'Pending'
-    }
-  ]);
+  public dataSource = new MatTableDataSource([]);
+  editMode: boolean = false;
 
-  constructor() {}
+  constructor(
+    private _editProfileService: ViewEditProfileService,
+    private _toastrService: ToastrService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getEmploymentContractList();
+  }
+  toggleMode() {
+    this.editMode = !this.editMode;
+  }
+  getEmploymentContractList() {
+    this._editProfileService
+      .getEmploymentContractList()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        (response: any) => {
+          let records = response.data.records;
+          this.dataSource = new MatTableDataSource(records);
+        },
+        error => {
+          this._toastrService.error(error.error.message, 'Error');
+        }
+      );
+  }
+  ngOnDestroy() {}
 }

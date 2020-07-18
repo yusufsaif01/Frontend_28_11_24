@@ -1,9 +1,9 @@
 <div class="wrapper">
   <!-- view container -->
-  <div class="view-wrapper">
+  <div class="view-wrapper" [hidden]="editMode">
     <div class="heading">
       <h2>Employment contract</h2>
-      <button class="icon-btn">
+      <button class="icon-btn" (click)="toggleMode()">
         <mat-icon class="material-icons">create</mat-icon>
       </button>
     </div>
@@ -16,15 +16,15 @@
       >
       </app-table>
     </div>
-    <div class="notfound">
-      <h3>No contract, please add a contract.</h3>
-    </div>
   </div>
   <!-- edit container -->
-  <div class="edit-wrapper">
+  <div class="edit-wrapper" [hidden]="!editMode">
     <div class="heading">
       <h2>Employment contract</h2>
-      <button class="secondary-btn">
+      <button
+        class="secondary-btn"
+        [routerLink]="['/member/profile/add-employment-contract/']"
+      >
         Add new contract
       </button>
     </div>
@@ -37,19 +37,40 @@
         [rows]="dataSource"
       >
       </app-table>
-      <ng-template #ListAction>
+      <ng-template
+        #ListAction
+        let-id="id"
+        let-created_by="created_by"
+        let-status="status"
+      >
         <div class="action-buttons">
-          <button type="button">
+          <button
+            [routerLink]="['/member/profile/view-employment-contract/', id]"
+            matTooltip="View"
+            type="button"
+          >
             <mat-icon class="material-icons">visibility</mat-icon>
           </button>
-
-          <button type="button">
+          <button
+            *ngIf="['player'].includes(created_by)"
+            [ngClass]="{
+              'icon-disable': ['active', 'yet_to_start', 'completed'].includes(
+                status
+              )
+            }"
+            matTooltip="Delete"
+            (click)="deletePopup(id)"
+            type="button"
+          >
             <mat-icon class="material-icons">delete</mat-icon>
           </button>
         </div>
       </ng-template>
     </div>
-    <div class="notfound">
+    <div
+      class="notfound"
+      *ngIf="!dataSource || !dataSource.data || dataSource.data.length === 0"
+    >
       <h3>No contract, please add a contract.</h3>
     </div>
   </div>
