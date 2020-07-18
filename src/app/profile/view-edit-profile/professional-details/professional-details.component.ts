@@ -198,7 +198,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       this.professionalDetailsForm = this._formBuilder.group({
         position: this._formBuilder.array([]),
         strong_foot: [''],
-        associated_club_academy: [''],
+        associated_club_academy: ['', [Validators.required]],
         weak_foot: ['', []],
         head_coach_name: [''],
         head_coach_phone: [''],

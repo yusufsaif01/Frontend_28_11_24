@@ -53,7 +53,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.documentsDetailsForm = this._formBuilder.group({
-      aadhar: [''], //pdf
+      aadhar: [''],
       aadhar_number: [
         '',
         [
@@ -62,11 +62,11 @@ export class DocumentsComponent implements OnInit, OnDestroy {
           Validators.maxLength(12),
           Validators.pattern(/^\d+$/)
         ]
-      ], //number
-      aadhar_media_type: ['', [Validators.required]], //string
-      aadhar_front: ['', []], //img
-      aadhar_back: ['', []], //img
-      player_photo: ['', [Validators.required, requiredFileAvatar]] //img
+      ],
+      aadhar_media_type: ['', [Validators.required]],
+      aadhar_front: ['', []],
+      aadhar_back: ['', []],
+      player_photo: ['', [Validators.required, requiredFileAvatar]]
     });
   }
 
@@ -296,7 +296,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
               'Successful',
               'Documents updated successfully'
             );
-            this.clearUrls();
+            this.initializeFields();
             this.populateView();
             this.toggleMode();
           },
@@ -307,10 +307,11 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     }
   }
 
-  clearUrls() {
+  initializeFields() {
     this.aadhar_url = '';
     this.aadhar_front_url = '';
     this.aadhar_back_url = '';
+    this.documentsDetailsForm.get('player_photo').setValue('');
   }
 
   checkFileValidations() {
