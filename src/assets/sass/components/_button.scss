@@ -142,3 +142,33 @@
   width: 3.6rem !important;
   font-size: 3.6rem !important;
 }
+
+.secondary-btn {
+  background: $fourth-color;
+  font-family: $primary-text;
+  border: none;
+  color: $white-color;
+  padding: 1rem 3rem;
+  font-size: $heading-fourth;
+  font-weight: 500;
+  border-radius: 5rem;
+  outline: 0px;
+  cursor: pointer;
+  @include shadow-btn-secondary;
+
+  &:hover {
+    background: $primary-color;
+    @include shadow-btn-primary;
+  }
+}
+
+.icon-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    color: $primary-color;
+  }
+}
