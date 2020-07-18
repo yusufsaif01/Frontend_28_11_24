@@ -24,7 +24,7 @@
   select,
   textarea {
     width: 100%;
-    padding: 1rem;
+    padding: 1rem 4rem 1rem 1rem;
     border: 1px solid transparent;
     outline: none;
     background: $third-color;
@@ -131,4 +131,35 @@
     right: 0;
     top: -0.5rem;
   }
+}
+
+.label-small {
+  font-size: $heading-fifth !important;
+}
+
+// star
+.star-rating {
+  direction: rtl;
+  display: inline-block;
+  padding: 0.5rem 0rem;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  color: $fourth-color;
+  font-size: 2rem;
+  padding: 0;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  display: inline-block;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input[type="radio"]:checked ~ label {
+  color: $primary-color;
 }
