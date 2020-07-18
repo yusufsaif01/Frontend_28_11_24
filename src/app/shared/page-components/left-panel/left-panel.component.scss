@@ -270,21 +270,20 @@
       h3 {
         color: $fourth-color;
         font-weight: 500;
-        padding: 1rem;
+        padding: 1rem 1rem 0.5rem 1rem;
         word-break: break-all;
       }
     }
 
     &-position {
-      h5 {
-        color: $grey;
-        font-weight: 300;
+      h4 {
+        color: $success;
+        font-weight: 500;
       }
     }
 
     &-catergory {
       h4 {
-        color: $fourth-color;
         font-weight: 500;
         display: flex;
         align-items: center;
@@ -300,7 +299,7 @@
 
     &-counts {
       display: flex;
-      margin: 1rem auto;
+      margin: 2rem auto;
 
       .count {
         display: block;
