@@ -59,10 +59,7 @@
       font-size: $heading-Seoncdary;
       padding-right: 2rem;
       color: $fourth-color;
-
-      span {
-        display: block;
-      }
+      word-break: normal;
     }
   }
 

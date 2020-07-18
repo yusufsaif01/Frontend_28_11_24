@@ -85,11 +85,7 @@
       display: flex;
       margin: 1rem auto;
 
-      .count {
-        display: block;
-        text-align: center;
-        width: 90%;
-        margin: auto;
+      .line {
         position: relative;
 
         &::before {
@@ -100,11 +96,14 @@
           position: absolute;
           right: 0rem;
           top: 1rem;
-
-          &:last-child {
-            display: none;
-          }
         }
+      }
+
+      .count {
+        display: block;
+        text-align: center;
+        width: 90%;
+        margin: auto;
 
         span {
           display: inline-block;
