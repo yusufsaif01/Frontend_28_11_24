@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { debounceTime, map } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
+import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
 
 interface MemberListContext {
   member_type: string;
@@ -49,20 +50,34 @@ export class HeaderComponent implements OnInit, OnDestroy {
   results$: Observable<any>;
   subject = new Subject();
   totalRecordSubject$ = new Subject();
+  stats: any = {};
 
   constructor(
     private _router: Router,
     private _authenticationService: AuthenticationService,
     private _headerService: HeaderService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private _footRequestService: FootRequestService
   ) {}
 
   ngOnDestroy() {}
 
   ngOnInit() {
     this.searchInit();
+    this.getConnectionStats();
   }
-
+  getConnectionStats() {
+    let data = { user_id: localStorage.getItem('user_id') };
+    this._footRequestService
+      .connectionStats(data)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.stats.footmate_requests = response.data.footmate_requests;
+        },
+        error => {}
+      );
+  }
   logout() {
     this._authenticationService.logout();
   }

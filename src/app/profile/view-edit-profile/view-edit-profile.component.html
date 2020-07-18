@@ -7,10 +7,11 @@
     <div class="right-wrapper">
       <div class="btn-group">
         <button
-          *ngFor="let componentName of components"
-          (click)="switch(componentName.value)"
+          [ngClass]="{ 'btn-active': componentName === component.value }"
+          *ngFor="let component of components"
+          (click)="switch(component.value)"
         >
-          {{ componentName.name }}
+          {{ component.name }}
         </button>
       </div>
       <div class="main mt-2">

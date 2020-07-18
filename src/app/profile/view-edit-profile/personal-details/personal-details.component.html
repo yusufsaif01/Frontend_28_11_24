@@ -20,21 +20,79 @@
       <div class="right-part">
         <ul>
           <li>
-            <a><img src="assets/images/website/social/facebook.svg" alt=""/></a>
+            <a
+              [target]="
+                profile.social_profiles && profile.social_profiles.facebook
+                  ? '_blank'
+                  : ''
+              "
+              [href]="
+                profile.social_profiles && profile.social_profiles.facebook
+                  ? appendURL(profile.social_profiles.facebook)
+                  : transformURL('javascript:void(0)')
+              "
+              ><img src="assets/images/website/social/facebook.svg" alt=""
+            /></a>
           </li>
           <li>
             <a
+              [target]="
+                profile.social_profiles && profile.social_profiles.instagram
+                  ? '_blank'
+                  : ''
+              "
+              [href]="
+                profile.social_profiles && profile.social_profiles.instagram
+                  ? appendURL(profile.social_profiles.instagram)
+                  : transformURL('javascript:void(0)')
+              "
               ><img src="assets/images/website/social/instagram.svg" alt=""
             /></a>
           </li>
           <li>
-            <a><img src="assets/images/website/social/linkedin.svg" alt=""/></a>
+            <a
+              [target]="
+                profile.social_profiles && profile.social_profiles.linked_in
+                  ? '_blank'
+                  : ''
+              "
+              [href]="
+                profile.social_profiles && profile.social_profiles.linked_in
+                  ? appendURL(profile.social_profiles.linked_in)
+                  : transformURL('javascript:void(0)')
+              "
+              ><img src="assets/images/website/social/linkedin.svg" alt=""
+            /></a>
           </li>
           <li>
-            <a><img src="assets/images/website/social/youtube.svg" alt=""/></a>
+            <a
+              [target]="
+                profile.social_profiles && profile.social_profiles.youtube
+                  ? '_blank'
+                  : ''
+              "
+              [href]="
+                profile.social_profiles && profile.social_profiles.youtube
+                  ? appendURL(profile.social_profiles.youtube)
+                  : transformURL('javascript:void(0)')
+              "
+              ><img src="assets/images/website/social/youtube.svg" alt=""
+            /></a>
           </li>
           <li>
-            <a><img src="assets/images/website/social/twitter.svg" alt=""/></a>
+            <a
+              [target]="
+                profile.social_profiles && profile.social_profiles.twitter
+                  ? '_blank'
+                  : ''
+              "
+              [href]="
+                profile.social_profiles && profile.social_profiles.twitter
+                  ? appendURL(profile.social_profiles.twitter)
+                  : transformURL('javascript:void(0)')
+              "
+              ><img src="assets/images/website/social/twitter.svg" alt=""
+            /></a>
           </li>
         </ul>
       </div>
@@ -195,11 +253,15 @@
       <div class="seciton-wrapper">
         <div class="left-seciton">
           <div class="dp-wrapper">
-            <img src="assets/images/member/profile.png" />
+            <img [src]="profile.avatar_url" />
             <span>
               <label for="upload">
                 <mat-icon class="material-icons">create</mat-icon>
-                <input type="file" id="upload" />
+                <input
+                  (change)="uploadAvatar($event.target.files)"
+                  type="file"
+                  id="upload"
+                />
               </label>
             </span>
           </div>
@@ -214,7 +276,7 @@
                     formControlName="player_type"
                     class="example-radio-group"
                   >
-                    <mat-radio-button checked value="grassroot">
+                    <mat-radio-button value="grassroot">
                       Grassroot
                     </mat-radio-button>
                     <mat-radio-button value="amateur">
@@ -380,6 +442,16 @@
                   "
                 >
                   Weight format is invalid
+                </span>
+                <span
+                  *ngIf="
+                    !personalProfileDetailsForm.controls.weight.errors
+                      .pattern &&
+                      personalProfileDetailsForm.controls.weight.errors.max;
+                    else minBlock
+                  "
+                >
+                  Weight should not exceed 200 kgs
                 </span>
                 <ng-template #minBlock>
                   <span

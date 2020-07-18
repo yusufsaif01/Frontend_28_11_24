@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ViewEditProfileService } from '../view-edit-profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
@@ -7,10 +7,11 @@ import {
   FormGroup,
   FormBuilder,
   AbstractControl,
-  Validators,
-  ValidatorFn
+  Validators
 } from '@angular/forms';
 import { environment } from '@env/environment';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { HeaderComponent } from '@app/shared/page-components/header/header.component';
 
 @Component({
   selector: 'app-personal-details',
@@ -29,16 +30,27 @@ export class PersonalDetailsComponent implements OnInit {
   profile_status: string;
   editMode: boolean = false;
   player_type: string = 'grassroot';
+  @ViewChild(HeaderComponent, { static: true }) header: HeaderComponent;
   constructor(
     private _editProfileService: ViewEditProfileService,
     private _sharedService: SharedService,
     private _toastrService: ToastrService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private _sanitizer: DomSanitizer
   ) {
     this.createForm();
     this.manageCommonControls();
     // this.setCategoryValidators();
     this.tomorrow.setDate(this.tomorrow.getDate() + 1);
+  }
+  transformURL(url: string): SafeHtml {
+    return this._sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+  appendURL(url: string): SafeHtml {
+    if (url.includes('http')) {
+      return this._sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+    return this._sanitizer.bypassSecurityTrustResourceUrl(`https://${url}`);
   }
   toggleMode() {
     this.editMode = !this.editMode;
@@ -100,7 +112,14 @@ export class PersonalDetailsComponent implements OnInit {
             Validators.pattern(/^\d+$/)
           ]
         ],
-        weight: ['', [Validators.min(1), Validators.pattern(/^\d+(\.\d)?$/)]],
+        weight: [
+          '',
+          [
+            Validators.min(1),
+            Validators.max(200),
+            Validators.pattern(/^\d+(\.\d)?$/)
+          ]
+        ],
         school: ['', []],
         university: [''],
         college: ['']
@@ -111,16 +130,43 @@ export class PersonalDetailsComponent implements OnInit {
     this.getLocationStats();
     this.getPersonalProfileDetails();
   }
+  uploadAvatar(files: FileList) {
+    const requestData = new FormData();
+    requestData.set('avatar', files[0]);
+    this._editProfileService
+      .updateAvatar(requestData)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        res => {
+          if (res.data.avatar_url) {
+            this.profile.avatar_url =
+              environment.mediaUrl + res.data.avatar_url;
+          }
+          localStorage.setItem(
+            'avatar_url',
+            environment.mediaUrl + res.data.avatar_url
+          );
+          this.header.avatar_url = localStorage.getItem('avatar_url');
+          this._toastrService.success(
+            'Successful',
+            'Avatar updated successfully'
+          );
+        },
+        err => {
+          this._toastrService.error('Error', err.error.message);
+        }
+      );
+  }
   getPersonalProfileDetails() {
     this._editProfileService
       .getPersonalProfileDetails()
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this._toastrService.success(
-            'Successful',
-            'Data retrieved successfully'
-          );
+          // this._toastrService.success(
+          //   'Successful',
+          //   'Data retrieved successfully'
+          // );
           this.profile = response.data;
           this.profile_status = this.profile.profile_status.status;
           this.player_type = this.profile.player_type;
@@ -169,6 +215,26 @@ export class PersonalDetailsComponent implements OnInit {
       college:
         this.profile.institute && this.profile.institute.college
           ? this.profile.institute.college
+          : '',
+      youtube:
+        this.profile.social_profiles && this.profile.social_profiles.youtube
+          ? this.profile.social_profiles.youtube
+          : '',
+      facebook:
+        this.profile.social_profiles && this.profile.social_profiles.facebook
+          ? this.profile.social_profiles.facebook
+          : '',
+      twitter:
+        this.profile.social_profiles && this.profile.social_profiles.twitter
+          ? this.profile.social_profiles.twitter
+          : '',
+      instagram:
+        this.profile.social_profiles && this.profile.social_profiles.instagram
+          ? this.profile.social_profiles.instagram
+          : '',
+      linked_in:
+        this.profile.social_profiles && this.profile.social_profiles.linked_in
+          ? this.profile.social_profiles.linked_in
           : ''
     });
   }
