@@ -662,7 +662,7 @@
           <div class="post-header">
             <!-- PostProfile -->
             <div class="profile">
-              <div class="profile-img" *ngIf="post.post.media_url">
+              <div class="profile-img">
                 <img [src]="post.posted_by.avatar" alt="profile" />
               </div>
               <div class="details">
@@ -873,6 +873,8 @@
         </div>
       </div>
     </div>
-    <app-copyright></app-copyright>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
   </div>
 </div>
