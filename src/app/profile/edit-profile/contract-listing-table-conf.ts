@@ -5,8 +5,8 @@ export class ContractListTableConfig extends TableConfig {
     this.allowedColumns = [
       'serialNumber',
       'name',
-      'effective_date',
-      'expiry_date',
+      'effectiveDate',
+      'expiryDate',
       'created_by',
       'status'
     ];
@@ -26,18 +26,18 @@ export class ContractListTableConfig extends TableConfig {
           return ele[this.columns.name.code];
         }
       },
-      effective_date: {
-        code: 'effective_date',
+      effectiveDate: {
+        code: 'effectiveDate',
         text: 'Effective Date',
         getValue: (ele: any) => {
-          return ele[this.columns.effective_date.code];
+          return ele[this.columns.effectiveDate.code];
         }
       },
-      expiry_date: {
-        code: 'expiry_date',
+      expiryDate: {
+        code: 'expiryDate',
         text: 'Expiry Date',
         getValue: (ele: any) => {
-          return ele[this.columns.expiry_date.code];
+          return ele[this.columns.expiryDate.code];
         }
       },
       created_by: {

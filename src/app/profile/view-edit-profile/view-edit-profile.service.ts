@@ -6,7 +6,8 @@ const routes = {
   getPersonalProfileDetails: () => `/profile/personal_details`,
   updatePersonalProfileDetails: () => `/update-details/personal_details`,
   updateAvatar: () => `/update-avatar`,
-  getEmploymentContractList: () => '/employment-contract/list'
+  getEmploymentContractList: () => '/employment-contract/list',
+  deleteContract: (id: string) => `/employment-contract/${id}`
 };
 
 @Injectable({
@@ -29,5 +30,8 @@ export class ViewEditProfileService {
   }
   getEmploymentContractList(): Observable<any> {
     return this.httpClient.get<any>(routes.getEmploymentContractList());
+  }
+  deleteContract(id: string): Observable<any> {
+    return this.httpClient.delete<any>(routes.deleteContract(id));
   }
 }

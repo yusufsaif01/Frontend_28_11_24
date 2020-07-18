@@ -4,6 +4,8 @@ import { EmploymentContractListTableConfig } from './employment-contract-listing
 import { ViewEditProfileService } from '../view-edit-profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
+import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { MatDialog } from '@angular/material';
 @Component({
   selector: 'app-employment-contracts',
   templateUrl: './employment-contracts.component.html',
