@@ -39,6 +39,10 @@
     }
   }
 
+  textarea {
+    resize: none;
+  }
+
   select {
     background: url("assets/images/global/down.svg") no-repeat, $third-color;
     background-position: calc(100% - 1rem);

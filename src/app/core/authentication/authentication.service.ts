@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
-import { Credentials, CredentialsService } from './credentials.service';
+import { CredentialsService } from './credentials.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { untilDestroyed } from '@app/core';
 
@@ -83,7 +83,7 @@ export class AuthenticationService {
    * Logs out the user and clear credentials.
    * @return True if the user was logged out successfully.
    */
-  logout(): Observable<boolean> {
+  logout(status?: string): Observable<boolean> {
     // Customize credentials invalidation here
     let credentials: any = {};
     if (localStorage.getItem('credentials')) {
@@ -97,7 +97,15 @@ export class AuthenticationService {
         .subscribe(data => {});
     }
     this.credentialsService.setCredentials();
-    this.router.navigate(['/login']);
+    if (status === 'unauthorized') {
+      this.router.navigate(['/login'], {
+        queryParams: { redirect: this.router.routerState.snapshot.url },
+        replaceUrl: true
+      });
+    } else {
+      this.router.navigate(['/login']);
+    }
+
     return of(true);
   }
 
