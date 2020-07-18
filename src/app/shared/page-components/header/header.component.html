@@ -200,7 +200,9 @@
             [routerLink]="['/member/manage/foot-requests']"
           >
             <mat-icon class="material-icons">people_outline</mat-icon>
-            <!-- <span>9</span> -->
+            <span *ngIf="stats.footmate_requests">{{
+              stats.footmate_requests
+            }}</span>
           </a>
         </li>
         <li>
@@ -217,7 +219,7 @@
         <mat-menu #menu="matMenu">
           <ul class="menu">
             <li>
-              <a [routerLink]="['/member/profile/view']">
+              <a [routerLink]="['/member/profile']">
                 <mat-icon class="material-icons">home</mat-icon>
                 My Profile
               </a>

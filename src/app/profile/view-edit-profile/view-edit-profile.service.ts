@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 
 const routes = {
   getPersonalProfileDetails: () => `/profile/personal_details`,
-  updatePersonalProfileDetails: () => `/update-details/personal_details`
+  updatePersonalProfileDetails: () => `/update-details/personal_details`,
+  updateAvatar: () => `/update-avatar`
 };
 
 @Injectable({
@@ -21,5 +22,8 @@ export class ViewEditProfileService {
       routes.updatePersonalProfileDetails(),
       body
     );
+  }
+  updateAvatar(body: any): Observable<any> {
+    return this.httpClient.put(routes.updateAvatar(), body);
   }
 }
