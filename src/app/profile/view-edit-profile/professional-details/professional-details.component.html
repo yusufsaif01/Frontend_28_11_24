@@ -90,7 +90,7 @@
         <div class="view-details">
           <div class="details">
             <div class="left">
-              <h4>Former Club/Academy</h4>
+              <h4>Former Club / Academy</h4>
             </div>
             <div class="right">
               <p>{{ professionalDetails?.former_club_academy | titlecase }}</p>
@@ -100,7 +100,7 @@
 
         <div class="associated mt-2">
           <h4>
-            Current Associated With Club/Academy :
+            Current Associated With Club / Academy :
             <span>
               {{ professionalDetails?.associated_club_academy | titlecase }}
             </span>
@@ -395,7 +395,9 @@
             </div>
             <div class="input-container">
               <div class="full">
-                <h4 class="mb-1">Currently Associated With Club/Academy?</h4>
+                <h4 class="mb-1">
+                  Currently Associated With Club / Academy? <span>*</span>
+                </h4>
                 <div class="radio-block">
                   <mat-radio-group
                     formControlName="associated_club_academy"
@@ -577,14 +579,14 @@
               <div class="third">
                 <div class="form-block">
                   <label class="label-small"
-                    >Former Club/Academy (optional, if any)</label
+                    >Former Club / Academy (optional, if any)</label
                   >
                   <input
                     formControlName="former_club_academy"
                     type="text"
                     matInput
                     autocomplete="off"
-                    placeholder="Former Club/Academy"
+                    placeholder="Former Club / Academy"
                     trim="blur"
                   />
                   <mat-error class="error-text"> </mat-error>
