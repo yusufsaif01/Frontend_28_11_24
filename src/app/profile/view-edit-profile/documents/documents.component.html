@@ -150,25 +150,27 @@
                           id="uploadfront"
                           (change)="uploadAadhar($event.target.files, 'front')"
                         />
-                        <button>Upload</button>
+                        <span>Upload</span>
                       </span>
                     </div>
-                  </label>
-                  <mat-error
-                    *ngIf="
-                      documentsDetailsForm.controls.aadhar_front.errors &&
-                      documentsDetailsForm.controls.aadhar_front.dirty
-                    "
-                  >
-                    <span
+                    <p>Upload Document</p>
+                    <mat-error
                       *ngIf="
-                        documentsDetailsForm.controls.aadhar_front.errors
-                          .requiredFileAvatar
+                        documentsDetailsForm.controls.aadhar_front.errors &&
+                        documentsDetailsForm.controls.aadhar_front.dirty
                       "
-                      translate
-                      >Front Side must be of type PNG / JPG / JPEG</span
                     >
-                  </mat-error>
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.aadhar_front.errors
+                            .requiredFileAvatar
+                        "
+                        translate
+                        >Front Side must be of type PNG / JPG / JPEG</span
+                      >
+                    </mat-error>
+                  </label>
+
                   <label
                     [matTooltip]="
                       profile_status === 'verified'
@@ -187,25 +189,27 @@
                           id="uploadback"
                           (change)="uploadAadhar($event.target.files, 'back')"
                         />
-                        <button>Upload</button>
+                        <span>Upload</span>
                       </span>
                     </div>
-                  </label>
-                  <mat-error
-                    *ngIf="
-                      documentsDetailsForm.controls.aadhar_back.errors &&
-                      documentsDetailsForm.controls.aadhar_back.dirty
-                    "
-                  >
-                    <span
+                    <p>Upload Document</p>
+
+                    <mat-error
                       *ngIf="
-                        documentsDetailsForm.controls.aadhar_back.errors
-                          .requiredFileAvatar
+                        documentsDetailsForm.controls.aadhar_back.errors &&
+                        documentsDetailsForm.controls.aadhar_back.dirty
                       "
-                      translate
-                      >Back Side must be of type PNG / JPG / JPEG</span
                     >
-                  </mat-error>
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.aadhar_back.errors
+                            .requiredFileAvatar
+                        "
+                        translate
+                        >Back Side must be of type PNG / JPG / JPEG</span
+                      >
+                    </mat-error>
+                  </label>
                 </ng-container>
                 <ng-container
                   *ngIf="
@@ -230,25 +234,26 @@
                           id="upload-pdf"
                           (change)="uploadAadhar($event.target.files, 'single')"
                         />
-                        <button>Upload</button>
+                        <span>Upload</span>
                       </span>
                     </div>
-                  </label>
-                  <mat-error
-                    *ngIf="
-                      documentsDetailsForm.controls.aadhar.errors &&
-                      documentsDetailsForm.controls.aadhar.dirty
-                    "
-                  >
-                    <span
+
+                    <mat-error
                       *ngIf="
-                        documentsDetailsForm.controls.aadhar.errors
-                          .requiredPdfDocument
+                        documentsDetailsForm.controls.aadhar.errors &&
+                        documentsDetailsForm.controls.aadhar.dirty
                       "
-                      translate
-                      >Aadhaar must be of type PDF</span
                     >
-                  </mat-error>
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.aadhar.errors
+                            .requiredPdfDocument
+                        "
+                        translate
+                        >Aadhaar must be of type PDF</span
+                      >
+                    </mat-error>
+                  </label>
                 </ng-container>
               </div>
             </div>

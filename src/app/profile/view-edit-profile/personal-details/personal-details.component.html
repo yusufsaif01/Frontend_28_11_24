@@ -477,111 +477,114 @@
             </div>
           </div>
           <div class="third">
-            <div class="form-block">
+            <div class="form-block pb-0">
               <label>Height <span>*</span></label>
               <div class="double">
-                <input
-                  formControlName="height_feet"
-                  type="text"
-                  matinput
-                  autocomplete="off"
-                  required
-                  placeholder="Feets"
-                />
-                <mat-error
-                  class="error-text"
-                  *ngIf="
-                    personalProfileDetailsForm.controls.height_feet.invalid &&
-                    personalProfileDetailsForm.controls.height_feet.touched
-                  "
-                >
-                  <span
-                    class="height-required"
+                <div class="half">
+                  <input
+                    formControlName="height_feet"
+                    type="text"
+                    matinput
+                    autocomplete="off"
+                    required
+                    placeholder="Feets"
+                  />
+                  <mat-error
+                    class="error-text"
                     *ngIf="
-                      personalProfileDetailsForm.controls.height_feet.errors
-                        .required;
-                      else patternBlock
+                      personalProfileDetailsForm.controls.height_feet.invalid &&
+                      personalProfileDetailsForm.controls.height_feet.touched
                     "
-                    translate
-                    >Height in Feet is required</span
                   >
-                  <ng-template #patternBlock>
                     <span
-                      class="error-text format-invalid"
                       *ngIf="
                         personalProfileDetailsForm.controls.height_feet.errors
-                          .pattern;
-                        else maxBlock
+                          .required;
+                        else patternBlock
                       "
+                      translate
+                      >Height in Feet is required</span
                     >
-                      Height in Feet format is invalid
-                    </span>
-                  </ng-template>
-                  <ng-template #maxBlock>
-                    <span
-                      class="error-text min-max-height"
-                      *ngIf="
-                        personalProfileDetailsForm.controls.height_feet.errors
-                          .max ||
-                        personalProfileDetailsForm.controls.height_feet.errors
-                          .min
-                      "
-                    >
-                      Height in Feet must be between 1 and 10
-                    </span>
-                  </ng-template>
-                </mat-error>
-                <input
-                  formControlName="height_inches"
-                  type="text"
-                  matinput
-                  autocomplete="off"
-                  required
-                  placeholder="Inches"
-                />
-                <mat-error
-                  class="error-text"
-                  *ngIf="
-                    personalProfileDetailsForm.controls.height_inches.invalid &&
-                    personalProfileDetailsForm.controls.height_inches.touched
-                  "
-                >
-                  <span
-                    class="height-required"
+                    <ng-template #patternBlock>
+                      <span
+                        class="error-text format-invalid"
+                        *ngIf="
+                          personalProfileDetailsForm.controls.height_feet.errors
+                            .pattern;
+                          else maxBlock
+                        "
+                      >
+                        Height in Feet format is invalid
+                      </span>
+                    </ng-template>
+                    <ng-template #maxBlock>
+                      <span
+                        class="error-text "
+                        *ngIf="
+                          personalProfileDetailsForm.controls.height_feet.errors
+                            .max ||
+                          personalProfileDetailsForm.controls.height_feet.errors
+                            .min
+                        "
+                      >
+                        Height in Feet must be between 1 and 10
+                      </span>
+                    </ng-template>
+                  </mat-error>
+                </div>
+                <div class="half">
+                  <input
+                    formControlName="height_inches"
+                    type="text"
+                    matinput
+                    autocomplete="off"
+                    required
+                    placeholder="Inches"
+                  />
+                  <mat-error
+                    class="error-text"
                     *ngIf="
-                      personalProfileDetailsForm.controls.height_inches.errors
-                        .required;
-                      else patternBlock
+                      personalProfileDetailsForm.controls.height_inches
+                        .invalid &&
+                      personalProfileDetailsForm.controls.height_inches.touched
                     "
-                    translate
-                    >Height in Inches is required</span
                   >
-                  <ng-template #patternBlock>
                     <span
-                      class="error-text format-invalid"
                       *ngIf="
                         personalProfileDetailsForm.controls.height_inches.errors
-                          .pattern;
-                        else maxBlock
+                          .required;
+                        else patternBlock
                       "
+                      translate
+                      >Height in Inches is required</span
                     >
-                      Height in Inches format is invalid
-                    </span>
-                  </ng-template>
-                  <ng-template #maxBlock>
-                    <span
-                      class="error-text min-max-height"
-                      *ngIf="
-                        personalProfileDetailsForm.controls.height_inches.errors
-                          .max ||
-                        personalProfileDetailsForm.controls.height_inches.errors
-                          .min
-                      "
-                    >
-                      Height in Inches must be between 0 and 12
-                    </span>
-                  </ng-template>
-                </mat-error>
+                    <ng-template #patternBlock>
+                      <span
+                        class="error-text format-invalid"
+                        *ngIf="
+                          personalProfileDetailsForm.controls.height_inches
+                            .errors.pattern;
+                          else maxBlock
+                        "
+                      >
+                        Height in Inches format is invalid
+                      </span>
+                    </ng-template>
+                    <ng-template #maxBlock>
+                      <span
+                        class="error-text "
+                        *ngIf="
+                          personalProfileDetailsForm.controls.height_inches
+                            .errors.max ||
+                          personalProfileDetailsForm.controls.height_inches
+                            .errors.min
+                        "
+                      >
+                        Height in Inches must be between 0 and 12
+                      </span>
+                    </ng-template>
+                  </mat-error>
+                </div>
               </div>
             </div>
           </div>

@@ -59,6 +59,15 @@
       padding: 3rem 4rem;
       margin: 10rem auto;
 
+      .form-group {
+        display: flex;
+        justify-content: space-between;
+
+        .half {
+          width: 48%;
+        }
+      }
+
       .recapcha {
         width: 100%;
         margin: 1rem 0;
