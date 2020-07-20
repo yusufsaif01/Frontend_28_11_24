@@ -14,6 +14,18 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from '@env/environment';
 import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 import { requiredPdfDocument } from '@app/shared/validators/requiredPdfDocument';
+import { distinctUntilChanged } from 'rxjs/operators';
+
+let aadharImageControl = {
+  aadhar_front: [Validators.required, requiredFileAvatar],
+  aadhar_back: [Validators.required, requiredFileAvatar]
+};
+let aadharPdfControl = {
+  aadhar: [Validators.required, requiredPdfDocument]
+};
+let playerImageControl = {
+  player_photo: [Validators.required, requiredFileAvatar]
+};
 
 @Component({
   selector: 'app-documents',
@@ -28,10 +40,10 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   aadhar_front: File;
   aadhar_back: File;
   player_photo: File;
-  aadhar_url: String;
+  aadhar_url: string;
   aadhar_front_url: string;
   aadhar_back_url: string;
-  player_photo_url: String;
+  player_photo_url: string;
   documentsDetails: GetDocumentsResponseDetails['data'];
   documentsDetailsForm: FormGroup;
   member_type: string = localStorage.getItem('member_type');
@@ -174,44 +186,26 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       'aadhar_media_type'
     );
 
-    let aadharImageControl = {
-      aadhar_front: [Validators.required, requiredFileAvatar],
-      aadhar_back: [Validators.required, requiredFileAvatar]
-    };
-    let aadharPdfControl = {
-      aadhar: [Validators.required, requiredPdfDocument]
-    };
-    this.documentsDetailsForm
-      .get('aadhar_media_type')
-      .valueChanges.subscribe(value => {
-        if (value === 'image') {
-          aadhar_front.setValue('');
-          aadhar_back.setValue('');
-          this.setControlValidation(
-            this.documentsDetailsForm,
-            aadharImageControl
-          );
+    aadhar_media_type.valueChanges.subscribe(value => {
+      if (value === 'image') {
+        aadhar_front.setValue('');
+        aadhar_back.setValue('');
+        this.setControlValidation(
+          this.documentsDetailsForm,
+          aadharImageControl
+        );
 
-          aadhar.setValidators(null);
-        } else if (value === 'pdf') {
-          aadhar.setValue('');
-          this.setControlValidation(
-            this.documentsDetailsForm,
-            aadharPdfControl
-          );
-          aadhar_front.setValidators(null);
-          aadhar_back.setValidators(null);
-        }
-        aadhar_front.updateValueAndValidity();
-        aadhar_back.updateValueAndValidity();
-        aadhar.updateValueAndValidity();
-      });
-
-    if (aadhar_media_type.value == 'pdf') {
-      this.setControlValidation(this.documentsDetailsForm, aadharPdfControl);
-    } else if (aadhar_media_type.value == 'image') {
-      this.setControlValidation(this.documentsDetailsForm, aadharImageControl);
-    }
+        aadhar.setValidators(null);
+      } else if (value === 'pdf') {
+        aadhar.setValue('');
+        this.setControlValidation(this.documentsDetailsForm, aadharPdfControl);
+        aadhar_front.setValidators(null);
+        aadhar_back.setValidators(null);
+      }
+      aadhar_front.updateValueAndValidity();
+      aadhar_back.updateValueAndValidity();
+      aadhar.updateValueAndValidity();
+    });
   }
 
   setCategoryValidators() {
@@ -222,6 +216,17 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   preview(files: FileList) {
     if (files.length === 0) return;
+
+    const data = files[0].name.replace(/^.*[\\\/]/, '').split('.');
+    const extension = data[data.length - 1];
+    if (
+      'png' !== extension.toLowerCase() &&
+      'jpeg' !== extension.toLowerCase() &&
+      'jpg' !== extension.toLowerCase()
+    ) {
+      this.player_photo_preview = 'assets/images/member/avatar-square.png';
+      return;
+    }
 
     var reader = new FileReader();
     reader.readAsDataURL(files[0]);
@@ -323,6 +328,26 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         }
       });
     }
+    let fields = {
+      aadhar: aadharPdfControl,
+
+      aadhar_front: {
+        aadhar_front: aadharImageControl.aadhar_front
+      },
+      aadhar_back: {
+        aadhar_back: aadharImageControl.aadhar_back
+      },
+      player_photo: {
+        player_photo: playerImageControl.player_photo
+      }
+    };
+
+    Object.keys(fields).forEach(field => {
+      let control = this.documentsDetailsForm.get(field);
+      control.valueChanges.pipe(distinctUntilChanged()).subscribe(value => {
+        this.setControlValidation(this.documentsDetailsForm, fields[field]);
+      });
+    });
   }
 
   removeFileValidations(type: string) {
