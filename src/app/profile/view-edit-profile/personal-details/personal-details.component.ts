@@ -185,6 +185,9 @@ export class PersonalDetailsComponent implements OnInit {
       );
   }
   populateFormFields(profileData: any) {
+    this.personalProfileDetailsForm.valueChanges.subscribe(val => {
+      this.player_type = val.player_type;
+    });
     this.personalProfileDetailsForm.patchValue(profileData);
     if (this.profile.country) {
       this.getStatesListing(this.profile.country.id);

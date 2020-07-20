@@ -27,6 +27,8 @@
     padding: 1rem 4rem 1rem 1rem;
     border: 1px solid transparent;
     outline: none;
+    font-family: $primary-text;
+    font-weight: 400;
     background: $third-color;
     -webkit-border-radius: 0.5rem;
     -moz-border-radius: 0.5rem;
@@ -36,6 +38,10 @@
 
     &:focus {
       background: $fifth-color;
+    }
+
+    &:disabled {
+      opacity: 0.4;
     }
   }
 
@@ -80,11 +86,12 @@
   justify-content: space-between;
 
   .country-code {
-    width: 25%;
+    min-width: 8rem;
   }
 
   .phone-number {
-    width: 73%;
+    width: 100%;
+    margin-left: 1rem;
   }
 }
 
@@ -103,20 +110,39 @@
 }
 
 .txtarea-height {
-  min-height: 15rem;
+  min-height: 13rem;
 }
 
 .double {
   display: flex;
   justify-content: space-between;
 
-  input {
+  .half {
     width: 48%;
+    padding-bottom: 2.5rem;
+    position: relative;
+
+    input {
+      width: 100%;
+    }
+
+    .error-text {
+      span.required {
+        bottom: -1.5rem;
+        position: relative;
+      }
+
+      span.limit {
+        bottom: -3.5rem;
+        position: relative;
+      }
+    }
   }
 }
 
 .date {
   position: relative;
+  padding-bottom: 2.5rem;
 
   input {
     background: url("assets/images/global/calender.svg") no-repeat, $third-color;
@@ -138,7 +164,7 @@
 }
 
 .label-small {
-  font-size: $heading-fifth !important;
+  font-size: 1.5rem !important;
 }
 
 // star

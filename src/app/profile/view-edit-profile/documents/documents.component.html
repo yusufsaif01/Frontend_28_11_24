@@ -78,7 +78,7 @@
                   : ''
               "
             >
-              Aadhaar File Format <span>*</span>
+              Aadhaar file format <span>*</span>
             </h3>
           </div>
 
@@ -145,30 +145,33 @@
                       <img src="assets/images/member/front.png" alt="" />
                       <span>
                         <input
+                          #aadharFrontInput
                           formControlName="aadhar_front"
                           type="file"
                           id="uploadfront"
                           (change)="uploadAadhar($event.target.files, 'front')"
                         />
-                        <button>Upload</button>
+                        <span>Upload</span>
                       </span>
                     </div>
-                  </label>
-                  <mat-error
-                    *ngIf="
-                      documentsDetailsForm.controls.aadhar_front.errors &&
-                      documentsDetailsForm.controls.aadhar_front.dirty
-                    "
-                  >
-                    <span
+                    <p>{{ (aadharFrontInput?.files)[0]?.name }}</p>
+                    <mat-error
                       *ngIf="
-                        documentsDetailsForm.controls.aadhar_front.errors
-                          .requiredFileAvatar
+                        documentsDetailsForm.controls.aadhar_front.errors &&
+                        documentsDetailsForm.controls.aadhar_front.dirty
                       "
-                      translate
-                      >Front Side must be of type PNG / JPG / JPEG</span
                     >
-                  </mat-error>
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.aadhar_front.errors
+                            .requiredFileAvatar
+                        "
+                        translate
+                        >Front Side must be of type PNG / JPG / JPEG</span
+                      >
+                    </mat-error>
+                  </label>
+
                   <label
                     [matTooltip]="
                       profile_status === 'verified'
@@ -182,30 +185,33 @@
                       <img src="assets/images/member/back.png" alt="" />
                       <span>
                         <input
+                          #aadharBackInput
                           formControlName="aadhar_back"
                           type="file"
                           id="uploadback"
                           (change)="uploadAadhar($event.target.files, 'back')"
                         />
-                        <button>Upload</button>
+                        <span>Upload</span>
                       </span>
                     </div>
-                  </label>
-                  <mat-error
-                    *ngIf="
-                      documentsDetailsForm.controls.aadhar_back.errors &&
-                      documentsDetailsForm.controls.aadhar_back.dirty
-                    "
-                  >
-                    <span
+                    <p>{{ (aadharBackInput?.files)[0]?.name }}</p>
+
+                    <mat-error
                       *ngIf="
-                        documentsDetailsForm.controls.aadhar_back.errors
-                          .requiredFileAvatar
+                        documentsDetailsForm.controls.aadhar_back.errors &&
+                        documentsDetailsForm.controls.aadhar_back.dirty
                       "
-                      translate
-                      >Back Side must be of type PNG / JPG / JPEG</span
                     >
-                  </mat-error>
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.aadhar_back.errors
+                            .requiredFileAvatar
+                        "
+                        translate
+                        >Back Side must be of type PNG / JPG / JPEG</span
+                      >
+                    </mat-error>
+                  </label>
                 </ng-container>
                 <ng-container
                   *ngIf="
@@ -225,30 +231,32 @@
                       <img src="assets/images/member/front.png" alt="" />
                       <span>
                         <input
+                          #aadharPdfInput
                           formControlName="aadhar"
                           type="file"
                           id="upload-pdf"
                           (change)="uploadAadhar($event.target.files, 'single')"
                         />
-                        <button>Upload</button>
+                        <span>Upload</span>
                       </span>
                     </div>
-                  </label>
-                  <mat-error
-                    *ngIf="
-                      documentsDetailsForm.controls.aadhar.errors &&
-                      documentsDetailsForm.controls.aadhar.dirty
-                    "
-                  >
-                    <span
+                    <p>{{ (aadharPdfInput?.files)[0]?.name }}</p>
+                    <mat-error
                       *ngIf="
-                        documentsDetailsForm.controls.aadhar.errors
-                          .requiredPdfDocument
+                        documentsDetailsForm.controls.aadhar.errors &&
+                        documentsDetailsForm.controls.aadhar.dirty
                       "
-                      translate
-                      >Aadhaar must be of type PDF</span
                     >
-                  </mat-error>
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.aadhar.errors
+                            .requiredPdfDocument
+                        "
+                        translate
+                        >Aadhaar must be of type PDF</span
+                      >
+                    </mat-error>
+                  </label>
                 </ng-container>
               </div>
             </div>
@@ -262,12 +270,12 @@
                         ? 'Not allowed to update aadhaar details'
                         : ''
                     "
-                    >Aadhaar Number <span>*</span></label
+                    >Aadhaar number <span>*</span></label
                   >
                   <input
                     formControlName="aadhar_number"
                     type="text"
-                    placeholder="Aadhaar Number"
+                    placeholder="Aadhaar number"
                     required
                   />
                   <mat-error
@@ -339,7 +347,7 @@
                   : ''
               "
             >
-              Photo For Verification
+              Photo for verification
               <img
                 matTooltip="This will be used only for verification purpose and will not be visible to anyone"
                 src="assets/images/global/info.svg"
@@ -347,43 +355,45 @@
               />
               <span>*</span>
             </h3>
-            <div class="edit-image">
-              <img
-                alt=""
-                [src]="
-                  player_photo_preview
-                    ? player_photo_preview
-                    : player_photo_url
-                    ? player_photo_url
-                    : 'assets/images/member/avatar-square.png'
+            <div class="edit-img-wrap">
+              <div class="edit-image">
+                <img
+                  alt=""
+                  [src]="
+                    player_photo_preview
+                      ? player_photo_preview
+                      : player_photo_url
+                      ? player_photo_url
+                      : 'assets/images/member/avatar-square.png'
+                  "
+                />
+                <span>
+                  <label for="upload">
+                    <mat-icon class="material-icons">create</mat-icon>
+                    <input
+                      formControlName="player_photo"
+                      (change)="uploadPlayerPhoto($event.target.files)"
+                      type="file"
+                      id="upload"
+                    />
+                  </label>
+                </span>
+              </div>
+              <mat-error
+                *ngIf="
+                  documentsDetailsForm.controls.player_photo.errors &&
+                  documentsDetailsForm.controls.player_photo.dirty
                 "
-              />
-              <span>
-                <label for="upload">
-                  <mat-icon class="material-icons">create</mat-icon>
-                  <input
-                    formControlName="player_photo"
-                    (change)="uploadPlayerPhoto($event.target.files)"
-                    type="file"
-                    id="upload"
-                  />
-                  <mat-error
-                    *ngIf="
-                      documentsDetailsForm.controls.player_photo.errors &&
-                      documentsDetailsForm.controls.player_photo.dirty
-                    "
-                  >
-                    <span
-                      *ngIf="
-                        documentsDetailsForm.controls.player_photo.errors
-                          .requiredFileAvatar
-                      "
-                      translate
-                      >Player Photo must be of type PNG / JPG / JPEG</span
-                    >
-                  </mat-error>
-                </label>
-              </span>
+              >
+                <span
+                  *ngIf="
+                    documentsDetailsForm.controls.player_photo.errors
+                      .requiredFileAvatar
+                  "
+                  translate
+                  >Player Photo must be of type PNG / JPG / JPEG</span
+                >
+              </mat-error>
             </div>
           </div>
 

@@ -476,111 +476,116 @@
             </div>
           </div>
           <div class="third">
-            <div class="form-block">
+            <div class="form-block pb-0">
               <label>Height <span>*</span></label>
               <div class="double">
-                <input
-                  formControlName="height_feet"
-                  type="text"
-                  matinput
-                  autocomplete="off"
-                  required
-                  placeholder="Feet"
-                />
-                <mat-error
-                  class="error-text"
-                  *ngIf="
-                    personalProfileDetailsForm.controls.height_feet.invalid &&
-                    personalProfileDetailsForm.controls.height_feet.touched
-                  "
-                >
-                  <span
-                    class="height-required"
+                <div class="half">
+                  <input
+                    formControlName="height_feet"
+                    type="text"
+                    matinput
+                    autocomplete="off"
+                    required
+                    placeholder="Feet"
+                  />
+                  <mat-error
+                    class="error-text"
                     *ngIf="
-                      personalProfileDetailsForm.controls.height_feet.errors
-                        .required;
-                      else patternBlock
+                      personalProfileDetailsForm.controls.height_feet.invalid &&
+                      personalProfileDetailsForm.controls.height_feet.touched
                     "
-                    translate
-                    >Height in Feet is required</span
                   >
-                  <ng-template #patternBlock>
                     <span
-                      class="error-text format-invalid"
+                      class="required"
                       *ngIf="
                         personalProfileDetailsForm.controls.height_feet.errors
-                          .pattern;
-                        else maxBlock
+                          .required;
+                        else patternBlock
                       "
+                      translate
+                      >Height in Feet is required</span
                     >
-                      Height in Feet format is invalid
-                    </span>
-                  </ng-template>
-                  <ng-template #maxBlock>
-                    <span
-                      class="error-text min-max-height"
-                      *ngIf="
-                        personalProfileDetailsForm.controls.height_feet.errors
-                          .max ||
-                        personalProfileDetailsForm.controls.height_feet.errors
-                          .min
-                      "
-                    >
-                      Height in Feet must be between 1 and 10
-                    </span>
-                  </ng-template>
-                </mat-error>
-                <input
-                  formControlName="height_inches"
-                  type="text"
-                  matinput
-                  autocomplete="off"
-                  required
-                  placeholder="Inches"
-                />
-                <mat-error
-                  class="error-text"
-                  *ngIf="
-                    personalProfileDetailsForm.controls.height_inches.invalid &&
-                    personalProfileDetailsForm.controls.height_inches.touched
-                  "
-                >
-                  <span
-                    class="height-required"
+                    <ng-template #patternBlock>
+                      <span
+                        class="required"
+                        *ngIf="
+                          personalProfileDetailsForm.controls.height_feet.errors
+                            .pattern;
+                          else maxBlock
+                        "
+                      >
+                        Height in Feet format is invalid
+                      </span>
+                    </ng-template>
+                    <ng-template #maxBlock>
+                      <span
+                        class="required"
+                        *ngIf="
+                          personalProfileDetailsForm.controls.height_feet.errors
+                            .max ||
+                          personalProfileDetailsForm.controls.height_feet.errors
+                            .min
+                        "
+                      >
+                        Height in Feet must be between 1 and 10
+                      </span>
+                    </ng-template>
+                  </mat-error>
+                </div>
+                <div class="half">
+                  <input
+                    formControlName="height_inches"
+                    type="text"
+                    matinput
+                    autocomplete="off"
+                    required
+                    placeholder="Inches"
+                  />
+                  <mat-error
+                    class="error-text"
                     *ngIf="
-                      personalProfileDetailsForm.controls.height_inches.errors
-                        .required;
-                      else patternBlock
+                      personalProfileDetailsForm.controls.height_inches
+                        .invalid &&
+                      personalProfileDetailsForm.controls.height_inches.touched
                     "
-                    translate
-                    >Height in Inches is required</span
                   >
-                  <ng-template #patternBlock>
                     <span
-                      class="error-text format-invalid"
+                      class="required"
                       *ngIf="
                         personalProfileDetailsForm.controls.height_inches.errors
-                          .pattern;
-                        else maxBlock
+                          .required;
+                        else patternBlock
                       "
+                      translate
+                      >Height in Inches is required</span
                     >
-                      Height in Inches format is invalid
-                    </span>
-                  </ng-template>
-                  <ng-template #maxBlock>
-                    <span
-                      class="error-text min-max-height"
-                      *ngIf="
-                        personalProfileDetailsForm.controls.height_inches.errors
-                          .max ||
-                        personalProfileDetailsForm.controls.height_inches.errors
-                          .min
-                      "
-                    >
-                      Height in Inches must be between 0 and 12
-                    </span>
-                  </ng-template>
-                </mat-error>
+                    <ng-template #patternBlock>
+                      <span
+                        class="required"
+                        *ngIf="
+                          personalProfileDetailsForm.controls.height_inches
+                            .errors.pattern;
+                          else maxBlock
+                        "
+                      >
+                        Height in Inches format is invalid
+                      </span>
+                    </ng-template>
+                    <ng-template #maxBlock>
+                      <span
+                        class="limit"
+                        *ngIf="
+                          personalProfileDetailsForm.controls.height_inches
+                            .errors.max ||
+                          personalProfileDetailsForm.controls.height_inches
+                            .errors.min
+                        "
+                      >
+                        Height in Inches must be between 0 and 12
+                      </span>
+                    </ng-template>
+                  </mat-error>
+                </div>
               </div>
             </div>
           </div>
@@ -667,7 +672,7 @@
             </div>
           </div>
           <div class="third">
-            <div class="form-block">
+            <div class="form-block pb-0">
               <label>D.O.B <span>*</span></label>
               <div class="date">
                 <input
@@ -677,6 +682,12 @@
                   placeholder="Pick Date"
                   readonly
                 />
+
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
                 <mat-error
                   class="error-text"
                   *ngIf="
@@ -692,11 +703,6 @@
                     >Date of Birth is required</span
                   >
                 </mat-error>
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="picker"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
               </div>
             </div>
           </div>
@@ -817,30 +823,28 @@
         <div class="input-container">
           <div class="two-third">
             <div class="form-block">
-              <label>School </label>
+              <label>School name</label>
               <input
                 formControlName="school"
                 type="text"
                 matinput
                 autocomplete="off"
-                placeholder="School"
+                placeholder="School name"
               />
             </div>
           </div>
         </div>
-        <ng-container
-          *ngIf="player_type === 'amateur' || player_type === 'professional'"
-        >
+        <ng-container *ngIf="['amateur', 'professional'].includes(player_type)">
           <div class="input-container">
             <div class="two-third">
               <div class="form-block">
-                <label>College </label>
+                <label>College name</label>
                 <input
                   formControlName="college"
                   type="text"
                   matinput
                   autocomplete="off"
-                  placeholder="College"
+                  placeholder="College name"
                 />
               </div>
             </div>
@@ -848,13 +852,13 @@
           <div class="input-container">
             <div class="two-third">
               <div class="form-block">
-                <label>University </label>
+                <label>University name</label>
                 <input
                   formControlName="university"
                   type="text"
                   matinput
                   autocomplete="off"
-                  placeholder="University"
+                  placeholder="University name"
                 />
               </div>
             </div>
@@ -862,7 +866,7 @@
         </ng-container>
       </div>
       <div class="socials">
-        <h3>Social media links</h3>
+        <h3>Social Media Link</h3>
         <div class="input-container">
           <div class="third">
             <div class="form-block">
@@ -872,7 +876,7 @@
                 type="text"
                 matinput
                 autocomplete="off"
-                placeholder="FacebookLink"
+                placeholder="Facebook"
               />
             </div>
           </div>
@@ -884,7 +888,7 @@
                 type="text"
                 matinput
                 autocomplete="off"
-                placeholder="Instagramlink"
+                placeholder="Instagram"
               />
             </div>
           </div>
@@ -896,7 +900,7 @@
                 type="text"
                 matinput
                 autocomplete="off"
-                placeholder="Linkedinlink"
+                placeholder="Linkedin"
               />
             </div>
           </div>
@@ -910,7 +914,7 @@
                 type="text"
                 matinput
                 autocomplete="off"
-                placeholder="Twitterlink"
+                placeholder="Twitter"
               />
             </div>
           </div>
@@ -922,7 +926,7 @@
                 type="text"
                 matinput
                 autocomplete="off"
-                placeholder="Youtubelink"
+                placeholder="Youtube"
               />
             </div>
           </div>

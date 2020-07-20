@@ -2,7 +2,7 @@
   <div class="view-wrapper">
     <ng-container *ngIf="viewMode; else editMode">
       <div class="heading">
-        <h2>Professional Details</h2>
+        <h2>Professional details</h2>
         <button (click)="toggleMode()">
           <mat-icon class="material-icons">create</mat-icon>
         </button>
@@ -10,7 +10,7 @@
 
       <div class="second-section">
         <!-- row -->
-        <h4>Preferred Playing Position :</h4>
+        <h4>Preferred playing position :</h4>
 
         <div class="view-details">
           <div class="details">
@@ -21,7 +21,7 @@
                   let i = index
                 "
               >
-                <span>{{ i + 1 }} </span>
+                <span>{{ i + 1 }}. </span>
                 {{ data.name | titlecase }}
               </p>
             </div>
@@ -44,7 +44,7 @@
         <div class="view-details">
           <div class="details">
             <div class="left">
-              <h4>Weak Foot</h4>
+              <h4>Weak foot</h4>
             </div>
             <div class="right">
               <div class="stars">
@@ -100,7 +100,7 @@
 
         <div class="associated mt-2">
           <h4>
-            Current Associated With Club / Academy :
+            Current associated with club / academy :
             <span>
               {{ professionalDetails?.associated_club_academy | titlecase }}
             </span>
@@ -110,7 +110,7 @@
         <ng-container
           *ngIf="professionalDetails?.associated_club_academy === 'yes'"
         >
-          <h4 class="mt-1 mb-1">Head Coach Details</h4>
+          <h4 class="mt-1 mb-1">Head coach details</h4>
           <div class="view-details">
             <div class="details">
               <div class="left">
@@ -128,7 +128,7 @@
           <div class="view-details">
             <div class="details">
               <div class="left">
-                <h4>Mobile Number</h4>
+                <h4>Mobile number</h4>
               </div>
               <div class="right">
                 <p>
@@ -162,11 +162,11 @@
       <div class="edit-wrapper">
         <form [formGroup]="professionalDetailsForm">
           <div class="heading">
-            <h2>Professional Details</h2>
+            <h2>Professional details</h2>
           </div>
 
           <div class="second-section">
-            <h4>Preferred Playing Position</h4>
+            <h4>Preferred playing position</h4>
             <div class="input-container">
               <ng-container
                 formArrayName="position"
@@ -272,15 +272,18 @@
               </div>
               <div class="third">
                 <div class="form-block">
-                  <label>Weak Foot</label>
+                  <label>Weak foot</label>
                   <div class="details">
                     <div class="right">
                       <div class="star-rating">
                         <input
+                          formControlName="weak_foot"
+                          (click)="
+                            professionalDetailsForm.get('weak_foot').value = 5
+                          "
                           id="star-5"
                           type="radio"
-                          name="rating"
-                          value="star-5"
+                          value="5"
                         />
                         <label for="star-5" title="5 stars">
                           <mat-icon class="material-icons"
@@ -288,10 +291,13 @@
                           >
                         </label>
                         <input
+                          formControlName="weak_foot"
+                          (click)="
+                            professionalDetailsForm.get('weak_foot').value = 4
+                          "
                           id="star-4"
                           type="radio"
-                          name="rating"
-                          value="star-4"
+                          value="4"
                         />
                         <label for="star-4" title="4 stars">
                           <mat-icon class="material-icons"
@@ -299,10 +305,13 @@
                           >
                         </label>
                         <input
+                          formControlName="weak_foot"
+                          (click)="
+                            professionalDetailsForm.get('weak_foot').value = 3
+                          "
                           id="star-3"
                           type="radio"
-                          name="rating"
-                          value="star-3"
+                          value="3"
                         />
                         <label for="star-3" title="3 stars">
                           <mat-icon class="material-icons"
@@ -310,10 +319,13 @@
                           >
                         </label>
                         <input
+                          formControlName="weak_foot"
+                          (click)="
+                            professionalDetailsForm.get('weak_foot').value = 2
+                          "
                           id="star-2"
                           type="radio"
-                          name="rating"
-                          value="star-2"
+                          value="2"
                         />
                         <label for="star-2" title="2 stars">
                           <mat-icon class="material-icons"
@@ -321,10 +333,13 @@
                           >
                         </label>
                         <input
+                          formControlName="weak_foot"
+                          (click)="
+                            professionalDetailsForm.get('weak_foot').value = 1
+                          "
                           id="star-1"
                           type="radio"
-                          name="rating"
-                          value="star-1"
+                          value="1"
                         />
                         <label for="star-1" title="1 star">
                           <mat-icon class="material-icons"
@@ -396,7 +411,7 @@
             <div class="input-container">
               <div class="full">
                 <h4 class="mb-1">
-                  Currently Associated With Club / Academy? <span>*</span>
+                  Currently associated with club / academy? <span>*</span>
                 </h4>
                 <div class="radio-block">
                   <mat-radio-group
@@ -463,7 +478,7 @@
                 </div>
                 <div class="third">
                   <div class="form-block">
-                    <label>Mobile Number<span>*</span></label>
+                    <label>Mobile number<span>*</span></label>
                     <div class="phone-block">
                       <div class="country-code">
                         <select disabled>
