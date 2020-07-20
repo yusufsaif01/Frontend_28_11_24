@@ -824,30 +824,28 @@
         <div class="input-container">
           <div class="two-third">
             <div class="form-block">
-              <label>School </label>
+              <label>School name</label>
               <input
                 formControlName="school"
                 type="text"
                 matinput
                 autocomplete="off"
-                placeholder="School"
+                placeholder="School name"
               />
             </div>
           </div>
         </div>
-        <ng-container
-          *ngIf="player_type === 'amateur' || player_type === 'professional'"
-        >
+        <ng-container *ngIf="['amateur', 'professional'].includes(player_type)">
           <div class="input-container">
             <div class="two-third">
               <div class="form-block">
-                <label>College </label>
+                <label>College name</label>
                 <input
                   formControlName="college"
                   type="text"
                   matinput
                   autocomplete="off"
-                  placeholder="College"
+                  placeholder="College name"
                 />
               </div>
             </div>
@@ -855,13 +853,13 @@
           <div class="input-container">
             <div class="two-third">
               <div class="form-block">
-                <label>University </label>
+                <label>University name</label>
                 <input
                   formControlName="university"
                   type="text"
                   matinput
                   autocomplete="off"
-                  placeholder="University"
+                  placeholder="University name"
                 />
               </div>
             </div>
@@ -869,7 +867,7 @@
         </ng-container>
       </div>
       <div class="socials">
-        <h3>Social media links</h3>
+        <h3>Social Media Link</h3>
         <div class="input-container">
           <div class="third">
             <div class="form-block">
@@ -879,7 +877,7 @@
                 type="text"
                 matinput
                 autocomplete="off"
-                placeholder="FacebookLink"
+                placeholder="Facebook"
               />
             </div>
           </div>
@@ -891,7 +889,7 @@
                 type="text"
                 matinput
                 autocomplete="off"
-                placeholder="Instagramlink"
+                placeholder="Instagram"
               />
             </div>
           </div>
@@ -903,7 +901,7 @@
                 type="text"
                 matinput
                 autocomplete="off"
-                placeholder="Linkedinlink"
+                placeholder="Linkedin"
               />
             </div>
           </div>
@@ -917,7 +915,7 @@
                 type="text"
                 matinput
                 autocomplete="off"
-                placeholder="Twitterlink"
+                placeholder="Twitter"
               />
             </div>
           </div>
@@ -929,7 +927,7 @@
                 type="text"
                 matinput
                 autocomplete="off"
-                placeholder="Youtubelink"
+                placeholder="Youtube"
               />
             </div>
           </div>

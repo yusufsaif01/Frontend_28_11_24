@@ -148,11 +148,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
           this.populateFormFields();
           this.setControlState();
           this.checkFileValidations();
-
-          this._toastrService.success(
-            'Successful',
-            'Data retrieved successfully'
-          );
         },
         error => {
           this._toastrService.error(error.error.message, 'Error');

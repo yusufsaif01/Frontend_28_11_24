@@ -78,7 +78,7 @@
                   : ''
               "
             >
-              Aadhaar File Format <span>*</span>
+              Aadhaar file format <span>*</span>
             </h3>
           </div>
 
@@ -145,6 +145,7 @@
                       <img src="assets/images/member/front.png" alt="" />
                       <span>
                         <input
+                          #aadharFrontInput
                           formControlName="aadhar_front"
                           type="file"
                           id="uploadfront"
@@ -153,7 +154,7 @@
                         <span>Upload</span>
                       </span>
                     </div>
-                    <p>Upload Document</p>
+                    <p>{{ (aadharFrontInput?.files)[0]?.name }}</p>
                     <mat-error
                       *ngIf="
                         documentsDetailsForm.controls.aadhar_front.errors &&
@@ -184,6 +185,7 @@
                       <img src="assets/images/member/back.png" alt="" />
                       <span>
                         <input
+                          #aadharBackInput
                           formControlName="aadhar_back"
                           type="file"
                           id="uploadback"
@@ -192,7 +194,7 @@
                         <span>Upload</span>
                       </span>
                     </div>
-                    <p>Upload Document</p>
+                    <p>{{ (aadharBackInput?.files)[0]?.name }}</p>
 
                     <mat-error
                       *ngIf="
@@ -229,6 +231,7 @@
                       <img src="assets/images/member/front.png" alt="" />
                       <span>
                         <input
+                          #aadharPdfInput
                           formControlName="aadhar"
                           type="file"
                           id="upload-pdf"
@@ -237,7 +240,7 @@
                         <span>Upload</span>
                       </span>
                     </div>
-
+                    <p>{{ (aadharPdfInput?.files)[0]?.name }}</p>
                     <mat-error
                       *ngIf="
                         documentsDetailsForm.controls.aadhar.errors &&
@@ -267,12 +270,12 @@
                         ? 'Not allowed to update aadhaar details'
                         : ''
                     "
-                    >Aadhaar Number <span>*</span></label
+                    >Aadhaar number <span>*</span></label
                   >
                   <input
                     formControlName="aadhar_number"
                     type="text"
-                    placeholder="Aadhaar Number"
+                    placeholder="Aadhaar number"
                     required
                   />
                   <mat-error
@@ -344,7 +347,7 @@
                   : ''
               "
             >
-              Photo For Verification
+              Photo for verification
               <img
                 matTooltip="This will be used only for verification purpose and will not be visible to anyone"
                 src="assets/images/global/info.svg"
