@@ -120,11 +120,6 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
             this.getPositionList();
             this.populateDynamicPosition();
           }
-
-          this._toastrService.success(
-            'Successful',
-            'Data retrieved successfully'
-          );
         },
         error => {
           this._toastrService.error(error.error.message, 'Error');
