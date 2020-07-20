@@ -24,20 +24,21 @@
     <div class="profile-position">
       <h4>
         {{
-          (profile.position && profile.position[0]
-            ? profile.position[0].name
+          (professionalProfile.position && professionalProfile.position[0]
+            ? professionalProfile.position[0].name
             : ''
           ) | titlecase
         }}
+        <!-- Goalkeeper -->
       </h4>
     </div>
     <div class="profile-counts">
       <div class="count line">
-        <span>{{ achievements }}</span>
+        <span>{{ followers }}</span>
         <h5>Followers</h5>
       </div>
       <div class="count">
-        <span>{{ count.tournaments }}</span>
+        <span>{{ count.videos || 0 }}</span>
         <h5>Videos</h5>
       </div>
     </div>
@@ -47,7 +48,7 @@
   <div class="menus">
     <ul>
       <li>
-        <a>
+        <a [routerLink]="['/member/timeline/']">
           <span class="icon">
             <img src="assets/images/global/timeline.svg" alt="timeline" />
           </span>
@@ -55,7 +56,7 @@
         </a>
       </li>
       <li>
-        <a [routerLink]="['/member/profile/view']">
+        <a [routerLink]="['/member/profile/']">
           <span class="icon">
             <img src="assets/images/global/profile.svg" alt="profile" />
           </span>

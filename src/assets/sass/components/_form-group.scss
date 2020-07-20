@@ -24,9 +24,11 @@
   select,
   textarea {
     width: 100%;
-    padding: 1rem;
+    padding: 1rem 4rem 1rem 1rem;
     border: 1px solid transparent;
     outline: none;
+    font-family: $primary-text;
+    font-weight: 400;
     background: $third-color;
     -webkit-border-radius: 0.5rem;
     -moz-border-radius: 0.5rem;
@@ -36,6 +38,10 @@
 
     &:focus {
       background: $fifth-color;
+    }
+
+    &:disabled {
+      opacity: 0.4;
     }
   }
 
@@ -80,25 +86,12 @@
   justify-content: space-between;
 
   .country-code {
-    width: 25%;
+    min-width: 8rem;
   }
 
   .phone-number {
-    width: 73%;
-  }
-}
-
-.form-group {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-
-  .half {
-    width: 48%;
-  }
-
-  .one-third {
-    width: 31.33%;
+    width: 100%;
+    margin-left: 1rem;
   }
 }
 
@@ -114,4 +107,89 @@
     color: $second-color;
     cursor: pointer;
   }
+}
+
+.txtarea-height {
+  min-height: 13rem;
+}
+
+.double {
+  display: flex;
+  justify-content: space-between;
+
+  .half {
+    width: 48%;
+    padding-bottom: 2.5rem;
+    position: relative;
+
+    input {
+      width: 100%;
+    }
+
+    .error-text {
+      span.required {
+        bottom: -1.5rem;
+        position: relative;
+      }
+
+      span.limit {
+        bottom: -3.5rem;
+        position: relative;
+      }
+    }
+  }
+}
+
+.date {
+  position: relative;
+  padding-bottom: 2.5rem;
+
+  input {
+    background: url("assets/images/global/calender.svg") no-repeat, $third-color;
+    background-position: calc(100% - 1rem);
+
+    &:focus {
+      background: url("assets/images/global/calender.svg") no-repeat,
+        $fifth-color;
+      background-position: calc(100% - 1rem);
+    }
+  }
+
+  .mat-datepicker-toggle {
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: -0.5rem;
+  }
+}
+
+.label-small {
+  font-size: 1.5rem !important;
+}
+
+// star
+.star-rating {
+  direction: rtl;
+  display: inline-block;
+  padding: 0.5rem 0rem;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  color: $fourth-color;
+  font-size: 2rem;
+  padding: 0;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  display: inline-block;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input[type="radio"]:checked ~ label {
+  color: $primary-color;
 }

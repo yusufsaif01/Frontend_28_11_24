@@ -1,4 +1,5 @@
 @import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
 
 .btn {
   padding: 1.5rem 3rem;
@@ -68,6 +69,52 @@
   }
 }
 
+//  button group goes here
+.btn-group {
+  width: 100%;
+
+  button {
+    margin-right: 2rem;
+    background: $fourth-color;
+    font-family: $primary-text;
+    border: none;
+    color: $white-color;
+    padding: 1rem 3rem;
+    font-size: $heading-fourth;
+    font-weight: 500;
+    border-radius: 5rem;
+    outline: 0px;
+    cursor: pointer;
+    @include shadow-btn-secondary;
+
+    &:hover {
+      background: $primary-color;
+      @include shadow-btn-primary;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      box-shadow: none;
+
+      &:hover {
+        background: $fourth-color;
+      }
+    }
+  }
+
+  .btn-active {
+    background: $primary-color;
+    @include shadow-btn-primary;
+  }
+
+  .btn-normal {
+    &:hover {
+      background: $fourth-color;
+      @include shadow-btn-secondary;
+    }
+  }
+}
+
 .btn-disable {
   pointer-events: none;
   cursor: pointer;
@@ -94,4 +141,34 @@
   height: 3.6rem !important;
   width: 3.6rem !important;
   font-size: 3.6rem !important;
+}
+
+.secondary-btn {
+  background: $fourth-color;
+  font-family: $primary-text;
+  border: none;
+  color: $white-color;
+  padding: 1rem 3rem;
+  font-size: $heading-fourth;
+  font-weight: 500;
+  border-radius: 5rem;
+  outline: 0px;
+  cursor: pointer;
+  @include shadow-btn-secondary;
+
+  &:hover {
+    background: $primary-color;
+    @include shadow-btn-primary;
+  }
+}
+
+.icon-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    color: $primary-color;
+  }
 }

@@ -8,6 +8,7 @@ import { RoleGuardService } from '../core/authentication/role-guard.service';
 import { extract, AuthenticationGuard } from '@app/core';
 import { AddEditEmploymentContractComponent } from './add-edit-employment-contract/add-edit-employment-contract.component';
 import { ViewEmploymentContractComponent } from './view-employment-contract/view-employment-contract.component';
+import { ViewEditProfileComponent } from './view-edit-profile/view-edit-profile.component';
 
 const appRoutes: Routes = [
   {
@@ -27,9 +28,9 @@ const appRoutes: Routes = [
         data: { title: extract('View Profile') }
       },
       {
-        path: 'edit',
-        component: EditProfileComponent,
-        data: { title: extract('Edit Profile') }
+        path: '',
+        component: ViewEditProfileComponent,
+        data: { title: extract('My Profile') }
       },
       {
         path: 'add-employment-contract',

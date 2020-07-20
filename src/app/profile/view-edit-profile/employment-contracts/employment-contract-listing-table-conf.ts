@@ -1,24 +1,16 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
-export class ContractListTableConfig extends TableConfig {
+export class EmploymentContractListTableConfig extends TableConfig {
   constructor() {
     super();
     this.allowedColumns = [
-      'serialNumber',
       'name',
-      'effectiveDate',
-      'expiryDate',
+      'effective_date',
+      'expiry_date',
       'created_by',
       'status'
     ];
 
     this.columns = {
-      serialNumber: {
-        code: 'serialNumber',
-        text: 'S.No',
-        getValue: (ele: any) => {
-          return ele[this.columns.serialNumber.code];
-        }
-      },
       name: {
         code: 'name',
         text: 'Club/Academy',
@@ -26,18 +18,18 @@ export class ContractListTableConfig extends TableConfig {
           return ele[this.columns.name.code];
         }
       },
-      effectiveDate: {
-        code: 'effectiveDate',
+      effective_date: {
+        code: 'effective_date',
         text: 'Effective Date',
         getValue: (ele: any) => {
-          return ele[this.columns.effectiveDate.code];
+          return ele[this.columns.effective_date.code];
         }
       },
-      expiryDate: {
-        code: 'expiryDate',
+      expiry_date: {
+        code: 'expiry_date',
         text: 'Expiry Date',
         getValue: (ele: any) => {
-          return ele[this.columns.expiryDate.code];
+          return ele[this.columns.expiry_date.code];
         }
       },
       created_by: {
