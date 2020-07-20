@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 const routes = {
   getPersonalProfileDetails: () => `/profile/personal_details`,
+  getProfessionalProfileDetails: () => `/profile/professional_details`,
   updatePersonalProfileDetails: () => `/update-details/personal_details`,
   updateAvatar: () => `/update-avatar`,
   getEmploymentContractList: () => '/employment-contract/list',
@@ -18,6 +19,9 @@ export class ViewEditProfileService {
 
   getPersonalProfileDetails(): Observable<any> {
     return this.httpClient.get<any>(routes.getPersonalProfileDetails());
+  }
+  getProfessionalProfileDetails(): Observable<any> {
+    return this.httpClient.get<any>(routes.getProfessionalProfileDetails());
   }
   updatePersonalProfileDetails(body: any): Observable<any> {
     return this.httpClient.put<any>(

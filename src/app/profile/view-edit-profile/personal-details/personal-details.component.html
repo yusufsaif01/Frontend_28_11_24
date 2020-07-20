@@ -19,11 +19,10 @@
       </div>
       <div class="right-part">
         <ul>
-          <li>
+          <li
+            *ngIf="profile.social_profiles && profile.social_profiles.facebook"
+          >
             <a
-              *ngIf="
-                profile.social_profiles && profile.social_profiles.facebook
-              "
               [target]="
                 profile.social_profiles && profile.social_profiles.facebook
                   ? '_blank'
@@ -37,11 +36,10 @@
               ><img src="assets/images/website/social/facebook.svg" alt=""
             /></a>
           </li>
-          <li>
+          <li
+            *ngIf="profile.social_profiles && profile.social_profiles.instagram"
+          >
             <a
-              *ngIf="
-                profile.social_profiles && profile.social_profiles.instagram
-              "
               [target]="
                 profile.social_profiles && profile.social_profiles.instagram
                   ? '_blank'
@@ -55,11 +53,10 @@
               ><img src="assets/images/website/social/instagram.svg" alt=""
             /></a>
           </li>
-          <li>
+          <li
+            *ngIf="profile.social_profiles && profile.social_profiles.linked_in"
+          >
             <a
-              *ngIf="
-                profile.social_profiles && profile.social_profiles.linked_in
-              "
               [target]="
                 profile.social_profiles && profile.social_profiles.linked_in
                   ? '_blank'
@@ -73,9 +70,10 @@
               ><img src="assets/images/website/social/linkedin.svg" alt=""
             /></a>
           </li>
-          <li>
+          <li
+            *ngIf="profile.social_profiles && profile.social_profiles.youtube"
+          >
             <a
-              *ngIf="profile.social_profiles && profile.social_profiles.youtube"
               [target]="
                 profile.social_profiles && profile.social_profiles.youtube
                   ? '_blank'
@@ -89,9 +87,10 @@
               ><img src="assets/images/website/social/youtube.svg" alt=""
             /></a>
           </li>
-          <li>
+          <li
+            *ngIf="profile.social_profiles && profile.social_profiles.twitter"
+          >
             <a
-              *ngIf="profile.social_profiles && profile.social_profiles.twitter"
               [target]="
                 profile.social_profiles && profile.social_profiles.twitter
                   ? '_blank'
@@ -151,7 +150,7 @@
           </div>
           <div class="right">
             <p *ngIf="profile.height">
-              {{ profile.height?.feet }} feets
+              {{ profile.height?.feet }} feet
               {{ profile.height?.inches }} inches
             </p>
           </div>
@@ -487,7 +486,7 @@
                     matinput
                     autocomplete="off"
                     required
-                    placeholder="Feets"
+                    placeholder="Feet"
                   />
                   <mat-error
                     class="error-text"
@@ -714,7 +713,7 @@
             <div class="form-block">
               <label>Gender <span>*</span></label>
               <select formControlName="gender">
-                <option value="">Select gender</option>
+                <option value="">Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
@@ -798,7 +797,7 @@
             <div class="form-block">
               <label>City <span>*</span></label>
               <select formControlName="city">
-                <option value="">Select city</option>
+                <option value="">Select City</option>
                 <ng-container *ngFor="let city of cityArray">
                   <option value="{{ city.id }}">{{ city.name }}</option>
                 </ng-container>
