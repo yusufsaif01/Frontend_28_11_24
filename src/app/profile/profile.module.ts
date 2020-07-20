@@ -9,6 +9,11 @@ import { ProfileRoutingModule } from './profile-routing.module';
 import { AddEditEmploymentContractComponent } from './add-edit-employment-contract/add-edit-employment-contract.component';
 import { ViewEmploymentContractComponent } from './view-employment-contract/view-employment-contract.component';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
+import { ViewEditProfileComponent } from './view-edit-profile/view-edit-profile.component';
+import { PersonalDetailsComponent } from './view-edit-profile/personal-details/personal-details.component';
+import { ProfessionalDetailsComponent } from './view-edit-profile/professional-details/professional-details.component';
+import { DocumentsComponent } from './view-edit-profile/documents/documents.component';
+import { EmploymentContractsComponent } from './view-edit-profile/employment-contracts/employment-contracts.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +21,12 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     ViewProfileComponent,
     EditProfileComponent,
     AddEditEmploymentContractComponent,
-    ViewEmploymentContractComponent
+    ViewEmploymentContractComponent,
+    ViewEditProfileComponent,
+    PersonalDetailsComponent,
+    ProfessionalDetailsComponent,
+    DocumentsComponent,
+    EmploymentContractsComponent
   ],
   imports: [
     CommonModule,

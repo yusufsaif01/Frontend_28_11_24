@@ -39,7 +39,12 @@
       <!-- player -->
       <div class="input__group">
         <label>Player Name</label>
-        <input formControlName="name" type="text" placeholder="Player Name" />
+        <input
+          formControlName="name"
+          type="text"
+          placeholder="Player Name"
+          trim="blur"
+        />
       </div>
       <!-- Member Sub Catergories -->
       <!-- <div class="input__group">
@@ -71,6 +76,7 @@
           type="email"
           matinput
           placeholder="Email"
+          trim="blur"
         />
       </div>
 

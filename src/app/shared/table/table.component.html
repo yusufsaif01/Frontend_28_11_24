@@ -91,14 +91,14 @@
         <p
           *ngIf="col === 'status'"
           [ngClass]="{
-            red: [
-              'non-verified',
-              'rejected',
-              'pending',
-              'disapproved'
-            ].includes(element.status),
+            red: ['non-verified', 'rejected', 'disapproved'].includes(
+              element.status
+            ),
             black: ['verified'].includes(element.status),
-            green: ['added', 'approved'].includes(element.status)
+            green: ['active', 'added', 'approved'].includes(element.status),
+            completeStatus: ['completed'].includes(element.status),
+            yetStatus: ['yet_to_start'].includes(element.status),
+            pendingStatus: ['pending'].includes(element.status)
           }"
         >
           {{

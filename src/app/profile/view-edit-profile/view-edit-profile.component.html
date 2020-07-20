@@ -1,0 +1,33 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel">
+    <app-left-panel></app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="btn-group">
+        <button
+          [ngClass]="{ 'btn-active': componentName === component.value }"
+          *ngFor="let component of components"
+          (click)="switch(component.value)"
+        >
+          {{ component.name }}
+        </button>
+      </div>
+      <div class="main mt-2">
+        <div [ngSwitch]="componentName">
+          <app-personal-details
+            *ngSwitchCase="'personal'"
+          ></app-personal-details>
+          <app-professional-details
+            *ngSwitchCase="'professional'"
+          ></app-professional-details>
+          <app-documents *ngSwitchCase="'documents'"></app-documents>
+          <app-employment-contracts
+            *ngSwitchCase="'contracts'"
+          ></app-employment-contracts>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

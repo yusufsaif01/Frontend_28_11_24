@@ -26,6 +26,7 @@
           name="{{ tableConfig.columns[col].code }}"
           #names="ngModel"
           [ngModel]="tableConfig.columns[col].getValue(element)"
+          trim="blur"
         />
       </ng-container>
       <div

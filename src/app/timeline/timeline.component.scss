@@ -9,6 +9,7 @@
 
   .right-panel {
     width: 76.25%;
+    position: relative;
 
     .right-wrapper {
       display: flex;
@@ -107,7 +108,17 @@
                   color: $second-color;
 
                   span {
-                    font-weight: 600;
+                    font-weight: 500;
+                    margin-right: 0.5rem;
+                    text-transform: capitalize;
+                  }
+
+                  span.playertype {
+                    color: $primary-color;
+                  }
+
+                  span.playerposition {
+                    color: $success;
                   }
                 }
               }
@@ -198,7 +209,17 @@
                       font-size: $heading-sixth;
 
                       span {
-                        font-weight: 600;
+                        font-weight: 500;
+                        margin-right: 0.5rem;
+                        text-transform: capitalize;
+                      }
+
+                      span.playertype {
+                        color: $primary-color;
+                      }
+
+                      span.playerposition {
+                        color: $success;
                       }
                     }
                   }
@@ -340,6 +361,12 @@
           }
         }
       }
+    }
+
+    .footer-fix {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
     }
   }
 }

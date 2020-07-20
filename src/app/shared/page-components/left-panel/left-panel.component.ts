@@ -7,18 +7,14 @@ import {
   Output,
   OnDestroy
 } from '@angular/core';
-import {
-  AuthenticationService,
-  untilDestroyed,
-  CredentialsService
-} from '@app/core';
+import { AuthenticationService, untilDestroyed } from '@app/core';
 import { TimelineService } from '@app/timeline/timeline.service';
 import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
-import { ViewProfileService } from '@app/profile/view-profile/view-profile.service';
+import { ViewEditProfileService } from '@app/profile/view-edit-profile/view-edit-profile.service';
 import { LeftPanelService } from './left-panel.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
@@ -58,10 +54,11 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   @Output() sendAchievementCount = new EventEmitter<number>();
   @Output() sendProfileStatus = new EventEmitter<object>();
   following$: Observable<any>;
+  professionalProfile: any = {};
 
   constructor(
     private _authenticationService: AuthenticationService,
-    private _profileService: ViewProfileService,
+    private _profileService: ViewEditProfileService,
     private _timelineService: TimelineService,
     private _footRequestService: FootRequestService,
     private _router: Router,
@@ -72,9 +69,21 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   ngOnInit() {
-    this.getProfileDetails();
+    this.getPersonalProfileDetails();
+    this.getProfessionalProfileDetails();
     this.getAchievementCount();
     this.getConnectionStats();
+  }
+  getProfessionalProfileDetails() {
+    this._profileService
+      .getProfessionalProfileDetails()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.professionalProfile = response.data;
+        },
+        error => {}
+      );
   }
 
   logout() {
@@ -82,12 +91,12 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     this._router.navigateByUrl('/login');
   }
 
-  getProfileDetails() {
+  getPersonalProfileDetails() {
     let data = {};
-    if (this.userId) data = { user_id: this.userId };
+    // if (this.userId) data = { user_id: this.userId }; This is for public profile, will be catered later
 
     this._profileService
-      .getProfileDetails(data)
+      .getPersonalProfileDetails()
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {

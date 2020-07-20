@@ -1,0 +1,420 @@
+<div class="wrapper">
+  <!-- Viewwrapper -->
+  <ng-container *ngIf="viewMode; else editMode">
+    <div class="view-wrapper">
+      <div class="heading">
+        <h2>Documents</h2>
+        <button (click)="toggleMode()">
+          <mat-icon class="material-icons">create</mat-icon>
+        </button>
+      </div>
+
+      <div class="second-section">
+        <h3>Aadhaar Details</h3>
+        <!-- first row -->
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>Aadhaar number</h4>
+            </div>
+            <div class="right">
+              <p>{{ aadhar_number }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="document">
+        <ng-container *ngIf="aadhar_front_url && aadhar_back_url">
+          <div class="doc-img">
+            <h5>Front side</h5>
+            <a [href]="aadhar_front_url" target="_blank">
+              <img src="assets/images/member/aadhaar.png" alt="" />
+            </a>
+          </div>
+          <div class="doc-img">
+            <h5>Back side</h5>
+            <a [href]="aadhar_back_url" target="_blank">
+              <img src="assets/images/member/aadhaar.png" alt="" />
+            </a>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="aadhar_url">
+          <div class="doc-img">
+            <h5>Aadhaar PDF</h5>
+            <a [href]="aadhar_url" target="_blank">
+              <div class="pdf">
+                <img src="assets/images/member/aadhaar.png" alt="" />
+                <img src="assets/images/member/aadhaar.png" alt="" />
+              </div>
+            </a>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="verification-profile">
+        <h3>Photo for verification :</h3>
+        <ng-container *ngIf="player_photo_url">
+          <a [href]="player_photo_url" target="_blank">
+            <img *ngIf="player_photo_url" [src]="player_photo_url" alt="" />
+          </a>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #editMode>
+    <!-- editwrapper -->
+    <div class="edit-wrapper">
+      <div class="heading">
+        <h2>Documents</h2>
+      </div>
+
+      <form [formGroup]="documentsDetailsForm">
+        <div class="document-wrapper">
+          <div class="heading">
+            <h3
+              [matTooltip]="
+                profile_status === 'verified'
+                  ? 'Not allowed to update aadhaar details'
+                  : ''
+              "
+            >
+              Aadhaar file format <span>*</span>
+            </h3>
+          </div>
+
+          <div class="section">
+            <div class="input-container">
+              <div class="full">
+                <div class="radio-block">
+                  <mat-radio-group
+                    formControlName="aadhar_media_type"
+                    class="example-radio-group"
+                    required
+                  >
+                    <mat-radio-button value="image">
+                      Image
+                    </mat-radio-button>
+                    <mat-radio-button value="pdf">
+                      PDF
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+            <div class="upload-section">
+              <ng-container
+                *ngIf="documentsDetailsForm.get('aadhar_media_type').value"
+              >
+                <h4>
+                  Upload Aadhaar
+                  {{
+                    documentsDetailsForm.get('aadhar_media_type').value ===
+                    'image'
+                      ? 'Image'
+                      : 'PDF'
+                  }}
+                  <img
+                    *ngIf="
+                      documentsDetailsForm.get('aadhar_media_type').value ===
+                      'image'
+                    "
+                    matTooltip="Allowed Formats: png,jpeg,jpg"
+                    src="assets/images/global/info.svg"
+                    alt=""
+                  />
+                  <span>*</span>
+                </h4>
+              </ng-container>
+              <div class="upload-document">
+                <ng-container
+                  *ngIf="
+                    documentsDetailsForm.get('aadhar_media_type').value ===
+                    'image'
+                  "
+                >
+                  <label
+                    [matTooltip]="
+                      profile_status === 'verified'
+                        ? 'Not allowed to update aadhaar details'
+                        : ''
+                    "
+                    for="uploadfront"
+                  >
+                    Front side
+                    <div class="upload-btn">
+                      <img src="assets/images/member/front.png" alt="" />
+                      <span>
+                        <input
+                          #aadharFrontInput
+                          formControlName="aadhar_front"
+                          type="file"
+                          id="uploadfront"
+                          (change)="uploadAadhar($event.target.files, 'front')"
+                        />
+                        <span>Upload</span>
+                      </span>
+                    </div>
+                    <p>{{ (aadharFrontInput?.files)[0]?.name }}</p>
+                    <mat-error
+                      *ngIf="
+                        documentsDetailsForm.controls.aadhar_front.errors &&
+                        documentsDetailsForm.controls.aadhar_front.dirty
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.aadhar_front.errors
+                            .requiredFileAvatar
+                        "
+                        translate
+                        >Front Side must be of type PNG / JPG / JPEG</span
+                      >
+                    </mat-error>
+                  </label>
+
+                  <label
+                    [matTooltip]="
+                      profile_status === 'verified'
+                        ? 'Not allowed to update aadhaar details'
+                        : ''
+                    "
+                    for="uploadback"
+                  >
+                    Back side
+                    <div class="upload-btn">
+                      <img src="assets/images/member/back.png" alt="" />
+                      <span>
+                        <input
+                          #aadharBackInput
+                          formControlName="aadhar_back"
+                          type="file"
+                          id="uploadback"
+                          (change)="uploadAadhar($event.target.files, 'back')"
+                        />
+                        <span>Upload</span>
+                      </span>
+                    </div>
+                    <p>{{ (aadharBackInput?.files)[0]?.name }}</p>
+
+                    <mat-error
+                      *ngIf="
+                        documentsDetailsForm.controls.aadhar_back.errors &&
+                        documentsDetailsForm.controls.aadhar_back.dirty
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.aadhar_back.errors
+                            .requiredFileAvatar
+                        "
+                        translate
+                        >Back Side must be of type PNG / JPG / JPEG</span
+                      >
+                    </mat-error>
+                  </label>
+                </ng-container>
+                <ng-container
+                  *ngIf="
+                    documentsDetailsForm.get('aadhar_media_type').value ===
+                    'pdf'
+                  "
+                >
+                  <label
+                    [matTooltip]="
+                      profile_status === 'verified'
+                        ? 'Not allowed to update aadhaar details'
+                        : ''
+                    "
+                    for="upload-pdf"
+                  >
+                    <div class="upload-btn">
+                      <img src="assets/images/member/front.png" alt="" />
+                      <span>
+                        <input
+                          #aadharPdfInput
+                          formControlName="aadhar"
+                          type="file"
+                          id="upload-pdf"
+                          (change)="uploadAadhar($event.target.files, 'single')"
+                        />
+                        <span>Upload</span>
+                      </span>
+                    </div>
+                    <p>{{ (aadharPdfInput?.files)[0]?.name }}</p>
+                    <mat-error
+                      *ngIf="
+                        documentsDetailsForm.controls.aadhar.errors &&
+                        documentsDetailsForm.controls.aadhar.dirty
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.aadhar.errors
+                            .requiredPdfDocument
+                        "
+                        translate
+                        >Aadhaar must be of type PDF</span
+                      >
+                    </mat-error>
+                  </label>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <label
+                    [matTooltip]="
+                      profile_status === 'verified'
+                        ? 'Not allowed to update aadhaar details'
+                        : ''
+                    "
+                    >Aadhaar number <span>*</span></label
+                  >
+                  <input
+                    formControlName="aadhar_number"
+                    type="text"
+                    placeholder="Aadhaar number"
+                    required
+                  />
+                  <mat-error
+                    *ngIf="
+                      documentsDetailsForm.controls.aadhar_number.invalid &&
+                      documentsDetailsForm.controls.aadhar_number.touched
+                    "
+                  >
+                    <span
+                      translate
+                      class="error-text"
+                      *ngIf="
+                        documentsDetailsForm.controls.aadhar_number.errors
+                          .required
+                      "
+                    >
+                      Aadhaar Number is required</span
+                    >
+                    <ng-template #lengthBlock>
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.aadhar_number.errors
+                            .minlength
+                        "
+                      >
+                        Please provide number upto
+                        {{
+                          documentsDetailsForm.controls.aadhar_number.errors
+                            .minlength.requiredLength
+                        }}
+                        characters
+                      </span>
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.aadhar_number.errors
+                            .maxlength
+                        "
+                      >
+                        Please provide number upto
+                        {{
+                          documentsDetailsForm.controls.aadhar_number.errors
+                            .maxlength.requiredLength
+                        }}
+                        characters
+                      </span>
+                    </ng-template>
+                    <span
+                      translate
+                      class="error-text"
+                      *ngIf="
+                        documentsDetailsForm.controls.aadhar_number.errors
+                          .pattern;
+                        else lengthBlock
+                      "
+                    >
+                      Aadhaar Number is invalid
+                    </span>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="verification-profile">
+            <h3
+              [matTooltip]="
+                profile_status === 'verified'
+                  ? 'Not allowed to update aadhaar details'
+                  : ''
+              "
+            >
+              Photo for verification
+              <img
+                matTooltip="This will be used only for verification purpose and will not be visible to anyone"
+                src="assets/images/global/info.svg"
+                alt=""
+              />
+              <span>*</span>
+            </h3>
+            <div class="edit-img-wrap">
+              <div class="edit-image">
+                <img
+                  alt=""
+                  [src]="
+                    player_photo_preview
+                      ? player_photo_preview
+                      : player_photo_url
+                      ? player_photo_url
+                      : 'assets/images/member/avatar-square.png'
+                  "
+                />
+                <span>
+                  <label for="upload">
+                    <mat-icon class="material-icons">create</mat-icon>
+                    <input
+                      #playerPhotoInput
+                      formControlName="player_photo"
+                      (change)="uploadPlayerPhoto($event.target.files)"
+                      type="file"
+                      id="upload"
+                    />
+                  </label>
+                </span>
+              </div>
+              <p>{{ (playerPhotoInput?.files)[0]?.name }}</p>
+              <mat-error
+                *ngIf="
+                  documentsDetailsForm.controls.player_photo.errors &&
+                  documentsDetailsForm.controls.player_photo.dirty
+                "
+              >
+                <span
+                  *ngIf="
+                    documentsDetailsForm.controls.player_photo.errors
+                      .requiredFileAvatar
+                  "
+                  translate
+                  >Player Photo must be of type PNG / JPG / JPEG</span
+                >
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="actions mt-2 mb-2">
+            <div class="btn-group">
+              <button (click)="toggleMode()" class="btn-normal">Cancel</button>
+              <button
+                [disabled]="!documentsDetailsForm.valid"
+                (click)="editDocumentsDetails()"
+                class="btn-active"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>

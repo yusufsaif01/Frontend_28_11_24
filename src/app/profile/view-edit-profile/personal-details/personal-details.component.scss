@@ -1,0 +1,232 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+.wrapper {
+  width: 95%;
+  margin: 0 auto;
+
+  // heading css
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 0;
+    color: $fourth-color;
+
+    button {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+
+  //
+
+  .view-wrapper {
+    .first-section {
+      display: flex;
+      width: 90%;
+      margin: 0 auto;
+
+      .left-part {
+        width: 50%;
+        display: flex;
+        align-items: center;
+
+        .dp {
+          max-width: 15rem;
+          width: 100%;
+          position: relative;
+
+          img {
+            width: 15rem;
+            height: 15rem;
+            border-radius: 30rem;
+            border: 0.4rem solid $primary-color;
+          }
+        }
+
+        .details {
+          width: 50%;
+          padding: 1rem 2rem;
+
+          h3 {
+            font-weight: 500;
+          }
+
+          p {
+            color: $second-color;
+            font-weight: 500;
+          }
+        }
+      }
+
+      .right-part {
+        display: flex;
+        align-items: center;
+        width: 50%;
+        justify-content: flex-end;
+
+        ul {
+          list-style: none;
+
+          li {
+            display: inline-block;
+            margin-right: 1rem;
+
+            a {
+              img {
+                width: 3rem;
+
+                &:hover {
+                  opacity: 0.5;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .second-section {
+      width: 90%;
+      margin: 0 auto;
+
+      .boi {
+        margin: 2rem 0;
+
+        h4 {
+          margin-bottom: 1rem;
+        }
+
+        p {
+          padding: 2rem;
+          border: 1px solid $grey;
+          border-radius: 1rem;
+          font-size: $heading-fifth;
+        }
+      }
+
+      .view-details {
+        display: flex;
+        width: 100%;
+
+        .details {
+          display: flex;
+          width: 50%;
+          margin: 1rem 0;
+
+          .left {
+            width: 40%;
+
+            h4 {
+              font-weight: 500;
+              color: $second-color;
+            }
+          }
+
+          .right {
+            width: 60%;
+
+            p {
+              font-size: $heading-fourth;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // edit secition goes here
+
+  .edit-wrapper {
+    .seciton-wrapper {
+      display: flex;
+      width: 100%;
+
+      .left-seciton {
+        width: 15%;
+
+        .dp-wrapper {
+          max-width: 15rem;
+          width: 100%;
+          position: relative;
+
+          img {
+            width: 15rem;
+            height: 15rem;
+            border-radius: 30rem;
+            border: 0.4rem solid $primary-color;
+          }
+
+          span {
+            border: 0.2rem solid $white-color;
+            background: $fourth-color;
+            color: $white-color;
+            padding: 0.6rem 0.8rem;
+            border-radius: 3rem;
+            outline: 0px;
+            position: absolute;
+            bottom: 0.5rem;
+            right: 1rem;
+            cursor: pointer;
+
+            input {
+              width: 1rem;
+              position: absolute;
+              left: 0;
+              visibility: hidden;
+            }
+
+            .mat-icon {
+              height: 1.8rem;
+              width: 1.8rem;
+            }
+
+            .material-icons {
+              font-size: 1.8rem;
+            }
+          }
+        }
+      }
+
+      .right-section {
+        width: 85%;
+
+        .frm-wrapper {
+          width: 75%;
+        }
+
+        .radio-block {
+          padding-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+
+  // form-width-control
+  .input-container {
+    display: flex;
+
+    .full {
+      width: 100%;
+    }
+
+    .half {
+      width: 48%;
+      margin-right: 3rem;
+    }
+
+    .third {
+      width: 31%;
+      margin-right: 3rem;
+    }
+
+    .two-third {
+      width: 65%;
+    }
+  }
+}

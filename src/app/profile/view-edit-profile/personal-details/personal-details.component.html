@@ -1,0 +1,948 @@
+<div class="wrapper">
+  <!-- editwrapper -->
+  <div class="view-wrapper" [hidden]="editMode">
+    <div class="heading">
+      <h2>Personal Details</h2>
+      <button (click)="toggleMode()">
+        <mat-icon class="material-icons">create</mat-icon>
+      </button>
+    </div>
+    <div class="first-section">
+      <div class="left-part">
+        <div class="dp">
+          <img [src]="profile.avatar_url" alt="" />
+        </div>
+        <div class="details">
+          <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
+          <p>{{ profile.player_type | titlecase }}</p>
+        </div>
+      </div>
+      <div class="right-part">
+        <ul>
+          <li
+            *ngIf="profile.social_profiles && profile.social_profiles.facebook"
+          >
+            <a
+              [target]="
+                profile.social_profiles && profile.social_profiles.facebook
+                  ? '_blank'
+                  : ''
+              "
+              [href]="
+                profile.social_profiles && profile.social_profiles.facebook
+                  ? appendURL(profile.social_profiles.facebook)
+                  : transformURL('javascript:void(0)')
+              "
+              ><img src="assets/images/website/social/facebook.svg" alt=""
+            /></a>
+          </li>
+          <li
+            *ngIf="profile.social_profiles && profile.social_profiles.instagram"
+          >
+            <a
+              [target]="
+                profile.social_profiles && profile.social_profiles.instagram
+                  ? '_blank'
+                  : ''
+              "
+              [href]="
+                profile.social_profiles && profile.social_profiles.instagram
+                  ? appendURL(profile.social_profiles.instagram)
+                  : transformURL('javascript:void(0)')
+              "
+              ><img src="assets/images/website/social/instagram.svg" alt=""
+            /></a>
+          </li>
+          <li
+            *ngIf="profile.social_profiles && profile.social_profiles.linked_in"
+          >
+            <a
+              [target]="
+                profile.social_profiles && profile.social_profiles.linked_in
+                  ? '_blank'
+                  : ''
+              "
+              [href]="
+                profile.social_profiles && profile.social_profiles.linked_in
+                  ? appendURL(profile.social_profiles.linked_in)
+                  : transformURL('javascript:void(0)')
+              "
+              ><img src="assets/images/website/social/linkedin.svg" alt=""
+            /></a>
+          </li>
+          <li
+            *ngIf="profile.social_profiles && profile.social_profiles.youtube"
+          >
+            <a
+              [target]="
+                profile.social_profiles && profile.social_profiles.youtube
+                  ? '_blank'
+                  : ''
+              "
+              [href]="
+                profile.social_profiles && profile.social_profiles.youtube
+                  ? appendURL(profile.social_profiles.youtube)
+                  : transformURL('javascript:void(0)')
+              "
+              ><img src="assets/images/website/social/youtube.svg" alt=""
+            /></a>
+          </li>
+          <li
+            *ngIf="profile.social_profiles && profile.social_profiles.twitter"
+          >
+            <a
+              [target]="
+                profile.social_profiles && profile.social_profiles.twitter
+                  ? '_blank'
+                  : ''
+              "
+              [href]="
+                profile.social_profiles && profile.social_profiles.twitter
+                  ? appendURL(profile.social_profiles.twitter)
+                  : transformURL('javascript:void(0)')
+              "
+              ><img src="assets/images/website/social/twitter.svg" alt=""
+            /></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="second-section">
+      <div class="boi">
+        <h4>Bio</h4>
+        <p>
+          {{ profile.bio }}
+        </p>
+      </div>
+      <!-- first row -->
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>Email</h4>
+          </div>
+          <div class="right">
+            <p>{{ profile.email }}</p>
+          </div>
+        </div>
+        <div class="details">
+          <div class="left">
+            <h4>Weight</h4>
+          </div>
+          <div class="right">
+            <p *ngIf="profile.weight">{{ profile.weight }} kg</p>
+          </div>
+        </div>
+      </div>
+      <!-- second row -->
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>Mobile number</h4>
+          </div>
+          <div class="right">
+            <p>{{ profile.phone }}</p>
+          </div>
+        </div>
+        <div class="details">
+          <div class="left">
+            <h4>Height</h4>
+          </div>
+          <div class="right">
+            <p *ngIf="profile.height">
+              {{ profile.height?.feet }} ft {{ profile.height?.inches }} inches
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- third row -->
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>D.O.B</h4>
+          </div>
+          <div class="right">
+            <p>{{ profile.dob }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!--  row -->
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>Gender</h4>
+          </div>
+          <div class="right">
+            <p>{{ profile.gender }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!--  row -->
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>Country</h4>
+          </div>
+          <div class="right">
+            <p>{{ profile.country?.name }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!--  row -->
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>State / UT</h4>
+          </div>
+          <div class="right">
+            <p>{{ profile.state?.name }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!--  row -->
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>City</h4>
+          </div>
+          <div class="right">
+            <p>{{ profile.city?.name }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!--  row -->
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>School</h4>
+          </div>
+          <div class="right">
+            <p>{{ profile.institute?.school }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!--  row -->
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>College</h4>
+          </div>
+          <div class="right">
+            <p>{{ profile.institute?.college }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!--  row -->
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>University</h4>
+          </div>
+          <div class="right">
+            <p>{{ profile.institute?.university }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- editwrapper -->
+  <div class="edit-wrapper" [hidden]="!editMode">
+    <form [formGroup]="personalProfileDetailsForm">
+      <div class="heading">
+        <h3>Personal Details</h3>
+      </div>
+      <div class="seciton-wrapper">
+        <div class="left-seciton">
+          <div class="dp-wrapper">
+            <img [src]="profile.avatar_url" />
+            <span>
+              <label for="upload">
+                <mat-icon class="material-icons">create</mat-icon>
+                <input
+                  (change)="uploadAvatar($event.target.files)"
+                  type="file"
+                  id="upload"
+                />
+              </label>
+            </span>
+          </div>
+        </div>
+        <div class="right-section">
+          <div class="frm-wrapper">
+            <div class="input-container">
+              <div class="full">
+                <h3 class="mb-1">Player type</h3>
+                <div class="radio-block">
+                  <mat-radio-group
+                    formControlName="player_type"
+                    class="example-radio-group"
+                  >
+                    <mat-radio-button value="grassroot">
+                      Grassroot
+                    </mat-radio-button>
+                    <mat-radio-button value="amateur">
+                      Amateur
+                    </mat-radio-button>
+                    <mat-radio-button value="professional">
+                      Professional
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-container">
+              <div class="half">
+                <div class="form-block">
+                  <label>First name <span>*</span></label>
+                  <input
+                    formControlName="first_name"
+                    type="Name"
+                    matinput
+                    autocomplete="off"
+                    required
+                    placeholder="First name"
+                  />
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      personalProfileDetailsForm.controls.first_name.invalid &&
+                      personalProfileDetailsForm.controls.first_name.touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        personalProfileDetailsForm.controls.first_name.errors
+                          .required
+                      "
+                      translate
+                      >First Name is required</span
+                    >
+                    <span
+                      *ngIf="
+                        !personalProfileDetailsForm.controls.first_name.errors
+                          .required &&
+                        personalProfileDetailsForm.controls.first_name.errors
+                          .pattern
+                      "
+                      translate
+                      >First Name is invalid</span
+                    >
+                  </mat-error>
+                </div>
+              </div>
+              <div class="half">
+                <div class="form-block">
+                  <label>Last name <span>*</span></label>
+                  <input
+                    formControlName="last_name"
+                    type="Name"
+                    matinput
+                    autocomplete="off"
+                    required
+                    placeholder="Last name"
+                  />
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      personalProfileDetailsForm.controls.last_name.invalid &&
+                      personalProfileDetailsForm.controls.last_name.touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        personalProfileDetailsForm.controls.last_name.errors
+                          .required
+                      "
+                      translate
+                      >Last Name is required</span
+                    >
+                    <span
+                      *ngIf="
+                        !personalProfileDetailsForm.controls.last_name.errors
+                          .required &&
+                        personalProfileDetailsForm.controls.last_name.errors
+                          .pattern
+                      "
+                      translate
+                      >Last Name is invalid</span
+                    >
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="input-container">
+          <div class="full">
+            <div class="form-block">
+              <textarea
+                formControlName="bio"
+                class="txtarea-height"
+                matinput
+                placeholder="Write a Bio"
+                maxlength="350"
+              ></textarea>
+              <mat-error
+                class="error-text"
+                *ngIf="
+                  personalProfileDetailsForm.controls.bio.invalid &&
+                  personalProfileDetailsForm.controls.bio.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    personalProfileDetailsForm.controls.bio.errors.maxlength
+                  "
+                  translate
+                  >Bio cannot be greater than 350 characters</span
+                >
+              </mat-error>
+            </div>
+          </div>
+        </div>
+        <div class="input-container">
+          <div class="third">
+            <div class="form-block">
+              <label>Email <span>*</span></label>
+              <input
+                formControlName="email"
+                type="Name"
+                matinput
+                autocomplete="off"
+                required
+                placeholder="Email"
+              />
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block">
+              <label>Weight (kg) </label>
+              <input
+                formControlName="weight"
+                type="Name"
+                matinput
+                autocomplete="off"
+                required
+                placeholder="Weight"
+              />
+              <mat-error
+                class="error-text"
+                *ngIf="
+                  personalProfileDetailsForm.controls.weight.invalid &&
+                  personalProfileDetailsForm.controls.weight.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    personalProfileDetailsForm.controls.weight.errors.pattern;
+                    else minBlock
+                  "
+                >
+                  Weight format is invalid
+                </span>
+                <span
+                  *ngIf="
+                    !personalProfileDetailsForm.controls.weight.errors
+                      .pattern &&
+                      personalProfileDetailsForm.controls.weight.errors.max;
+                    else minBlock
+                  "
+                >
+                  Weight should not exceed 200 kgs
+                </span>
+                <ng-template #minBlock>
+                  <span
+                    *ngIf="
+                      personalProfileDetailsForm.controls.weight.errors.min
+                    "
+                  >
+                    Weight must be greater than 0
+                  </span>
+                </ng-template>
+              </mat-error>
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block pb-0">
+              <label>Height <span>*</span></label>
+              <div class="double">
+                <div class="half">
+                  <input
+                    formControlName="height_feet"
+                    type="text"
+                    matinput
+                    autocomplete="off"
+                    required
+                    placeholder="Feet"
+                  />
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      personalProfileDetailsForm.controls.height_feet.invalid &&
+                      personalProfileDetailsForm.controls.height_feet.touched
+                    "
+                  >
+                    <span
+                      class="required"
+                      *ngIf="
+                        personalProfileDetailsForm.controls.height_feet.errors
+                          .required;
+                        else patternBlock
+                      "
+                      translate
+                      >Height in Feet is required</span
+                    >
+                    <ng-template #patternBlock>
+                      <span
+                        class="required"
+                        *ngIf="
+                          personalProfileDetailsForm.controls.height_feet.errors
+                            .pattern;
+                          else maxBlock
+                        "
+                      >
+                        Height in Feet format is invalid
+                      </span>
+                    </ng-template>
+                    <ng-template #maxBlock>
+                      <span
+                        class="required"
+                        *ngIf="
+                          personalProfileDetailsForm.controls.height_feet.errors
+                            .max ||
+                          personalProfileDetailsForm.controls.height_feet.errors
+                            .min
+                        "
+                      >
+                        Height in Feet must be between 1 and 10
+                      </span>
+                    </ng-template>
+                  </mat-error>
+                </div>
+                <div class="half">
+                  <input
+                    formControlName="height_inches"
+                    type="text"
+                    matinput
+                    autocomplete="off"
+                    required
+                    placeholder="Inches"
+                  />
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      personalProfileDetailsForm.controls.height_inches
+                        .invalid &&
+                      personalProfileDetailsForm.controls.height_inches.touched
+                    "
+                  >
+                    <span
+                      class="required"
+                      *ngIf="
+                        personalProfileDetailsForm.controls.height_inches.errors
+                          .required;
+                        else patternBlock
+                      "
+                      translate
+                      >Height in Inches is required</span
+                    >
+                    <ng-template #patternBlock>
+                      <span
+                        class="required"
+                        *ngIf="
+                          personalProfileDetailsForm.controls.height_inches
+                            .errors.pattern;
+                          else maxBlock
+                        "
+                      >
+                        Height in Inches format is invalid
+                      </span>
+                    </ng-template>
+                    <ng-template #maxBlock>
+                      <span
+                        class="limit"
+                        *ngIf="
+                          personalProfileDetailsForm.controls.height_inches
+                            .errors.max ||
+                          personalProfileDetailsForm.controls.height_inches
+                            .errors.min
+                        "
+                      >
+                        Height in Inches must be between 0 and 12
+                      </span>
+                    </ng-template>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="input-container">
+          <div class="third">
+            <div class="form-block">
+              <label>Mobile number <span>*</span></label>
+              <div class="phone-block">
+                <div class="country-code">
+                  <select disabled>
+                    <option>+91</option>
+                  </select>
+                </div>
+                <div class="phone-number">
+                  <input
+                    formControlName="phone"
+                    type="text"
+                    matInput
+                    autocomplete="off"
+                    placeholder="Mobile number"
+                  />
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      personalProfileDetailsForm.controls.phone.invalid &&
+                      personalProfileDetailsForm.controls.phone.touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        personalProfileDetailsForm.controls.phone.errors
+                          .required
+                      "
+                      translate
+                      >Phone Number is required</span
+                    >
+                    <ng-template #lengthBlock>
+                      <span
+                        translate
+                        class="error-text"
+                        *ngIf="
+                          personalProfileDetailsForm.controls.phone.errors
+                            .minlength
+                        "
+                      >
+                        Please provide number upto
+                        {{
+                          personalProfileDetailsForm.controls.phone.errors
+                            .minlength.requiredLength
+                        }}
+                        digits
+                      </span>
+                      <span
+                        translate
+                        class="error-text"
+                        *ngIf="
+                          personalProfileDetailsForm.controls.phone.errors
+                            .maxlength
+                        "
+                      >
+                        Please provide number upto
+                        {{
+                          personalProfileDetailsForm.controls.phone.errors
+                            .maxlength.requiredLength
+                        }}
+                        digits
+                      </span>
+                    </ng-template>
+                    <span
+                      class="error-text"
+                      *ngIf="
+                        personalProfileDetailsForm.controls.phone.errors
+                          .pattern;
+                        else lengthBlock
+                      "
+                      translate
+                    >
+                      Phone Number format is invalid
+                    </span>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block pb-0">
+              <label>D.O.B <span>*</span></label>
+              <div class="date">
+                <input
+                  formControlName="dob"
+                  matInput
+                  [matDatepicker]="picker"
+                  placeholder="Date of Birth"
+                  readonly
+                />
+
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    personalProfileDetailsForm.controls.dob.invalid &&
+                    personalProfileDetailsForm.controls.dob.touched
+                  "
+                >
+                  <span
+                    *ngIf="
+                      personalProfileDetailsForm.controls.dob.errors.required
+                    "
+                    translate
+                    >Date of Birth is required</span
+                  >
+                </mat-error>
+              </div>
+            </div>
+          </div>
+          <div class="third"></div>
+        </div>
+        <div class="input-container">
+          <div class="third">
+            <div class="form-block">
+              <label>Gender <span>*</span></label>
+              <select formControlName="gender">
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+              <mat-error
+                class="error-text"
+                *ngIf="
+                  personalProfileDetailsForm.controls.gender.invalid &&
+                  personalProfileDetailsForm.controls.gender.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    personalProfileDetailsForm.controls.gender.errors.required
+                  "
+                  translate
+                  >Gender is required</span
+                >
+              </mat-error>
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block">
+              <label>Nationality <span>*</span></label>
+              <select
+                formControlName="country"
+                (change)="onSelectCountry($event)"
+              >
+                <option value="">Select Nationality</option>
+                <ng-container *ngFor="let country of countryArray">
+                  <option value="{{ country.country_id }}">{{
+                    country.country
+                  }}</option>
+                </ng-container>
+              </select>
+              <mat-error
+                class="error-text"
+                *ngIf="
+                  personalProfileDetailsForm.controls.country.invalid &&
+                  personalProfileDetailsForm.controls.country.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    personalProfileDetailsForm.controls.country.errors.required
+                  "
+                  translate
+                  >Nationality is required</span
+                >
+              </mat-error>
+            </div>
+          </div>
+        </div>
+        <div class="input-container">
+          <div class="third">
+            <div class="form-block">
+              <label>State / UT <span>*</span></label>
+              <select formControlName="state" (change)="onSelectState($event)">
+                <option value="">Select State/UT </option>
+                <ng-container *ngFor="let state of stateArray">
+                  <option value="{{ state.id }}">{{ state.name }}</option>
+                </ng-container>
+              </select>
+              <mat-error
+                class="error-text"
+                *ngIf="
+                  personalProfileDetailsForm.controls.state.invalid &&
+                  personalProfileDetailsForm.controls.state.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    personalProfileDetailsForm.controls.state.errors.required
+                  "
+                  translate
+                  >State is required</span
+                >
+              </mat-error>
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block">
+              <label>City <span>*</span></label>
+              <select formControlName="city">
+                <option value="">Select City</option>
+                <ng-container *ngFor="let city of cityArray">
+                  <option value="{{ city.id }}">{{ city.name }}</option>
+                </ng-container>
+              </select>
+              <mat-error
+                *ngIf="
+                  personalProfileDetailsForm.controls.city.invalid &&
+                  personalProfileDetailsForm.controls.city.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    personalProfileDetailsForm.controls.city.errors.required
+                  "
+                  translate
+                  >Current City is required</span
+                >
+              </mat-error>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <div class="two-third">
+            <div class="form-block">
+              <label>School</label>
+              <input
+                formControlName="school"
+                type="text"
+                matinput
+                autocomplete="off"
+                placeholder="School"
+              />
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="['amateur', 'professional'].includes(player_type)">
+          <div class="input-container">
+            <div class="two-third">
+              <div class="form-block">
+                <label>College</label>
+                <input
+                  formControlName="college"
+                  type="text"
+                  matinput
+                  autocomplete="off"
+                  placeholder="College"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="input-container">
+            <div class="two-third">
+              <div class="form-block">
+                <label>University</label>
+                <input
+                  formControlName="university"
+                  type="text"
+                  matinput
+                  autocomplete="off"
+                  placeholder="University"
+                />
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="socials">
+        <h3>Social Media Link</h3>
+        <div class="input-container">
+          <div class="third">
+            <div class="form-block">
+              <label>Facebook </label>
+              <input
+                formControlName="facebook"
+                type="text"
+                matinput
+                autocomplete="off"
+                placeholder="Facebook"
+              />
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block">
+              <label>Instagram </label>
+              <input
+                formControlName="instagram"
+                type="text"
+                matinput
+                autocomplete="off"
+                placeholder="Instagram"
+              />
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block">
+              <label>Linkedin </label>
+              <input
+                formControlName="linked_in"
+                type="text"
+                matinput
+                autocomplete="off"
+                placeholder="Linkedin"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="input-container">
+          <div class="third">
+            <div class="form-block">
+              <label>Twitter </label>
+              <input
+                formControlName="twitter"
+                type="text"
+                matinput
+                autocomplete="off"
+                placeholder="Twitter"
+              />
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block">
+              <label>Youtube </label>
+              <input
+                formControlName="youtube"
+                type="text"
+                matinput
+                autocomplete="off"
+                placeholder="Youtube"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="actions mt-2 mb-2">
+        <div class="btn-group">
+          <button class="btn-normal" (click)="toggleMode()">Cancel</button>
+          <button
+            class="btn-active"
+            (click)="updatePersonalProfileDetails()"
+            [disabled]="personalProfileDetailsForm.invalid"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

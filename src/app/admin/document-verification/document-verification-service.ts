@@ -9,7 +9,9 @@ const routes = {
   updateClubAcademyStatus: (id: string) =>
     `/admin/club-academy/${id}/documents/status`,
   getEmploymentContractList: (id: string) =>
-    `/admin/employment-contract/${id}/list`
+    `/admin/employment-contract/${id}/list`,
+  updateContractStatus: (id: string) =>
+    `/admin/employment-contract/${id}/status`
 };
 
 @Injectable({
@@ -31,7 +33,12 @@ export class DocumentVerificationService {
 
     return this.httpClient.put<any>(routes.updateClubAcademyStatus(id), data);
   }
+
   getEmploymentContractList(id: string): Observable<any> {
     return this.httpClient.get<any>(routes.getEmploymentContractList(id));
+  }
+
+  updateContractStatus(id: string, data: any) {
+    return this.httpClient.put<any>(routes.updateContractStatus(id), data);
   }
 }

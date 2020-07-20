@@ -8,3 +8,19 @@
 .green {
   color: green;
 }
+
+.activeStatus {
+  color: $success;
+}
+
+.completeStatus {
+  color: $warning;
+}
+
+.pendingStatus {
+  color: $info;
+}
+
+.yetStatus {
+  color: $yet;
+}

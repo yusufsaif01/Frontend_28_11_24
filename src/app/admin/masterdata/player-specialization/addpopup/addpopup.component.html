@@ -29,6 +29,7 @@
           [placeholder]="
             data.specialization === 'ability' ? 'Ability' : 'Parameter'
           "
+          trim="blur"
         />
         <mat-error
           *ngIf="addForm.controls.name.invalid && addForm.controls.name.touched"

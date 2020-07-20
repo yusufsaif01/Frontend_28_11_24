@@ -1,0 +1,631 @@
+<div class="wrapper">
+  <div class="view-wrapper">
+    <ng-container *ngIf="viewMode; else editMode">
+      <div class="heading">
+        <h2>Professional details</h2>
+        <button (click)="toggleMode()">
+          <mat-icon class="material-icons">create</mat-icon>
+        </button>
+      </div>
+
+      <div class="second-section">
+        <!-- row -->
+        <h4>Preferred playing position :</h4>
+
+        <div class="view-details">
+          <div class="details">
+            <div class="full">
+              <p
+                *ngFor="
+                  let data of professionalDetails?.position;
+                  let i = index
+                "
+              >
+                <span>{{ i + 1 }}. </span>
+                {{ data.name | titlecase }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>Strong Foot</h4>
+            </div>
+            <div class="right">
+              <p>
+                {{ professionalDetails?.strong_foot | titlecase }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- second row -->
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>Weak foot</h4>
+            </div>
+            <div class="right">
+              <div class="stars">
+                <ng-container *ngFor="let number of [1, 2, 3, 4, 5]">
+                  <ng-container
+                    *ngIf="number <= professionalDetails?.weak_foot"
+                  >
+                    <mat-icon class="material-icons active">
+                      star_border
+                    </mat-icon>
+                  </ng-container>
+                  <ng-container *ngIf="number > professionalDetails?.weak_foot">
+                    <mat-icon class="material-icons "> star_border </mat-icon>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- third row -->
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>
+                Current State Association
+                {{
+                  professionalDetails?.association === 'Others' ? '(Other)' : ''
+                }}
+              </h4>
+            </div>
+            <div class="right">
+              <p>
+                {{
+                  (professionalDetails?.association === 'Others'
+                    ? professionalDetails?.association_other
+                    : professionalDetails?.association
+                  ) | titlecase
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>Former club / academy</h4>
+            </div>
+            <div class="right">
+              <p>{{ professionalDetails?.former_club_academy | titlecase }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="associated mt-2">
+          <h4>
+            Currently associated with club / academy :
+            <span>
+              {{ professionalDetails?.associated_club_academy | titlecase }}
+            </span>
+          </h4>
+        </div>
+
+        <ng-container
+          *ngIf="professionalDetails?.associated_club_academy === 'yes'"
+        >
+          <h4 class="mt-1 mb-1">Head coach details</h4>
+          <div class="view-details">
+            <div class="details">
+              <div class="left">
+                <h4>Name</h4>
+              </div>
+              <div class="right">
+                <p>
+                  {{
+                    professionalDetails?.club_academy_details?.head_coach_name
+                  }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="view-details">
+            <div class="details">
+              <div class="left">
+                <h4>Mobile number</h4>
+              </div>
+              <div class="right">
+                <p>
+                  {{
+                    professionalDetails?.club_academy_details?.head_coach_phone
+                  }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="view-details">
+            <div class="details">
+              <div class="left">
+                <h4>Email</h4>
+              </div>
+              <div class="right">
+                <p>
+                  {{
+                    professionalDetails?.club_academy_details?.head_coach_email
+                  }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <!-- editwrapper -->
+    <ng-template #editMode>
+      <div class="edit-wrapper">
+        <form [formGroup]="professionalDetailsForm">
+          <div class="heading">
+            <h2>Professional details</h2>
+          </div>
+
+          <div class="second-section">
+            <h4>Preferred playing position</h4>
+            <div class="input-container">
+              <ng-container
+                formArrayName="position"
+                *ngFor="
+                  let data of professionalDetailsForm.get('position')[
+                    'controls'
+                  ];
+                  let i = index
+                "
+              >
+                <div class="third" [formGroupName]="i">
+                  <div class="form-block">
+                    <label
+                      >{{
+                        i == 0
+                          ? 'First'
+                          : i == 1
+                          ? 'Second'
+                          : i == 2
+                          ? 'Third'
+                          : ''
+                      }}
+                      Position <span>*</span></label
+                    >
+                    <select formControlName="id" matNativeControl required>
+                      <option value="">Select Position</option>
+
+                      <option
+                        *ngFor="let position of positionArray"
+                        [value]="position.id"
+                        >{{ position.name }}</option
+                      >
+                    </select>
+                    <mat-error
+                      class="error-text"
+                      *ngIf="
+                        professionalDetailsForm
+                          .get('position')
+                          ['controls'][i].get('id').invalid &&
+                        professionalDetailsForm
+                          .get('position')
+                          ['controls'][i].get('id').touched
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          professionalDetailsForm
+                            .get('position')
+                            ['controls'][i].get('id')
+                            .hasError('required')
+                        "
+                        translate
+                        >{{
+                          i == 0
+                            ? 'First'
+                            : i == 1
+                            ? 'Second'
+                            : i == 2
+                            ? 'Third'
+                            : ''
+                        }}
+                        Position is required</span
+                      >
+                    </mat-error>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <label>Strong Foot<span>*</span></label>
+                  <select
+                    formControlName="strong_foot"
+                    matNativeControl
+                    required
+                  >
+                    <option value="">Select Strong Foot</option>
+
+                    <option
+                      *ngFor="let foot of strongFootArray"
+                      [value]="foot.value"
+                      >{{ foot.name }}</option
+                    >
+                  </select>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      professionalDetailsForm.controls.strong_foot.invalid &&
+                      professionalDetailsForm.controls.strong_foot.touched
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        professionalDetailsForm.controls.strong_foot.errors
+                          .required
+                      "
+                      translate
+                      >Strong Foot is required</span
+                    >
+                  </mat-error>
+                </div>
+              </div>
+              <div class="third">
+                <div class="form-block">
+                  <label>Weak foot</label>
+                  <div class="details">
+                    <div class="right">
+                      <div class="star-rating">
+                        <input
+                          formControlName="weak_foot"
+                          (click)="
+                            professionalDetailsForm.get('weak_foot').value = 5
+                          "
+                          id="star-5"
+                          type="radio"
+                          value="5"
+                        />
+                        <label for="star-5" title="5 stars">
+                          <mat-icon class="material-icons"
+                            >star_border</mat-icon
+                          >
+                        </label>
+                        <input
+                          formControlName="weak_foot"
+                          (click)="
+                            professionalDetailsForm.get('weak_foot').value = 4
+                          "
+                          id="star-4"
+                          type="radio"
+                          value="4"
+                        />
+                        <label for="star-4" title="4 stars">
+                          <mat-icon class="material-icons"
+                            >star_border</mat-icon
+                          >
+                        </label>
+                        <input
+                          formControlName="weak_foot"
+                          (click)="
+                            professionalDetailsForm.get('weak_foot').value = 3
+                          "
+                          id="star-3"
+                          type="radio"
+                          value="3"
+                        />
+                        <label for="star-3" title="3 stars">
+                          <mat-icon class="material-icons"
+                            >star_border</mat-icon
+                          >
+                        </label>
+                        <input
+                          formControlName="weak_foot"
+                          (click)="
+                            professionalDetailsForm.get('weak_foot').value = 2
+                          "
+                          id="star-2"
+                          type="radio"
+                          value="2"
+                        />
+                        <label for="star-2" title="2 stars">
+                          <mat-icon class="material-icons"
+                            >star_border</mat-icon
+                          >
+                        </label>
+                        <input
+                          formControlName="weak_foot"
+                          (click)="
+                            professionalDetailsForm.get('weak_foot').value = 1
+                          "
+                          id="star-1"
+                          type="radio"
+                          value="1"
+                        />
+                        <label for="star-1" title="1 star">
+                          <mat-icon class="material-icons"
+                            >star_border</mat-icon
+                          >
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <label>Current State Association<span>*</span></label>
+                  <select
+                    formControlName="association"
+                    matNativeControl
+                    required
+                  >
+                    <option value="">Select Association</option>
+
+                    <option
+                      *ngFor="let association of stateAssociationArray"
+                      [value]="association.value"
+                    >
+                      {{ association.name }}</option
+                    >
+                  </select>
+                  <mat-error
+                    class="error-text"
+                    *ngIf="
+                      professionalDetailsForm.controls.association.invalid &&
+                      professionalDetailsForm.controls.association.touched
+                    "
+                    ><span
+                      *ngIf="
+                        professionalDetailsForm.controls.association.errors
+                          .required
+                      "
+                      translate
+                      >Association is required</span
+                    >
+                  </mat-error>
+                </div>
+              </div>
+              <ng-container
+                *ngIf="
+                  professionalDetailsForm.get('association').value === 'Others'
+                "
+              >
+                <div class="third">
+                  <div class="form-block">
+                    <label>Other State Association Name</label>
+                    <input
+                      formControlName="association_other"
+                      type="text"
+                      matInput
+                      autocomplete="off"
+                      placeholder="Other"
+                      trim="blur"
+                    />
+                    <mat-error class="error-text"> </mat-error>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            <div class="input-container">
+              <div class="full">
+                <h4 class="mb-1">
+                  Currently associated with club / academy ? <span>*</span>
+                </h4>
+                <div class="radio-block">
+                  <mat-radio-group
+                    formControlName="associated_club_academy"
+                    class="example-radio-group"
+                  >
+                    <mat-radio-button value="yes">
+                      Yes
+                    </mat-radio-button>
+                    <mat-radio-button value="no">
+                      No
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+
+            <ng-container
+              *ngIf="
+                professionalDetailsForm.get('associated_club_academy').value ===
+                'yes'
+              "
+            >
+              <h4>Head Coach</h4>
+              <div class="input-container">
+                <div class="third">
+                  <div class="form-block">
+                    <label>Name<span>*</span></label>
+                    <input
+                      formControlName="head_coach_name"
+                      type="text"
+                      matInput
+                      autocomplete="off"
+                      required
+                      placeholder="Name"
+                      trim="blur"
+                    />
+                    <mat-error
+                      class="error-text"
+                      *ngIf="
+                        professionalDetailsForm.controls.head_coach_name
+                          .invalid &&
+                        professionalDetailsForm.controls.head_coach_name.touched
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.head_coach_name
+                            .errors.required
+                        "
+                        translate
+                        >Head Coach Name is required
+                      </span>
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.head_coach_name
+                            .errors.pattern
+                        "
+                        translate
+                        >Head Coach Name format is invalid
+                      </span>
+                    </mat-error>
+                  </div>
+                </div>
+                <div class="third">
+                  <div class="form-block">
+                    <label>Mobile number<span>*</span></label>
+                    <div class="phone-block">
+                      <div class="country-code">
+                        <select disabled>
+                          <option>+91</option>
+                        </select>
+                      </div>
+                      <div class="phone-number">
+                        <input
+                          formControlName="head_coach_phone"
+                          type="text"
+                          matInput
+                          autocomplete="off"
+                          required
+                          placeholder="Mobile Number"
+                          trim="blur"
+                        />
+                      </div>
+                    </div>
+                    <mat-error
+                      class="error-text"
+                      *ngIf="
+                        professionalDetailsForm.controls.head_coach_phone
+                          .invalid &&
+                        professionalDetailsForm.controls.head_coach_phone
+                          .touched
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.head_coach_phone
+                            .errors.required
+                        "
+                        translate
+                        >Head Coach Phone is required</span
+                      >
+                      <ng-template #lengthBlock>
+                        <span
+                          *ngIf="
+                            professionalDetailsForm.controls.head_coach_phone
+                              .errors.minlength
+                          "
+                        >
+                          Please provide number upto
+                          {{
+                            professionalDetailsForm.controls.head_coach_phone
+                              .errors.minlength.requiredLength
+                          }}
+                          digits
+                        </span>
+                        <span
+                          *ngIf="
+                            professionalDetailsForm.controls.head_coach_phone
+                              .errors.maxlength
+                          "
+                        >
+                          Please provide number upto
+                          {{
+                            professionalDetailsForm.controls.head_coach_phone
+                              .errors.maxlength.requiredLength
+                          }}
+                          digits
+                        </span>
+                      </ng-template>
+                      <span
+                        translate
+                        class="error-text"
+                        *ngIf="
+                          professionalDetailsForm.controls.head_coach_phone
+                            .errors.pattern;
+                          else lengthBlock
+                        "
+                      >
+                        Phone Number format is invalid
+                      </span>
+                    </mat-error>
+                  </div>
+                </div>
+                <div class="third">
+                  <div class="form-block">
+                    <label>Email Address</label>
+                    <input
+                      formControlName="head_coach_email"
+                      type="email"
+                      matInput
+                      autocomplete="off"
+                      placeholder="Email"
+                      trim="blur"
+                    />
+                    <mat-error
+                      class="error-text"
+                      *ngIf="
+                        professionalDetailsForm.controls.head_coach_email
+                          .invalid &&
+                        professionalDetailsForm.controls.head_coach_email
+                          .touched
+                      "
+                    >
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.head_coach_email
+                            .errors.email
+                        "
+                        translate
+                        >Head Coach Email format is invalid
+                      </span>
+                    </mat-error>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <label class="label-small"
+                    >Former club / academy (optional, if any)</label
+                  >
+                  <input
+                    formControlName="former_club_academy"
+                    type="text"
+                    matInput
+                    autocomplete="off"
+                    placeholder="Former Club / Academy"
+                    trim="blur"
+                  />
+                  <mat-error class="error-text"> </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="actions mt-2 mb-2">
+              <div class="btn-group">
+                <button (click)="toggleMode()" class="btn-normal">
+                  Cancel
+                </button>
+                <button
+                  [disabled]="!professionalDetailsForm.valid"
+                  (click)="editProfessionalDetails()"
+                  class="btn-active"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+  </div>
+</div>

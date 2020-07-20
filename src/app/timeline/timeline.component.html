@@ -662,7 +662,7 @@
           <div class="post-header">
             <!-- PostProfile -->
             <div class="profile">
-              <div class="profile-img" *ngIf="post.post.media_url">
+              <div class="profile-img">
                 <img [src]="post.posted_by.avatar" alt="profile" />
               </div>
               <div class="details">
@@ -676,7 +676,10 @@
                   <h3>{{ post.posted_by.name }}</h3>
                 </a>
                 <p>
-                  <span>{{ player_type }}</span> {{ post.posted_by.position }} ,
+                  <span class="playertype">{{ player_type }}</span>
+                  <span class="playerposition"
+                    >{{ post.posted_by.position }}
+                  </span>
                   {{ post.created_at | datePipe }}
                 </p>
               </div>
@@ -763,8 +766,10 @@
                     <h4>{{ comment.commented_by.name }}</h4>
                     <div class="commenter-details">
                       <p>
-                        <span>{{ player_type }}</span>
-                        {{ comment.commented_by.position }}
+                        <span class="playertype">{{ player_type }}</span>
+                        <span class="playerposition"
+                          >{{ comment.commented_by.position }}
+                        </span>
                       </p>
                       <p>{{ comment.commented_at | datePipe }}</p>
                     </div>
@@ -868,6 +873,8 @@
         </div>
       </div>
     </div>
-    <app-copyright></app-copyright>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
   </div>
 </div>
