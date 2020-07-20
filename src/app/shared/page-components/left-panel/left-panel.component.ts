@@ -54,6 +54,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   @Output() sendAchievementCount = new EventEmitter<number>();
   @Output() sendProfileStatus = new EventEmitter<object>();
   following$: Observable<any>;
+  professionalProfile: any = {};
 
   constructor(
     private _authenticationService: AuthenticationService,
@@ -68,9 +69,21 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   ngOnInit() {
-    this.getProfileDetails();
+    this.getPersonalProfileDetails();
+    this.getProfessionalProfileDetails();
     this.getAchievementCount();
     this.getConnectionStats();
+  }
+  getProfessionalProfileDetails() {
+    this._profileService
+      .getProfessionalProfileDetails()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.professionalProfile = response.data;
+        },
+        error => {}
+      );
   }
 
   logout() {
@@ -78,7 +91,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     this._router.navigateByUrl('/login');
   }
 
-  getProfileDetails() {
+  getPersonalProfileDetails() {
     let data = {};
     // if (this.userId) data = { user_id: this.userId }; This is for public profile, will be catered later
 
