@@ -150,8 +150,7 @@
           </div>
           <div class="right">
             <p *ngIf="profile.height">
-              {{ profile.height?.feet }} feet
-              {{ profile.height?.inches }} inches
+              {{ profile.height?.feet }} ft {{ profile.height?.inches }} inches
             </p>
           </div>
         </div>
@@ -679,7 +678,7 @@
                   formControlName="dob"
                   matInput
                   [matDatepicker]="picker"
-                  placeholder="Pick Date"
+                  placeholder="Date of Birth"
                   readonly
                 />
 
