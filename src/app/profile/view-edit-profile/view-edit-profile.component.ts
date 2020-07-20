@@ -11,7 +11,7 @@ export class ViewEditProfileComponent implements OnInit {
     { name: 'Personal details', value: 'personal' },
     { name: 'Professional details', value: 'professional' },
     { name: 'Documents', value: 'documents' },
-    { name: 'Employment Contracts', value: 'contracts' }
+    { name: 'Employment contracts', value: 'contracts' }
   ];
   constructor() {}
 
