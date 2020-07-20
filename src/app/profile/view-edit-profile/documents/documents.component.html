@@ -352,43 +352,45 @@
               />
               <span>*</span>
             </h3>
-            <div class="edit-image">
-              <img
-                alt=""
-                [src]="
-                  player_photo_preview
-                    ? player_photo_preview
-                    : player_photo_url
-                    ? player_photo_url
-                    : 'assets/images/member/avatar-square.png'
+            <div class="edit-img-wrap">
+              <div class="edit-image">
+                <img
+                  alt=""
+                  [src]="
+                    player_photo_preview
+                      ? player_photo_preview
+                      : player_photo_url
+                      ? player_photo_url
+                      : 'assets/images/member/avatar-square.png'
+                  "
+                />
+                <span>
+                  <label for="upload">
+                    <mat-icon class="material-icons">create</mat-icon>
+                    <input
+                      formControlName="player_photo"
+                      (change)="uploadPlayerPhoto($event.target.files)"
+                      type="file"
+                      id="upload"
+                    />
+                  </label>
+                </span>
+              </div>
+              <mat-error
+                *ngIf="
+                  documentsDetailsForm.controls.player_photo.errors &&
+                  documentsDetailsForm.controls.player_photo.dirty
                 "
-              />
-              <span>
-                <label for="upload">
-                  <mat-icon class="material-icons">create</mat-icon>
-                  <input
-                    formControlName="player_photo"
-                    (change)="uploadPlayerPhoto($event.target.files)"
-                    type="file"
-                    id="upload"
-                  />
-                  <mat-error
-                    *ngIf="
-                      documentsDetailsForm.controls.player_photo.errors &&
-                      documentsDetailsForm.controls.player_photo.dirty
-                    "
-                  >
-                    <span
-                      *ngIf="
-                        documentsDetailsForm.controls.player_photo.errors
-                          .requiredFileAvatar
-                      "
-                      translate
-                      >Player Photo must be of type PNG / JPG / JPEG</span
-                    >
-                  </mat-error>
-                </label>
-              </span>
+              >
+                <span
+                  *ngIf="
+                    documentsDetailsForm.controls.player_photo.errors
+                      .requiredFileAvatar
+                  "
+                  translate
+                  >Player Photo must be of type PNG / JPG / JPEG</span
+                >
+              </mat-error>
             </div>
           </div>
 

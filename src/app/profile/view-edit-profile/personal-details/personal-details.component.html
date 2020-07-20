@@ -497,6 +497,7 @@
                     "
                   >
                     <span
+                      class="required"
                       *ngIf="
                         personalProfileDetailsForm.controls.height_feet.errors
                           .required;
@@ -507,7 +508,7 @@
                     >
                     <ng-template #patternBlock>
                       <span
-                        class="error-text format-invalid"
+                        class="required"
                         *ngIf="
                           personalProfileDetailsForm.controls.height_feet.errors
                             .pattern;
@@ -519,7 +520,7 @@
                     </ng-template>
                     <ng-template #maxBlock>
                       <span
-                        class="error-text "
+                        class="required"
                         *ngIf="
                           personalProfileDetailsForm.controls.height_feet.errors
                             .max ||
@@ -550,6 +551,7 @@
                     "
                   >
                     <span
+                      class="required"
                       *ngIf="
                         personalProfileDetailsForm.controls.height_inches.errors
                           .required;
@@ -560,7 +562,7 @@
                     >
                     <ng-template #patternBlock>
                       <span
-                        class="error-text format-invalid"
+                        class="required"
                         *ngIf="
                           personalProfileDetailsForm.controls.height_inches
                             .errors.pattern;
@@ -572,7 +574,7 @@
                     </ng-template>
                     <ng-template #maxBlock>
                       <span
-                        class="error-text "
+                        class="limit"
                         *ngIf="
                           personalProfileDetailsForm.controls.height_inches
                             .errors.max ||
@@ -671,7 +673,7 @@
             </div>
           </div>
           <div class="third">
-            <div class="form-block">
+            <div class="form-block pb-0">
               <label>D.O.B <span>*</span></label>
               <div class="date">
                 <input
@@ -681,6 +683,12 @@
                   placeholder="Pick Date"
                   readonly
                 />
+
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
                 <mat-error
                   class="error-text"
                   *ngIf="
@@ -696,11 +704,6 @@
                     >Date of Birth is required</span
                   >
                 </mat-error>
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="picker"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
               </div>
             </div>
           </div>

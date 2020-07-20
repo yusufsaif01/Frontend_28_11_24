@@ -127,13 +127,22 @@
     }
 
     .error-text {
-      bottom: -2rem;
+      span.required {
+        bottom: -1.5rem;
+        position: relative;
+      }
+
+      span.limit {
+        bottom: -3.5rem;
+        position: relative;
+      }
     }
   }
 }
 
 .date {
   position: relative;
+  padding-bottom: 2.5rem;
 
   input {
     background: url("assets/images/global/calender.svg") no-repeat, $third-color;
