@@ -13,7 +13,7 @@ export class EmploymentContractListTableConfig extends TableConfig {
     this.columns = {
       name: {
         code: 'name',
-        text: 'Club/Academy',
+        text: 'Club / Academy',
         getValue: (ele: any) => {
           return ele[this.columns.name.code];
         }
