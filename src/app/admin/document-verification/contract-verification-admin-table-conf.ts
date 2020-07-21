@@ -1,4 +1,5 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
+import moment from 'moment';
 export class ContractListAdminTableConfig extends TableConfig {
   constructor() {
     super();

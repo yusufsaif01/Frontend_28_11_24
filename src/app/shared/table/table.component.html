@@ -28,7 +28,6 @@
               'user_photo',
               'document',
               'aiff_image',
-              'effective_date',
               'expiry_date',
               'club_academy_name',
               'player_name',
@@ -51,16 +50,7 @@
             >
           </ng-container>
         </p>
-        <p
-          *ngIf="
-            [
-              'added_on',
-              'date_of_birth',
-              'expiry_date',
-              'effective_date'
-            ].includes(col)
-          "
-        >
+        <p *ngIf="['added_on', 'date_of_birth', 'expiry_date'].includes(col)">
           {{
             tableConfig.columns[col].getValue(element) | date: 'dd-LLLL-yyyy'
           }}
@@ -89,6 +79,7 @@
           }}
         </p>
         <p
+          innerHTML="{{ tableConfig.columns[col].getValue(element) }}"
           *ngIf="col === 'status'"
           [ngClass]="{
             red: ['non-verified', 'rejected', 'disapproved'].includes(
@@ -104,7 +95,7 @@
           {{
             element.status === 'yet_to_start'
               ? 'Yet to Start'
-              : (tableConfig.columns[col].getValue(element) | titlecase)
+              : tableConfig.columns[col].getValue(element)
           }}
           <!-- <img
             class="status-icon"
