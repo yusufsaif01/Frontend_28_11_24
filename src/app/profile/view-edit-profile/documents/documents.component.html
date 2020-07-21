@@ -24,7 +24,14 @@
         </div>
       </div>
 
-      <div class="document">
+      <div
+        class="document"
+        [matTooltip]="
+          isVerifiedDocument('aadhar', 'approved')
+            ? 'Aadhaar details are verified'
+            : ''
+        "
+      >
         <ng-container *ngIf="aadhar_front_url && aadhar_back_url">
           <div class="doc-img">
             <h5>Front side</h5>

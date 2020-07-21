@@ -108,6 +108,14 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     }
   }
 
+  isVerifiedDocument(documentType: string, condition: boolean | string) {
+    return this.documentsDetails.documents.some(document => {
+      if (document.type === documentType) {
+        return document.status === condition;
+      }
+    });
+  }
+
   setControlState() {
     let controls = [
       'aadhar',
