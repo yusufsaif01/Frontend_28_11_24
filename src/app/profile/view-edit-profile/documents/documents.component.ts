@@ -109,7 +109,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   isVerifiedDocument(documentType: string, condition: boolean | string) {
-    return this.documentsDetails.documents.some(document => {
+    return this.documentsDetails && this.documentsDetails.documents.some(document => {
       if (document.type === documentType) {
         return document.status === condition;
       }
@@ -151,7 +151,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     this.documentsDetailsForm.patchValue({
       aadhar_number:
         this.documentsDetails.documents &&
-        this.documentsDetails.documents.length
+          this.documentsDetails.documents.length
           ? this.documentsDetails.documents[0].document_number
           : ''
     });
@@ -364,5 +364,5 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     fileValidation.updateValueAndValidity();
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() { }
 }
