@@ -1,7 +1,9 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
 import moment from 'moment';
+import { DomSanitizer } from '@angular/platform-browser';
 export class EmploymentContractListTableConfig extends TableConfig {
   constructor() {
+    // constructor(private _sanitizer: DomSanitizer) {
     super();
     this.allowedColumns = [
       'name',
@@ -24,16 +26,17 @@ export class EmploymentContractListTableConfig extends TableConfig {
         text: 'Effective Date',
         getValue: (ele: any) => {
           let val: any = moment(ele.effective_date);
-          val = val.isValid() ? val.format('DD MMMM YYYY') : 'NA';
+          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
           return `${val}`;
-          // return ele[this.columns.effective_date.code];
         }
       },
       expiry_date: {
         code: 'expiry_date',
         text: 'Expiry Date',
         getValue: (ele: any) => {
-          return ele[this.columns.expiry_date.code];
+          let val: any = moment(ele.expiry_date);
+          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          return `${val}`;
         }
       },
       created_by: {
@@ -48,7 +51,25 @@ export class EmploymentContractListTableConfig extends TableConfig {
         text: 'Status',
         getValue: (ele: any) => {
           // return ele[this.columns.status.code];
-          return `<a href="${ele[this.columns.status.code]}">Link</a>`;
+          // return this._sanitizer.bypassSecurityTrustHtml(this._classSelector(ele[this.columns.status.code]));
+          return `<p [ngClass]="{
+            red: ['non-verified', 'rejected', 'disapproved'].includes(
+              ${ele[this.columns.status.code]}
+            ),
+            black: ['verified'].includes(${ele[this.columns.status.code]}),
+            green: ['active', 'added', 'approved'].includes(${
+              ele[this.columns.status.code]
+            }),
+            completeStatus: ['completed'].includes(${
+              ele[this.columns.status.code]
+            }),
+            yetStatus: ['yet_to_start'].includes(${
+              ele[this.columns.status.code]
+            }),
+            pendingStatus: ['pending'].includes(${
+              ele[this.columns.status.code]
+            })
+          }">${ele[this.columns.status.code]}</p>`;
         }
       },
       action: {
