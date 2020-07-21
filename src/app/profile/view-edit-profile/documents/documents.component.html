@@ -18,7 +18,7 @@
               <h4>Aadhaar number</h4>
             </div>
             <div class="right">
-              <p>{{ aadhar_number }}</p>
+              <p>{{ aadhar_number | mask: 'XXXX XXXX 0000' }}</p>
             </div>
           </div>
         </div>
