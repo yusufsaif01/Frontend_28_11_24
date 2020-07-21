@@ -434,7 +434,6 @@
                 type="Name"
                 matinput
                 autocomplete="off"
-                required
                 placeholder="Weight"
               />
               <mat-error
@@ -680,6 +679,7 @@
                   [matDatepicker]="picker"
                   placeholder="Date of Birth"
                   readonly
+                  [max]="today"
                 />
 
                 <mat-datepicker-toggle

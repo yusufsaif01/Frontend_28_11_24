@@ -22,6 +22,7 @@ export class PersonalDetailsComponent implements OnInit {
   member_type: string = localStorage.getItem('member_type') || 'player';
   currentYear = new Date().getFullYear();
   tomorrow = new Date();
+  today = new Date();
   countryArray: any[] = [];
   stateArray: any[] = [];
   cityArray: any[] = [];
