@@ -20,12 +20,12 @@
   <!-- edit container -->
   <div class="edit-wrapper" [hidden]="!editMode">
     <div class="heading">
-      <h2>Employment contract</h2>
+      <h2>Employment Contract</h2>
       <button
         class="secondary-btn"
         [routerLink]="['/member/profile/add-employment-contract/']"
       >
-        Add new contract
+        Add new contracts
       </button>
     </div>
     <!-- TABLE -->
@@ -74,7 +74,7 @@
       class="notfound"
       *ngIf="!dataSource || !dataSource.data || dataSource.data.length === 0"
     >
-      <h3>No contract, please add a contract.</h3>
+      <h3>No Contract, please add a contract.</h3>
     </div>
     <div class="btn-group mt-2">
       <button class="btn-normal" (click)="toggleMode()">Cancel</button>

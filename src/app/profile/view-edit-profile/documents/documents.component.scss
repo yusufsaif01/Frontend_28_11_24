@@ -210,42 +210,46 @@
           }
         }
 
-        .edit-image {
+        .edit-img-wrap {
           position: relative;
-          max-width: 15rem;
 
-          img {
-            border-radius: 1rem;
-            max-height: 15rem;
-            max-width: 100%;
-          }
+          .edit-image {
+            position: relative;
+            max-width: 15rem;
 
-          span {
-            border: 0.2rem solid $white-color;
-            background: $fourth-color;
-            color: $white-color;
-            padding: 0.6rem 0.8rem;
-            border-radius: 3rem;
-            outline: 0px;
-            position: absolute;
-            bottom: 0rem;
-            right: -0.5rem;
-            cursor: pointer;
+            img {
+              border-radius: 1rem;
+              height: 15rem;
+              width: 15rem;
+            }
 
-            input {
-              width: 1rem;
+            span {
+              border: 0.2rem solid $white-color;
+              background: $fourth-color;
+              color: $white-color;
+              padding: 0.6rem 0.8rem;
+              border-radius: 3rem;
+              outline: 0px;
               position: absolute;
-              left: 0;
-              visibility: hidden;
-            }
+              bottom: 0rem;
+              right: -0.5rem;
+              cursor: pointer;
 
-            .mat-icon {
-              height: 1.8rem;
-              width: 1.8rem;
-            }
+              input {
+                width: 1rem;
+                position: absolute;
+                left: 0;
+                visibility: hidden;
+              }
 
-            .material-icons {
-              font-size: 1.8rem;
+              .mat-icon {
+                height: 1.8rem;
+                width: 1.8rem;
+              }
+
+              .material-icons {
+                font-size: 1.8rem;
+              }
             }
           }
         }
