@@ -74,7 +74,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
           this.show_count = response.data.records.length;
           this.total_count = response.data.total;
           if (!response.data.total) {
-            this._toastrService.error('No player found', 'Find Player');
+            this._toastrService.error('find player', 'No player found');
           }
         },
         error => {
@@ -101,7 +101,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this._toastrService.success(`Success`, 'Send request successfully');
+          this._toastrService.success(`success`, 'Send request successfully');
           this.dialogRef.close(true);
         },
         error => {
@@ -123,7 +123,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this._toastrService.success('Success', 'Send invite successfully');
+          this._toastrService.success('success', 'Send invite successfully');
           this.dialogRef.close(true);
         },
         error => {

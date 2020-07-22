@@ -61,6 +61,7 @@
       font-size: 7rem;
       color: $fourth-color;
       font-family: $secondary-text;
+      font-weight: 100;
       position: relative;
       letter-spacing: 1px;
       padding-bottom: 2rem;
@@ -153,6 +154,7 @@
     h2 {
       font-size: 6.5rem;
       font-family: $secondary-text;
+      font-weight: 100;
       margin-right: 5rem;
 
       span {
@@ -245,6 +247,7 @@
       h2 {
         font-size: 6.5rem;
         font-family: $secondary-text;
+        font-weight: 100;
         margin-left: 5rem;
 
         span {
@@ -332,6 +335,7 @@
       font-size: 6.5rem;
       font-family: $secondary-text;
       margin-right: 5rem;
+      font-weight: 100;
 
       span {
         font-size: 8rem;
@@ -367,6 +371,7 @@
     h2 {
       font-size: 6.5rem;
       font-family: $secondary-text;
+      font-weight: 100;
     }
 
     p {
@@ -428,7 +433,7 @@
           font-family: $secondary-text;
           text-align: right;
           color: $third-color;
-          font-weight: normal;
+          font-weight: 100;
         }
       }
 
