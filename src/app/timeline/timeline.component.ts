@@ -341,7 +341,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
           .subscribe(
             response => {
               this._toastrService.success(
-                `Success`,
+                `success`,
                 'Post deleted successfully'
               );
               this.getPostListing();
