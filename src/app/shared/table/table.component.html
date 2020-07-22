@@ -14,7 +14,6 @@
             ![
               'name',
               'date_of_birth',
-              'added_on',
               'media',
               'aadhaarimg',
               'document_image',
@@ -49,11 +48,6 @@
             >
           </ng-container>
         </p>
-        <p *ngIf="['added_on', 'date_of_birth'].includes(col)">
-          {{
-            tableConfig.columns[col].getValue(element) | date: 'dd-LLLL-yyyy'
-          }}
-        </p>
         <p
           *ngIf="col === 'name' || col === 'type'"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
@@ -78,14 +72,23 @@
           }}
         </p>
         <p
-          innerHTML="{{ tableConfig.columns[col].getValue(element) }}"
           *ngIf="col === 'status'"
+          [ngClass]="{
+            red: ['non-verified', 'rejected', 'disapproved'].includes(
+              element.status
+            ),
+            black: ['verified'].includes(element.status),
+            green: ['active', 'added', 'approved'].includes(element.status),
+            completeStatus: ['completed'].includes(element.status),
+            yetStatus: ['yet_to_start'].includes(element.status),
+            pendingStatus: ['pending'].includes(element.status)
+          }"
         >
-          <!-- {{
+          {{
             element.status === 'yet_to_start'
               ? 'Yet to Start'
               : tableConfig.columns[col].getValue(element)
-          }} -->
+          }}
           <!-- <img
             class="status-icon"
             src="./../../../assets/images/icons/tick.png"

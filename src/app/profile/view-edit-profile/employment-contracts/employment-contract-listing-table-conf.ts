@@ -1,9 +1,7 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
 import moment from 'moment';
-import { DomSanitizer } from '@angular/platform-browser';
 export class EmploymentContractListTableConfig extends TableConfig {
   constructor() {
-    // constructor(private _sanitizer: DomSanitizer) {
     super();
     this.allowedColumns = [
       'name',
@@ -50,26 +48,7 @@ export class EmploymentContractListTableConfig extends TableConfig {
         code: 'status',
         text: 'Status',
         getValue: (ele: any) => {
-          // return ele[this.columns.status.code];
-          // return this._sanitizer.bypassSecurityTrustHtml(this._classSelector(ele[this.columns.status.code]));
-          return `<p [ngClass]="{
-            red: ['non-verified', 'rejected', 'disapproved'].includes(
-              ${ele[this.columns.status.code]}
-            ),
-            black: ['verified'].includes(${ele[this.columns.status.code]}),
-            green: ['active', 'added', 'approved'].includes(${
-              ele[this.columns.status.code]
-            }),
-            completeStatus: ['completed'].includes(${
-              ele[this.columns.status.code]
-            }),
-            yetStatus: ['yet_to_start'].includes(${
-              ele[this.columns.status.code]
-            }),
-            pendingStatus: ['pending'].includes(${
-              ele[this.columns.status.code]
-            })
-          }">${ele[this.columns.status.code]}</p>`;
+          return ele[this.columns.status.code];
         }
       },
       action: {
