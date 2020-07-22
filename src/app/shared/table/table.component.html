@@ -12,8 +12,6 @@
         <p
           *ngIf="
             ![
-              'name',
-              'date_of_birth',
               'media',
               'aadhaarimg',
               'document_image',
@@ -47,17 +45,6 @@
               >AIFF Accreditation ID</ng-container
             >
           </ng-container>
-        </p>
-        <p
-          *ngIf="col === 'name' || col === 'type'"
-          matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
-        >
-          {{
-            tableConfig.columns[col].getValue(element).length < 18
-              ? tableConfig.columns[col].getValue(element)
-              : (tableConfig.columns[col].getValue(element) | slice: 0:18) +
-                '...'
-          }}
         </p>
         <p
           *ngIf="col === 'email'"

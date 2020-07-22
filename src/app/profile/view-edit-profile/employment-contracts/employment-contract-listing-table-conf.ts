@@ -16,7 +16,8 @@ export class EmploymentContractListTableConfig extends TableConfig {
         code: 'name',
         text: 'Club / Academy',
         getValue: (ele: any) => {
-          return ele[this.columns.name.code];
+          let val: string = ele[this.columns.name.code];
+          return val.length > 18 ? `${val.slice(0, 18)}...` : val;
         }
       },
       effective_date: {
