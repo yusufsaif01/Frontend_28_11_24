@@ -1,6 +1,5 @@
-<app-header></app-header>
+<!-- <app-header></app-header>
 <div class="site-wrapper">
-  <!-- left Sidebar -->
   <div class="left-section">
     <app-left-panel
       (sendPlayerType)="getPlayerType($event)"
@@ -21,51 +20,93 @@
       </div>
     </div>
     <div class="award-table">
-      <!-- table -->
-      <div class="table-container">
-        <app-table
-          [tableConfig]="tableConfig"
-          [NumberColumn]="'true'"
-          [rows]="dataSource"
-          [TableActions]="!isPublic ? ListAction : false"
-          [sortEnabled]="false"
-          [pageSize]="pageSize"
-          [pageNo]="currentPageNo"
+<div class="table-container">
+  <app-table [tableConfig]="tableConfig" [NumberColumn]="'true'" [rows]="dataSource"
+    [TableActions]="!isPublic ? ListAction : false" [sortEnabled]="false" [pageSize]="pageSize"
+    [pageNo]="currentPageNo">
+  </app-table>
+  <ng-template #ListAction let-id="id" let-media="media" let-name="name" let-position="position" let-type="type"
+    let-year="year">
+    <div class="action-buttons">
+      <button matTooltip="Edit" (click)="openEditDialog(id, media, name, position, type, year)">
+        <img src="assets/images/icons/edit01.png" alt="Edit" />
+      </button>
+      <button matTooltip="Delete" (click)="deletePopup(id)">
+        <img src="assets/images/icons/bin.png" alt="Delete" />
+      </button>
+    </div>
+  </ng-template>
+</div>
+</div>
+<app-pagination *ngIf="dataSource.data.length !== 0" [showData]="false" [showCount]="show_count"
+  [totalRows]="total_count" [rowsPerPage]="pageSize" [selectedPage]="selectedPage" (onChange)="updatePage($event)">
+</app-pagination>
+</div>
+</div> -->
+
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel">
+    <app-left-panel></app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main mt-2">
+        <!-- award heading -->
+        <div class="heading">
+          <h2>My awards and certificates</h2>
+          <button class="secondary-btn" (click)="openDialog()">
+            Add awards and certificates
+          </button>
+        </div>
+        <!-- table -->
+        <div class="table">
+          <app-table
+            [tableConfig]="tableConfig"
+            [NumberColumn]="'true'"
+            [rows]="dataSource"
+            [TableActions]="!isPublic ? ListAction : false"
+            [sortEnabled]="false"
+            [pageSize]="pageSize"
+            [pageNo]="currentPageNo"
+          >
+          </app-table>
+          <ng-template
+            #ListAction
+            let-id="id"
+            let-media="media"
+            let-name="name"
+            let-position="position"
+            let-type="type"
+            let-year="year"
+          >
+            <div class="action-buttons">
+              <button
+                matTooltip="Edit"
+                (click)="openEditDialog(id, media, name, position, type, year)"
+              >
+                <!-- <img src="assets/images/icons/edit01.png" alt="Edit" /> -->
+                <mat-icon class="material-icons">create</mat-icon>
+              </button>
+              <button matTooltip="Delete" (click)="deletePopup(id)">
+                <!-- <img src="assets/images/icons/bin.png" alt="Delete" /> -->
+                <mat-icon class="material-icons">delete</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+        </div>
+        <!-- Pagination -->
+        <app-pagination
+          *ngIf="dataSource.data.length !== 0"
+          [showData]="false"
+          [showCount]="show_count"
+          [totalRows]="total_count"
+          [rowsPerPage]="pageSize"
+          [selectedPage]="selectedPage"
+          (onChange)="updatePage($event)"
         >
-        </app-table>
-        <ng-template
-          #ListAction
-          let-id="id"
-          let-media="media"
-          let-name="name"
-          let-position="position"
-          let-type="type"
-          let-year="year"
-        >
-          <div class="action-buttons">
-            <button
-              matTooltip="Edit"
-              (click)="openEditDialog(id, media, name, position, type, year)"
-            >
-              <img src="assets/images/icons/edit01.png" alt="Edit" />
-            </button>
-            <button matTooltip="Delete" (click)="deletePopup(id)">
-              <img src="assets/images/icons/bin.png" alt="Delete" />
-            </button>
-          </div>
-        </ng-template>
+        </app-pagination>
       </div>
     </div>
-    <!-- pagination -->
-    <app-pagination
-      *ngIf="dataSource.data.length !== 0"
-      [showData]="false"
-      [showCount]="show_count"
-      [totalRows]="total_count"
-      [rowsPerPage]="pageSize"
-      [selectedPage]="selectedPage"
-      (onChange)="updatePage($event)"
-    >
-    </app-pagination>
   </div>
 </div>
