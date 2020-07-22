@@ -335,6 +335,7 @@
       font-size: 6.5rem;
       font-family: $secondary-text;
       margin-right: 5rem;
+      font-weight: 100;
 
       span {
         font-size: 8rem;
@@ -370,6 +371,7 @@
     h2 {
       font-size: 6.5rem;
       font-family: $secondary-text;
+      font-weight: 100;
     }
 
     p {
@@ -431,7 +433,7 @@
           font-family: $secondary-text;
           text-align: right;
           color: $third-color;
-          font-weight: normal;
+          font-weight: 100;
         }
       }
 
