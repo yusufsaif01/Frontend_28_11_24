@@ -108,6 +108,17 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     }
   }
 
+  isVerifiedDocument(documentType: string, condition: boolean | string) {
+    return (
+      this.documentsDetails &&
+      this.documentsDetails.documents.some(document => {
+        if (document.type === documentType) {
+          return document.status === condition;
+        }
+      })
+    );
+  }
+
   setControlState() {
     let controls = [
       'aadhar',
@@ -160,6 +171,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
           this.populateFormFields();
           this.setControlState();
           this.checkFileValidations();
+          this.setCategoryValidators();
         },
         error => {
           this._toastrService.error(error.error.message, 'Error');
@@ -194,17 +206,13 @@ export class DocumentsComponent implements OnInit, OnDestroy {
           this.documentsDetailsForm,
           aadharImageControl
         );
-
-        aadhar.setValidators(null);
+        this.removeValidations('aadhar');
       } else if (value === 'pdf') {
         aadhar.setValue('');
         this.setControlValidation(this.documentsDetailsForm, aadharPdfControl);
-        aadhar_front.setValidators(null);
-        aadhar_back.setValidators(null);
+        this.removeValidations('aadhar_front');
+        this.removeValidations('aadhar_back');
       }
-      aadhar_front.updateValueAndValidity();
-      aadhar_back.updateValueAndValidity();
-      aadhar.updateValueAndValidity();
     });
   }
 
@@ -318,12 +326,12 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     if (this.documentsDetails.documents) {
       this.documentsDetails.documents.forEach(documents => {
         if (documents.type === 'aadhar') {
-          this.removeFileValidations('player_photo');
+          this.removeValidations('player_photo');
           if (documents.media.attachment_type === 'pdf')
-            this.removeFileValidations('aadhar');
+            this.removeValidations('aadhar');
           if (documents.media.attachment_type === 'image') {
-            this.removeFileValidations('aadhar_front');
-            this.removeFileValidations('aadhar_back');
+            this.removeValidations('aadhar_front');
+            this.removeValidations('aadhar_back');
           }
         }
       });
@@ -350,7 +358,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     });
   }
 
-  removeFileValidations(type: string) {
+  removeValidations(type: string) {
     const fileValidation = this.documentsDetailsForm.get(type);
     fileValidation.setValidators(null);
     fileValidation.updateValueAndValidity();
