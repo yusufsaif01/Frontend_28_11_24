@@ -1,4 +1,4 @@
-<div class="pagination-wrapper">
+<!-- <div class="pagination-wrapper">
   <div class="showing-data">
     <p *ngIf="showData">
       <strong>Showing</strong>
@@ -12,15 +12,41 @@
         <a (click)="goToPage(selectedPage - 1)"><span> &#8592; </span></a>
       </li>
       <li *ngFor="let val of pages()">
-        <a
-          [ngClass]="val == selectedPage ? 'active' : ''"
-          (click)="val != selectedPage && goToPage(val)"
-          >{{ val }}</a
-        >
+        <a [ngClass]="val == selectedPage ? 'active' : ''" (click)="val != selectedPage && goToPage(val)">{{ val }}</a>
       </li>
       <li>
         <a (click)="goToPage(selectedPage + 1)"> <span>&#8594;</span> </a>
       </li>
     </ul>
   </div>
+</div> -->
+
+<div class="pagination">
+  <ul>
+    <li>
+      <a class="prev">
+        <span>
+          <mat-icon class="material-icons">arrow_back</mat-icon>
+        </span>
+        Previous
+      </a>
+    </li>
+    <li>
+      <a class="count active">1</a>
+    </li>
+    <li>
+      <a class="count">2</a>
+    </li>
+    <li>
+      <a class="count">3</a>
+    </li>
+    <li>
+      <a (click)="goToPage(selectedPage + 1)" class="next">
+        Next
+        <span>
+          <mat-icon class="material-icons">arrow_forward</mat-icon>
+        </span>
+      </a>
+    </li>
+  </ul>
 </div>
