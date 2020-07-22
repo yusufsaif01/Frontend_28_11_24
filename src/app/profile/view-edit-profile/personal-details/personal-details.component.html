@@ -227,29 +227,31 @@
         </div>
       </div>
 
-      <!--  row -->
-      <div class="view-details">
-        <div class="details">
-          <div class="left">
-            <h4>College</h4>
-          </div>
-          <div class="right">
-            <p>{{ profile.institute?.college }}</p>
+      <ng-container *ngIf="['amateur', 'professional'].includes(player_type)">
+        <!--  row -->
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>College</h4>
+            </div>
+            <div class="right">
+              <p>{{ profile.institute?.college }}</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!--  row -->
-      <div class="view-details">
-        <div class="details">
-          <div class="left">
-            <h4>University</h4>
-          </div>
-          <div class="right">
-            <p>{{ profile.institute?.university }}</p>
+        <!--  row -->
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>University</h4>
+            </div>
+            <div class="right">
+              <p>{{ profile.institute?.university }}</p>
+            </div>
           </div>
         </div>
-      </div>
+      </ng-container>
     </div>
   </div>
 
@@ -434,7 +436,6 @@
                 type="Name"
                 matinput
                 autocomplete="off"
-                required
                 placeholder="Weight"
               />
               <mat-error

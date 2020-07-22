@@ -136,7 +136,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
           .subscribe(
             response => {
               this._toastrService.success(
-                `Success`,
+                `success`,
                 'FootPlayer deleted successfully'
               );
               this.selectedPage = 1;
@@ -175,7 +175,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
           .subscribe(
             response => {
               this._toastrService.success(
-                `Success`,
+                `success`,
                 'Resend invite successfully'
               );
             },
