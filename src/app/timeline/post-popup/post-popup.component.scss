@@ -8,7 +8,7 @@
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 2rem 4rem;
+  padding: 2rem 3rem;
   align-items: center;
 
   .title {
@@ -17,6 +17,7 @@
     h3 {
       font-size: $heading-Seoncdary;
       color: $fourth-color;
+      font-weight: 600;
     }
   }
 
