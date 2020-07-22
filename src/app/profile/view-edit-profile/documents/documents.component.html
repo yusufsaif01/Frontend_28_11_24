@@ -4,9 +4,22 @@
     <div class="view-wrapper">
       <div class="heading">
         <h2>Documents</h2>
-        <button (click)="toggleMode()">
-          <mat-icon class="material-icons">create</mat-icon>
-        </button>
+        <span
+          [matTooltip]="
+            profile_status === 'verified'
+              ? 'Not allowed to update aadhaar details'
+              : ''
+          "
+        >
+          <button
+            [ngClass]="{
+              'icon-disable': profile_status == 'verified'
+            }"
+            (click)="toggleMode()"
+          >
+            <mat-icon class="material-icons">create</mat-icon>
+          </button>
+        </span>
       </div>
 
       <div class="second-section">
