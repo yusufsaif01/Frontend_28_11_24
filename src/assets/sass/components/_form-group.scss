@@ -24,7 +24,7 @@
   select,
   textarea {
     width: 100%;
-    padding: 1rem 4rem 1rem 1rem;
+    padding: 1rem 1rem 1rem 1rem;
     border: 1px solid transparent;
     outline: none;
     font-family: $primary-text;
@@ -50,6 +50,7 @@
   }
 
   select {
+    padding: 1rem 4rem 1rem 1rem;
     background: url("assets/images/global/down.svg") no-repeat, $third-color;
     background-position: calc(100% - 1rem);
     -webkit-appearance: none;
@@ -145,6 +146,7 @@
   padding-bottom: 2.5rem;
 
   input {
+    padding: 1rem 4rem 1rem 1rem;
     background: url("assets/images/global/calender.svg") no-repeat, $third-color;
     background-position: calc(100% - 1rem);
 
