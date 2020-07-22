@@ -45,6 +45,7 @@
     "ngx-cookie": "^4.1.2",
     "ngx-image-compress": "^8.0.4",
     "ngx-infinite-scroll": "^8.0.2",
+    "ngx-mask": "^9.1.2",
     "ngx-owl-carousel-o": "^2.1.0",
     "ngx-spinner": "^9.0.1",
     "ngx-toastr": "^10.1.0",

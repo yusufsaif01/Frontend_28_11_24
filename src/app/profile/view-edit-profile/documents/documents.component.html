@@ -31,13 +31,20 @@
               <h4>Aadhaar number</h4>
             </div>
             <div class="right">
-              <p>{{ aadhar_number }}</p>
+              <p>{{ aadhar_number | mask: 'XXXX XXXX 0000' }}</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="document">
+      <div
+        class="document"
+        [matTooltip]="
+          isVerifiedDocument('aadhar', 'approved')
+            ? 'Aadhaar details are verified'
+            : ''
+        "
+      >
         <ng-container *ngIf="aadhar_front_url && aadhar_back_url">
           <div class="doc-img">
             <h5>Front side</h5>
