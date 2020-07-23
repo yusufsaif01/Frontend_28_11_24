@@ -22,12 +22,12 @@
   <div class="banner-img">
     <img src="assets/images/website/banner.png" alt="" />
   </div>
-  <a href="#" class="down-arrow bounce">
+  <a class="down-arrow bounce" (click)="scrollToFootballers(this)" #arrow>
     <mat-icon class="material-icons">expand_more</mat-icon>
   </a>
 </div>
 <!-- for footballers -->
-<div class="footballers">
+<div class="footballers" #footballers>
   <h2 class="backtext">Footb<span>allers</span></h2>
   <div class="footballers-image">
     <div class="img-wrap">
