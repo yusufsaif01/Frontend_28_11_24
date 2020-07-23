@@ -2,20 +2,16 @@
   <form [formGroup]="editAddForm">
     <div class="header">
       <div class="title">
-        <h3>{{ options.header }} Awards</h3>
+        <h3>{{ options.header }} awards and certificates</h3>
       </div>
       <div class="close">
-        <img
-          [mat-dialog-close]
-          src="assets/images/icons/close-white.png"
-          alt=""
-        />
+        <mat-icon mat-dialog-close class="material-icons">close</mat-icon>
       </div>
     </div>
     <div class="modal-body">
       <div class="from-wrapper">
         <!-- Awards type  -->
-        <div class="from-block">
+        <div class="form-block">
           <label
             >Award Type
             <span>*</span>
@@ -27,6 +23,7 @@
             </ng-container>
           </select>
           <mat-error
+            class="error-text"
             *ngIf="
               editAddForm.controls.type.invalid &&
               editAddForm.controls.type.touched
@@ -39,7 +36,7 @@
         </div>
 
         <!-- Awards Name  -->
-        <div class="from-block">
+        <div class="form-block">
           <label>Award Name </label>
           <input
             formControlName="name"
@@ -49,6 +46,7 @@
             autocomplete="off"
           />
           <mat-error
+            class="error-text"
             *ngIf="
               editAddForm.controls.name.invalid &&
               editAddForm.controls.name.touched
@@ -56,7 +54,6 @@
           >
             <ng-template #lengthBlock>
               <span
-                class="error-text"
                 *ngIf="
                   editAddForm.controls.name.errors &&
                   editAddForm.controls.name.errors.maxlength
@@ -68,7 +65,6 @@
               </span>
             </ng-template>
             <span
-              class="error-text"
               *ngIf="
                 editAddForm.controls.name.errors &&
                   editAddForm.controls.name.errors.pattern;
@@ -81,47 +77,91 @@
         </div>
       </div>
       <div class="from-wrapper">
-        <!-- year  -->
-        <div class="from-block">
+        <!-- year 
+        <div class="form-block">
           <div class="datepicker">
-            <label
-              >Year
+            <label>Year
               <span>*</span>
             </label>
-            <input
-              formControlName="year"
-              matInput
-              [matDatepicker]="picker"
-              readonly
-              placeholder="Select Year"
-              [min]="minDate"
-              [max]="maxDate"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker
-              #picker
-              startView="multi-year"
-              (yearSelected)="closeDatePicker(picker, $event)"
-            >
+            <input formControlName="year" matInput [matDatepicker]="picker" readonly placeholder="Select Year"
+              [min]="minDate" [max]="maxDate" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="multi-year" (yearSelected)="closeDatePicker(picker, $event)">
             </mat-datepicker>
           </div>
-          <mat-error
-            *ngIf="
+          <mat-error class="error-text" *ngIf="
               editAddForm.controls.year.invalid &&
               editAddForm.controls.year.touched
-            "
-          >
-            <span *ngIf="editAddForm.controls.year.errors.required" translate
-              >Year is required</span
-            >
+            ">
+            <span *ngIf="editAddForm.controls.year.errors.required" translate>Year is required</span>
           </mat-error>
+        </div> -->
+
+        <div class="form-block pb-0">
+          <label>Year<span>*</span></label>
+          <div class="double ">
+            <div class="half">
+              <div class="date pb-0">
+                <input
+                  formControlName="year"
+                  matInput
+                  [matDatepicker]="picker"
+                  readonly
+                  placeholder="Form"
+                  [min]="minDate"
+                  [max]="maxDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                  #picker
+                  startView="multi-year"
+                  (yearSelected)="closeDatePicker(picker, $event)"
+                >
+                </mat-datepicker>
+              </div>
+              <mat-error
+                class="error-text"
+                *ngIf="
+                  editAddForm.controls.year.invalid &&
+                  editAddForm.controls.year.touched
+                "
+              >
+                <span
+                  *ngIf="editAddForm.controls.year.errors.required"
+                  translate
+                  >Year is required</span
+                >
+              </mat-error>
+            </div>
+            <div class="half">
+              <div class="date pb-0">
+                <input
+                  matInput
+                  [matDatepicker]="todate"
+                  readonly
+                  placeholder="To"
+                  [min]="minDate"
+                  [max]="maxDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="todate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #todate startView="multi-year">
+                </mat-datepicker>
+              </div>
+              <mat-error class="error-text">
+                <!-- <span>Year is required</span> -->
+              </mat-error>
+            </div>
+          </div>
         </div>
 
         <!-- position secured  -->
-        <div class="from-block">
+        <div class="form-block">
           <label>Position Secured </label>
           <input
             formControlName="position"
@@ -131,6 +171,7 @@
             autocomplete="off"
           />
           <mat-error
+            class="error-text"
             *ngIf="
               editAddForm.controls.position.invalid &&
               editAddForm.controls.position.touched
@@ -138,7 +179,6 @@
           >
             <ng-template #lengthBlock>
               <span
-                class="error-text"
                 *ngIf="
                   editAddForm.controls.position.errors &&
                   editAddForm.controls.position.errors.maxlength
@@ -152,7 +192,6 @@
               </span>
             </ng-template>
             <span
-              class="error-text"
               *ngIf="
                 editAddForm.controls.position.errors &&
                   editAddForm.controls.position.errors.pattern;
@@ -165,23 +204,40 @@
         </div>
       </div>
       <div class="from-wrapper">
-        <!-- Upload image  -->
-        <div class="from-block w-100">
-          <label>Upload Image </label>
-          <div class="file-wrapper w-100">
+        <!-- Upload image  
+        <div class="form-block">
+          <div class="upload-btn">
+            <label> <span>Upload Image</span>
+              <input type="file" formControlName="achievement" (change)="uploadAchievement($event.target.files)" />
+              <a *ngIf="achievement_url" href="{{ achievement_url ? achievement_url : '' }}" target="_blank">View
+              Image</a> 
+        </label>
+      </div>
+      <mat-error class="error-text" *ngIf="
+              editAddForm.controls.achievement.errors &&
+              editAddForm.controls.achievement.dirty
+            ">
+        <span class="align-center" *ngIf="
+                editAddForm.controls.achievement.errors.requiredFileDocument
+              " translate>Image must be of type JPEG / JPG / PNG / PDF</span>
+      </mat-error>
+    </div> -->
+        <div class="upload-btn">
+          <label
+            for="upload"
+            matTooltip="Image must be of type JPEG / JPG / PNG / PDF"
+          >
+            <span class="secondary-btn">Upload image</span>
             <input
               type="file"
               formControlName="achievement"
               (change)="uploadAchievement($event.target.files)"
+              id="upload"
             />
-            <a
-              *ngIf="achievement_url"
-              href="{{ achievement_url ? achievement_url : '' }}"
-              target="_blank"
-              >View Image</a
-            >
-          </div>
+            <p>Uploaded Images</p>
+          </label>
           <mat-error
+            class="error-text"
             *ngIf="
               editAddForm.controls.achievement.errors &&
               editAddForm.controls.achievement.dirty
@@ -200,14 +256,17 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button [mat-dialog-close] class="cancel">Cancel</button>
-      <button
-        (click)="editAddFormValue()"
-        class="save"
-        [disabled]="editAddForm.invalid"
-      >
-        {{ options.buttonName }}
-      </button>
+      <div class="action-block">
+        <div class="btn-group">
+          <button
+            (click)="editAddFormValue()"
+            class="btn-active"
+            [disabled]="editAddForm.invalid"
+          >
+            {{ options.buttonName }}
+          </button>
+        </div>
+      </div>
     </div>
   </form>
 </div>
