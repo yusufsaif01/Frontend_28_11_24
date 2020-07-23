@@ -72,9 +72,9 @@
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
         >
           {{
-            tableConfig.columns[col].getValue(element).length < 18
+            tableConfig.columns[col].getValue(element).length < 15
               ? tableConfig.columns[col].getValue(element)
-              : (tableConfig.columns[col].getValue(element) | slice: 0:18) +
+              : (tableConfig.columns[col].getValue(element) | slice: 0:15) +
                 '...'
           }}
         </p>
@@ -119,16 +119,26 @@
             [href]="tableConfig.columns[col].getValue(element)"
             target="_blank"
           >
-            <img
-              class="thumbnail"
-              [src]="
+            <mat-icon
+              class="material-icons"
+              *ngIf="
                 tableConfig.columns[col]
                   .getValue(element)
                   .split('.')
                   .includes('pdf')
-                  ? 'assets/images/pdf.png'
-                  : tableConfig.columns[col].getValue(element)
               "
+            >
+              picture_as_pdf
+            </mat-icon>
+            <img
+              *ngIf="
+                !tableConfig.columns[col]
+                  .getValue(element)
+                  .split('.')
+                  .includes('pdf')
+              "
+              class="thumbnail"
+              [src]="tableConfig.columns[col].getValue(element)"
               alt=""
             />
           </a>
