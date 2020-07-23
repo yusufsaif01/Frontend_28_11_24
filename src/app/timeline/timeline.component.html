@@ -76,13 +76,13 @@
                   <h3>{{ post.posted_by.name }}</h3>
                 </a>
                 <p>
-                  <ng-container *ngIf="member_type === 'player'">
-                    <span class="type">{{ player_type }}</span>
+                  <ng-container *ngIf="post.posted_by.member_type === 'player'">
+                    <span class="type">{{ post.posted_by.type }}</span>
                     <span class="position">{{ post.posted_by.position }}</span>
                   </ng-container>
 
-                  <ng-container *ngIf="member_type !== 'player'">
-                    <span class="type">{{ member_type }}</span>
+                  <ng-container *ngIf="post.posted_by.member_type !== 'player'">
+                    <span class="type">{{ post.posted_by.member_type }}</span>
                     <span class="position">{{ post.posted_by.type }}</span>
                   </ng-container>
 
@@ -172,15 +172,23 @@
                     <h4>{{ comment.commented_by.name }}</h4>
                     <div class="commenter-details">
                       <p>
-                        <ng-container *ngIf="member_type === 'player'">
-                          <span class="type">{{ player_type }}</span>
+                        <ng-container
+                          *ngIf="comment.commented_by.member_type === 'player'"
+                        >
+                          <span class="type">{{
+                            comment.commented_by.type
+                          }}</span>
                           <span class="position"
                             >{{ comment.commented_by.position }}
                           </span>
                         </ng-container>
 
-                        <ng-container *ngIf="member_type !== 'player'">
-                          <span class="type">{{ member_type }}</span>
+                        <ng-container
+                          *ngIf="comment.commented_by.member_type !== 'player'"
+                        >
+                          <span class="type">{{
+                            comment.commented_by.member_type
+                          }}</span>
                           <span class="position"
                             >{{ comment.commented_by.type }}
                           </span>
