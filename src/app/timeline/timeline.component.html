@@ -76,10 +76,16 @@
                   <h3>{{ post.posted_by.name }}</h3>
                 </a>
                 <p>
-                  <span class="playertype">{{ player_type }}</span>
-                  <span class="playerposition"
-                    >{{ post.posted_by.position }}
-                  </span>
+                  <ng-container *ngIf="member_type === 'player'">
+                    <span class="type">{{ player_type }}</span>
+                    <span class="position">{{ post.posted_by.position }}</span>
+                  </ng-container>
+
+                  <ng-container *ngIf="member_type !== 'player'">
+                    <span class="type">{{ member_type }}</span>
+                    <span class="position">{{ post.posted_by.type }}</span>
+                  </ng-container>
+
                   {{ post.created_at | datePipe }}
                 </p>
               </div>
