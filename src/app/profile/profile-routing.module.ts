@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { ViewProfileComponent } from './view-profile/view-profile.component';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ProfileComponent } from './profile.component';
 import { RoleGuardService } from '../core/authentication/role-guard.service';
 import { extract, AuthenticationGuard } from '@app/core';
@@ -17,16 +15,6 @@ const appRoutes: Routes = [
     canActivate: [RoleGuardService, AuthenticationGuard],
     data: { expectedRole: ['player', 'club', 'academy', 'admin'] },
     children: [
-      {
-        path: 'view',
-        component: ViewProfileComponent,
-        data: { title: extract('View Profile') }
-      },
-      {
-        path: 'view/:handle',
-        component: ViewProfileComponent,
-        data: { title: extract('View Profile') }
-      },
       {
         path: '',
         component: ViewEditProfileComponent,
@@ -52,7 +40,7 @@ const appRoutes: Routes = [
         component: ViewEmploymentContractComponent,
         data: { title: extract('View Contract') }
       },
-      { path: '**', component: ViewProfileComponent }
+      { path: '**', component: ViewEditProfileComponent }
     ]
   }
 ];

@@ -12,8 +12,8 @@
     <h4>{{ message }}</h4>
     <div class="action-block">
       <div class="btn-group">
-        <button class="btn-active">Confirm</button>
-        <button class="btn-normal">Cancel</button>
+        <button class="btn-active" [mat-dialog-close]="true">Confirm</button>
+        <button class="btn-normal" mat-dialog-close>Cancel</button>
       </div>
     </div>
   </div>

@@ -76,10 +76,16 @@
                   <h3>{{ post.posted_by.name }}</h3>
                 </a>
                 <p>
-                  <span class="playertype">{{ player_type }}</span>
-                  <span class="playerposition"
-                    >{{ post.posted_by.position }}
-                  </span>
+                  <ng-container *ngIf="member_type === 'player'">
+                    <span class="type">{{ player_type }}</span>
+                    <span class="position">{{ post.posted_by.position }}</span>
+                  </ng-container>
+
+                  <ng-container *ngIf="member_type !== 'player'">
+                    <span class="type">{{ member_type }}</span>
+                    <span class="position">{{ post.posted_by.type }}</span>
+                  </ng-container>
+
                   {{ post.created_at | datePipe }}
                 </p>
               </div>
@@ -166,10 +172,19 @@
                     <h4>{{ comment.commented_by.name }}</h4>
                     <div class="commenter-details">
                       <p>
-                        <span class="playertype">{{ player_type }}</span>
-                        <span class="playerposition"
-                          >{{ comment.commented_by.position }}
-                        </span>
+                        <ng-container *ngIf="member_type === 'player'">
+                          <span class="type">{{ player_type }}</span>
+                          <span class="position"
+                            >{{ comment.commented_by.position }}
+                          </span>
+                        </ng-container>
+
+                        <ng-container *ngIf="member_type !== 'player'">
+                          <span class="type">{{ member_type }}</span>
+                          <span class="position"
+                            >{{ comment.commented_by.type }}
+                          </span>
+                        </ng-container>
                       </p>
                       <p>{{ comment.commented_at | datePipe }}</p>
                     </div>
