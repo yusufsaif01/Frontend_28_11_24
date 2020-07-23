@@ -7,7 +7,7 @@ import { DocumentVerificationService } from './document-verification-service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material';
 import { untilDestroyed } from '@app/core';
-import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
+import { VerificationPopupComponent } from '@app/shared/verification-popup/verification-popup.component';
 import { environment } from '@env/environment';
 
 interface ResponseContext {
@@ -173,7 +173,7 @@ export class DocumentVerificationComponent implements OnInit {
             response => {
               this.getDocumentStatus();
               this._toastrService.success(
-                `Success`,
+                `success`,
                 'Status updated successfully'
               );
             },
@@ -264,8 +264,8 @@ export class DocumentVerificationComponent implements OnInit {
             (response: any) => {
               this.getEmploymentContractList();
               this._toastrService.success(
-                'Status updated successfully',
-                response.status
+                'success',
+                'Status updated successfully'
               );
             },
             (error: any) => {

@@ -24,7 +24,10 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError(err => {
         if (err.status === 401 || err.status === 402) {
-          if (!this.router.routerState.snapshot.url.includes('login'))
+          if (
+            !this.router.routerState.snapshot.url.includes('login') &&
+            this.router.routerState.snapshot.url !== '/'
+          )
             this.authenticationService.logout('unauthorized');
         }
         const error = err;

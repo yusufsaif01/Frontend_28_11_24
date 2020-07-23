@@ -1,0 +1,458 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+// Header CSS
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a {
+    color: $white-color;
+    margin-right: 10rem;
+  }
+
+  .logo {
+    margin-top: 1rem;
+
+    span {
+      background-color: $third-color;
+      padding: 1rem 5rem 1rem 3rem;
+      display: inline-block;
+      -webkit-border-top-right-radius: 8rem;
+      -webkit-border-bottom-right-radius: 8rem;
+      -moz-border-top-right-radius: 8rem;
+      -moz-border-bottom-right-radius: 8rem;
+      border-top-right-radius: 8rem;
+      border-bottom-right-radius: 8rem;
+
+      img {
+        max-width: 25rem;
+      }
+    }
+  }
+}
+
+// banner section
+.banner {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 2rem 0;
+
+  .down-arrow {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    animation-iteration-count: infinite;
+    transition: ease-in 1s;
+
+    .mat-icon {
+      font-size: 8rem;
+    }
+  }
+
+  .banner-txt {
+    width: 45%;
+    padding-left: 13rem;
+    position: absolute;
+
+    h2 {
+      font-size: 7rem;
+      color: $fourth-color;
+      font-family: $secondary-text;
+      font-weight: 100;
+      position: relative;
+      letter-spacing: 1px;
+      padding-bottom: 2rem;
+      line-height: 1.2;
+
+      span {
+        display: block;
+      }
+    }
+
+    p {
+      font-size: $heading-Seoncdary;
+      color: $fourth-color;
+      padding-right: 2rem;
+      word-break: normal;
+    }
+
+    a.btn {
+      color: $white-color;
+      display: inline-block;
+      margin: 2rem 0;
+    }
+  }
+
+  .banner-img {
+    width: 100%;
+    text-align: right;
+
+    img {
+      width: 57%;
+    }
+  }
+}
+
+// for footballers
+.footballers {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  position: relative;
+  padding: 5rem 0;
+
+  .backtext {
+    position: absolute;
+    font-size: 28rem;
+    color: $third-color;
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    transform: rotate(270deg);
+    font-family: $secondary-text;
+    bottom: -16rem;
+    left: 0;
+    width: 8rem;
+    line-height: 0.8;
+
+    span {
+      display: block;
+    }
+  }
+
+  .footballers-image {
+    width: 60%;
+
+    .img-wrap {
+      position: relative;
+
+      img {
+        width: 80%;
+        z-index: 11;
+        padding-left: 3rem;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 20rem;
+        height: 5rem;
+        background: #323232;
+        bottom: 0.5rem;
+        left: -4rem;
+        z-index: 99;
+      }
+    }
+  }
+
+  .footballers-details {
+    width: 50%;
+    text-align: right;
+
+    h2 {
+      font-size: 6.5rem;
+      font-family: $secondary-text;
+      font-weight: 100;
+      margin-right: 5rem;
+
+      span {
+        font-size: 8rem;
+        display: block;
+      }
+    }
+
+    img {
+      max-width: 65rem;
+      width: 100%;
+      margin-top: 5rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 4rem 4rem 4rem 2rem;
+      border-right: 1.5rem solid $primary-color;
+      margin: 3rem 5rem 3rem 0rem;
+
+      li {
+        font-size: $heading-third;
+      }
+    }
+  }
+}
+
+// for clubs and academy
+.academy-wrapper {
+  overflow: hidden;
+  width: 100%;
+
+  .academy {
+    width: 90%;
+    margin: auto;
+    padding: 5rem 0;
+    display: flex;
+    position: relative;
+
+    .backtext {
+      position: absolute;
+      font-size: 21rem;
+      color: #f6f6f6;
+      transform: rotate(90deg) translateY(-45rem);
+      font-family: "Paytone One";
+      top: 24rem;
+      right: 4rem;
+      width: 94rem;
+      line-height: 0.8;
+      word-break: break-all;
+      text-align: right;
+
+      span {
+        display: block;
+      }
+    }
+
+    .academy-image {
+      width: 55%;
+      position: relative;
+      text-align: right;
+      z-index: 11;
+
+      .img-wrap {
+        position: relative;
+
+        img {
+          width: 80%;
+          z-index: 11;
+          padding-right: 3rem;
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          width: 20rem;
+          height: 5rem;
+          background: #323232;
+          bottom: 0.4rem;
+          right: -2rem;
+          z-index: 99;
+        }
+      }
+    }
+
+    .academy-details {
+      width: 45%;
+      // text-align: right;
+
+      h2 {
+        font-size: 6.5rem;
+        font-family: $secondary-text;
+        font-weight: 100;
+        margin-left: 5rem;
+
+        span {
+          font-size: 8rem;
+          display: block;
+        }
+      }
+
+      img {
+        max-width: 65rem;
+        width: 100%;
+        margin-top: 5rem;
+      }
+
+      ul {
+        list-style: none;
+        padding: 4rem 2rem 4rem 4rem;
+        border-left: 1.5rem solid $primary-color;
+        margin: 3rem 0rem 3rem 5rem;
+
+        li {
+          font-size: $heading-third;
+        }
+      }
+    }
+  }
+}
+
+// for india
+.forindia {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  position: relative;
+  padding: 5rem 0;
+
+  .backtext {
+    position: absolute;
+    font-size: 28rem;
+    color: $third-color;
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    transform: rotate(270deg);
+    font-family: $secondary-text;
+    bottom: -4rem;
+    left: -4rem;
+    width: 8rem;
+    line-height: 0.8;
+
+    span {
+      display: block;
+    }
+  }
+
+  .forindia-image {
+    width: 60%;
+
+    .img-wrap {
+      position: relative;
+
+      img {
+        width: 80%;
+        z-index: 11;
+        padding-left: 3rem;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 20rem;
+        height: 5rem;
+        background: #323232;
+        bottom: 0.5rem;
+        left: -4rem;
+        z-index: 99;
+      }
+    }
+  }
+
+  .forindia-details {
+    width: 50%;
+    text-align: right;
+
+    h2 {
+      font-size: 6.5rem;
+      font-family: $secondary-text;
+      margin-right: 5rem;
+      font-weight: 100;
+
+      span {
+        font-size: 8rem;
+        display: block;
+      }
+    }
+
+    img {
+      max-width: 65rem;
+      width: 100%;
+      margin-top: 5rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 4rem 4rem 4rem 2rem;
+      border-right: 1.5rem solid $primary-color;
+      margin: 3rem 5rem 3rem 0rem;
+
+      li {
+        font-size: $heading-third;
+      }
+    }
+  }
+}
+
+// 3d strategy
+.stratregy {
+  width: 90%;
+  margin: auto;
+
+  .heading {
+    h2 {
+      font-size: 6.5rem;
+      font-family: $secondary-text;
+      font-weight: 100;
+    }
+
+    p {
+      font-size: 2.8rem;
+      padding-left: 4rem;
+      border-left: 1rem solid $primary-color;
+      word-break: normal;
+      color: $fourth-color;
+      margin: 2rem 1rem;
+    }
+  }
+
+  .stratregy-wrapper {
+    display: flex;
+    padding: 1rem 0 10rem;
+    justify-content: space-between;
+
+    .stratregy-blocks {
+      width: 25%;
+      text-align: left;
+
+      .part-one {
+        display: flex;
+        align-items: center;
+        // justify-content: space-between;
+        width: 92%;
+
+        h2 {
+          position: relative;
+          padding-bottom: 3rem;
+
+          ::after {
+            position: absolute;
+            content: "";
+            width: 10rem;
+            height: 2.5rem;
+            background: $fourth-color;
+            left: 0;
+            bottom: 0;
+          }
+
+          ::before {
+            position: absolute;
+            content: "";
+            width: 0.5rem;
+            height: 15rem;
+            background: $fourth-color;
+            left: 0;
+            bottom: -15rem;
+          }
+
+          span {
+            font-size: 4.5rem;
+          }
+        }
+
+        h1 {
+          font-size: 24rem;
+          font-family: $secondary-text;
+          text-align: right;
+          color: $third-color;
+          font-weight: 100;
+        }
+      }
+
+      img {
+        // max-width: 28rem;
+        width: 100%;
+      }
+
+      .digitize {
+        max-width: 23rem;
+      }
+
+      .democratize {
+        max-width: 30rem;
+      }
+
+      .develop {
+        max-width: 30rem;
+      }
+    }
+  }
+}

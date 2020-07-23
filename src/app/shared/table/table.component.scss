@@ -1,10 +1,13 @@
 @import "src/assets/sass/abstracts/variables";
+
 .red {
   color: red;
 }
+
 .black {
   color: black;
 }
+
 .green {
   color: green;
 }
@@ -23,4 +26,14 @@
 
 .yetStatus {
   color: $yet;
+}
+
+.thumbnail {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 5rem;
+}
+
+.pdf-icon {
+  color: $primary-color;
 }

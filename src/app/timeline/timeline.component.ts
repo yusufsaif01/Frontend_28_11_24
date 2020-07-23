@@ -27,6 +27,7 @@ interface PostContext {
   };
   posted_by: {
     avatar: string;
+    member_type: string;
     user_id: string;
     name: string;
     type: string;
@@ -40,6 +41,7 @@ interface PostContext {
       comment: string;
       commented_by: {
         avatar: string;
+        member_type: string;
         user_id: string;
         name: string;
         type: string;
@@ -62,6 +64,7 @@ interface CommentContext {
   comment: string;
   commented_by: {
     avatar: string;
+    member_type: string;
     user_id: string;
     name: string;
     type: string;
@@ -341,7 +344,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
           .subscribe(
             response => {
               this._toastrService.success(
-                `Success`,
+                `success`,
                 'Post deleted successfully'
               );
               this.getPostListing();

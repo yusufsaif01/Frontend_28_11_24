@@ -22,6 +22,7 @@ export class PersonalDetailsComponent implements OnInit {
   member_type: string = localStorage.getItem('member_type') || 'player';
   currentYear = new Date().getFullYear();
   tomorrow = new Date();
+  today = new Date();
   countryArray: any[] = [];
   stateArray: any[] = [];
   cityArray: any[] = [];
@@ -147,10 +148,7 @@ export class PersonalDetailsComponent implements OnInit {
             environment.mediaUrl + res.data.avatar_url
           );
           this.header.avatar_url = localStorage.getItem('avatar_url');
-          this._toastrService.success(
-            'Successful',
-            'Avatar updated successfully'
-          );
+          this._toastrService.success('success', 'Avatar updated successfully');
         },
         err => {
           this._toastrService.error('Error', err.error.message);
@@ -346,7 +344,7 @@ export class PersonalDetailsComponent implements OnInit {
       .subscribe(
         response => {
           this._toastrService.success(
-            'Successful',
+            'success',
             'Profile updated successfully'
           );
           this.getPersonalProfileDetails();

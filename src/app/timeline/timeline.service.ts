@@ -36,6 +36,7 @@ interface GetCommentListingResponseContext {
       comment: string;
       commented_by: {
         avatar: string;
+        member_type: string;
         user_id: string;
         name: string;
         type: string;
@@ -60,6 +61,7 @@ interface GetPostListingResponseContext {
       };
       posted_by: {
         avatar: string;
+        member_type: string;
         user_id: string;
         name: string;
         type: string;
@@ -73,6 +75,7 @@ interface GetPostListingResponseContext {
           comment: string;
           commented_by: {
             avatar: string;
+            member_type: string;
             user_id: string;
             name: string;
             type: string;

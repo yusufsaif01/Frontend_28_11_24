@@ -8,6 +8,9 @@
       <h3 *ngIf="profile.member_type === 'player'">
         {{ profile.first_name }} {{ profile.last_name }}
       </h3>
+      <h3 *ngIf="profile.member_type !== 'player'">
+        {{ profile.name }}
+      </h3>
     </div>
 
     <div class="profile-catergory">
@@ -18,18 +21,25 @@
           >
         </span>
 
-        {{ profile?.player_type | titlecase }}
+        <ng-container *ngIf="profile.member_type === 'player'">
+          {{ profile?.player_type | titlecase }}
+        </ng-container>
+        <ng-container *ngIf="profile.member_type !== 'player'">
+          {{ profile.member_type | titlecase }}
+        </ng-container>
       </h4>
     </div>
     <div class="profile-position">
-      <h4>
-        {{
+      <h4 *ngIf="profile.member_type === 'player'">
+        ({{
           (professionalProfile.position && professionalProfile.position[0]
             ? professionalProfile.position[0].name
             : ''
           ) | titlecase
-        }}
-        <!-- Goalkeeper -->
+        }})
+      </h4>
+      <h4 *ngIf="profile.member_type !== 'player'">
+        ({{ professionalProfile?.type | titlecase }})
       </h4>
     </div>
     <div class="profile-counts">

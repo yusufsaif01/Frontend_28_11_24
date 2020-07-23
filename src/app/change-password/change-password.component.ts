@@ -39,7 +39,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
         .subscribe(
           response => {
             this._toastrService.success(
-              'Successful',
+              'success',
               'Password updated successfully. Please login again with your new password.'
             );
             this._authenticationService.logout();

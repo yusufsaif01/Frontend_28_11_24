@@ -24,7 +24,7 @@
   select,
   textarea {
     width: 100%;
-    padding: 1rem 4rem 1rem 1rem;
+    padding: 1rem 1rem 1rem 1rem;
     border: 1px solid transparent;
     outline: none;
     font-family: $primary-text;
@@ -50,6 +50,7 @@
   }
 
   select {
+    padding: 1rem 4rem 1rem 1rem;
     background: url("assets/images/global/down.svg") no-repeat, $third-color;
     background-position: calc(100% - 1rem);
     -webkit-appearance: none;
@@ -145,6 +146,7 @@
   padding-bottom: 2.5rem;
 
   input {
+    padding: 1rem 4rem 1rem 1rem;
     background: url("assets/images/global/calender.svg") no-repeat, $third-color;
     background-position: calc(100% - 1rem);
 
@@ -192,4 +194,37 @@
 .star-rating label:hover ~ label,
 .star-rating input[type="radio"]:checked ~ label {
   color: $primary-color;
+}
+
+//
+.upload-btn {
+  width: initial;
+  position: relative;
+  padding-bottom: 2.5rem;
+  margin-top: 1rem;
+
+  label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    p {
+      margin-left: 2rem;
+    }
+  }
+
+  input {
+    display: none;
+  }
+
+  .error-text {
+    color: $error;
+    padding: 0.5rem 0;
+    width: 100%;
+    position: absolute;
+    bottom: 0rem;
+    left: 0px;
+  }
 }

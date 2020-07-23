@@ -427,10 +427,7 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       .subscribe(
         res => {
           let { id } = res.data;
-          this._toastrService.success(
-            'Successful',
-            'Contract Added successfully'
-          );
+          this._toastrService.success('success', 'Contract added successfully');
           this.addEditContractForm.reset();
           if (this.member_type === 'player') {
             this._router.navigate([
@@ -460,8 +457,8 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
       .subscribe(
         res => {
           this._toastrService.success(
-            'Successful',
-            'Contract Updated successfully'
+            'success',
+            'Contract updated successfully'
           );
           this.addEditContractForm.reset();
           this._router.navigate([
