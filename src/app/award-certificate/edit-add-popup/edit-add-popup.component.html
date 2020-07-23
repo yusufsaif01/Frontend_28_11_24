@@ -13,11 +13,11 @@
         <!-- Awards type  -->
         <div class="form-block">
           <label
-            >Award Type
+            >Type
             <span>*</span>
           </label>
           <select formControlName="type" matNativeControl required>
-            <option value="">Select Award Type</option>
+            <option value="">Select type</option>
             <ng-container *ngFor="let award of awardsArray">
               <option value="{{ award.value }}">{{ award.name }}</option>
             </ng-container>
@@ -30,19 +30,19 @@
             "
           >
             <span *ngIf="editAddForm.controls.type.errors.required" translate
-              >Award Type is required
+              >Type is required
             </span>
           </mat-error>
         </div>
 
         <!-- Awards Name  -->
         <div class="form-block">
-          <label>Award Name </label>
+          <label>Name </label>
           <input
             formControlName="name"
             type="text"
             matInput
-            placeholder="Award Name"
+            placeholder="Name"
             autocomplete="off"
           />
           <mat-error
@@ -59,7 +59,7 @@
                   editAddForm.controls.name.errors.maxlength
                 "
               >
-                Please provide award name upto
+                Please provide name upto
                 {{ editAddForm.controls.name.errors.maxlength.requiredLength }}
                 characters
               </span>
@@ -71,7 +71,7 @@
                 else lengthBlock
               "
             >
-              Award Name format is invalid
+              Name format is invalid
             </span>
           </mat-error>
         </div>
@@ -175,12 +175,12 @@
 
         <!-- position secured  -->
         <div class="form-block">
-          <label>Position Secured </label>
+          <label>Position secured </label>
           <input
             formControlName="position"
             type="text"
             matInput
-            placeholder="Position"
+            placeholder="Position secured"
             autocomplete="off"
           />
           <mat-error
@@ -197,7 +197,7 @@
                   editAddForm.controls.position.errors.maxlength
                 "
               >
-                Please provide award position upto
+                Please provide position secured upto
                 {{
                   editAddForm.controls.position.errors.maxlength.requiredLength
                 }}
@@ -211,7 +211,7 @@
                 else lengthBlock
               "
             >
-              Award Position format is invalid
+              Position secured format is invalid
             </span>
           </mat-error>
         </div>
@@ -240,14 +240,15 @@
             for="upload"
             matTooltip="Image must be of type JPEG / JPG / PNG / PDF"
           >
-            <span class="secondary-btn">Upload image</span>
+            <span class="secondary-btn">Upload Image</span>
             <input
+              #achievementInput
               type="file"
               formControlName="achievement"
               (change)="uploadAchievement($event.target.files)"
               id="upload"
             />
-            <p>Uploaded Images</p>
+            <p>{{ (achievementInput?.files)[0]?.name }}</p>
           </label>
           <mat-error
             class="error-text"
