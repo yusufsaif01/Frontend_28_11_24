@@ -74,6 +74,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     this.getAchievementCount();
     this.getConnectionStats();
   }
+
   getProfessionalProfileDetails() {
     this._profileService
       .getProfessionalProfileDetails()

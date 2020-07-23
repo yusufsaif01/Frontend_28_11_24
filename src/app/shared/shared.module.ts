@@ -13,10 +13,10 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { TrimPipe } from './pipes/trim.pipe';
 import { NgxImageCompressService } from 'ngx-image-compress';
-import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
+import { VerificationPopupComponent } from '@app/shared/verification-popup/verification-popup.component';
 import { GridSearchBoxComponent } from './grid-search-box/grid-search-box.component';
 import { TextSectionComponent } from '@app/core/authentication/text-section/text-section.component';
-import { PasswordDirective } from './show-hide-password/password.directive';
+import { PasswordDirective } from '@app/shared/directives/show-hide-password/password.directive';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 
 @NgModule({
