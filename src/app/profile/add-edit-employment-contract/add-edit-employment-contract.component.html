@@ -816,52 +816,37 @@
                 <div class="full">
                   <div class="radio-block">
                     <mat-radio-group required>
-                      <mat-radio-button
-                        formControlName="club_academy_uses_agent_services"
-                        value="true"
-                      >
+                      <mat-radio-button value="club">
                         Yes
                       </mat-radio-button>
-                      <mat-radio-button
-                        formControlName="club_academy_uses_agent_services"
-                        value="false"
-                      >
+                      <mat-radio-button value="academy">
                         No
                       </mat-radio-button>
                     </mat-radio-group>
                   </div>
                 </div>
-                <ng-container
-                  *ngIf="
-                    addEditContractForm.get('club_academy_uses_agent_services')
-                      .value === 'true'
-                  "
-                >
-                  <div class="half">
-                    <div class="form-block">
-                      <label>Provide name of intermediaries </label>
-                      <input
-                        matinput
-                        formControlName="club_academy_intermediary_name"
-                        autocomplete="off"
-                        required
-                        placeholder="Provide name of intermediaries"
-                      />
-                    </div>
+                <div class="half">
+                  <div class="form-block">
+                    <label>Provide name of intermediaries </label>
+                    <input
+                      matinput
+                      autocomplete="off"
+                      required
+                      placeholder="Provide name of intermediaries"
+                    />
                   </div>
-                  <div class="half">
-                    <div class="form-block">
-                      <label>Transfer fee paid to Intermediaries </label>
-                      <input
-                        formControlName="club_academy_transfer_fee"
-                        matinput
-                        autocomplete="off"
-                        required
-                        placeholder="Transfer fee paid to Intermediaries"
-                      />
-                    </div>
+                </div>
+                <div class="half">
+                  <div class="form-block">
+                    <label>Transfer fee paid to Intermediaries </label>
+                    <input
+                      matinput
+                      autocomplete="off"
+                      required
+                      placeholder="Transfer fee paid to Intermediaries"
+                    />
                   </div>
-                </ng-container>
+                </div>
               </div>
             </div>
 
@@ -873,53 +858,38 @@
               <div class="block">
                 <div class="full">
                   <div class="radio-block">
-                    <mat-radio-group>
-                      <mat-radio-button
-                        formControlName="player_uses_agent_services"
-                        value="true"
-                      >
+                    <mat-radio-group required>
+                      <mat-radio-button value="club">
                         Yes
                       </mat-radio-button>
-                      <mat-radio-button
-                        formControlName="player_uses_agent_services"
-                        value="false"
-                      >
+                      <mat-radio-button value="academy">
                         No
                       </mat-radio-button>
                     </mat-radio-group>
                   </div>
                 </div>
-                <ng-container
-                  *ngIf="
-                    addEditContractForm.get('player_uses_agent_services')
-                      .value === 'true'
-                  "
-                >
-                  <div class="half">
-                    <div class="form-block">
-                      <label>Provide name of intermediaries </label>
-                      <input
-                        matinput
-                        formControlName="player_intermediary_name"
-                        autocomplete="off"
-                        required
-                        placeholder="Provide name of intermediaries"
-                      />
-                    </div>
+                <div class="half">
+                  <div class="form-block">
+                    <label>Provide name of intermediaries </label>
+                    <input
+                      matinput
+                      autocomplete="off"
+                      required
+                      placeholder="Provide name of intermediaries"
+                    />
                   </div>
-                  <div class="half">
-                    <div class="form-block">
-                      <label>Transfer fee paid to Intermediaries </label>
-                      <input
-                        matinput
-                        formControlName="player_transfer_fee"
-                        autocomplete="off"
-                        required
-                        placeholder="Transfer fee paid to Intermediaries"
-                      />
-                    </div>
+                </div>
+                <div class="half">
+                  <div class="form-block">
+                    <label>Transfer fee paid to Intermediaries </label>
+                    <input
+                      matinput
+                      autocomplete="off"
+                      required
+                      placeholder="Transfer fee paid to Intermediaries"
+                    />
                   </div>
-                </ng-container>
+                </div>
               </div>
             </div>
             <!-- actions -->
