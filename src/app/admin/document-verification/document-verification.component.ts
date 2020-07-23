@@ -7,7 +7,7 @@ import { DocumentVerificationService } from './document-verification-service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material';
 import { untilDestroyed } from '@app/core';
-import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
+import { VerificationPopupComponent } from '@app/shared/verification-popup/verification-popup.component';
 import { environment } from '@env/environment';
 
 interface ResponseContext {

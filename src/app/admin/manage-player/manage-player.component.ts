@@ -35,7 +35,7 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
   public sideBarToggle: boolean = true;
   showFiller = false;
   list: any;
-  pageSize: number = 20;
+  pageSize: number = 5;
   selectedPage: number;
   players_count: number;
   grassroot_count: number;
