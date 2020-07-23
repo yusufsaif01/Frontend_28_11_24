@@ -35,12 +35,15 @@
             let-name="name"
             let-position="position"
             let-type="type"
-            let-year="year"
+            let-from="from"
+            let-to="to"
           >
             <div class="action-buttons">
               <button
                 matTooltip="Edit"
-                (click)="openEditDialog(id, media, name, position, type, year)"
+                (click)="
+                  openEditDialog(id, media, name, position, type, from, to)
+                "
               >
                 <mat-icon class="material-icons">create</mat-icon>
               </button>

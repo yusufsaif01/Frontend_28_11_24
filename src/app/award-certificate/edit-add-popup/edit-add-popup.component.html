@@ -103,7 +103,7 @@
             <div class="half">
               <div class="date pb-0">
                 <input
-                  formControlName="from_year"
+                  formControlName="from"
                   matInput
                   [matDatepicker]="fromYear"
                   readonly
@@ -118,21 +118,19 @@
                 <mat-datepicker
                   #fromYear
                   startView="multi-year"
-                  (yearSelected)="
-                    closeDatePicker(fromYear, $event, 'from_year')
-                  "
+                  (yearSelected)="closeDatePicker(fromYear, $event, 'from')"
                 >
                 </mat-datepicker>
               </div>
               <mat-error
                 class="error-text"
                 *ngIf="
-                  editAddForm.controls.from_year.invalid &&
-                  editAddForm.controls.from_year.touched
+                  editAddForm.controls.from.invalid &&
+                  editAddForm.controls.from.touched
                 "
               >
                 <span
-                  *ngIf="editAddForm.controls.from_year.errors.required"
+                  *ngIf="editAddForm.controls.from.errors.required"
                   translate
                   >From year is required</span
                 >
@@ -141,7 +139,7 @@
             <div class="half">
               <div class="date pb-0">
                 <input
-                  formControlName="to_year"
+                  formControlName="to"
                   matInput
                   [matDatepicker]="toYear"
                   readonly
@@ -156,20 +154,18 @@
                 <mat-datepicker
                   #toYear
                   startView="multi-year"
-                  (yearSelected)="closeDatePicker(toYear, $event, 'to_year')"
+                  (yearSelected)="closeDatePicker(toYear, $event, 'to')"
                 >
                 </mat-datepicker>
               </div>
               <mat-error
                 class="error-text"
                 *ngIf="
-                  editAddForm.controls.to_year.invalid &&
-                  editAddForm.controls.to_year.touched
+                  editAddForm.controls.to.invalid &&
+                  editAddForm.controls.to.touched
                 "
               >
-                <span
-                  *ngIf="editAddForm.controls.to_year.errors.required"
-                  translate
+                <span *ngIf="editAddForm.controls.to.errors.required" translate
                   >To year is required</span
                 >
               </mat-error>

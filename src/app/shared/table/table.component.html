@@ -32,7 +32,8 @@
               'expiry_date',
               'club_academy_name',
               'player_name',
-              'created_by'
+              'created_by',
+              'year'
             ].includes(col)
           "
         >
@@ -41,6 +42,7 @@
         <p *ngIf="col === 'created_by'">
           {{ tableConfig.columns[col].getValue(element) | titlecase }}
         </p>
+        <p *ngIf="col === 'year'">{{ element.from }}-{{ element.to }}</p>
         <p *ngIf="col === 'document_type'">
           <ng-container [ngSwitch]="element.document_type">
             <ng-container *ngSwitchCase="'coi'">COI Number</ng-container>

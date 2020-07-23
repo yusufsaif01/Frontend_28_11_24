@@ -82,8 +82,8 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     if (this.data.id) {
       this.editAddForm.patchValue(this.data);
       this.editAddForm.patchValue({
-        from_year: new Date(this.data.from_year),
-        to_year: new Date(this.data.to_year)
+        from: new Date(this.data.from),
+        to: new Date(this.data.to)
       });
     }
 
@@ -167,8 +167,8 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     this.editAddForm = this.formBuilder.group({
       type: ['', [Validators.required]],
       name: ['', [Validators.pattern(/^[a-zA-Z0-9\&\@\(\)\#\- ]+$/)]],
-      from_year: ['', [Validators.required]],
-      to_year: ['', [Validators.required]],
+      from: ['', [Validators.required]],
+      to: ['', [Validators.required]],
       position: [
         '',
         [
@@ -208,8 +208,6 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     if (this.achievement) requestData.set('achievement', this.achievement);
     this.dateModifier(requestData);
 
-    console.log(requestData);
-
     if (this.data.id) {
       this.updateData(requestData);
     } else {
@@ -237,7 +235,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   }
 
   dateModifier(requestData: any) {
-    let years = ['from_year', 'to_year'];
+    let years = ['from', 'to'];
     years.map(data => {
       requestData.set(
         data,

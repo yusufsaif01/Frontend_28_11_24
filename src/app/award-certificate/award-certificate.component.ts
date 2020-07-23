@@ -91,7 +91,8 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
     name: any,
     position: any,
     type: any,
-    year: any
+    from: any,
+    to: any
   ) {
     let data: any = {
       id: id,
@@ -99,7 +100,8 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
       name: name,
       position: position,
       type: type,
-      year,
+      from: from,
+      to: to,
       player_type: this.player_type,
       member_type: this.member_type
     };
