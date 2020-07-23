@@ -52,23 +52,10 @@
               editAddForm.controls.name.touched
             "
           >
-            <ng-template #lengthBlock>
-              <span
-                *ngIf="
-                  editAddForm.controls.name.errors &&
-                  editAddForm.controls.name.errors.maxlength
-                "
-              >
-                Please provide name upto
-                {{ editAddForm.controls.name.errors.maxlength.requiredLength }}
-                characters
-              </span>
-            </ng-template>
             <span
               *ngIf="
                 editAddForm.controls.name.errors &&
-                  editAddForm.controls.name.errors.pattern;
-                else lengthBlock
+                editAddForm.controls.name.errors.pattern
               "
             >
               Name format is invalid
