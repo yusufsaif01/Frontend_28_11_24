@@ -119,17 +119,19 @@
             [href]="tableConfig.columns[col].getValue(element)"
             target="_blank"
           >
-            <mat-icon
-              class="material-icons"
-              *ngIf="
-                tableConfig.columns[col]
-                  .getValue(element)
-                  .split('.')
-                  .includes('pdf')
-              "
-            >
-              picture_as_pdf
-            </mat-icon>
+            <span class="pdf-icon">
+              <mat-icon
+                class="material-icons"
+                *ngIf="
+                  tableConfig.columns[col]
+                    .getValue(element)
+                    .split('.')
+                    .includes('pdf')
+                "
+              >
+                picture_as_pdf
+              </mat-icon>
+            </span>
             <img
               *ngIf="
                 !tableConfig.columns[col]
