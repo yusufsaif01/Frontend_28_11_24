@@ -31,15 +31,15 @@
     </div>
     <div class="profile-position">
       <h4 *ngIf="profile.member_type === 'player'">
-        {{
+        ({{
           (professionalProfile.position && professionalProfile.position[0]
             ? professionalProfile.position[0].name
             : ''
           ) | titlecase
-        }}
+        }})
       </h4>
       <h4 *ngIf="profile.member_type !== 'player'">
-        {{ professionalProfile?.type | titlecase }}
+        ({{ professionalProfile?.type | titlecase }})
       </h4>
     </div>
     <div class="profile-counts">
