@@ -103,44 +103,47 @@
             <div class="half">
               <div class="date pb-0">
                 <input
-                  formControlName="year"
+                  formControlName="from_year"
                   matInput
-                  [matDatepicker]="picker"
+                  [matDatepicker]="fromYear"
                   readonly
-                  placeholder="Form"
+                  placeholder="From"
                   [min]="minDate"
                   [max]="maxDate"
                 />
                 <mat-datepicker-toggle
                   matSuffix
-                  [for]="picker"
+                  [for]="fromYear"
                 ></mat-datepicker-toggle>
                 <mat-datepicker
-                  #picker
+                  #fromYear
                   startView="multi-year"
-                  (yearSelected)="closeDatePicker(picker, $event)"
+                  (yearSelected)="
+                    closeDatePicker(fromYear, $event, 'from_year')
+                  "
                 >
                 </mat-datepicker>
               </div>
               <mat-error
                 class="error-text"
                 *ngIf="
-                  editAddForm.controls.year.invalid &&
-                  editAddForm.controls.year.touched
+                  editAddForm.controls.from_year.invalid &&
+                  editAddForm.controls.from_year.touched
                 "
               >
                 <span
-                  *ngIf="editAddForm.controls.year.errors.required"
+                  *ngIf="editAddForm.controls.from_year.errors.required"
                   translate
-                  >Year is required</span
+                  >From year is required</span
                 >
               </mat-error>
             </div>
             <div class="half">
               <div class="date pb-0">
                 <input
+                  formControlName="to_year"
                   matInput
-                  [matDatepicker]="todate"
+                  [matDatepicker]="toYear"
                   readonly
                   placeholder="To"
                   [min]="minDate"
@@ -148,13 +151,27 @@
                 />
                 <mat-datepicker-toggle
                   matSuffix
-                  [for]="todate"
+                  [for]="toYear"
                 ></mat-datepicker-toggle>
-                <mat-datepicker #todate startView="multi-year">
+                <mat-datepicker
+                  #toYear
+                  startView="multi-year"
+                  (yearSelected)="closeDatePicker(toYear, $event, 'to_year')"
+                >
                 </mat-datepicker>
               </div>
-              <mat-error class="error-text">
-                <!-- <span>Year is required</span> -->
+              <mat-error
+                class="error-text"
+                *ngIf="
+                  editAddForm.controls.to_year.invalid &&
+                  editAddForm.controls.to_year.touched
+                "
+              >
+                <span
+                  *ngIf="editAddForm.controls.to_year.errors.required"
+                  translate
+                  >To year is required</span
+                >
               </mat-error>
             </div>
           </div>
