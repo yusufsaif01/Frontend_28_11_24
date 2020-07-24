@@ -1,12 +1,10 @@
-<app-header></app-header>
+<!-- <app-header></app-header>
 <div class="site-wrapper">
-  <!-- Left section -->
   <div class="left-section">
     <app-left-panel [options]="panelOptions"> </app-left-panel>
   </div>
-  <!-- right-section -->
   <div class="right-section">
-    <!-- player section -->
+    
     <div class="players">
       <div class="block">
         <div class="block-heading">
@@ -27,7 +25,7 @@
           >
         </div>
       </div>
-      <!-- personal details -->
+      
       <div class="block">
         <div class="block-middle border-bottom">
           <div class="half">
@@ -272,4 +270,246 @@
     </div>
   </div>
 </div>
-<ng-template #loading> Loading </ng-template>
+<ng-template #loading> Loading </ng-template> -->
+
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel">
+    <app-left-panel></app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main mt-2">
+        <!-- heading -->
+        <div class="heading">
+          <h2>Employment contract details</h2>
+          <button (click)="toggleMode()">
+            <mat-icon class="material-icons">create</mat-icon>
+          </button>
+        </div>
+
+        <!-- Player  details  -->
+        <div class="details">
+          <h3 class="mb-1">Player details</h3>
+          <div class="block">
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Player name on contract</h4>
+              </div>
+              <div class="right">
+                <p>Rajkumar Rao</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Legal guardian name</h4>
+              </div>
+              <div class="right">
+                <p>Rajnayak Ghosh</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Player phone number</h4>
+              </div>
+              <div class="right">
+                <p>+91 7876759872</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Player email</h4>
+              </div>
+              <div class="right">
+                <p>someone@someplayer.com</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Player address</h4>
+              </div>
+              <div class="right">
+                <p>92 Abdul Rehman St. Mandvi Mumbai, Maharashtra,400003</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- contract details details -->
+        <div class="details">
+          <h3 class="mb-1">Contract details</h3>
+          <div class="block">
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Contract signing date</h4>
+              </div>
+              <div class="right">
+                <p>1 August 2020</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Contract effective date</h4>
+              </div>
+              <div class="right">
+                <p>1 August 2020</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Contract expiry date</h4>
+              </div>
+              <div class="right">
+                <p>1 August 2022</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Place of signature</h4>
+              </div>
+              <div class="right">
+                <p>FooTStar football acadmey</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- club/acadmey details -->
+        <div class="details">
+          <h3 class="mb-1">Club details</h3>
+          <div class="block">
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Club name</h4>
+              </div>
+              <div class="right">
+                <p>FabfootClub</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Club email</h4>
+              </div>
+              <div class="right">
+                <p>fabfootclub@club.com</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Club representative name</h4>
+              </div>
+              <div class="right">
+                <p>Sandeep Singh</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Club phone number</h4>
+              </div>
+              <div class="right">
+                <p>+91 7876759872</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>CRS user name</h4>
+              </div>
+              <div class="right">
+                <p>Paul Heman</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>AIFF accreditation number</h4>
+              </div>
+              <div class="right">
+                <p>76765645788978</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Club address</h4>
+              </div>
+              <div class="right">
+                <p>92 Abdul Rehman St. Mandvi Mumbai, Maharashtra,400003</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  club/academy use the services of an agent ? -->
+        <div class="details">
+          <h3 class="mb-1">
+            Did the club use the services of an agent ? <span>Yes</span>
+          </h3>
+          <div class="block">
+            <div class="detail-panel-full">
+              <div class="left">
+                <h4>Provide name of intermediaries</h4>
+              </div>
+              <div class="right">
+                <p>Shayam Joshi</p>
+              </div>
+            </div>
+
+            <div class="detail-panel-full">
+              <div class="left">
+                <h4>Percentage of transfer fee paid to intermediaries</h4>
+              </div>
+              <div class="right">
+                <p>25%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  player use the services of an agent ? -->
+        <div class="details">
+          <h3 class="mb-1">
+            Did the player use the services of an agent ? <span>Yes</span>
+          </h3>
+          <div class="block">
+            <div class="detail-panel-full">
+              <div class="left">
+                <h4>Provide name of intermediaries</h4>
+              </div>
+              <div class="right">
+                <p>Shayam Joshi</p>
+              </div>
+            </div>
+
+            <div class="detail-panel-full">
+              <div class="left">
+                <h4>Percentage of transfer fee paid to intermediaries</h4>
+              </div>
+              <div class="right">
+                <p>25%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- actions -->
+        <div class="actions mt-2 mb-2">
+          <div class="btn-group">
+            <button class="btn-active">Approve</button>
+            <button class="btn-normal">Disapprove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
