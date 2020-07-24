@@ -238,6 +238,9 @@ export class PersonalDetailsComponent implements OnInit {
           ? this.profile.social_profiles.linked_in
           : ''
     });
+    if (this.profile.profile_status.status === 'verified') {
+      this.personalProfileDetailsForm.controls.dob.disable();
+    }
   }
   formControlAdder(
     form: FormGroup,
