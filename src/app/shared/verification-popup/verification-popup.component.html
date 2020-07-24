@@ -10,8 +10,8 @@
 
   <div class="modal-body">
     <h4>{{ message }}</h4>
-    <div class="form-block w-40">
-      <input type="text" *ngIf="disApprove" [(ngModel)]="disApproveReason" />
+    <div class="form-block w-40" *ngIf="disApprove">
+      <input type="text" [(ngModel)]="disApproveReason" />
     </div>
     <div class="action-block">
       <div class="btn-group">
