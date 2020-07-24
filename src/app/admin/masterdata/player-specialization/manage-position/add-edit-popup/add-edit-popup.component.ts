@@ -98,8 +98,8 @@ export class AddEditPopupComponent implements OnInit, OnDestroy {
         response => {
           this.dialogRef.close('refresh');
           this.toastrService.success(
-            `${response.message}`,
-            'Position Updated Successfully'
+            `Success`,
+            'Position updated successfully'
           );
         },
         error => {
@@ -115,10 +115,7 @@ export class AddEditPopupComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.dialogRef.close('refresh');
-          this.toastrService.success(
-            `${response.message}`,
-            'Position Added Successfully'
-          );
+          this.toastrService.success(`Success`, 'Position added successfully');
         },
         error => {
           this.toastrService.error(`${error.error.message}`, 'Error');

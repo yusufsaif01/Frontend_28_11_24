@@ -301,7 +301,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         .subscribe(
           response => {
             this._toastrService.success(
-              'success',
+              'Success',
               'Documents updated successfully'
             );
             this.initializeFields();
