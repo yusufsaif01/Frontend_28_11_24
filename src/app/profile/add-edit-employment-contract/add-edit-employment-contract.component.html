@@ -548,7 +548,7 @@
       <div class="main mt-2">
         <!-- heading -->
         <div class="heading">
-          <h2>{{ isEditMode ? 'Edit Contract' : 'Add New Contract' }}</h2>
+          <h2>{{ isEditMode ? 'Edit contract' : 'Add new contract' }}</h2>
         </div>
 
         <!-- form-wrapper -->
@@ -557,18 +557,16 @@
             <!-- Select type -->
             <ng-container *ngIf="member_type === 'player'">
               <div class="form-sections">
-                <h3 class="mb-1">Select Category</h3>
+                <h3 class="mb-1">Select category</h3>
                 <div class="radio-block pl-3">
-                  <mat-radio-group required>
+                  <mat-radio-group formControlName="category" required>
                     <mat-radio-button
-                      formControlName="category"
                       value="club"
                       (click)="setCategory('club')"
                     >
                       Club
                     </mat-radio-button>
                     <mat-radio-button
-                      formControlName="category"
                       value="academy"
                       (click)="setCategory('academy')"
                     >
@@ -587,6 +585,7 @@
                   <div class="form-block">
                     <label>Player name on contract <span>*</span></label>
                     <input
+                      formControlName="player_name"
                       matinput
                       autocomplete="off"
                       required
@@ -598,6 +597,7 @@
                   <div class="form-block">
                     <label>Legal guardian name</label>
                     <input
+                      formControlName="legal_guardian_name"
                       matinput
                       autocomplete="off"
                       required
@@ -616,6 +616,7 @@
                       </div>
                       <div class="phone-number">
                         <input
+                          formControlName="player_mobile_number"
                           type="text"
                           matInput
                           autocomplete="off"
@@ -629,6 +630,7 @@
                   <div class="form-block">
                     <label>Player email address </label>
                     <input
+                      formControlName="player_email"
                       matinput
                       autocomplete="off"
                       required
@@ -640,6 +642,7 @@
                   <div class="form-block">
                     <label>Player address </label>
                     <input
+                      formControlName="player_address"
                       matinput
                       autocomplete="off"
                       required
@@ -659,6 +662,7 @@
                     <label>Contract signing date<span>*</span></label>
                     <div class="date">
                       <input
+                        formControlName="signing_date"
                         matInput
                         [matDatepicker]="signing"
                         placeholder="Contract signing date"
@@ -676,6 +680,7 @@
                     <label>Contract effective date<span>*</span></label>
                     <div class="date">
                       <input
+                        formControlName="effective_date"
                         matInput
                         [matDatepicker]="effective"
                         placeholder="Contract effective date"
@@ -693,6 +698,7 @@
                     <label>Contract expiry date<span>*</span></label>
                     <div class="date">
                       <input
+                        formControlName="expiry_date"
                         matInput
                         [matDatepicker]="expiry"
                         placeholder="Contract expiry date"
@@ -707,12 +713,13 @@
                 </div>
                 <div class="half">
                   <div class="form-block">
-                    <label>Player email address </label>
+                    <label>Place of signature </label>
                     <input
+                      formControlName="place_of_signature"
                       matinput
                       autocomplete="off"
                       required
-                      placeholder="Player email address"
+                      placeholder="Place of signature"
                     />
                   </div>
                 </div>
@@ -721,41 +728,58 @@
 
             <!-- contract details -->
             <div class="form-sections">
-              <h3 class="mb-1">Club details</h3>
+              <h3 class="mb-1">{{ category | titlecase }} details</h3>
               <div class="block">
                 <div class="half">
                   <div class="form-block">
-                    <label>Club name<span>*</span></label>
-                    <select>
-                      <option value="">Select club name</option>
+                    <label>{{ category | titlecase }} name<span>*</span></label>
+                    <select formControlName="club_academy_name">
+                      <option value="">Select {{ category }} name</option>
+                      <ng-container *ngFor="let item of clubAcadArray">
+                        <option
+                          [attr.identity]="item.email"
+                          [value]="item.name"
+                          >{{ item.name }}</option
+                        >
+                      </ng-container>
+                      <option value="Others">Others</option>
                     </select>
                   </div>
                 </div>
                 <div class="half">
                   <div class="form-block">
-                    <label>Club email</label>
+                    <label>{{ category | titlecase }} email</label>
                     <input
+                      formControlName="club_academy_email"
                       matinput
                       autocomplete="off"
                       required
-                      placeholder="Club email"
+                      placeholder="{{ category | titlecase }} email"
                     />
                   </div>
                 </div>
                 <div class="half">
                   <div class="form-block">
-                    <label>Club representative name </label>
+                    <label
+                      >{{ category | titlecase }} representative name
+                    </label>
                     <input
+                      formControlName="club_academy_representative_name"
                       matinput
                       autocomplete="off"
                       required
-                      placeholder="Club representative name"
+                      placeholder="{{
+                        category | titlecase
+                      }} representative name"
                     />
                   </div>
                 </div>
                 <div class="half">
                   <div class="form-block">
-                    <label>Club mobile number <span>*</span></label>
+                    <label
+                      >{{ category | titlecase }} mobile number
+                      <span>*</span></label
+                    >
                     <div class="phone-block">
                       <div class="country-code">
                         <select disabled>
@@ -764,10 +788,11 @@
                       </div>
                       <div class="phone-number">
                         <input
+                          formControlName="club_academy_phone_number"
                           type="text"
                           matInput
                           autocomplete="off"
-                          placeholder="Club mobile number"
+                          placeholder="{{ category | titlecase }} mobile number"
                         />
                       </div>
                     </div>
@@ -778,6 +803,7 @@
                   <div class="form-block">
                     <label> AIFF accreditation number</label>
                     <input
+                      formControlName="aiff_number"
                       matinput
                       autocomplete="off"
                       required
@@ -789,6 +815,7 @@
                   <div class="form-block">
                     <label>CRS user name</label>
                     <input
+                      formControlName="crs_user_name"
                       matinput
                       autocomplete="off"
                       required
@@ -798,12 +825,13 @@
                 </div>
                 <div class="full">
                   <div class="form-block">
-                    <label>Club address </label>
+                    <label>{{ category | titlecase }} address </label>
                     <input
+                      formControlName="club_academy_address"
                       matinput
                       autocomplete="off"
                       required
-                      placeholder="Club address "
+                      placeholder="{{ category }} address "
                     />
                   </div>
                 </div>
@@ -811,11 +839,16 @@
             </div>
             <!-- Did the club use the services of an agent ? -->
             <div class="form-sections">
-              <h3 class="mb-1">Did the club use the services of an agent ?</h3>
+              <h3 class="mb-1">
+                Did the {{ category }} use the services of an agent ?
+              </h3>
               <div class="block">
                 <div class="full">
                   <div class="radio-block">
-                    <mat-radio-group required>
+                    <mat-radio-group
+                      formControlName="club_academy_uses_agent_services"
+                      required
+                    >
                       <mat-radio-button value="club">
                         Yes
                       </mat-radio-button>
@@ -829,6 +862,7 @@
                   <div class="form-block">
                     <label>Provide name of intermediaries </label>
                     <input
+                      formControlName="club_academy_intermediary_name"
                       matinput
                       autocomplete="off"
                       required
@@ -840,6 +874,7 @@
                   <div class="form-block">
                     <label>Transfer fee paid to Intermediaries </label>
                     <input
+                      formControlName="club_academy_transfer_fee"
                       matinput
                       autocomplete="off"
                       required
@@ -858,7 +893,10 @@
               <div class="block">
                 <div class="full">
                   <div class="radio-block">
-                    <mat-radio-group required>
+                    <mat-radio-group
+                      formControlName="player_uses_agent_services"
+                      required
+                    >
                       <mat-radio-button value="club">
                         Yes
                       </mat-radio-button>
@@ -872,6 +910,7 @@
                   <div class="form-block">
                     <label>Provide name of intermediaries </label>
                     <input
+                      formControlName="player_intermediary_name"
                       matinput
                       autocomplete="off"
                       required
@@ -883,6 +922,7 @@
                   <div class="form-block">
                     <label>Transfer fee paid to Intermediaries </label>
                     <input
+                      formControlName="player_transfer_fee"
                       matinput
                       autocomplete="off"
                       required
@@ -903,7 +943,7 @@
                   [disabled]="!addEditContractForm.valid"
                   (click)="addUpdateContract()"
                 >
-                  {{ isEditMode ? 'Save and Send For Approval' : 'Save' }}
+                  {{ isEditMode ? 'Save and send for approval' : 'Save' }}
                 </button>
               </div>
             </div>
