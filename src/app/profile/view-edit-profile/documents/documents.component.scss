@@ -115,6 +115,14 @@
       width: 90%;
       margin: 0 auto;
 
+      h3 {
+        span {
+          color: $primary-color;
+        }
+
+        margin-bottom: 1rem;
+      }
+
       .upload-section {
         h4 {
           font-weight: 500;
@@ -262,6 +270,15 @@
 
       .full {
         width: 100%;
+
+        .doc-type {
+          ::ng-deep {
+            .mat-radio-label-content {
+              font-size: 1.8rem;
+              font-weight: 400;
+            }
+          }
+        }
       }
 
       .half {
