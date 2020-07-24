@@ -19,13 +19,29 @@ export class PaginationComponent implements OnInit {
   @Input() totalRows: any = 0;
   @Input() rowsPerPage: any = 10;
   @Input() selectedPage: any = 1;
-  private maxPage: any = 1;
+  maxPage: any = 1;
   @Output() onChange = new EventEmitter<any>();
 
   constructor() {}
 
   ngOnInit() {
     // this.calculatePages();
+  }
+
+  getFrame(n: number, l: number) {
+    if (n >= l - 3) {
+      return [l - 3, l - 2, l - 1];
+    }
+    if (n === l - 4) {
+      return [l - 6, l - 5, l - 4];
+    }
+    if (n == 5) {
+      return [n, n + 1, n + 2];
+    }
+    if (n > 5) {
+      return [n - 1, n, n + 1];
+    }
+    return [2, 3, 4];
   }
 
   pages() {
@@ -36,15 +52,28 @@ export class PaginationComponent implements OnInit {
     if (!this.maxPage) {
       this.maxPage = 1;
     }
-    let arr = Array(this.maxPage)
+    let arr: (number | string)[] = Array(this.maxPage)
       .fill(0)
       .map((x, i) => i + 1);
+    if (arr.length > 5) {
+      arr = [
+        1,
+        this.selectedPage > 4 ? '...' : null,
+        ...this.getFrame(this.selectedPage, arr.length),
+        this.selectedPage < arr.length - 3 ? '...' : null,
+        arr.length
+      ];
+      arr = arr.filter(item => {
+        return item != null;
+      });
+    }
+
     return arr;
   }
 
   ngOnchanges() {}
 
-  goToPage(number: Number) {
+  goToPage(number: number) {
     if (number > this.maxPage || number < 1) {
       return;
     }
