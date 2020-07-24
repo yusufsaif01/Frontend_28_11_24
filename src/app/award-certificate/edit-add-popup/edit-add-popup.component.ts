@@ -6,6 +6,7 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { AwardCertificateService } from '../award-certificate.service';
 import { ToastrService } from 'ngx-toastr';
 import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
+import { DateConversion } from '@app/shared/utilities/date-conversion';
 import { environment } from '../../../environments/environment';
 import { untilDestroyed } from '@app/core';
 
@@ -26,7 +27,10 @@ const APP_DATE_FORMATS = {
   selector: 'app-edit-add-popup',
   templateUrl: './edit-add-popup.component.html',
   styleUrls: ['./edit-add-popup.component.scss'],
-  providers: [{ provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }]
+  providers: [
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
+    DateConversion
+  ]
 })
 export class EditAddPopupComponent implements OnInit, OnDestroy {
   environment = environment;
@@ -47,6 +51,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private awardCertificateService: AwardCertificateService,
     private toastrService: ToastrService,
+    private _dateConversion: DateConversion,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     this.createForm();
@@ -57,11 +62,12 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
 
   closeDatePicker(
     elem: MatDatepicker<any>,
-    event: MatDatepickerInputEvent<Date>
+    event: MatDatepickerInputEvent<Date>,
+    controlName: string
   ) {
     elem.close();
     let year = new Date(String(event));
-    this.editAddForm.get('year').setValue(year);
+    this.editAddForm.get(controlName).setValue(year);
   }
 
   ngOnInit() {
@@ -72,10 +78,15 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     } else if (this.member_type === 'academy') {
       this.awardsArray = this.academyAwardTypeArray;
     }
+
     if (this.data.id) {
       this.editAddForm.patchValue(this.data);
-      this.editAddForm.patchValue({ year: new Date(this.data.year) });
+      this.editAddForm.patchValue({
+        from: new Date(this.data.from),
+        to: new Date(this.data.to)
+      });
     }
+
     if (this.data.media !== this.environment.mediaUrl) {
       this.achievement_url = this.data.media;
     }
@@ -155,14 +166,9 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   private createForm() {
     this.editAddForm = this.formBuilder.group({
       type: ['', [Validators.required]],
-      name: [
-        '',
-        [
-          Validators.maxLength(30),
-          Validators.pattern(/^[a-zA-Z0-9\&\@\(\)\#\- ]+$/)
-        ]
-      ],
-      year: ['', [Validators.required]],
+      name: ['', [Validators.pattern(/^[a-zA-Z0-9\&\@\(\)\#\- ]+$/)]],
+      from: ['', [Validators.required]],
+      to: ['', [Validators.required]],
       position: [
         '',
         [
@@ -177,6 +183,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   uploadAchievement(files: FileList) {
     this.achievement = files[0];
   }
+
   updateData(requestData: any) {
     this.awardCertificateService
       .updateAwards(this.data.id, requestData)
@@ -195,6 +202,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
         }
       );
   }
+
   editAddFormValue() {
     let requestData = this.toFormData(this.editAddForm.value);
     if (this.achievement) requestData.set('achievement', this.achievement);
@@ -206,6 +214,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
       this.addData(requestData);
     }
   }
+
   addData(requestData: any) {
     this.awardCertificateService
       .addAwards(requestData)
@@ -226,8 +235,15 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   }
 
   dateModifier(requestData: any) {
-    let year = this.editAddForm.controls.year.value;
-    year = new Date(year).getFullYear();
-    requestData.set('year', year);
+    let years = ['from', 'to'];
+    years.map(data => {
+      requestData.set(
+        data,
+        this._dateConversion.convertToYear(this.editAddForm.get(data).value)
+      );
+    });
+    // let from_year = this.editAddForm.controls.from_year.value;
+    // from_year = new Date(from_year).getFullYear();
+    // requestData.set('from_year', from_year);
   }
 }

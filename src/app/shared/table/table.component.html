@@ -32,7 +32,8 @@
               'expiry_date',
               'club_academy_name',
               'player_name',
-              'created_by'
+              'created_by',
+              'year'
             ].includes(col)
           "
         >
@@ -41,6 +42,7 @@
         <p *ngIf="col === 'created_by'">
           {{ tableConfig.columns[col].getValue(element) | titlecase }}
         </p>
+        <p *ngIf="col === 'year'">{{ element.from }}-{{ element.to }}</p>
         <p *ngIf="col === 'document_type'">
           <ng-container [ngSwitch]="element.document_type">
             <ng-container *ngSwitchCase="'coi'">COI Number</ng-container>
@@ -70,9 +72,9 @@
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
         >
           {{
-            tableConfig.columns[col].getValue(element).length < 18
+            tableConfig.columns[col].getValue(element).length < 15
               ? tableConfig.columns[col].getValue(element)
-              : (tableConfig.columns[col].getValue(element) | slice: 0:18) +
+              : (tableConfig.columns[col].getValue(element) | slice: 0:15) +
                 '...'
           }}
         </p>
@@ -117,16 +119,28 @@
             [href]="tableConfig.columns[col].getValue(element)"
             target="_blank"
           >
+            <span class="pdf-icon">
+              <mat-icon
+                class="material-icons"
+                *ngIf="
+                  tableConfig.columns[col]
+                    .getValue(element)
+                    .split('.')
+                    .includes('pdf')
+                "
+              >
+                picture_as_pdf
+              </mat-icon>
+            </span>
             <img
-              class="thumbnail"
-              [src]="
-                tableConfig.columns[col]
+              *ngIf="
+                !tableConfig.columns[col]
                   .getValue(element)
                   .split('.')
                   .includes('pdf')
-                  ? 'assets/images/pdf.png'
-                  : tableConfig.columns[col].getValue(element)
               "
+              class="thumbnail"
+              [src]="tableConfig.columns[col].getValue(element)"
               alt=""
             />
           </a>

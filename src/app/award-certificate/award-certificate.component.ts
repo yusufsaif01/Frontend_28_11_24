@@ -68,12 +68,12 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
   // dialog box open
   openDialog(): void {
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
-      width: '40%',
-      panelClass: 'edit-add-popup',
+      width: '50%',
+      panelClass: 'dialogbox',
       data: {
         player_type: this.player_type,
         member_type: this.member_type,
-        options: { header: 'Add', buttonName: 'Save' }
+        options: { header: 'Add', buttonName: 'Submit' }
       },
       autoFocus: false
     });
@@ -91,7 +91,8 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
     name: any,
     position: any,
     type: any,
-    year: any
+    from: any,
+    to: any
   ) {
     let data: any = {
       id: id,
@@ -99,13 +100,14 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
       name: name,
       position: position,
       type: type,
-      year,
+      from: from,
+      to: to,
       player_type: this.player_type,
       member_type: this.member_type
     };
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
-      width: '40%',
-      panelClass: 'edit-add-popup',
+      width: '50%',
+      panelClass: 'dialogbox',
       data: {
         ...data,
         options: { header: 'Edit', buttonName: 'Update' }
