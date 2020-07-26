@@ -229,3 +229,18 @@
     left: 0px;
   }
 }
+
+.radio-block {
+  label {
+    font-size: $heading-fourth;
+    display: block;
+    font-weight: 500;
+    display: flex;
+    margin-bottom: 0.5rem;
+
+    span {
+      margin-left: 0.5rem;
+      color: $primary-color;
+    }
+  }
+}
