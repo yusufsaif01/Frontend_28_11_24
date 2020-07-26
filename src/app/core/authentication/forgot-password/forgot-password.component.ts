@@ -28,7 +28,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this._toastrService.success('success', 'Reset link sent');
+          this._toastrService.success('Success', 'Reset link sent');
         },
         error => {
           this._toastrService.error(`${error.error.message}`, 'Failed');

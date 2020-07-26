@@ -136,6 +136,29 @@
             }
           }
         }
+
+        .details-full {
+          width: 100%;
+          display: flex;
+          margin: 1rem 0;
+
+          .left {
+            width: 20%;
+
+            h4 {
+              font-weight: 500;
+              color: $second-color;
+            }
+          }
+
+          .right {
+            width: 80%;
+
+            p {
+              font-size: $heading-fourth;
+            }
+          }
+        }
       }
     }
   }
@@ -146,6 +169,7 @@
     .seciton-wrapper {
       display: flex;
       width: 100%;
+      align-items: center;
 
       .left-seciton {
         width: 15%;

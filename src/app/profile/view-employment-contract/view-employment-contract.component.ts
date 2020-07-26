@@ -97,7 +97,7 @@ export class ViewEmploymentContractComponent implements OnInit {
             (response: any) => {
               this.getContractDetails();
               this._toastrService.success(
-                'success',
+                'Success',
                 'Status updated successfully'
               );
             },

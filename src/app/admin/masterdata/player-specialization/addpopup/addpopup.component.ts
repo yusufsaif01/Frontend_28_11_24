@@ -42,10 +42,7 @@ export class AddpopupComponent implements OnInit, OnDestroy {
         response => {
           this.dialogRef.close('refresh');
 
-          this.toastrService.success(
-            `${response.message}`,
-            'Ability Added Successfully'
-          );
+          this.toastrService.success(`Success`, 'Ability added successfully');
         },
         error => {
           this.toastrService.error(`${error.error.message}`, 'Error');
@@ -61,10 +58,7 @@ export class AddpopupComponent implements OnInit, OnDestroy {
         response => {
           this.dialogRef.close('refresh');
 
-          this.toastrService.success(
-            `${response.message}`,
-            'Parameter Added Successfully'
-          );
+          this.toastrService.success(`Success`, 'Parameter added successfully');
         },
         error => {
           this.toastrService.error(`${error.error.message}`, 'Error');

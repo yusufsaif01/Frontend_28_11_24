@@ -73,10 +73,7 @@ export class ManageCityComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this.toastrService.success(
-            `${response.message}`,
-            'City Added Successfully'
-          );
+          this.toastrService.success(`Success`, 'City added successfully');
           this.addCityForm.get('name').reset();
           this.getCityListByState(
             this.state_id,
@@ -188,10 +185,7 @@ export class ManageCityComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         data => {
-          this.toastrService.success(
-            `${data.message}`,
-            'City Updated Successfully'
-          );
+          this.toastrService.success(`Success`, 'City updated successfully');
           this.getCityListByState(
             this.state_id,
             this.pageSize,
