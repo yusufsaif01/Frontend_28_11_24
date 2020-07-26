@@ -20,6 +20,7 @@ export class PaginationComponent implements OnInit {
   @Input() rowsPerPage: any = 10;
   @Input() selectedPage: any = 1;
   maxPage: any = 1;
+  paginationSize = 5;
   @Output() onChange = new EventEmitter<any>();
 
   constructor() {}
@@ -28,20 +29,37 @@ export class PaginationComponent implements OnInit {
     // this.calculatePages();
   }
 
-  getFrame(n: number, l: number) {
-    if (n >= l - 3) {
-      return [l - 3, l - 2, l - 1];
+  getFrame(s: number, n: number, l: number) {
+    // starting
+    if (n < s) {
+      return Array(s - 2)
+        .fill(0)
+        .map((_, i) => i + 2);
     }
-    if (n === l - 4) {
-      return [l - 6, l - 5, l - 4];
+    // ending
+    if (n >= l - (s - 2)) {
+      return Array(s - 2)
+        .fill(0)
+        .map((_, i) => l - (s - 2 - i));
     }
-    if (n == 5) {
-      return [n, n + 1, n + 2];
+    // before ending
+    if (n === l - (s - 1)) {
+      return Array(s - 2)
+        .fill(0)
+        .map((_, i) => l - (s + 1 - i));
     }
-    if (n > 5) {
-      return [n - 1, n, n + 1];
+    // after starting
+    if (n == s) {
+      return Array(s - 2)
+        .fill(0)
+        .map((_, i) => n + i);
     }
-    return [2, 3, 4];
+    // mid
+    if (n > s) {
+      return Array(s - 2)
+        .fill(0)
+        .map((_, i) => n - 1 + i);
+    }
   }
 
   pages() {
@@ -55,12 +73,15 @@ export class PaginationComponent implements OnInit {
     let arr: (number | string)[] = Array(this.maxPage)
       .fill(0)
       .map((x, i) => i + 1);
-    if (arr.length > 5) {
+    if (arr.length > this.paginationSize) {
       arr = [
         1,
-        this.selectedPage > 4 ? '...' : null,
-        ...this.getFrame(this.selectedPage, arr.length),
-        this.selectedPage < arr.length - 3 ? '...' : null,
+        this.selectedPage > this.paginationSize - 1 ? '...' : null,
+        ...this.getFrame(this.paginationSize, this.selectedPage, arr.length),
+        this.selectedPage < arr.length - (this.paginationSize - 2) ||
+        this.selectedPage < this.paginationSize
+          ? '...'
+          : null,
         arr.length
       ];
       arr = arr.filter(item => {
