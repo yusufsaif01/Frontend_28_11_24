@@ -1,12 +1,10 @@
-<app-header></app-header>
+<!-- <app-header></app-header>
 <div class="site-wrapper">
-  <!-- Left section -->
   <div class="left-section">
     <app-left-panel [options]="panelOptions"> </app-left-panel>
   </div>
-  <!-- right-section -->
   <div class="right-section">
-    <!-- player section -->
+    
     <div class="players">
       <div class="block">
         <div class="block-heading">
@@ -27,7 +25,7 @@
           >
         </div>
       </div>
-      <!-- personal details -->
+      
       <div class="block">
         <div class="block-middle border-bottom">
           <div class="half">
@@ -272,4 +270,288 @@
     </div>
   </div>
 </div>
-<ng-template #loading> Loading </ng-template>
+<ng-template #loading> Loading </ng-template> -->
+
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel">
+    <app-left-panel></app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main mt-2">
+        <!-- heading -->
+        <div class="heading">
+          <h2>Employment contract details</h2>
+          <button
+            [routerLink]="[
+              '/member/profile/edit-employment-contract/',
+              contractId
+            ]"
+            *ngIf="
+              memberType &&
+              contractDetails.created_by === memberType &&
+              (contractDetails.status === 'disapproved' ||
+                contractDetails.status === 'pending')
+            "
+          >
+            <mat-icon class="material-icons">create</mat-icon>
+          </button>
+        </div>
+
+        <!-- Player  details  -->
+        <div class="details">
+          <h3 class="mb-1">Player details</h3>
+          <div class="block">
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Player name on contract</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.player_name }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Legal guardian name</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.legal_guardian_name }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Player phone number</h4>
+              </div>
+              <div class="right">
+                <p>+91 {{ contractDetails.player_mobile_number }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Player email</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.player_email }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Player address</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.player_address }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- contract details details -->
+        <div class="details">
+          <h3 class="mb-1">Contract details</h3>
+          <div class="block">
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Contract signing date</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.signing_date | date }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Contract effective date</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.effective_date | date }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Contract expiry date</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.expiry_date | date }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>Place of signature</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.place_of_signature }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- club/acadmey details -->
+        <div class="details">
+          <h3 class="mb-1">{{ contractWith | titlecase }} details</h3>
+          <div class="block">
+            <div class="detail-panel">
+              <div class="left">
+                <h4>{{ contractWith | titlecase }} name</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.club_academy_name }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>{{ contractWith | titlecase }} email</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.club_academy_email }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>{{ contractWith | titlecase }} representative name</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.club_academy_representative_name }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>{{ contractWith | titlecase }} phone number</h4>
+              </div>
+              <div class="right">
+                <p>+91 {{ contractDetails.club_academy_phone_number }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>CRS user name</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.crs_user_name }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>AIFF accreditation number</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.aiff_number }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel">
+              <div class="left">
+                <h4>{{ contractWith | titlecase }} address</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.club_academy_address }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  club/academy use the services of an agent ? -->
+        <div class="details">
+          <h3 class="mb-1">
+            Did the {{ contractWith }} use the services of an agent ?
+            <span>{{
+              contractDetails.club_academy_uses_agent_services ? 'Yes' : 'No'
+            }}</span>
+          </h3>
+          <div
+            class="block"
+            *ngIf="contractDetails.club_academy_uses_agent_services"
+          >
+            <div class="detail-panel-full">
+              <div class="left">
+                <h4>Provide name of intermediaries</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.club_academy_intermediary_name }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel-full">
+              <div class="left">
+                <h4>Percentage of transfer fee paid to intermediaries</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.club_academy_transfer_fee }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  player use the services of an agent ? -->
+        <div class="details">
+          <h3 class="mb-1">
+            Did the player use the services of an agent ?
+            <span>{{
+              contractDetails.player_uses_agent_services ? 'Yes' : 'No'
+            }}</span>
+          </h3>
+          <div class="block" *ngIf="contractDetails.player_uses_agent_services">
+            <div class="detail-panel-full">
+              <div class="left">
+                <h4>Provide name of intermediaries</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.player_intermediary_name }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel-full">
+              <div class="left">
+                <h4>Percentage of transfer fee paid to intermediaries</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.player_transfer_fee }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- actions -->
+        <div
+          class="actions mt-2 mb-2"
+          *ngIf="
+            memberType &&
+            contractDetails.status !== 'completed' &&
+            contractDetails.created_by !== memberType
+          "
+        >
+          <div class="btn-group">
+            <button
+              class="btn-active"
+              [disabled]="
+                contractDetails.status === 'active' ||
+                contractDetails.status === 'yet_to_start'
+              "
+              (click)="updateContractStatus('approved')"
+            >
+              Approve
+            </button>
+            <button
+              class="btn-normal"
+              [disabled]="contractDetails.status === 'disapproved'"
+              (click)="updateContractStatus('disapproved')"
+            >
+              Disapprove
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
