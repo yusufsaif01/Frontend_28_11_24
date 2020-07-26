@@ -101,7 +101,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this._toastrService.success(`success`, 'Send request successfully');
+          this._toastrService.success(`Success`, 'Send request successfully');
           this.dialogRef.close(true);
         },
         error => {
@@ -123,7 +123,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this._toastrService.success('success', 'Send invite successfully');
+          this._toastrService.success('Success', 'Send invite successfully');
           this.dialogRef.close(true);
         },
         error => {
