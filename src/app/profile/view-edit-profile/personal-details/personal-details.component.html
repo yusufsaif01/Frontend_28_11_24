@@ -275,21 +275,8 @@
             <div class="input-container">
               <div class="full">
                 <h3 class="mb-1">Player type</h3>
-                <div class="radio-block">
-                  <mat-radio-group
-                    formControlName="player_type"
-                    class="example-radio-group"
-                  >
-                    <mat-radio-button value="grassroot">
-                      Grassroot
-                    </mat-radio-button>
-                    <mat-radio-button value="amateur">
-                      Amateur
-                    </mat-radio-button>
-                    <mat-radio-button value="professional">
-                      Professional
-                    </mat-radio-button>
-                  </mat-radio-group>
+                <div class="profile-position">
+                  <h4>{{ profile.player_type | titlecase }}</h4>
                 </div>
               </div>
             </div>
