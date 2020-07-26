@@ -173,7 +173,7 @@ export class DocumentVerificationComponent implements OnInit {
             response => {
               this.getDocumentStatus();
               this._toastrService.success(
-                `success`,
+                `Success`,
                 'Status updated successfully'
               );
             },
@@ -264,7 +264,7 @@ export class DocumentVerificationComponent implements OnInit {
             (response: any) => {
               this.getEmploymentContractList();
               this._toastrService.success(
-                'success',
+                'Success',
                 'Status updated successfully'
               );
             },

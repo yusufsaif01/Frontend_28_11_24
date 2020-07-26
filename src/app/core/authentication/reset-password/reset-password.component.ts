@@ -56,7 +56,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this._toastrService.success('success', 'Password reset');
+          this._toastrService.success('Success', 'Password reset');
           this._router.navigate(['/login']);
         },
         error => {

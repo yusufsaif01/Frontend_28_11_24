@@ -147,7 +147,7 @@ export class PersonalDetailsComponent implements OnInit {
             environment.mediaUrl + res.data.avatar_url
           );
           this.header.avatar_url = localStorage.getItem('avatar_url');
-          this._toastrService.success('success', 'Avatar updated successfully');
+          this._toastrService.success('Success', 'Avatar updated successfully');
         },
         err => {
           this._toastrService.error('Error', err.error.message);
@@ -237,6 +237,9 @@ export class PersonalDetailsComponent implements OnInit {
           ? this.profile.social_profiles.linked_in
           : ''
     });
+    if (this.profile.profile_status.status === 'verified') {
+      this.personalProfileDetailsForm.controls.dob.disable();
+    }
   }
   formControlAdder(
     form: FormGroup,
@@ -343,7 +346,7 @@ export class PersonalDetailsComponent implements OnInit {
       .subscribe(
         response => {
           this._toastrService.success(
-            'success',
+            'Success',
             'Profile updated successfully'
           );
           this.getPersonalProfileDetails();

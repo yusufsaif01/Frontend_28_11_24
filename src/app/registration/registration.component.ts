@@ -113,7 +113,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         credentials => {
-          this._toastrService.success('success', 'Registered');
+          this._toastrService.success('Success', 'Registered');
           this.resetFormFields();
         },
         error => {

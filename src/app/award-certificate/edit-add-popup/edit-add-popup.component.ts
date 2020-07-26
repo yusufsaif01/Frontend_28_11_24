@@ -192,10 +192,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
         response => {
           this.dialogRef.close('refresh');
 
-          this.toastrService.success(
-            `${response.message}`,
-            'Award Updated Successfully'
-          );
+          this.toastrService.success(`Success`, 'Award updated successfully');
         },
         error => {
           this.toastrService.error(`${error.error.message}`, 'Error');
@@ -225,7 +222,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
 
           this.toastrService.success(
             `${response.message}`,
-            'Award Added Successfully'
+            'Award added successfully'
           );
         },
         error => {

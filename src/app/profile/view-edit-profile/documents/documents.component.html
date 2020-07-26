@@ -23,7 +23,18 @@
       </div>
 
       <div class="second-section">
-        <h3>Aadhaar Details</h3>
+        <h3 class="mb-1">Aadhaar Details</h3>
+        <!-- first row -->
+        <div class="view-details">
+          <div class="details">
+            <div class="left">
+              <h4>Documents Type</h4>
+            </div>
+            <div class="right">
+              <p>Tin number</p>
+            </div>
+          </div>
+        </div>
         <!-- first row -->
         <div class="view-details">
           <div class="details">
@@ -34,6 +45,13 @@
               <p>{{ aadhar_number | mask: 'XXXX XXXX 0000' }}</p>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="document">
+        <div class="doc-img">
+          <h3>AIFF document</h3>
+          <a><img src="assets/images/member/aadhaar.png" alt=""/></a>
         </div>
       </div>
 
@@ -107,22 +125,20 @@
 
       <form [formGroup]="documentsDetailsForm">
         <div class="document-wrapper">
-          <div class="heading">
-            <h3
-              [matTooltip]="
-                profile_status === 'verified'
-                  ? 'Not allowed to update aadhaar details'
-                  : ''
-              "
-            >
-              Aadhaar file format <span>*</span>
-            </h3>
-          </div>
+          <h3
+            [matTooltip]="
+              profile_status === 'verified'
+                ? 'Not allowed to update aadhaar details'
+                : ''
+            "
+          >
+            Aadhaar file format <span>*</span>
+          </h3>
 
           <div class="section">
             <div class="input-container">
               <div class="full">
-                <div class="radio-block">
+                <div class="radio-block pb-1">
                   <mat-radio-group
                     formControlName="aadhar_media_type"
                     class="example-radio-group"
@@ -136,6 +152,69 @@
                     </mat-radio-button>
                   </mat-radio-group>
                 </div>
+              </div>
+            </div>
+            <!-- second -->
+            <div class="input-container">
+              <div class="full">
+                <h4 class="pb-1 mt-1">Document details</h4>
+
+                <div class="radio-block doc-type">
+                  <label class="pb-1">Document type</label>
+                  <mat-radio-group>
+                    <mat-radio-button value="AIFF">
+                      AIFF status
+                    </mat-radio-button>
+                    <mat-radio-button value="Pan">
+                      Pan number
+                    </mat-radio-button>
+                    <mat-radio-button value="COI">
+                      COI number
+                    </mat-radio-button>
+                    <mat-radio-button value="Tin">
+                      Tin number
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+            <div class="upload-section">
+              <ng-container
+                *ngIf="documentsDetailsForm.get('aadhar_media_type').value"
+              >
+                <h4>
+                  Upload document
+                  <img
+                    matTooltip="Allowed Formats: png,jpeg,jpg"
+                    src="assets/images/global/info.svg"
+                    alt=""
+                  />
+                </h4>
+              </ng-container>
+              <div class="upload-document">
+                <label
+                  [matTooltip]="
+                    profile_status === 'verified'
+                      ? 'Not allowed to update aadhaar details'
+                      : ''
+                  "
+                  for="upload-pdf"
+                >
+                  <div class="upload-btn">
+                    <img src="assets/images/member/front.png" alt="" />
+                    <span>
+                      <input
+                        #aadharPdfInput
+                        formControlName="aadhar"
+                        type="file"
+                        id="upload-pdf"
+                        (change)="uploadAadhar($event.target.files, 'single')"
+                      />
+                      <span>Upload</span>
+                    </span>
+                  </div>
+                  <p>{{ (aadharPdfInput?.files)[0]?.name }}</p>
+                </label>
               </div>
             </div>
             <div class="upload-section">
