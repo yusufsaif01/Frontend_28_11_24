@@ -23,6 +23,29 @@ interface clubAcadArrayContext {
   user_id: string;
 }
 
+let clubAcademyPhoneNumberControl = {
+  club_academy_phone_number: [
+    Validators.required,
+    Validators.minLength(10),
+    Validators.maxLength(10),
+    Validators.pattern(/^\d+$/)
+  ]
+};
+let otherControl: { [name: string]: ValidatorFn[] } = {
+  other_name: [Validators.required],
+  other_email: [Validators.required, Validators.email],
+  other_phone_number: [
+    Validators.required,
+    Validators.minLength(10),
+    Validators.maxLength(10),
+    Validators.pattern(/^\d+$/)
+  ]
+};
+
+let playerEmailControl = {
+  player_email: [Validators.required, Validators.email]
+};
+
 @Component({
   selector: 'app-add-edit-employment-contract',
   templateUrl: './add-edit-employment-contract.component.html',
@@ -155,133 +178,141 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     }
   }
 
-  checkRequiredValidator(controlname: any, paramname: any, type: number) {
-    if (type === 1)
-      paramname.includes(Validators.required)
-        ? controlname
-        : paramname.push(Validators.required);
-    else if (type === 2)
-      paramname.includes(Validators.required)
-        ? paramname.splice(paramname.findIndex(Validators.required), 1)
-        : controlname;
+  checkRequiredValidator(
+    form: FormGroup,
+    controlObject: { [name: string]: ValidatorFn[] },
+    require: boolean
+  ) {
+    const [name] = Object.keys(controlObject);
+    let controlName = form.get(name);
+    let validationArray = controlObject[name];
+
+    if (require) {
+      validationArray = [
+        ...new Set([...controlObject[name], Validators.required])
+      ];
+    } else {
+      validationArray = validationArray.filter(
+        validator => validator !== Validators.required
+      );
+    }
+
+    controlName.setValidators(validationArray);
+    controlName.updateValueAndValidity();
   }
 
   setPlayerValidators() {
-    const clubAcademyName = this.addEditContractForm.get('club_academy_name');
-    const otherName = this.addEditContractForm.get('other_name');
-    const otherEmail = this.addEditContractForm.get('other_email');
-    const otherPhoneNumber = this.addEditContractForm.get('other_phone_number');
+    const club_academy_name = this.addEditContractForm.get('club_academy_name');
+    const other_name = this.addEditContractForm.get('other_name');
+    const other_email = this.addEditContractForm.get('other_email');
+    const other_phone_number = this.addEditContractForm.get(
+      'other_phone_number'
+    );
 
-    const clubAcademyPhoneNumber = this.addEditContractForm.get(
+    const club_academy_phone_number = this.addEditContractForm.get(
       'club_academy_phone_number'
     );
 
-    let otherControl: { [name: string]: ValidatorFn[] } = {
-      other_name: [Validators.required],
-      other_email: [Validators.required, Validators.email],
-      other_phone_number: [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(10),
-        Validators.pattern(/^\d+$/)
-      ]
-    };
-
-    let clubAcademyPhoneNumberControl = {
-      club_academy_phone_number: [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(10),
-        Validators.pattern(/^\d+$/)
-      ]
-    };
-
     this.setControlValidation(this.addEditContractForm, otherControl);
-    clubAcademyName.valueChanges.subscribe(value => {
+    this.setControlValidation(
+      this.addEditContractForm,
+      clubAcademyPhoneNumberControl
+    );
+    club_academy_name.valueChanges.subscribe(value => {
       if (value === 'Others') {
-        otherName.setValue('');
-        otherEmail.setValue('');
-        otherPhoneNumber.setValue('');
-        clubAcademyPhoneNumber.setValue('');
-
-        this.checkRequiredValidator(otherControl, otherControl.other_name, 1);
-        this.checkRequiredValidator(otherControl, otherControl.other_email, 1);
+        other_name.setValue('');
+        other_email.setValue('');
+        other_phone_number.setValue('');
+        club_academy_phone_number.setValue('');
         this.checkRequiredValidator(
-          otherControl,
-          otherControl.other_phone_number,
-          1
-        );
-        this.setControlValidation(this.addEditContractForm, otherControl);
-
-        this.checkRequiredValidator(
-          clubAcademyPhoneNumberControl,
-          clubAcademyPhoneNumberControl.club_academy_phone_number,
-          2
-        );
-        this.setControlValidation(
           this.addEditContractForm,
-          clubAcademyPhoneNumberControl
+          { other_name: otherControl.other_name },
+          true
         );
 
-        otherPhoneNumber.valueChanges
+        this.checkRequiredValidator(
+          this.addEditContractForm,
+          { other_email: otherControl.other_email },
+          true
+        );
+
+        this.checkRequiredValidator(
+          this.addEditContractForm,
+          { other_phone_number: otherControl.other_phone_number },
+          true
+        );
+
+        this.checkRequiredValidator(
+          this.addEditContractForm,
+          {
+            club_academy_phone_number:
+              clubAcademyPhoneNumberControl.club_academy_phone_number
+          },
+          false
+        );
+        other_phone_number.valueChanges
           .pipe(distinctUntilChanged())
           .subscribe(value => {
             if (value) {
               this.checkRequiredValidator(
-                otherControl,
-                otherControl.other_email,
-                2
+                this.addEditContractForm,
+                { other_email: otherControl.other_email },
+                false
               );
             } else {
               this.checkRequiredValidator(
-                otherControl,
-                otherControl.other_email,
-                1
+                this.addEditContractForm,
+                { other_email: otherControl.other_email },
+                true
               );
             }
-            this.setControlValidation(this.addEditContractForm, otherControl);
           });
 
-        otherEmail.valueChanges
+        other_email.valueChanges
           .pipe(distinctUntilChanged())
           .subscribe(value => {
             if (value) {
               this.checkRequiredValidator(
-                otherControl,
-                otherControl.other_phone_number,
-                2
+                this.addEditContractForm,
+                { other_phone_number: otherControl.other_phone_number },
+                false
               );
             } else {
               this.checkRequiredValidator(
-                otherControl,
-                otherControl.other_phone_number,
-                1
+                this.addEditContractForm,
+                { other_phone_number: otherControl.other_phone_number },
+                true
               );
             }
-            this.setControlValidation(this.addEditContractForm, otherControl);
           });
       } else {
-        otherName.setValue('');
-        otherEmail.setValue('');
-        otherPhoneNumber.setValue('');
-        clubAcademyPhoneNumber.setValue('');
-        this.checkRequiredValidator(otherControl, otherControl.other_name, 2);
-        this.checkRequiredValidator(otherControl, otherControl.other_email, 2);
+        other_name.setValue('');
+        other_email.setValue('');
+        other_phone_number.setValue('');
+        club_academy_phone_number.setValue('');
         this.checkRequiredValidator(
-          otherControl,
-          otherControl.other_phone_number,
-          2
+          this.addEditContractForm,
+          { other_name: otherControl.other_name },
+          false
         );
-        this.setControlValidation(this.addEditContractForm, otherControl);
+        this.checkRequiredValidator(
+          this.addEditContractForm,
+          { other_email: otherControl.other_email },
+          false
+        );
+        this.checkRequiredValidator(
+          this.addEditContractForm,
+          { other_phone_number: otherControl.other_phone_number },
+          false
+        );
 
         this.checkRequiredValidator(
-          clubAcademyPhoneNumberControl,
-          clubAcademyPhoneNumberControl.club_academy_phone_number,
-          1
-        );
-        this.setControlValidation(
           this.addEditContractForm,
-          clubAcademyPhoneNumberControl
+          {
+            club_academy_phone_number:
+              clubAcademyPhoneNumberControl.club_academy_phone_number
+          },
+          true
         );
       }
     });
@@ -291,15 +322,15 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     if (this.member_type === 'player') {
       this.setPlayerValidators();
     } else if (['club', 'academy'].includes(this.member_type)) {
-      let playerEmailControl = {
-        player_email: [Validators.required, Validators.email]
-      };
       this.checkRequiredValidator(
-        playerEmailControl,
-        playerEmailControl.player_email,
-        1
+        this.addEditContractForm,
+        { player_email: playerEmailControl.player_email },
+        true
       );
-      this.setControlValidation(this.addEditContractForm, playerEmailControl);
+      this.setControlValidation(
+        this.addEditContractForm,
+        clubAcademyPhoneNumberControl
+      );
     }
 
     const effectiveDate = this.addEditContractForm.get('effective_date');
@@ -349,22 +380,18 @@ export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
     if (this.playerAge < 18) {
       this.showLegalGuardStar = true;
       this.checkRequiredValidator(
-        legalGuardianNameControl,
-        legalGuardianNameControl.legal_guardian_name,
-        1
+        this.addEditContractForm,
+        { legal_guardian_name: legalGuardianNameControl.legal_guardian_name },
+        true
       );
     } else {
       this.showLegalGuardStar = false;
       this.checkRequiredValidator(
-        legalGuardianNameControl,
-        legalGuardianNameControl.legal_guardian_name,
-        2
+        this.addEditContractForm,
+        { legal_guardian_name: legalGuardianNameControl.legal_guardian_name },
+        false
       );
     }
-    this.setControlValidation(
-      this.addEditContractForm,
-      legalGuardianNameControl
-    );
   }
 
   setCategory(value: string) {
