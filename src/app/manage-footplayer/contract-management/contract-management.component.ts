@@ -72,7 +72,7 @@ export class ContractManagementComponent implements OnInit, OnDestroy {
           .subscribe(
             response => {
               this._toastrService.success(
-                'success',
+                'Success',
                 'Employment contract deleted successfully'
               );
               this.selectedPage = 1;
