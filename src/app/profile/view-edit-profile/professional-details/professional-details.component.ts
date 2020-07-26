@@ -320,7 +320,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this._toastrService.success(
-            'success',
+            'Success',
             'Professional details updated successfully'
           );
           this.clearFormArray();

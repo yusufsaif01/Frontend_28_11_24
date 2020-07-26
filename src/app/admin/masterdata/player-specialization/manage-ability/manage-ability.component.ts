@@ -102,10 +102,7 @@ export class ManageAbilityComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         data => {
-          this.toastrService.success(
-            `${data.message}`,
-            'Ability Updated Successfully'
-          );
+          this.toastrService.success(`Success`, 'Ability updated successfully');
           this.getAbilityList();
         },
         error => {
