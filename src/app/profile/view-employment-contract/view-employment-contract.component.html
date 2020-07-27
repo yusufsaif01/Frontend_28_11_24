@@ -405,6 +405,36 @@
               </div>
             </div>
 
+            <div class="detail-panel" *ngIf="contractDetails.other_name">
+              <div class="left">
+                <h4>Other name</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.other_name }}</p>
+              </div>
+            </div>
+
+            <div class="detail-panel" *ngIf="contractDetails.other_email">
+              <div class="left">
+                <h4>Other email</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.other_email }}</p>
+              </div>
+            </div>
+
+            <div
+              class="detail-panel"
+              *ngIf="contractDetails.other_phone_number"
+            >
+              <div class="left">
+                <h4>Other phone no</h4>
+              </div>
+              <div class="right">
+                <p>{{ contractDetails.other_phone_number }}</p>
+              </div>
+            </div>
+
             <div class="detail-panel">
               <div class="left">
                 <h4>{{ contractWith | titlecase }} email</h4>
@@ -428,7 +458,9 @@
                 <h4>{{ contractWith | titlecase }} phone number</h4>
               </div>
               <div class="right">
-                <p>+91 {{ contractDetails.club_academy_phone_number }}</p>
+                <p *ngIf="contractDetails.club_academy_phone_number">
+                  +91 {{ contractDetails.club_academy_phone_number }}
+                </p>
               </div>
             </div>
 

@@ -31,7 +31,6 @@
               'effective_date',
               'expiry_date',
               'club_academy_name',
-              'player_name',
               'created_by',
               'year'
             ].includes(col)
@@ -223,7 +222,7 @@
             />
           </a>
         </p>
-        <p *ngIf="col === 'club_academy_name' || col === 'player_name'">
+        <p *ngIf="col === 'club_academy_name'">
           <a
             *ngIf="tableConfig.columns[col].getValue(element).profileUrl"
             [href]="tableConfig.columns[col].getValue(element).profileUrl"
