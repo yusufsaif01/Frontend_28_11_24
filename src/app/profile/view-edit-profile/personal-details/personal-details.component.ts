@@ -79,7 +79,6 @@ export class PersonalDetailsComponent implements OnInit {
           ]
         ],
         gender: ['', Validators.required],
-        player_type: ['', [Validators.required]],
         first_name: [
           '',
           [

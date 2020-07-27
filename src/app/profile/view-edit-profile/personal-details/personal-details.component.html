@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <!-- editwrapper -->
+  <!-- View wrapper -->
   <div class="view-wrapper" [hidden]="editMode">
     <div class="heading">
       <h2>Personal Details</h2>
@@ -115,7 +115,7 @@
           {{ profile.bio }}
         </p>
       </div>
-      <!-- first row -->
+
       <div class="view-details">
         <div class="details">
           <div class="left">
@@ -134,7 +134,7 @@
           </div>
         </div>
       </div>
-      <!-- second row -->
+
       <div class="view-details">
         <div class="details">
           <div class="left">
@@ -155,7 +155,7 @@
           </div>
         </div>
       </div>
-      <!-- third row -->
+
       <div class="view-details">
         <div class="details">
           <div class="left">
@@ -167,7 +167,6 @@
         </div>
       </div>
 
-      <!--  row -->
       <div class="view-details">
         <div class="details">
           <div class="left">
@@ -179,7 +178,6 @@
         </div>
       </div>
 
-      <!--  row -->
       <div class="view-details">
         <div class="details">
           <div class="left">
@@ -191,7 +189,6 @@
         </div>
       </div>
 
-      <!--  row -->
       <div class="view-details">
         <div class="details">
           <div class="left">
@@ -203,7 +200,6 @@
         </div>
       </div>
 
-      <!--  row -->
       <div class="view-details">
         <div class="details">
           <div class="left">
@@ -215,7 +211,6 @@
         </div>
       </div>
 
-      <!--  row -->
       <div class="view-details">
         <div class="details">
           <div class="left">
@@ -228,7 +223,6 @@
       </div>
 
       <ng-container *ngIf="['amateur', 'professional'].includes(player_type)">
-        <!--  row -->
         <div class="view-details">
           <div class="details">
             <div class="left">
@@ -240,7 +234,6 @@
           </div>
         </div>
 
-        <!--  row -->
         <div class="view-details">
           <div class="details">
             <div class="left">
@@ -282,21 +275,8 @@
             <div class="input-container">
               <div class="full">
                 <h3 class="mb-1">Player type</h3>
-                <div class="radio-block">
-                  <mat-radio-group
-                    formControlName="player_type"
-                    class="example-radio-group"
-                  >
-                    <mat-radio-button value="grassroot">
-                      Grassroot
-                    </mat-radio-button>
-                    <mat-radio-button value="amateur">
-                      Amateur
-                    </mat-radio-button>
-                    <mat-radio-button value="professional">
-                      Professional
-                    </mat-radio-button>
-                  </mat-radio-group>
+                <div class="profile-position">
+                  <h4>{{ profile.player_type | titlecase }}</h4>
                 </div>
               </div>
             </div>
@@ -924,6 +904,462 @@
               <label>Youtube </label>
               <input
                 formControlName="youtube"
+                type="text"
+                matinput
+                autocomplete="off"
+                placeholder="Youtube"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="actions mt-2 mb-2">
+        <div class="btn-group">
+          <button class="btn-normal" (click)="toggleMode()">Cancel</button>
+          <button
+            class="btn-active"
+            (click)="updatePersonalProfileDetails()"
+            [disabled]="personalProfileDetailsForm.invalid"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Club/Academy  Section -->
+<div class="wrapper">
+  <!-- club/Academy View -->
+  <div class="view-wrapper">
+    <div class="heading">
+      <h2>Personal Details</h2>
+      <button (click)="toggleMode()">
+        <mat-icon class="material-icons">create</mat-icon>
+      </button>
+    </div>
+    <div class="first-section">
+      <div class="left-part">
+        <div class="dp">
+          <img [src]="profile.avatar_url" alt="" />
+        </div>
+        <div class="details">
+          <h3>Club name</h3>
+          <p>(C.F.C)</p>
+          <p>Residential</p>
+        </div>
+      </div>
+      <div class="right-part">
+        <ul>
+          <li>
+            <a><img src="assets/images/website/social/facebook.svg" alt=""/></a>
+          </li>
+          <li>
+            <a
+              ><img src="assets/images/website/social/instagram.svg" alt=""
+            /></a>
+          </li>
+          <li>
+            <a><img src="assets/images/website/social/linkedin.svg" alt=""/></a>
+          </li>
+          <li>
+            <a><img src="assets/images/website/social/youtube.svg" alt=""/></a>
+          </li>
+          <li>
+            <a><img src="assets/images/website/social/twitter.svg" alt=""/></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="second-section">
+      <div class="boi">
+        <h4>Bio</h4>
+        <p>
+          Many desktop publishing packages and web page editors now use Lorem
+          Ipsum as their default model text, and a search for 'lorem ipsum' will
+          uncover many web sites still in their infancy. Various versions have
+          evolved over the years, sometimes by accident, sometimes on purpose
+          (injected humour and the like).
+        </p>
+      </div>
+
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>Email</h4>
+          </div>
+          <div class="right">
+            <p>Club@club.com</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>Phone number</h4>
+          </div>
+          <div class="right">
+            <p>+91 7981237878</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>Mobile number</h4>
+          </div>
+          <div class="right">
+            <p>+91 7981237878</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>Founded (Year)</h4>
+          </div>
+          <div class="right">
+            <p>22 June 2000</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>Country</h4>
+          </div>
+          <div class="right">
+            <p>India</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>State / UT</h4>
+          </div>
+          <div class="right">
+            <p>Delhi</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>City</h4>
+          </div>
+          <div class="right">
+            <p>Delhi</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>Zipcode/Pincode</h4>
+          </div>
+          <div class="right">
+            <p>110093</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-details">
+        <div class="details-full">
+          <div class="left">
+            <h4>Office address</h4>
+          </div>
+          <div class="right">
+            <p>R.no.1 142 Kapadia Bldg 3rd Flr, Modi Street, Fort</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-details">
+        <div class="details">
+          <div class="left">
+            <h4>Stadium name</h4>
+          </div>
+          <div class="right">
+            <p>FastFoot football Ground</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Club/Academy editwrapper -->
+  <div class="edit-wrapper">
+    <form>
+      <div class="heading">
+        <h3>Personal Details</h3>
+      </div>
+      <div class="seciton-wrapper">
+        <div class="left-seciton">
+          <div class="dp-wrapper">
+            <img [src]="profile.avatar_url" />
+            <span>
+              <label for="upload">
+                <mat-icon class="material-icons">create</mat-icon>
+                <input
+                  (change)="uploadAvatar($event.target.files)"
+                  type="file"
+                  id="upload"
+                />
+              </label>
+            </span>
+          </div>
+        </div>
+        <div class="right-section">
+          <div class="frm-wrapper">
+            <div class="input-container">
+              <div class="half">
+                <div class="form-block">
+                  <label>Club name <span>*</span></label>
+                  <input
+                    type="Name"
+                    matinput
+                    autocomplete="off"
+                    required
+                    placeholder="Club name"
+                  />
+                </div>
+              </div>
+              <div class="half">
+                <div class="form-block">
+                  <label>Short club name</label>
+                  <input
+                    type="Name"
+                    matinput
+                    autocomplete="off"
+                    required
+                    placeholder="Short club name"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="input-container">
+              <div class="half">
+                <div class="form-block pb-0">
+                  <label>Founded (Year)<span>*</span></label>
+                  <div class="date">
+                    <input
+                      matInput
+                      [matDatepicker]="founded"
+                      placeholder="Founded"
+                      readonly
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="founded"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #founded></mat-datepicker>
+                  </div>
+                </div>
+              </div>
+              <div class="half">
+                <div class="form-block">
+                  <label>Email <span>*</span></label>
+                  <input
+                    type="Name"
+                    matinput
+                    autocomplete="off"
+                    required
+                    placeholder="Email"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="input-container">
+          <div class="full">
+            <div class="form-block">
+              <label>Boi</label>
+              <textarea
+                class="txtarea-height"
+                matinput
+                placeholder="Write a Bio"
+                maxlength="350"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="input-container">
+          <div class="third">
+            <div class="form-block">
+              <label>Phone number <span>*</span></label>
+              <div class="phone-block">
+                <div class="country-code">
+                  <select disabled>
+                    <option>+91</option>
+                  </select>
+                </div>
+                <div class="phone-number">
+                  <input
+                    type="text"
+                    matInput
+                    autocomplete="off"
+                    placeholder="Phone number"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block">
+              <label>Mobile number <span>*</span></label>
+              <div class="phone-block">
+                <div class="country-code">
+                  <select disabled>
+                    <option>+91</option>
+                  </select>
+                </div>
+                <div class="phone-number">
+                  <input
+                    type="text"
+                    matInput
+                    autocomplete="off"
+                    placeholder="Mobile number"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <div class="third">
+            <div class="form-block">
+              <label>Nationality <span>*</span></label>
+              <select>
+                <option>Select nationality</option>
+              </select>
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block">
+              <label>State / UT <span>*</span></label>
+              <select>
+                <option>Select state/UT </option>
+              </select>
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block">
+              <label>City <span>*</span></label>
+              <select>
+                <option>Select city</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <div class="two-third">
+            <div class="form-block">
+              <label>Office address</label>
+              <input
+                type="text"
+                matinput
+                autocomplete="off"
+                placeholder="Office address"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <div class="third">
+            <div class="form-block">
+              <label>Zipcode/Pincode</label>
+              <input
+                type="Name"
+                matinput
+                autocomplete="off"
+                required
+                placeholder="First name"
+              />
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block">
+              <label>Stadium name</label>
+              <input
+                type="Name"
+                matinput
+                autocomplete="off"
+                required
+                placeholder="Last name"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="socials">
+        <h3>Social Media Link</h3>
+        <div class="input-container">
+          <div class="third">
+            <div class="form-block">
+              <label>Facebook </label>
+              <input
+                type="text"
+                matinput
+                autocomplete="off"
+                placeholder="Facebook"
+              />
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block">
+              <label>Instagram </label>
+              <input
+                type="text"
+                matinput
+                autocomplete="off"
+                placeholder="Instagram"
+              />
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block">
+              <label>Linkedin </label>
+              <input
+                type="text"
+                matinput
+                autocomplete="off"
+                placeholder="Linkedin"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="input-container">
+          <div class="third">
+            <div class="form-block">
+              <label>Twitter </label>
+              <input
+                type="text"
+                matinput
+                autocomplete="off"
+                placeholder="Twitter"
+              />
+            </div>
+          </div>
+          <div class="third">
+            <div class="form-block">
+              <label>Youtube </label>
+              <input
                 type="text"
                 matinput
                 autocomplete="off"
