@@ -11,13 +11,12 @@
               : ''
           "
         >
-          <!-- <button
+          <button
             [ngClass]="{
               'icon-disable': profile_status == 'verified'
             }"
             (click)="toggleMode()"
-          > -->
-          <button (click)="toggleMode()">
+          >
             <mat-icon class="material-icons">create</mat-icon>
           </button>
         </span>
@@ -59,18 +58,20 @@
             </div>
           </div>
         </ng-container>
-
-        <!-- first row -->
-        <div class="view-details" *ngIf="member_type === 'player'">
-          <div class="details">
-            <div class="left">
-              <h4>Aadhaar number</h4>
-            </div>
-            <div class="right">
-              <p>{{ aadhar_number | mask: 'XXXX XXXX 0000' }}</p>
+        <ng-container *ngIf="member_type === 'player'">
+          <h3 class="mb-1">Aadhaar details</h3>
+          <!-- first row -->
+          <div class="view-details">
+            <div class="details">
+              <div class="left">
+                <h4>Aadhaar number</h4>
+              </div>
+              <div class="right">
+                <p>{{ aadhar_number | mask: 'XXXX XXXX 0000' }}</p>
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
 
       <div
