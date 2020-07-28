@@ -38,6 +38,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     PaginationComponent,
     TruncatePipe,
     TrimPipe,
+    MaskPipe,
     VerificationPopupComponent,
     GridSearchBoxComponent,
     TextSectionComponent,
