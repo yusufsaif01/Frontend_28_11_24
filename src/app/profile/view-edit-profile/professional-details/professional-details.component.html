@@ -871,10 +871,6 @@
           <!-- major trophy wins -->
           <div class="section">
             <h3>Major trophy wins</h3>
-            <!-- Commented the below button for testing -->
-            <!-- <button class="add" (click)="addTrophy()">
-              <mat-icon class="material-icons">add_circle</mat-icon>
-            </button> -->
             <div
               class="input-container"
               *ngFor="
@@ -895,6 +891,27 @@
                       placeholder="Trophy Name"
                       formControlName="name"
                     />
+                    <mat-error
+                      *ngIf="
+                        professionalDetailsForm.controls.trophies.controls[
+                          i
+                        ].get('name').invalid &&
+                        professionalDetailsForm.controls.trophies.controls[
+                          i
+                        ].get('name').touched
+                      "
+                      class="error-text"
+                    >
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.trophies.controls[i]
+                            .get('name')
+                            .hasError('required')
+                        "
+                        translate
+                        >Name is required</span
+                      >
+                    </mat-error>
                   </div>
                 </div>
 
@@ -907,6 +924,77 @@
                       placeholder="Year"
                       formControlName="year"
                     />
+                    <mat-error
+                      *ngIf="
+                        professionalDetailsForm.controls.trophies.controls[
+                          i
+                        ].get('year').invalid &&
+                        professionalDetailsForm.controls.trophies.controls[
+                          i
+                        ].get('year').touched
+                      "
+                      class="error-text"
+                    >
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.trophies.controls[i]
+                            .get('year')
+                            .hasError('required');
+                          else charBlock
+                        "
+                        translate
+                        >Year is required</span
+                      >
+                      <ng-template #charBlock>
+                        <span
+                          *ngIf="
+                            professionalDetailsForm.controls.trophies.controls[
+                              i
+                            ]
+                              .get('year')
+                              .hasError('maxlength') ||
+                              professionalDetailsForm.controls.trophies.controls[
+                                i
+                              ]
+                                .get('year')
+                                .hasError('minlength');
+                            else patternBlock
+                          "
+                          translate
+                        >
+                          Year length must be equal to 4
+                        </span>
+                      </ng-template>
+                      <ng-template #patternBlock>
+                        <span
+                          *ngIf="
+                            professionalDetailsForm.controls.trophies.controls[
+                              i
+                            ]
+                              .get('year')
+                              .hasError('pattern');
+                            else maxBlock
+                          "
+                          translate
+                        >
+                          Year format is invalid
+                        </span>
+                      </ng-template>
+                      <ng-template #maxBlock>
+                        <span
+                          *ngIf="
+                            professionalDetailsForm.controls.trophies.controls[
+                              i
+                            ]
+                              .get('year')
+                              .hasError('max')
+                          "
+                          translate
+                        >
+                          Year cannot be greater than current year
+                        </span>
+                      </ng-template>
+                    </mat-error>
                   </div>
                 </div>
 
@@ -919,6 +1007,27 @@
                       placeholder="Position secured"
                       formControlName="position"
                     />
+                    <mat-error
+                      *ngIf="
+                        professionalDetailsForm.controls.trophies.controls[
+                          i
+                        ].get('position').invalid &&
+                        professionalDetailsForm.controls.trophies.controls[
+                          i
+                        ].get('position').touched
+                      "
+                      class="error-text"
+                    >
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.trophies.controls[i]
+                            .get('position')
+                            .hasError('required')
+                        "
+                        translate
+                        >Position is required</span
+                      >
+                    </mat-error>
                   </div>
                 </div>
 
@@ -953,6 +1062,21 @@
                       }}</option>
                     </ng-container>
                   </select>
+                  <mat-error
+                    *ngIf="
+                      professionalDetailsForm.controls.league.invalid &&
+                      professionalDetailsForm.controls.league.touched
+                    "
+                    class="error-text"
+                  >
+                    <span
+                      *ngIf="
+                        professionalDetailsForm.controls.league.errors.required
+                      "
+                      translate
+                      >League is required</span
+                    >
+                  </mat-error>
                 </div>
               </div>
 
@@ -970,6 +1094,22 @@
                     placeholder="Other"
                     formControlName="league_other"
                   />
+                  <mat-error
+                    *ngIf="
+                      professionalDetailsForm.controls.league_other.invalid &&
+                      professionalDetailsForm.controls.league_other.touched
+                    "
+                    class="error-text"
+                  >
+                    <span
+                      *ngIf="
+                        professionalDetailsForm.controls.league_other.errors
+                          .pattern
+                      "
+                      translate
+                      >Other League format is invalid</span
+                    >
+                  </mat-error>
                 </div>
               </div>
             </div>
@@ -978,10 +1118,6 @@
           <!-- Top signings -->
           <div class="section">
             <h3>Top signings <span>*</span></h3>
-            <!-- Commented the below button for testing -->
-            <!-- <button class="add" (click)="addTopSigning()">
-              <mat-icon class="material-icons">add_circle</mat-icon>
-            </button> -->
             <div
               class="input-container"
               *ngFor="
@@ -1005,6 +1141,29 @@
                           placeholder="Name"
                           formControlName="name"
                         />
+                        <mat-error
+                          *ngIf="
+                            professionalDetailsForm.controls.top_signings.controls[
+                              i
+                            ].get('name').invalid &&
+                            professionalDetailsForm.controls.top_signings.controls[
+                              i
+                            ].get('name').touched
+                          "
+                          class="error-text"
+                        >
+                          <span
+                            *ngIf="
+                              professionalDetailsForm.controls.top_signings.controls[
+                                i
+                              ]
+                                .get('name')
+                                .hasError('required')
+                            "
+                            translate
+                            >Name is required</span
+                          >
+                        </mat-error>
                       </div>
                     </div>
                     <div class="icon-btn">
@@ -1038,7 +1197,7 @@
                 <div class="form-block">
                   <label>
                     <h3>
-                      Type of {{ member_type === 'club' ? 'Club' : 'Academy' }}
+                      Type of {{ member_type }}
                       <span>*</span>
                     </h3>
                   </label>
@@ -1047,6 +1206,26 @@
                       <option value="{{ type.value }}">{{ type.name }}</option>
                     </ng-container>
                   </select>
+                  <mat-error
+                    *ngIf="
+                      professionalDetailsForm.controls.type.invalid &&
+                      professionalDetailsForm.controls.type.touched
+                    "
+                    class="error-text"
+                  >
+                    <span
+                      [innerText]="
+                        member_type === 'club'
+                          ? 'Type of club is required'
+                          : 'Type of academy is required'
+                      "
+                      *ngIf="
+                        professionalDetailsForm.controls.type.errors.required
+                      "
+                      translate
+                      >Type of club is required</span
+                    >
+                  </mat-error>
                 </div>
               </div>
               <div class="two-fifth">
@@ -1075,6 +1254,22 @@
                       }}</option>
                     </ng-container>
                   </select>
+                  <mat-error
+                    *ngIf="
+                      professionalDetailsForm.controls.association.invalid &&
+                      professionalDetailsForm.controls.association.touched
+                    "
+                    class="error-text"
+                  >
+                    <span
+                      *ngIf="
+                        professionalDetailsForm.controls.association.errors
+                          .required
+                      "
+                      translate
+                      >Association is required</span
+                    >
+                  </mat-error>
                 </div>
               </div>
             </div>
@@ -1083,12 +1278,6 @@
           <!-- Contact detials -->
           <div class="section">
             <h3>Contact Details</h3>
-            <!-- Commented the below button for testing -->
-            <!-- <div class="icon-btn">
-              <button class="add" (click)="addContactPerson()">
-                <mat-icon class="material-icons">add_circle</mat-icon>
-              </button>
-            </div> -->
             <div
               class="input-container"
               *ngFor="
@@ -1118,6 +1307,29 @@
                         }}</option>
                       </ng-container>
                     </select>
+                    <mat-error
+                      *ngIf="
+                        professionalDetailsForm.controls.contact_person.controls[
+                          i
+                        ].get('designation').invalid &&
+                        professionalDetailsForm.controls.contact_person.controls[
+                          i
+                        ].get('designation').touched
+                      "
+                      class="error-text"
+                    >
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.contact_person.controls[
+                            i
+                          ]
+                            .get('designation')
+                            .hasError('required')
+                        "
+                        translate
+                        >Designation is required</span
+                      >
+                    </mat-error>
                   </div>
                 </div>
 
@@ -1130,6 +1342,29 @@
                       placeholder="Name"
                       formControlName="name"
                     />
+                    <mat-error
+                      *ngIf="
+                        professionalDetailsForm.controls.contact_person.controls[
+                          i
+                        ].get('name').invalid &&
+                        professionalDetailsForm.controls.contact_person.controls[
+                          i
+                        ].get('name').touched
+                      "
+                      class="error-text"
+                    >
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.contact_person.controls[
+                            i
+                          ]
+                            .get('name')
+                            .hasError('required')
+                        "
+                        translate
+                        >Name is required</span
+                      >
+                    </mat-error>
                   </div>
                 </div>
 
@@ -1142,6 +1377,40 @@
                       placeholder="Email"
                       formControlName="email"
                     />
+                    <mat-error
+                      *ngIf="
+                        professionalDetailsForm.controls.contact_person.controls[
+                          i
+                        ].get('email').invalid &&
+                        professionalDetailsForm.controls.contact_person.controls[
+                          i
+                        ].get('email').touched
+                      "
+                      class="error-text"
+                    >
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.contact_person.controls[
+                            i
+                          ]
+                            .get('email')
+                            .hasError('required')
+                        "
+                        translate
+                        >Email is required</span
+                      >
+                      <span
+                        *ngIf="
+                          professionalDetailsForm.controls.contact_person.controls[
+                            i
+                          ]
+                            .get('email')
+                            .hasError('email')
+                        "
+                        translate
+                        >Email format is invalid</span
+                      >
+                    </mat-error>
                   </div>
                 </div>
 
@@ -1163,6 +1432,79 @@
                           placeholder="Phone Number"
                           formControlName="phone_number"
                         />
+                        <mat-error
+                          *ngIf="
+                            professionalDetailsForm.controls.contact_person.controls[
+                              i
+                            ].get('phone_number').invalid &&
+                            professionalDetailsForm.controls.contact_person.controls[
+                              i
+                            ].get('phone_number').touched
+                          "
+                          class="error-text"
+                        >
+                          <span
+                            *ngIf="
+                              professionalDetailsForm.controls.contact_person.controls[
+                                i
+                              ]
+                                .get('phone_number')
+                                .hasError('required')
+                            "
+                            translate
+                            >Phone Number is required</span
+                          >
+                          <ng-template #lengthBlock>
+                            <span
+                              *ngIf="
+                                professionalDetailsForm.controls.contact_person.controls[
+                                  i
+                                ]
+                                  .get('phone_number')
+                                  .hasError('minlength')
+                              "
+                            >
+                              Please provide number upto
+                              {{
+                                professionalDetailsForm.controls.contact_person.controls[
+                                  i
+                                ].get('phone_number').errors.minlength
+                                  .requiredLength
+                              }}
+                              digits
+                            </span>
+                            <span
+                              *ngIf="
+                                professionalDetailsForm.controls.contact_person.controls[
+                                  i
+                                ]
+                                  .get('phone_number')
+                                  .hasError('maxlength')
+                              "
+                            >
+                              Please provide number upto
+                              {{
+                                professionalDetailsForm.controls.contact_person.controls[
+                                  i
+                                ].get('phone_number').errors.maxlength
+                                  .requiredLength
+                              }}
+                              digits
+                            </span>
+                          </ng-template>
+                          <span
+                            *ngIf="
+                              professionalDetailsForm.controls.contact_person.controls[
+                                i
+                              ]
+                                .get('phone_number')
+                                .hasError('pattern');
+                              else lengthBlock
+                            "
+                          >
+                            Phone Number format is invalid
+                          </span>
+                        </mat-error>
                       </div>
                     </div>
                   </div>
@@ -1181,6 +1523,21 @@
                   </button>
                 </div>
               </ng-container>
+            </div>
+          </div>
+
+          <div class="actions mt-2 mb-2">
+            <div class="btn-group">
+              <button (click)="toggleMode()" class="btn-normal">
+                Cancel
+              </button>
+              <button
+                [disabled]="!professionalDetailsForm.valid"
+                (click)="editProfessionalDetails()"
+                class="btn-active"
+              >
+                Save Changes
+              </button>
             </div>
           </div>
         </form>

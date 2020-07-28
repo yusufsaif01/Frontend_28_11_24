@@ -234,19 +234,17 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   manageCommonControls() {
-    if (this.member_type === 'player') {
-      let commonControls = [
-        {
-          name: 'association',
-          abstractControl: this._formBuilder.control('', [Validators.required])
-        },
-        {
-          name: 'association_other',
-          abstractControl: this._formBuilder.control('')
-        }
-      ];
-      this.formControlAdder(this.professionalDetailsForm, commonControls);
-    }
+    let commonControls = [
+      {
+        name: 'association',
+        abstractControl: this._formBuilder.control('', [Validators.required])
+      },
+      {
+        name: 'association_other',
+        abstractControl: this._formBuilder.control('')
+      }
+    ];
+    this.formControlAdder(this.professionalDetailsForm, commonControls);
 
     if (this.member_type == 'academy' || this.member_type === 'club') {
       let clubAcadCommonControls = [
@@ -416,6 +414,15 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
 
     if (this.member_type === 'player') {
       this.setRequestDataObject(requestData, 'position');
+    } else if (this.member_type === 'club' || this.member_type === 'academy') {
+      this.setRequestDataObject(requestData, 'contact_person');
+      this.setRequestDataObject(requestData, 'trophies');
+
+      if (this.member_type === 'club')
+        this.setRequestDataObject(requestData, 'top_signings');
+
+      if (this.member_type === 'academy')
+        this.setRequestDataObject(requestData, 'top_players');
     }
 
     this._professionalDetailsService
@@ -427,7 +434,6 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
             'Success',
             'Professional details updated successfully'
           );
-          this.clearFormArray();
           this.populateView();
           this.toggleMode();
         },
