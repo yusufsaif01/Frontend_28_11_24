@@ -194,12 +194,27 @@
             <span>9</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="member_type === 'player'">
           <!-- <a
             matTooltip="FootMates"
             [routerLink]="['/member/manage/foot-requests']"
           > -->
-          <a matTooltip="FootMates" [matMenuTriggerFor]="footplayer">
+          <a
+            matTooltip="FooTMates"
+            [routerLink]="['/member/manage/foot-requests']"
+          >
+            <mat-icon class="material-icons">people_outline</mat-icon>
+            <span *ngIf="stats.footmate_requests">{{
+              stats.footmate_requests
+            }}</span>
+          </a>
+        </li>
+        <li *ngIf="member_type !== 'player'">
+          <!-- <a
+            matTooltip="FootMates"
+            [routerLink]="['/member/manage/foot-requests']"
+          > -->
+          <a matTooltip="FooTMates" [matMenuTriggerFor]="footplayer">
             <mat-icon class="material-icons">people_outline</mat-icon>
             <span *ngIf="stats.footmate_requests">{{
               stats.footmate_requests
@@ -208,19 +223,23 @@
           <mat-menu #footplayer="matMenu">
             <ul class="menu">
               <li>
-                <a [routerLink]="['/member/profile']">
+                <a [routerLink]="['/member/manage-footplayer']">
                   <mat-icon class="material-icons">settings</mat-icon>
                   Manage FooTPlayers
                 </a>
               </li>
               <li>
-                <a [routerLink]="['/member/profile/view']">
+                <a [routerLink]="['/member/manage-footplayer/club-academy']">
                   <mat-icon class="material-icons">stars</mat-icon>
-                  Club's FooTPlayers
+                  {{ member_type | titlecase }}'s FooTPlayers
                 </a>
               </li>
               <li>
-                <a [routerLink]="['/change-password']">
+                <a
+                  [routerLink]="[
+                    '/member/manage-footplayer/contract-management'
+                  ]"
+                >
                   <mat-icon class="material-icons">content_paste</mat-icon>
                   Contract Management
                 </a>

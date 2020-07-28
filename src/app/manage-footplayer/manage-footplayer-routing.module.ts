@@ -17,12 +17,12 @@ const appRoutes: Routes = [
       {
         path: '',
         component: FootPlayerComponent,
-        data: { title: extract('FootPlayers') }
+        data: { title: extract('FooTPlayers') }
       },
       {
         path: 'club-academy',
         component: ClubAcademyFootplayerComponent,
-        data: { title: extract('FootPlayers') }
+        data: { title: extract('FooTPlayers') }
       },
       {
         path: 'contract-management',
