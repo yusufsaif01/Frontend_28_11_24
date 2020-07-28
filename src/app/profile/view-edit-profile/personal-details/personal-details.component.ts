@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ViewEditProfileService } from '../view-edit-profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
@@ -46,6 +46,7 @@ const APP_DATE_FORMATS = {
   ]
 })
 export class PersonalDetailsComponent implements OnInit {
+  @Input() clubAcademyType = '';
   member_type: string = localStorage.getItem('member_type') || 'player';
   currentYear = new Date().getFullYear();
   tomorrow = new Date();
@@ -69,7 +70,6 @@ export class PersonalDetailsComponent implements OnInit {
   ) {
     this.createForm();
     this.manageCommonControls();
-    this.setCategoryValidators();
     this.tomorrow.setDate(this.tomorrow.getDate() + 1);
   }
 
@@ -275,6 +275,7 @@ export class PersonalDetailsComponent implements OnInit {
               environment.mediaUrl + '/uploads/avatar/user-avatar.png';
           }
           this.populateFormFields(this.profile);
+          this.setCategoryValidators();
         },
         error => {
           this._toastrService.error(error.error.message, 'Error');
@@ -410,7 +411,6 @@ export class PersonalDetailsComponent implements OnInit {
           name: 'name',
           abstractControl: this._formBuilder.control('', [
             Validators.required,
-            Validators.maxLength(25),
             Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
           ])
         },
@@ -421,11 +421,11 @@ export class PersonalDetailsComponent implements OnInit {
         {
           name: 'founded_in',
           abstractControl: this._formBuilder.control('', [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(4),
-            Validators.max(this.currentYear),
-            Validators.pattern(/^\d+$/)
+            Validators.required
+            // Validators.minLength(4),
+            // Validators.maxLength(4),
+            // Validators.max(this.currentYear),
+            // Validators.pattern(/^\d+$/)
           ])
         },
         {

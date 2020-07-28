@@ -19,7 +19,8 @@
           </ng-container>
           <ng-container *ngIf="member_type !== 'player'">
             <h3>{{ profile?.name }}</h3>
-            <p>{{ profile?.short_name | titlecase }}</p>
+            <p>{{ profile?.short_name }}</p>
+            <p>{{ (clubAcademyType ? clubAcademyType : '') | titlecase }}</p>
           </ng-container>
         </div>
       </div>
@@ -137,7 +138,7 @@
               <h4>Weight</h4>
             </div>
             <div class="right">
-              <p *ngIf="profile.weight">{{ profile.weight }} kg</p>
+              <p *ngIf="profile.weight">{{ profile?.weight }} kg</p>
             </div>
           </div>
         </ng-container>
@@ -150,7 +151,7 @@
               <h4>Mobile number</h4>
             </div>
             <div class="right">
-              <p>{{ profile.phone }}</p>
+              <p>{{ profile?.phone }}</p>
             </div>
           </div>
           <div class="details">
@@ -159,8 +160,8 @@
             </div>
             <div class="right">
               <p *ngIf="profile.height">
-                {{ profile.height?.feet }} ft
-                {{ profile.height?.inches }} inches
+                {{ profile?.height?.feet }} ft
+                {{ profile?.height?.inches }} inches
               </p>
             </div>
           </div>
@@ -196,7 +197,7 @@
               <h4>D.O.B</h4>
             </div>
             <div class="right">
-              <p>{{ profile.dob }}</p>
+              <p>{{ profile?.dob }}</p>
             </div>
           </div>
         </div>
@@ -207,7 +208,7 @@
               <h4>Gender</h4>
             </div>
             <div class="right">
-              <p>{{ profile.gender }}</p>
+              <p>{{ profile?.gender }}</p>
             </div>
           </div>
         </div>
@@ -231,7 +232,7 @@
             <h4>Country</h4>
           </div>
           <div class="right">
-            <p>{{ profile.country?.name }}</p>
+            <p>{{ profile?.country?.name }}</p>
           </div>
         </div>
       </div>
@@ -242,7 +243,7 @@
             <h4>State / UT</h4>
           </div>
           <div class="right">
-            <p>{{ profile.state?.name }}</p>
+            <p>{{ profile?.state?.name }}</p>
           </div>
         </div>
       </div>
@@ -253,7 +254,7 @@
             <h4>City</h4>
           </div>
           <div class="right">
-            <p>{{ profile.city?.name }}</p>
+            <p>{{ profile?.city?.name }}</p>
           </div>
         </div>
       </div>
@@ -265,7 +266,7 @@
               <h4>School</h4>
             </div>
             <div class="right">
-              <p>{{ profile.institute?.school }}</p>
+              <p>{{ profile?.institute?.school }}</p>
             </div>
           </div>
         </div>
@@ -277,7 +278,7 @@
                 <h4>College</h4>
               </div>
               <div class="right">
-                <p>{{ profile.institute?.college }}</p>
+                <p>{{ profile?.institute?.college }}</p>
               </div>
             </div>
           </div>
@@ -288,7 +289,7 @@
                 <h4>University</h4>
               </div>
               <div class="right">
-                <p>{{ profile.institute?.university }}</p>
+                <p>{{ profile?.institute?.university }}</p>
               </div>
             </div>
           </div>
@@ -298,7 +299,7 @@
         <div class="view-details">
           <div class="details">
             <div class="left">
-              <h4>Pincode/ Zipcode</h4>
+              <h4>Pincode / Zipcode</h4>
             </div>
             <div class="right">
               <p>{{ profile?.address?.pincode }}</p>
@@ -321,7 +322,7 @@
               <h4>Stadium name</h4>
             </div>
             <div class="right">
-              <p>{{ profile.stadium_name }}</p>
+              <p>{{ profile?.stadium_name }}</p>
             </div>
           </div>
         </div>
@@ -974,13 +975,13 @@
                       placeholder="{{ member_type | titlecase }} name"
                     />
                     <mat-error
+                      class="error-text"
                       *ngIf="
                         personalProfileDetailsForm.controls.name.invalid &&
                         personalProfileDetailsForm.controls.name.touched
                       "
                     >
                       <span
-                        class="error-text"
                         *ngIf="
                           personalProfileDetailsForm.controls.name.errors
                             .required
@@ -988,30 +989,10 @@
                         translate
                         >{{ member_type | titlecase }} name is required</span
                       >
-                      <ng-template #lengthBlock>
-                        <span
-                          translate
-                          class="error-text"
-                          *ngIf="
-                            personalProfileDetailsForm.controls.name.errors
-                              .maxlength
-                          "
-                        >
-                          {{ member_type | titlecase }} name cannot be greater
-                          than Please provide number upto
-                          {{
-                            personalProfileDetailsForm.controls.name.errors
-                              .maxlength.requiredLength
-                          }}
-                          characters
-                        </span>
-                      </ng-template>
                       <span
-                        class="error-text"
                         *ngIf="
                           personalProfileDetailsForm.controls.name.errors
-                            .pattern;
-                          else lengthBlock
+                            .pattern
                         "
                         translate
                       >
@@ -1043,7 +1024,7 @@
                         matInput
                         [matDatepicker]="founded"
                         [max]="today"
-                        placeholder="Founded (Year) "
+                        placeholder="Founded (Year)"
                         readonly
                       />
                       <mat-datepicker-toggle
@@ -1060,6 +1041,7 @@
                       </mat-datepicker>
                     </div>
                     <mat-error
+                      class="error-text"
                       *ngIf="
                         personalProfileDetailsForm.controls.founded_in
                           .invalid &&
@@ -1067,7 +1049,6 @@
                       "
                     >
                       <span
-                        class="error-text"
                         *ngIf="
                           personalProfileDetailsForm.controls.founded_in.errors
                             .required
@@ -1128,6 +1109,54 @@
                       autocomplete="off"
                       placeholder="Phone number"
                     />
+                    <mat-error
+                      class="error-text"
+                      *ngIf="
+                        personalProfileDetailsForm.controls.phone.invalid &&
+                        personalProfileDetailsForm.controls.phone.touched
+                      "
+                    >
+                      <ng-template #lengthBlock>
+                        <span
+                          translate
+                          *ngIf="
+                            personalProfileDetailsForm.controls.phone.errors
+                              .minlength
+                          "
+                        >
+                          Please provide number upto
+                          {{
+                            personalProfileDetailsForm.controls.phone.errors
+                              .minlength.requiredLength
+                          }}
+                          digits
+                        </span>
+                        <span
+                          translate
+                          *ngIf="
+                            personalProfileDetailsForm.controls.phone.errors
+                              .maxlength
+                          "
+                        >
+                          Please provide number upto
+                          {{
+                            personalProfileDetailsForm.controls.phone.errors
+                              .maxlength.requiredLength
+                          }}
+                          digits
+                        </span>
+                      </ng-template>
+                      <span
+                        *ngIf="
+                          personalProfileDetailsForm.controls.phone.errors
+                            .pattern;
+                          else lengthBlock
+                        "
+                        translate
+                      >
+                        Phone number format is invalid
+                      </span>
+                    </mat-error>
                   </div>
                 </div>
               </div>
@@ -1221,7 +1250,7 @@
                   formControlName="country"
                   (change)="onSelectCountry($event)"
                 >
-                  <option value="">Select country</option>
+                  <option value="">Select Country</option>
                   <ng-container *ngFor="let country of countryArray">
                     <option [value]="country.country_id">{{
                       country.country
@@ -1229,6 +1258,7 @@
                   </ng-container>
                 </select>
                 <mat-error
+                  class="error-text"
                   *ngIf="
                     personalProfileDetailsForm.controls.country.invalid &&
                     personalProfileDetailsForm.controls.country.touched
@@ -1252,12 +1282,13 @@
                   formControlName="state"
                   (change)="onSelectState($event)"
                 >
-                  <option value="">Select state/UT </option>
+                  <option value="">Select State / UT </option>
                   <ng-container *ngFor="let state of stateArray">
                     <option [value]="state.id">{{ state.name }}</option>
                   </ng-container>
                 </select>
                 <mat-error
+                  class="error-text"
                   *ngIf="
                     personalProfileDetailsForm.controls.state.invalid &&
                     personalProfileDetailsForm.controls.state.touched
@@ -1277,12 +1308,13 @@
               <div class="form-block">
                 <label>City <span>*</span></label>
                 <select formControlName="city">
-                  <option value="">Select city</option>
+                  <option value="">Select City</option>
                   <ng-container *ngFor="let city of cityArray">
                     <option [value]="city.id">{{ city.name }}</option>
                   </ng-container>
                 </select>
                 <mat-error
+                  class="error-text"
                   *ngIf="
                     personalProfileDetailsForm.controls.city.invalid &&
                     personalProfileDetailsForm.controls.city.touched
@@ -1315,6 +1347,7 @@
                   placeholder="Office address"
                 />
                 <mat-error
+                  class="error-text"
                   *ngIf="
                     personalProfileDetailsForm.controls.address.invalid &&
                     personalProfileDetailsForm.controls.address.touched
@@ -1337,7 +1370,7 @@
             <div class="third">
               <div class="form-block">
                 <label
-                  >Pincode/ Zipcode
+                  >Pincode / Zipcode
                   <span *ngIf="member_type === 'academy'">*</span>
                 </label>
                 <input
@@ -1345,9 +1378,10 @@
                   type="text"
                   matinput
                   autocomplete="off"
-                  placeholder="Pincode/ Zipcode"
+                  placeholder="Pincode / Zipcode"
                 />
                 <mat-error
+                  class="error-text"
                   *ngIf="
                     personalProfileDetailsForm.controls.pincode.invalid &&
                     personalProfileDetailsForm.controls.pincode.touched
@@ -1359,16 +1393,15 @@
                         .required
                     "
                     translate
-                    >Zipcode / Pincode is required</span
+                    >Pincode / Zipcode is required</span
                   >
                   <span
-                    class="error-text"
                     *ngIf="
                       personalProfileDetailsForm.controls.pincode.errors &&
                       personalProfileDetailsForm.controls.pincode.errors.pattern
                     "
                   >
-                    Zipcode / Pincode format is invalid
+                    Pincode / Zipcode format is invalid
                   </span>
                 </mat-error>
               </div>
