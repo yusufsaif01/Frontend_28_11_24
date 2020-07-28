@@ -104,7 +104,7 @@
         class="document"
         *ngIf="member_type === 'academy'"
         [matTooltip]="
-          isVerifiedDocument('document', 'approved')
+          isVerifiedDocument(document_type, 'approved')
             ? 'Document details are verified'
             : ''
         "
