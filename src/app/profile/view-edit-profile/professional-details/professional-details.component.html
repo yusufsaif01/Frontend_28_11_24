@@ -181,78 +181,64 @@
           <h3 class="section-heading">
             Major trophy wins
           </h3>
-          <div class="section-block">
-            <span class="count">1.</span>
-            <div class="info">
-              <div class="full">
-                <div class="left">
-                  <h4>Trophy name</h4>
+
+          <ng-container *ngIf="professionalDetails.trophies">
+            <div
+              class="section-block"
+              *ngFor="
+                let trophies of professionalDetails.trophies;
+                let i = index
+              "
+            >
+              <span class="count">{{ i + 1 }}.</span>
+              <div class="info">
+                <div class="full">
+                  <div class="left">
+                    <h4>Trophy name</h4>
+                  </div>
+                  <div class="right">
+                    <p>{{ trophies.name }}</p>
+                  </div>
                 </div>
-                <div class="right">
-                  <p>UEFA Champions League</p>
+                <div class="full">
+                  <div class="left">
+                    <h4>Year</h4>
+                  </div>
+                  <div class="right">
+                    <p>{{ trophies.year }}</p>
+                  </div>
                 </div>
-              </div>
-              <div class="full">
-                <div class="left">
-                  <h4>Year</h4>
-                </div>
-                <div class="right">
-                  <p>2016</p>
-                </div>
-              </div>
-              <div class="full">
-                <div class="left">
-                  <h4>Position secured</h4>
-                </div>
-                <div class="right">
-                  <p>Second Runnerup</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="section-block">
-            <span class="count">2.</span>
-            <div class="info">
-              <div class="full">
-                <div class="left">
-                  <h4>Trophy name</h4>
-                </div>
-                <div class="right">
-                  <p>UEFA Champions League</p>
-                </div>
-              </div>
-              <div class="full">
-                <div class="left">
-                  <h4>Year</h4>
-                </div>
-                <div class="right">
-                  <p>2016</p>
-                </div>
-              </div>
-              <div class="full">
-                <div class="left">
-                  <h4>Position secured</h4>
-                </div>
-                <div class="right">
-                  <p>Second Runnerup</p>
+                <div class="full">
+                  <div class="left">
+                    <h4>Position secured</h4>
+                  </div>
+                  <div class="right">
+                    <p>{{ trophies.position }}</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </ng-container>
         </div>
         <!-- League name   -->
         <div class="section">
           <h3 class="section-heading">
             League name
           </h3>
+
           <div class="section-block">
-            <div class="full">
+            <div
+              class="full"
+              *ngIf="professionalDetails.league !== 'Other'; else otherLeague"
+            >
               <div class="left">
-                <h4>League name</h4>
+                <h4>{{ professionalDetails?.league | titlecase }}</h4>
               </div>
-              <div class="right">
-                <p>UEFA Champions League</p>
-              </div>
+              <ng-template #otherLeague>
+                <div class="right">
+                  <p>{{ professionalDetails?.league_other | titlecase }}</p>
+                </div>
+              </ng-template>
             </div>
           </div>
         </div>
@@ -262,37 +248,30 @@
           <h3 class="section-heading">
             Top signings
           </h3>
-          <div class="section-block">
-            <div class="third">
-              <p><span>1.</span> Ratanlal Bisht</p>
+          <ng-container *ngIf="professionalDetails.top_signings">
+            <div
+              class="section-block"
+              *ngFor="
+                let signings of professionalDetails.top_signings;
+                let i = index
+              "
+            >
+              <div class="third">
+                <p>
+                  <span>{{ i + 1 }}.</span> {{ signings.name }}
+                </p>
+              </div>
             </div>
-            <div class="third">
-              <p><span>2.</span> Ratanlal Bisht</p>
-            </div>
-            <div class="third">
-              <p><span>3.</span> Ratanlal Bisht</p>
-            </div>
-            <div class="third">
-              <p><span>4.</span> Ratanlal Bisht</p>
-            </div>
-            <div class="third">
-              <p><span>5.</span> Ratanlal Bisht</p>
-            </div>
-            <div class="third">
-              <p><span>6.</span> Ratanlal Bisht</p>
-            </div>
-          </div>
+          </ng-container>
         </div>
 
         <!-- League name   -->
         <div class="section">
-          <h3 class="section-heading mb-0">
-            Type of club
-          </h3>
+          <h3 class="section-heading mb-0">Type of {{ member_type }}</h3>
           <div class="section-block">
             <div class="full">
               <div class="right">
-                <p>Residential</p>
+                <p>{{ professionalDetails?.type }}</p>
               </div>
             </div>
           </div>
@@ -306,7 +285,7 @@
           <div class="section-block">
             <div class="full">
               <div class="right">
-                <p>All Manipur Football Association</p>
+                <p>{{ professionalDetails?.association | titlecase }}</p>
               </div>
             </div>
           </div>
@@ -316,80 +295,52 @@
           <h3 class="section-heading">
             Contact details
           </h3>
-          <div class="section-block">
-            <span class="count">1.</span>
-            <div class="info">
-              <div class="half">
-                <div class="left">
-                  <h4>Name</h4>
+
+          <ng-container *ngIf="professionalDetails.contact_person">
+            <div
+              class="section-block"
+              *ngFor="
+                let person of professionalDetails.contact_person;
+                let i = index
+              "
+            >
+              <span class="count">{{ i + 1 }}.</span>
+              <div class="info">
+                <div class="half">
+                  <div class="left">
+                    <h4>Name</h4>
+                  </div>
+                  <div class="right">
+                    <p>{{ person?.name }}</p>
+                  </div>
                 </div>
-                <div class="right">
-                  <p>Ajay Verma</p>
+                <div class="half">
+                  <div class="left">
+                    <h4>Designation</h4>
+                  </div>
+                  <div class="right">
+                    <p>{{ person?.designation }}</p>
+                  </div>
                 </div>
-              </div>
-              <div class="half">
-                <div class="left">
-                  <h4>Designation</h4>
+                <div class="half">
+                  <div class="left">
+                    <h4>Email address</h4>
+                  </div>
+                  <div class="right">
+                    <p>{{ person?.email }}</p>
+                  </div>
                 </div>
-                <div class="right">
-                  <p>Manager</p>
-                </div>
-              </div>
-              <div class="half">
-                <div class="left">
-                  <h4>Email address</h4>
-                </div>
-                <div class="right">
-                  <p>manager@gmail.com</p>
-                </div>
-              </div>
-              <div class="half">
-                <div class="left">
-                  <h4>Contact number</h4>
-                </div>
-                <div class="right">
-                  <p>+91 8923458945</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="section-block">
-            <span class="count">2.</span>
-            <div class="info">
-              <div class="half">
-                <div class="left">
-                  <h4>Name</h4>
-                </div>
-                <div class="right">
-                  <p>Ajay Sharma</p>
-                </div>
-              </div>
-              <div class="half">
-                <div class="left">
-                  <h4>Designation</h4>
-                </div>
-                <div class="right">
-                  <p>Manager</p>
-                </div>
-              </div>
-              <div class="half">
-                <div class="left">
-                  <h4>Email address</h4>
-                </div>
-                <div class="right">
-                  <p>manager@gmail.com</p>
-                </div>
-              </div>
-              <div class="half">
-                <div class="left">
-                  <h4>Contact number</h4>
-                </div>
-                <div class="right">
-                  <p>+91 8923458945</p>
+                <div class="half">
+                  <div class="left">
+                    <h4>Contact number</h4>
+                  </div>
+                  <div class="right">
+                    <p>+91 {{ person?.phone_number }}</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </ng-container>
         </div>
       </ng-container>
     </ng-container>
