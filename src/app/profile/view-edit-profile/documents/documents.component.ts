@@ -16,6 +16,7 @@ import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 import { requiredPdfDocument } from '@app/shared/validators/requiredPdfDocument';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
+import { MaskPipe } from '@app/shared/pipes/mask.pipe';
 
 let aadharImageControl = {
   aadhar_front: [Validators.required, requiredFileAvatar],
@@ -37,7 +38,8 @@ let documentControl = {
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
-  styleUrls: ['./documents.component.scss']
+  styleUrls: ['./documents.component.scss'],
+  providers: [MaskPipe]
 })
 export class DocumentsComponent implements OnInit, OnDestroy {
   profile_status: string;
@@ -67,7 +69,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   constructor(
     private _formBuilder: FormBuilder,
     private _documentsService: DocumentsService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private _maskPipe: MaskPipe
   ) {
     this.createForm();
     this.populateView();
@@ -122,7 +125,9 @@ export class DocumentsComponent implements OnInit, OnDestroy {
           let fileLink = this.environment.mediaUrl;
           let rootMedia = document.media;
           if (document.type === 'aadhar') {
-            this.aadhar_number = document.document_number;
+            this.aadhar_number = this._maskPipe.transform(
+              document.document_number
+            );
             if (document.media.attachment_type === 'pdf') {
               this.aadhar_url = fileLink + rootMedia.document;
             } else if (document.media.attachment_type === 'image') {
@@ -142,7 +147,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
           let fileLink = this.environment.mediaUrl;
           let rootMedia = document.media;
           this.aiff_url = fileLink + rootMedia.document;
-          this.aiff_id = document.document_number;
+          this.aiff_id = this._maskPipe.transform(document.document_number);
         });
       }
     } else if (this.member_type === 'academy') {
@@ -153,7 +158,9 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         this.documentsDetails.documents.forEach(document => {
           let fileLink = this.environment.mediaUrl;
           let rootMedia = document.media;
-          this.document_number = document.document_number;
+          this.document_number = this._maskPipe.transform(
+            document.document_number
+          );
           this.document_type = document.type;
           this.document_url = fileLink + rootMedia.document;
         });

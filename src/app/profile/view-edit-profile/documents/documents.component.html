@@ -41,7 +41,7 @@
                 <h4>Document number</h4>
               </div>
               <div class="right">
-                <p>{{ document_number | mask: 'XXXX XXXX 0000' }}</p>
+                <p>{{ document_number }}</p>
               </div>
             </div>
           </div>
@@ -55,7 +55,7 @@
                 <h4>AIFF accreditation id</h4>
               </div>
               <div class="right">
-                <p>{{ aiff_id | mask: 'XXXX XXXX 0000' }}</p>
+                <p>{{ aiff_id }}</p>
               </div>
             </div>
           </div>
@@ -69,7 +69,7 @@
                 <h4>Aadhaar number</h4>
               </div>
               <div class="right">
-                <p>{{ aadhar_number | mask: 'XXXX XXXX 0000' }}</p>
+                <p>{{ aadhar_number }}</p>
               </div>
             </div>
           </div>
@@ -81,7 +81,7 @@
         *ngIf="member_type === 'club'"
         [matTooltip]="
           isVerifiedDocument('aiff', 'approved')
-            ? 'Aiff details are verified'
+            ? 'AIFF details are verified'
             : ''
         "
       >
@@ -235,17 +235,17 @@
                 >
                   <label class="pb-1">Document type</label>
                   <mat-radio-group>
-                    <mat-radio-button value="AIFF">
+                    <mat-radio-button value="aiff">
                       AIFF status
                     </mat-radio-button>
-                    <mat-radio-button value="Pan">
-                      Pan number
+                    <mat-radio-button value="pan">
+                      PAN number
                     </mat-radio-button>
-                    <mat-radio-button value="COI">
+                    <mat-radio-button value="coi">
                       COI number
                     </mat-radio-button>
-                    <mat-radio-button value="Tin">
-                      Tin number
+                    <mat-radio-button value="tin">
+                      TIN number
                     </mat-radio-button>
                   </mat-radio-group>
                 </div>
@@ -608,11 +608,11 @@
           <h3
             [matTooltip]="
               profile_status === 'verified'
-                ? 'Not allowed to update aiff details'
+                ? 'Not allowed to update AIFF details'
                 : ''
             "
           >
-            Aiff accrediation details <span>*</span>
+            AIFF accreditation details <span>*</span>
           </h3>
           <label
             [matTooltip]="
@@ -663,7 +663,7 @@
                           .requiredPdfDocument
                       "
                       translate
-                      >Aiff must be of type PDF</span
+                      >AIFF must be of type PDF</span
                     >
                   </mat-error>
                 </label>
@@ -679,12 +679,12 @@
                         ? 'Not allowed to update aadhaar details'
                         : ''
                     "
-                    >Aiff Id <span>*</span></label
+                    >AIFF Id <span>*</span></label
                   >
                   <input
                     formControlName="aiff_id"
                     type="text"
-                    placeholder="Aiff number"
+                    placeholder="AIFF number"
                     required
                   />
                   <mat-error
@@ -700,7 +700,7 @@
                         documentsDetailsForm.controls.aiff_id.errors.required
                       "
                     >
-                      Aiff Number is required</span
+                      AIFF Number is required</span
                     >
                     <ng-template #lengthBlock>
                       <span
@@ -736,7 +736,7 @@
                         else lengthBlock
                       "
                     >
-                      Aiff Number is invalid
+                      AIFF Number is invalid
                     </span>
                   </mat-error>
                 </div>
@@ -788,13 +788,13 @@
                       AIFF status
                     </mat-radio-button>
                     <mat-radio-button value="pan">
-                      Pan number
+                      PAN number
                     </mat-radio-button>
                     <mat-radio-button value="coi">
                       COI number
                     </mat-radio-button>
                     <mat-radio-button value="tin">
-                      Tin number
+                      TIN number
                     </mat-radio-button>
                   </mat-radio-group>
                 </div>

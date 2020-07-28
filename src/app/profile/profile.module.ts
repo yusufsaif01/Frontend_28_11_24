@@ -12,15 +12,7 @@ import { PersonalDetailsComponent } from './view-edit-profile/personal-details/p
 import { ProfessionalDetailsComponent } from './view-edit-profile/professional-details/professional-details.component';
 import { DocumentsComponent } from './view-edit-profile/documents/documents.component';
 import { EmploymentContractsComponent } from './view-edit-profile/employment-contracts/employment-contracts.component';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
 
-const maskConfig: Partial<IConfig> = {
-  specialCharacters: ['X', ' '],
-
-  patterns: {
-    '0': { pattern: new RegExp('.*') }
-  }
-};
 @NgModule({
   declarations: [
     ProfileComponent,
@@ -37,8 +29,7 @@ const maskConfig: Partial<IConfig> = {
     SharedModule,
     ReactiveFormsModule,
     ProfileRoutingModule,
-    NgxTrimDirectiveModule,
-    NgxMaskModule.forRoot(maskConfig)
+    NgxTrimDirectiveModule
   ]
 })
 export class ProfileModule {}
