@@ -42,7 +42,7 @@ export class CreatePasswordComponent implements OnInit, OnDestroy {
           if (response.status === 'success') {
             this.isLinkExpired = true;
             this._toastrService.success(
-              'success',
+              'Success',
               'Email verified successfully'
             );
           }
@@ -60,7 +60,7 @@ export class CreatePasswordComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this._toastrService.success('success', 'Password creation');
+          this._toastrService.success('Success', 'Password creation');
           this._router.navigate(['/login']);
         },
         error => {

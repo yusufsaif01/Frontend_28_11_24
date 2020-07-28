@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { PaginationComponent } from './pagination/pagination.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { TrimPipe } from './pipes/trim.pipe';
+import { MaskPipe } from './pipes/mask.pipe';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { VerificationPopupComponent } from '@app/shared/verification-popup/verification-popup.component';
 import { GridSearchBoxComponent } from './grid-search-box/grid-search-box.component';
@@ -37,6 +38,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     PaginationComponent,
     TruncatePipe,
     TrimPipe,
+    MaskPipe,
     VerificationPopupComponent,
     GridSearchBoxComponent,
     TextSectionComponent,
@@ -48,6 +50,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     LoaderComponent,
     TruncatePipe,
     TrimPipe,
+    MaskPipe,
     PageComponentsModule,
     FlexLayoutModule,
     MaterialModule,

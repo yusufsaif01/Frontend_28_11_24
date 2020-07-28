@@ -22,6 +22,26 @@ interface PositionContext {
   name: string;
 }
 
+interface trophyObject {
+  name: string;
+  year: string;
+  position: string;
+}
+
+interface contactPersonObject {
+  designation: string;
+  name: string;
+  email: string;
+  mobile_number: string;
+}
+
+interface topSigningObject {
+  name: string;
+}
+interface topAcademyPlayerObject {
+  name: string;
+}
+
 @Component({
   selector: 'app-professional-details',
   templateUrl: './professional-details.component.html',
@@ -29,11 +49,20 @@ interface PositionContext {
 })
 export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   currentYear = new Date().getFullYear();
+
   position: FormArray;
+  contact_person: FormArray;
+  trophies: FormArray;
+  top_signings: FormArray;
+  top_players: FormArray;
+
   environment = environment;
   positionArray: GetPositionListResponseContext['data']['records'];
   strongFootArray = Constants.STRONG_FOOT;
+  designationArray = Constants.DESIGNATION_ARRAY;
+  clubAcadTypeArray = Constants.CLUB_ACAD_TYPE_ARRAY;
   stateAssociationArray = Constants.STATE_ASSOCIATION_ARRAY;
+  leagueArray = Constants.LEAGUE_ARRAY;
   professionalDetailsForm: FormGroup;
   professionalDetails: GetProfessionalDetailsResponseContext['data'];
   member_type: string = localStorage.getItem('member_type');
@@ -87,6 +116,8 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       for (let i = 0; i < data.length; i++) {
         func(data[i]);
       }
+    } else {
+      func([]);
     }
   }
 
@@ -120,6 +151,28 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
             this.getPositionList();
             this.populateDynamicPosition();
           }
+          if (
+            ['club', 'academy'].includes(this.professionalDetails.member_type)
+          ) {
+            let controlFuncObject = {
+              contact_person: [
+                this.professionalDetails.contact_person,
+                this.addContactPerson
+              ],
+              trophies: [this.professionalDetails.trophies, this.addTrophy],
+              top_signings: [
+                this.professionalDetails.top_signings,
+                this.addTopSigning
+              ]
+            };
+
+            for (const key in controlFuncObject) {
+              this.populateDynamicControl(
+                controlFuncObject[key][0],
+                controlFuncObject[key][1]
+              );
+            }
+          }
         },
         error => {
           this._toastrService.error(error.error.message, 'Error');
@@ -128,14 +181,16 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   populateFormFields() {
-    if (this.professionalDetails.associated_club_academy === 'yes')
-      this.professionalDetailsForm
-        .get('associated_club_academy')
-        .setValue('yes');
-    else
-      this.professionalDetailsForm
-        .get('associated_club_academy')
-        .setValue('no');
+    if (this.member_type === 'player') {
+      if (this.professionalDetails.associated_club_academy === 'yes')
+        this.professionalDetailsForm
+          .get('associated_club_academy')
+          .setValue('yes');
+      else
+        this.professionalDetailsForm
+          .get('associated_club_academy')
+          .setValue('no');
+    }
 
     this.professionalDetailsForm.patchValue({
       strong_foot: this.professionalDetails.strong_foot
@@ -159,8 +214,12 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       association: this.professionalDetails.association
         ? this.professionalDetails.association
         : '',
-      association_other: this.professionalDetails.association_other
-        ? this.professionalDetails.association_other
+      league: this.professionalDetails.league
+        ? this.professionalDetails.league
+        : '',
+      type: this.professionalDetails.type ? this.professionalDetails.type : '',
+      league_other: this.professionalDetails.league_other
+        ? this.professionalDetails.league_other
         : ''
     });
   }
@@ -186,6 +245,38 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       }
     ];
     this.formControlAdder(this.professionalDetailsForm, commonControls);
+
+    if (this.member_type == 'academy' || this.member_type === 'club') {
+      let clubAcadCommonControls = [
+        {
+          name: 'league',
+          abstractControl: this._formBuilder.control('', [Validators.required])
+        },
+
+        {
+          name: 'league_other',
+          abstractControl: this._formBuilder.control('', [
+            Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)
+          ])
+        },
+        {
+          name: 'contact_person',
+          abstractControl: this._formBuilder.array([], [Validators.required])
+        },
+        {
+          name: 'type',
+          abstractControl: this._formBuilder.control('', [Validators.required])
+        },
+        {
+          name: 'trophies',
+          abstractControl: this._formBuilder.array([])
+        }
+      ];
+      this.formControlAdder(
+        this.professionalDetailsForm,
+        clubAcadCommonControls
+      );
+    }
   }
 
   createForm() {
@@ -199,6 +290,10 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
         head_coach_phone: [''],
         head_coach_email: [''],
         former_club_academy: ['']
+      });
+    } else if (this.member_type !== 'player') {
+      this.professionalDetailsForm = this._formBuilder.group({
+        top_signings: this._formBuilder.array([], [])
       });
     }
   }
@@ -271,19 +366,20 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   setCategoryValidators() {
-    const associationOther = this.professionalDetailsForm.get(
-      'association_other'
-    );
-    this.professionalDetailsForm
-      .get('association')
-      .valueChanges.subscribe(association => {
-        if (association !== 'Others') {
-          associationOther.setValue('');
-        }
-      });
-    associationOther.updateValueAndValidity();
     if (this.member_type === 'player') {
       this.setPlayerValidators();
+
+      const associationOther = this.professionalDetailsForm.get(
+        'association_other'
+      );
+      this.professionalDetailsForm
+        .get('association')
+        .valueChanges.subscribe(association => {
+          if (association !== 'Others') {
+            associationOther.setValue('');
+          }
+        });
+      associationOther.updateValueAndValidity();
     }
   }
 
@@ -312,6 +408,10 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
 
     if (this.member_type === 'player') {
       this.setRequestDataObject(requestData, 'position');
+    } else if (this.member_type === 'club' || this.member_type === 'academy') {
+      this.setRequestDataObject(requestData, 'contact_person');
+      this.setRequestDataObject(requestData, 'trophies');
+      this.setRequestDataObject(requestData, 'top_signings');
     }
 
     this._professionalDetailsService
@@ -320,10 +420,9 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this._toastrService.success(
-            'success',
+            'Success',
             'Professional details updated successfully'
           );
-          this.clearFormArray();
           this.populateView();
           this.toggleMode();
         },
@@ -354,6 +453,120 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
 
     controlName.setValidators(validationArray);
     controlName.updateValueAndValidity();
+  }
+
+  addContactPerson = (data?: contactPersonObject) => {
+    this.contact_person = this.professionalDetailsForm.get(
+      'contact_person'
+    ) as FormArray;
+
+    if (data !== undefined) {
+      this.contact_person.push(
+        this._formBuilder.group({
+          designation: [data.designation, [Validators.required]],
+          name: [data.name, [Validators.required]],
+          email: [data.email, [Validators.required, Validators.email]],
+          mobile_number: [
+            data.mobile_number,
+            [
+              Validators.required,
+              Validators.minLength(10),
+              Validators.maxLength(10),
+              Validators.pattern(/^\d+$/)
+            ]
+          ]
+        })
+      );
+    } else {
+      this.contact_person.push(
+        this._formBuilder.group({
+          designation: ['', [Validators.required]],
+          name: ['', [Validators.required]],
+          email: ['', [Validators.required, Validators.email]],
+          mobile_number: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(10),
+              Validators.maxLength(10),
+              Validators.pattern(/^\d+$/)
+            ]
+          ]
+        })
+      );
+    }
+  };
+
+  removeContactPerson(i: number) {
+    this.contact_person.removeAt(i);
+  }
+
+  addTrophy = (data?: trophyObject) => {
+    this.trophies = this.professionalDetailsForm.get('trophies') as FormArray;
+
+    if (data !== undefined) {
+      this.trophies.push(
+        this._formBuilder.group({
+          name: [data.name, [Validators.required]],
+          year: [
+            data.year,
+            [
+              Validators.required,
+              Validators.minLength(4),
+              Validators.maxLength(4),
+              Validators.max(this.currentYear),
+              Validators.pattern(/^\d+$/)
+            ]
+          ],
+          position: [data.position, [Validators.required]]
+        })
+      );
+    } else {
+      this.trophies.push(
+        this._formBuilder.group({
+          name: ['', [Validators.required]],
+          year: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(4),
+              Validators.maxLength(4),
+              Validators.max(this.currentYear),
+              Validators.pattern(/^\d+$/)
+            ]
+          ],
+          position: ['', [Validators.required]]
+        })
+      );
+    }
+  };
+
+  removeTrophy(i: number) {
+    this.trophies.removeAt(i);
+  }
+
+  addTopSigning = (data?: topSigningObject) => {
+    this.top_signings = this.professionalDetailsForm.get(
+      'top_signings'
+    ) as FormArray;
+
+    if (data !== undefined) {
+      this.top_signings.push(
+        this._formBuilder.group({
+          name: [data.name, []]
+        })
+      );
+    } else {
+      this.top_signings.push(
+        this._formBuilder.group({
+          name: ['', []]
+        })
+      );
+    }
+  };
+
+  removeTopSigning(i: number) {
+    this.top_signings.removeAt(i);
   }
 
   ngOnDestroy() {}

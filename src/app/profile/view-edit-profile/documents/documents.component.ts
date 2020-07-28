@@ -15,6 +15,8 @@ import { environment } from '@env/environment';
 import { requiredFileAvatar } from '@app/shared/validators/requiredFileAvatar';
 import { requiredPdfDocument } from '@app/shared/validators/requiredPdfDocument';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
+import { MaskPipe } from '@app/shared/pipes/mask.pipe';
 
 let aadharImageControl = {
   aadhar_front: [Validators.required, requiredFileAvatar],
@@ -26,16 +28,28 @@ let aadharPdfControl = {
 let playerImageControl = {
   player_photo: [Validators.required, requiredFileAvatar]
 };
+let aiffControl = {
+  aiff: [Validators.required, requiredFileDocument]
+};
+let documentControl = {
+  document: [Validators.required, requiredFileDocument]
+};
 
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
-  styleUrls: ['./documents.component.scss']
+  styleUrls: ['./documents.component.scss'],
+  providers: [MaskPipe]
 })
 export class DocumentsComponent implements OnInit, OnDestroy {
   profile_status: string;
   environment = environment;
   aadhar_number: string;
+  aiff_id: string;
+  document_number: string;
+  document_type: string;
+  document_url: string;
+  aiff_url: string;
   aadhar: File;
   aadhar_front: File;
   aadhar_back: File;
@@ -49,11 +63,14 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   member_type: string = localStorage.getItem('member_type');
   viewMode = true;
   player_photo_preview: string | ArrayBuffer;
+  aiff: File;
+  document: File;
 
   constructor(
     private _formBuilder: FormBuilder,
     private _documentsService: DocumentsService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private _maskPipe: MaskPipe
   ) {
     this.createForm();
     this.populateView();
@@ -64,47 +81,90 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   createForm() {
-    this.documentsDetailsForm = this._formBuilder.group({
-      aadhar: [''],
-      aadhar_number: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(12),
-          Validators.maxLength(12),
-          Validators.pattern(/^\d+$/)
-        ]
-      ],
-      aadhar_media_type: ['', [Validators.required]],
-      aadhar_front: ['', []],
-      aadhar_back: ['', []],
-      player_photo: ['', [Validators.required, requiredFileAvatar]]
-    });
+    if (this.member_type === 'player') {
+      this.documentsDetailsForm = this._formBuilder.group({
+        aadhar: [''],
+        aadhar_number: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(12),
+            Validators.maxLength(12),
+            Validators.pattern(/^\d+$/)
+          ]
+        ],
+        aadhar_media_type: ['', [Validators.required]],
+        aadhar_front: ['', []],
+        aadhar_back: ['', []],
+        player_photo: ['', [Validators.required, requiredFileAvatar]]
+      });
+    } else if (this.member_type === 'club') {
+      this.documentsDetailsForm = this._formBuilder.group({
+        aiff_id: ['', Validators.required],
+        aiff: ['', [Validators.required, requiredFileDocument]]
+      });
+    } else if (this.member_type === 'academy') {
+      this.documentsDetailsForm = this._formBuilder.group({
+        document_type: ['', []],
+        number: [''],
+        document: ['', [requiredFileDocument]]
+      });
+    }
   }
 
   toggleMode() {
     this.viewMode = !this.viewMode;
   }
   populateDocuments() {
-    if (
-      this.documentsDetails.documents &&
-      this.documentsDetails.documents.length !== 0
-    ) {
-      this.documentsDetails.documents.forEach(document => {
-        let fileLink = this.environment.mediaUrl;
-        let rootMedia = document.media;
-
-        if (document.type === 'aadhar') {
-          this.aadhar_number = document.document_number;
-          if (document.media.attachment_type === 'pdf') {
-            this.aadhar_url = fileLink + rootMedia.document;
-          } else if (document.media.attachment_type === 'image') {
-            this.aadhar_front_url = fileLink + rootMedia.doc_front;
-            this.aadhar_back_url = fileLink + rootMedia.doc_back;
+    if (this.member_type === 'player') {
+      if (
+        this.documentsDetails.documents &&
+        this.documentsDetails.documents.length !== 0
+      ) {
+        this.documentsDetails.documents.forEach(document => {
+          let fileLink = this.environment.mediaUrl;
+          let rootMedia = document.media;
+          if (document.type === 'aadhar') {
+            this.aadhar_number = this._maskPipe.transform(
+              document.document_number
+            );
+            if (document.media.attachment_type === 'pdf') {
+              this.aadhar_url = fileLink + rootMedia.document;
+            } else if (document.media.attachment_type === 'image') {
+              this.aadhar_front_url = fileLink + rootMedia.doc_front;
+              this.aadhar_back_url = fileLink + rootMedia.doc_back;
+            }
+            this.player_photo_url = fileLink + rootMedia.user_photo;
           }
-          this.player_photo_url = fileLink + rootMedia.user_photo;
-        }
-      });
+        });
+      }
+    } else if (this.member_type === 'club') {
+      if (
+        this.documentsDetails.documents &&
+        this.documentsDetails.documents.length !== 0
+      ) {
+        this.documentsDetails.documents.forEach(document => {
+          let fileLink = this.environment.mediaUrl;
+          let rootMedia = document.media;
+          this.aiff_url = fileLink + rootMedia.document;
+          this.aiff_id = this._maskPipe.transform(document.document_number);
+        });
+      }
+    } else if (this.member_type === 'academy') {
+      if (
+        this.documentsDetails.documents &&
+        this.documentsDetails.documents.length !== 0
+      ) {
+        this.documentsDetails.documents.forEach(document => {
+          let fileLink = this.environment.mediaUrl;
+          let rootMedia = document.media;
+          this.document_number = this._maskPipe.transform(
+            document.document_number
+          );
+          this.document_type = document.type;
+          this.document_url = fileLink + rootMedia.document;
+        });
+      }
     }
   }
 
@@ -126,7 +186,12 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       'aadhar_back',
       'aadhar_number',
       'aadhar_media_type',
-      'player_photo'
+      'player_photo',
+      'aiff',
+      'aiff_id',
+      'number',
+      'document_type',
+      'document'
     ];
     if (this.profile_status === 'verified') {
       controls.forEach(control => {
@@ -149,15 +214,35 @@ export class DocumentsComponent implements OnInit, OnDestroy {
           .get('aadhar_media_type')
           .setValue(this.documentsDetails.documents[0].media.attachment_type);
       }
+      this.documentsDetailsForm.patchValue({
+        aadhar_number:
+          this.documentsDetails.documents &&
+          this.documentsDetails.documents.length
+            ? this.documentsDetails.documents[0].document_number
+            : ''
+      });
+    } else if (this.member_type === 'club') {
+      this.documentsDetailsForm.patchValue({
+        aiff_id:
+          this.documentsDetails.documents &&
+          this.documentsDetails.documents.length
+            ? this.documentsDetails.documents[0].document_number
+            : ''
+      });
+    } else if (this.member_type === 'academy') {
+      this.documentsDetailsForm.patchValue({
+        number:
+          this.documentsDetails.documents &&
+          this.documentsDetails.documents.length
+            ? this.documentsDetails.documents[0].document_number
+            : '',
+        document_type:
+          this.documentsDetails.documents &&
+          this.documentsDetails.documents.length
+            ? this.documentsDetails.documents[0].type
+            : ''
+      });
     }
-
-    this.documentsDetailsForm.patchValue({
-      aadhar_number:
-        this.documentsDetails.documents &&
-        this.documentsDetails.documents.length
-          ? this.documentsDetails.documents[0].document_number
-          : ''
-    });
   }
   populateView() {
     this._documentsService
@@ -219,6 +304,38 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   setCategoryValidators() {
     if (this.member_type === 'player') {
       this.setPlayerValidators();
+    } else if (this.member_type === 'club' || this.member_type === 'academy') {
+      if (this.member_type === 'academy') {
+        const documentNumber = this.documentsDetailsForm.get('number');
+        this.documentsDetailsForm
+          .get('document_type')
+          .valueChanges.subscribe(type => {
+            if (type === 'aiff') {
+              // later it will be fully implemented
+              documentNumber.setValidators([Validators.required]);
+            } else if (type === 'pan') {
+              documentNumber.setValidators([
+                Validators.required,
+                Validators.minLength(10),
+                Validators.maxLength(10),
+                Validators.pattern(/^[A-Z]{5}[0-9]{4}[A-Z]/)
+              ]);
+            } else if (type === 'coi') {
+              documentNumber.setValidators([
+                Validators.required,
+                Validators.pattern(/^[a-z-A-Z0-9]+$/)
+              ]);
+            } else if (type === 'tin') {
+              documentNumber.setValidators([
+                Validators.required,
+                Validators.minLength(9),
+                Validators.maxLength(12),
+                Validators.pattern(/^\d+$/)
+              ]);
+            }
+            documentNumber.updateValueAndValidity();
+          });
+      }
     }
   }
 
@@ -254,6 +371,14 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     if (type == 'back') this.aadhar_back = files[0];
   }
 
+  uploadAiff(files: FileList) {
+    this.aiff = files[0];
+  }
+
+  uploadDocument(files: FileList) {
+    this.document = files[0];
+  }
+
   toFormData<T>(formValue: T) {
     const formData = new FormData();
     for (const key of Object.keys(formValue)) {
@@ -272,6 +397,17 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       name,
       JSON.stringify(this.documentsDetailsForm.get(name).value)
     );
+  }
+
+  onChangeDocumentType(event: any) {
+    this.documentsDetailsForm.controls.number.enable();
+    this.documentsDetailsForm.controls.document.enable();
+    this.documentsDetailsForm.controls.document.setValidators([
+      Validators.required,
+      requiredFileDocument
+    ]);
+    this.documentsDetailsForm.controls.number.patchValue('');
+    this.documentsDetailsForm.controls.document.patchValue('');
   }
 
   editDocumentsDetails() {
@@ -295,67 +431,101 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       }
 
       if (this.player_photo) requestData.set('player_photo', this.player_photo);
-      this._documentsService
-        .editDocumentsDetails(requestData)
-        .pipe(untilDestroyed(this))
-        .subscribe(
-          response => {
-            this._toastrService.success(
-              'success',
-              'Documents updated successfully'
-            );
-            this.initializeFields();
-            this.populateView();
-            this.toggleMode();
-          },
-          error => {
-            this._toastrService.error(error.error.message, 'Error');
-          }
-        );
+    } else if (this.member_type === 'club' || this.member_type === 'academy') {
+      if (this.member_type === 'club' && this.aiff)
+        requestData.set('aiff', this.aiff);
+      else if (this.document) requestData.set('document', this.document);
     }
+    this._documentsService
+      .editDocumentsDetails(requestData)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this._toastrService.success(
+            'Success',
+            'Documents updated successfully'
+          );
+          this.initializeFields();
+          this.populateView();
+          this.toggleMode();
+        },
+        error => {
+          this._toastrService.error(error.error.message, 'Error');
+        }
+      );
   }
 
   initializeFields() {
-    this.aadhar_url = '';
-    this.aadhar_front_url = '';
-    this.aadhar_back_url = '';
-    this.documentsDetailsForm.get('player_photo').setValue('');
+    if (this.member_type === 'player') {
+      this.aadhar_url = '';
+      this.aadhar_front_url = '';
+      this.aadhar_back_url = '';
+      this.documentsDetailsForm.get('player_photo').setValue('');
+    } else if (this.member_type === 'club') {
+      this.documentsDetailsForm.get('aiff').setValue('');
+      this.aiff_url = '';
+    } else if (this.member_type === 'academy') {
+      this.documentsDetailsForm.get('document').setValue('');
+    }
   }
 
   checkFileValidations() {
-    if (this.documentsDetails.documents) {
-      this.documentsDetails.documents.forEach(documents => {
-        if (documents.type === 'aadhar') {
-          this.removeValidations('player_photo');
-          if (documents.media.attachment_type === 'pdf')
-            this.removeValidations('aadhar');
-          if (documents.media.attachment_type === 'image') {
-            this.removeValidations('aadhar_front');
-            this.removeValidations('aadhar_back');
+    if (this.member_type === 'player') {
+      if (this.documentsDetails.documents) {
+        this.documentsDetails.documents.forEach(documents => {
+          if (documents.type === 'aadhar') {
+            this.removeValidations('player_photo');
+            if (documents.media.attachment_type === 'pdf')
+              this.removeValidations('aadhar');
+            if (documents.media.attachment_type === 'image') {
+              this.removeValidations('aadhar_front');
+              this.removeValidations('aadhar_back');
+            }
           }
+        });
+      }
+      let fields = {
+        aadhar: aadharPdfControl,
+
+        aadhar_front: {
+          aadhar_front: aadharImageControl.aadhar_front
+        },
+        aadhar_back: {
+          aadhar_back: aadharImageControl.aadhar_back
+        },
+        player_photo: {
+          player_photo: playerImageControl.player_photo
         }
+      };
+      Object.keys(fields).forEach(field => {
+        let control = this.documentsDetailsForm.get(field);
+        control.valueChanges.pipe(distinctUntilChanged()).subscribe(value => {
+          this.setControlValidation(this.documentsDetailsForm, fields[field]);
+        });
+      });
+    } else if (this.member_type === 'club') {
+      this.removeValidations('aiff');
+      let fields = {
+        aiff: aiffControl
+      };
+      Object.keys(fields).forEach(field => {
+        let control = this.documentsDetailsForm.get(field);
+        control.valueChanges.pipe(distinctUntilChanged()).subscribe(value => {
+          this.setControlValidation(this.documentsDetailsForm, fields[field]);
+        });
+      });
+    } else if (this.member_type === 'academy') {
+      this.removeValidations('document');
+      let fields = {
+        document: documentControl
+      };
+      Object.keys(fields).forEach(field => {
+        let control = this.documentsDetailsForm.get(field);
+        control.valueChanges.pipe(distinctUntilChanged()).subscribe(value => {
+          this.setControlValidation(this.documentsDetailsForm, fields[field]);
+        });
       });
     }
-    let fields = {
-      aadhar: aadharPdfControl,
-
-      aadhar_front: {
-        aadhar_front: aadharImageControl.aadhar_front
-      },
-      aadhar_back: {
-        aadhar_back: aadharImageControl.aadhar_back
-      },
-      player_photo: {
-        player_photo: playerImageControl.player_photo
-      }
-    };
-
-    Object.keys(fields).forEach(field => {
-      let control = this.documentsDetailsForm.get(field);
-      control.valueChanges.pipe(distinctUntilChanged()).subscribe(value => {
-        this.setControlValidation(this.documentsDetailsForm, fields[field]);
-      });
-    });
   }
 
   removeValidations(type: string) {
