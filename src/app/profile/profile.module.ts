@@ -13,6 +13,7 @@ import { ProfessionalDetailsComponent } from './view-edit-profile/professional-d
 import { DocumentsComponent } from './view-edit-profile/documents/documents.component';
 import { EmploymentContractsComponent } from './view-edit-profile/employment-contracts/employment-contracts.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { PublicProfileComponent } from './public-profile/public-profile.component';
 
 const maskConfig: Partial<IConfig> = {
   specialCharacters: ['X', ' '],
@@ -30,7 +31,8 @@ const maskConfig: Partial<IConfig> = {
     PersonalDetailsComponent,
     ProfessionalDetailsComponent,
     DocumentsComponent,
-    EmploymentContractsComponent
+    EmploymentContractsComponent,
+    PublicProfileComponent
   ],
   imports: [
     CommonModule,
