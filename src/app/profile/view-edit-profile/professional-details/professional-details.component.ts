@@ -116,6 +116,8 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       for (let i = 0; i < data.length; i++) {
         func(data[i]);
       }
+    } else {
+      func([]);
     }
   }
 
@@ -148,6 +150,27 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
           if (this.professionalDetails.member_type === 'player') {
             this.getPositionList();
             this.populateDynamicPosition();
+          }
+          if (
+            ['club', 'academy'].includes(this.professionalDetails.member_type)
+          ) {
+            let controlFuncObject = {
+              contact_person: [
+                this.professionalDetails.contact_person,
+                this.addContactPerson
+              ],
+              trophies: [this.professionalDetails.trophies, this.addTrophy],
+              top_signings: [
+                this.professionalDetails.top_signings,
+                this.addTopSigning
+              ]
+            };
+            for (const key in controlFuncObject) {
+              this.populateDynamicControl(
+                controlFuncObject[key][0],
+                controlFuncObject[key][1]
+              );
+            }
           }
         },
         error => {

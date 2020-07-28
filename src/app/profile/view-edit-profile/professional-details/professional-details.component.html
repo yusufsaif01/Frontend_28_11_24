@@ -879,7 +879,9 @@
               class="input-container"
               *ngFor="
                 let trophy of professionalDetailsForm.get('trophies').controls;
-                let i = index
+                let i = index;
+                let first = first;
+                let last = last
               "
               formArrayName="trophies"
             >
@@ -921,10 +923,14 @@
                 </div>
 
                 <div class="icon-btn">
-                  <button class="remove" (click)="removeTrophy(i)">
+                  <button
+                    *ngIf="!first"
+                    class="remove"
+                    (click)="removeTrophy(i)"
+                  >
                     <mat-icon class="material-icons">remove_circle</mat-icon>
                   </button>
-                  <button class="add" (click)="addTrophy()">
+                  <button *ngIf="last" class="add" (click)="addTrophy()">
                     <mat-icon class="material-icons">add_circle</mat-icon>
                   </button>
                 </div>
@@ -981,7 +987,8 @@
               *ngFor="
                 let top_signing of professionalDetailsForm.get('top_signings')
                   .controls;
-                let i = index
+                let i = index;
+                let last = last
               "
               formArrayName="top_signings"
             >
@@ -1005,7 +1012,11 @@
                           >remove_circle</mat-icon
                         >
                       </button>
-                      <button class="add" (click)="addTopSigning()">
+                      <button
+                        *ngIf="last"
+                        class="add"
+                        (click)="addTopSigning()"
+                      >
                         <mat-icon class="material-icons">add_circle</mat-icon>
                       </button>
                     </div>
@@ -1078,7 +1089,8 @@
               *ngFor="
                 let contact of professionalDetailsForm.get('contact_person')
                   .controls;
-                let i = index
+                let i = index;
+                let last = last
               "
               formArrayName="contact_person"
             >
@@ -1154,7 +1166,7 @@
                   <button class="remove" (click)="removeContactPerson(i)">
                     <mat-icon class="material-icons">remove_circle</mat-icon>
                   </button>
-                  <button class="add" (click)="addContactPerson()">
+                  <button *ngIf="last" class="add" (click)="addContactPerson()">
                     <mat-icon class="material-icons">add_circle</mat-icon>
                   </button>
                 </div>
