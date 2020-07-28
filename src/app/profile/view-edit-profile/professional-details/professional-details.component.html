@@ -924,7 +924,7 @@
 
                 <div class="icon-btn">
                   <button
-                    *ngIf="!first"
+                    *ngIf="!first || first !== last"
                     class="remove"
                     (click)="removeTrophy(i)"
                   >
@@ -988,6 +988,7 @@
                 let top_signing of professionalDetailsForm.get('top_signings')
                   .controls;
                 let i = index;
+                let first = first;
                 let last = last
               "
               formArrayName="top_signings"
@@ -1007,7 +1008,11 @@
                       </div>
                     </div>
                     <div class="icon-btn">
-                      <button class="remove" (click)="removeTopSigning(i)">
+                      <button
+                        class="remove"
+                        *ngIf="!first || first !== last"
+                        (click)="removeTopSigning(i)"
+                      >
                         <mat-icon class="material-icons"
                           >remove_circle</mat-icon
                         >
@@ -1090,6 +1095,7 @@
                 let contact of professionalDetailsForm.get('contact_person')
                   .controls;
                 let i = index;
+                let first = first;
                 let last = last
               "
               formArrayName="contact_person"
@@ -1163,7 +1169,11 @@
                 </div>
 
                 <div class="icon-btn">
-                  <button class="remove" (click)="removeContactPerson(i)">
+                  <button
+                    class="remove"
+                    *ngIf="!first || first !== last"
+                    (click)="removeContactPerson(i)"
+                  >
                     <mat-icon class="material-icons">remove_circle</mat-icon>
                   </button>
                   <button *ngIf="last" class="add" (click)="addContactPerson()">
