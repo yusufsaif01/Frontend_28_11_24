@@ -177,170 +177,175 @@
         </div>
 
         <!-- Major trophy -->
-        <div class="section">
-          <h3 class="section-heading">
-            Major trophy wins
-          </h3>
+        <div class="second-section">
+          <div class="section">
+            <h3 class="section-heading">
+              Major trophy wins
+            </h3>
 
-          <ng-container *ngIf="professionalDetails?.trophies">
-            <div
-              class="section-block"
-              *ngFor="
-                let trophies of professionalDetails.trophies;
-                let i = index
-              "
-            >
-              <span class="count">{{ i + 1 }}.</span>
-              <div class="info">
-                <div class="full">
-                  <div class="left">
-                    <h4>Trophy name</h4>
+            <ng-container *ngIf="professionalDetails?.trophies">
+              <div
+                class="section-block"
+                *ngFor="
+                  let trophies of professionalDetails.trophies;
+                  let i = index
+                "
+              >
+                <span class="count">{{ i + 1 }}.</span>
+                <div class="info">
+                  <div class="full">
+                    <div class="left">
+                      <h4>Trophy name</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ trophies.name }}</p>
+                    </div>
                   </div>
-                  <div class="right">
-                    <p>{{ trophies.name }}</p>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Year</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ trophies.year }}</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Position secured</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ trophies.position }}</p>
+                    </div>
                   </div>
                 </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>Year</h4>
-                  </div>
-                  <div class="right">
-                    <p>{{ trophies.year }}</p>
-                  </div>
+              </div>
+            </ng-container>
+          </div>
+          <!-- League name   -->
+          <div class="section">
+            <h3 class="section-heading">
+              League name
+            </h3>
+
+            <div class="section-block">
+              <div
+                class="full"
+                *ngIf="
+                  professionalDetails?.league !== 'Other';
+                  else otherLeague
+                "
+              >
+                <div class="left">
+                  <h4>{{ professionalDetails?.league | titlecase }}</h4>
                 </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>Position secured</h4>
-                  </div>
+                <ng-template #otherLeague>
                   <div class="right">
-                    <p>{{ trophies.position }}</p>
+                    <p>{{ professionalDetails?.league_other | titlecase }}</p>
                   </div>
-                </div>
+                </ng-template>
               </div>
             </div>
-          </ng-container>
-        </div>
-        <!-- League name   -->
-        <div class="section">
-          <h3 class="section-heading">
-            League name
-          </h3>
+          </div>
 
-          <div class="section-block">
-            <div
-              class="full"
-              *ngIf="professionalDetails?.league !== 'Other'; else otherLeague"
-            >
-              <div class="left">
-                <h4>{{ professionalDetails?.league | titlecase }}</h4>
+          <!-- top signings -->
+          <div class="section">
+            <h3 class="section-heading">
+              Top signings
+            </h3>
+            <ng-container *ngIf="professionalDetails?.top_signings">
+              <div
+                class="section-block"
+                *ngFor="
+                  let signings of professionalDetails.top_signings;
+                  let i = index
+                "
+              >
+                <div class="third">
+                  <p>
+                    <span>{{ i + 1 }}.</span> {{ signings.name }}
+                  </p>
+                </div>
               </div>
-              <ng-template #otherLeague>
+            </ng-container>
+          </div>
+
+          <!-- League name   -->
+          <div class="section">
+            <h3 class="section-heading mb-0">Type of {{ member_type }}</h3>
+            <div class="section-block">
+              <div class="full">
                 <div class="right">
-                  <p>{{ professionalDetails?.league_other | titlecase }}</p>
+                  <p>{{ professionalDetails?.type }}</p>
                 </div>
-              </ng-template>
-            </div>
-          </div>
-        </div>
-
-        <!-- top signings -->
-        <div class="section">
-          <h3 class="section-heading">
-            Top signings
-          </h3>
-          <ng-container *ngIf="professionalDetails?.top_signings">
-            <div
-              class="section-block"
-              *ngFor="
-                let signings of professionalDetails.top_signings;
-                let i = index
-              "
-            >
-              <div class="third">
-                <p>
-                  <span>{{ i + 1 }}.</span> {{ signings.name }}
-                </p>
-              </div>
-            </div>
-          </ng-container>
-        </div>
-
-        <!-- League name   -->
-        <div class="section">
-          <h3 class="section-heading mb-0">Type of {{ member_type }}</h3>
-          <div class="section-block">
-            <div class="full">
-              <div class="right">
-                <p>{{ professionalDetails?.type }}</p>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- State association affiliated under   -->
-        <div class="section">
-          <h3 class="section-heading mb-0">
-            State association affiliated under
-          </h3>
-          <div class="section-block">
-            <div class="full">
-              <div class="right">
-                <p>{{ professionalDetails?.association | titlecase }}</p>
+          <!-- State association affiliated under   -->
+          <div class="section">
+            <h3 class="section-heading mb-0">
+              State association affiliated under
+            </h3>
+            <div class="section-block">
+              <div class="full">
+                <div class="right">
+                  <p>{{ professionalDetails?.association | titlecase }}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- Contact details -->
-        <div class="section">
-          <h3 class="section-heading">
-            Contact details
-          </h3>
+          <!-- Contact details -->
+          <div class="section">
+            <h3 class="section-heading">
+              Contact details
+            </h3>
 
-          <ng-container *ngIf="professionalDetails?.contact_person">
-            <div
-              class="section-block"
-              *ngFor="
-                let person of professionalDetails.contact_person;
-                let i = index
-              "
-            >
-              <span class="count">{{ i + 1 }}.</span>
-              <div class="info">
-                <div class="half">
-                  <div class="left">
-                    <h4>Name</h4>
+            <ng-container *ngIf="professionalDetails?.contact_person">
+              <div
+                class="section-block"
+                *ngFor="
+                  let person of professionalDetails.contact_person;
+                  let i = index
+                "
+              >
+                <span class="count">{{ i + 1 }}.</span>
+                <div class="info">
+                  <div class="half">
+                    <div class="left">
+                      <h4>Name</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ person?.name }}</p>
+                    </div>
                   </div>
-                  <div class="right">
-                    <p>{{ person?.name }}</p>
+                  <div class="half">
+                    <div class="left">
+                      <h4>Designation</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ person?.designation }}</p>
+                    </div>
                   </div>
-                </div>
-                <div class="half">
-                  <div class="left">
-                    <h4>Designation</h4>
+                  <div class="half">
+                    <div class="left">
+                      <h4>Email address</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ person?.email }}</p>
+                    </div>
                   </div>
-                  <div class="right">
-                    <p>{{ person?.designation }}</p>
-                  </div>
-                </div>
-                <div class="half">
-                  <div class="left">
-                    <h4>Email address</h4>
-                  </div>
-                  <div class="right">
-                    <p>{{ person?.email }}</p>
-                  </div>
-                </div>
-                <div class="half">
-                  <div class="left">
-                    <h4>Contact number</h4>
-                  </div>
-                  <div class="right">
-                    <p>+91 {{ person?.mobile_number }}</p>
+                  <div class="half">
+                    <div class="left">
+                      <h4>Contact number</h4>
+                    </div>
+                    <div class="right">
+                      <p>+91 {{ person?.mobile_number }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </ng-container>
+            </ng-container>
+          </div>
         </div>
       </ng-container>
     </ng-container>
