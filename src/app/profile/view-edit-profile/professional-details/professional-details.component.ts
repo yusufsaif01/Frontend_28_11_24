@@ -128,14 +128,16 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   populateFormFields() {
-    if (this.professionalDetails.associated_club_academy === 'yes')
-      this.professionalDetailsForm
-        .get('associated_club_academy')
-        .setValue('yes');
-    else
-      this.professionalDetailsForm
-        .get('associated_club_academy')
-        .setValue('no');
+    if (this.member_type === 'player') {
+      if (this.professionalDetails.associated_club_academy === 'yes')
+        this.professionalDetailsForm
+          .get('associated_club_academy')
+          .setValue('yes');
+      else
+        this.professionalDetailsForm
+          .get('associated_club_academy')
+          .setValue('no');
+    }
 
     this.professionalDetailsForm.patchValue({
       strong_foot: this.professionalDetails.strong_foot
@@ -159,8 +161,12 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       association: this.professionalDetails.association
         ? this.professionalDetails.association
         : '',
-      association_other: this.professionalDetails.association_other
-        ? this.professionalDetails.association_other
+      league: this.professionalDetails.league
+        ? this.professionalDetails.league
+        : '',
+      type: this.professionalDetails.type ? this.professionalDetails.type : '',
+      league_other: this.professionalDetails.league_other
+        ? this.professionalDetails.league_other
         : ''
     });
   }
@@ -175,17 +181,51 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   manageCommonControls() {
-    let commonControls = [
-      {
-        name: 'association',
-        abstractControl: this._formBuilder.control('', [Validators.required])
-      },
-      {
-        name: 'association_other',
-        abstractControl: this._formBuilder.control('')
-      }
-    ];
-    this.formControlAdder(this.professionalDetailsForm, commonControls);
+    if (this.member_type === 'player') {
+      let commonControls = [
+        {
+          name: 'association',
+          abstractControl: this._formBuilder.control('', [Validators.required])
+        },
+        {
+          name: 'association_other',
+          abstractControl: this._formBuilder.control('')
+        }
+      ];
+      this.formControlAdder(this.professionalDetailsForm, commonControls);
+    }
+
+    if (this.member_type == 'academy' || this.member_type === 'club') {
+      let clubAcadCommonControls = [
+        {
+          name: 'league',
+          abstractControl: this._formBuilder.control('', [Validators.required])
+        },
+
+        {
+          name: 'league_other',
+          abstractControl: this._formBuilder.control('', [
+            Validators.pattern(/^[a-zA-Z0-9\&\-\(\)\' ]+$/)
+          ])
+        },
+        {
+          name: 'contact_person',
+          abstractControl: this._formBuilder.array([], [Validators.required])
+        },
+        {
+          name: 'type',
+          abstractControl: this._formBuilder.control('', [Validators.required])
+        },
+        {
+          name: 'trophies',
+          abstractControl: this._formBuilder.array([])
+        }
+      ];
+      this.formControlAdder(
+        this.professionalDetailsForm,
+        clubAcadCommonControls
+      );
+    }
   }
 
   createForm() {
@@ -199,6 +239,16 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
         head_coach_phone: [''],
         head_coach_email: [''],
         former_club_academy: ['']
+      });
+    } else if (this.member_type === 'club') {
+      this.professionalDetailsForm = this._formBuilder.group({
+        top_signings: this._formBuilder.array([], [])
+      });
+    } else if (this.member_type === 'academy') {
+      this.professionalDetailsForm = this._formBuilder.group({
+        document_type: ['', []],
+        number: [''],
+        top_players: this._formBuilder.array([], [])
       });
     }
   }
@@ -271,19 +321,20 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   setCategoryValidators() {
-    const associationOther = this.professionalDetailsForm.get(
-      'association_other'
-    );
-    this.professionalDetailsForm
-      .get('association')
-      .valueChanges.subscribe(association => {
-        if (association !== 'Others') {
-          associationOther.setValue('');
-        }
-      });
-    associationOther.updateValueAndValidity();
     if (this.member_type === 'player') {
       this.setPlayerValidators();
+
+      const associationOther = this.professionalDetailsForm.get(
+        'association_other'
+      );
+      this.professionalDetailsForm
+        .get('association')
+        .valueChanges.subscribe(association => {
+          if (association !== 'Others') {
+            associationOther.setValue('');
+          }
+        });
+      associationOther.updateValueAndValidity();
     }
   }
 
