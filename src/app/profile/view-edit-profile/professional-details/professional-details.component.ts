@@ -22,6 +22,26 @@ interface PositionContext {
   name: string;
 }
 
+interface trophyObject {
+  name: string;
+  year: string;
+  position: string;
+}
+
+interface contactPersonObject {
+  designation: string;
+  name: string;
+  email: string;
+  phone_number: string;
+}
+
+interface topSigningObject {
+  name: string;
+}
+interface topAcademyPlayerObject {
+  name: string;
+}
+
 @Component({
   selector: 'app-professional-details',
   templateUrl: './professional-details.component.html',
@@ -29,10 +49,17 @@ interface PositionContext {
 })
 export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   currentYear = new Date().getFullYear();
+
   position: FormArray;
+  contact_person: FormArray;
+  trophies: FormArray;
+  top_signings: FormArray;
+  top_players: FormArray;
+
   environment = environment;
   positionArray: GetPositionListResponseContext['data']['records'];
   strongFootArray = Constants.STRONG_FOOT;
+  designationArray = Constants.DESIGNATION_ARRAY;
   stateAssociationArray = Constants.STATE_ASSOCIATION_ARRAY;
   professionalDetailsForm: FormGroup;
   professionalDetails: GetProfessionalDetailsResponseContext['data'];
@@ -164,6 +191,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       league: this.professionalDetails.league
         ? this.professionalDetails.league
         : '',
+      trophies: this.professionalDetails.trophies,
       type: this.professionalDetails.type ? this.professionalDetails.type : '',
       league_other: this.professionalDetails.league_other
         ? this.professionalDetails.league_other
@@ -405,6 +433,120 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
 
     controlName.setValidators(validationArray);
     controlName.updateValueAndValidity();
+  }
+
+  addContactPerson = (data?: contactPersonObject) => {
+    this.contact_person = this.professionalDetailsForm.get(
+      'contact_person'
+    ) as FormArray;
+
+    if (data !== undefined) {
+      this.contact_person.push(
+        this._formBuilder.group({
+          designation: [data.designation, [Validators.required]],
+          name: [data.name, [Validators.required]],
+          email: [data.email, [Validators.required, Validators.email]],
+          phone_number: [
+            data.phone_number,
+            [
+              Validators.required,
+              Validators.minLength(10),
+              Validators.maxLength(10),
+              Validators.pattern(/^\d+$/)
+            ]
+          ]
+        })
+      );
+    } else {
+      this.contact_person.push(
+        this._formBuilder.group({
+          designation: ['', [Validators.required]],
+          name: ['', [Validators.required]],
+          email: ['', [Validators.required, Validators.email]],
+          phone_number: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(10),
+              Validators.maxLength(10),
+              Validators.pattern(/^\d+$/)
+            ]
+          ]
+        })
+      );
+    }
+  };
+
+  removeContactPerson(i: number) {
+    this.contact_person.removeAt(i);
+  }
+
+  addTrophy = (data?: trophyObject) => {
+    this.trophies = this.professionalDetailsForm.get('trophies') as FormArray;
+
+    if (data !== undefined) {
+      this.trophies.push(
+        this._formBuilder.group({
+          name: [data.name, [Validators.required]],
+          year: [
+            data.year,
+            [
+              Validators.required,
+              Validators.minLength(4),
+              Validators.maxLength(4),
+              Validators.max(this.currentYear),
+              Validators.pattern(/^\d+$/)
+            ]
+          ],
+          position: [data.position, [Validators.required]]
+        })
+      );
+    } else {
+      this.trophies.push(
+        this._formBuilder.group({
+          name: ['', [Validators.required]],
+          year: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(4),
+              Validators.maxLength(4),
+              Validators.max(this.currentYear),
+              Validators.pattern(/^\d+$/)
+            ]
+          ],
+          position: ['', [Validators.required]]
+        })
+      );
+    }
+  };
+
+  removeTrophy(i: number) {
+    this.trophies.removeAt(i);
+  }
+
+  addTopSigning = (data?: topSigningObject) => {
+    this.top_signings = this.professionalDetailsForm.get(
+      'top_signings'
+    ) as FormArray;
+
+    if (data !== undefined) {
+      this.top_signings.push(
+        this._formBuilder.group({
+          name: [data.name, []]
+        })
+      );
+    } else {
+      this.top_signings.push(
+        this._formBuilder.group({
+          name: ['', []]
+        })
+      );
+    }
+  };
+
+  removeTopSigning(i: number) {
+    this.top_signings.removeAt(i);
   }
 
   ngOnDestroy() {}

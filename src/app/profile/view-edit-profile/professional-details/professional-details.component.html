@@ -871,68 +871,64 @@
           <!-- major trophy wins -->
           <div class="section">
             <h3>Major trophy wins</h3>
-            <div class="input-container">
-              <div class="fourth">
-                <div class="form-block">
-                  <label>Trophy name </label>
-                  <select>
-                    <option value="">Select trophy name</option>
-                  </select>
+            <!-- Commented the below button for testing -->
+            <!-- <button class="add" (click)="addTrophy()">
+              <mat-icon class="material-icons">add_circle</mat-icon>
+            </button> -->
+            <div
+              class="input-container"
+              *ngFor="
+                let trophy of professionalDetailsForm.get('trophies').controls;
+                let i = index
+              "
+              formArrayName="trophies"
+            >
+              <ng-container [formGroupName]="i">
+                <div class="fourth">
+                  <div class="form-block">
+                    <label>Trophy name</label>
+                    <input
+                      type="text"
+                      matinput
+                      placeholder="Trophy Name"
+                      formControlName="name"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div class="fourth">
-                <div class="form-block">
-                  <label>Year</label>
-                  <input type="text" matinput placeholder="Year" />
+                <div class="fourth">
+                  <div class="form-block">
+                    <label>Year</label>
+                    <input
+                      type="text"
+                      matinput
+                      placeholder="Year"
+                      formControlName="year"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div class="fourth">
-                <div class="form-block">
-                  <label>Position secured </label>
-                  <input type="text" matinput placeholder="Position secured" />
+                <div class="fourth">
+                  <div class="form-block">
+                    <label>Position secured </label>
+                    <input
+                      type="text"
+                      matinput
+                      placeholder="Position secured"
+                      formControlName="position"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div class="icon-btn">
-                <button class="remove">
-                  <mat-icon class="material-icons">remove_circle</mat-icon>
-                </button>
-              </div>
-            </div>
-            <div class="input-container">
-              <div class="fourth">
-                <div class="form-block">
-                  <label>Trophy name </label>
-                  <select>
-                    <option value="">Select trophy name</option>
-                  </select>
+                <div class="icon-btn">
+                  <button class="remove" (click)="removeTrophy(i)">
+                    <mat-icon class="material-icons">remove_circle</mat-icon>
+                  </button>
+                  <button class="add" (click)="addTrophy()">
+                    <mat-icon class="material-icons">add_circle</mat-icon>
+                  </button>
                 </div>
-              </div>
-
-              <div class="fourth">
-                <div class="form-block">
-                  <label>Year</label>
-                  <input type="text" matinput placeholder="Year" />
-                </div>
-              </div>
-
-              <div class="fourth">
-                <div class="form-block">
-                  <label>Position secured </label>
-                  <input type="text" matinput placeholder="Position secured" />
-                </div>
-              </div>
-
-              <div class="icon-btn">
-                <button class="remove">
-                  <mat-icon class="material-icons">remove_circle</mat-icon>
-                </button>
-                <button class="add">
-                  <mat-icon class="material-icons">add_circle</mat-icon>
-                </button>
-              </div>
+              </ng-container>
             </div>
           </div>
 
@@ -961,40 +957,46 @@
           <!-- Top signings -->
           <div class="section">
             <h3>Top signings <span>*</span></h3>
-            <div class="input-container">
-              <div class="two-fifth">
-                <div class="wrapper-field">
-                  <div class="field">
-                    <div class="form-block">
-                      <label>Name </label>
-                      <input type="text" matinput placeholder="Name" />
+            <!-- Commented the below button for testing -->
+            <!-- <button class="add" (click)="addTopSigning()">
+              <mat-icon class="material-icons">add_circle</mat-icon>
+            </button> -->
+            <div
+              class="input-container"
+              *ngFor="
+                let top_signing of professionalDetailsForm.get('top_signings')
+                  .controls;
+                let i = index
+              "
+              formArrayName="top_signings"
+            >
+              <ng-container [formGroupName]="i">
+                <div class="two-fifth">
+                  <div class="wrapper-field">
+                    <div class="field">
+                      <div class="form-block">
+                        <label>Name </label>
+                        <input
+                          type="text"
+                          matinput
+                          placeholder="Name"
+                          formControlName="name"
+                        />
+                      </div>
+                    </div>
+                    <div class="icon-btn">
+                      <button class="remove" (click)="removeTopSigning(i)">
+                        <mat-icon class="material-icons"
+                          >remove_circle</mat-icon
+                        >
+                      </button>
+                      <button class="add" (click)="addTopSigning()">
+                        <mat-icon class="material-icons">add_circle</mat-icon>
+                      </button>
                     </div>
                   </div>
-                  <div class="icon-btn">
-                    <button class="remove">
-                      <mat-icon class="material-icons">remove_circle</mat-icon>
-                    </button>
-                  </div>
                 </div>
-              </div>
-              <div class="two-fifth">
-                <div class="wrapper-field">
-                  <div class="field">
-                    <div class="form-block">
-                      <label>Name </label>
-                      <input type="text" matinput placeholder="Name" />
-                    </div>
-                  </div>
-                  <div class="icon-btn">
-                    <button class="remove">
-                      <mat-icon class="material-icons">remove_circle</mat-icon>
-                    </button>
-                    <button class="add">
-                      <mat-icon class="material-icons">add_circle</mat-icon>
-                    </button>
-                  </div>
-                </div>
-              </div>
+              </ng-container>
             </div>
           </div>
 
@@ -1028,113 +1030,98 @@
           <!-- Contact detials -->
           <div class="section">
             <h3>Contact Details</h3>
-            <div class="input-container">
-              <div class="third">
-                <div class=" form-block">
-                  <label>Designation <span>*</span> </label>
-                  <select>
-                    <option value="">Select trophy name</option>
-                  </select>
+            <!-- Commented the below button for testing -->
+            <!-- <div class="icon-btn">
+              <button class="add" (click)="addContactPerson()">
+                <mat-icon class="material-icons">add_circle</mat-icon>
+              </button>
+            </div> -->
+            <div
+              class="input-container"
+              *ngFor="
+                let contact of professionalDetailsForm.get('contact_person')
+                  .controls;
+                let i = index
+              "
+              formArrayName="contact_person"
+            >
+              <ng-container [formGroupName]="i">
+                <div class="third">
+                  <div class="form-block">
+                    <label>Designation <span>*</span> </label>
+                    <select
+                      formControlName="designation"
+                      matNativeControl
+                      required
+                    >
+                      <option value="">Select designation</option>
+                      <ng-container
+                        *ngFor="let designation of designationArray"
+                      >
+                        <option value="{{ designation.value }}">{{
+                          designation.name
+                        }}</option>
+                      </ng-container>
+                    </select>
+                  </div>
                 </div>
-              </div>
 
-              <div class="third">
-                <div class="form-block">
-                  <label>Name <span>*</span></label>
-                  <input type="text" matinput placeholder="Year" />
+                <div class="third">
+                  <div class="form-block">
+                    <label>Name <span>*</span></label>
+                    <input
+                      type="text"
+                      matinput
+                      placeholder="Name"
+                      formControlName="name"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div class="third">
-                <div class="form-block">
-                  <label>Email <span>*</span> </label>
-                  <input type="text" matinput placeholder="Position secured" />
+                <div class="third">
+                  <div class="form-block">
+                    <label>Email <span>*</span> </label>
+                    <input
+                      type="text"
+                      matinput
+                      placeholder="Email"
+                      formControlName="email"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div class="third">
-                <div class="form-block">
-                  <label>Mobile number<span>*</span></label>
-                  <div class="phone-block">
-                    <div class="country-code">
-                      <select disabled>
-                        <option>+91</option>
-                      </select>
-                    </div>
-                    <div class="phone-number">
-                      <input
-                        type="text"
-                        matInput
-                        autocomplete="off"
-                        required
-                        placeholder="Mobile Number"
-                      />
+                <div class="third">
+                  <div class="form-block">
+                    <label>Mobile number<span>*</span></label>
+                    <div class="phone-block">
+                      <div class="country-code">
+                        <select disabled>
+                          <option>+91</option>
+                        </select>
+                      </div>
+                      <div class="phone-number">
+                        <input
+                          type="text"
+                          matInput
+                          autocomplete="off"
+                          required
+                          placeholder="Phone Number"
+                          formControlName="phone_number"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="icon-btn">
-                <button class="remove">
-                  <mat-icon class="material-icons">remove_circle</mat-icon>
-                </button>
-              </div>
-            </div>
-
-            <div class="input-container">
-              <div class="third">
-                <div class=" form-block">
-                  <label>Designation <span>*</span> </label>
-                  <select>
-                    <option value="">Select trophy name</option>
-                  </select>
+                <div class="icon-btn">
+                  <button class="remove" (click)="removeContactPerson(i)">
+                    <mat-icon class="material-icons">remove_circle</mat-icon>
+                  </button>
+                  <button class="add" (click)="addContactPerson()">
+                    <mat-icon class="material-icons">add_circle</mat-icon>
+                  </button>
                 </div>
-              </div>
-
-              <div class="third">
-                <div class="form-block">
-                  <label>Name <span>*</span></label>
-                  <input type="text" matinput placeholder="Year" />
-                </div>
-              </div>
-
-              <div class="third">
-                <div class="form-block">
-                  <label>Email <span>*</span> </label>
-                  <input type="text" matinput placeholder="Position secured" />
-                </div>
-              </div>
-
-              <div class="third">
-                <div class="form-block">
-                  <label>Mobile number<span>*</span></label>
-                  <div class="phone-block">
-                    <div class="country-code">
-                      <select disabled>
-                        <option>+91</option>
-                      </select>
-                    </div>
-                    <div class="phone-number">
-                      <input
-                        type="text"
-                        matInput
-                        autocomplete="off"
-                        required
-                        placeholder="Mobile Number"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="icon-btn">
-                <button class="remove">
-                  <mat-icon class="material-icons">remove_circle</mat-icon>
-                </button>
-                <button class="add">
-                  <mat-icon class="material-icons">add_circle</mat-icon>
-                </button>
-              </div>
+              </ng-container>
             </div>
           </div>
         </form>
