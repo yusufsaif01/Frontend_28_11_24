@@ -165,6 +165,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
                 this.addTopSigning
               ]
             };
+
             for (const key in controlFuncObject) {
               this.populateDynamicControl(
                 controlFuncObject[key][0],
@@ -216,7 +217,6 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       league: this.professionalDetails.league
         ? this.professionalDetails.league
         : '',
-      trophies: this.professionalDetails.trophies,
       type: this.professionalDetails.type ? this.professionalDetails.type : '',
       league_other: this.professionalDetails.league_other
         ? this.professionalDetails.league_other
@@ -411,12 +411,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
       this.setRequestDataObject(requestData, 'contact_person');
       this.setRequestDataObject(requestData, 'trophies');
-
-      if (this.member_type === 'club')
-        this.setRequestDataObject(requestData, 'top_signings');
-
-      if (this.member_type === 'academy')
-        this.setRequestDataObject(requestData, 'top_players');
+      this.setRequestDataObject(requestData, 'top_signings');
     }
 
     this._professionalDetailsService
