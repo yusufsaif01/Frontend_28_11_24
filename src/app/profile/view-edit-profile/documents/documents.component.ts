@@ -297,9 +297,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   setCategoryValidators() {
     if (this.member_type === 'player') {
       this.setPlayerValidators();
-    }
-    if (this.member_type === 'player') {
-      this.setPlayerValidators();
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
       if (this.member_type === 'academy') {
         const documentNumber = this.documentsDetailsForm.get('number');
