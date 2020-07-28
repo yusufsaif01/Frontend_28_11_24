@@ -165,6 +165,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
                 this.addTopSigning
               ]
             };
+
             for (const key in controlFuncObject) {
               this.populateDynamicControl(
                 controlFuncObject[key][0],
@@ -216,7 +217,6 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       league: this.professionalDetails.league
         ? this.professionalDetails.league
         : '',
-      trophies: this.professionalDetails.trophies,
       type: this.professionalDetails.type ? this.professionalDetails.type : '',
       league_other: this.professionalDetails.league_other
         ? this.professionalDetails.league_other
