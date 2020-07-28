@@ -32,7 +32,7 @@ interface contactPersonObject {
   designation: string;
   name: string;
   email: string;
-  phone_number: string;
+  mobile_number: string;
 }
 
 interface topSigningObject {
@@ -471,8 +471,8 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
           designation: [data.designation, [Validators.required]],
           name: [data.name, [Validators.required]],
           email: [data.email, [Validators.required, Validators.email]],
-          phone_number: [
-            data.phone_number,
+          mobile_number: [
+            data.mobile_number,
             [
               Validators.required,
               Validators.minLength(10),
@@ -488,7 +488,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
           designation: ['', [Validators.required]],
           name: ['', [Validators.required]],
           email: ['', [Validators.required, Validators.email]],
-          phone_number: [
+          mobile_number: [
             '',
             [
               Validators.required,

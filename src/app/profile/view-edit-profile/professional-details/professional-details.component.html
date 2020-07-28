@@ -335,7 +335,7 @@
                     <h4>Contact number</h4>
                   </div>
                   <div class="right">
-                    <p>+91 {{ person?.phone_number }}</p>
+                    <p>+91 {{ person?.mobile_number }}</p>
                   </div>
                 </div>
               </div>
@@ -1068,7 +1068,7 @@
 
           <!-- Top signings -->
           <div class="section">
-            <h3>Top signings <span>*</span></h3>
+            <h3>Top signings</h3>
             <div
               class="input-container"
               *ngFor="
@@ -1380,17 +1380,17 @@
                           matInput
                           autocomplete="off"
                           required
-                          placeholder="Phone Number"
-                          formControlName="phone_number"
+                          placeholder="Mobile number"
+                          formControlName="mobile_number"
                         />
                         <mat-error
                           *ngIf="
                             professionalDetailsForm.controls.contact_person.controls[
                               i
-                            ].get('phone_number').invalid &&
+                            ].get('mobile_number').invalid &&
                             professionalDetailsForm.controls.contact_person.controls[
                               i
-                            ].get('phone_number').touched
+                            ].get('mobile_number').touched
                           "
                           class="error-text"
                         >
@@ -1399,11 +1399,11 @@
                               professionalDetailsForm.controls.contact_person.controls[
                                 i
                               ]
-                                .get('phone_number')
+                                .get('mobile_number')
                                 .hasError('required')
                             "
                             translate
-                            >Phone Number is required</span
+                            >Mobile number is required</span
                           >
                           <ng-template #lengthBlock>
                             <span
@@ -1411,7 +1411,7 @@
                                 professionalDetailsForm.controls.contact_person.controls[
                                   i
                                 ]
-                                  .get('phone_number')
+                                  .get('mobile_number')
                                   .hasError('minlength')
                               "
                             >
@@ -1419,7 +1419,7 @@
                               {{
                                 professionalDetailsForm.controls.contact_person.controls[
                                   i
-                                ].get('phone_number').errors.minlength
+                                ].get('mobile_number').errors.minlength
                                   .requiredLength
                               }}
                               digits
@@ -1429,7 +1429,7 @@
                                 professionalDetailsForm.controls.contact_person.controls[
                                   i
                                 ]
-                                  .get('phone_number')
+                                  .get('mobile_number')
                                   .hasError('maxlength')
                               "
                             >
@@ -1437,7 +1437,7 @@
                               {{
                                 professionalDetailsForm.controls.contact_person.controls[
                                   i
-                                ].get('phone_number').errors.maxlength
+                                ].get('mobile_number').errors.maxlength
                                   .requiredLength
                               }}
                               digits
@@ -1448,12 +1448,12 @@
                               professionalDetailsForm.controls.contact_person.controls[
                                 i
                               ]
-                                .get('phone_number')
+                                .get('mobile_number')
                                 .hasError('pattern');
                               else lengthBlock
                             "
                           >
-                            Phone Number format is invalid
+                            Mobile number format is invalid
                           </span>
                         </mat-error>
                       </div>
