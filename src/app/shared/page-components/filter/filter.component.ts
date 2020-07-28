@@ -292,7 +292,7 @@ export class FilterComponent implements OnInit {
 
   getCitiesListing(countryID: string, stateID: string) {
     this._sharedService
-      .getCitiesListing(countryID, stateID)
+      .getDistrictList(countryID, stateID)
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {

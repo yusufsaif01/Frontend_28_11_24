@@ -7,7 +7,7 @@ export class ManageLocationTableConfig extends TableConfig {
       'serialNumber',
       'country',
       'no_of_state',
-      'no_of_city'
+      'no_of_district'
     ];
 
     this.columns = {
@@ -32,11 +32,11 @@ export class ManageLocationTableConfig extends TableConfig {
           return ele[this.columns.no_of_state.code];
         }
       },
-      no_of_city: {
-        code: 'no_of_city',
-        text: 'No of Cities',
+      no_of_district: {
+        code: 'no_of_district',
+        text: 'No of District',
         getValue: (ele: any) => {
-          return ele[this.columns.no_of_city.code];
+          return ele[this.columns.no_of_district.code];
         }
       },
       action: {

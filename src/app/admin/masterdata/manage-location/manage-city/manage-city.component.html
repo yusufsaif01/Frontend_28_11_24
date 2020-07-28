@@ -19,7 +19,7 @@
           <ul>
             <li>Master Data</li>
             <li>Manage Location</li>
-            <li>Manage City</li>
+            <li>Manage District</li>
           </ul>
         </div>
       </div>
@@ -28,7 +28,7 @@
       <!-- add state form  -->
       <div class="addform">
         <div class="form-block">
-          <form [formGroup]="addCityForm">
+          <form [formGroup]="addDistrictForm">
             <div class="form-part">
               <div class="input-wrapper">
                 <label>State</label>
@@ -41,17 +41,17 @@
                 >
                   <option value="">Select State</option>
                   <ng-container *ngFor="let state of stateArray">
-                    <option value="{{ state.id }}">{{ state.name }}</option>
+                    <option [value]="state.id">{{ state.name }}</option>
                   </ng-container>
                 </select>
                 <mat-error
                   *ngIf="
-                    addCityForm.controls.state_id.invalid &&
-                    addCityForm.controls.state_id.touched
+                    addDistrictForm.controls.state_id.invalid &&
+                    addDistrictForm.controls.state_id.touched
                   "
                 >
                   <span
-                    *ngIf="addCityForm.controls.state_id.errors.required"
+                    *ngIf="addDistrictForm.controls.state_id.errors.required"
                     translate
                   >
                     State is required
@@ -59,35 +59,35 @@
                 </mat-error>
               </div>
               <div class="input-wrapper">
-                <label>City</label>
+                <label>District</label>
                 <input
                   formControlName="name"
                   type="text"
                   matinput
-                  placeholder="City"
-                  #cityInput
+                  placeholder="District"
+                  #districtInput
                   (keyup.enter)="blurElement()"
                   trim="blur"
                 />
                 <mat-error
                   *ngIf="
-                    addCityForm.controls.name.invalid &&
-                    addCityForm.controls.name.touched
+                    addDistrictForm.controls.name.invalid &&
+                    addDistrictForm.controls.name.touched
                   "
                 >
                   <span
-                    *ngIf="addCityForm.controls.name.errors.required"
+                    *ngIf="addDistrictForm.controls.name.errors.required"
                     translate
                   >
-                    City is required
+                    District is required
                   </span>
-                  <span *ngIf="addCityForm.controls.name.errors.pattern">
-                    City format is invalid
+                  <span *ngIf="addDistrictForm.controls.name.errors.pattern">
+                    District format is invalid
                   </span>
                 </mat-error>
               </div>
               <div class="input-wrapper">
-                <button (click)="addCity()" [disabled]="!addCityForm.valid">
+                <button (click)="addCity()" [disabled]="!addDistrictForm.valid">
                   Add
                 </button>
               </div>
@@ -105,7 +105,7 @@
           <div class="search">
             <div class="search-box">
               <app-grid-search-box
-                placeholder="Search City"
+                placeholder="Search District"
                 (sendSearchText)="getSearchText($event)"
               >
               </app-grid-search-box>
@@ -135,12 +135,12 @@
             let-id="id"
             let-serialNumber="serialNumber"
           >
-            <div class="action-buttons" *ngIf="!editMode || id != cityId">
+            <div class="action-buttons" *ngIf="!editMode || id != districtId">
               <button matTooltip="Edit" (click)="editCity(name, id)">
                 <img src="assets/images/icons/edit.png" alt="Edit" />
               </button>
             </div>
-            <div class="action-buttons" *ngIf="editMode && id == cityId">
+            <div class="action-buttons" *ngIf="editMode && id == districtId">
               <button matTooltip="Save" (click)="updateCity(name, id)">
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
