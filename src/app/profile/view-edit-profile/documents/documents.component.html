@@ -23,35 +23,105 @@
       </div>
 
       <div class="second-section">
-        <h3 class="mb-1">Aadhaar Details</h3>
-        <!-- first row -->
-        <div class="view-details">
-          <div class="details">
-            <div class="left">
-              <h4>Documents Type</h4>
-            </div>
-            <div class="right">
-              <p>Tin number</p>
-            </div>
-          </div>
-        </div>
-        <!-- first row -->
-        <div class="view-details">
-          <div class="details">
-            <div class="left">
-              <h4>Aadhaar number</h4>
-            </div>
-            <div class="right">
-              <p>{{ aadhar_number | mask: 'XXXX XXXX 0000' }}</p>
+        <ng-container *ngIf="member_type === 'academy'">
+          <h3 class="mb-1">Document details</h3>
+          <div class="view-details">
+            <div class="details">
+              <div class="left">
+                <h4>Document type</h4>
+              </div>
+              <div class="right">
+                <p>{{ document_type | titlecase }}</p>
+              </div>
             </div>
           </div>
-        </div>
+          <div class="view-details">
+            <div class="details">
+              <div class="left">
+                <h4>Document number</h4>
+              </div>
+              <div class="right">
+                <p>{{ document_number | mask: 'XXXX XXXX 0000' }}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="member_type === 'club'">
+          <h3 class="mb-1">AIFF accreditation details</h3>
+          <!-- first row -->
+          <div class="view-details">
+            <div class="details">
+              <div class="left">
+                <h4>AIFF accreditation id</h4>
+              </div>
+              <div class="right">
+                <p>{{ aiff_id | mask: 'XXXX XXXX 0000' }}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="member_type === 'player'">
+          <h3 class="mb-1">Aadhaar details</h3>
+          <!-- first row -->
+          <div class="view-details">
+            <div class="details">
+              <div class="left">
+                <h4>Aadhaar number</h4>
+              </div>
+              <div class="right">
+                <p>{{ aadhar_number | mask: 'XXXX XXXX 0000' }}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </div>
 
-      <div class="document">
+      <div
+        class="document"
+        *ngIf="member_type === 'club'"
+        [matTooltip]="
+          isVerifiedDocument('aiff', 'approved')
+            ? 'Aiff details are verified'
+            : ''
+        "
+      >
         <div class="doc-img">
           <h3>AIFF document</h3>
-          <a><img src="assets/images/member/aadhaar.png" alt=""/></a>
+          <a
+            *ngIf="profile_status !== 'verified'"
+            [href]="aiff_url"
+            target="_blank"
+            ><img src="assets/images/member/aadhaar.png" alt=""
+          /></a>
+          <img
+            *ngIf="profile_status === 'verified'"
+            src="assets/images/member/aadhaar.png"
+            alt=""
+          />
+        </div>
+      </div>
+      <div
+        class="document"
+        *ngIf="member_type === 'academy'"
+        [matTooltip]="
+          isVerifiedDocument(document_type, 'approved')
+            ? 'Document details are verified'
+            : ''
+        "
+      >
+        <div class="doc-img">
+          <h3>Document image</h3>
+          <a
+            *ngIf="profile_status !== 'verified'"
+            [href]="document_url"
+            target="_blank"
+            ><img src="assets/images/member/aadhaar.png" alt=""
+          /></a>
+          <img
+            *ngIf="profile_status === 'verified'"
+            src="assets/images/member/aadhaar.png"
+            alt=""
+          />
         </div>
       </div>
 
@@ -105,7 +175,7 @@
         </ng-container>
       </div>
 
-      <div class="verification-profile">
+      <div class="verification-profile" *ngIf="member_type === 'player'">
         <h3>Photo for verification :</h3>
         <ng-container *ngIf="player_photo_url">
           <a [href]="player_photo_url" target="_blank">
@@ -123,7 +193,7 @@
         <h2>Documents</h2>
       </div>
 
-      <form [formGroup]="documentsDetailsForm">
+      <form [formGroup]="documentsDetailsForm" *ngIf="member_type === 'player'">
         <div class="document-wrapper">
           <h3
             [matTooltip]="
@@ -159,7 +229,10 @@
               <div class="full">
                 <h4 class="pb-1 mt-1">Document details</h4>
 
-                <div class="radio-block doc-type">
+                <div
+                  class="radio-block doc-type"
+                  *ngIf="member_type === 'academy'"
+                >
                   <label class="pb-1">Document type</label>
                   <mat-radio-group>
                     <mat-radio-button value="AIFF">
@@ -512,6 +585,343 @@
                   >Player Photo must be of type PNG / JPG / JPEG</span
                 >
               </mat-error>
+            </div>
+          </div>
+
+          <div class="actions mt-2 mb-2">
+            <div class="btn-group">
+              <button (click)="toggleMode()" class="btn-normal">Cancel</button>
+              <button
+                [disabled]="!documentsDetailsForm.valid"
+                (click)="editDocumentsDetails()"
+                class="btn-active"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <form [formGroup]="documentsDetailsForm" *ngIf="member_type === 'club'">
+        <div class="document-wrapper">
+          <h3
+            [matTooltip]="
+              profile_status === 'verified'
+                ? 'Not allowed to update aiff details'
+                : ''
+            "
+          >
+            Aiff accrediation details <span>*</span>
+          </h3>
+          <label
+            [matTooltip]="
+              profile_status === 'verified'
+                ? 'Not allowed to update aadhaar details'
+                : ''
+            "
+            >Upload AIFF document <span>*</span></label
+          >
+          <div class="section">
+            <!-- second -->
+            <div class="input-container">
+              <div class="full"></div>
+            </div>
+            <div class="upload-section">
+              <div class="upload-document">
+                <label
+                  [matTooltip]="
+                    profile_status === 'verified'
+                      ? 'Not allowed to update aadhaar details'
+                      : ''
+                  "
+                  for="upload-pdf"
+                >
+                  <div class="upload-btn">
+                    <img src="assets/images/member/front.png" alt="" />
+                    <span>
+                      <input
+                        #aiffPdfInput
+                        formControlName="aiff"
+                        type="file"
+                        id="upload-pdf"
+                        (change)="uploadAiff($event.target.files)"
+                      />
+                      <span>Upload</span>
+                    </span>
+                  </div>
+                  <p>{{ (aiffPdfInput?.files)[0]?.name }}</p>
+                  <mat-error
+                    *ngIf="
+                      documentsDetailsForm.controls.aiff.errors &&
+                      documentsDetailsForm.controls.aiff.dirty
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        documentsDetailsForm.controls.aiff.errors
+                          .requiredPdfDocument
+                      "
+                      translate
+                      >Aiff must be of type PDF</span
+                    >
+                  </mat-error>
+                </label>
+              </div>
+            </div>
+
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <label
+                    [matTooltip]="
+                      profile_status === 'verified'
+                        ? 'Not allowed to update aadhaar details'
+                        : ''
+                    "
+                    >Aiff Id <span>*</span></label
+                  >
+                  <input
+                    formControlName="aiff_id"
+                    type="text"
+                    placeholder="Aiff number"
+                    required
+                  />
+                  <mat-error
+                    *ngIf="
+                      documentsDetailsForm.controls.aiff_id.invalid &&
+                      documentsDetailsForm.controls.aiff_id.touched
+                    "
+                  >
+                    <span
+                      translate
+                      class="error-text"
+                      *ngIf="
+                        documentsDetailsForm.controls.aiff_id.errors.required
+                      "
+                    >
+                      Aiff Number is required</span
+                    >
+                    <ng-template #lengthBlock>
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.aiff_id.errors.minlength
+                        "
+                      >
+                        Please provide number upto
+                        {{
+                          documentsDetailsForm.controls.aiff_id.errors.minlength
+                            .requiredLength
+                        }}
+                        characters
+                      </span>
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.aiff_id.errors.maxlength
+                        "
+                      >
+                        Please provide number upto
+                        {{
+                          documentsDetailsForm.controls.aiff_id.errors.maxlength
+                            .requiredLength
+                        }}
+                        characters
+                      </span>
+                    </ng-template>
+                    <span
+                      translate
+                      class="error-text"
+                      *ngIf="
+                        documentsDetailsForm.controls.aiff_id.errors.pattern;
+                        else lengthBlock
+                      "
+                    >
+                      Aiff Number is invalid
+                    </span>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions mt-2 mb-2">
+            <div class="btn-group">
+              <button (click)="toggleMode()" class="btn-normal">Cancel</button>
+              <button
+                [disabled]="!documentsDetailsForm.valid"
+                (click)="editDocumentsDetails()"
+                class="btn-active"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <form
+        [formGroup]="documentsDetailsForm"
+        *ngIf="member_type === 'academy'"
+      >
+        <div class="document-wrapper">
+          <h3
+            [matTooltip]="
+              profile_status === 'verified'
+                ? 'Not allowed to update document details'
+                : ''
+            "
+          >
+            Document details <span>*</span>
+          </h3>
+
+          <div class="section">
+            <!-- second -->
+            <div class="input-container">
+              <div class="full">
+                <div class="radio-block doc-type">
+                  <label class="pb-1">Document type</label>
+                  <mat-radio-group
+                    formControlName="document_type"
+                    (change)="onChangeDocumentType($event)"
+                  >
+                    <mat-radio-button value="aiff">
+                      AIFF status
+                    </mat-radio-button>
+                    <mat-radio-button value="pan">
+                      Pan number
+                    </mat-radio-button>
+                    <mat-radio-button value="coi">
+                      COI number
+                    </mat-radio-button>
+                    <mat-radio-button value="tin">
+                      Tin number
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+            <div class="upload-section">
+              <label
+                [matTooltip]="
+                  profile_status === 'verified'
+                    ? 'Not allowed to update document details'
+                    : ''
+                "
+                >Upload document <span>*</span></label
+              >
+              <div class="upload-document">
+                <label
+                  [matTooltip]="
+                    profile_status === 'verified'
+                      ? 'Not allowed to update document details'
+                      : ''
+                  "
+                  for="upload-pdf"
+                >
+                  <div class="upload-btn">
+                    <img src="assets/images/member/front.png" alt="" />
+                    <span>
+                      <input
+                        #documentPdfInput
+                        formControlName="document"
+                        type="file"
+                        id="upload-pdf"
+                        (change)="uploadDocument($event.target.files, 'single')"
+                      />
+                      <span>Upload</span>
+                    </span>
+                  </div>
+                  <p>{{ (documentPdfInput?.files)[0]?.name }}</p>
+                  <mat-error
+                    *ngIf="
+                      documentsDetailsForm.controls.document.errors &&
+                      documentsDetailsForm.controls.document.dirty
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        documentsDetailsForm.controls.document.errors
+                          .requiredPdfDocument
+                      "
+                      translate
+                      >Document must be of type PDF</span
+                    >
+                  </mat-error>
+                </label>
+              </div>
+            </div>
+
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <label
+                    [matTooltip]="
+                      profile_status === 'verified'
+                        ? 'Not allowed to update aadhaar details'
+                        : ''
+                    "
+                    >Document number <span>*</span></label
+                  >
+                  <input
+                    formControlName="number"
+                    type="text"
+                    placeholder="Document number"
+                    required
+                  />
+                  <mat-error
+                    *ngIf="
+                      documentsDetailsForm.controls.number.invalid &&
+                      documentsDetailsForm.controls.number.touched
+                    "
+                  >
+                    <span
+                      translate
+                      class="error-text"
+                      *ngIf="
+                        documentsDetailsForm.controls.number.errors.required
+                      "
+                    >
+                      Document Number is required</span
+                    >
+                    <ng-template #lengthBlock>
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.number.errors.minlength
+                        "
+                      >
+                        Please provide number upto
+                        {{
+                          documentsDetailsForm.controls.number.errors.minlength
+                            .requiredLength
+                        }}
+                        characters
+                      </span>
+                      <span
+                        *ngIf="
+                          documentsDetailsForm.controls.number.errors.maxlength
+                        "
+                      >
+                        Please provide number upto
+                        {{
+                          documentsDetailsForm.controls.number.errors.maxlength
+                            .requiredLength
+                        }}
+                        characters
+                      </span>
+                    </ng-template>
+                    <span
+                      translate
+                      class="error-text"
+                      *ngIf="
+                        documentsDetailsForm.controls.number.errors.pattern;
+                        else lengthBlock
+                      "
+                    >
+                      Document Number is invalid
+                    </span>
+                  </mat-error>
+                </div>
+              </div>
             </div>
           </div>
 
