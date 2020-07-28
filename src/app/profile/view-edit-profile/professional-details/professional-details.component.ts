@@ -291,15 +291,9 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
         head_coach_email: [''],
         former_club_academy: ['']
       });
-    } else if (this.member_type === 'club') {
+    } else if (this.member_type !== 'player') {
       this.professionalDetailsForm = this._formBuilder.group({
         top_signings: this._formBuilder.array([], [])
-      });
-    } else if (this.member_type === 'academy') {
-      this.professionalDetailsForm = this._formBuilder.group({
-        document_type: ['', []],
-        number: [''],
-        top_players: this._formBuilder.array([], [])
       });
     }
   }
