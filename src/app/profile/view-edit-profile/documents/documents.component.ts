@@ -425,7 +425,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
       if (this.player_photo) requestData.set('player_photo', this.player_photo);
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
-      if (this.member_type === 'club') requestData.set('aiff', this.aiff);
+      if (this.member_type === 'club' && this.aiff)
+        requestData.set('aiff', this.aiff);
       else if (this.document) requestData.set('document', this.document);
     }
     this._documentsService
@@ -453,6 +454,11 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       this.aadhar_front_url = '';
       this.aadhar_back_url = '';
       this.documentsDetailsForm.get('player_photo').setValue('');
+    } else if (this.member_type === 'club') {
+      this.documentsDetailsForm.get('aiff').setValue('');
+      this.aiff_url = '';
+    } else if (this.member_type === 'academy') {
+      this.documentsDetailsForm.get('document').setValue('');
     }
   }
 
@@ -491,6 +497,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         });
       });
     } else if (this.member_type === 'club') {
+      this.removeValidations('aiff');
       let fields = {
         aiff: aiffControl
       };
@@ -501,6 +508,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         });
       });
     } else if (this.member_type === 'academy') {
+      this.removeValidations('document');
       let fields = {
         document: documentControl
       };

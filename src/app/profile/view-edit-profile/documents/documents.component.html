@@ -85,9 +85,17 @@
       >
         <div class="doc-img">
           <h3>AIFF document</h3>
-          <a [href]="aiff_url" target="_blank"
+          <a
+            *ngIf="profile_status !== 'verified'"
+            [href]="aiff_url"
+            target="_blank"
             ><img src="assets/images/member/aadhaar.png" alt=""
           /></a>
+          <img
+            *ngIf="profile_status === 'verified'"
+            src="assets/images/member/aadhaar.png"
+            alt=""
+          />
         </div>
       </div>
       <div
@@ -101,9 +109,17 @@
       >
         <div class="doc-img">
           <h3>Document image</h3>
-          <a [href]="document_url" target="_blank"
+          <a
+            *ngIf="profile_status !== 'verified'"
+            [href]="document_url"
+            target="_blank"
             ><img src="assets/images/member/aadhaar.png" alt=""
           /></a>
+          <img
+            *ngIf="profile_status === 'verified'"
+            src="assets/images/member/aadhaar.png"
+            alt=""
+          />
         </div>
       </div>
 
