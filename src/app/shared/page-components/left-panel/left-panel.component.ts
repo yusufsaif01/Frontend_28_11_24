@@ -46,7 +46,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   @Input() is_following = false;
   @Input() is_footmate = 'Not_footmate';
   followers: number = 0;
-
+  @Output() sendClubAcademyType = new EventEmitter<string>();
   @Output() sendPlayerType = new EventEmitter<string>();
   @Output() sendMemberType = new EventEmitter<string>();
   @Output() sendProfileData = new EventEmitter<object>();
@@ -82,6 +82,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.professionalProfile = response.data;
+          this.sendClubAcademyType.emit(this.professionalProfile.type);
         },
         error => {}
       );

@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-edit-profile.component.scss']
 })
 export class ViewEditProfileComponent implements OnInit {
+  clubAcademyType: string;
   componentName: string = 'personal';
   components: any[] = [
     { name: 'Personal details', value: 'personal' },
@@ -19,5 +20,9 @@ export class ViewEditProfileComponent implements OnInit {
 
   switch(componentName: string) {
     this.componentName = componentName;
+  }
+
+  getClubAcademyType(value: string) {
+    this.clubAcademyType = value;
   }
 }
