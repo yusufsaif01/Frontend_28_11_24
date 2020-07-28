@@ -69,20 +69,48 @@ export abstract class Constants {
 
   static readonly DESIGNATION_ARRAY = [
     {
-      name: 'Volvo',
-      value: 'volvo'
+      name: 'Owner',
+      value: 'Owner'
     },
     {
-      name: 'Saab',
-      value: 'saab'
+      name: 'Manager',
+      value: 'Manager'
     },
     {
-      name: 'Mercedes',
-      value: 'mercedes'
+      name: 'Head of youth development',
+      value: 'Head of youth development'
     },
     {
-      name: 'Audi',
-      value: 'audi'
+      name: 'Head coach - Under 18/ 19',
+      value: 'Head coach - Under 18/ 19'
+    },
+    {
+      name: 'Head coach - Under 16/ 15',
+      value: 'Head coach - Under 16/ 15'
+    },
+    {
+      name: 'Head coach - Under 14/ 13',
+      value: 'Head coach - Under 14/ 13'
+    },
+    {
+      name: 'Fitness coach',
+      value: 'Fitness coach'
+    },
+    {
+      name: 'Goalkeeping coach',
+      value: 'Goalkeeping coach'
+    },
+    {
+      name: 'Video analyst',
+      value: 'Video analyst'
+    },
+    {
+      name: 'Qualified physiotherapist',
+      value: 'Qualified physiotherapist'
+    },
+    {
+      name: 'Head of player recruitment/ chief scout',
+      value: 'Head of player recruitment/ chief scout'
     }
   ];
 
