@@ -939,16 +939,31 @@
               <div class="fourth">
                 <div class="form-block">
                   <label>League name <span>*</span></label>
-                  <select>
-                    <option value="">Select trophy name</option>
+                  <select matNativeControl formControlName="league" required>
+                    <option value="">Select league name</option>
+                    <ng-container *ngFor="let league of leagueArray">
+                      <option value="{{ league.value }}">{{
+                        league.name
+                      }}</option>
+                    </ng-container>
                   </select>
                 </div>
               </div>
 
-              <div class="fourth">
+              <div
+                class="fourth"
+                *ngIf="
+                  professionalDetailsForm.controls.league.value === 'Other'
+                "
+              >
                 <div class="form-block">
                   <label>Other</label>
-                  <input type="text" matinput placeholder="Other" />
+                  <input
+                    type="text"
+                    matinput
+                    placeholder="Other"
+                    formControlName="league_other"
+                  />
                 </div>
               </div>
             </div>
@@ -1006,21 +1021,43 @@
               <div class="two-fifth">
                 <div class="form-block">
                   <label>
-                    <h3>Type of club <span>*</span></h3>
+                    <h3>
+                      Type of {{ member_type === 'club' ? 'Club' : 'Academy' }}
+                      <span>*</span>
+                    </h3>
                   </label>
-                  <select>
-                    <option value="">Residential</option>
-                    <option value="">Non Residential</option>
+                  <select matNativeControl formControlName="type" required>
+                    <ng-container *ngFor="let type of clubAcadTypeArray">
+                      <option value="{{ type.value }}">{{ type.name }}</option>
+                    </ng-container>
                   </select>
                 </div>
               </div>
               <div class="two-fifth">
                 <div class="form-block">
                   <label>
-                    <h3>State association affiliated under <span>*</span></h3>
+                    <h3>
+                      {{
+                        member_type === 'player'
+                          ? 'Current State Association'
+                          : 'State association affiliated under'
+                      }}
+                      <span>*</span>
+                    </h3>
                   </label>
-                  <select>
-                    <option value="">State association affiliated under</option>
+                  <select
+                    matNativeControl
+                    formControlName="association"
+                    required
+                  >
+                    <option value="">Select Association</option>
+                    <ng-container
+                      *ngFor="let association of stateAssociationArray"
+                    >
+                      <option value="{{ association.value }}">{{
+                        association.name
+                      }}</option>
+                    </ng-container>
                   </select>
                 </div>
               </div>

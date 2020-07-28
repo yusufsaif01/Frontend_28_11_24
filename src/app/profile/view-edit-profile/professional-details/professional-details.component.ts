@@ -60,7 +60,9 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   positionArray: GetPositionListResponseContext['data']['records'];
   strongFootArray = Constants.STRONG_FOOT;
   designationArray = Constants.DESIGNATION_ARRAY;
+  clubAcadTypeArray = Constants.CLUB_ACAD_TYPE_ARRAY;
   stateAssociationArray = Constants.STATE_ASSOCIATION_ARRAY;
+  leagueArray = Constants.LEAGUE_ARRAY;
   professionalDetailsForm: FormGroup;
   professionalDetails: GetProfessionalDetailsResponseContext['data'];
   member_type: string = localStorage.getItem('member_type');
