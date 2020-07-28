@@ -195,15 +195,38 @@
           </a>
         </li>
         <li>
-          <a
+          <!-- <a
             matTooltip="FootMates"
             [routerLink]="['/member/manage/foot-requests']"
-          >
+          > -->
+          <a matTooltip="FootMates" [matMenuTriggerFor]="footplayer">
             <mat-icon class="material-icons">people_outline</mat-icon>
             <span *ngIf="stats.footmate_requests">{{
               stats.footmate_requests
             }}</span>
           </a>
+          <mat-menu #footplayer="matMenu">
+            <ul class="menu">
+              <li>
+                <a [routerLink]="['/member/profile']">
+                  <mat-icon class="material-icons">settings</mat-icon>
+                  Manage FooTPlayers
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/member/profile/view']">
+                  <mat-icon class="material-icons">stars</mat-icon>
+                  Club's FooTPlayers
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/change-password']">
+                  <mat-icon class="material-icons">content_paste</mat-icon>
+                  Contract Management
+                </a>
+              </li>
+            </ul>
+          </mat-menu>
         </li>
         <li>
           <a>
