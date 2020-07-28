@@ -182,7 +182,7 @@
             Major trophy wins
           </h3>
 
-          <ng-container *ngIf="professionalDetails.trophies">
+          <ng-container *ngIf="professionalDetails?.trophies">
             <div
               class="section-block"
               *ngFor="
@@ -229,7 +229,7 @@
           <div class="section-block">
             <div
               class="full"
-              *ngIf="professionalDetails.league !== 'Other'; else otherLeague"
+              *ngIf="professionalDetails?.league !== 'Other'; else otherLeague"
             >
               <div class="left">
                 <h4>{{ professionalDetails?.league | titlecase }}</h4>
@@ -248,7 +248,7 @@
           <h3 class="section-heading">
             Top signings
           </h3>
-          <ng-container *ngIf="professionalDetails.top_signings">
+          <ng-container *ngIf="professionalDetails?.top_signings">
             <div
               class="section-block"
               *ngFor="
@@ -296,7 +296,7 @@
             Contact details
           </h3>
 
-          <ng-container *ngIf="professionalDetails.contact_person">
+          <ng-container *ngIf="professionalDetails?.contact_person">
             <div
               class="section-block"
               *ngFor="
