@@ -207,6 +207,13 @@ export class DocumentsComponent implements OnInit, OnDestroy {
           .get('aadhar_media_type')
           .setValue(this.documentsDetails.documents[0].media.attachment_type);
       }
+      this.documentsDetailsForm.patchValue({
+        aadhar_number:
+          this.documentsDetails.documents &&
+          this.documentsDetails.documents.length
+            ? this.documentsDetails.documents[0].document_number
+            : ''
+      });
     } else if (this.member_type === 'club') {
       this.documentsDetailsForm.patchValue({
         aiff_id:
@@ -229,14 +236,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
             : ''
       });
     }
-
-    this.documentsDetailsForm.patchValue({
-      number:
-        this.documentsDetails.documents &&
-        this.documentsDetails.documents.length
-          ? this.documentsDetails.documents[0].document_number
-          : ''
-    });
   }
   populateView() {
     this._documentsService
