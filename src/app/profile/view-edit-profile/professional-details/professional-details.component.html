@@ -339,7 +339,13 @@
                       <h4>Contact number</h4>
                     </div>
                     <div class="right">
-                      <p>+91 {{ person?.mobile_number }}</p>
+                      <p>
+                        {{
+                          person?.mobile_number
+                            ? '+91 ' + person?.mobile_number
+                            : ''
+                        }}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1074,19 +1080,17 @@
           <!-- Top signings -->
           <div class="section">
             <h3>Top signings</h3>
-            <div
-              class="input-container"
-              *ngFor="
-                let top_signing of professionalDetailsForm.get('top_signings')
-                  .controls;
-                let i = index;
-                let first = first;
-                let last = last
-              "
-              formArrayName="top_signings"
-            >
-              <ng-container [formGroupName]="i">
-                <div class="two-fifth">
+            <div class="input-container" formArrayName="top_signings">
+              <ng-container
+                *ngFor="
+                  let top_signing of professionalDetailsForm.get('top_signings')
+                    .controls;
+                  let i = index;
+                  let first = first;
+                  let last = last
+                "
+              >
+                <div class="two-fifth" [formGroupName]="i">
                   <div class="wrapper-field">
                     <div class="field">
                       <div class="form-block">
