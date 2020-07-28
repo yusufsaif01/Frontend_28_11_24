@@ -167,7 +167,7 @@
       </ng-container>
     </ng-container>
 
-    <ng-container *ngIf="member_type === 'club'">
+    <ng-container *ngIf="member_type !== 'player'">
       <ng-container *ngIf="viewMode; else editMode">
         <div class="heading">
           <h2>Professional details</h2>
@@ -814,7 +814,7 @@
           </div>
         </form>
       </div>
-      <div class="edit-wrapper" *ngIf="member_type === 'club'">
+      <div class="edit-wrapper" *ngIf="member_type !== 'player'">
         <form [formGroup]="professionalDetailsForm">
           <div class="heading">
             <h2>Professional details</h2>
