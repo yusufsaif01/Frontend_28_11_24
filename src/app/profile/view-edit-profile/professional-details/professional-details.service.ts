@@ -57,7 +57,7 @@ export interface GetProfessionalDetailsResponseContext {
       designation: string;
       name: string;
       email: string;
-      phone_number: string;
+      mobile_number: string;
     }[];
     top_players: { name: string }[];
     top_signings: { _id: string; name: string }[];
