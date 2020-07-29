@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="site-wrapper">
   <div class="left-panel">
-    <app-left-panel> </app-left-panel>
+    <app-left-panel [options]="panelOptions" [data]="data" > </app-left-panel>
   </div>
   <div class="right-panel">
     <div class="right-wrapper">
@@ -128,12 +128,32 @@
             <div class="left">
               <h2>About FooTMate</h2>
             </div>
-            <div class="right">
-              <ng-container *ngIf="publicProfileData?.member_type === 'player'">
-                <button>Delete FooTMate</button>
-              </ng-container>
-              <button>Unfollow</button>
-            </div>
+            <ng-container *ngIf="is_public">
+              <div class="right">
+                <button
+                  *ngIf="
+                    publicProfileData?.member_type === 'player' &&
+                    member_type === 'player'
+                  "
+                  (click)="toggleFootMate()"
+                >
+                  {{
+                    is_footmate === 'Accepted'
+                      ? 'Delete FooTMate'
+                      : is_footmate === 'Not_footmate'
+                      ? 'Send FooTMate Request'
+                      : 'Pending'
+                  }}
+                </button>
+                <ng-container *ngIf="following$ | async"></ng-container>
+                <button
+                  *ngIf="is_footmate !== 'Pending'"
+                  (click)="toggleFollow()"
+                >
+                  {{ is_following ? 'Unfollow' : 'Follow' }}
+                </button>
+              </div>
+            </ng-container>
           </div>
           <!-- Boi -->
           <div class="boi">

@@ -36,7 +36,6 @@ let keyCodeObject = {
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  user_id = localStorage.getItem('user_id');
   public isActive: boolean = true;
   public isFootplayerActive: boolean = true;
   public avatar_url: string = localStorage.getItem('avatar_url');
@@ -68,7 +67,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.getConnectionStats();
   }
   getConnectionStats() {
-    let data = { user_id: this.user_id };
+    let data = { user_id: localStorage.getItem('user_id') };
     this._footRequestService
       .connectionStats(data)
       .pipe(untilDestroyed(this))

@@ -4,8 +4,31 @@ import { Observable } from 'rxjs';
 
 const routes = {
   getPublicProfileDetails: (params: string) =>
-    `/member/public/profile/${params}`
+    `/member/public/profile/${params}`,
+  followUser: (c: FollowUnfollowUserContext) => '/connection/follow',
+  unfollowUser: (c: FollowUnfollowUserContext) => '/connection/unfollow',
+  sendFootMate: (c: SendFootMate) => '/connection/request/send',
+  cancelFootMate: (c: CancelFootMate) => '/connection/request/cancel'
 };
+
+interface FollowUnfollowUserContext {
+  to: string;
+}
+interface FollowUnfollowUserResponseContext {
+  status: string;
+  message: string;
+}
+interface CommonResponseContext {
+  status: string;
+  message: string;
+}
+
+interface SendFootMate {
+  to: string;
+}
+interface CancelFootMate {
+  to: string;
+}
 
 interface GetPublicProfileDetailsContext {
   user_id: string;
@@ -110,6 +133,37 @@ export class PublicProfileService {
     }
     return this._httpClient.get<GetPublicProfileDetailsResponseContext>(
       routes.getPublicProfileDetails(params)
+    );
+  }
+
+  followUser(
+    context: FollowUnfollowUserContext
+  ): Observable<FollowUnfollowUserResponseContext> {
+    return this._httpClient.patch<FollowUnfollowUserResponseContext>(
+      routes.followUser(context),
+      context
+    );
+  }
+
+  unfollowUser(
+    context: FollowUnfollowUserContext
+  ): Observable<FollowUnfollowUserResponseContext> {
+    return this._httpClient.patch<FollowUnfollowUserResponseContext>(
+      routes.unfollowUser(context),
+      context
+    );
+  }
+
+  sendFootMate(context: SendFootMate): Observable<CommonResponseContext> {
+    return this._httpClient.post<CommonResponseContext>(
+      routes.sendFootMate(context),
+      context
+    );
+  }
+  cancelFootMate(context: CancelFootMate): Observable<CommonResponseContext> {
+    return this._httpClient.patch<CommonResponseContext>(
+      routes.cancelFootMate(context),
+      context
     );
   }
 }
