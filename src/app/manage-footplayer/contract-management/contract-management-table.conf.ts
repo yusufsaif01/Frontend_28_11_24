@@ -3,8 +3,8 @@ export class ContractManagementTableConfig extends TableConfig {
   constructor() {
     super();
     this.allowedColumns = [
-      'serialNumber',
-      'avatar',
+      // 'serialNumber',
+      // 'avatar',
       'name',
       'effective_date',
       'expiry_date',
@@ -13,20 +13,20 @@ export class ContractManagementTableConfig extends TableConfig {
     ];
 
     this.columns = {
-      serialNumber: {
-        code: 'serialNumber',
-        text: 'S.No',
-        getValue: (ele: any) => {
-          return ele[this.columns.serialNumber.code];
-        }
-      },
-      avatar: {
-        code: 'avatar',
-        text: 'DP',
-        getValue: (ele: any) => {
-          return ele[this.columns.avatar.code];
-        }
-      },
+      // serialNumber: {
+      //   code: 'serialNumber',
+      //   text: 'S.No',
+      //   getValue: (ele: any) => {
+      //     return ele[this.columns.serialNumber.code];
+      //   }
+      // },
+      // avatar: {
+      //   code: 'avatar',
+      //   text: 'DP',
+      //   getValue: (ele: any) => {
+      //     return ele[this.columns.avatar.code];
+      //   }
+      // },
       name: {
         code: 'name',
         text: 'Player Name',

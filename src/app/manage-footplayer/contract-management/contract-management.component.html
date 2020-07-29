@@ -1,72 +1,82 @@
 <app-header></app-header>
 <div class="site-wrapper">
-  <!-- left Sidebar -->
-  <div class="left-section">
+  <div class="left-panel">
     <app-left-panel
+      [achievements]="total_count"
       [options]="panelOptions"
+      [userId]="userId"
       (sendMemberType)="getMemberType($event)"
     >
     </app-left-panel>
   </div>
-  <div class="right-section">
-    <div class="award-heading">
-      <div class="left-part">
-        <h2>Contract Management</h2>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main mt-2">
+        <!-- heading -->
+        <div class="heading">
+          <h2>Contract management</h2>
+        </div>
+        <!-- table -->
+        <div class="table">
+          <app-table
+            [tableConfig]="tableConfig"
+            [NumberColumn]="'true'"
+            [TableActions]="ListAction"
+            [rows]="dataSource"
+            [pageSize]="pageSize"
+            [pageNo]="selectedPage"
+          >
+          </app-table>
+          <ng-template
+            #ListAction
+            let-id="id"
+            let-created_by="created_by"
+            let-status="status"
+          >
+            <div class="action-buttons">
+              <button
+                [routerLink]="['/member/profile/view-employment-contract/', id]"
+                matTooltip="View"
+              >
+                <mat-icon class="material-icons">visibility</mat-icon>
+              </button>
+
+              <button matTooltip="Activity log">
+                <mat-icon class="material-icons">settings</mat-icon>
+              </button>
+
+              <button
+                *ngIf="['club', 'academy'].includes(created_by)"
+                [ngClass]="{
+                  'icon-disable': [
+                    'active',
+                    'yet_to_start',
+                    'completed'
+                  ].includes(status)
+                }"
+                matTooltip="Delete"
+                (click)="deletePopup(id)"
+              >
+                <mat-icon class="material-icons">delete</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+        </div>
+        <!-- Pagination -->
+        <app-pagination
+          *ngIf="dataSource.data.length !== 0"
+          [showData]="false"
+          [showCount]="show_count"
+          [totalRows]="total_count"
+          [rowsPerPage]="pageSize"
+          [selectedPage]="selectedPage"
+          (onChange)="updatePage($event)"
+        >
+        </app-pagination>
       </div>
     </div>
-    <!-- table -->
-    <div class="table">
-      <app-table
-        [tableConfig]="tableConfig"
-        [NumberColumn]="'true'"
-        [TableActions]="ListAction"
-        [rows]="dataSource"
-        [pageSize]="pageSize"
-        [pageNo]="selectedPage"
-      >
-      </app-table>
-      <ng-template
-        #ListAction
-        let-id="id"
-        let-created_by="created_by"
-        let-status="status"
-      >
-        <div class="action-buttons">
-          <button
-            [routerLink]="['/member/profile/view-employment-contract/', id]"
-            matTooltip="View"
-          >
-            <img src="assets/images/icons/eyes.png" alt="View" />
-          </button>
-
-          <button
-            *ngIf="['club', 'academy'].includes(created_by)"
-            [ngClass]="{
-              'icon-disable': ['active', 'yet_to_start', 'completed'].includes(
-                status
-              )
-            }"
-            matTooltip="Delete"
-            (click)="deletePopup(id)"
-          >
-            <img src="assets/images/icons/bin.png" alt="Delete" />
-          </button>
-
-          <button matTooltip="Activity log">
-            <img src="assets/images/icons/log.png" alt="log" />
-          </button>
-        </div>
-      </ng-template>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
     </div>
-    <app-pagination
-      *ngIf="dataSource.data.length !== 0"
-      [showData]="false"
-      [showCount]="show_count"
-      [totalRows]="total_count"
-      [rowsPerPage]="pageSize"
-      [selectedPage]="selectedPage"
-      (onChange)="updatePage($event)"
-    >
-    </app-pagination>
   </div>
 </div>
