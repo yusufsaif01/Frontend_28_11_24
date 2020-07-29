@@ -6,22 +6,22 @@ import {
   OnDestroy
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { ManageCityTableConfig } from './manage-city-table-conf';
+import { ManageDistrictTableConfig } from './manage-district-table-conf';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-import { CityService } from './manage-city-service';
+import { DistrictService } from './manage-district-service';
 import { untilDestroyed } from '@app/core';
 import { SharedService } from '@app/shared/shared.service';
 @Component({
-  selector: 'app-manage-city',
-  templateUrl: './manage-city.component.html',
-  styleUrls: ['./manage-city.component.scss']
+  selector: 'app-manage-district',
+  templateUrl: './manage-district.component.html',
+  styleUrls: ['./manage-district.component.scss']
 })
-export class ManageCityComponent implements OnInit, OnDestroy {
+export class ManageDistrictComponent implements OnInit, OnDestroy {
   // table config
   @ViewChild('districtInput', { static: false }) districtInput: ElementRef;
-  public tableConfig: ManageCityTableConfig = new ManageCityTableConfig();
+  public tableConfig: ManageDistrictTableConfig = new ManageDistrictTableConfig();
   public dataSource = new MatTableDataSource([]);
   addDistrictForm: FormGroup;
   country_id: string;
@@ -43,7 +43,7 @@ export class ManageCityComponent implements OnInit, OnDestroy {
   }
   constructor(
     private _formBuilder: FormBuilder,
-    private _cityService: CityService,
+    private _districtService: DistrictService,
     private _toastrService: ToastrService,
     private _route: ActivatedRoute,
     private _sharedService: SharedService
@@ -66,8 +66,11 @@ export class ManageCityComponent implements OnInit, OnDestroy {
 
   addDistrict() {
     this.cancelDistrict();
-    this._cityService
-      .addCity({ ...this.addDistrictForm.value, country_id: this.country_id })
+    this._districtService
+      .addDistrict({
+        ...this.addDistrictForm.value,
+        country_id: this.country_id
+      })
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
@@ -108,7 +111,7 @@ export class ManageCityComponent implements OnInit, OnDestroy {
     search?: string
   ) {
     this._sharedService
-      .getDistrictList(this.country_id, state_id, {
+      .getDistrictsList(this.country_id, state_id, {
         page_no,
         page_size,
         search
@@ -151,7 +154,7 @@ export class ManageCityComponent implements OnInit, OnDestroy {
       ]
     });
   }
-  editCity(name: any, id: any) {
+  editDistrict(name: any, id: any) {
     let obj = { name, id };
     this.row = obj;
     this.editMode = true;
@@ -187,15 +190,18 @@ export class ManageCityComponent implements OnInit, OnDestroy {
     }
   }
   updateStateByCountry(body: any) {
-    let city_id = body.id;
+    let district_id = body.id;
     delete body['id'];
     delete body['serialNumber'];
-    this._cityService
-      .updateCity(this.state_id, city_id, this.country_id, body)
+    this._districtService
+      .updateDistrict(this.state_id, district_id, this.country_id, body)
       .pipe(untilDestroyed(this))
       .subscribe(
         data => {
-          this._toastrService.success(`Success`, 'City updated successfully');
+          this._toastrService.success(
+            `Success`,
+            'District updated successfully'
+          );
           this.getDistrictListByState(
             this.state_id,
             this.pageSize,

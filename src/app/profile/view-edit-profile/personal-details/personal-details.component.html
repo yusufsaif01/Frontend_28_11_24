@@ -251,10 +251,10 @@
       <div class="view-details">
         <div class="details">
           <div class="left">
-            <h4>City</h4>
+            <h4>District</h4>
           </div>
           <div class="right">
-            <p>{{ profile?.city?.name }}</p>
+            <p>{{ profile?.district?.name }}</p>
           </div>
         </div>
       </div>
@@ -866,25 +866,28 @@
             </div>
             <div class="third">
               <div class="form-block">
-                <label>City <span>*</span></label>
-                <select formControlName="city">
-                  <option value="">Select City</option>
-                  <ng-container *ngFor="let city of cityArray">
-                    <option value="{{ city.id }}">{{ city.name }}</option>
+                <label>District <span>*</span></label>
+                <select formControlName="district">
+                  <option value="">Select District</option>
+                  <ng-container *ngFor="let district of districtArray">
+                    <option value="{{ district.id }}">{{
+                      district.name
+                    }}</option>
                   </ng-container>
                 </select>
                 <mat-error
                   *ngIf="
-                    personalProfileDetailsForm.controls.city.invalid &&
-                    personalProfileDetailsForm.controls.city.touched
+                    personalProfileDetailsForm.controls.district.invalid &&
+                    personalProfileDetailsForm.controls.district.touched
                   "
                 >
                   <span
                     *ngIf="
-                      personalProfileDetailsForm.controls.city.errors.required
+                      personalProfileDetailsForm.controls.district.errors
+                        .required
                     "
                     translate
-                    >Current City is required</span
+                    >Current District is required</span
                   >
                 </mat-error>
               </div>
@@ -1305,26 +1308,27 @@
             </div>
             <div class="third">
               <div class="form-block">
-                <label>City <span>*</span></label>
-                <select formControlName="city">
-                  <option value="">Select City</option>
-                  <ng-container *ngFor="let city of cityArray">
-                    <option [value]="city.id">{{ city.name }}</option>
+                <label>District <span>*</span></label>
+                <select formControlName="district">
+                  <option value="">Select District</option>
+                  <ng-container *ngFor="let district of districtArray">
+                    <option [value]="district.id">{{ district.name }}</option>
                   </ng-container>
                 </select>
                 <mat-error
                   class="error-text"
                   *ngIf="
-                    personalProfileDetailsForm.controls.city.invalid &&
-                    personalProfileDetailsForm.controls.city.touched
+                    personalProfileDetailsForm.controls.district.invalid &&
+                    personalProfileDetailsForm.controls.district.touched
                   "
                 >
                   <span
                     *ngIf="
-                      personalProfileDetailsForm.controls.city.errors.required
+                      personalProfileDetailsForm.controls.district.errors
+                        .required
                     "
                     translate
-                    >City is required</span
+                    >District is required</span
                   >
                 </mat-error>
               </div>

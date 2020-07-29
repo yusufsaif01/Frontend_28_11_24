@@ -93,7 +93,7 @@ export interface CommonContext {
   profile_status?: string;
 }
 
-interface GetCityListByStateContext {
+interface GetDistrictListByStateContext {
   country_id: string;
   state_id: string;
   page_size?: number;
@@ -184,7 +184,7 @@ interface AddAbilityResponseContext {
   message: string;
 }
 
-interface AddCityResponseContext {
+interface AddDistrictResponseContext {
   status: string;
   message: string;
 }

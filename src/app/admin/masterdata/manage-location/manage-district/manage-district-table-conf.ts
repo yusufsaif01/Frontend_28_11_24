@@ -1,6 +1,6 @@
 import { MasterTableConfig } from '@app/shared/master-table/MasterTableConfig';
 
-export class ManageCityTableConfig extends MasterTableConfig {
+export class ManageDistrictTableConfig extends MasterTableConfig {
   constructor() {
     super();
     this.allowedColumns = ['serialNumber', 'name'];

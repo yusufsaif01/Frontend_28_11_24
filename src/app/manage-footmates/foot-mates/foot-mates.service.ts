@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/custom-http-param-encoder.component';
-// /connection/list?page_no=1&page_size=20&position=<positions>&player_category=<player_category>&age=<age_range>&country=<country>&city=<city>&state=<state>&strong_foot=<strong_foot>
+// /connection/list?page_no=1&page_size=20&position=<positions>&player_category=<player_category>&age=<age_range>&country=<country>&district=<district>&state=<state>&strong_foot=<strong_foot>
 const routes = {
   getFootMateList: (query: string) => `/connection/list?${query}`,
   getPositionsList: () => `/master/player-specialization/position/list`,
-  getCitiesList: (countryID: any, stateID: any) =>
-    `/master/city/list/${countryID}/${stateID}`,
+  getDistrictsList: (countryID: any, stateID: any) =>
+    `/master/district/list/${countryID}/${stateID}`,
   getStatesList: (countryID: any) => `/master/state/list/${countryID}`,
   getLocationStats: () => `/master/location/stats`
 };
@@ -19,7 +19,7 @@ interface GetFootMateListContext {
   age?: number;
   country?: string;
   state?: string;
-  city?: string;
+  district?: string;
   strong_foot?: string;
 }
 interface GetFootMateListResponseContext {

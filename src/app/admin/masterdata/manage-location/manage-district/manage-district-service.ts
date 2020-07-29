@@ -9,7 +9,7 @@ const routes = {
     `/admin/master/district/${country_id}/${state_id}/${district_id}`
 };
 
-interface AddCityContext {
+interface AddDistrictContext {
   state_id: string;
   country_id: string;
   name: string;
@@ -23,24 +23,24 @@ interface CommonResponseContext {
 @Injectable({
   providedIn: 'root'
 })
-export class CityService {
+export class DistrictService {
   constructor(private httpClient: HttpClient) {}
 
-  addCity(context: AddCityContext): Observable<CommonResponseContext> {
+  addDistrict(context: AddDistrictContext): Observable<CommonResponseContext> {
     return this.httpClient.post<CommonResponseContext>(
       routes.addDistrict(),
       context
     );
   }
 
-  updateCity(
+  updateDistrict(
     state_id: any,
-    city_id: any,
+    district_id: any,
     country_id: any,
     data: any
   ): Observable<any> {
     return this.httpClient.put<any>(
-      routes.updateDistrict(city_id, country_id, state_id),
+      routes.updateDistrict(district_id, country_id, state_id),
       data
     );
   }

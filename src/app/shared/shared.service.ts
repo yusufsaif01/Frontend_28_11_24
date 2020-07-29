@@ -15,7 +15,7 @@ const routes = {
 export class SharedService {
   constructor(private httpClient: HttpClient) {}
 
-  getDistrictList(
+  getDistrictsList(
     countryID: string,
     stateID: string,
     context: any = {}

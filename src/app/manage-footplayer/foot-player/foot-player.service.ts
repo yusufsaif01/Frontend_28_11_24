@@ -82,7 +82,7 @@ interface GetFootPlayerListContext {
   age?: string;
   country?: string;
   state?: string;
-  city?: string;
+  district?: string;
   strong_foot?: string;
   status?: string;
   ability?: string;

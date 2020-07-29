@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManageCityComponent } from './manage-city.component';
+import { ManageDistrictComponent } from './manage-district.component';
 
-describe('ManageCityComponent', () => {
-  let component: ManageCityComponent;
-  let fixture: ComponentFixture<ManageCityComponent>;
+describe('ManageDistrictComponent', () => {
+  let component: ManageDistrictComponent;
+  let fixture: ComponentFixture<ManageDistrictComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ManageCityComponent]
+      declarations: [ManageDistrictComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManageCityComponent);
+    fixture = TestBed.createComponent(ManageDistrictComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
