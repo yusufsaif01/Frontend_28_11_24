@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 const routes = {
   getDistrictList: (countryID: any, stateID: any) =>
-    `/master/city/districts/${countryID}/${stateID}`,
+    `/master/district/list/${countryID}/${stateID}`,
   getStatesList: (countryID: any) => `/master/state/list/${countryID}`,
   getLocationStats: () => `/master/location/stats`
 };
