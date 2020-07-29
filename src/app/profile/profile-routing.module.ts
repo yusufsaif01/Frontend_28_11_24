@@ -42,7 +42,7 @@ const appRoutes: Routes = [
         data: { title: extract('View Contract') }
       },
       {
-        path: 'public',
+        path: 'public/:user_id',
         component: PublicProfileComponent,
         data: { title: extract('Public Profile') }
       },

@@ -10,28 +10,113 @@
           <!-- Social icons -->
           <div class="social-links">
             <ul>
-              <li>
-                <a href="#"
+              <li
+                *ngIf="
+                  publicProfileData?.social_profiles &&
+                  publicProfileData?.social_profiles?.facebook
+                "
+              >
+                <a
+                  [target]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.facebook
+                      ? '_blank'
+                      : ''
+                  "
+                  [href]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.facebook
+                      ? appendURL(publicProfileData?.social_profiles?.facebook)
+                      : transformURL('javascript:void(0)')
+                  "
                   ><img src="assets/images/website/social/facebook.svg" alt=""
                 /></a>
               </li>
-              <li>
-                <a href="#"
+              <li
+                *ngIf="
+                  publicProfileData?.social_profiles &&
+                  publicProfileData?.social_profiles?.instagram
+                "
+              >
+                <a
+                  [target]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.instagram
+                      ? '_blank'
+                      : ''
+                  "
+                  [href]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.instagram
+                      ? appendURL(publicProfileData?.social_profiles?.instagram)
+                      : transformURL('javascript:void(0)')
+                  "
                   ><img src="assets/images/website/social/instagram.svg" alt=""
                 /></a>
               </li>
-              <li>
-                <a href="#"
+              <li
+                *ngIf="
+                  publicProfileData?.social_profiles &&
+                  publicProfileData?.social_profiles?.linked_in
+                "
+              >
+                <a
+                  [target]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.linked_in
+                      ? '_blank'
+                      : ''
+                  "
+                  [href]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.linked_in
+                      ? appendURL(publicProfileData?.social_profiles?.linked_in)
+                      : transformURL('javascript:void(0)')
+                  "
                   ><img src="assets/images/website/social/linkedin.svg" alt=""
                 /></a>
               </li>
-              <li>
-                <a href="#"
+              <li
+                *ngIf="
+                  publicProfileData?.social_profiles &&
+                  publicProfileData?.social_profiles?.youtube
+                "
+              >
+                <a
+                  [target]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.youtube
+                      ? '_blank'
+                      : ''
+                  "
+                  [href]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles.youtube
+                      ? appendURL(publicProfileData?.social_profiles?.youtube)
+                      : transformURL('javascript:void(0)')
+                  "
                   ><img src="assets/images/website/social/youtube.svg" alt=""
                 /></a>
               </li>
-              <li>
-                <a href="#"
+              <li
+                *ngIf="
+                  publicProfileData?.social_profiles &&
+                  publicProfileData?.social_profiles?.twitter
+                "
+              >
+                <a
+                  [target]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.twitter
+                      ? '_blank'
+                      : ''
+                  "
+                  [href]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.twitter
+                      ? appendURL(publicProfileData?.social_profiles?.twitter)
+                      : transformURL('javascript:void(0)')
+                  "
                   ><img src="assets/images/website/social/twitter.svg" alt=""
                 /></a>
               </li>
@@ -50,437 +135,533 @@
           </div>
           <!-- Boi -->
           <div class="boi">
-            <h4>Boi</h4>
+            <h4>Bio</h4>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lobortis
-              eget ultrices sed suspendisse amet vitae, neque in. Eu tempor
-              porttitor eget eget nisl ligula. Id massa consectetur sed nunc
-              lacus morb ctetur adipiscing elit. Lobortis eget ultrice
+              {{ publicProfileData?.bio }}
             </p>
           </div>
 
           <!-- tab buttons -->
           <div class="tabs-buttons">
             <ul>
-              <li><a class="active">Personal details</a></li>
-              <li><a>Professional details</a></li>
+              <li>
+                <a
+                  [ngClass]="tab === 'personal' ? 'active' : ''"
+                  [routerLinkActive]="['active']"
+                  (click)="getTab('personal')"
+                  >Personal details</a
+                >
+              </li>
+              <li>
+                <a
+                  [ngClass]="tab === 'professional' ? 'active' : ''"
+                  [routerLinkActive]="['active']"
+                  (click)="getTab('professional')"
+                  >Professional details</a
+                >
+              </li>
             </ul>
           </div>
           <div class="tab-panel">
-            <!-- player personal -->
-            <div class="player-personal" style="display: none;">
-              <div class="details">
-                <div class="half">
-                  <div class="left">
-                    <h4>D.O.B</h4>
+            <ng-container *ngIf="publicProfileData?.member_type === 'player'">
+              <!-- player personal -->
+              <div class="player-personal" *ngIf="tab === 'personal'">
+                <div class="details">
+                  <div class="half">
+                    <div class="left">
+                      <h4>D.O.B</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.dob | date: 'dd LLLL yyyy' }}</p>
+                    </div>
                   </div>
-                  <div class="right">
-                    <p>22 June 2002</p>
+                  <div class="half">
+                    <div class="left">
+                      <h4>Weight</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.weight }} kg</p>
+                    </div>
                   </div>
-                </div>
-                <div class="half">
-                  <div class="left">
-                    <h4>Weight</h4>
-                  </div>
-                  <div class="right">
-                    <p>54kg</p>
-                  </div>
-                </div>
 
-                <div class="half">
-                  <div class="left">
-                    <h4>Gender</h4>
+                  <div class="half">
+                    <div class="left">
+                      <h4>Gender</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.gender | titlecase }}</p>
+                    </div>
                   </div>
-                  <div class="right">
-                    <p>Male</p>
-                  </div>
-                </div>
 
-                <div class="half">
-                  <div class="left">
-                    <h4>Height</h4>
+                  <div class="half">
+                    <div class="left">
+                      <h4>Height</h4>
+                    </div>
+                    <div class="right">
+                      <p>
+                        {{ publicProfileData?.height?.feet }} ft
+                        {{ publicProfileData?.height?.inches }} inches
+                      </p>
+                    </div>
                   </div>
-                  <div class="right">
-                    <p>6 ft 4 inches</p>
-                  </div>
-                </div>
 
-                <div class="full">
-                  <div class="left">
-                    <h4>Nationality</h4>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Nationality</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.country?.name | titlecase }}</p>
+                    </div>
                   </div>
-                  <div class="right">
-                    <p>Indian</p>
+                  <div class="full">
+                    <div class="left">
+                      <h4>State / UT</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.state?.name | titlecase }}</p>
+                    </div>
                   </div>
-                </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>State / UT</h4>
+                  <div class="full">
+                    <div class="left">
+                      <h4>City</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.city?.name | titlecase }}</p>
+                    </div>
                   </div>
-                  <div class="right">
-                    <p>Delhi</p>
+                  <div class="full">
+                    <div class="left">
+                      <h4>School</h4>
+                    </div>
+                    <div class="right">
+                      <p>
+                        {{ publicProfileData?.institute?.school | titlecase }}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>City</h4>
-                  </div>
-                  <div class="right">
-                    <p>Delhi</p>
-                  </div>
-                </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>School</h4>
-                  </div>
-                  <div class="right">
-                    <p>A.B.C. public school</p>
-                  </div>
-                </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>College</h4>
-                  </div>
-                  <div class="right">
-                    <p>A.B.C. dehli college</p>
-                  </div>
-                </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>University</h4>
-                  </div>
-                  <div class="right">
-                    <p>A.B.C. International University</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- player professional -->
-            <div class="player-professioal" style="display: none;">
-              <div class="section">
-                <h4>Preferred playing position :</h4>
-                <div class="positions">
-                  <p><span>1</span>Striker</p>
-                  <p><span>2</span>Centre Midfielder</p>
-                  <p><span>3</span>Right Midfielder</p>
-                </div>
-                <div class="block">
-                  <div class="left">
-                    <h4>Strong foot</h4>
-                  </div>
-                  <div class="right">
-                    <p>Left</p>
-                  </div>
-                </div>
-
-                <div class="block">
-                  <div class="left">
-                    <h4>Weak foot</h4>
-                  </div>
-                  <div class="right">
-                    <mat-icon class="material-icons active">
-                      star_border
-                    </mat-icon>
-                    <mat-icon class="material-icons"> star_border </mat-icon>
-                    <mat-icon class="material-icons"> star_border </mat-icon>
-                    <mat-icon class="material-icons"> star_border </mat-icon>
-                    <mat-icon class="material-icons"> star_border </mat-icon>
-                  </div>
-                </div>
-
-                <div class="block">
-                  <div class="left">
-                    <h4>Current state association</h4>
-                  </div>
-                  <div class="right">
-                    <p>Chandigarh Football Association</p>
-                  </div>
-                </div>
-
-                <div class="block">
-                  <div class="left">
-                    <h4>Formal club/ academy</h4>
-                  </div>
-                  <div class="right">
-                    <p>KickerStar</p>
-                  </div>
-                </div>
-
-                <h4 class="mb-2 mt-2">Current associated club / academy :</h4>
-                <h4 class="mb-2">Head coach details</h4>
-
-                <div class="block">
-                  <div class="left">
-                    <h4>Name</h4>
-                  </div>
-                  <div class="right">
-                    <p>Ramraj Kushwaha</p>
-                  </div>
-                </div>
-
-                <div class="block">
-                  <div class="left">
-                    <h4>Phone number</h4>
-                  </div>
-                  <div class="right">
-                    <p>+91 8934898934</p>
-                  </div>
-                </div>
-
-                <div class="block">
-                  <div class="left">
-                    <h4>Email</h4>
-                  </div>
-                  <div class="right">
-                    <p>ramraj@gmail.com</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Club/Academy personal -->
-            <div class="club-academy-personal" style="display: none;">
-              <div class="details">
-                <div class="full">
-                  <div class="left">
-                    <h4>Email</h4>
-                  </div>
-                  <div class="right">
-                    <p>chelsea@gmail.com</p>
-                  </div>
-                </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>Phone number</h4>
-                  </div>
-                  <div class="right">
-                    <p>9689854795</p>
-                  </div>
-                </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>Mobile number</h4>
-                  </div>
-                  <div class="right">
-                    <p>9689854795</p>
-                  </div>
-                </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>Founded (Year)</h4>
-                  </div>
-                  <div class="right">
-                    <p>22 June 2002</p>
-                  </div>
-                </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>Country</h4>
-                  </div>
-                  <div class="right">
-                    <p>India</p>
-                  </div>
-                </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>State/ UT</h4>
-                  </div>
-                  <div class="right">
-                    <p>Delhi</p>
-                  </div>
-                </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>City</h4>
-                  </div>
-                  <div class="right">
-                    <p>Delhi</p>
-                  </div>
-                </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>Pincode/ Zipcode</h4>
-                  </div>
-                  <div class="right">
-                    <p>110099</p>
-                  </div>
-                </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>Office address</h4>
-                  </div>
-                  <div class="right">
-                    <p>R.no.1 142 Kapadia Bldg 3rd Flr, Modi Street, Fort</p>
-                  </div>
-                </div>
-                <div class="full">
-                  <div class="left">
-                    <h4>Stadium name</h4>
-                  </div>
-                  <div class="right">
-                    <p>Football Foot Ground</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Club/Academy professional -->
-            <div class="club-academy-personal">
-              <div class="section">
-                <h4 class="mb-1">Major trophy wins</h4>
-                <div class="trophy-list">
-                  <span>1.</span>
-                  <div class="trophy-detials">
+                  <ng-container
+                    *ngIf="
+                      ['amateur', 'professional'].includes(
+                        publicProfileData?.player_type
+                      )
+                    "
+                  >
                     <div class="full">
                       <div class="left">
-                        <h4>Trophy name</h4>
+                        <h4>College</h4>
                       </div>
                       <div class="right">
-                        <p>UEFA Champions League</p>
+                        <p>
+                          {{
+                            publicProfileData?.institute?.college | titlecase
+                          }}
+                        </p>
                       </div>
                     </div>
                     <div class="full">
                       <div class="left">
-                        <h4>Year</h4>
+                        <h4>University</h4>
                       </div>
                       <div class="right">
-                        <p>2016</p>
+                        <p>
+                          {{
+                            publicProfileData?.institute?.university | titlecase
+                          }}
+                        </p>
                       </div>
                     </div>
-                    <div class="full">
-                      <div class="left">
-                        <h4>Position secured</h4>
-                      </div>
-                      <div class="right">
-                        <p>Second Runnerup</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="trophy-list">
-                  <span>2.</span>
-                  <div class="trophy-detials">
-                    <div class="full">
-                      <div class="left">
-                        <h4>Trophy name</h4>
-                      </div>
-                      <div class="right">
-                        <p>UEFA Champions League</p>
-                      </div>
-                    </div>
-                    <div class="full">
-                      <div class="left">
-                        <h4>Year</h4>
-                      </div>
-                      <div class="right">
-                        <p>2016</p>
-                      </div>
-                    </div>
-                    <div class="full">
-                      <div class="left">
-                        <h4>Position secured</h4>
-                      </div>
-                      <div class="right">
-                        <p>Second Runnerup</p>
-                      </div>
-                    </div>
-                  </div>
+                  </ng-container>
                 </div>
               </div>
-              <!-- league name -->
-              <div class="league">
-                <h4>League name</h4>
-                <div class="full">
-                  <div class="left">
-                    <h4>Position secured</h4>
+
+              <!-- player professional -->
+              <div class="player-professioal" *ngIf="tab === 'professional'">
+                <div class="section">
+                  <h4>Preferred playing position :</h4>
+                  <div class="positions">
+                    <p
+                      *ngFor="
+                        let data of publicProfileData?.position;
+                        let i = index
+                      "
+                    >
+                      <span>{{ i + 1 }}. </span>
+                      {{ data.name | titlecase }}
+                    </p>
                   </div>
-                  <div class="right">
-                    <p>Second Runnerup</p>
+
+                  <div class="block">
+                    <div class="left">
+                      <h4>Strong foot</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.strong_foot | titlecase }}</p>
+                    </div>
                   </div>
+
+                  <div class="block">
+                    <div class="left">
+                      <h4>Weak foot</h4>
+                    </div>
+                    <div class="right">
+                      <ng-container *ngFor="let number of [1, 2, 3, 4, 5]">
+                        <ng-container
+                          *ngIf="number <= publicProfileData?.weak_foot"
+                        >
+                          <mat-icon class="material-icons active">
+                            star_border
+                          </mat-icon>
+                        </ng-container>
+                        <ng-container
+                          *ngIf="number > publicProfileData?.weak_foot"
+                        >
+                          <mat-icon class="material-icons ">
+                            star_border
+                          </mat-icon>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <div class="left">
+                      <h4>
+                        Current State Association
+                        {{
+                          publicProfileData?.association === 'Others'
+                            ? '(Other)'
+                            : ''
+                        }}
+                      </h4>
+                    </div>
+                    <div class="right">
+                      <p>
+                        {{
+                          (publicProfileData?.association === 'Others'
+                            ? publicProfileData?.association_other
+                            : publicProfileData?.association
+                          ) | titlecase
+                        }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <div class="left">
+                      <h4>Former club/ academy</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.associated_club_academy }}</p>
+                    </div>
+                  </div>
+
+                  <h4 class="mb-2 mt-2">
+                    Current associated club / academy :<span>
+                      {{
+                        publicProfileData?.associated_club_academy | titlecase
+                      }}
+                    </span>
+                  </h4>
+                  <ng-container
+                    *ngIf="publicProfileData?.associated_club_academy === 'yes'"
+                  >
+                    <h4 class="mb-2">Head coach details</h4>
+                    <div class="block">
+                      <div class="left">
+                        <h4>Name</h4>
+                      </div>
+                      <div class="right">
+                        <p>
+                          {{
+                            publicProfileData?.club_academy_details
+                              ?.head_coach_name | titlecase
+                          }}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="block">
+                      <div class="left">
+                        <h4>Phone number</h4>
+                      </div>
+                      <div class="right">
+                        <p>
+                          {{
+                            publicProfileData?.club_academy_details
+                              ?.head_coach_phone
+                              ? '+91 ' +
+                                publicProfileData?.club_academy_details
+                                  ?.head_coach_phone
+                              : ''
+                          }}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="block">
+                      <div class="left">
+                        <h4>Email</h4>
+                      </div>
+                      <div class="right">
+                        <p>
+                          {{
+                            publicProfileData?.club_academy_details
+                              ?.head_coach_email
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </ng-container>
                 </div>
               </div>
-              <!-- signs -->
-              <div class="signings">
-                <h4 class="mt-1">Top signings</h4>
-                <div class="full">
-                  <p><span>1.</span>Ratanlal Bisht</p>
-                  <p><span>2.</span>Ratanlal Bisht</p>
-                  <p><span>3.</span>Ratanlal Bisht</p>
-                  <p><span>4.</span>Ratanlal Bisht</p>
-                  <p><span>5.</span>Ratanlal Bisht</p>
-                  <p><span>6.</span>Ratanlal Bisht</p>
-                </div>
-              </div>
-              <!-- Type of club -->
-              <div class="league">
-                <h4>Type of club</h4>
-                <div class="full">
-                  <div class="right">
-                    <p>Residential</p>
+            </ng-container>
+
+            <ng-container *ngIf="publicProfileData?.member_type !== 'player'">
+              <!-- Club/Academy personal -->
+              <div class="club-academy-personal">
+                <div class="details">
+                  <div class="full">
+                    <div class="left">
+                      <h4>Email</h4>
+                    </div>
+                    <div class="right">
+                      <p>chelsea@gmail.com</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Phone number</h4>
+                    </div>
+                    <div class="right">
+                      <p>9689854795</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Mobile number</h4>
+                    </div>
+                    <div class="right">
+                      <p>9689854795</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Founded (Year)</h4>
+                    </div>
+                    <div class="right">
+                      <p>22 June 2002</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Country</h4>
+                    </div>
+                    <div class="right">
+                      <p>India</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>State/ UT</h4>
+                    </div>
+                    <div class="right">
+                      <p>Delhi</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>City</h4>
+                    </div>
+                    <div class="right">
+                      <p>Delhi</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Pincode/ Zipcode</h4>
+                    </div>
+                    <div class="right">
+                      <p>110099</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Office address</h4>
+                    </div>
+                    <div class="right">
+                      <p>
+                        R.no.1 142 Kapadia Bldg 3rd Flr, Modi Street, Fort
+                      </p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Stadium name</h4>
+                    </div>
+                    <div class="right">
+                      <p>Football Foot Ground</p>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <!-- State association affiliated under -->
-              <div class="league">
-                <h4>State association affiliated under</h4>
-                <div class="full">
-                  <div class="right">
-                    <p>All Manipur Football Association</p>
+              <!-- Club/Academy professional -->
+              <div class="club-academy-personal">
+                <div class="section">
+                  <h4 class="mb-1">Major trophy wins</h4>
+                  <div class="trophy-list">
+                    <span>1.</span>
+                    <div class="trophy-detials">
+                      <div class="full">
+                        <div class="left">
+                          <h4>Trophy name</h4>
+                        </div>
+                        <div class="right">
+                          <p>UEFA Champions League</p>
+                        </div>
+                      </div>
+                      <div class="full">
+                        <div class="left">
+                          <h4>Year</h4>
+                        </div>
+                        <div class="right">
+                          <p>2016</p>
+                        </div>
+                      </div>
+                      <div class="full">
+                        <div class="left">
+                          <h4>Position secured</h4>
+                        </div>
+                        <div class="right">
+                          <p>Second Runnerup</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="trophy-list">
+                    <span>2.</span>
+                    <div class="trophy-detials">
+                      <div class="full">
+                        <div class="left">
+                          <h4>Trophy name</h4>
+                        </div>
+                        <div class="right">
+                          <p>UEFA Champions League</p>
+                        </div>
+                      </div>
+                      <div class="full">
+                        <div class="left">
+                          <h4>Year</h4>
+                        </div>
+                        <div class="right">
+                          <p>2016</p>
+                        </div>
+                      </div>
+                      <div class="full">
+                        <div class="left">
+                          <h4>Position secured</h4>
+                        </div>
+                        <div class="right">
+                          <p>Second Runnerup</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+                <!-- league name -->
+                <div class="league">
+                  <h4>League name</h4>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Position secured</h4>
+                    </div>
+                    <div class="right">
+                      <p>Second Runnerup</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- signs -->
+                <div class="signings">
+                  <h4 class="mt-1">Top signings</h4>
+                  <div class="full">
+                    <p><span>1.</span>Ratanlal Bisht</p>
+                    <p><span>2.</span>Ratanlal Bisht</p>
+                    <p><span>3.</span>Ratanlal Bisht</p>
+                    <p><span>4.</span>Ratanlal Bisht</p>
+                    <p><span>5.</span>Ratanlal Bisht</p>
+                    <p><span>6.</span>Ratanlal Bisht</p>
+                  </div>
+                </div>
+                <!-- Type of club -->
+                <div class="league">
+                  <h4>Type of club</h4>
+                  <div class="full">
+                    <div class="right">
+                      <p>Residential</p>
+                    </div>
+                  </div>
+                </div>
 
-              <!-- Contact details -->
-              <div class="contact-details">
-                <h4 class="mb-1">Contact details</h4>
-                <div class="contact-list">
-                  <span>1.</span>
-                  <div class="contact-detials">
-                    <div class="full">
-                      <div class="left">
-                        <h4>Trophy name</h4>
-                      </div>
-                      <div class="right">
-                        <p>UEFA Champions League</p>
-                      </div>
+                <!-- State association affiliated under -->
+                <div class="league">
+                  <h4>State association affiliated under</h4>
+                  <div class="full">
+                    <div class="right">
+                      <p>All Manipur Football Association</p>
                     </div>
-                    <div class="full">
-                      <div class="left">
-                        <h4>Year</h4>
+                  </div>
+                </div>
+
+                <!-- Contact details -->
+                <div class="contact-details">
+                  <h4 class="mb-1">Contact details</h4>
+                  <div class="contact-list">
+                    <span>1.</span>
+                    <div class="contact-detials">
+                      <div class="full">
+                        <div class="left">
+                          <h4>Trophy name</h4>
+                        </div>
+                        <div class="right">
+                          <p>UEFA Champions League</p>
+                        </div>
                       </div>
-                      <div class="right">
-                        <p>2016</p>
+                      <div class="full">
+                        <div class="left">
+                          <h4>Year</h4>
+                        </div>
+                        <div class="right">
+                          <p>2016</p>
+                        </div>
                       </div>
-                    </div>
-                    <div class="full">
-                      <div class="left">
-                        <h4>Position secured</h4>
+                      <div class="full">
+                        <div class="left">
+                          <h4>Position secured</h4>
+                        </div>
+                        <div class="right">
+                          <p>Second Runnerup</p>
+                        </div>
                       </div>
-                      <div class="right">
-                        <p>Second Runnerup</p>
-                      </div>
-                    </div>
-                    <div class="full">
-                      <div class="left">
-                        <h4>Position secured</h4>
-                      </div>
-                      <div class="right">
-                        <p>Second Runnerup</p>
+                      <div class="full">
+                        <div class="left">
+                          <h4>Position secured</h4>
+                        </div>
+                        <div class="right">
+                          <p>Second Runnerup</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </ng-container>
           </div>
         </div>
       </div>
-    </div>
-    <!-- footer -->
-    <div class="footer-fix">
-      <app-copyright></app-copyright>
+      <!-- footer -->
+      <div class="footer-fix">
+        <app-copyright></app-copyright>
+      </div>
     </div>
   </div>
 </div>
