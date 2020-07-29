@@ -227,7 +227,7 @@
               League name
             </h3>
 
-            <div class="section-block">
+            <div class=" section-block">
               <div
                 class="full"
                 *ngIf="
@@ -236,7 +236,10 @@
                 "
               >
                 <div class="left">
-                  <h4>{{ professionalDetails?.league | titlecase }}</h4>
+                  <h4>League name</h4>
+                </div>
+                <div class="right">
+                  <p>{{ professionalDetails?.league | titlecase }}</p>
                 </div>
                 <ng-template #otherLeague>
                   <div class="right">
@@ -253,14 +256,14 @@
               Top signings
             </h3>
             <ng-container *ngIf="professionalDetails?.top_signings">
-              <div
-                class="section-block"
-                *ngFor="
-                  let signings of professionalDetails.top_signings;
-                  let i = index
-                "
-              >
-                <div class="third">
+              <div class="section-block">
+                <div
+                  class="third"
+                  *ngFor="
+                    let signings of professionalDetails.top_signings;
+                    let i = index
+                  "
+                >
                   <p>
                     <span>{{ i + 1 }}.</span> {{ signings.name }}
                   </p>
@@ -1583,7 +1586,7 @@
     </div>
     <!-- League name   -->
     <div class="section">
-      <h3 class="section-heading">
+      <h3 class="section-heading mb-0">
         League name
       </h3>
       <div class="section-block">
