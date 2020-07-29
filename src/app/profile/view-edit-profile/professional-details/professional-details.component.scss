@@ -1,6 +1,10 @@
 @import "src/assets/sass/abstracts/variables";
 @import "src/assets/sass/abstracts/mixins";
 
+.d-none {
+  display: none;
+}
+
 .wrapper {
   width: 95%;
   margin: 0 auto;
@@ -163,6 +167,96 @@
         }
       }
     }
+
+    // professional css
+    .section {
+      margin-bottom: 2rem;
+
+      &-heading {
+        margin-bottom: 1rem;
+      }
+
+      &-block {
+        display: flex;
+        flex-wrap: wrap;
+
+        .count {
+          width: 3rem;
+          height: 100%;
+          margin-top: 0.5rem;
+          font-size: 1.8rem;
+          font-weight: 600;
+          color: #323232;
+        }
+
+        .info {
+          width: 90%;
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        .full {
+          width: 100%;
+          display: flex;
+
+          margin: 0.5rem 0;
+
+          .left {
+            width: 23%;
+
+            h4 {
+              font-weight: 500;
+            }
+          }
+
+          .right {
+            width: 60%;
+
+            p {
+              font-size: $heading-fourth;
+              color: $second-color;
+            }
+          }
+        }
+
+        .half {
+          display: flex;
+          width: 48%;
+          margin: 0.5rem 0;
+
+          .left {
+            width: 40%;
+
+            h4 {
+              font-weight: 500;
+            }
+          }
+
+          .right {
+            width: 60%;
+
+            p {
+              font-size: $heading-fourth;
+              color: $second-color;
+            }
+          }
+        }
+
+        .third {
+          width: 30%;
+          margin: 0.5rem;
+
+          p {
+            font-size: $heading-fourth;
+            color: $fourth-color;
+
+            span {
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
   }
 
   // edit secition goes here
@@ -234,6 +328,32 @@
   // form-width-control
   .input-container {
     display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .icon-btn {
+      button {
+        background: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+
+        .mat-icon {
+          margin-top: 0.5rem;
+          height: 4rem;
+          width: 4rem;
+          font-size: 4rem;
+        }
+      }
+
+      button.remove {
+        color: $fourth-color;
+      }
+
+      button.add {
+        color: $primary-color;
+      }
+    }
 
     .full {
       width: 100%;
@@ -246,11 +366,44 @@
 
     .third {
       width: 31%;
+      margin-right: 2rem;
+    }
+
+    .fourth {
+      width: 28%;
       margin-right: 3rem;
     }
 
     .two-third {
       width: 65%;
+    }
+
+    .two-fifth {
+      width: 40%;
+      margin-right: 2rem;
+    }
+  }
+}
+
+.wrapper-field {
+  display: flex;
+  align-items: center;
+
+  .field {
+    width: 80%;
+  }
+
+  .icon-btn {
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+    width: 20%;
+  }
+}
+
+.section {
+  h3 {
+    span {
+      color: $primary-color;
     }
   }
 }
