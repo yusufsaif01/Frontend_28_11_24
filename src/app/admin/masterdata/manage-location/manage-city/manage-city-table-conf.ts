@@ -15,7 +15,7 @@ export class ManageCityTableConfig extends MasterTableConfig {
       },
       name: {
         code: 'name',
-        text: 'Cities',
+        text: 'Districts',
         getValue: (ele: any) => {
           return ele[this.columns.name.code];
         }

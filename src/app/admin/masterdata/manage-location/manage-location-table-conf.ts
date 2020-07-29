@@ -34,7 +34,7 @@ export class ManageLocationTableConfig extends TableConfig {
       },
       no_of_district: {
         code: 'no_of_district',
-        text: 'No of District',
+        text: 'No of Districts',
         getValue: (ele: any) => {
           return ele[this.columns.no_of_district.code];
         }

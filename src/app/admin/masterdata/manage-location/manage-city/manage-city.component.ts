@@ -71,9 +71,9 @@ export class ManageCityComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this._toastrService.success(`Success`, 'City added successfully');
+          this._toastrService.success(`Success`, 'District added successfully');
           this.addDistrictForm.get('name').reset();
-          this.getCityListByState(
+          this.getDistrictListByState(
             this.state_id,
             this.pageSize,
             this.selectedPage
@@ -96,12 +96,12 @@ export class ManageCityComponent implements OnInit, OnDestroy {
       );
   }
 
-  loadCityList(value: string) {
+  loadDistrictList(value: string) {
     this.state_id = value;
-    this.getCityListByState(value, this.pageSize, 1);
+    this.getDistrictListByState(value, this.pageSize, 1);
   }
 
-  getCityListByState(
+  getDistrictListByState(
     state_id: string,
     page_size: number,
     page_no: number,
@@ -130,12 +130,16 @@ export class ManageCityComponent implements OnInit, OnDestroy {
 
   updatePage(event: any) {
     this.selectedPage = event.selectedPage;
-    this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
+    this.getDistrictListByState(
+      this.state_id,
+      this.pageSize,
+      this.selectedPage
+    );
   }
 
   getSearchText(value: string) {
     let filterValue = value;
-    this.getCityListByState(this.state_id, this.pageSize, 1, filterValue);
+    this.getDistrictListByState(this.state_id, this.pageSize, 1, filterValue);
   }
 
   createForm() {
@@ -152,9 +156,13 @@ export class ManageCityComponent implements OnInit, OnDestroy {
     this.row = obj;
     this.editMode = true;
     this.districtId = id;
-    this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
+    this.getDistrictListByState(
+      this.state_id,
+      this.pageSize,
+      this.selectedPage
+    );
   }
-  updateCity(name: any, id: any) {
+  updateDistrict(name: any, id: any) {
     if (!name || name == '') {
       return;
     }
@@ -167,7 +175,11 @@ export class ManageCityComponent implements OnInit, OnDestroy {
   cancelDistrict(user?: any) {
     this.editMode = false;
     this.update = 'cancel';
-    this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
+    this.getDistrictListByState(
+      this.state_id,
+      this.pageSize,
+      this.selectedPage
+    );
   }
   onChange(event: any) {
     if (event.id) {
@@ -184,7 +196,7 @@ export class ManageCityComponent implements OnInit, OnDestroy {
       .subscribe(
         data => {
           this._toastrService.success(`Success`, 'City updated successfully');
-          this.getCityListByState(
+          this.getDistrictListByState(
             this.state_id,
             this.pageSize,
             this.selectedPage
@@ -192,7 +204,7 @@ export class ManageCityComponent implements OnInit, OnDestroy {
         },
         error => {
           this._toastrService.error(`${error.error.message}`, 'Error');
-          this.getCityListByState(
+          this.getDistrictListByState(
             this.state_id,
             this.pageSize,
             this.selectedPage

@@ -37,7 +37,7 @@
                   matNativeControl
                   required
                   class="change-icon"
-                  (change)="loadCityList($event.target.value)"
+                  (change)="loadDistrictList($event.target.value)"
                 >
                   <option value="">Select State</option>
                   <ng-container *ngFor="let state of stateArray">
@@ -87,7 +87,10 @@
                 </mat-error>
               </div>
               <div class="input-wrapper">
-                <button (click)="addCity()" [disabled]="!addDistrictForm.valid">
+                <button
+                  (click)="addDistrict()"
+                  [disabled]="!addDistrictForm.valid"
+                >
                   Add
                 </button>
               </div>
@@ -141,10 +144,10 @@
               </button>
             </div>
             <div class="action-buttons" *ngIf="editMode && id == districtId">
-              <button matTooltip="Save" (click)="updateCity(name, id)">
+              <button matTooltip="Save" (click)="updateDistrict(name, id)">
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button matTooltip="Cancel" (click)="cancelCity(name, id)">
+              <button matTooltip="Cancel" (click)="cancelDistrict(name, id)">
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>
