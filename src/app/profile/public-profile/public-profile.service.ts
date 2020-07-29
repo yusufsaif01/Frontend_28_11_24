@@ -62,6 +62,36 @@ export interface GetPublicProfileDetailsResponseContext {
     profile_status: { status: string; remarks: string };
     is_followed: boolean;
     footmate_status: string;
+    name: string;
+    type: string;
+    trophies: {
+      _id: string;
+      name: string;
+      year: string;
+      position: string;
+      id: string;
+    }[];
+    top_signings: {
+      _id: string;
+      name: string;
+    }[];
+    contact_person: {
+      _id: string;
+      designation: string;
+      name: string;
+      email: string;
+      mobile_number: string;
+    }[];
+    founded_in: string;
+    league: string;
+    league_other: string;
+    mobile_number: string;
+    short_name: string;
+    address: {
+      full_address: string;
+      pincode: string;
+    };
+    stadium_name: string;
   };
 }
 

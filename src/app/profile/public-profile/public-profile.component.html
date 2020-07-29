@@ -129,7 +129,9 @@
               <h2>About FooTMate</h2>
             </div>
             <div class="right">
-              <button>Delete FooTMate</button>
+              <ng-container *ngIf="publicProfileData?.member_type === 'player'">
+                <button>Delete FooTMate</button>
+              </ng-container>
               <button>Unfollow</button>
             </div>
           </div>
@@ -418,14 +420,14 @@
 
             <ng-container *ngIf="publicProfileData?.member_type !== 'player'">
               <!-- Club/Academy personal -->
-              <div class="club-academy-personal">
+              <div class="club-academy-personal" *ngIf="tab === 'personal'">
                 <div class="details">
                   <div class="full">
                     <div class="left">
                       <h4>Email</h4>
                     </div>
                     <div class="right">
-                      <p>chelsea@gmail.com</p>
+                      <p>{{ publicProfileData?.email }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -433,7 +435,7 @@
                       <h4>Phone number</h4>
                     </div>
                     <div class="right">
-                      <p>9689854795</p>
+                      <p>{{ publicProfileData?.phone }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -441,7 +443,7 @@
                       <h4>Mobile number</h4>
                     </div>
                     <div class="right">
-                      <p>9689854795</p>
+                      <p>{{ publicProfileData?.mobile_number }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -449,7 +451,7 @@
                       <h4>Founded (Year)</h4>
                     </div>
                     <div class="right">
-                      <p>22 June 2002</p>
+                      <p>{{ publicProfileData?.founded_in }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -457,7 +459,7 @@
                       <h4>Country</h4>
                     </div>
                     <div class="right">
-                      <p>India</p>
+                      <p>{{ publicProfileData?.country?.name | titlecase }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -465,7 +467,7 @@
                       <h4>State/ UT</h4>
                     </div>
                     <div class="right">
-                      <p>Delhi</p>
+                      <p>{{ publicProfileData?.state?.name | titlecase }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -473,7 +475,7 @@
                       <h4>City</h4>
                     </div>
                     <div class="right">
-                      <p>Delhi</p>
+                      <p>{{ publicProfileData?.city?.name | titlecase }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -481,7 +483,7 @@
                       <h4>Pincode/ Zipcode</h4>
                     </div>
                     <div class="right">
-                      <p>110099</p>
+                      <p>{{ publicProfileData?.address?.pincode }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -490,7 +492,9 @@
                     </div>
                     <div class="right">
                       <p>
-                        R.no.1 142 Kapadia Bldg 3rd Flr, Modi Street, Fort
+                        {{
+                          publicProfileData?.address?.full_address | titlecase
+                        }}
                       </p>
                     </div>
                   </div>
@@ -499,115 +503,125 @@
                       <h4>Stadium name</h4>
                     </div>
                     <div class="right">
-                      <p>Football Foot Ground</p>
+                      <p>{{ publicProfileData?.stadium_name | titlecase }}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- Club/Academy professional -->
-              <div class="club-academy-personal">
+              <div class="club-academy-personal" *ngIf="tab === 'professional'">
                 <div class="section">
                   <h4 class="mb-1">Major trophy wins</h4>
-                  <div class="trophy-list">
-                    <span>1.</span>
-                    <div class="trophy-detials">
-                      <div class="full">
-                        <div class="left">
-                          <h4>Trophy name</h4>
+                  <ng-container *ngIf="publicProfileData?.trophies">
+                    <div
+                      class="trophy-list"
+                      *ngFor="
+                        let trophy of publicProfileData?.trophies;
+                        let i = index
+                      "
+                    >
+                      <span>{{ i + 1 }}.</span>
+                      <div class="trophy-detials">
+                        <div class="full">
+                          <div class="left">
+                            <h4>Trophy name</h4>
+                          </div>
+                          <div class="right">
+                            <p>{{ trophy.name | titlecase }}</p>
+                          </div>
                         </div>
-                        <div class="right">
-                          <p>UEFA Champions League</p>
+                        <div class="full">
+                          <div class="left">
+                            <p>Year</p>
+                          </div>
+                          <div class="right">
+                            <p>{{ trophy.year }}</p>
+                          </div>
                         </div>
-                      </div>
-                      <div class="full">
-                        <div class="left">
-                          <h4>Year</h4>
-                        </div>
-                        <div class="right">
-                          <p>2016</p>
-                        </div>
-                      </div>
-                      <div class="full">
-                        <div class="left">
-                          <h4>Position secured</h4>
-                        </div>
-                        <div class="right">
-                          <p>Second Runnerup</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="trophy-list">
-                    <span>2.</span>
-                    <div class="trophy-detials">
-                      <div class="full">
-                        <div class="left">
-                          <h4>Trophy name</h4>
-                        </div>
-                        <div class="right">
-                          <p>UEFA Champions League</p>
-                        </div>
-                      </div>
-                      <div class="full">
-                        <div class="left">
-                          <h4>Year</h4>
-                        </div>
-                        <div class="right">
-                          <p>2016</p>
-                        </div>
-                      </div>
-                      <div class="full">
-                        <div class="left">
-                          <h4>Position secured</h4>
-                        </div>
-                        <div class="right">
-                          <p>Second Runnerup</p>
+                        <div class="full">
+                          <div class="left">
+                            <h4>Position secured</h4>
+                          </div>
+                          <div class="right">
+                            <p>{{ trophy.position | titlecase }}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </ng-container>
                 </div>
                 <!-- league name -->
                 <div class="league">
                   <h4>League name</h4>
                   <div class="full">
                     <div class="left">
-                      <h4>Position secured</h4>
+                      <h4>
+                        League name
+                        {{
+                          publicProfileData?.league === 'Other' ? '(Other)' : ''
+                        }}
+                      </h4>
                     </div>
                     <div class="right">
-                      <p>Second Runnerup</p>
+                      <p>
+                        {{
+                          (publicProfileData?.league === 'Others'
+                            ? publicProfileData?.league_other
+                            : publicProfileData?.league
+                          ) | titlecase
+                        }}
+                      </p>
                     </div>
                   </div>
                 </div>
                 <!-- signs -->
                 <div class="signings">
                   <h4 class="mt-1">Top signings</h4>
-                  <div class="full">
-                    <p><span>1.</span>Ratanlal Bisht</p>
-                    <p><span>2.</span>Ratanlal Bisht</p>
-                    <p><span>3.</span>Ratanlal Bisht</p>
-                    <p><span>4.</span>Ratanlal Bisht</p>
-                    <p><span>5.</span>Ratanlal Bisht</p>
-                    <p><span>6.</span>Ratanlal Bisht</p>
-                  </div>
+                  <ng-container *ngIf="publicProfileData?.top_signings">
+                    <div
+                      class="full"
+                      *ngFor="
+                        let signing of publicProfileData.top_signings;
+                        let i = index
+                      "
+                    >
+                      <p>
+                        <span>{{ i + 1 }}.</span> {{ signing.name | titlecase }}
+                      </p>
+                    </div>
+                  </ng-container>
                 </div>
                 <!-- Type of club -->
                 <div class="league">
-                  <h4>Type of club</h4>
+                  <h4>Type of {{ publicProfileData?.member_type }}</h4>
                   <div class="full">
                     <div class="right">
-                      <p>Residential</p>
+                      <p>{{ publicProfileData?.type | titlecase }}</p>
                     </div>
                   </div>
                 </div>
 
                 <!-- State association affiliated under -->
                 <div class="league">
-                  <h4>State association affiliated under</h4>
+                  <h4>
+                    State association affiliated under
+                    {{
+                      publicProfileData?.association === 'Others'
+                        ? '(Other)'
+                        : ''
+                    }}
+                  </h4>
                   <div class="full">
                     <div class="right">
-                      <p>All Manipur Football Association</p>
+                      <p>
+                        {{
+                          (publicProfileData?.association === 'Others'
+                            ? publicProfileData?.association_other
+                            : publicProfileData?.association
+                          ) | titlecase
+                        }}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -615,43 +629,57 @@
                 <!-- Contact details -->
                 <div class="contact-details">
                   <h4 class="mb-1">Contact details</h4>
-                  <div class="contact-list">
-                    <span>1.</span>
-                    <div class="contact-detials">
-                      <div class="full">
-                        <div class="left">
-                          <h4>Trophy name</h4>
+                  <ng-container *ngIf="publicProfileData?.contact_person">
+                    <div
+                      class="contact-list"
+                      *ngFor="
+                        let person of publicProfileData.contact_person;
+                        let i = index
+                      "
+                    >
+                      <span>{{ i + 1 }}.</span>
+                      <div class="contact-detials">
+                        <div class="full">
+                          <div class="left">
+                            <h4>Designation</h4>
+                          </div>
+                          <div class="right">
+                            <p>{{ person?.designation | titlecase }}</p>
+                          </div>
                         </div>
-                        <div class="right">
-                          <p>UEFA Champions League</p>
+                        <div class="full">
+                          <div class="left">
+                            <h4>Name</h4>
+                          </div>
+                          <div class="right">
+                            <p>{{ person?.name | titlecase }}</p>
+                          </div>
                         </div>
-                      </div>
-                      <div class="full">
-                        <div class="left">
-                          <h4>Year</h4>
+                        <div class="full">
+                          <div class="left">
+                            <h4>Email address</h4>
+                          </div>
+                          <div class="right">
+                            <p>{{ person?.email }}</p>
+                          </div>
                         </div>
-                        <div class="right">
-                          <p>2016</p>
-                        </div>
-                      </div>
-                      <div class="full">
-                        <div class="left">
-                          <h4>Position secured</h4>
-                        </div>
-                        <div class="right">
-                          <p>Second Runnerup</p>
-                        </div>
-                      </div>
-                      <div class="full">
-                        <div class="left">
-                          <h4>Position secured</h4>
-                        </div>
-                        <div class="right">
-                          <p>Second Runnerup</p>
+                        <div class="full">
+                          <div class="left">
+                            <h4>Contact number</h4>
+                          </div>
+                          <div class="right">
+                            <p>
+                              {{
+                                person?.mobile_number
+                                  ? '+91 ' + person?.mobile_number
+                                  : ''
+                              }}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </ng-container>
                 </div>
               </div>
             </ng-container>
