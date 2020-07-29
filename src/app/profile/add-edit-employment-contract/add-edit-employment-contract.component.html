@@ -830,11 +830,12 @@
     <app-left-panel
       (sendProfileData)="getProfileData($event)"
       (sendMemberType)="getMemberType($event)"
-    ></app-left-panel>
+    >
+    </app-left-panel>
   </div>
   <div class="right-panel">
     <div class="right-wrapper">
-      <div class="main mt-2">
+      <div class="main">
         <!-- heading -->
         <div class="heading">
           <h2>{{ isEditMode ? 'Edit contract' : 'Add new contract' }}</h2>
@@ -1713,6 +1714,9 @@
           </form>
         </div>
       </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
     </div>
   </div>
 </div>
