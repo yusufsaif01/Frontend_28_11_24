@@ -66,9 +66,28 @@
             tableConfig.columns[col].getValue(element) | date: 'dd-LLLL-yyyy'
           }}
         </p>
-        <p
-          *ngIf="col === 'name' || col === 'type'"
+        <div
+          class="name"
+          *ngIf="col === 'name'"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
+        >
+          <img
+            src="../../../assets/images/member/profile.png"
+            class="thumbnail"
+            alt=""
+          />
+          <p>
+            {{
+              tableConfig.columns[col].getValue(element).length < 15
+                ? tableConfig.columns[col].getValue(element)
+                : (tableConfig.columns[col].getValue(element) | slice: 0:15) +
+                  '...'
+            }}
+          </p>
+        </div>
+        <p
+          *ngIf="col === 'type'"
+          matTooltip=" {{ tableConfig.columns[col].getValue(element) }}"
         >
           {{
             tableConfig.columns[col].getValue(element).length < 15
@@ -77,6 +96,7 @@
                 '...'
           }}
         </p>
+
         <p
           *ngIf="col === 'email'"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
