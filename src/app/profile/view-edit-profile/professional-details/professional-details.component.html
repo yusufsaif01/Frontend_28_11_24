@@ -11,7 +11,7 @@
 
         <div class="second-section">
           <!-- row -->
-          <h4>Preferred playing position :</h4>
+          <h3 class="mb-1">Preferred playing position :</h3>
 
           <div class="view-details">
             <div class="details">
@@ -106,18 +106,18 @@
           </div>
 
           <div class="associated mt-2">
-            <h4>
+            <h3>
               Currently associated with club / academy :
               <span>
                 {{ professionalDetails?.associated_club_academy | titlecase }}
               </span>
-            </h4>
+            </h3>
           </div>
 
           <ng-container
             *ngIf="professionalDetails?.associated_club_academy === 'yes'"
           >
-            <h4 class="mt-1 mb-1">Head coach details</h4>
+            <h3 class="mt-1 mb-1">Head coach details</h3>
             <div class="view-details">
               <div class="details">
                 <div class="left">
@@ -368,7 +368,7 @@
           </div>
 
           <div class="second-section">
-            <h4>Preferred playing position</h4>
+            <h3>Preferred playing position</h3>
             <div class="input-container">
               <ng-container
                 formArrayName="position"
@@ -612,9 +612,9 @@
             </div>
             <div class="input-container">
               <div class="full">
-                <h4 class="mb-1">
+                <h3 class="mb-1">
                   Currently associated with club / academy ? <span>*</span>
-                </h4>
+                </h3>
                 <div class="radio-block">
                   <mat-radio-group
                     formControlName="associated_club_academy"
@@ -637,7 +637,7 @@
                 'yes'
               "
             >
-              <h4>Head Coach</h4>
+              <h3>Head Coach</h3>
               <div class="input-container">
                 <div class="third">
                   <div class="form-block">
