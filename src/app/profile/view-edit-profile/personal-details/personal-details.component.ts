@@ -574,13 +574,19 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   dateModifier(requestData: any) {
-    let data = this.member_type === 'player' ? 'dob' : 'founded_in';
-    requestData.set(
-      data,
-      this._dateConversion.convertToYear(
-        this.personalProfileDetailsForm.get(data).value
-      )
-    );
+    this.member_type === 'player'
+      ? requestData.set(
+          'dob',
+          this._dateConversion.convert(
+            this.personalProfileDetailsForm.get('dob').value
+          )
+        )
+      : requestData.set(
+          'founded_in',
+          this._dateConversion.convertToYear(
+            this.personalProfileDetailsForm.get('founded_in').value
+          )
+        );
   }
 
   ngOnDestroy() {}
