@@ -247,8 +247,7 @@
         <div class="counts-wrapper">
           <div class="counts">
             <h2>
-              7
-              <!-- {{ foot_data.footmate_requests }} -->
+              {{ foot_data.footmate_requests }}
             </h2>
             <a
               [routerLink]="['/member/manage/foot-requests']"
@@ -281,9 +280,7 @@
                 <p>{{ footMate.position }}</p>
                 <div class="player-categroy">
                   <h5>{{ footMate.player_type }}</h5>
-                  <!-- <a *ngIf="footMate.mutuals" (click)="openDialog(footMate)">{{ footMate.mutuals }} Mutual
-                    Footmates</a> -->
-                  <a (click)="openDialog(footMate)"
+                  <a *ngIf="footMate.mutuals" (click)="openDialog(footMate)"
                     >{{ footMate.mutuals }} Mutual Footmates</a
                   >
                 </div>

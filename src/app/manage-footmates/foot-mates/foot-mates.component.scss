@@ -79,11 +79,11 @@
                 background: $primary-color;
                 color: $white-color;
               }
+            }
 
-              .active {
-                background: $primary-color;
-                color: $white-color;
-              }
+            .active {
+              background: $primary-color;
+              color: $white-color;
             }
           }
         }
@@ -133,13 +133,13 @@
 
               h5 {
                 font-weight: 700;
-                font-size: 1.4rem;
-                color: $fourth-color;
+                font-size: $heading-fifth;
+                color: $second-color;
               }
 
               a {
                 color: $primary-color;
-                font-size: $heading-sixth;
+                font-size: $heading-fifth;
                 font-weight: 700;
               }
             }
