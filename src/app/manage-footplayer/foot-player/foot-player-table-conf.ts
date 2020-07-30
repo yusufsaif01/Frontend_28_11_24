@@ -6,9 +6,9 @@ export class FootPlayerTableConfig extends TableConfig {
       'name',
       'category',
       'position',
-      'status',
       'email',
-      'phone'
+      'phone',
+      'status'
     ];
 
     this.columns = {
