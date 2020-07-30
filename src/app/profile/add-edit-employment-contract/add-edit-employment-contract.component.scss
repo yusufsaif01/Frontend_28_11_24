@@ -217,6 +217,13 @@
 
   .right-panel {
     width: 76.25%;
+    position: relative;
+
+    .footer-fix {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+    }
 
     .right-wrapper {
       padding: 2rem;
@@ -226,6 +233,7 @@
         @include shadow;
         padding: 2rem 4rem;
         border-radius: 0.5rem;
+        margin-bottom: 10rem;
 
         // heading css
         .heading {

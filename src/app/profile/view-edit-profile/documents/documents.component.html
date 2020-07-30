@@ -204,7 +204,6 @@
           >
             Aadhaar file format <span>*</span>
           </h3>
-
           <div class="section">
             <div class="input-container">
               <div class="full">
@@ -222,72 +221,6 @@
                     </mat-radio-button>
                   </mat-radio-group>
                 </div>
-              </div>
-            </div>
-            <!-- second -->
-            <div class="input-container">
-              <div class="full">
-                <h4 class="pb-1 mt-1">Document details</h4>
-
-                <div
-                  class="radio-block doc-type"
-                  *ngIf="member_type === 'academy'"
-                >
-                  <label class="pb-1">Document type</label>
-                  <mat-radio-group>
-                    <mat-radio-button value="aiff">
-                      AIFF status
-                    </mat-radio-button>
-                    <mat-radio-button value="pan">
-                      PAN number
-                    </mat-radio-button>
-                    <mat-radio-button value="coi">
-                      COI number
-                    </mat-radio-button>
-                    <mat-radio-button value="tin">
-                      TIN number
-                    </mat-radio-button>
-                  </mat-radio-group>
-                </div>
-              </div>
-            </div>
-            <div class="upload-section">
-              <ng-container
-                *ngIf="documentsDetailsForm.get('aadhar_media_type').value"
-              >
-                <h4>
-                  Upload document
-                  <img
-                    matTooltip="Allowed Formats: png,jpeg,jpg"
-                    src="assets/images/global/info.svg"
-                    alt=""
-                  />
-                </h4>
-              </ng-container>
-              <div class="upload-document">
-                <label
-                  [matTooltip]="
-                    profile_status === 'verified'
-                      ? 'Not allowed to update aadhaar details'
-                      : ''
-                  "
-                  for="upload-pdf"
-                >
-                  <div class="upload-btn">
-                    <img src="assets/images/member/front.png" alt="" />
-                    <span>
-                      <input
-                        #aadharPdfInput
-                        formControlName="aadhar"
-                        type="file"
-                        id="upload-pdf"
-                        (change)="uploadAadhar($event.target.files, 'single')"
-                      />
-                      <span>Upload</span>
-                    </span>
-                  </div>
-                  <p>{{ (aadharPdfInput?.files)[0]?.name }}</p>
-                </label>
               </div>
             </div>
             <div class="upload-section">
