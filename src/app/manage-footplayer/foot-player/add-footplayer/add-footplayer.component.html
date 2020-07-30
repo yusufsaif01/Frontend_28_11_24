@@ -1,87 +1,86 @@
 <div class="from-container">
   <div class="header">
     <div class="title">
-      <h3>Add New Player</h3>
+      <h2>Add new player</h2>
     </div>
     <div class="close">
-      <img
-        [mat-dialog-close]
-        src="assets/images/icons/close-white.png"
-        alt=""
-      />
+      <mat-icon mat-dialog-close class="material-icons">close</mat-icon>
     </div>
   </div>
 
   <div class="modal-body">
     <!-- form section -->
     <form [formGroup]="findPlayerForm">
-      <div class="from-wrapper">
+      <div class="form-wrapper">
         <!-- First Name  -->
-        <div class="from-block">
-          <label
-            >Name
-            <!-- <span>*</span> -->
-          </label>
-          <input
-            formControlName="name"
-            type="text"
-            matInput
-            placeholder="Name"
-            autocomplete="off"
-          />
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label
+              >Name
+              <!-- <span>*</span> -->
+            </label>
+            <input
+              formControlName="name"
+              type="text"
+              matInput
+              placeholder="Name"
+              autocomplete="off"
+            />
+          </div>
         </div>
-
         <!-- Email  -->
-        <div class="from-block">
-          <label>Email </label>
-          <input
-            formControlName="email"
-            type="email"
-            matInput
-            placeholder="Email"
-            autocomplete="off"
-          />
-          <mat-error
-            *ngIf="
-              findPlayerForm.controls.email.invalid &&
-              findPlayerForm.controls.email.touched
-            "
-          >
-            <span
-              *ngIf="findPlayerForm.controls.email.errors.required"
-              translate
-              >Email is required
-            </span>
-            <span *ngIf="findPlayerForm.controls.email.errors.email" translate
-              >Email format is invalid
-            </span>
-          </mat-error>
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label>Email </label>
+            <input
+              formControlName="email"
+              type="email"
+              matInput
+              placeholder="Email"
+              autocomplete="off"
+            />
+            <mat-error
+              class="error-text"
+              *ngIf="
+                findPlayerForm.controls.email.invalid &&
+                findPlayerForm.controls.email.touched
+              "
+            >
+              <span
+                *ngIf="findPlayerForm.controls.email.errors.required"
+                translate
+                >Email is required
+              </span>
+              <span *ngIf="findPlayerForm.controls.email.errors.email" translate
+                >Email format is invalid
+              </span>
+            </mat-error>
+          </div>
         </div>
 
-        <!-- Phone Number  -->
-        <div class="from-block">
-          <label>Phone Number </label>
-          <div class="phone">
-            <div class="country-code">
-              <input
-                type="text"
-                matInput
-                value="+91"
-                autocomplete="off"
-                readonly
-                tabindex="-1"
-              />
-            </div>
-            <div class="number">
-              <input
-                formControlName="phone"
-                type="text"
-                matInput
-                placeholder="Phone Number"
-                autocomplete="off"
-              />
+        <!-- phone number -->
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label>Mobile number<span>*</span></label>
+            <div class="phone-block">
+              <div class="country-code">
+                <select disabled>
+                  <option>+91</option>
+                </select>
+              </div>
+              <div class="phone-number">
+                <input
+                  formControlName="phone"
+                  type="text"
+                  matInput
+                  placeholder="Phone Number"
+                  autocomplete="off"
+                  trim="blur"
+                />
+              </div>
             </div>
             <mat-error
+              class="error-text"
               *ngIf="
                 findPlayerForm.controls.phone.invalid &&
                 findPlayerForm.controls.phone.touched
@@ -95,7 +94,6 @@
               <ng-template #lengthBlock>
                 <span
                   translate
-                  class="error-text"
                   *ngIf="findPlayerForm.controls.phone.errors.minlength"
                 >
                   Please provide number upto
@@ -107,7 +105,6 @@
                 </span>
                 <span
                   translate
-                  class="error-text"
                   *ngIf="findPlayerForm.controls.phone.errors.maxlength"
                 >
                   Please provide number upto
@@ -119,7 +116,6 @@
                 </span>
               </ng-template>
               <span
-                class="error-text"
                 *ngIf="
                   findPlayerForm.controls.phone.errors.pattern;
                   else lengthBlock
@@ -134,7 +130,11 @@
 
         <!-- find button  -->
         <div class="find-btn">
-          <button (click)="findPlayer()" [disabled]="!findPlayerForm.valid">
+          <button
+            class="btn btn-primary"
+            (click)="findPlayer()"
+            [disabled]="!findPlayerForm.valid"
+          >
             Find
           </button>
         </div>
@@ -170,7 +170,7 @@
             [matTooltip]="
               getStateToolTip(is_verified, club_name, member_type).message
             "
-            class="action-buttons"
+            class="find-btn"
           >
             <button
               (click)="sendFootPlayerRequest(user_id)"
@@ -184,7 +184,7 @@
               [disabled]="
                 getStateToolTip(is_verified, club_name, member_type).state
               "
-              class="save"
+              class="btn btn-primary"
             >
               Add
             </button>
@@ -192,10 +192,12 @@
         </ng-template>
       </div>
       <div *ngIf="totalRecordSubject$ | async" class="notonportal">
-        <h3>Player is not available on the YFTChain portal</h3>
-        <button (click)="sendFootPlayerInvite()">
-          Send Invitation
-        </button>
+        <div class="middle">
+          <h3>Player is not available on the YFTChain portal</h3>
+          <button class="btn-primary btn" (click)="sendFootPlayerInvite()">
+            Send Invitation
+          </button>
+        </div>
       </div>
     </div>
   </div>
