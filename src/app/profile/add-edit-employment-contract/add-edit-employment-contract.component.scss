@@ -269,3 +269,16 @@
     }
   }
 }
+
+//
+.radio-section {
+  margin-bottom: 1rem;
+
+  ::ng-deep {
+    .mat-radio-label-content {
+      // font-size: 1.8rem;
+      font-weight: 400;
+      color: $second-color;
+    }
+  }
+}
