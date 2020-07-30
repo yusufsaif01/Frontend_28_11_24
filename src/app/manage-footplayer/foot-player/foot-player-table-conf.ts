@@ -8,7 +8,9 @@ export class FootPlayerTableConfig extends TableConfig {
       'name',
       'category',
       'position',
-      'status'
+      'status',
+      'email',
+      'phone'
     ];
 
     this.columns = {
@@ -28,7 +30,7 @@ export class FootPlayerTableConfig extends TableConfig {
       // },
       name: {
         code: 'name',
-        text: 'Name',
+        text: 'Player name',
         getValue: (ele: any) => {
           return ele[this.columns.name.code];
         }
@@ -45,6 +47,20 @@ export class FootPlayerTableConfig extends TableConfig {
         text: 'Position',
         getValue: (ele: any) => {
           return ele[this.columns.position.code];
+        }
+      },
+      email: {
+        code: 'email',
+        text: 'Email',
+        getValue: (ele: any) => {
+          return ele[this.columns.email.code];
+        }
+      },
+      phone: {
+        code: 'phone',
+        text: 'Phone number',
+        getValue: (ele: any) => {
+          return ele[this.columns.phone.code];
         }
       },
       status: {
