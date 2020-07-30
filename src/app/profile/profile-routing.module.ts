@@ -7,6 +7,7 @@ import { extract, AuthenticationGuard } from '@app/core';
 import { AddEditEmploymentContractComponent } from './add-edit-employment-contract/add-edit-employment-contract.component';
 import { ViewEmploymentContractComponent } from './view-employment-contract/view-employment-contract.component';
 import { ViewEditProfileComponent } from './view-edit-profile/view-edit-profile.component';
+import { PublicProfileComponent } from './public-profile/public-profile.component';
 
 const appRoutes: Routes = [
   {
@@ -39,6 +40,16 @@ const appRoutes: Routes = [
         path: 'view-employment-contract/:id',
         component: ViewEmploymentContractComponent,
         data: { title: extract('View Contract') }
+      },
+      {
+        path: 'public',
+        component: PublicProfileComponent,
+        data: { title: extract('Public Profile') }
+      },
+      {
+        path: 'public/:user_id',
+        component: PublicProfileComponent,
+        data: { title: extract('Public Profile') }
       },
       { path: '**', component: ViewEditProfileComponent }
     ]
