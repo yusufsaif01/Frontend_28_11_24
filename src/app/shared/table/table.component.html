@@ -164,7 +164,8 @@
                 !tableConfig.columns[col]
                   .getValue(element)
                   .split('.')
-                  .includes('pdf')
+                  .includes('pdf') &&
+                tableConfig.columns[col].getValue(element).includes('uploads')
               "
               class="thumbnail"
               [src]="tableConfig.columns[col].getValue(element)"
