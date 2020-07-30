@@ -2,14 +2,14 @@ import { TableConfig } from '@app/shared/table/TableConfig';
 export class AddFootPlayerTableConfig extends TableConfig {
   constructor() {
     super();
-    this.allowedColumns = ['name', 'category', 'position'];
+    this.allowedColumns = ['player_name', 'category', 'position'];
 
     this.columns = {
-      name: {
-        code: 'name',
-        text: 'Name',
+      player_name: {
+        code: 'player_name',
+        text: 'Player name',
         getValue: (ele: any) => {
-          return ele[this.columns.name.code];
+          return ele[this.columns.player_name.code];
         }
       },
       category: {
