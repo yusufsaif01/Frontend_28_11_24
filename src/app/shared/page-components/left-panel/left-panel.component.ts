@@ -40,6 +40,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   loggedin_userid: string = localStorage.getItem('user_id');
   profile_status: string;
 
+  @Input() data: any;
   @Input() achievements: number = 0;
   @Input() options: any;
   @Input() userId: string;

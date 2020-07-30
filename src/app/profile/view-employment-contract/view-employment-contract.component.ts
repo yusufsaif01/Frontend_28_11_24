@@ -54,7 +54,10 @@ export class ViewEmploymentContractComponent implements OnInit {
   }
   findPlayerContractWithDetails() {
     switch (this.contractDetails.created_by) {
-      case 'club' || 'academy':
+      case 'club':
+        this.contractWith = this.contractDetails.created_by;
+        break;
+      case 'academy':
         this.contractWith = this.contractDetails.created_by;
         break;
       case 'player':
