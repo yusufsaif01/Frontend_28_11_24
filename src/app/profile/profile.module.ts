@@ -12,6 +12,7 @@ import { PersonalDetailsComponent } from './view-edit-profile/personal-details/p
 import { ProfessionalDetailsComponent } from './view-edit-profile/professional-details/professional-details.component';
 import { DocumentsComponent } from './view-edit-profile/documents/documents.component';
 import { EmploymentContractsComponent } from './view-edit-profile/employment-contracts/employment-contracts.component';
+import { PublicProfileComponent } from './public-profile/public-profile.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { EmploymentContractsComponent } from './view-edit-profile/employment-con
     PersonalDetailsComponent,
     ProfessionalDetailsComponent,
     DocumentsComponent,
-    EmploymentContractsComponent
+    EmploymentContractsComponent,
+    PublicProfileComponent
   ],
   imports: [
     CommonModule,

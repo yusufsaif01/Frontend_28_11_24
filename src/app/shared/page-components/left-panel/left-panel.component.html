@@ -1,63 +1,139 @@
 <!-- New UI Character -->
 <div class="">
-  <div class="profile" *ngIf="profile">
+  <div class="profile" *ngIf="profile || data">
     <div class="profile-img">
-      <img src="{{ profile.avatar_url }}" alt="Profile Image" />
+      <img
+        [src]="options?.is_public ? data?.avatar_url : profile?.avatar_url"
+        alt="Profile Image"
+      />
     </div>
-    <div class="profile-name">
-      <h3 *ngIf="profile.member_type === 'player'">
-        {{ profile.first_name }} {{ profile.last_name }}
-      </h3>
-      <h3 *ngIf="profile.member_type !== 'player'">
-        {{ profile.name }}
-      </h3>
-    </div>
-
-    <div class="profile-catergory">
-      <h4>
-        <span>
-          <mat-icon *ngIf="profile_status === 'verified'" class="material-icons"
-            >verified_user</mat-icon
-          >
-        </span>
-
-        <ng-container *ngIf="profile.member_type === 'player'">
-          {{ profile?.player_type | titlecase }}
-        </ng-container>
-        <ng-container *ngIf="profile.member_type !== 'player'">
-          {{ profile.member_type | titlecase }}
-        </ng-container>
-      </h4>
-    </div>
-    <div class="profile-position">
-      <h4
-        *ngIf="
-          profile.member_type === 'player' &&
-          professionalProfile.position &&
-          professionalProfile.position[0]
-        "
-      >
-        ({{
-          (professionalProfile.position && professionalProfile.position[0]
-            ? professionalProfile.position[0].name
-            : ''
-          ) | titlecase
-        }})
-      </h4>
-      <h4 *ngIf="profile.member_type !== 'player'">
-        ({{ professionalProfile?.type | titlecase }})
-      </h4>
-    </div>
-    <div class="profile-counts">
-      <div class="count line">
-        <span>{{ followers }}</span>
-        <h5>Followers</h5>
+    <ng-container *ngIf="!options?.is_public">
+      <div class="profile-name">
+        <h3 *ngIf="profile?.member_type === 'player'">
+          {{ profile?.first_name }} {{ profile?.last_name }}
+        </h3>
+        <h3 *ngIf="profile.member_type !== 'player'">
+          {{ profile?.name }}
+        </h3>
       </div>
-      <div class="count">
-        <span>{{ count.videos || 0 }}</span>
-        <h5>Videos</h5>
+    </ng-container>
+    <ng-container *ngIf="options?.is_public">
+      <div class="profile-name">
+        <h3 *ngIf="data?.member_type === 'player'">
+          {{ data?.first_name }} {{ data?.last_name }}
+        </h3>
+        <h3 *ngIf="data?.member_type !== 'player'">
+          {{ data.name }}
+        </h3>
       </div>
-    </div>
+    </ng-container>
+
+    <ng-container *ngIf="!options?.is_public">
+      <div class="profile-catergory">
+        <h4>
+          <span>
+            <mat-icon
+              *ngIf="profile_status === 'verified'"
+              class="material-icons"
+              >verified_user</mat-icon
+            >
+          </span>
+
+          <ng-container *ngIf="profile?.member_type === 'player'">
+            {{ profile?.player_type | titlecase }}
+          </ng-container>
+          <ng-container *ngIf="profile?.member_type !== 'player'">
+            {{ profile?.member_type | titlecase }}
+          </ng-container>
+        </h4>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="options?.is_public">
+      <div class="profile-catergory">
+        <h4>
+          <span>
+            <mat-icon
+              *ngIf="data?.profile_status?.status === 'verified'"
+              class="material-icons"
+              >verified_user</mat-icon
+            >
+          </span>
+
+          <ng-container *ngIf="data?.member_type === 'player'">
+            {{ data?.player_type | titlecase }}
+          </ng-container>
+          <ng-container *ngIf="data?.member_type !== 'player'">
+            {{ data?.member_type | titlecase }}
+          </ng-container>
+        </h4>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!options?.is_public">
+      <div class="profile-position">
+        <h4
+          *ngIf="
+            profile?.member_type === 'player' &&
+            professionalProfile?.position &&
+            (professionalProfile?.position)[0]
+          "
+        >
+          ({{
+            (professionalProfile?.position && (professionalProfile?.position)[0]
+              ? (professionalProfile?.position)[0]?.name
+              : ''
+            ) | titlecase
+          }})
+        </h4>
+        <h4 *ngIf="profile?.member_type !== 'player'">
+          ({{ professionalProfile?.type | titlecase }})
+        </h4>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="options?.is_public">
+      <div class="profile-position">
+        <h4
+          *ngIf="
+            data?.member_type === 'player' &&
+            data?.position &&
+            (data?.position)[0]
+          "
+        >
+          ({{
+            (data?.position && (data?.position)[0]
+              ? (data?.position)[0]?.name
+              : ''
+            ) | titlecase
+          }})
+        </h4>
+        <h4 *ngIf="data?.member_type !== 'player'">
+          ({{ data?.type | titlecase }})
+        </h4>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!options?.is_public">
+      <div class="profile-counts">
+        <div class="count line">
+          <span>{{ followers }}</span>
+          <h5>Followers</h5>
+        </div>
+        <div class="count">
+          <span>{{ count.videos || 0 }}</span>
+          <h5>Videos</h5>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="options?.is_public">
+      <div class="profile-counts">
+        <div class="count line">
+          <span>{{ data?.followers }}</span>
+          <h5>Followers</h5>
+        </div>
+        <div class="count">
+          <span>{{ count.videos || 0 }}</span>
+          <h5>Videos</h5>
+        </div>
+      </div>
+    </ng-container>
   </div>
 
   <!-- menu -->
