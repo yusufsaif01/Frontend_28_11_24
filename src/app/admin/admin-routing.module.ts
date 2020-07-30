@@ -7,7 +7,7 @@ import { ManageAcademyComponent } from './manage-academy/manage-academy.componen
 import { RoleGuardService } from '../core/authentication/role-guard.service';
 import { ManageLocationComponent } from './masterdata/manage-location/manage-location.component';
 import { ManageStateComponent } from './masterdata/manage-location/manage-state/manage-state.component';
-import { ManageCityComponent } from './masterdata/manage-location/manage-city/manage-city.component';
+import { ManageDistrictComponent } from './masterdata/manage-location/manage-district/manage-district.component';
 import { MemberTypeComponent } from './masterdata/member-type/member-type.component';
 import { ManagePositionComponent } from './masterdata/player-specialization/manage-position/manage-position.component';
 import { ManageAbilityComponent } from './masterdata/player-specialization/manage-ability/manage-ability.component';
@@ -60,9 +60,9 @@ const appRoutes: Routes = [
         data: { title: extract('Manage State') }
       },
       {
-        path: 'masterdata-city/:id',
-        component: ManageCityComponent,
-        data: { title: extract('Manage City') }
+        path: 'masterdata-district/:id',
+        component: ManageDistrictComponent,
+        data: { title: extract('Manage District') }
       },
 
       {
