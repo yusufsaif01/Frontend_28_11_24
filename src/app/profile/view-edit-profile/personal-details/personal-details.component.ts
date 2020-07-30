@@ -53,7 +53,7 @@ export class PersonalDetailsComponent implements OnInit {
   today = new Date();
   countryArray: any[] = [];
   stateArray: any[] = [];
-  cityArray: any[] = [];
+  districtArray: any[] = [];
   profile: any = {};
   personalProfileDetailsForm: FormGroup;
   profile_status: string;
@@ -289,12 +289,12 @@ export class PersonalDetailsComponent implements OnInit {
     this.personalProfileDetailsForm.patchValue(profileData);
     if (this.profile.country) {
       this.getStatesListing(this.profile.country.id);
-      this.getCitiesListing(this.profile.country.id, this.profile.state.id);
+      this.getDistrictsListing(this.profile.country.id, this.profile.state.id);
     }
 
     this.personalProfileDetailsForm.patchValue({
       state: this.profile.state ? this.profile.state.id : '',
-      city: this.profile.city ? this.profile.city.id : '',
+      district: this.profile.district ? this.profile.district.id : '',
       country: this.profile.country ? this.profile.country.id : '',
       height_feet:
         this.profile.height && this.profile.height.feet
@@ -374,7 +374,7 @@ export class PersonalDetailsComponent implements OnInit {
         abstractControl: this._formBuilder.control('', [Validators.required])
       },
       {
-        name: 'city',
+        name: 'district',
         abstractControl: this._formBuilder.control('', [Validators.required])
       },
       {
@@ -492,13 +492,13 @@ export class PersonalDetailsComponent implements OnInit {
       );
   }
 
-  getCitiesListing(countryID: string, stateID: string) {
+  getDistrictsListing(countryID: string, stateID: string) {
     this._sharedService
-      .getCitiesListing(countryID, stateID)
+      .getDistrictsList(countryID, stateID)
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
-          this.cityArray = response.data.records;
+          this.districtArray = response.data.records;
         },
         error => {
           this._toastrService.error('Error', error.error.message);
@@ -508,32 +508,32 @@ export class PersonalDetailsComponent implements OnInit {
 
   onSelectCountry(event: any) {
     if (!event.target.value) {
-      this.resetStateCity();
+      this.resetStateDistrict();
     } else {
       this.getStatesListing(event.target.value);
     }
   }
 
-  resetStateCity() {
+  resetStateDistrict() {
     this.stateArray = [];
-    this.cityArray = [];
+    this.districtArray = [];
     this.personalProfileDetailsForm.controls.state.patchValue('');
-    this.personalProfileDetailsForm.controls.city.patchValue('');
+    this.personalProfileDetailsForm.controls.district.patchValue('');
   }
 
   onSelectState(event: any) {
     if (!event.target.value) {
-      this.resetCity();
+      this.resetDistrict();
     } else {
-      this.getCitiesListing(
+      this.getDistrictsListing(
         this.personalProfileDetailsForm.controls.country.value,
         event.target.value
       );
     }
   }
-  resetCity() {
-    this.cityArray = [];
-    this.personalProfileDetailsForm.controls.city.patchValue('');
+  resetDistrict() {
+    this.districtArray = [];
+    this.personalProfileDetailsForm.controls.district.patchValue('');
   }
 
   toFormData<T>(formValue: T) {

@@ -1,6 +1,6 @@
 import { MasterTableConfig } from '@app/shared/master-table/MasterTableConfig';
 
-export class ManageCityTableConfig extends MasterTableConfig {
+export class ManageDistrictTableConfig extends MasterTableConfig {
   constructor() {
     super();
     this.allowedColumns = ['serialNumber', 'name'];
@@ -15,7 +15,7 @@ export class ManageCityTableConfig extends MasterTableConfig {
       },
       name: {
         code: 'name',
-        text: 'Cities',
+        text: 'Districts',
         getValue: (ele: any) => {
           return ele[this.columns.name.code];
         }
