@@ -3,8 +3,6 @@ export class FootPlayerTableConfig extends TableConfig {
   constructor() {
     super();
     this.allowedColumns = [
-      // 'serialNumber',
-      // 'avatar',
       'name',
       'category',
       'position',
@@ -14,20 +12,6 @@ export class FootPlayerTableConfig extends TableConfig {
     ];
 
     this.columns = {
-      // serialNumber: {
-      //   code: 'serialNumber',
-      //   text: 'S.No',
-      //   getValue: (ele: any) => {
-      //     return ele[this.columns.serialNumber.code];
-      //   }
-      // },
-      // avatar: {
-      //   code: 'avatar',
-      //   text: 'DP',
-      //   getValue: (ele: any) => {
-      //     return ele[this.columns.avatar.code];
-      //   }
-      // },
       name: {
         code: 'name',
         text: 'Player name',
