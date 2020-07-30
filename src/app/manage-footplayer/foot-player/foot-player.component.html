@@ -64,7 +64,6 @@
                     status
                   )
                 }"
-                [disabled]="['pending', 'added', 'rejected'].includes(status)"
                 (click)="resendInvitationPopup(email)"
               >
                 <mat-icon class="material-icons">autorenew</mat-icon>
