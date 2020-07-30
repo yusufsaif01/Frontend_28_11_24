@@ -10,7 +10,6 @@ const routes = {
   activeUser: (c: StatusUserContext) => '/admin/member/status-activate',
   deactivateUser: (c: StatusUserContext) => '/admin/member/status-deactivate',
   addState: (c: AddStateContext) => '/admin/master/state/add',
-  addCity: (c: AddCityContext) => '/admin/master/city/add',
   getMemberTypeList: () => '/admin/member-type/list',
   addAbility: (c: AddAbilityContext) =>
     '/admin/master/player-specialization/ability/add',
@@ -94,17 +93,12 @@ export interface CommonContext {
   profile_status?: string;
 }
 
-interface GetCityListByStateContext {
+interface GetDistrictListByStateContext {
   country_id: string;
   state_id: string;
   page_size?: number;
   page_no?: number;
   search?: string;
-}
-interface AddCityContext {
-  state_id: string;
-  country_id: string;
-  name: string;
 }
 
 interface GetStateListByCountryContext {
@@ -190,7 +184,7 @@ interface AddAbilityResponseContext {
   message: string;
 }
 
-interface AddCityResponseContext {
+interface AddDistrictResponseContext {
   status: string;
   message: string;
 }
@@ -390,13 +384,6 @@ export class AdminService {
     // }
     return this.httpClient.post<AddStateResponseContext>(
       routes.addState(context),
-      context
-    );
-  }
-
-  addCity(context: AddCityContext): Observable<AddCityResponseContext> {
-    return this.httpClient.post<AddCityResponseContext>(
-      routes.addCity(context),
       context
     );
   }

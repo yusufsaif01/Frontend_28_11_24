@@ -175,14 +175,14 @@
             </div>
             <div class="slt-wrapper">
               <select
-                (change)="onSelectCity($event)"
-                [(ngModel)]="locationData.cityValue"
+                (change)="onSelectDistrict($event)"
+                [(ngModel)]="locationData.districtValue"
               >
-                <option value="">Select City</option>
+                <option value="">Select District</option>
                 <option
-                  *ngFor="let city of locationRangeFilters.cities"
-                  [value]="getCityValue(city)"
-                  >{{ city.name }}</option
+                  *ngFor="let district of locationRangeFilters.districts"
+                  [value]="getDistrictValue(district)"
+                  >{{ district.name }}</option
                 >
               </select>
               <i-feather class="icon-size" name="chevron-down"></i-feather>
