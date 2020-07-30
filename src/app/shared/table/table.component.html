@@ -63,7 +63,7 @@
           "
         >
           {{
-            tableConfig.columns[col].getValue(element) | date: 'dd-LLLL-yyyy'
+            tableConfig.columns[col].getValue(element) | date: 'dd LLLL yyyy'
           }}
         </p>
         <div
@@ -71,11 +71,7 @@
           *ngIf="col === 'name'"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
         >
-          <img
-            src="../../../assets/images/member/profile.png"
-            class="thumbnail"
-            alt=""
-          />
+          <img [src]="element.avatar" class="thumbnail" alt="" />
           <p>
             {{
               tableConfig.columns[col].getValue(element).length < 15
