@@ -33,7 +33,7 @@ interface LocationRangeFilters {
   ageRange: any[];
   strongFoot: any[];
   states: any[];
-  cities: any[];
+  districts: any[];
   teamTypes: any[];
   status: any[];
   ability: any[];
@@ -51,7 +51,7 @@ interface LocationsIds {
   stateID: string;
   countryValue: string;
   stateValue: string;
-  cityValue: string;
+  districtValue: string;
 }
 
 @Component({
@@ -184,7 +184,7 @@ export class FilterComponent implements OnInit {
       ageRange: [],
       strongFoot: [],
       states: [],
-      cities: [],
+      districts: [],
       teamTypes: [],
       status: [],
       ability: [],
@@ -201,7 +201,7 @@ export class FilterComponent implements OnInit {
       stateID: '',
       countryValue: '',
       stateValue: '',
-      cityValue: ''
+      districtValue: ''
     };
     this.setDefaultValues();
   }
@@ -227,11 +227,11 @@ export class FilterComponent implements OnInit {
       this.getStatesListing(this.locationData.countryID);
       this.filter.country = countryData.country;
     } else {
-      this.locationRangeFilters.cities = [];
+      this.locationRangeFilters.districts = [];
       this.locationRangeFilters.states = [];
       delete this.filter.country;
       delete this.filter.state;
-      delete this.filter.city;
+      delete this.filter.district;
     }
     this.filterChanges.emit(this.filter);
   }
@@ -240,24 +240,24 @@ export class FilterComponent implements OnInit {
     if (event.target.value) {
       let stateData = JSON.parse(event.target.value);
       this.locationData.stateID = stateData.id;
-      this.getCitiesListing(
+      this.getDistrictsListing(
         this.locationData.countryID,
         this.locationData.stateID
       );
       this.filter.state = stateData.name;
     } else {
-      this.locationRangeFilters.cities = [];
+      this.locationRangeFilters.districts = [];
       delete this.filter.state;
     }
     this.filterChanges.emit(this.filter);
   }
 
-  onSelectCity(event: any) {
+  onSelectDistrict(event: any) {
     if (event.target.value) {
-      let cityData = JSON.parse(event.target.value);
-      this.filter.city = cityData.name;
+      let districtData = JSON.parse(event.target.value);
+      this.filter.district = districtData.name;
     } else {
-      delete this.filter.city;
+      delete this.filter.district;
     }
     this.filterChanges.emit(this.filter);
   }
@@ -290,13 +290,13 @@ export class FilterComponent implements OnInit {
       );
   }
 
-  getCitiesListing(countryID: string, stateID: string) {
+  getDistrictsListing(countryID: string, stateID: string) {
     this._sharedService
-      .getCitiesListing(countryID, stateID)
+      .getDistrictsList(countryID, stateID)
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
-          this.locationRangeFilters.cities = response.data.records;
+          this.locationRangeFilters.districts = response.data.records;
         },
         error => {
           this._toastrService.error('Error', error.error.message);
@@ -337,9 +337,9 @@ export class FilterComponent implements OnInit {
     } else return '';
   }
 
-  getCityValue(city: any) {
-    if (city) {
-      return JSON.stringify(city);
+  getDistrictValue(district: any) {
+    if (district) {
+      return JSON.stringify(district);
     } else return '';
   }
 
@@ -374,7 +374,7 @@ export class FilterComponent implements OnInit {
     this.locationRangeFilters.abilityArray = [];
     this.locationData.countryValue = '';
     this.locationData.stateValue = '';
-    this.locationData.cityValue = '';
+    this.locationData.districtValue = '';
     this.filterChanges.emit(false);
   }
 }

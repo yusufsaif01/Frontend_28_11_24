@@ -3,32 +3,18 @@ export class FootPlayerTableConfig extends TableConfig {
   constructor() {
     super();
     this.allowedColumns = [
-      // 'serialNumber',
-      // 'avatar',
       'name',
       'category',
       'position',
-      'status'
+      'status',
+      'email',
+      'phone'
     ];
 
     this.columns = {
-      // serialNumber: {
-      //   code: 'serialNumber',
-      //   text: 'S.No',
-      //   getValue: (ele: any) => {
-      //     return ele[this.columns.serialNumber.code];
-      //   }
-      // },
-      // avatar: {
-      //   code: 'avatar',
-      //   text: 'DP',
-      //   getValue: (ele: any) => {
-      //     return ele[this.columns.avatar.code];
-      //   }
-      // },
       name: {
         code: 'name',
-        text: 'Name',
+        text: 'Player name',
         getValue: (ele: any) => {
           return ele[this.columns.name.code];
         }
@@ -45,6 +31,20 @@ export class FootPlayerTableConfig extends TableConfig {
         text: 'Position',
         getValue: (ele: any) => {
           return ele[this.columns.position.code];
+        }
+      },
+      email: {
+        code: 'email',
+        text: 'Email',
+        getValue: (ele: any) => {
+          return ele[this.columns.email.code];
+        }
+      },
+      phone: {
+        code: 'phone',
+        text: 'Phone number',
+        getValue: (ele: any) => {
+          return ele[this.columns.phone.code];
         }
       },
       status: {

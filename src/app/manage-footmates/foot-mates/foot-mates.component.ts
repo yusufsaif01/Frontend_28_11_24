@@ -32,7 +32,7 @@ interface LocationRangeFilters {
   ageRange: any[];
   strongFoot: any[];
   states: any[];
-  cities: any[];
+  districts: any[];
   positionsArray: any[];
   playerTypeArray: any[];
   ageRangeArray: any[];
@@ -44,7 +44,7 @@ interface LocationsIds {
   stateID: string;
   countryValue: string;
   stateValue: string;
-  cityValue: string;
+  districtValue: string;
 }
 
 @Component({
@@ -121,7 +121,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
       ageRange: [],
       strongFoot: [],
       states: [],
-      cities: [],
+      districts: [],
       positionsArray: [],
       playerTypeArray: [],
       ageRangeArray: [],
@@ -132,7 +132,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
       stateID: '',
       countryValue: '',
       stateValue: '',
-      cityValue: ''
+      districtValue: ''
     };
     this.setDefaultValues();
   }
@@ -157,13 +157,13 @@ export class FootMatesComponent implements OnInit, OnDestroy {
         }
       );
   }
-  getCitiesListing(countryID: string, stateID: string) {
+  getDistrictsListing(countryID: string, stateID: string) {
     this.sharedService
-      .getCitiesListing(countryID, stateID)
+      .getDistrictsList(countryID, stateID)
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
-          this.locationRangeFilters.cities = response.data.records;
+          this.locationRangeFilters.districts = response.data.records;
         },
         error => {
           this.toastrService.error('Error', error.error.message);
@@ -223,11 +223,11 @@ export class FootMatesComponent implements OnInit, OnDestroy {
       this.getStatesListing(this.locationData.countryID);
       this.filter.country = countryData.country;
     } else {
-      this.locationRangeFilters.cities = [];
+      this.locationRangeFilters.districts = [];
       this.locationRangeFilters.states = [];
       delete this.filter.country;
       delete this.filter.state;
-      delete this.filter.city;
+      delete this.filter.district;
     }
     this.filter.page_no = 1;
     this.getFootMateList(this.pageSize, 1);
@@ -245,9 +245,9 @@ export class FootMatesComponent implements OnInit, OnDestroy {
     } else return '';
   }
 
-  getCityValue(city: any) {
-    if (city) {
-      return JSON.stringify(city);
+  getDistrictValue(district: any) {
+    if (district) {
+      return JSON.stringify(district);
     } else return '';
   }
 
@@ -255,25 +255,25 @@ export class FootMatesComponent implements OnInit, OnDestroy {
     if (event.target.value) {
       let stateData = JSON.parse(event.target.value);
       this.locationData.stateID = stateData.id;
-      this.getCitiesListing(
+      this.getDistrictsListing(
         this.locationData.countryID,
         this.locationData.stateID
       );
       this.filter.state = stateData.name;
     } else {
-      this.locationRangeFilters.cities = [];
+      this.locationRangeFilters.districts = [];
       delete this.filter.state;
     }
     this.filter.page_no = 1;
     this.getFootMateList(this.pageSize, 1);
   }
 
-  onSelectCity(event: any) {
+  onSelectDistrict(event: any) {
     if (event.target.value) {
-      let cityData = JSON.parse(event.target.value);
-      this.filter.city = cityData.name;
+      let districtData = JSON.parse(event.target.value);
+      this.filter.district = districtData.name;
     } else {
-      delete this.filter.city;
+      delete this.filter.district;
     }
     this.filter.page_no = 1;
     this.getFootMateList(this.pageSize, 1);
@@ -292,7 +292,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
     this.locationRangeFilters.strongFootArray = [];
     this.locationData.countryValue = '';
     this.locationData.stateValue = '';
-    this.locationData.cityValue = '';
+    this.locationData.districtValue = '';
   }
 
   onChangeChecker(event: any, filterArray: any, type: string) {

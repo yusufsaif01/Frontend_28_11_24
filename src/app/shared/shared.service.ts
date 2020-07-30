@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const routes = {
-  getCitiesList: (countryID: any, stateID: any) =>
-    `/master/city/list/${countryID}/${stateID}`,
+  getDistrictList: (countryID: any, stateID: any) =>
+    `/master/district/list/${countryID}/${stateID}`,
   getStatesList: (countryID: any) => `/master/state/list/${countryID}`,
   getLocationStats: () => `/master/location/stats`
 };
@@ -15,7 +15,7 @@ const routes = {
 export class SharedService {
   constructor(private httpClient: HttpClient) {}
 
-  getCitiesListing(
+  getDistrictsList(
     countryID: string,
     stateID: string,
     context: any = {}
@@ -31,7 +31,7 @@ export class SharedService {
       query += '&search=' + context['search'];
     }
     return this.httpClient.get<any>(
-      routes.getCitiesList(countryID, stateID) + query
+      routes.getDistrictList(countryID, stateID) + query
     );
   }
 
