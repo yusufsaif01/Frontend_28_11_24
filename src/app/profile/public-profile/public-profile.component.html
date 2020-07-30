@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="site-wrapper">
   <div class="left-panel">
-    <app-left-panel [options]="panelOptions" [data]="data" > </app-left-panel>
+    <app-left-panel [options]="panelOptions" [data]="data"> </app-left-panel>
   </div>
   <div class="right-panel">
     <div class="right-wrapper">
@@ -128,7 +128,7 @@
             <div class="left">
               <h2>About FooTMate</h2>
             </div>
-            <ng-container *ngIf="is_public">
+            <ng-container *ngIf="is_public && user_id !== logged_user_id">
               <div class="right">
                 <button
                   *ngIf="
@@ -202,7 +202,13 @@
                       <h4>Weight</h4>
                     </div>
                     <div class="right">
-                      <p>{{ publicProfileData?.weight }} kg</p>
+                      <p>
+                        {{
+                          publicProfileData?.weight
+                            ? publicProfileData?.weight + 'kg'
+                            : ''
+                        }}
+                      </p>
                     </div>
                   </div>
 
@@ -221,8 +227,16 @@
                     </div>
                     <div class="right">
                       <p>
-                        {{ publicProfileData?.height?.feet }} ft
-                        {{ publicProfileData?.height?.inches }} inches
+                        {{
+                          publicProfileData?.height?.feet
+                            ? publicProfileData?.height?.feet + 'ft'
+                            : ''
+                        }}
+                        {{
+                          publicProfileData?.height?.inches
+                            ? publicProfileData?.height?.inches + 'inches'
+                            : ''
+                        }}
                       </p>
                     </div>
                   </div>

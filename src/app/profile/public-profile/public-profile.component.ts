@@ -51,12 +51,11 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
       }
       this.panelOptions.is_public = this.is_public;
       this.getPublicProfileDetails();
+      this.getConnectionStats();
     });
   }
 
-  ngOnInit() {
-    this.getConnectionStats();
-  }
+  ngOnInit() {}
 
   transformURL(url: string): SafeHtml {
     return this._sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -95,13 +94,9 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
           this.is_following = this.publicProfileData.is_followed;
           this.is_footmate = this.publicProfileData.footmate_status;
           this.data = { ...this.data, ...this.publicProfileData };
-          // this.data.name = this.publicProfileData.name || `${this.publicProfileData.first_name} ${this.publicProfileData.last_name}`
-          // this.data.type = this.publicProfileData.player_type || this.publicProfileData.member_type
-          // this.data.position = this.publicProfileData.position && this.publicProfileData.position[0].name
-          // this.data.club = this.publicProfileData.type
         },
         error => {
-          console.log(error);
+          this._toastrService.error('Error', error.error.message);
         }
       );
   }

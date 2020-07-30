@@ -1,6 +1,6 @@
 <!-- New UI Character -->
 <div class="">
-  <div class="profile" *ngIf="profile">
+  <div class="profile" *ngIf="profile || data">
     <div class="profile-img">
       <img
         [src]="options?.is_public ? data?.avatar_url : profile?.avatar_url"
@@ -62,7 +62,7 @@
           <ng-container *ngIf="data?.member_type === 'player'">
             {{ data?.player_type | titlecase }}
           </ng-container>
-          <ng-container *ngIf="profile?.member_type !== 'player'">
+          <ng-container *ngIf="data?.member_type !== 'player'">
             {{ data?.member_type | titlecase }}
           </ng-container>
         </h4>
