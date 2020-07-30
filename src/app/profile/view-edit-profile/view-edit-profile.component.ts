@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class ViewEditProfileComponent implements OnInit {
   clubAcademyType: string;
   componentName: string = 'personal';
+  memberType: string = 'player';
+  renderComponents: any[];
   components: any[] = [
     { name: 'Personal details', value: 'personal' },
     { name: 'Professional details', value: 'professional' },
@@ -24,5 +26,13 @@ export class ViewEditProfileComponent implements OnInit {
 
   getClubAcademyType(value: string) {
     this.clubAcademyType = value;
+  }
+
+  getMemberType(value: string) {
+    this.memberType = value;
+    this.renderComponents = this.components.filter(item => {
+      if (this.memberType !== 'player') return item.value !== 'contracts';
+      return item.value;
+    });
   }
 }
