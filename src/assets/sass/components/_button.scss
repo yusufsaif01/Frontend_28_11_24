@@ -126,7 +126,7 @@
   pointer-events: none;
   cursor: not-allowed;
   user-select: none;
-  color: $grey;
+  color: $grey !important;
 }
 
 .pb-3 {

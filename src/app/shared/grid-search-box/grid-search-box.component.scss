@@ -5,22 +5,30 @@
 // Search
 
 .search-form {
+  width: 100%;
+
   form {
     position: relative;
 
     input {
-      padding: 1rem;
-      // border-radius: 0.8rem;
+      padding: 1.5rem 6rem 1.5rem 2rem;
+      border-radius: 2.5rem;
       outline: none;
-      border: 1px solid $text-color;
-      margin-left: 1rem;
+      background-color: $third-color;
+      border: none;
+      width: 100%;
+      font-size: $heading-fourth;
+
+      &:focus {
+        background: $fifth-color;
+      }
     }
 
     span.search-icon {
       position: absolute;
-      left: calc(100% - 4rem);
-      top: 1.2rem;
-      color: $text-muted;
+      left: calc(100% - 5rem);
+      top: 1rem;
+      color: $second-color;
     }
   }
 }
