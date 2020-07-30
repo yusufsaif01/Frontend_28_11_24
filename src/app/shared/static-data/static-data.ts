@@ -29,44 +29,6 @@ export abstract class Constants {
     }
   ];
 
-  static readonly SAMPLE_COUNTRY_ARRAY = [
-    {
-      name: 'India',
-      value: 'india'
-    },
-    {
-      name: 'UK',
-      value: 'uk'
-    },
-    {
-      name: 'USA',
-      value: 'usa'
-    },
-    {
-      name: 'Australia',
-      value: 'australia'
-    }
-  ];
-
-  static readonly SAMPLE_STATE_ARRAY = [
-    {
-      name: 'Delhi',
-      value: 'delhi'
-    },
-    {
-      name: 'Mumbai',
-      value: 'mumbai'
-    },
-    {
-      name: 'U.P',
-      value: 'up'
-    },
-    {
-      name: 'M.P',
-      value: 'mp'
-    }
-  ];
-
   static readonly DESIGNATION_ARRAY = [
     {
       name: 'Owner',
@@ -186,25 +148,6 @@ export abstract class Constants {
     {
       name: 'Other',
       value: 'Other'
-    }
-  ];
-
-  static readonly SAMPLE_CITY_ARRAY = [
-    {
-      name: 'City1',
-      value: 'city1'
-    },
-    {
-      name: 'City2',
-      value: 'city2'
-    },
-    {
-      name: 'City3',
-      value: 'city3'
-    },
-    {
-      name: 'City4',
-      value: 'city4'
     }
   ];
 
