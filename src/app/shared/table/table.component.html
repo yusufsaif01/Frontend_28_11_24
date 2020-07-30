@@ -32,7 +32,9 @@
               'expiry_date',
               'club_academy_name',
               'created_by',
-              'year'
+              'year',
+              'position',
+              'category'
             ].includes(col)
           "
         >
@@ -63,12 +65,27 @@
           "
         >
           {{
-            tableConfig.columns[col].getValue(element) | date: 'dd-LLLL-yyyy'
+            tableConfig.columns[col].getValue(element) | date: 'dd LLLL yyyy'
           }}
         </p>
-        <p
-          *ngIf="col === 'name' || col === 'type'"
+        <div
+          class="name"
+          *ngIf="col === 'name'"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
+        >
+          <img [src]="element.avatar" class="thumbnail" alt="" />
+          <p>
+            {{
+              tableConfig.columns[col].getValue(element).length < 15
+                ? tableConfig.columns[col].getValue(element)
+                : (tableConfig.columns[col].getValue(element) | slice: 0:15) +
+                  '...'
+            }}
+          </p>
+        </div>
+        <p
+          *ngIf="col === 'type'"
+          matTooltip=" {{ tableConfig.columns[col].getValue(element) }}"
         >
           {{
             tableConfig.columns[col].getValue(element).length < 15
@@ -77,10 +94,11 @@
                 '...'
           }}
         </p>
+
         <p
           *ngIf="col === 'email'"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
-          [ngClass]="element.is_email_verified === 'true' ? 'black' : 'red'"
+          [ngClass]="{ red: ['false'].includes(element.is_email_verified) }"
         >
           {{
             tableConfig.columns[col].getValue(element).length < 18
@@ -88,6 +106,12 @@
               : (tableConfig.columns[col].getValue(element) | slice: 0:18) +
                 '...'
           }}
+        </p>
+        <p *ngIf="col === 'position'">
+          {{ tableConfig.columns[col].getValue(element) | titlecase }}
+        </p>
+        <p *ngIf="col === 'category'">
+          {{ tableConfig.columns[col].getValue(element) | titlecase }}
         </p>
         <p
           *ngIf="col === 'status'"
