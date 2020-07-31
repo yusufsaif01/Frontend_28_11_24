@@ -54,7 +54,6 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   contact_person: FormArray;
   trophies: FormArray;
   top_signings: FormArray;
-  top_players: FormArray;
 
   environment = environment;
   positionArray: GetPositionListResponseContext['data']['records'];
@@ -79,7 +78,13 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   clearFormArray() {
-    this.position.clear();
+    if (this.member_type === 'player') {
+      this.position.clear();
+    } else {
+      this.contact_person.clear();
+      this.trophies.clear();
+      this.top_signings.clear();
+    }
   }
 
   ngOnInit() {
@@ -423,6 +428,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
             'Success',
             'Professional details updated successfully'
           );
+          this.clearFormArray();
           this.populateView();
           this.toggleMode();
         },

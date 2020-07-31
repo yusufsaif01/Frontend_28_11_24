@@ -93,6 +93,22 @@
           }
         }
 
+        .agentheading-wrappper {
+          display: flex;
+          width: 100%;
+          // align-items: center;
+
+          h3 {
+            width: 51%;
+          }
+
+          span {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-left: 4px;
+          }
+        }
+
         .actions {
           width: 90%;
           margin: auto;

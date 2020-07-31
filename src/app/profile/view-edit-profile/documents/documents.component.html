@@ -81,7 +81,7 @@
         *ngIf="member_type === 'club'"
         [matTooltip]="
           isVerifiedDocument('aiff', 'approved')
-            ? 'AIFF details are verified'
+            ? 'AIFF document details are verified'
             : ''
         "
       >
@@ -91,11 +91,11 @@
             *ngIf="profile_status !== 'verified'"
             [href]="aiff_url"
             target="_blank"
-            ><img src="assets/images/member/aadhaar.png" alt=""
+            ><img src="assets/images/member/aiff.png" alt=""
           /></a>
           <img
             *ngIf="profile_status === 'verified'"
-            src="assets/images/member/aadhaar.png"
+            src="assets/images/member/aiff.png"
             alt=""
           />
         </div>
@@ -115,11 +115,11 @@
             *ngIf="profile_status !== 'verified'"
             [href]="document_url"
             target="_blank"
-            ><img src="assets/images/member/aadhaar.png" alt=""
+            ><img src="assets/images/member/aiff.png" alt=""
           /></a>
           <img
             *ngIf="profile_status === 'verified'"
-            src="assets/images/member/aadhaar.png"
+            src="assets/images/member/aiff.png"
             alt=""
           />
         </div>
@@ -541,20 +541,29 @@
           <h3
             [matTooltip]="
               profile_status === 'verified'
-                ? 'Not allowed to update AIFF details'
+                ? 'Not allowed to update AIFF document details'
                 : ''
             "
           >
-            AIFF accreditation details <span>*</span>
+            AIFF accreditation details
+
+            <span>*</span>
           </h3>
           <label
+            class="info-label"
             [matTooltip]="
               profile_status === 'verified'
-                ? 'Not allowed to update aadhaar details'
+                ? 'Not allowed to update AIFF document details'
                 : ''
             "
-            >Upload AIFF document <span>*</span></label
-          >
+            >Upload AIFF document
+            <img
+              matTooltip="Document must be of type JPEG / JPG / PNG / PDF"
+              src="assets/images/global/info.svg"
+              alt=""
+            />
+            <span>*</span>
+          </label>
           <div class="section">
             <!-- second -->
             <div class="input-container">
@@ -704,7 +713,7 @@
                 : ''
             "
           >
-            Document details <span>*</span>
+            Document details
           </h3>
 
           <div class="section">
@@ -735,13 +744,19 @@
             </div>
             <div class="upload-section">
               <label
+                class="info-label"
                 [matTooltip]="
                   profile_status === 'verified'
                     ? 'Not allowed to update document details'
                     : ''
                 "
-                >Upload document <span>*</span></label
-              >
+                >Upload document
+                <img
+                  matTooltip="Document must be of type JPEG / JPG / PNG / PDF"
+                  src="assets/images/global/info.svg"
+                  alt=""
+                />
+              </label>
               <div class="upload-document">
                 <label
                   [matTooltip]="
