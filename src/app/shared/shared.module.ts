@@ -13,6 +13,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { TrimPipe } from './pipes/trim.pipe';
 import { MaskPipe } from './pipes/mask.pipe';
+import { PadzeroPipe } from './pipes/padzero.pipe';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { VerificationPopupComponent } from '@app/shared/verification-popup/verification-popup.component';
 import { GridSearchBoxComponent } from './grid-search-box/grid-search-box.component';
@@ -39,6 +40,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     TruncatePipe,
     TrimPipe,
     MaskPipe,
+    PadzeroPipe,
     VerificationPopupComponent,
     GridSearchBoxComponent,
     TextSectionComponent,
@@ -51,6 +53,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     TruncatePipe,
     TrimPipe,
     MaskPipe,
+    PadzeroPipe,
     PageComponentsModule,
     FlexLayoutModule,
     MaterialModule,
