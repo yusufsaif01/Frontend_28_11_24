@@ -50,7 +50,7 @@
             >
           </ng-container>
         </p>
-        <p
+        <!-- <p
           *ngIf="
             [
               'added_on',
@@ -63,8 +63,8 @@
           {{
             tableConfig.columns[col].getValue(element) | date: 'dd LLLL yyyy'
           }}
-        </p>
-        <div
+        </p> -->
+        <!-- <div
           class="name"
           *ngIf="col === 'name'"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
@@ -78,7 +78,7 @@
                   '...'
             }}
           </p>
-        </div>
+        </div> -->
         <p
           *ngIf="col === 'type'"
           matTooltip=" {{ tableConfig.columns[col].getValue(element) }}"
@@ -125,7 +125,7 @@
           {{
             element.status === 'yet_to_start'
               ? 'Yet to Start'
-              : tableConfig.columns[col].getValue(element)
+              : (tableConfig.columns[col].getValue(element) | titlecase)
           }}
           <!-- <img
             class="status-icon"

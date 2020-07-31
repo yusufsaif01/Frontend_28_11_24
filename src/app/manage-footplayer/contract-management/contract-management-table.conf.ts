@@ -1,4 +1,5 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
+import moment from 'moment';
 export class ContractManagementTableConfig extends TableConfig {
   constructor() {
     super();
@@ -23,14 +24,18 @@ export class ContractManagementTableConfig extends TableConfig {
         code: 'effective_date',
         text: 'Effective Date',
         getValue: (ele: any) => {
-          return ele[this.columns.effective_date.code];
+          let val: any = moment(ele.effective_date);
+          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          return `${val}`;
         }
       },
       expiry_date: {
         code: 'expiry_date',
         text: 'Expiry Date',
         getValue: (ele: any) => {
-          return ele[this.columns.expiry_date.code];
+          let val: any = moment(ele.effective_date);
+          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          return `${val}`;
         }
       },
       created_by: {

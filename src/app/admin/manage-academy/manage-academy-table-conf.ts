@@ -15,7 +15,7 @@ export class ManageAcademyTableConfig extends TableConfig {
       },
       no_of_footplayers: {
         code: 'no_of_footplayers',
-        text: 'No. of FootPlayers',
+        text: 'No. of FooTPlayers',
         getValue: (ele: any) => {
           return ele[this.columns.no_of_footplayers.code];
         }
