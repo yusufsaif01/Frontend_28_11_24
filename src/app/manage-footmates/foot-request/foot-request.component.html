@@ -1,46 +1,24 @@
-<app-header></app-header>
+<!-- <app-header></app-header>
 <div class="site-wrapper">
-  <!-- left Sidebar -->
   <div class="left-section">
-    <app-left-panel
-      [options]="panelOptions"
-      (sendFootData)="getConnectionStats($event)"
-      (sendProfileStatus)="getProfileStatus($event)"
-    ></app-left-panel>
+    <app-left-panel [options]="panelOptions" (sendFootData)="getConnectionStats($event)"
+      (sendProfileStatus)="getProfileStatus($event)"></app-left-panel>
   </div>
   <div class="right-section">
     <div class="heading">
       <h3>Players You Might Know</h3>
     </div>
     <div class="tab-buttons">
-      <a
-        [routerLink]="['/member/manage/foot-requests']"
-        [routerLinkActive]="['active']"
-        >FootRequests <span>{{ foot_data.footmate_requests }}</span></a
-      >
-      <a
-        [routerLink]="['/member/manage/foot-mates']"
-        [routerLinkActive]="['active']"
-        >FootMates <span>{{ foot_data.footmates }}</span></a
-      >
+      <a [routerLink]="['/member/manage/foot-requests']" [routerLinkActive]="['active']">FootRequests
+        <span>{{ foot_data.footmate_requests }}</span></a>
+      <a [routerLink]="['/member/manage/foot-mates']" [routerLinkActive]="['active']">FootMates
+        <span>{{ foot_data.footmates }}</span></a>
     </div>
 
     <div class="tab-buttons">
-      <a
-        (click)="getType('player')"
-        [ngClass]="requested_by === 'player' ? 'active' : ''"
-        >Player's FootRequests</a
-      >
-      <a
-        (click)="getType('club')"
-        [ngClass]="requested_by === 'club' ? 'active' : ''"
-        >Club's FootRequests</a
-      >
-      <a
-        (click)="getType('academy')"
-        [ngClass]="requested_by === 'academy' ? 'active' : ''"
-        >Academy's FootRequests</a
-      >
+      <a (click)="getType('player')" [ngClass]="requested_by === 'player' ? 'active' : ''">Player's FootRequests</a>
+      <a (click)="getType('club')" [ngClass]="requested_by === 'club' ? 'active' : ''">Club's FootRequests</a>
+      <a (click)="getType('academy')" [ngClass]="requested_by === 'academy' ? 'active' : ''">Academy's FootRequests</a>
     </div>
 
     <div class="playerwrapper">
@@ -51,10 +29,7 @@
               <img [src]="request.avatar" alt="" />
             </div>
             <div class="name">
-              <strong
-                [routerLink]="['/member/profile/view/', request.user_id]"
-                >{{ request.name }}</strong
-              >
+              <strong [routerLink]="['/member/profile/view/', request.user_id]">{{ request.name }}</strong>
               <p>{{ request.position }}</p>
             </div>
           </div>
@@ -63,61 +38,41 @@
               {{ request.player_type || request.sub_category }}
             </h4>
             <h4 *ngIf="request.mutuals">
-              <a (click)="openDialog(request)"
-                >{{ request.mutuals }} Mutual Footmates</a
-              >
+              <a (click)="openDialog(request)">{{ request.mutuals }} Mutual Footmates</a>
             </h4>
           </div>
-          <div
-            [matTooltip]="
+          <div [matTooltip]="
               requested_by !== 'player' && profile_status == 'non-verified'
                 ? 'Verify your documents in order to Accept/ Reject the request'
                 : ''
-            "
-            class="bottom"
-          >
+            " class="bottom">
             <ng-container *ngIf="request.hide !== true">
-              <button
-                [ngClass]="{
+              <button [ngClass]="{
                   'btn-disable':
                     requested_by !== 'player' &&
                     profile_status == 'non-verified'
-                }"
-                [disabled]="
+                }" [disabled]="
                   requested_by !== 'player' && profile_status == 'non-verified'
-                "
-                (click)="acceptRequest(request)"
-                class="accepted"
-              >
+                " (click)="acceptRequest(request)" class="accepted">
                 <i-feather class="icon-size" name="user-check"></i-feather>
                 Accept
               </button>
-              <button
-                [ngClass]="{
+              <button [ngClass]="{
                   'btn-disable':
                     requested_by !== 'player' &&
                     profile_status == 'non-verified'
-                }"
-                [disabled]="
+                }" [disabled]="
                   requested_by !== 'player' && profile_status == 'non-verified'
-                "
-                (click)="rejectRequest(request)"
-                class="rejected"
-              >
+                " (click)="rejectRequest(request)" class="rejected">
                 <i-feather class="icon-size" name="user-x"></i-feather>Reject
               </button>
             </ng-container>
             <ng-container *ngIf="request.hide === true">
-              <button
-                [ngClass]="{
+              <button [ngClass]="{
                   accepted: request.accepted,
                   rejected: !request.accepted
-                }"
-              >
-                <i-feather
-                  class="icon-size"
-                  [name]="request.accepted ? 'user-check' : 'user-x'"
-                ></i-feather>
+                }">
+                <i-feather class="icon-size" [name]="request.accepted ? 'user-check' : 'user-x'"></i-feather>
                 {{ request.accepted ? 'Accepted' : 'Rejected' }}
               </button>
             </ng-container>
@@ -130,16 +85,240 @@
         No FootRequests Found
       </span>
     </ng-container>
-    <!-- pagination -->
-    <app-pagination
-      *ngIf="requestList.length !== 0"
-      [showData]="false"
-      [showCount]="show_count"
-      [totalRows]="foot_data.footmate_requests"
-      [rowsPerPage]="pageSize"
-      (onChange)="updatePage($event)"
-      [selectedPage]="selectedPage"
-    >
+    <app-pagination *ngIf="requestList.length !== 0" [showData]="false" [showCount]="show_count"
+      [totalRows]="foot_data.footmate_requests" [rowsPerPage]="pageSize" (onChange)="updatePage($event)"
+      [selectedPage]="selectedPage">
     </app-pagination>
+  </div>
+</div> -->
+
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel">
+    <app-left-panel
+      (sendFootData)="getConnectionStats($event)"
+    ></app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main">
+        <!-- heading -->
+        <div class="heading">
+          <h2>FooTMates</h2>
+          <button class="icon-btn">
+            <mat-icon class="material-icons">filter_alt</mat-icon>
+          </button>
+        </div>
+        <!-- counts -->
+        <div class="counts-wrapper">
+          <div class="counts">
+            <h2>
+              {{ foot_data.footmate_requests | padzero }}
+            </h2>
+            <a
+              [routerLink]="['/member/manage/foot-requests']"
+              [routerLinkActive]="['active']"
+              >FooTRequests
+            </a>
+          </div>
+          <div class="counts">
+            <h2>{{ foot_data.footmates | padzero }}</h2>
+            <a
+              [routerLink]="['/member/manage/foot-mates']"
+              [routerLinkActive]="['active']"
+              >FooTMates
+            </a>
+          </div>
+        </div>
+
+        <div class="tab-buttons">
+          <a
+            (click)="getType('player')"
+            [ngClass]="requested_by === 'player' ? 'active' : ''"
+            >Players
+          </a>
+          <a
+            (click)="getType('club')"
+            [ngClass]="requested_by === 'club' ? 'active' : ''"
+            >Clubs
+          </a>
+          <a
+            (click)="getType('academy')"
+            [ngClass]="requested_by === 'academy' ? 'active' : ''"
+            >Academies
+          </a>
+        </div>
+        <!--
+          <div class="playerwrapper">
+            <ng-container *ngFor="let request of requestList">
+              <div class="playerbox">
+                <div class="top">
+                  <div class="dp">
+                    <img [src]="request.avatar" alt="" />
+                  </div>
+                  <div class="name">
+                    <strong [routerLink]="['/member/profile/view/', request.user_id]">{{ request.name }}</strong>
+                    <p>{{ request.position }}</p>
+                  </div>
+                </div>
+                <div class="middle">
+                  <h4 class="gray">
+                    {{ request.player_type || request.sub_category }}
+                  </h4>
+                  <h4 *ngIf="request.mutuals">
+                    <a (click)="openDialog(request)">{{ request.mutuals }} Mutual Footmates</a>
+                  </h4>
+                </div>
+                <div [matTooltip]="
+              requested_by !== 'player' && profile_status == 'non-verified'
+                ? 'Verify your documents in order to Accept/ Reject the request'
+                : ''
+            " class="bottom">
+                  <ng-container *ngIf="request.hide !== true">
+                    <button [ngClass]="{
+                  'btn-disable':
+                    requested_by !== 'player' &&
+                    profile_status == 'non-verified'
+                }" [disabled]="
+                  requested_by !== 'player' && profile_status == 'non-verified'
+                " (click)="acceptRequest(request)" class="accepted">
+                      <i-feather class="icon-size" name="user-check"></i-feather>
+                      Accept
+                    </button>
+                    <button [ngClass]="{
+                  'btn-disable':
+                    requested_by !== 'player' &&
+                    profile_status == 'non-verified'
+                }" [disabled]="
+                  requested_by !== 'player' && profile_status == 'non-verified'
+                " (click)="rejectRequest(request)" class="rejected">
+                      <i-feather class="icon-size" name="user-x"></i-feather>Reject
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="request.hide === true">
+                    <button [ngClass]="{
+                  accepted: request.accepted,
+                  rejected: !request.accepted
+                }">
+                      <i-feather class="icon-size" [name]="request.accepted ? 'user-check' : 'user-x'"></i-feather>
+                      {{ request.accepted ? 'Accepted' : 'Rejected' }}
+                    </button>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+         -->
+        <!-- player section -->
+        <div class="player-wrapper">
+          <ng-container *ngFor="let request of requestList">
+            <div class="player-block">
+              <img [src]="request.avatar" alt="" />
+              <div class="profile-details">
+                <h3>
+                  <a
+                    [routerLink]="['/member/profile/view/', request.user_id]"
+                    >{{ request.name }}</a
+                  >
+                </h3>
+                <p>{{ request.position }}</p>
+                <div class="player-categroy">
+                  <h5>
+                    {{
+                      request.player_type || request.sub_category | titlecase
+                    }}
+                  </h5>
+                </div>
+                <div class="btn-wrapper">
+                  <ng-container *ngIf="!request.hide">
+                    <button
+                      [ngClass]="{
+                        'btn-disable':
+                          requested_by !== 'player' &&
+                          profile_status == 'non-verified'
+                      }"
+                      [disabled]="
+                        requested_by !== 'player' &&
+                        profile_status == 'non-verified'
+                      "
+                      (click)="acceptRequest(request)"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      [ngClass]="{
+                        'btn-disable':
+                          requested_by !== 'player' &&
+                          profile_status == 'non-verified'
+                      }"
+                      [disabled]="
+                        requested_by !== 'player' &&
+                        profile_status == 'non-verified'
+                      "
+                      (click)="rejectRequest(request)"
+                    >
+                      Reject
+                    </button>
+                  </ng-container>
+
+                  <ng-container *ngIf="request.hide">
+                    <button
+                      [ngClass]="{
+                        accepted: request.accepted,
+                        rejected: !request.accepted
+                      }"
+                    >
+                      {{ request.accepted ? 'Accepted' : 'Rejected' }}
+                    </button>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="requestList.length === 0">
+            <span class="no-data-found">
+              No FooTRequests Found
+            </span>
+          </ng-container>
+
+          <!-- <div class="player-block">
+            <img src="assets/images/member/profile.png" alt="" />
+            <div class="profile-details">
+              <h3>
+                <a>Jame Jordon</a>
+              </h3>
+              <p>CenterMidfielder</p>
+              <div class="player-categroy">
+                <h5>Grassroot</h5>
+              </div>
+              <div class="btn-wrapper">
+                <button class="rejected">Reject</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="player-block">
+            <img src="assets/images/member/profile.png" alt="" />
+            <div class="profile-details">
+              <h3>
+                <a>Jame Jordon</a>
+              </h3>
+              <p>CenterMidfielder</p>
+              <div class="player-categroy">
+                <h5>Grassroot</h5>
+              </div>
+              <div class="btn-wrapper">
+                <button class="accepted">Accept</button>
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <!-- Pagination -->
+        <app-pagination> </app-pagination>
+      </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
   </div>
 </div>
