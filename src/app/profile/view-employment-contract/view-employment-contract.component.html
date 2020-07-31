@@ -221,12 +221,14 @@
 
         <!--  club/academy use the services of an agent ? -->
         <div class="details">
-          <h3 class="mb-1">
-            Did the {{ contractWith }} use the services of an agent ?
+          <div class="agentheading-wrappper">
+            <h3 class="mb-1">
+              Did the {{ contractWith }} use the services of an agent ?
+            </h3>
             <span>{{
               contractDetails.club_academy_uses_agent_services ? 'Yes' : 'No'
             }}</span>
-          </h3>
+          </div>
           <div
             class="block"
             *ngIf="contractDetails.club_academy_uses_agent_services"
@@ -253,12 +255,14 @@
 
         <!--  player use the services of an agent ? -->
         <div class="details">
-          <h3 class="mb-1">
-            Did the player use the services of an agent ?
+          <div class="agentheading-wrappper">
+            <h3 class="mb-1">
+              Did the player use the services of an agent ?
+            </h3>
             <span>{{
               contractDetails.player_uses_agent_services ? 'Yes' : 'No'
             }}</span>
-          </h3>
+          </div>
           <div class="block" *ngIf="contractDetails.player_uses_agent_services">
             <div class="detail-panel-full">
               <div class="left">

@@ -546,21 +546,24 @@
             "
           >
             AIFF accreditation details
+
+            <span>*</span>
+          </h3>
+          <label
+            class="info-label"
+            [matTooltip]="
+              profile_status === 'verified'
+                ? 'Not allowed to update AIFF document details'
+                : ''
+            "
+            >Upload AIFF document
             <img
               matTooltip="Document must be of type JPEG / JPG / PNG / PDF"
               src="assets/images/global/info.svg"
               alt=""
             />
             <span>*</span>
-          </h3>
-          <label
-            [matTooltip]="
-              profile_status === 'verified'
-                ? 'Not allowed to update AIFF document details'
-                : ''
-            "
-            >Upload AIFF document <span>*</span></label
-          >
+          </label>
           <div class="section">
             <!-- second -->
             <div class="input-container">
@@ -711,12 +714,6 @@
             "
           >
             Document details
-            <img
-              matTooltip="Document must be of type JPEG / JPG / PNG / PDF"
-              src="assets/images/global/info.svg"
-              alt=""
-            />
-            <span>*</span>
           </h3>
 
           <div class="section">
@@ -747,13 +744,19 @@
             </div>
             <div class="upload-section">
               <label
+                class="info-label"
                 [matTooltip]="
                   profile_status === 'verified'
                     ? 'Not allowed to update document details'
                     : ''
                 "
-                >Upload document <span>*</span></label
-              >
+                >Upload document
+                <img
+                  matTooltip="Document must be of type JPEG / JPG / PNG / PDF"
+                  src="assets/images/global/info.svg"
+                  alt=""
+                />
+              </label>
               <div class="upload-document">
                 <label
                   [matTooltip]="
