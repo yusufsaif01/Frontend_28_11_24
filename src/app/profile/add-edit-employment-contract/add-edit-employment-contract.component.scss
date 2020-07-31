@@ -281,5 +281,11 @@
       color: $second-color;
       padding-left: 1.2rem !important;
     }
+
+    .mat-radio-group {
+      width: 30%;
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
