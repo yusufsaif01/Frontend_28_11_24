@@ -7,7 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   styleUrls: ['./verification-popup.component.scss']
 })
 export class VerificationPopupComponent implements OnInit {
-  public header: string = 'Please Confirm';
+  public header: string = 'Please confirm';
   public message: string = '';
   public acceptText: string = 'Confirm';
   public rejectText: string = 'Cancel';
