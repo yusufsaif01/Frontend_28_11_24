@@ -81,7 +81,7 @@
         *ngIf="member_type === 'club'"
         [matTooltip]="
           isVerifiedDocument('aiff', 'approved')
-            ? 'AIFF details are verified'
+            ? 'AIFF document details are verified'
             : ''
         "
       >
@@ -91,11 +91,11 @@
             *ngIf="profile_status !== 'verified'"
             [href]="aiff_url"
             target="_blank"
-            ><img src="assets/images/member/aadhaar.png" alt=""
+            ><img src="assets/images/member/aiff.png" alt=""
           /></a>
           <img
             *ngIf="profile_status === 'verified'"
-            src="assets/images/member/aadhaar.png"
+            src="assets/images/member/aiff.png"
             alt=""
           />
         </div>
@@ -115,11 +115,11 @@
             *ngIf="profile_status !== 'verified'"
             [href]="document_url"
             target="_blank"
-            ><img src="assets/images/member/aadhaar.png" alt=""
+            ><img src="assets/images/member/aiff.png" alt=""
           /></a>
           <img
             *ngIf="profile_status === 'verified'"
-            src="assets/images/member/aadhaar.png"
+            src="assets/images/member/aiff.png"
             alt=""
           />
         </div>
@@ -204,7 +204,6 @@
           >
             Aadhaar file format <span>*</span>
           </h3>
-
           <div class="section">
             <div class="input-container">
               <div class="full">
@@ -222,72 +221,6 @@
                     </mat-radio-button>
                   </mat-radio-group>
                 </div>
-              </div>
-            </div>
-            <!-- second -->
-            <div class="input-container">
-              <div class="full">
-                <h4 class="pb-1 mt-1">Document details</h4>
-
-                <div
-                  class="radio-block doc-type"
-                  *ngIf="member_type === 'academy'"
-                >
-                  <label class="pb-1">Document type</label>
-                  <mat-radio-group>
-                    <mat-radio-button value="aiff">
-                      AIFF status
-                    </mat-radio-button>
-                    <mat-radio-button value="pan">
-                      PAN number
-                    </mat-radio-button>
-                    <mat-radio-button value="coi">
-                      COI number
-                    </mat-radio-button>
-                    <mat-radio-button value="tin">
-                      TIN number
-                    </mat-radio-button>
-                  </mat-radio-group>
-                </div>
-              </div>
-            </div>
-            <div class="upload-section">
-              <ng-container
-                *ngIf="documentsDetailsForm.get('aadhar_media_type').value"
-              >
-                <h4>
-                  Upload document
-                  <img
-                    matTooltip="Allowed Formats: png,jpeg,jpg"
-                    src="assets/images/global/info.svg"
-                    alt=""
-                  />
-                </h4>
-              </ng-container>
-              <div class="upload-document">
-                <label
-                  [matTooltip]="
-                    profile_status === 'verified'
-                      ? 'Not allowed to update aadhaar details'
-                      : ''
-                  "
-                  for="upload-pdf"
-                >
-                  <div class="upload-btn">
-                    <img src="assets/images/member/front.png" alt="" />
-                    <span>
-                      <input
-                        #aadharPdfInput
-                        formControlName="aadhar"
-                        type="file"
-                        id="upload-pdf"
-                        (change)="uploadAadhar($event.target.files, 'single')"
-                      />
-                      <span>Upload</span>
-                    </span>
-                  </div>
-                  <p>{{ (aadharPdfInput?.files)[0]?.name }}</p>
-                </label>
               </div>
             </div>
             <div class="upload-section">
@@ -608,20 +541,29 @@
           <h3
             [matTooltip]="
               profile_status === 'verified'
-                ? 'Not allowed to update AIFF details'
+                ? 'Not allowed to update AIFF document details'
                 : ''
             "
           >
-            AIFF accreditation details <span>*</span>
+            AIFF accreditation details
+
+            <span>*</span>
           </h3>
           <label
+            class="info-label"
             [matTooltip]="
               profile_status === 'verified'
-                ? 'Not allowed to update aadhaar details'
+                ? 'Not allowed to update AIFF document details'
                 : ''
             "
-            >Upload AIFF document <span>*</span></label
-          >
+            >Upload AIFF document
+            <img
+              matTooltip="Document must be of type JPEG / JPG / PNG / PDF"
+              src="assets/images/global/info.svg"
+              alt=""
+            />
+            <span>*</span>
+          </label>
           <div class="section">
             <!-- second -->
             <div class="input-container">
@@ -771,7 +713,7 @@
                 : ''
             "
           >
-            Document details <span>*</span>
+            Document details
           </h3>
 
           <div class="section">
@@ -802,13 +744,19 @@
             </div>
             <div class="upload-section">
               <label
+                class="info-label"
                 [matTooltip]="
                   profile_status === 'verified'
                     ? 'Not allowed to update document details'
                     : ''
                 "
-                >Upload document <span>*</span></label
-              >
+                >Upload document
+                <img
+                  matTooltip="Document must be of type JPEG / JPG / PNG / PDF"
+                  src="assets/images/global/info.svg"
+                  alt=""
+                />
+              </label>
               <div class="upload-document">
                 <label
                   [matTooltip]="

@@ -10,7 +10,7 @@ import { ManageAcademyComponent } from './manage-academy/manage-academy.componen
 import { FilterDialogAcademyComponent } from './filter-dialog-academy/filter-dialog-academy.component';
 import { ManageLocationComponent } from './masterdata/manage-location/manage-location.component';
 import { ManageStateComponent } from './masterdata/manage-location/manage-state/manage-state.component';
-import { ManageCityComponent } from './masterdata/manage-location/manage-city/manage-city.component';
+import { ManageDistrictComponent } from './masterdata/manage-location/manage-district/manage-district.component';
 import { MemberTypeComponent } from './masterdata/member-type/member-type.component';
 import { ManagePositionComponent } from './masterdata/player-specialization/manage-position/manage-position.component';
 import { ManageAbilityComponent } from './masterdata/player-specialization/manage-ability/manage-ability.component';
@@ -29,7 +29,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     FilterDialogAcademyComponent,
     ManageLocationComponent,
     ManageStateComponent,
-    ManageCityComponent,
+    ManageDistrictComponent,
     MemberTypeComponent,
     ManagePositionComponent,
     ManageAbilityComponent,

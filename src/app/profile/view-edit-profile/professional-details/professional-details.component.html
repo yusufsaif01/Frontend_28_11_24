@@ -11,7 +11,7 @@
 
         <div class="second-section">
           <!-- row -->
-          <h4>Preferred playing position :</h4>
+          <h3 class="mb-1">Preferred playing position :</h3>
 
           <div class="view-details">
             <div class="details">
@@ -106,18 +106,18 @@
           </div>
 
           <div class="associated mt-2">
-            <h4>
+            <h3>
               Currently associated with club / academy :
               <span>
                 {{ professionalDetails?.associated_club_academy | titlecase }}
               </span>
-            </h4>
+            </h3>
           </div>
 
           <ng-container
             *ngIf="professionalDetails?.associated_club_academy === 'yes'"
           >
-            <h4 class="mt-1 mb-1">Head coach details</h4>
+            <h3 class="mt-1 mb-1">Head coach details</h3>
             <div class="view-details">
               <div class="details">
                 <div class="left">
@@ -227,7 +227,7 @@
               League name
             </h3>
 
-            <div class="section-block">
+            <div class=" section-block">
               <div
                 class="full"
                 *ngIf="
@@ -236,7 +236,10 @@
                 "
               >
                 <div class="left">
-                  <h4>{{ professionalDetails?.league | titlecase }}</h4>
+                  <h4>League name</h4>
+                </div>
+                <div class="right">
+                  <p>{{ professionalDetails?.league | titlecase }}</p>
                 </div>
                 <ng-template #otherLeague>
                   <div class="right">
@@ -253,14 +256,14 @@
               Top signings
             </h3>
             <ng-container *ngIf="professionalDetails?.top_signings">
-              <div
-                class="section-block"
-                *ngFor="
-                  let signings of professionalDetails.top_signings;
-                  let i = index
-                "
-              >
-                <div class="third">
+              <div class="section-block">
+                <div
+                  class="third"
+                  *ngFor="
+                    let signings of professionalDetails.top_signings;
+                    let i = index
+                  "
+                >
                   <p>
                     <span>{{ i + 1 }}.</span> {{ signings.name }}
                   </p>
@@ -365,7 +368,7 @@
           </div>
 
           <div class="second-section">
-            <h4>Preferred playing position</h4>
+            <h3>Preferred playing position</h3>
             <div class="input-container">
               <ng-container
                 formArrayName="position"
@@ -609,9 +612,9 @@
             </div>
             <div class="input-container">
               <div class="full">
-                <h4 class="mb-1">
+                <h3 class="mb-1">
                   Currently associated with club / academy ? <span>*</span>
-                </h4>
+                </h3>
                 <div class="radio-block">
                   <mat-radio-group
                     formControlName="associated_club_academy"
@@ -634,7 +637,7 @@
                 'yes'
               "
             >
-              <h4>Head Coach</h4>
+              <h3>Head Coach</h3>
               <div class="input-container">
                 <div class="third">
                   <div class="form-block">
@@ -1503,526 +1506,5 @@
         </form>
       </div>
     </ng-template>
-  </div>
-</div>
-
-<!-- professional section starts -->
-<div class="wrapper d-done" style="display:none;">
-  <div class="view-wrapper d-done">
-    <!-- heading -->
-    <div class="heading">
-      <h2>Professional details</h2>
-      <button>
-        <mat-icon class="material-icons">create</mat-icon>
-      </button>
-    </div>
-
-    <!-- Major trophy -->
-    <div class="section">
-      <h3 class="section-heading">
-        Major trophy wins
-      </h3>
-      <div class="section-block">
-        <span class="count">1.</span>
-        <div class="info">
-          <div class="full">
-            <div class="left">
-              <h4>Trophy name</h4>
-            </div>
-            <div class="right">
-              <p>UEFA Champions League</p>
-            </div>
-          </div>
-          <div class="full">
-            <div class="left">
-              <h4>Year</h4>
-            </div>
-            <div class="right">
-              <p>2016</p>
-            </div>
-          </div>
-          <div class="full">
-            <div class="left">
-              <h4>Position secured</h4>
-            </div>
-            <div class="right">
-              <p>Second Runnerup</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="section-block">
-        <span class="count">2.</span>
-        <div class="info">
-          <div class="full">
-            <div class="left">
-              <h4>Trophy name</h4>
-            </div>
-            <div class="right">
-              <p>UEFA Champions League</p>
-            </div>
-          </div>
-          <div class="full">
-            <div class="left">
-              <h4>Year</h4>
-            </div>
-            <div class="right">
-              <p>2016</p>
-            </div>
-          </div>
-          <div class="full">
-            <div class="left">
-              <h4>Position secured</h4>
-            </div>
-            <div class="right">
-              <p>Second Runnerup</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- League name   -->
-    <div class="section">
-      <h3 class="section-heading">
-        League name
-      </h3>
-      <div class="section-block">
-        <div class="full">
-          <div class="left">
-            <h4>League name</h4>
-          </div>
-          <div class="right">
-            <p>UEFA Champions League</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- top signings -->
-    <div class="section">
-      <h3 class="section-heading">
-        Top signings
-      </h3>
-      <div class="section-block">
-        <div class="third">
-          <p><span>1.</span> Ratanlal Bisht</p>
-        </div>
-        <div class="third">
-          <p><span>2.</span> Ratanlal Bisht</p>
-        </div>
-        <div class="third">
-          <p><span>3.</span> Ratanlal Bisht</p>
-        </div>
-        <div class="third">
-          <p><span>4.</span> Ratanlal Bisht</p>
-        </div>
-        <div class="third">
-          <p><span>5.</span> Ratanlal Bisht</p>
-        </div>
-        <div class="third">
-          <p><span>6.</span> Ratanlal Bisht</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- League name   -->
-    <div class="section">
-      <h3 class="section-heading mb-0">
-        Type of club
-      </h3>
-      <div class="section-block">
-        <div class="full">
-          <div class="right">
-            <p>Residential</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- State association affiliated under   -->
-    <div class="section">
-      <h3 class="section-heading mb-0">
-        State association affiliated under
-      </h3>
-      <div class="section-block">
-        <div class="full">
-          <div class="right">
-            <p>All Manipur Football Association</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Contact details -->
-    <div class="section">
-      <h3 class="section-heading">
-        Contact details
-      </h3>
-      <div class="section-block">
-        <span class="count">1.</span>
-        <div class="info">
-          <div class="half">
-            <div class="left">
-              <h4>Name</h4>
-            </div>
-            <div class="right">
-              <p>Ajay Verma</p>
-            </div>
-          </div>
-          <div class="half">
-            <div class="left">
-              <h4>Designation</h4>
-            </div>
-            <div class="right">
-              <p>Manager</p>
-            </div>
-          </div>
-          <div class="half">
-            <div class="left">
-              <h4>Email address</h4>
-            </div>
-            <div class="right">
-              <p>manager@gmail.com</p>
-            </div>
-          </div>
-          <div class="half">
-            <div class="left">
-              <h4>Contact number</h4>
-            </div>
-            <div class="right">
-              <p>+91 8923458945</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="section-block">
-        <span class="count">2.</span>
-        <div class="info">
-          <div class="half">
-            <div class="left">
-              <h4>Name</h4>
-            </div>
-            <div class="right">
-              <p>Ajay Sharma</p>
-            </div>
-          </div>
-          <div class="half">
-            <div class="left">
-              <h4>Designation</h4>
-            </div>
-            <div class="right">
-              <p>Manager</p>
-            </div>
-          </div>
-          <div class="half">
-            <div class="left">
-              <h4>Email address</h4>
-            </div>
-            <div class="right">
-              <p>manager@gmail.com</p>
-            </div>
-          </div>
-          <div class="half">
-            <div class="left">
-              <h4>Contact number</h4>
-            </div>
-            <div class="right">
-              <p>+91 8923458945</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- edit -->
-  <div class="edit-wrapper d-done">
-    <form>
-      <div class="heading">
-        <h2>Professional details</h2>
-      </div>
-      <!-- major trophy wins -->
-      <div class="section">
-        <h3>Major trophy wins</h3>
-        <div class="input-container">
-          <div class="fourth">
-            <div class="form-block">
-              <label>Trophy name </label>
-              <select>
-                <option value="">Select trophy name</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="fourth">
-            <div class="form-block">
-              <label>Year</label>
-              <input type="text" matinput placeholder="Year" />
-            </div>
-          </div>
-
-          <div class="fourth">
-            <div class="form-block">
-              <label>Position secured </label>
-              <input type="text" matinput placeholder="Position secured" />
-            </div>
-          </div>
-
-          <div class="icon-btn">
-            <button class="remove">
-              <mat-icon class="material-icons">remove_circle</mat-icon>
-            </button>
-          </div>
-        </div>
-        <div class="input-container">
-          <div class="fourth">
-            <div class="form-block">
-              <label>Trophy name </label>
-              <select>
-                <option value="">Select trophy name</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="fourth">
-            <div class="form-block">
-              <label>Year</label>
-              <input type="text" matinput placeholder="Year" />
-            </div>
-          </div>
-
-          <div class="fourth">
-            <div class="form-block">
-              <label>Position secured </label>
-              <input type="text" matinput placeholder="Position secured" />
-            </div>
-          </div>
-
-          <div class="icon-btn">
-            <button class="remove">
-              <mat-icon class="material-icons">remove_circle</mat-icon>
-            </button>
-            <button class="add">
-              <mat-icon class="material-icons">add_circle</mat-icon>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- League -->
-      <div class="section">
-        <h3>League <span>*</span></h3>
-        <div class="input-container">
-          <div class="fourth">
-            <div class="form-block">
-              <label>League name <span>*</span></label>
-              <select>
-                <option value="">Select trophy name</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="fourth">
-            <div class="form-block">
-              <label>Other</label>
-              <input type="text" matinput placeholder="Other" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Top signings -->
-      <div class="section">
-        <h3>Top signings <span>*</span></h3>
-        <div class="input-container">
-          <div class="two-fifth">
-            <div class="wrapper-field">
-              <div class="field">
-                <div class="form-block">
-                  <label>Name </label>
-                  <input type="text" matinput placeholder="Name" />
-                </div>
-              </div>
-              <div class="icon-btn">
-                <button class="remove">
-                  <mat-icon class="material-icons">remove_circle</mat-icon>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="two-fifth">
-            <div class="wrapper-field">
-              <div class="field">
-                <div class="form-block">
-                  <label>Name </label>
-                  <input type="text" matinput placeholder="Name" />
-                </div>
-              </div>
-              <div class="icon-btn">
-                <button class="remove">
-                  <mat-icon class="material-icons">remove_circle</mat-icon>
-                </button>
-                <button class="add">
-                  <mat-icon class="material-icons">add_circle</mat-icon>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!--  -->
-      <div class="section">
-        <div class="input-container">
-          <div class="two-fifth">
-            <div class="form-block">
-              <label>
-                <h3>Type of club <span>*</span></h3>
-              </label>
-              <select>
-                <option value="">Residential</option>
-                <option value="">Non Residential</option>
-              </select>
-            </div>
-          </div>
-          <div class="two-fifth">
-            <div class="form-block">
-              <label>
-                <h3>State association affiliated under <span>*</span></h3>
-              </label>
-              <select>
-                <option value="">State association affiliated under</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Contact detials -->
-      <div class="section">
-        <h3>Contact Details</h3>
-        <div class="input-container">
-          <div class="third">
-            <div class=" form-block">
-              <label>Designation <span>*</span> </label>
-              <select>
-                <option value="">Select trophy name</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="third">
-            <div class="form-block">
-              <label>Name <span>*</span></label>
-              <input type="text" matinput placeholder="Year" />
-            </div>
-          </div>
-
-          <div class="third">
-            <div class="form-block">
-              <label>Email <span>*</span> </label>
-              <input type="text" matinput placeholder="Position secured" />
-            </div>
-          </div>
-
-          <div class="third">
-            <div class="form-block">
-              <label>Mobile number<span>*</span></label>
-              <div class="phone-block">
-                <div class="country-code">
-                  <select disabled>
-                    <option>+91</option>
-                  </select>
-                </div>
-                <div class="phone-number">
-                  <input
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                    required
-                    placeholder="Mobile Number"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="icon-btn">
-            <button class="remove">
-              <mat-icon class="material-icons">remove_circle</mat-icon>
-            </button>
-          </div>
-        </div>
-
-        <div class="input-container">
-          <div class="third">
-            <div class=" form-block">
-              <label>Designation <span>*</span> </label>
-              <select>
-                <option value="">Select trophy name</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="third">
-            <div class="form-block">
-              <label>Name <span>*</span></label>
-              <input type="text" matinput placeholder="Year" />
-            </div>
-          </div>
-
-          <div class="third">
-            <div class="form-block">
-              <label>Email <span>*</span> </label>
-              <input type="text" matinput placeholder="Position secured" />
-            </div>
-          </div>
-
-          <div class="third">
-            <div class="form-block">
-              <label>Mobile number<span>*</span></label>
-              <div class="phone-block">
-                <div class="country-code">
-                  <select disabled>
-                    <option>+91</option>
-                  </select>
-                </div>
-                <div class="phone-number">
-                  <input
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                    required
-                    placeholder="Mobile Number"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="icon-btn">
-            <button class="remove">
-              <mat-icon class="material-icons">remove_circle</mat-icon>
-            </button>
-            <button class="add">
-              <mat-icon class="material-icons">add_circle</mat-icon>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="actions mt-2 mb-2">
-        <div class="btn-group">
-          <button (click)="toggleMode()" class="btn-normal">
-            Cancel
-          </button>
-          <button
-            [disabled]="!professionalDetailsForm.valid"
-            (click)="editProfessionalDetails()"
-            class="btn-active"
-          >
-            Save Changes
-          </button>
-        </div>
-      </div>
-    </form>
   </div>
 </div>

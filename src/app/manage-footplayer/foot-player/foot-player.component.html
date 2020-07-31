@@ -1,107 +1,108 @@
 <app-header></app-header>
 <div class="site-wrapper">
-  <!-- left Sidebar -->
-  <div class="left-section">
+  <div class="left-panel">
     <app-left-panel
       [achievements]="total_count"
       [options]="panelOptions"
       [userId]="userId"
       (sendMemberType)="getMemberType($event)"
-    ></app-left-panel>
-  </div>
-  <div class="right-section">
-    <div class="award-heading">
-      <div class="left-part">
-        <h2>
-          Manage FootPlayers
-        </h2>
-      </div>
-      <div class="right-part" *ngIf="!isPublic">
-        <button (click)="onaddfootplayer()">Add Player</button>
-      </div>
-    </div>
-    <!-- filter -->
-    <app-filter
-      [allowedFilters]="filtersList"
-      (filterChanges)="onChangeFilter($event)"
-    ></app-filter>
-    <!-- search -->
-    <div class="search">
-      <app-grid-search-box
-        placeholder="Search Player"
-        (sendSearchText)="getSearchText($event)"
-      >
-      </app-grid-search-box>
-    </div>
-    <div class="table">
-      <!-- table -->
-      <div class="table-container">
-        <app-table
-          [tableConfig]="tableConfig"
-          [NumberColumn]="'true'"
-          [rows]="dataSource"
-          [sortEnabled]="true"
-          [pageSize]="pageSize"
-          [TableActions]="ListAction"
-          [pageNo]="selectedPage"
-        >
-        </app-table>
-        <ng-template
-          #ListAction
-          let-id="id"
-          let-avatar="avatar"
-          let-category="category"
-          let-name="name"
-          let-position="position"
-          let-status="status"
-          let-email="email"
-          let-user_id="user_id"
-          let-canAddContract="canAddContract"
-        >
-          <div class="action-buttons">
-            <button
-              matTooltip="Resend Invitation"
-              [ngClass]="{
-                'icon-disable': ['pending', 'added', 'rejected'].includes(
-                  status
-                )
-              }"
-              [disabled]="['pending', 'added', 'rejected'].includes(status)"
-              (click)="resendInvitationPopup(email)"
-            >
-              <img src="assets/images/icons/refresh01.png" alt="refresh" />
-            </button>
-
-            <button
-              [ngClass]="{
-                'icon-disable': !canAddContract
-              }"
-              [routerLink]="[
-                '/member/profile/add-employment-contract',
-                user_id
-              ]"
-              matTooltip="Add Contract"
-            >
-              <img src="assets/images/icons/plus.png" alt="Add" />
-            </button>
-
-            <button matTooltip="Delete" (click)="deletePopup(id)">
-              <img src="assets/images/icons/bin.png" alt="Delete" />
-            </button>
-          </div>
-        </ng-template>
-      </div>
-    </div>
-    <!-- pagination -->
-    <app-pagination
-      *ngIf="dataSource.data.length !== 0"
-      [showData]="false"
-      [showCount]="show_count"
-      [totalRows]="total_count"
-      [rowsPerPage]="pageSize"
-      [selectedPage]="selectedPage"
-      (onChange)="updatePage($event)"
     >
-    </app-pagination>
+    </app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main mt-2">
+        <!-- award heading -->
+        <div class="heading">
+          <h2>Manage FooTPlayers</h2>
+          <button class="icon-btn">
+            <mat-icon class="material-icons">filter_alt</mat-icon>
+          </button>
+        </div>
+        <!-- search and popupbtn -->
+        <div class="search-section">
+          <div class="search-wrapper">
+            <app-grid-search-box
+              placeholder="Search"
+              (sendSearchText)="getSearchText($event)"
+            >
+            </app-grid-search-box>
+          </div>
+          <button class="secondary-btn" (click)="onaddfootplayer()">
+            Add player
+          </button>
+        </div>
+        <!-- table -->
+        <div class="table">
+          <app-table
+            [tableConfig]="tableConfig"
+            [NumberColumn]="'true'"
+            [rows]="dataSource"
+            [sortEnabled]="true"
+            [pageSize]="pageSize"
+            [TableActions]="ListAction"
+            [pageNo]="selectedPage"
+          >
+          </app-table>
+          <ng-template
+            #ListAction
+            let-id="id"
+            let-avatar="avatar"
+            let-category="category"
+            let-name="name"
+            let-position="position"
+            let-status="status"
+            let-email="email"
+            let-user_id="user_id"
+            let-canAddContract="canAddContract"
+          >
+            <div class="action-buttons">
+              <button
+                matTooltip="Resend Invitation"
+                [ngClass]="{
+                  'icon-disable': ['pending', 'added', 'rejected'].includes(
+                    status
+                  )
+                }"
+                (click)="resendInvitationPopup(email)"
+              >
+                <mat-icon class="material-icons">autorenew</mat-icon>
+              </button>
+
+              <button
+                [ngClass]="{
+                  'icon-disable': !canAddContract
+                }"
+                [routerLink]="[
+                  '/member/profile/add-employment-contract',
+                  user_id
+                ]"
+                matTooltip="Add Contract"
+              >
+                <mat-icon class="material-icons">add_circle</mat-icon>
+              </button>
+
+              <button matTooltip="Delete" (click)="deletePopup(id)">
+                <mat-icon class="material-icons">delete</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+        </div>
+        <!-- Pagination -->
+        <app-pagination
+          *ngIf="dataSource.data.length !== 0"
+          [showData]="false"
+          [showCount]="show_count"
+          [totalRows]="total_count"
+          [rowsPerPage]="pageSize"
+          [selectedPage]="selectedPage"
+          (onChange)="updatePage($event)"
+        >
+        </app-pagination>
+      </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
   </div>
 </div>

@@ -217,6 +217,13 @@
 
   .right-panel {
     width: 76.25%;
+    position: relative;
+
+    .footer-fix {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+    }
 
     .right-wrapper {
       padding: 2rem;
@@ -226,6 +233,7 @@
         @include shadow;
         padding: 2rem 4rem;
         border-radius: 0.5rem;
+        margin-bottom: 10rem;
 
         // heading css
         .heading {
@@ -258,6 +266,26 @@
           }
         }
       }
+    }
+  }
+}
+
+//
+.radio-section {
+  margin-bottom: 1rem;
+
+  ::ng-deep {
+    .mat-radio-label-content {
+      // font-size: 1.8rem;
+      font-weight: 400;
+      color: $second-color;
+      padding-left: 1.2rem !important;
+    }
+
+    .mat-radio-group {
+      width: 30%;
+      display: flex;
+      justify-content: space-between;
     }
   }
 }

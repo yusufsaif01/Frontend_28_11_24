@@ -53,7 +53,7 @@ export class PersonalDetailsComponent implements OnInit {
   today = new Date();
   countryArray: any[] = [];
   stateArray: any[] = [];
-  cityArray: any[] = [];
+  districtArray: any[] = [];
   profile: any = {};
   personalProfileDetailsForm: FormGroup;
   profile_status: string;
@@ -289,12 +289,12 @@ export class PersonalDetailsComponent implements OnInit {
     this.personalProfileDetailsForm.patchValue(profileData);
     if (this.profile.country) {
       this.getStatesListing(this.profile.country.id);
-      this.getCitiesListing(this.profile.country.id, this.profile.state.id);
+      this.getDistrictsListing(this.profile.country.id, this.profile.state.id);
     }
 
     this.personalProfileDetailsForm.patchValue({
       state: this.profile.state ? this.profile.state.id : '',
-      city: this.profile.city ? this.profile.city.id : '',
+      district: this.profile.district ? this.profile.district.id : '',
       country: this.profile.country ? this.profile.country.id : '',
       height_feet:
         this.profile.height && this.profile.height.feet
@@ -374,7 +374,7 @@ export class PersonalDetailsComponent implements OnInit {
         abstractControl: this._formBuilder.control('', [Validators.required])
       },
       {
-        name: 'city',
+        name: 'district',
         abstractControl: this._formBuilder.control('', [Validators.required])
       },
       {
@@ -492,13 +492,13 @@ export class PersonalDetailsComponent implements OnInit {
       );
   }
 
-  getCitiesListing(countryID: string, stateID: string) {
+  getDistrictsListing(countryID: string, stateID: string) {
     this._sharedService
-      .getCitiesListing(countryID, stateID)
+      .getDistrictsList(countryID, stateID)
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
-          this.cityArray = response.data.records;
+          this.districtArray = response.data.records;
         },
         error => {
           this._toastrService.error('Error', error.error.message);
@@ -508,32 +508,32 @@ export class PersonalDetailsComponent implements OnInit {
 
   onSelectCountry(event: any) {
     if (!event.target.value) {
-      this.resetStateCity();
+      this.resetStateDistrict();
     } else {
       this.getStatesListing(event.target.value);
     }
   }
 
-  resetStateCity() {
+  resetStateDistrict() {
     this.stateArray = [];
-    this.cityArray = [];
+    this.districtArray = [];
     this.personalProfileDetailsForm.controls.state.patchValue('');
-    this.personalProfileDetailsForm.controls.city.patchValue('');
+    this.personalProfileDetailsForm.controls.district.patchValue('');
   }
 
   onSelectState(event: any) {
     if (!event.target.value) {
-      this.resetCity();
+      this.resetDistrict();
     } else {
-      this.getCitiesListing(
+      this.getDistrictsListing(
         this.personalProfileDetailsForm.controls.country.value,
         event.target.value
       );
     }
   }
-  resetCity() {
-    this.cityArray = [];
-    this.personalProfileDetailsForm.controls.city.patchValue('');
+  resetDistrict() {
+    this.districtArray = [];
+    this.personalProfileDetailsForm.controls.district.patchValue('');
   }
 
   toFormData<T>(formValue: T) {
@@ -553,9 +553,8 @@ export class PersonalDetailsComponent implements OnInit {
     let requestData = this.toFormData(this.personalProfileDetailsForm.value);
 
     if (this.profile_status === 'verified') requestData.delete('dob');
-    if (this.member_type !== 'player') {
-      this.dateModifier(requestData);
-    }
+    this.dateModifier(requestData);
+
     this._editProfileService
       .updatePersonalProfileDetails(requestData)
       .pipe(untilDestroyed(this))
@@ -575,15 +574,19 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   dateModifier(requestData: any) {
-    let years = ['founded_in'];
-    years.map(data => {
-      requestData.set(
-        data,
-        this._dateConversion.convertToYear(
-          this.personalProfileDetailsForm.get(data).value
+    this.member_type === 'player'
+      ? requestData.set(
+          'dob',
+          this._dateConversion.convert(
+            this.personalProfileDetailsForm.get('dob').value
+          )
         )
-      );
-    });
+      : requestData.set(
+          'founded_in',
+          this._dateConversion.convertToYear(
+            this.personalProfileDetailsForm.get('founded_in').value
+          )
+        );
   }
 
   ngOnDestroy() {}

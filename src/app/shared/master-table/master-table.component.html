@@ -44,7 +44,7 @@
             active: element.status === 'active' && col === 'status'
           }"
           *ngIf="
-            col !== 'name' && col !== 'no_of_state' && col !== 'no_of_city'
+            col !== 'name' && col !== 'no_of_state' && col !== 'no_of_district'
           "
         >
           {{ tableConfig.columns[col].getValue(element) }}
@@ -69,9 +69,11 @@
             >{{ tableConfig.columns[col].getValue(element) }}</a
           >
         </p>
-        <p *ngIf="col === 'no_of_city'">
+        <p *ngIf="col === 'no_of_district'">
           <a
-            routerLink="/admin/masterdata-city/{{ TableOptions.country_id }}"
+            routerLink="/admin/masterdata-district/{{
+              TableOptions.country_id
+            }}"
             >{{ tableConfig.columns[col].getValue(element) }}</a
           >
         </p>

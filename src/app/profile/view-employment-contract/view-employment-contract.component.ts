@@ -54,7 +54,10 @@ export class ViewEmploymentContractComponent implements OnInit {
   }
   findPlayerContractWithDetails() {
     switch (this.contractDetails.created_by) {
-      case 'club' || 'academy':
+      case 'club':
+        this.contractWith = this.contractDetails.created_by;
+        break;
+      case 'academy':
         this.contractWith = this.contractDetails.created_by;
         break;
       case 'player':
@@ -68,12 +71,12 @@ export class ViewEmploymentContractComponent implements OnInit {
     let header: string = '';
     let disApprove: boolean = false;
     if (status === 'disapproved') {
-      header = 'Please Confirm';
+      header = 'Please confirm';
       message = 'Please specify a reason for disapproval';
       disApprove = true;
     }
     if (status === 'approved') {
-      (header = 'Please Confirm'),
+      (header = 'Please confirm'),
         (message = `Do you want to approve the Employment Contract with ${this.contractDetails.club_academy_name} ${this.contractWith} ?`);
       disApprove = false;
     }

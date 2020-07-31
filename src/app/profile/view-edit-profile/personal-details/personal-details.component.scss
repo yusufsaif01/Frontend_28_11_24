@@ -22,6 +22,7 @@
       }
     }
   }
+
   .profile-position {
     h4 {
       color: #ff9933;
@@ -37,7 +38,7 @@
       margin: 0 auto;
 
       .left-part {
-        width: 50%;
+        width: 80%;
         display: flex;
         align-items: center;
 
@@ -55,11 +56,12 @@
         }
 
         .details {
-          width: 50%;
+          width: 100%;
           padding: 1rem 2rem;
 
-          h3 {
+          h2 {
             font-weight: 500;
+            word-break: break-all;
           }
 
           p {
@@ -72,7 +74,7 @@
       .right-part {
         display: flex;
         align-items: center;
-        width: 50%;
+        width: 20%;
         justify-content: flex-end;
 
         ul {
@@ -112,6 +114,7 @@
           border: 1px solid $grey;
           border-radius: 1rem;
           font-size: $heading-fifth;
+          word-break: break-word;
         }
       }
 
@@ -129,7 +132,7 @@
 
             h4 {
               font-weight: 500;
-              color: $second-color;
+              color: $fourth-color;
             }
           }
 
@@ -138,6 +141,7 @@
 
             p {
               font-size: $heading-fourth;
+              color: $second-color;
             }
           }
         }

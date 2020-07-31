@@ -1,4 +1,5 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
+import moment from 'moment';
 export class EmploymentContractListTableConfig extends TableConfig {
   constructor() {
     super();
@@ -15,21 +16,26 @@ export class EmploymentContractListTableConfig extends TableConfig {
         code: 'name',
         text: 'Club / Academy',
         getValue: (ele: any) => {
-          return ele[this.columns.name.code];
+          let val: string = ele[this.columns.name.code];
+          return val.length > 18 ? `${val.slice(0, 18)}...` : val;
         }
       },
       effective_date: {
         code: 'effective_date',
         text: 'Effective Date',
         getValue: (ele: any) => {
-          return ele[this.columns.effective_date.code];
+          let val: any = moment(ele.effective_date);
+          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          return `${val}`;
         }
       },
       expiry_date: {
         code: 'expiry_date',
         text: 'Expiry Date',
         getValue: (ele: any) => {
-          return ele[this.columns.expiry_date.code];
+          let val: any = moment(ele.expiry_date);
+          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          return `${val}`;
         }
       },
       created_by: {

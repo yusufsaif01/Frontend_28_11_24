@@ -1,6 +1,6 @@
-<app-header></app-header>
+<!-- <app-header></app-header>
 <div class="site-wrapper">
-  <!-- left Sidebar -->
+
   <div class="left-section">
     <app-left-panel
       [options]="panelOptions"
@@ -65,7 +65,7 @@
         <i-feather class="icon-size" name="chevron-down"></i-feather>
       </button>
       <button (click)="clearFilters()">Clear Filter</button>
-      <!-- postion -->
+
       <mat-menu #position="matMenu">
         <div (click)="$event.stopPropagation()">
           <h3>Select Position</h3>
@@ -90,7 +90,7 @@
           </div>
         </div>
       </mat-menu>
-      <!-- playercatergory -->
+
       <mat-menu #playercategory="matMenu">
         <div (click)="$event.stopPropagation()">
           <h3>Select Player Category</h3>
@@ -115,7 +115,7 @@
           </div>
         </div>
       </mat-menu>
-      <!-- Age -->
+
       <mat-menu #age="matMenu">
         <div (click)="$event.stopPropagation()">
           <h3>Select Age</h3>
@@ -141,126 +141,167 @@
         </div>
       </mat-menu>
       <mat-menu #location="matMenu">
-        <!-- location -->
+
         <div (click)="$event.stopPropagation()">
-          <h3>Select Location</h3>
-          <div class="wrapper-location">
-            <div class="slt-wrapper">
-              <select
-                (change)="onSelectCountry($event)"
-                [(ngModel)]="locationData.countryValue"
-              >
-                <option value="">Select Country</option>
-                <option
-                  *ngFor="let country of locationRangeFilters.countryData"
-                  [value]="getCountryValue(country)"
-                  >{{ country.country }}</option
-                >
-              </select>
-              <i-feather class="icon-size" name="chevron-down"></i-feather>
-            </div>
-            <div class="slt-wrapper">
-              <select
-                (change)="onSelectState($event)"
-                [(ngModel)]="locationData.stateValue"
-              >
-                <option value="">Select State</option>
-                <option
-                  *ngFor="let state of locationRangeFilters.states"
-                  [value]="getStateValue(state)"
-                  >{{ state.name }}</option
-                >
-              </select>
-              <i-feather class="icon-size" name="chevron-down"></i-feather>
-            </div>
-            <div class="slt-wrapper">
-              <select
-                (change)="onSelectCity($event)"
-                [(ngModel)]="locationData.cityValue"
-              >
-                <option value="">Select City</option>
-                <option
-                  *ngFor="let city of locationRangeFilters.cities"
-                  [value]="getCityValue(city)"
-                  >{{ city.name }}</option
-                >
-              </select>
-              <i-feather class="icon-size" name="chevron-down"></i-feather>
-            </div>
-          </div>
-        </div>
-      </mat-menu>
-      <!-- strong foot -->
-      <mat-menu #strongfoot="matMenu">
-        <div (click)="$event.stopPropagation()">
-          <h3>Select Strong Foot</h3>
-          <div class="items">
-            <span
-              class="chk-box"
-              *ngFor="let type of locationRangeFilters.strongFoot"
-            >
-              <mat-checkbox
-                [value]="type.value"
-                (change)="
+  <h3>Select Location</h3>
+  <div class="wrapper-location">
+    <div class="slt-wrapper">
+      <select (change)="onSelectCountry($event)" [(ngModel)]="locationData.countryValue">
+        <option value="">Select Country</option>
+        <option *ngFor="let country of locationRangeFilters.countryData" [value]="getCountryValue(country)">
+          {{ country.country }}</option>
+      </select>
+      <i-feather class="icon-size" name="chevron-down"></i-feather>
+    </div>
+    <div class="slt-wrapper">
+      <select (change)="onSelectState($event)" [(ngModel)]="locationData.stateValue">
+        <option value="">Select State</option>
+        <option *ngFor="let state of locationRangeFilters.states" [value]="getStateValue(state)">{{ state.name }}
+        </option>
+      </select>
+      <i-feather class="icon-size" name="chevron-down"></i-feather>
+    </div>
+    <div class="slt-wrapper">
+      <select (change)="onSelectDistrict($event)" [(ngModel)]="locationData.districtValue">
+        <option value="">Select District</option>
+        <option *ngFor="let district of locationRangeFilters.districts" [value]="getDistrictValue(district)">
+          {{ district.name }}</option>
+      </select>
+      <i-feather class="icon-size" name="chevron-down"></i-feather>
+    </div>
+  </div>
+</div>
+</mat-menu>
+
+<mat-menu #strongfoot="matMenu">
+  <div (click)="$event.stopPropagation()">
+    <h3>Select Strong Foot</h3>
+    <div class="items">
+      <span class="chk-box" *ngFor="let type of locationRangeFilters.strongFoot">
+        <mat-checkbox [value]="type.value" (change)="
                   onChangeChecker(
                     $event,
                     locationRangeFilters.strongFootArray,
                     'strong_foot'
                   )
-                "
-                [checked]="checkFilters"
-                >{{ type.name }}</mat-checkbox
-              >
-            </span>
-          </div>
-        </div>
-      </mat-menu>
-    </div>
-    <div class="playerwrapper">
-      <!-- one -->
-      <ng-container *ngFor="let footMate of footMatesList">
-        <div class="playerbox">
-          <div class="top">
-            <div class="dp">
-              <img [src]="footMate.avatar" alt="" />
-            </div>
-            <div class="name">
-              <strong>
-                <a
-                  target="_blank"
-                  [routerLink]="['/member/profile/view/', footMate.user_id]"
-                  >{{ footMate.name }}
-                </a>
-              </strong>
-              <p>{{ footMate.position }}</p>
-            </div>
-          </div>
-          <div class="middle">
-            <h4 class="gray">{{ footMate.player_type }}</h4>
-            <h4 *ngIf="footMate.mutuals">
-              <a (click)="openDialog(footMate)"
-                >{{ footMate.mutuals }} Mutual Footmates</a
-              >
-            </h4>
-          </div>
-        </div>
-      </ng-container>
-    </div>
-    <ng-container *ngIf="footMatesList.length === 0">
-      <span class="no-data-found">
-        No FootMates Found
+                " [checked]="checkFilters">{{ type.name }}</mat-checkbox>
       </span>
-    </ng-container>
-    <!-- pagination -->
-    <app-pagination
-      *ngIf="footMatesList.length !== 0"
-      [showData]="false"
-      [showCount]="show_count"
-      [totalRows]="foot_data.footmates"
-      [rowsPerPage]="pageSize"
-      (onChange)="updatePage($event)"
-      [selectedPage]="selectedPage"
-    >
-    </app-pagination>
+    </div>
+  </div>
+</mat-menu>
+</div>
+<div class="playerwrapper">
+
+  <ng-container *ngFor="let footMate of footMatesList">
+  <div class="playerbox">
+    <div class="top">
+      <div class="dp">
+        <img [src]="footMate.avatar" alt="" />
+      </div>
+      <div class="name">
+        <strong>
+          <a target="_blank" [routerLink]="['/member/profile/view/', footMate.user_id]">{{ footMate.name }}
+          </a>
+        </strong>
+        <p>{{ footMate.position }}</p>
+      </div>
+    </div>
+    <div class="middle">
+      <h4 class="gray">{{ footMate.player_type }}</h4>
+      <h4 *ngIf="footMate.mutuals">
+        <a (click)="openDialog(footMate)">{{ footMate.mutuals }} Mutual Footmates</a>
+      </h4>
+    </div>
+  </div>
+</ng-container>
+</div>
+<ng-container *ngIf="footMatesList.length === 0">
+  <span class="no-data-found">
+    No FootMates Found
+  </span>
+</ng-container>
+
+<app-pagination *ngIf="footMatesList.length !== 0" [showData]="false" [showCount]="show_count"
+  [totalRows]="foot_data.footmates" [rowsPerPage]="pageSize" (onChange)="updatePage($event)"
+  [selectedPage]="selectedPage">
+</app-pagination>
+</div>
+</div> -->
+
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel">
+    <app-left-panel
+      (sendFootData)="getConnectionStats($event)"
+    ></app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main">
+        <!-- heading -->
+        <div class="heading">
+          <h2>FooTMates</h2>
+          <button class="icon-btn">
+            <mat-icon class="material-icons">filter_alt</mat-icon>
+          </button>
+        </div>
+        <!-- counts -->
+        <div class="counts-wrapper">
+          <div class="counts">
+            <h2>
+              {{ foot_data.footmate_requests | padzero }}
+            </h2>
+            <a
+              [routerLink]="['/member/manage/foot-requests']"
+              [routerLinkActive]="['active']"
+              >FooTRequests
+            </a>
+          </div>
+          <div class="counts">
+            <h2>{{ foot_data.footmates | padzero }}</h2>
+            <a
+              [routerLink]="['/member/manage/foot-mates']"
+              [routerLinkActive]="['active']"
+              >FooTMates
+            </a>
+          </div>
+        </div>
+        <!-- player"" section -->
+        <div class="player-wrapper">
+          <ng-container *ngFor="let footMate of footMatesList">
+            <div class="player-block">
+              <img [src]="footMate.avatar" alt="" />
+              <div class="profile-details">
+                <h3>
+                  <a
+                    target="_blank"
+                    [routerLink]="['/member/profile/view/', footMate.user_id]"
+                    >{{ footMate.name }}
+                  </a>
+                </h3>
+                <p>{{ footMate.position }}</p>
+                <div class="player-categroy">
+                  <h5>{{ footMate.player_type | titlecase }}</h5>
+                  <a *ngIf="footMate.mutuals" (click)="openDialog(footMate)"
+                    >{{ footMate.mutuals }} Mutual FooTMates</a
+                  >
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="footMatesList.length === 0">
+            <span class="no-data-found">
+              No FooTMates Found
+            </span>
+          </ng-container>
+        </div>
+        <!-- Pagination -->
+        <app-pagination> </app-pagination>
+      </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
   </div>
 </div>

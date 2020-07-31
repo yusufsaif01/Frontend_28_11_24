@@ -14,11 +14,11 @@
         </div>
         <div class="details">
           <ng-container *ngIf="member_type === 'player'">
-            <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
+            <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
             <p>{{ profile.player_type | titlecase }}</p>
           </ng-container>
           <ng-container *ngIf="member_type !== 'player'">
-            <h3>{{ profile?.name }}</h3>
+            <h2>{{ profile?.name }}</h2>
             <p>{{ profile?.short_name }}</p>
             <p>{{ (clubAcademyType ? clubAcademyType : '') | titlecase }}</p>
           </ng-container>
@@ -251,10 +251,10 @@
       <div class="view-details">
         <div class="details">
           <div class="left">
-            <h4>City</h4>
+            <h4>District</h4>
           </div>
           <div class="right">
-            <p>{{ profile?.city?.name }}</p>
+            <p>{{ profile?.district?.name }}</p>
           </div>
         </div>
       </div>
@@ -334,7 +334,7 @@
   <div class="edit-wrapper" [hidden]="!editMode">
     <form [formGroup]="personalProfileDetailsForm">
       <div class="heading">
-        <h3>Personal details</h3>
+        <h2>Personal details</h2>
       </div>
       <!-- player -->
       <ng-container *ngIf="member_type == 'player'; else clubAcademyWrapper">
@@ -354,13 +354,13 @@
               </span>
             </div>
           </div>
-        </div>
-        <div class="right-section">
-          <div class="frm-wrapper">
-            <div class="input-container">
-              <div class="full">
-                <div class="profile-position">
-                  <h4>{{ profile.player_type | titlecase }}</h4>
+          <div class="right-section">
+            <div class="frm-wrapper">
+              <div class="input-container">
+                <div class="full">
+                  <div class="profile-position">
+                    <h4>{{ profile.player_type | titlecase }}</h4>
+                  </div>
                 </div>
               </div>
 
@@ -453,6 +453,7 @@
           <div class="input-container">
             <div class="full">
               <div class="form-block">
+                <label>Boi</label>
                 <textarea
                   formControlName="bio"
                   class="txtarea-height"
@@ -866,25 +867,28 @@
             </div>
             <div class="third">
               <div class="form-block">
-                <label>City <span>*</span></label>
-                <select formControlName="city">
-                  <option value="">Select City</option>
-                  <ng-container *ngFor="let city of cityArray">
-                    <option value="{{ city.id }}">{{ city.name }}</option>
+                <label>District <span>*</span></label>
+                <select formControlName="district">
+                  <option value="">Select District</option>
+                  <ng-container *ngFor="let district of districtArray">
+                    <option value="{{ district.id }}">{{
+                      district.name
+                    }}</option>
                   </ng-container>
                 </select>
                 <mat-error
                   *ngIf="
-                    personalProfileDetailsForm.controls.city.invalid &&
-                    personalProfileDetailsForm.controls.city.touched
+                    personalProfileDetailsForm.controls.district.invalid &&
+                    personalProfileDetailsForm.controls.district.touched
                   "
                 >
                   <span
                     *ngIf="
-                      personalProfileDetailsForm.controls.city.errors.required
+                      personalProfileDetailsForm.controls.district.errors
+                        .required
                     "
                     translate
-                    >Current City is required</span
+                    >Current District is required</span
                   >
                 </mat-error>
               </div>
@@ -1305,26 +1309,27 @@
             </div>
             <div class="third">
               <div class="form-block">
-                <label>City <span>*</span></label>
-                <select formControlName="city">
-                  <option value="">Select City</option>
-                  <ng-container *ngFor="let city of cityArray">
-                    <option [value]="city.id">{{ city.name }}</option>
+                <label>District <span>*</span></label>
+                <select formControlName="district">
+                  <option value="">Select District</option>
+                  <ng-container *ngFor="let district of districtArray">
+                    <option [value]="district.id">{{ district.name }}</option>
                   </ng-container>
                 </select>
                 <mat-error
                   class="error-text"
                   *ngIf="
-                    personalProfileDetailsForm.controls.city.invalid &&
-                    personalProfileDetailsForm.controls.city.touched
+                    personalProfileDetailsForm.controls.district.invalid &&
+                    personalProfileDetailsForm.controls.district.touched
                   "
                 >
                   <span
                     *ngIf="
-                      personalProfileDetailsForm.controls.city.errors.required
+                      personalProfileDetailsForm.controls.district.errors
+                        .required
                     "
                     translate
-                    >City is required</span
+                    >District is required</span
                   >
                 </mat-error>
               </div>

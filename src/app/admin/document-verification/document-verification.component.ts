@@ -235,12 +235,12 @@ export class DocumentVerificationComponent implements OnInit {
     let header: string = '';
     let disApprove: boolean = false;
     if (status === 'disapproved') {
-      header = 'Please Confirm';
+      header = 'Please confirm';
       message = 'Please specify a reason for disapproval';
       disApprove = true;
     }
     if (status === 'approved') {
-      (header = 'Please Confirm'),
+      (header = 'Please confirm'),
         (message = `Do you want to approve the Employment Contract of ${playerName} player ?`);
       disApprove = false;
     }

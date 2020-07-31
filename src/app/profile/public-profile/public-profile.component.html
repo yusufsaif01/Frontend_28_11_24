@@ -1,0 +1,728 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel">
+    <app-left-panel [options]="panelOptions" [data]="data"> </app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main mt-2">
+        <div class="public-wrapper">
+          <!-- Social icons -->
+          <div class="social-links">
+            <ul>
+              <li
+                *ngIf="
+                  publicProfileData?.social_profiles &&
+                  publicProfileData?.social_profiles?.facebook
+                "
+              >
+                <a
+                  [target]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.facebook
+                      ? '_blank'
+                      : ''
+                  "
+                  [href]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.facebook
+                      ? appendURL(publicProfileData?.social_profiles?.facebook)
+                      : transformURL('javascript:void(0)')
+                  "
+                  ><img src="assets/images/website/social/facebook.svg" alt=""
+                /></a>
+              </li>
+              <li
+                *ngIf="
+                  publicProfileData?.social_profiles &&
+                  publicProfileData?.social_profiles?.instagram
+                "
+              >
+                <a
+                  [target]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.instagram
+                      ? '_blank'
+                      : ''
+                  "
+                  [href]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.instagram
+                      ? appendURL(publicProfileData?.social_profiles?.instagram)
+                      : transformURL('javascript:void(0)')
+                  "
+                  ><img src="assets/images/website/social/instagram.svg" alt=""
+                /></a>
+              </li>
+              <li
+                *ngIf="
+                  publicProfileData?.social_profiles &&
+                  publicProfileData?.social_profiles?.linked_in
+                "
+              >
+                <a
+                  [target]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.linked_in
+                      ? '_blank'
+                      : ''
+                  "
+                  [href]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.linked_in
+                      ? appendURL(publicProfileData?.social_profiles?.linked_in)
+                      : transformURL('javascript:void(0)')
+                  "
+                  ><img src="assets/images/website/social/linkedin.svg" alt=""
+                /></a>
+              </li>
+              <li
+                *ngIf="
+                  publicProfileData?.social_profiles &&
+                  publicProfileData?.social_profiles?.youtube
+                "
+              >
+                <a
+                  [target]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.youtube
+                      ? '_blank'
+                      : ''
+                  "
+                  [href]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles.youtube
+                      ? appendURL(publicProfileData?.social_profiles?.youtube)
+                      : transformURL('javascript:void(0)')
+                  "
+                  ><img src="assets/images/website/social/youtube.svg" alt=""
+                /></a>
+              </li>
+              <li
+                *ngIf="
+                  publicProfileData?.social_profiles &&
+                  publicProfileData?.social_profiles?.twitter
+                "
+              >
+                <a
+                  [target]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.twitter
+                      ? '_blank'
+                      : ''
+                  "
+                  [href]="
+                    publicProfileData?.social_profiles &&
+                    publicProfileData?.social_profiles?.twitter
+                      ? appendURL(publicProfileData?.social_profiles?.twitter)
+                      : transformURL('javascript:void(0)')
+                  "
+                  ><img src="assets/images/website/social/twitter.svg" alt=""
+                /></a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- heading and follow unfollow -->
+          <div class="heading">
+            <div class="left">
+              <h2>About FooTMate</h2>
+            </div>
+            <ng-container *ngIf="is_public && user_id !== logged_user_id">
+              <div class="right">
+                <button
+                  *ngIf="
+                    publicProfileData?.member_type === 'player' &&
+                    member_type === 'player'
+                  "
+                  (click)="toggleFootMate()"
+                >
+                  {{
+                    is_footmate === 'Accepted'
+                      ? 'Delete FooTMate'
+                      : is_footmate === 'Not_footmate'
+                      ? 'Send FooTMate Request'
+                      : 'Pending'
+                  }}
+                </button>
+                <ng-container *ngIf="following$ | async"></ng-container>
+                <button
+                  *ngIf="is_footmate !== 'Pending'"
+                  (click)="toggleFollow()"
+                >
+                  {{ is_following ? 'Unfollow' : 'Follow' }}
+                </button>
+              </div>
+            </ng-container>
+          </div>
+          <!-- Boi -->
+          <div class="boi">
+            <h4>Bio</h4>
+            <p>
+              {{ publicProfileData?.bio }}
+            </p>
+          </div>
+
+          <!-- tab buttons -->
+          <div class="tabs-buttons">
+            <ul>
+              <li>
+                <a
+                  [ngClass]="tab === 'personal' ? 'active' : ''"
+                  [routerLinkActive]="['active']"
+                  (click)="getTab('personal')"
+                  >Personal details</a
+                >
+              </li>
+              <li>
+                <a
+                  [ngClass]="tab === 'professional' ? 'active' : ''"
+                  [routerLinkActive]="['active']"
+                  (click)="getTab('professional')"
+                  >Professional details</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="tab-panel">
+            <ng-container *ngIf="publicProfileData?.member_type === 'player'">
+              <!-- player personal -->
+              <div class="player-personal" *ngIf="tab === 'personal'">
+                <div class="details">
+                  <div class="half">
+                    <div class="left">
+                      <h4>D.O.B</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.dob | date: 'dd LLLL yyyy' }}</p>
+                    </div>
+                  </div>
+                  <div class="half">
+                    <div class="left">
+                      <h4>Weight</h4>
+                    </div>
+                    <div class="right">
+                      <p>
+                        {{
+                          publicProfileData?.weight
+                            ? publicProfileData?.weight + 'kg'
+                            : ''
+                        }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="half">
+                    <div class="left">
+                      <h4>Gender</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.gender | titlecase }}</p>
+                    </div>
+                  </div>
+
+                  <div class="half">
+                    <div class="left">
+                      <h4>Height</h4>
+                    </div>
+                    <div class="right">
+                      <p>
+                        {{
+                          publicProfileData?.height?.feet
+                            ? publicProfileData?.height?.feet + 'ft'
+                            : ''
+                        }}
+                        {{
+                          publicProfileData?.height?.inches
+                            ? publicProfileData?.height?.inches + 'inches'
+                            : ''
+                        }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="full">
+                    <div class="left">
+                      <h4>Nationality</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.country?.name | titlecase }}</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>State / UT</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.state?.name | titlecase }}</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>City</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.city?.name | titlecase }}</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>School</h4>
+                    </div>
+                    <div class="right">
+                      <p>
+                        {{ publicProfileData?.institute?.school | titlecase }}
+                      </p>
+                    </div>
+                  </div>
+                  <ng-container
+                    *ngIf="
+                      ['amateur', 'professional'].includes(
+                        publicProfileData?.player_type
+                      )
+                    "
+                  >
+                    <div class="full">
+                      <div class="left">
+                        <h4>College</h4>
+                      </div>
+                      <div class="right">
+                        <p>
+                          {{
+                            publicProfileData?.institute?.college | titlecase
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="full">
+                      <div class="left">
+                        <h4>University</h4>
+                      </div>
+                      <div class="right">
+                        <p>
+                          {{
+                            publicProfileData?.institute?.university | titlecase
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+
+              <!-- player professional -->
+              <div class="player-professioal" *ngIf="tab === 'professional'">
+                <div class="section">
+                  <h4>Preferred playing position :</h4>
+                  <div class="positions">
+                    <p
+                      *ngFor="
+                        let data of publicProfileData?.position;
+                        let i = index
+                      "
+                    >
+                      <span>{{ i + 1 }}. </span>
+                      {{ data.name | titlecase }}
+                    </p>
+                  </div>
+
+                  <div class="block">
+                    <div class="left">
+                      <h4>Strong foot</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.strong_foot | titlecase }}</p>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <div class="left">
+                      <h4>Weak foot</h4>
+                    </div>
+                    <div class="right">
+                      <ng-container *ngFor="let number of [1, 2, 3, 4, 5]">
+                        <ng-container
+                          *ngIf="number <= publicProfileData?.weak_foot"
+                        >
+                          <mat-icon class="material-icons active">
+                            star_border
+                          </mat-icon>
+                        </ng-container>
+                        <ng-container
+                          *ngIf="number > publicProfileData?.weak_foot"
+                        >
+                          <mat-icon class="material-icons ">
+                            star_border
+                          </mat-icon>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <div class="left">
+                      <h4>
+                        Current State Association
+                        {{
+                          publicProfileData?.association === 'Others'
+                            ? '(Other)'
+                            : ''
+                        }}
+                      </h4>
+                    </div>
+                    <div class="right">
+                      <p>
+                        {{
+                          (publicProfileData?.association === 'Others'
+                            ? publicProfileData?.association_other
+                            : publicProfileData?.association
+                          ) | titlecase
+                        }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="block">
+                    <div class="left">
+                      <h4>Former club/ academy</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.associated_club_academy }}</p>
+                    </div>
+                  </div>
+
+                  <h4 class="mb-2 mt-2">
+                    Current associated club / academy :<span>
+                      {{
+                        publicProfileData?.associated_club_academy | titlecase
+                      }}
+                    </span>
+                  </h4>
+                  <ng-container
+                    *ngIf="publicProfileData?.associated_club_academy === 'yes'"
+                  >
+                    <h4 class="mb-2">Head coach details</h4>
+                    <div class="block">
+                      <div class="left">
+                        <h4>Name</h4>
+                      </div>
+                      <div class="right">
+                        <p>
+                          {{
+                            publicProfileData?.club_academy_details
+                              ?.head_coach_name | titlecase
+                          }}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="block">
+                      <div class="left">
+                        <h4>Phone number</h4>
+                      </div>
+                      <div class="right">
+                        <p>
+                          {{
+                            publicProfileData?.club_academy_details
+                              ?.head_coach_phone
+                              ? '+91 ' +
+                                publicProfileData?.club_academy_details
+                                  ?.head_coach_phone
+                              : ''
+                          }}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="block">
+                      <div class="left">
+                        <h4>Email</h4>
+                      </div>
+                      <div class="right">
+                        <p>
+                          {{
+                            publicProfileData?.club_academy_details
+                              ?.head_coach_email
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="publicProfileData?.member_type !== 'player'">
+              <!-- Club/Academy personal -->
+              <div class="club-academy-personal" *ngIf="tab === 'personal'">
+                <div class="details">
+                  <div class="full">
+                    <div class="left">
+                      <h4>Email</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.email }}</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Phone number</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.phone }}</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Mobile number</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.mobile_number }}</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Founded (Year)</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.founded_in }}</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Country</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.country?.name | titlecase }}</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>State/ UT</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.state?.name | titlecase }}</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>City</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.city?.name | titlecase }}</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Pincode/ Zipcode</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.address?.pincode }}</p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Office address</h4>
+                    </div>
+                    <div class="right">
+                      <p>
+                        {{
+                          publicProfileData?.address?.full_address | titlecase
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="full">
+                    <div class="left">
+                      <h4>Stadium name</h4>
+                    </div>
+                    <div class="right">
+                      <p>{{ publicProfileData?.stadium_name | titlecase }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Club/Academy professional -->
+              <div class="club-academy-personal" *ngIf="tab === 'professional'">
+                <div class="section">
+                  <h4 class="mb-1">Major trophy wins</h4>
+                  <ng-container *ngIf="publicProfileData?.trophies">
+                    <div
+                      class="trophy-list"
+                      *ngFor="
+                        let trophy of publicProfileData?.trophies;
+                        let i = index
+                      "
+                    >
+                      <span>{{ i + 1 }}.</span>
+                      <div class="trophy-detials">
+                        <div class="full">
+                          <div class="left">
+                            <h4>Trophy name</h4>
+                          </div>
+                          <div class="right">
+                            <p>{{ trophy.name | titlecase }}</p>
+                          </div>
+                        </div>
+                        <div class="full">
+                          <div class="left">
+                            <p>Year</p>
+                          </div>
+                          <div class="right">
+                            <p>{{ trophy.year }}</p>
+                          </div>
+                        </div>
+                        <div class="full">
+                          <div class="left">
+                            <h4>Position secured</h4>
+                          </div>
+                          <div class="right">
+                            <p>{{ trophy.position | titlecase }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+                <!-- league name -->
+                <div class="league">
+                  <h4>League name</h4>
+                  <div class="full">
+                    <div class="left">
+                      <h4>
+                        League name
+                        {{
+                          publicProfileData?.league === 'Other' ? '(Other)' : ''
+                        }}
+                      </h4>
+                    </div>
+                    <div class="right">
+                      <p>
+                        {{
+                          (publicProfileData?.league === 'Others'
+                            ? publicProfileData?.league_other
+                            : publicProfileData?.league
+                          ) | titlecase
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- signs -->
+                <div class="signings">
+                  <h4 class="mt-1">Top signings</h4>
+                  <ng-container *ngIf="publicProfileData?.top_signings">
+                    <div class="full">
+                      <p
+                        *ngFor="
+                          let signing of publicProfileData.top_signings;
+                          let i = index
+                        "
+                      >
+                        <span>{{ i + 1 }}.</span> {{ signing.name | titlecase }}
+                      </p>
+                    </div>
+                  </ng-container>
+                </div>
+                <!-- Type of club -->
+                <div class="league">
+                  <h4>Type of {{ publicProfileData?.member_type }}</h4>
+                  <div class="full">
+                    <div class="right">
+                      <p>{{ publicProfileData?.type | titlecase }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- State association affiliated under -->
+                <div class="league">
+                  <h4>
+                    State association affiliated under
+                    {{
+                      publicProfileData?.association === 'Others'
+                        ? '(Other)'
+                        : ''
+                    }}
+                  </h4>
+                  <div class="full">
+                    <div class="right">
+                      <p>
+                        {{
+                          (publicProfileData?.association === 'Others'
+                            ? publicProfileData?.association_other
+                            : publicProfileData?.association
+                          ) | titlecase
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Contact details -->
+                <div class="contact-details">
+                  <h4 class="mb-1">Contact details</h4>
+                  <ng-container *ngIf="publicProfileData?.contact_person">
+                    <div
+                      class="contact-list"
+                      *ngFor="
+                        let person of publicProfileData.contact_person;
+                        let i = index
+                      "
+                    >
+                      <span>{{ i + 1 }}.</span>
+                      <div class="contact-detials">
+                        <div class="full">
+                          <div class="left">
+                            <h4>Designation</h4>
+                          </div>
+                          <div class="right">
+                            <p>{{ person?.designation | titlecase }}</p>
+                          </div>
+                        </div>
+                        <div class="full">
+                          <div class="left">
+                            <h4>Name</h4>
+                          </div>
+                          <div class="right">
+                            <p>{{ person?.name | titlecase }}</p>
+                          </div>
+                        </div>
+                        <div class="full">
+                          <div class="left">
+                            <h4>Email address</h4>
+                          </div>
+                          <div class="right">
+                            <p>{{ person?.email }}</p>
+                          </div>
+                        </div>
+                        <div class="full">
+                          <div class="left">
+                            <h4>Contact number</h4>
+                          </div>
+                          <div class="right">
+                            <p>
+                              {{
+                                person?.mobile_number
+                                  ? '+91 ' + person?.mobile_number
+                                  : ''
+                              }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <!-- footer -->
+      <div class="footer-fix">
+        <app-copyright></app-copyright>
+      </div>
+    </div>
+  </div>
+</div>
