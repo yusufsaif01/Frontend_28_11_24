@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewProfileComponent } from './view-profile.component';
+import { ManageDistrictComponent } from './manage-district.component';
 
-describe('ViewProfileComponent', () => {
-  let component: ViewProfileComponent;
-  let fixture: ComponentFixture<ViewProfileComponent>;
+describe('ManageDistrictComponent', () => {
+  let component: ManageDistrictComponent;
+  let fixture: ComponentFixture<ManageDistrictComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ViewProfileComponent]
+      declarations: [ManageDistrictComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewProfileComponent);
+    fixture = TestBed.createComponent(ManageDistrictComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

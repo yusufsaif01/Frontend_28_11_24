@@ -24,24 +24,31 @@
 <div class="pagination">
   <ul>
     <li>
-      <a class="prev">
+      <a
+        [ngClass]="{ 'btn-disable': selectedPage == 1 }"
+        class="prev"
+        (click)="goToPage(selectedPage - 1)"
+      >
         <span>
           <mat-icon class="material-icons">arrow_back</mat-icon>
         </span>
         Previous
       </a>
     </li>
-    <li>
-      <a class="count active">1</a>
+    <li *ngFor="let val of pages()">
+      <a
+        [ngClass]="{ active: val == selectedPage, count: val != '...' }"
+        (click)="val != selectedPage && val != '...' && goToPage(val)"
+        >{{ val }}</a
+      >
     </li>
+
     <li>
-      <a class="count">2</a>
-    </li>
-    <li>
-      <a class="count">3</a>
-    </li>
-    <li>
-      <a (click)="goToPage(selectedPage + 1)" class="next">
+      <a
+        [ngClass]="{ 'btn-disable': selectedPage == this.maxPage }"
+        (click)="goToPage(selectedPage + 1)"
+        class="next"
+      >
         Next
         <span>
           <mat-icon class="material-icons">arrow_forward</mat-icon>

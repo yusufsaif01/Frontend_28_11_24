@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ViewEditProfileService } from '../view-edit-profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
@@ -7,25 +7,53 @@ import {
   FormGroup,
   FormBuilder,
   AbstractControl,
-  Validators
+  Validators,
+  ValidatorFn
 } from '@angular/forms';
 import { environment } from '@env/environment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HeaderComponent } from '@app/shared/page-components/header/header.component';
+import {
+  MatDatepicker,
+  MatDatepickerInputEvent,
+  MAT_DATE_FORMATS
+} from '@angular/material';
+import { DateConversion } from '@app/shared/utilities/date-conversion';
+
+let pincodeControl = {
+  pincode: [Validators.required, Validators.pattern(/^\d+$/)]
+};
+let addressControl = {
+  address: [Validators.required]
+};
+
+const APP_DATE_FORMATS = {
+  parse: {
+    dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
+  },
+  display: {
+    dateInput: { year: 'numeric' }
+  }
+};
 
 @Component({
   selector: 'app-personal-details',
   templateUrl: './personal-details.component.html',
-  styleUrls: ['./personal-details.component.scss']
+  styleUrls: ['./personal-details.component.scss'],
+  providers: [
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
+    DateConversion
+  ]
 })
 export class PersonalDetailsComponent implements OnInit {
+  @Input() clubAcademyType = '';
   member_type: string = localStorage.getItem('member_type') || 'player';
   currentYear = new Date().getFullYear();
   tomorrow = new Date();
   today = new Date();
   countryArray: any[] = [];
   stateArray: any[] = [];
-  cityArray: any[] = [];
+  districtArray: any[] = [];
   profile: any = {};
   personalProfileDetailsForm: FormGroup;
   profile_status: string;
@@ -37,13 +65,19 @@ export class PersonalDetailsComponent implements OnInit {
     private _sharedService: SharedService,
     private _toastrService: ToastrService,
     private _formBuilder: FormBuilder,
-    private _sanitizer: DomSanitizer
+    private _sanitizer: DomSanitizer,
+    private _dateConversion: DateConversion
   ) {
     this.createForm();
     this.manageCommonControls();
-    // this.setCategoryValidators();
     this.tomorrow.setDate(this.tomorrow.getDate() + 1);
   }
+
+  ngOnInit() {
+    this.getLocationStats();
+    this.getPersonalProfileDetails();
+  }
+
   transformURL(url: string): SafeHtml {
     return this._sanitizer.bypassSecurityTrustResourceUrl(url);
   }
@@ -56,19 +90,72 @@ export class PersonalDetailsComponent implements OnInit {
   toggleMode() {
     this.editMode = !this.editMode;
   }
+
+  setControlValidation(
+    form: FormGroup,
+    controlObject: { [name: string]: ValidatorFn[] }
+  ) {
+    for (const name in controlObject) {
+      let controlName = form.get(name);
+      controlName.setValidators(controlObject[name]);
+      controlName.updateValueAndValidity();
+    }
+  }
+
+  checkRequiredValidator(
+    form: FormGroup,
+    controlObject: { [name: string]: ValidatorFn[] },
+    require: boolean
+  ) {
+    const [name] = Object.keys(controlObject);
+    let controlName = form.get(name);
+    let validationArray = controlObject[name];
+
+    if (require) {
+      validationArray = [
+        ...new Set([...controlObject[name], Validators.required])
+      ];
+    } else {
+      validationArray = validationArray.filter(
+        validator => validator !== Validators.required
+      );
+    }
+
+    controlName.setValidators(validationArray);
+    controlName.updateValueAndValidity();
+  }
+
+  setCategoryValidators() {
+    if (['club', 'academy'].includes(this.member_type)) {
+      if (this.member_type === 'club') {
+        this.checkRequiredValidator(
+          this.personalProfileDetailsForm,
+          { pincode: pincodeControl.pincode },
+          false
+        );
+      }
+
+      if (this.member_type === 'academy') {
+        this.setControlValidation(
+          this.personalProfileDetailsForm,
+          addressControl
+        );
+        this.setControlValidation(
+          this.personalProfileDetailsForm,
+          pincodeControl
+        );
+      }
+    }
+  }
+
   createForm() {
+    this.personalProfileDetailsForm = this._formBuilder.group({});
     if (this.member_type === 'player') {
       this.personalProfileDetailsForm = this._formBuilder.group({
-        bio: ['', [Validators.maxLength(350)]],
         email: [
           { value: '', disabled: true },
           [Validators.required, Validators.email]
         ],
-        facebook: [''],
-        twitter: [''],
-        instagram: [''],
-        youtube: [''],
-        linked_in: [''],
         phone: [
           '',
           [
@@ -79,7 +166,6 @@ export class PersonalDetailsComponent implements OnInit {
           ]
         ],
         gender: ['', Validators.required],
-        player_type: ['', [Validators.required]],
         first_name: [
           '',
           [
@@ -125,11 +211,24 @@ export class PersonalDetailsComponent implements OnInit {
         university: [''],
         college: ['']
       });
+    } else {
+      this.personalProfileDetailsForm = this._formBuilder.group({
+        email: [
+          { value: '', disabled: true },
+          [Validators.required, Validators.email]
+        ]
+      });
     }
   }
-  ngOnInit() {
-    this.getLocationStats();
-    this.getPersonalProfileDetails();
+
+  closeDatePicker(
+    elem: MatDatepicker<any>,
+    event: MatDatepickerInputEvent<Date>,
+    controlName: string
+  ) {
+    elem.close();
+    let year = new Date(String(event));
+    this.personalProfileDetailsForm.get(controlName).setValue(year);
   }
   uploadAvatar(files: FileList) {
     const requestData = new FormData();
@@ -148,10 +247,7 @@ export class PersonalDetailsComponent implements OnInit {
             environment.mediaUrl + res.data.avatar_url
           );
           this.header.avatar_url = localStorage.getItem('avatar_url');
-          this._toastrService.success(
-            'Successful',
-            'Avatar updated successfully'
-          );
+          this._toastrService.success('Success', 'Avatar updated successfully');
         },
         err => {
           this._toastrService.error('Error', err.error.message);
@@ -179,6 +275,7 @@ export class PersonalDetailsComponent implements OnInit {
               environment.mediaUrl + '/uploads/avatar/user-avatar.png';
           }
           this.populateFormFields(this.profile);
+          this.setCategoryValidators();
         },
         error => {
           this._toastrService.error(error.error.message, 'Error');
@@ -192,14 +289,13 @@ export class PersonalDetailsComponent implements OnInit {
     this.personalProfileDetailsForm.patchValue(profileData);
     if (this.profile.country) {
       this.getStatesListing(this.profile.country.id);
-      this.getCitiesListing(this.profile.country.id, this.profile.state.id);
+      this.getDistrictsListing(this.profile.country.id, this.profile.state.id);
     }
-    this.personalProfileDetailsForm.patchValue({
-      country: this.profile.country ? this.profile.country.id : ''
-    });
+
     this.personalProfileDetailsForm.patchValue({
       state: this.profile.state ? this.profile.state.id : '',
-      city: this.profile.city ? this.profile.city.id : '',
+      district: this.profile.district ? this.profile.district.id : '',
+      country: this.profile.country ? this.profile.country.id : '',
       height_feet:
         this.profile.height && this.profile.height.feet
           ? this.profile.height.feet
@@ -239,8 +335,25 @@ export class PersonalDetailsComponent implements OnInit {
       linked_in:
         this.profile.social_profiles && this.profile.social_profiles.linked_in
           ? this.profile.social_profiles.linked_in
+          : '',
+      founded_in: this.profile.founded_in
+        ? new Date(this.profile.founded_in)
+        : '',
+      address:
+        this.profile.address && this.profile.address.full_address
+          ? this.profile.address.full_address
+          : '',
+      pincode:
+        this.profile.address && this.profile.address.pincode
+          ? this.profile.address.pincode
           : ''
     });
+    if (
+      this.member_type === 'player' &&
+      this.profile.profile_status.status === 'verified'
+    ) {
+      this.personalProfileDetailsForm.controls.dob.disable();
+    }
   }
   formControlAdder(
     form: FormGroup,
@@ -261,11 +374,95 @@ export class PersonalDetailsComponent implements OnInit {
         abstractControl: this._formBuilder.control('', [Validators.required])
       },
       {
-        name: 'city',
+        name: 'district',
         abstractControl: this._formBuilder.control('', [Validators.required])
+      },
+      {
+        name: 'facebook',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'twitter',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'instagram',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'youtube',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'linked_in',
+        abstractControl: this._formBuilder.control('')
+      },
+      {
+        name: 'bio',
+        abstractControl: this._formBuilder.control('', [
+          Validators.maxLength(350)
+        ])
       }
     ];
     this.formControlAdder(this.personalProfileDetailsForm, commonControls);
+    if (['academy', 'club'].includes(this.member_type)) {
+      let clubAcadCommonControls = [
+        {
+          name: 'name',
+          abstractControl: this._formBuilder.control('', [
+            Validators.required,
+            Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
+          ])
+        },
+        {
+          name: 'short_name',
+          abstractControl: this._formBuilder.control('', [])
+        },
+        {
+          name: 'founded_in',
+          abstractControl: this._formBuilder.control('', [
+            Validators.required
+            // Validators.minLength(4),
+            // Validators.maxLength(4),
+            // Validators.max(this.currentYear),
+            // Validators.pattern(/^\d+$/)
+          ])
+        },
+        {
+          name: 'phone',
+          abstractControl: this._formBuilder.control('', [
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^\d+$/)
+          ])
+        },
+        {
+          name: 'mobile_number',
+          abstractControl: this._formBuilder.control('', [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(/^\d+$/)
+          ])
+        },
+        {
+          name: 'address',
+          abstractControl: this._formBuilder.control('')
+        },
+        {
+          name: 'pincode',
+          abstractControl: this._formBuilder.control('')
+        },
+        {
+          name: 'stadium_name',
+          abstractControl: this._formBuilder.control('')
+        }
+      ];
+      this.formControlAdder(
+        this.personalProfileDetailsForm,
+        clubAcadCommonControls
+      );
+    }
   }
   getLocationStats() {
     this._sharedService
@@ -295,13 +492,13 @@ export class PersonalDetailsComponent implements OnInit {
       );
   }
 
-  getCitiesListing(countryID: string, stateID: string) {
+  getDistrictsListing(countryID: string, stateID: string) {
     this._sharedService
-      .getCitiesListing(countryID, stateID)
+      .getDistrictsList(countryID, stateID)
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
-          this.cityArray = response.data.records;
+          this.districtArray = response.data.records;
         },
         error => {
           this._toastrService.error('Error', error.error.message);
@@ -311,43 +508,60 @@ export class PersonalDetailsComponent implements OnInit {
 
   onSelectCountry(event: any) {
     if (!event.target.value) {
-      this.resetStateCity();
+      this.resetStateDistrict();
     } else {
       this.getStatesListing(event.target.value);
     }
   }
 
-  resetStateCity() {
+  resetStateDistrict() {
     this.stateArray = [];
-    this.cityArray = [];
+    this.districtArray = [];
     this.personalProfileDetailsForm.controls.state.patchValue('');
-    this.personalProfileDetailsForm.controls.city.patchValue('');
+    this.personalProfileDetailsForm.controls.district.patchValue('');
   }
 
   onSelectState(event: any) {
     if (!event.target.value) {
-      this.resetCity();
+      this.resetDistrict();
     } else {
-      this.getCitiesListing(
+      this.getDistrictsListing(
         this.personalProfileDetailsForm.controls.country.value,
         event.target.value
       );
     }
   }
-  resetCity() {
-    this.cityArray = [];
-    this.personalProfileDetailsForm.controls.city.patchValue('');
+  resetDistrict() {
+    this.districtArray = [];
+    this.personalProfileDetailsForm.controls.district.patchValue('');
   }
+
+  toFormData<T>(formValue: T) {
+    const formData = new FormData();
+    for (const key of Object.keys(formValue)) {
+      const value = formValue[key];
+
+      if (!value && !value.length && key != 'bio') {
+        continue;
+      }
+      formData.append(key, value);
+    }
+    return formData;
+  }
+
   updatePersonalProfileDetails() {
-    let body: any = this.personalProfileDetailsForm.value;
-    if (this.profile_status === 'verified') delete body.dob;
+    let requestData = this.toFormData(this.personalProfileDetailsForm.value);
+
+    if (this.profile_status === 'verified') requestData.delete('dob');
+    this.dateModifier(requestData);
+
     this._editProfileService
-      .updatePersonalProfileDetails(body)
+      .updatePersonalProfileDetails(requestData)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this._toastrService.success(
-            'Successful',
+            'Success',
             'Profile updated successfully'
           );
           this.getPersonalProfileDetails();
@@ -357,6 +571,22 @@ export class PersonalDetailsComponent implements OnInit {
           this._toastrService.error(error.error.message, 'Error');
         }
       );
+  }
+
+  dateModifier(requestData: any) {
+    this.member_type === 'player'
+      ? requestData.set(
+          'dob',
+          this._dateConversion.convert(
+            this.personalProfileDetailsForm.get('dob').value
+          )
+        )
+      : requestData.set(
+          'founded_in',
+          this._dateConversion.convertToYear(
+            this.personalProfileDetailsForm.get('founded_in').value
+          )
+        );
   }
 
   ngOnDestroy() {}

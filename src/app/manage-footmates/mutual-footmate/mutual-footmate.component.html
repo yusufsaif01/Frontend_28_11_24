@@ -1,7 +1,7 @@
 <div class="from-container">
   <div class="header">
     <div class="title">
-      <h3>Mutual Footmates</h3>
+      <h3>Mutual FooTMates</h3>
     </div>
     <div class="close">
       <img
@@ -30,11 +30,11 @@
           <h3>
             <a
               target="_blank"
-              [routerLink]="['/member/profile/view/' + footmate.user_id]"
+              [routerLink]="['/member/profile/public/' + footmate.user_id]"
               >{{ footmate.name }}</a
             >
           </h3>
-          <h5>{{ footmate.player_type }}</h5>
+          <h5>{{ footmate.player_type | titlecase }}</h5>
           <p>{{ footmate.position }}</p>
         </div>
       </div>

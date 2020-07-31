@@ -126,11 +126,7 @@
   pointer-events: none;
   cursor: not-allowed;
   user-select: none;
-
-  img {
-    filter: grayscale(1);
-    opacity: 0.4;
-  }
+  color: $grey !important;
 }
 
 .pb-3 {

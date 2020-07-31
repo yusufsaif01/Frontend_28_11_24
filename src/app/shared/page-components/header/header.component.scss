@@ -329,7 +329,7 @@
 
 ::ng-deep {
   .mat-menu-content {
-    min-width: 25rem !important;
+    min-width: 26rem !important;
 
     .menu {
       list-style: none;
@@ -361,5 +361,56 @@
         }
       }
     }
+  }
+}
+
+// mat options
+.search-options {
+  ::ng-deep {
+    .mat-option {
+      border-bottom: 1px solid $border-color;
+
+      &:last-child {
+        border: none;
+      }
+
+      .mat-option-text {
+        font-family: $primary-text;
+        font-weight: 400;
+
+        img {
+          width: 25px;
+          height: 25px;
+          border-radius: 25px;
+          transform: translateY(0.7rem);
+        }
+
+        span {
+          margin-left: 1rem;
+          font-weight: 500;
+          color: $fourth-color;
+        }
+
+        small.category {
+          margin-left: 1rem;
+          color: $primary-color;
+          font-weight: 700;
+        }
+
+        small.position {
+          margin-left: 1rem;
+          color: $success;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .mat-autocomplete-panel.mat-autocomplete-visible div {
+    max-height: 480px !important;
+    position: relative;
+    background: $third-color;
   }
 }

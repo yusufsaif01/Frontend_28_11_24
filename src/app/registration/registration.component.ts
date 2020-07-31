@@ -16,6 +16,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   playerType: any[] = Constants.PLAYER_TYPE;
   clubAcademyType: any[] = Constants.CLUB_ACADEMY_TYPE;
   registrationForm: FormGroup;
+  today = new Date();
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -39,6 +40,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.registrationForm.controls.first_name.updateValueAndValidity();
     this.registrationForm.controls.last_name.clearValidators();
     this.registrationForm.controls.last_name.updateValueAndValidity();
+    this.registrationForm.controls.type.clearValidators();
+    this.registrationForm.controls.type.updateValueAndValidity();
+    this.registrationForm.controls.dob.clearValidators();
+    this.registrationForm.controls.dob.updateValueAndValidity();
   }
 
   setPlayerValidators() {
@@ -52,7 +57,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
     ]);
-    this.registrationForm.controls.type.patchValue('');
+    this.registrationForm.controls.dob.setValidators([Validators.required]);
   }
 
   setClubAcademyValidators() {
@@ -62,6 +67,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       Validators.maxLength(25),
       Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
     ]);
+    this.registrationForm.controls.type.setValidators([Validators.required]);
     this.registrationForm.controls.type.patchValue('');
   }
 
@@ -96,16 +102,18 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     if (this.activeForm === 'club' || this.activeForm === 'academy') {
       delete form_data.first_name;
       delete form_data.last_name;
+      delete form_data.dob;
     }
     if (this.activeForm === 'player') {
       delete form_data.name;
+      delete form_data.type;
     }
     this._authenticationService
       .register(form_data)
       .pipe(untilDestroyed(this))
       .subscribe(
         credentials => {
-          this._toastrService.success('Successful', 'Registered');
+          this._toastrService.success('Success', 'Registered');
           this.resetFormFields();
         },
         error => {
@@ -129,7 +137,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         ]
       ],
       name: [''],
-      type: ['', [Validators.required]]
+      type: ['', [Validators.required]],
+      dob: ['', [Validators.required]]
     });
   }
 

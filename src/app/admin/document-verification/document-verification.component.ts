@@ -7,7 +7,7 @@ import { DocumentVerificationService } from './document-verification-service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material';
 import { untilDestroyed } from '@app/core';
-import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
+import { VerificationPopupComponent } from '@app/shared/verification-popup/verification-popup.component';
 import { environment } from '@env/environment';
 
 interface ResponseContext {
@@ -235,12 +235,12 @@ export class DocumentVerificationComponent implements OnInit {
     let header: string = '';
     let disApprove: boolean = false;
     if (status === 'disapproved') {
-      header = 'Please Confirm';
+      header = 'Please confirm';
       message = 'Please specify a reason for disapproval';
       disApprove = true;
     }
     if (status === 'approved') {
-      (header = 'Please Confirm'),
+      (header = 'Please confirm'),
         (message = `Do you want to approve the Employment Contract of ${playerName} player ?`);
       disApprove = false;
     }
@@ -264,8 +264,8 @@ export class DocumentVerificationComponent implements OnInit {
             (response: any) => {
               this.getEmploymentContractList();
               this._toastrService.success(
-                'Status updated successfully',
-                response.status
+                'Success',
+                'Status updated successfully'
               );
             },
             (error: any) => {

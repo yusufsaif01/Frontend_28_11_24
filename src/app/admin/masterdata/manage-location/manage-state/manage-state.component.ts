@@ -68,10 +68,7 @@ export class ManageStateComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this.toastrService.success(
-            `${response.message}`,
-            'State Added Successfully'
-          );
+          this.toastrService.success(`Success`, 'State added successfully');
           this.addStateForm.reset();
           this.getStateListByCountry(this.country_id);
         },
@@ -138,10 +135,7 @@ export class ManageStateComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         data => {
-          this.toastrService.success(
-            `${data.message}`,
-            'State Updated Successfully'
-          );
+          this.toastrService.success(`Success`, 'State updated successfully');
           this.getStateListByCountry(this.country_id);
         },
         error => {

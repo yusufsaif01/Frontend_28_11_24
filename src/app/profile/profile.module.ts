@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@app/shared';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ViewProfileComponent } from './view-profile/view-profile.component';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ProfileComponent } from './profile.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { AddEditEmploymentContractComponent } from './add-edit-employment-contract/add-edit-employment-contract.component';
@@ -14,35 +12,26 @@ import { PersonalDetailsComponent } from './view-edit-profile/personal-details/p
 import { ProfessionalDetailsComponent } from './view-edit-profile/professional-details/professional-details.component';
 import { DocumentsComponent } from './view-edit-profile/documents/documents.component';
 import { EmploymentContractsComponent } from './view-edit-profile/employment-contracts/employment-contracts.component';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { PublicProfileComponent } from './public-profile/public-profile.component';
 
-const maskConfig: Partial<IConfig> = {
-  specialCharacters: ['X', ' '],
-
-  patterns: {
-    '0': { pattern: new RegExp('.*') }
-  }
-};
 @NgModule({
   declarations: [
     ProfileComponent,
-    ViewProfileComponent,
-    EditProfileComponent,
     AddEditEmploymentContractComponent,
     ViewEmploymentContractComponent,
     ViewEditProfileComponent,
     PersonalDetailsComponent,
     ProfessionalDetailsComponent,
     DocumentsComponent,
-    EmploymentContractsComponent
+    EmploymentContractsComponent,
+    PublicProfileComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
     ReactiveFormsModule,
     ProfileRoutingModule,
-    NgxTrimDirectiveModule,
-    NgxMaskModule.forRoot(maskConfig)
+    NgxTrimDirectiveModule
   ]
 })
 export class ProfileModule {}

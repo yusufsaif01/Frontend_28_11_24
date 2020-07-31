@@ -29,60 +29,50 @@ export abstract class Constants {
     }
   ];
 
-  static readonly SAMPLE_COUNTRY_ARRAY = [
-    {
-      name: 'India',
-      value: 'india'
-    },
-    {
-      name: 'UK',
-      value: 'uk'
-    },
-    {
-      name: 'USA',
-      value: 'usa'
-    },
-    {
-      name: 'Australia',
-      value: 'australia'
-    }
-  ];
-
-  static readonly SAMPLE_STATE_ARRAY = [
-    {
-      name: 'Delhi',
-      value: 'delhi'
-    },
-    {
-      name: 'Mumbai',
-      value: 'mumbai'
-    },
-    {
-      name: 'U.P',
-      value: 'up'
-    },
-    {
-      name: 'M.P',
-      value: 'mp'
-    }
-  ];
-
   static readonly DESIGNATION_ARRAY = [
     {
-      name: 'Volvo',
-      value: 'volvo'
+      name: 'Owner',
+      value: 'Owner'
     },
     {
-      name: 'Saab',
-      value: 'saab'
+      name: 'Manager',
+      value: 'Manager'
     },
     {
-      name: 'Mercedes',
-      value: 'mercedes'
+      name: 'Head of youth development',
+      value: 'Head of youth development'
     },
     {
-      name: 'Audi',
-      value: 'audi'
+      name: 'Head coach - Under 18/ 19',
+      value: 'Head coach - Under 18/ 19'
+    },
+    {
+      name: 'Head coach - Under 16/ 15',
+      value: 'Head coach - Under 16/ 15'
+    },
+    {
+      name: 'Head coach - Under 14/ 13',
+      value: 'Head coach - Under 14/ 13'
+    },
+    {
+      name: 'Fitness coach',
+      value: 'Fitness coach'
+    },
+    {
+      name: 'Goalkeeping coach',
+      value: 'Goalkeeping coach'
+    },
+    {
+      name: 'Video analyst',
+      value: 'Video analyst'
+    },
+    {
+      name: 'Qualified physiotherapist',
+      value: 'Qualified physiotherapist'
+    },
+    {
+      name: 'Head of player recruitment/ chief scout',
+      value: 'Head of player recruitment/ chief scout'
     }
   ];
 
@@ -158,25 +148,6 @@ export abstract class Constants {
     {
       name: 'Other',
       value: 'Other'
-    }
-  ];
-
-  static readonly SAMPLE_CITY_ARRAY = [
-    {
-      name: 'City1',
-      value: 'city1'
-    },
-    {
-      name: 'City2',
-      value: 'city2'
-    },
-    {
-      name: 'City3',
-      value: 'city3'
-    },
-    {
-      name: 'City4',
-      value: 'city4'
     }
   ];
 

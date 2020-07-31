@@ -8,7 +8,7 @@
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 2rem 3rem;
+  padding: 1.5rem 3rem;
   align-items: center;
   background: $fifth-color;
 
@@ -16,7 +16,7 @@
     width: 70%;
 
     h3 {
-      font-size: $heading-Seoncdary;
+      font-size: $heading-third;
       color: $fourth-color;
       font-weight: 600;
     }
@@ -44,8 +44,7 @@
 
   .w-40 {
     max-width: 35rem;
-    width: 100%;
-    margin: 0 auto;
+    margin: auto;
   }
 
   h4 {
@@ -53,6 +52,7 @@
     text-align: center;
     font-size: 2rem;
     font-weight: 500;
+    word-break: break-all;
   }
 
   .action-block {

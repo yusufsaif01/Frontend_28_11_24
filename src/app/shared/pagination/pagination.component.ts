@@ -19,13 +19,47 @@ export class PaginationComponent implements OnInit {
   @Input() totalRows: any = 0;
   @Input() rowsPerPage: any = 10;
   @Input() selectedPage: any = 1;
-  private maxPage: any = 1;
+  maxPage: any = 1;
+  paginationSize = 5;
   @Output() onChange = new EventEmitter<any>();
 
   constructor() {}
 
   ngOnInit() {
     // this.calculatePages();
+  }
+
+  getFrame(s: number, n: number, l: number) {
+    // starting
+    if (n < s) {
+      return Array(s - 2)
+        .fill(0)
+        .map((_, i) => i + 2);
+    }
+    // ending
+    if (n >= l - (s - 2)) {
+      return Array(s - 2)
+        .fill(0)
+        .map((_, i) => l - (s - 2 - i));
+    }
+    // before ending
+    if (n === l - (s - 1)) {
+      return Array(s - 2)
+        .fill(0)
+        .map((_, i) => l - (s + 1 - i));
+    }
+    // after starting
+    if (n == s) {
+      return Array(s - 2)
+        .fill(0)
+        .map((_, i) => n + i);
+    }
+    // mid
+    if (n > s) {
+      return Array(s - 2)
+        .fill(0)
+        .map((_, i) => n - 1 + i);
+    }
   }
 
   pages() {
@@ -36,15 +70,31 @@ export class PaginationComponent implements OnInit {
     if (!this.maxPage) {
       this.maxPage = 1;
     }
-    let arr = Array(this.maxPage)
+    let arr: (number | string)[] = Array(this.maxPage)
       .fill(0)
       .map((x, i) => i + 1);
+    if (arr.length > this.paginationSize) {
+      arr = [
+        1,
+        this.selectedPage > this.paginationSize - 1 ? '...' : null,
+        ...this.getFrame(this.paginationSize, this.selectedPage, arr.length),
+        this.selectedPage < arr.length - (this.paginationSize - 2) ||
+        this.selectedPage < this.paginationSize
+          ? '...'
+          : null,
+        arr.length
+      ];
+      arr = arr.filter(item => {
+        return item != null;
+      });
+    }
+
     return arr;
   }
 
   ngOnchanges() {}
 
-  goToPage(number: Number) {
+  goToPage(number: number) {
     if (number > this.maxPage || number < 1) {
       return;
     }

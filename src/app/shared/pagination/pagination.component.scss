@@ -37,11 +37,22 @@
       a.prev {
         display: flex;
         align-items: center;
-        font-size: 2.4rem;
+        font-size: 1.8rem;
+        color: $fourth-color;
+        font-weight: 500;
+
+        img {
+          width: 2.4rem;
+          height: 2.4rem;
+          margin: 0 1rem;
+        }
 
         &:hover {
-          span {
-            border: 2px solid $primary-color;
+          color: #808080;
+          opacity: 0.8;
+
+          img {
+            opacity: 0.6;
           }
         }
 
@@ -51,6 +62,18 @@
           border-radius: 8rem;
           width: 3.5rem;
           height: 3.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      .disable {
+        color: #808080;
+        pointer-events: none;
+
+        img {
+          opacity: 0.6;
         }
       }
 

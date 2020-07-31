@@ -40,13 +40,14 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   loggedin_userid: string = localStorage.getItem('user_id');
   profile_status: string;
 
+  @Input() data: any;
   @Input() achievements: number = 0;
   @Input() options: any;
   @Input() userId: string;
   @Input() is_following = false;
   @Input() is_footmate = 'Not_footmate';
   followers: number = 0;
-
+  @Output() sendClubAcademyType = new EventEmitter<string>();
   @Output() sendPlayerType = new EventEmitter<string>();
   @Output() sendMemberType = new EventEmitter<string>();
   @Output() sendProfileData = new EventEmitter<object>();
@@ -74,6 +75,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     this.getAchievementCount();
     this.getConnectionStats();
   }
+
   getProfessionalProfileDetails() {
     this._profileService
       .getProfessionalProfileDetails()
@@ -81,6 +83,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.professionalProfile = response.data;
+          this.sendClubAcademyType.emit(this.professionalProfile.type);
         },
         error => {}
       );

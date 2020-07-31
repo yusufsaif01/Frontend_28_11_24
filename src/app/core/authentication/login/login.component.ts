@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(
         (credentials: any) => {
           log.debug(`${credentials.email} successfully logged in`);
-          this.toastrService.success('Successful', 'Login');
+          this.toastrService.success('Success', 'Login');
           if (credentials.data.role == 'admin') {
             this.router.navigate(
               [

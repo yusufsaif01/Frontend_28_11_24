@@ -1,133 +1,120 @@
 @import "src/assets/sass/abstracts/variables";
 @import "src/assets/sass/abstracts/mixins";
-@import url("https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&display=swap");
 
 .site-wrapper {
-  width: 85%;
-  max-width: 180rem;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
-  border-radius: 2rem;
+  background: $third-color;
+  margin-top: 8.5rem;
 
-  .right-section {
-    width: 72%;
-    margin: 0rem 0rem 8rem 2rem;
+  .right-panel {
+    width: 76.25%;
+    position: relative;
 
-    .block {
-      margin-top: 3rem;
-      border: 1px solid $border-color;
-      background-color: $color-white;
-      border-radius: 0.8rem;
-
-      .block-heading {
-        padding: 2rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        h2 {
-          font-size: 2.4rem;
-        }
-
-        a.btn {
-          @include admin-btn;
-        }
-      }
-
-      .block-middle {
-        display: flex;
-        padding: 2rem;
-
-        .content {
-          width: 100%;
-          word-wrap: break-word;
-
-          p {
-            font-size: 1.9rem;
-            color: $text-muted;
-            line-height: 2.4rem;
-            margin-bottom: 2rem;
-          }
-        }
-
-        .half,
-        .full {
-          width: 50%;
-
-          p {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: $text-muted;
-
-            span {
-              color: $color-black;
-              text-transform: capitalize;
-            }
-
-            a {
-              text-decoration: none;
-              cursor: pointer;
-              color: $blue;
-            }
-          }
-        }
-
-        .full {
-          width: 100%;
-        }
-      }
+    .footer-fix {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
     }
 
-    .actions {
-      margin: 2rem 0;
-      display: block;
-      text-align: right;
+    .right-wrapper {
+      padding: 2rem;
 
-      button {
-        padding: 1.5rem 3rem;
-        font-size: 2rem;
-        border: none;
-        outline: none;
-        margin-left: 1rem;
-        color: $color-white;
-        cursor: pointer;
+      .main {
+        background: $white-color;
+        @include shadow;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        margin-bottom: 10rem;
 
-        &:hover {
-          opacity: 0.8;
+        // heading css
+        .heading {
+          display: flex;
+          justify-content: space-between;
+          padding: 2rem 3rem;
+          color: $fourth-color;
+
+          button {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+
+            &:hover {
+              color: $primary-color;
+            }
+          }
         }
-      }
 
-      button.approve {
-        background-color: $success;
+        // detials
+        .details {
+          width: 90%;
+          margin: auto;
+          margin-bottom: 3rem;
 
-        &:disabled {
-          opacity: 0.4 !important;
-          cursor: not-allowed;
+          h3 {
+            span {
+              font-weight: 400;
+              margin-left: 1.5rem;
+            }
+          }
+
+          .block {
+            padding-left: 3rem;
+            display: flex;
+            flex-wrap: wrap;
+
+            .detail-panel,
+            .detail-panel-full {
+              display: flex;
+              width: 48%;
+              margin: 1rem 0;
+
+              .left {
+                width: 50%;
+
+                h4 {
+                  font-weight: 500;
+                }
+              }
+
+              .right {
+                width: 50%;
+
+                p {
+                  font-size: $heading-fourth;
+                  color: $second-color;
+                }
+              }
+            }
+
+            .detail-panel-full {
+              width: 100%;
+            }
+          }
         }
-      }
 
-      button.disapprove {
-        background-color: $error;
+        .agentheading-wrappper {
+          display: flex;
+          width: 100%;
+          // align-items: center;
 
-        &:disabled {
-          opacity: 0.4 !important;
-          cursor: not-allowed;
+          h3 {
+            width: 51%;
+          }
+
+          span {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-left: 4px;
+          }
+        }
+
+        .actions {
+          width: 90%;
+          margin: auto;
+          margin-bottom: 3rem;
         }
       }
     }
   }
-}
-
-.icon-size {
-  width: 2rem;
-  height: 2rem;
-  margin-right: 1rem;
-}
-
-.border-bottom {
-  border-bottom: 1px solid $border-color;
-}
-
-.text-reset {
-  text-transform: none !important;
 }

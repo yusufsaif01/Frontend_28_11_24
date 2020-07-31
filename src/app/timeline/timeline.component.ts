@@ -27,6 +27,7 @@ interface PostContext {
   };
   posted_by: {
     avatar: string;
+    member_type: string;
     user_id: string;
     name: string;
     type: string;
@@ -40,6 +41,7 @@ interface PostContext {
       comment: string;
       commented_by: {
         avatar: string;
+        member_type: string;
         user_id: string;
         name: string;
         type: string;
@@ -62,6 +64,7 @@ interface CommentContext {
   comment: string;
   commented_by: {
     avatar: string;
+    member_type: string;
     user_id: string;
     name: string;
     type: string;
@@ -329,7 +332,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
       width: '50% ',
       panelClass: 'filterDialog',
       data: {
-        header: 'Delete Post',
+        header: 'Delete post',
         message: 'Are you sure you want to delete?'
       }
     });
@@ -349,7 +352,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
             error => {
               this._toastrService.error(
                 `${error.error.message}`,
-                'Delete Post'
+                'Delete post'
               );
             }
           );

@@ -63,8 +63,8 @@ export class EmploymentContractsComponent implements OnInit {
           .subscribe(
             response => {
               this._toastrService.success(
-                'Successful',
-                'Employment Contract Deleted successfully'
+                'Success',
+                'Employment contract deleted successfully'
               );
 
               this.getEmploymentContractList();

@@ -1,14 +1,18 @@
 <app-header></app-header>
 <div class="site-wrapper">
   <div class="left-panel">
-    <app-left-panel></app-left-panel>
+    <app-left-panel
+      (sendClubAcademyType)="getClubAcademyType($event)"
+      (sendMemberType)="getMemberType($event)"
+    >
+    </app-left-panel>
   </div>
   <div class="right-panel">
     <div class="right-wrapper">
       <div class="btn-group">
         <button
           [ngClass]="{ 'btn-active': componentName === component.value }"
-          *ngFor="let component of components"
+          *ngFor="let component of renderComponents"
           (click)="switch(component.value)"
         >
           {{ component.name }}
@@ -17,6 +21,7 @@
       <div class="main mt-2">
         <div [ngSwitch]="componentName">
           <app-personal-details
+            [clubAcademyType]="clubAcademyType"
             *ngSwitchCase="'personal'"
           ></app-personal-details>
           <app-professional-details
@@ -28,6 +33,9 @@
           ></app-employment-contracts>
         </div>
       </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
     </div>
   </div>
 </div>

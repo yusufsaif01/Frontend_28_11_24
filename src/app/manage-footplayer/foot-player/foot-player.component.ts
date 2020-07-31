@@ -123,6 +123,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
       width: '40% ',
       panelClass: 'filterDialog',
       data: {
+        header: 'Please confirm',
         message: 'Are you sure you want to delete?',
         acceptText: 'Yes',
         rejectText: 'No'
@@ -161,7 +162,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
       width: '40% ',
       panelClass: 'filterDialog',
       data: {
-        header: 'Please Confirm',
+        header: 'Please confirm',
         message: 'Do you want to Resend Invitation?',
         acceptText: 'Yes',
         rejectText: 'No'

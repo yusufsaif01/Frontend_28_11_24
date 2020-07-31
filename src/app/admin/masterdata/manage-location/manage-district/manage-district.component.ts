@@ -6,25 +6,24 @@ import {
   OnDestroy
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { ManageCityTableConfig } from './manage-city-table-conf';
+import { ManageDistrictTableConfig } from './manage-district-table-conf';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-import { AdminService } from '@app/admin/admin.service';
-import { CityService } from './manage-city-service';
+import { DistrictService } from './manage-district-service';
 import { untilDestroyed } from '@app/core';
 import { SharedService } from '@app/shared/shared.service';
 @Component({
-  selector: 'app-manage-city',
-  templateUrl: './manage-city.component.html',
-  styleUrls: ['./manage-city.component.scss']
+  selector: 'app-manage-district',
+  templateUrl: './manage-district.component.html',
+  styleUrls: ['./manage-district.component.scss']
 })
-export class ManageCityComponent implements OnInit, OnDestroy {
+export class ManageDistrictComponent implements OnInit, OnDestroy {
   // table config
-  @ViewChild('cityInput', { static: false }) cityInput: ElementRef;
-  public tableConfig: ManageCityTableConfig = new ManageCityTableConfig();
+  @ViewChild('districtInput', { static: false }) districtInput: ElementRef;
+  public tableConfig: ManageDistrictTableConfig = new ManageDistrictTableConfig();
   public dataSource = new MatTableDataSource([]);
-  addCityForm: FormGroup;
+  addDistrictForm: FormGroup;
   country_id: string;
   state_id: string;
   stateArray: { id: string; name: string }[];
@@ -32,7 +31,7 @@ export class ManageCityComponent implements OnInit, OnDestroy {
   total_count: number = 0;
   show_count: number = 0;
   editMode: boolean = false;
-  cityId: any;
+  districtId: any;
   row: any = {};
   update: any = '';
 
@@ -43,15 +42,14 @@ export class ManageCityComponent implements OnInit, OnDestroy {
     this.sideBarToggle = $event;
   }
   constructor(
-    private formBuilder: FormBuilder,
-    private adminService: AdminService,
-    private toastrService: ToastrService,
-    private route: ActivatedRoute,
-    private cityService: CityService,
-    private sharedService: SharedService
+    private _formBuilder: FormBuilder,
+    private _districtService: DistrictService,
+    private _toastrService: ToastrService,
+    private _route: ActivatedRoute,
+    private _sharedService: SharedService
   ) {
     this.createForm();
-    this.route.params.subscribe(params => {
+    this._route.params.subscribe(params => {
       this.country_id = params['id'];
     });
   }
@@ -63,34 +61,34 @@ export class ManageCityComponent implements OnInit, OnDestroy {
   }
 
   blurElement() {
-    this.cityInput.nativeElement.blur();
+    this.districtInput.nativeElement.blur();
   }
 
-  addCity() {
-    this.cancelCity();
-    this.adminService
-      .addCity({ ...this.addCityForm.value, country_id: this.country_id })
+  addDistrict() {
+    this.cancelDistrict();
+    this._districtService
+      .addDistrict({
+        ...this.addDistrictForm.value,
+        country_id: this.country_id
+      })
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this.toastrService.success(
-            `${response.message}`,
-            'City Added Successfully'
-          );
-          this.addCityForm.get('name').reset();
-          this.getCityListByState(
+          this._toastrService.success(`Success`, 'District added successfully');
+          this.addDistrictForm.get('name').reset();
+          this.getDistrictListByState(
             this.state_id,
             this.pageSize,
             this.selectedPage
           );
         },
         error => {
-          this.toastrService.error(`${error.error.message}`, 'Error');
+          this._toastrService.error(`${error.error.message}`, 'Error');
         }
       );
   }
   getStateListByCountry() {
-    this.sharedService
+    this._sharedService
       .getStatesListing(this.country_id)
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -101,19 +99,19 @@ export class ManageCityComponent implements OnInit, OnDestroy {
       );
   }
 
-  loadCityList(value: string) {
+  loadDistrictList(value: string) {
     this.state_id = value;
-    this.getCityListByState(value, this.pageSize, 1);
+    this.getDistrictListByState(value, this.pageSize, 1);
   }
 
-  getCityListByState(
+  getDistrictListByState(
     state_id: string,
     page_size: number,
     page_no: number,
     search?: string
   ) {
-    this.sharedService
-      .getCitiesListing(this.country_id, state_id, {
+    this._sharedService
+      .getDistrictsList(this.country_id, state_id, {
         page_no,
         page_size,
         search
@@ -135,16 +133,20 @@ export class ManageCityComponent implements OnInit, OnDestroy {
 
   updatePage(event: any) {
     this.selectedPage = event.selectedPage;
-    this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
+    this.getDistrictListByState(
+      this.state_id,
+      this.pageSize,
+      this.selectedPage
+    );
   }
 
   getSearchText(value: string) {
     let filterValue = value;
-    this.getCityListByState(this.state_id, this.pageSize, 1, filterValue);
+    this.getDistrictListByState(this.state_id, this.pageSize, 1, filterValue);
   }
 
   createForm() {
-    this.addCityForm = this.formBuilder.group({
+    this.addDistrictForm = this._formBuilder.group({
       state_id: ['', [Validators.required]],
       name: [
         '',
@@ -152,14 +154,18 @@ export class ManageCityComponent implements OnInit, OnDestroy {
       ]
     });
   }
-  editCity(name: any, id: any) {
+  editDistrict(name: any, id: any) {
     let obj = { name, id };
     this.row = obj;
     this.editMode = true;
-    this.cityId = id;
-    this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
+    this.districtId = id;
+    this.getDistrictListByState(
+      this.state_id,
+      this.pageSize,
+      this.selectedPage
+    );
   }
-  updateCity(name: any, id: any) {
+  updateDistrict(name: any, id: any) {
     if (!name || name == '') {
       return;
     }
@@ -169,10 +175,14 @@ export class ManageCityComponent implements OnInit, OnDestroy {
       this.update = '';
     }, 1000);
   }
-  cancelCity(user?: any) {
+  cancelDistrict(user?: any) {
     this.editMode = false;
     this.update = 'cancel';
-    this.getCityListByState(this.state_id, this.pageSize, this.selectedPage);
+    this.getDistrictListByState(
+      this.state_id,
+      this.pageSize,
+      this.selectedPage
+    );
   }
   onChange(event: any) {
     if (event.id) {
@@ -180,27 +190,27 @@ export class ManageCityComponent implements OnInit, OnDestroy {
     }
   }
   updateStateByCountry(body: any) {
-    let city_id = body.id;
+    let district_id = body.id;
     delete body['id'];
     delete body['serialNumber'];
-    this.cityService
-      .updateCity(this.state_id, city_id, this.country_id, body)
+    this._districtService
+      .updateDistrict(this.state_id, district_id, this.country_id, body)
       .pipe(untilDestroyed(this))
       .subscribe(
         data => {
-          this.toastrService.success(
-            `${data.message}`,
-            'City Updated Successfully'
+          this._toastrService.success(
+            `Success`,
+            'District updated successfully'
           );
-          this.getCityListByState(
+          this.getDistrictListByState(
             this.state_id,
             this.pageSize,
             this.selectedPage
           );
         },
         error => {
-          this.toastrService.error(`${error.error.message}`, 'Error');
-          this.getCityListByState(
+          this._toastrService.error(`${error.error.message}`, 'Error');
+          this.getDistrictListByState(
             this.state_id,
             this.pageSize,
             this.selectedPage

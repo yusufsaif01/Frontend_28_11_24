@@ -115,8 +115,8 @@ export class ManageParametersComponent implements OnInit, OnDestroy {
       .subscribe(
         data => {
           this.toastrService.success(
-            `${data.message}`,
-            'Parameter Updated Successfully'
+            `Success`,
+            'Parameter updated successfully'
           );
           this.getParameterListByAbility(this.abilityId);
         },

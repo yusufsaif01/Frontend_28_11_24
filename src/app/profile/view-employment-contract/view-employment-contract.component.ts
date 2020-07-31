@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ContractService } from './contract.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { VerificationPopupComponent } from '@app/admin/verification-popup/verification-popup.component';
+import { VerificationPopupComponent } from '@app/shared/verification-popup/verification-popup.component';
 
 @Component({
   selector: 'app-view-employment-contract',
@@ -54,7 +54,10 @@ export class ViewEmploymentContractComponent implements OnInit {
   }
   findPlayerContractWithDetails() {
     switch (this.contractDetails.created_by) {
-      case 'club' || 'academy':
+      case 'club':
+        this.contractWith = this.contractDetails.created_by;
+        break;
+      case 'academy':
         this.contractWith = this.contractDetails.created_by;
         break;
       case 'player':
@@ -68,13 +71,13 @@ export class ViewEmploymentContractComponent implements OnInit {
     let header: string = '';
     let disApprove: boolean = false;
     if (status === 'disapproved') {
-      header = 'Please Confirm';
+      header = 'Please confirm';
       message = 'Please specify a reason for disapproval';
       disApprove = true;
     }
     if (status === 'approved') {
-      (header = 'Please Confirm'),
-        (message = `Do you want to approve the Employment Contract with ${this.contractDetails.clubAcademyName} ${this.contractWith} ?`);
+      (header = 'Please confirm'),
+        (message = `Do you want to approve the Employment Contract with ${this.contractDetails.club_academy_name} ${this.contractWith} ?`);
       disApprove = false;
     }
     const dialogRef = this.dialog.open(VerificationPopupComponent, {
@@ -97,7 +100,7 @@ export class ViewEmploymentContractComponent implements OnInit {
             (response: any) => {
               this.getContractDetails();
               this._toastrService.success(
-                response.status,
+                'Success',
                 'Status updated successfully'
               );
             },
