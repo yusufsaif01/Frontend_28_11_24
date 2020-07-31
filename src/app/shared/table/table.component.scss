@@ -37,3 +37,13 @@
 .pdf-icon {
   color: $primary-color;
 }
+
+// name with image
+.name {
+  display: flex;
+  align-items: center;
+
+  img {
+    margin-right: 1rem;
+  }
+}
