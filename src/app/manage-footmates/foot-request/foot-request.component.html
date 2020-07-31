@@ -95,7 +95,9 @@
 <app-header></app-header>
 <div class="site-wrapper">
   <div class="left-panel">
-    <app-left-panel> </app-left-panel>
+    <app-left-panel
+      (sendFootData)="getConnectionStats($event)"
+    ></app-left-panel>
   </div>
   <div class="right-panel">
     <div class="right-wrapper">
@@ -103,7 +105,7 @@
         <!-- heading -->
         <div class="heading">
           <h2>FooTMates</h2>
-          <button class="icon-btn" (click)="toggleMode()">
+          <button class="icon-btn">
             <mat-icon class="material-icons">filter_alt</mat-icon>
           </button>
         </div>
@@ -111,20 +113,20 @@
         <div class="counts-wrapper">
           <div class="counts">
             <h2>
-              {{ foot_data.footmate_requests }}
+              {{ foot_data.footmate_requests | padzero }}
             </h2>
             <a
               [routerLink]="['/member/manage/foot-requests']"
               [routerLinkActive]="['active']"
-              >FootRequests
+              >FooTRequests
             </a>
           </div>
           <div class="counts">
-            <h2>{{ foot_data.footmates }}</h2>
+            <h2>{{ foot_data.footmates | padzero }}</h2>
             <a
               [routerLink]="['/member/manage/foot-mates']"
               [routerLinkActive]="['active']"
-              >FootMates
+              >FooTMates
             </a>
           </div>
         </div>
@@ -208,24 +210,78 @@
          -->
         <!-- player section -->
         <div class="player-wrapper">
-          <div class="player-block">
-            <img src="assets/images/member/profile.png" alt="" />
-            <div class="profile-details">
-              <h3>
-                <a>Jame Jordon</a>
-              </h3>
-              <p>CenterMidfielder</p>
-              <div class="player-categroy">
-                <h5>Grassroot</h5>
-              </div>
-              <div class="btn-wrapper">
-                <button>Accept</button>
-                <button>Reject</button>
+          <ng-container *ngFor="let request of requestList">
+            <div class="player-block">
+              <img [src]="request.avatar" alt="" />
+              <div class="profile-details">
+                <h3>
+                  <a
+                    [routerLink]="['/member/profile/view/', request.user_id]"
+                    >{{ request.name }}</a
+                  >
+                </h3>
+                <p>{{ request.position }}</p>
+                <div class="player-categroy">
+                  <h5>
+                    {{
+                      request.player_type || request.sub_category | titlecase
+                    }}
+                  </h5>
+                </div>
+                <div class="btn-wrapper">
+                  <ng-container *ngIf="!request.hide">
+                    <button
+                      [ngClass]="{
+                        'btn-disable':
+                          requested_by !== 'player' &&
+                          profile_status == 'non-verified'
+                      }"
+                      [disabled]="
+                        requested_by !== 'player' &&
+                        profile_status == 'non-verified'
+                      "
+                      (click)="acceptRequest(request)"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      [ngClass]="{
+                        'btn-disable':
+                          requested_by !== 'player' &&
+                          profile_status == 'non-verified'
+                      }"
+                      [disabled]="
+                        requested_by !== 'player' &&
+                        profile_status == 'non-verified'
+                      "
+                      (click)="rejectRequest()(request)"
+                    >
+                      Reject
+                    </button>
+                  </ng-container>
+
+                  <ng-container *ngIf="request.hide">
+                    <button
+                      [ngClass]="{
+                        accepted: request.accepted,
+                        rejected: !request.accepted
+                      }"
+                    >
+                      {{ request.accepted ? 'Accepted' : 'Rejected' }}
+                    </button>
+                  </ng-container>
+                </div>
               </div>
             </div>
-          </div>
+          </ng-container>
 
-          <div class="player-block">
+          <ng-container *ngIf="requestList.length === 0">
+            <span class="no-data-found">
+              No FooTRequests Found
+            </span>
+          </ng-container>
+
+          <!-- <div class="player-block">
             <img src="assets/images/member/profile.png" alt="" />
             <div class="profile-details">
               <h3>
@@ -255,7 +311,7 @@
                 <button class="accepted">Accept</button>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- Pagination -->
         <app-pagination> </app-pagination>

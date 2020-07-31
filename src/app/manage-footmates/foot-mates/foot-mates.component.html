@@ -231,7 +231,9 @@
 <app-header></app-header>
 <div class="site-wrapper">
   <div class="left-panel">
-    <app-left-panel> </app-left-panel>
+    <app-left-panel
+      (sendFootData)="getConnectionStats($event)"
+    ></app-left-panel>
   </div>
   <div class="right-panel">
     <div class="right-wrapper">
@@ -239,7 +241,7 @@
         <!-- heading -->
         <div class="heading">
           <h2>FooTMates</h2>
-          <button class="icon-btn" (click)="toggleMode()">
+          <button class="icon-btn">
             <mat-icon class="material-icons">filter_alt</mat-icon>
           </button>
         </div>
@@ -247,20 +249,20 @@
         <div class="counts-wrapper">
           <div class="counts">
             <h2>
-              {{ foot_data.footmate_requests }}
+              {{ foot_data.footmate_requests | padzero }}
             </h2>
             <a
               [routerLink]="['/member/manage/foot-requests']"
               [routerLinkActive]="['active']"
-              >FootRequests
+              >FooTRequests
             </a>
           </div>
           <div class="counts">
-            <h2>{{ foot_data.footmates }}</h2>
+            <h2>{{ foot_data.footmates | padzero }}</h2>
             <a
               [routerLink]="['/member/manage/foot-mates']"
               [routerLinkActive]="['active']"
-              >FootMates
+              >FooTMates
             </a>
           </div>
         </div>
@@ -279,13 +281,19 @@
                 </h3>
                 <p>{{ footMate.position }}</p>
                 <div class="player-categroy">
-                  <h5>{{ footMate.player_type }}</h5>
+                  <h5>{{ footMate.player_type | titlecase }}</h5>
                   <a *ngIf="footMate.mutuals" (click)="openDialog(footMate)"
-                    >{{ footMate.mutuals }} Mutual Footmates</a
+                    >{{ footMate.mutuals }} Mutual FooTMates</a
                   >
                 </div>
               </div>
             </div>
+          </ng-container>
+
+          <ng-container *ngIf="footMatesList.length === 0">
+            <span class="no-data-found">
+              No FooTMates Found
+            </span>
           </ng-container>
         </div>
         <!-- Pagination -->
