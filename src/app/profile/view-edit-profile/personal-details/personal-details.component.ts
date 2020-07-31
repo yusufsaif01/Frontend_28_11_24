@@ -553,9 +553,8 @@ export class PersonalDetailsComponent implements OnInit {
     let requestData = this.toFormData(this.personalProfileDetailsForm.value);
 
     if (this.profile_status === 'verified') requestData.delete('dob');
-    if (this.member_type !== 'player') {
-      this.dateModifier(requestData);
-    }
+    this.dateModifier(requestData);
+
     this._editProfileService
       .updatePersonalProfileDetails(requestData)
       .pipe(untilDestroyed(this))
@@ -575,15 +574,19 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   dateModifier(requestData: any) {
-    let years = ['founded_in'];
-    years.map(data => {
-      requestData.set(
-        data,
-        this._dateConversion.convertToYear(
-          this.personalProfileDetailsForm.get(data).value
+    this.member_type === 'player'
+      ? requestData.set(
+          'dob',
+          this._dateConversion.convert(
+            this.personalProfileDetailsForm.get('dob').value
+          )
         )
-      );
-    });
+      : requestData.set(
+          'founded_in',
+          this._dateConversion.convertToYear(
+            this.personalProfileDetailsForm.get('founded_in').value
+          )
+        );
   }
 
   ngOnDestroy() {}

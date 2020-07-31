@@ -613,14 +613,13 @@
                 <div class="signings">
                   <h4 class="mt-1">Top signings</h4>
                   <ng-container *ngIf="publicProfileData?.top_signings">
-                    <div
-                      class="full"
-                      *ngFor="
-                        let signing of publicProfileData.top_signings;
-                        let i = index
-                      "
-                    >
-                      <p>
+                    <div class="full">
+                      <p
+                        *ngFor="
+                          let signing of publicProfileData.top_signings;
+                          let i = index
+                        "
+                      >
                         <span>{{ i + 1 }}.</span> {{ signing.name | titlecase }}
                       </p>
                     </div>

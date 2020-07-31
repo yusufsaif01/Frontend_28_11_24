@@ -142,7 +142,7 @@ export class ManageAcademyComponent implements OnInit, OnDestroy {
       width: '50% ',
       panelClass: 'filterDialog',
       data: {
-        header: 'Delete Academy'
+        header: 'Delete academy'
       }
     });
     dialogRef.afterClosed().subscribe(result => {

@@ -12,6 +12,7 @@
     position: relative;
 
     .footer-fix {
+      left: 0;
       position: absolute;
       width: 100%;
       bottom: 0;
@@ -104,6 +105,7 @@
               font-size: $heading-fourth;
               border-radius: 1rem;
               color: $second-color;
+              word-break: break-all;
             }
           }
 

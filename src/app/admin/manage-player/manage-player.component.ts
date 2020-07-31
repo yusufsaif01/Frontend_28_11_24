@@ -159,7 +159,7 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
       width: '50% ',
       panelClass: 'filterDialog',
       data: {
-        header: 'Delete Player'
+        header: 'Delete player'
       }
     });
     dialogRef.afterClosed().subscribe(result => {

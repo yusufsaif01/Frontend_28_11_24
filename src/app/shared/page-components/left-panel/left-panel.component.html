@@ -12,7 +12,7 @@
         <h3 *ngIf="profile?.member_type === 'player'">
           {{ profile?.first_name }} {{ profile?.last_name }}
         </h3>
-        <h3 *ngIf="profile.member_type !== 'player'">
+        <h3 *ngIf="profile?.member_type !== 'player'">
           {{ profile?.name }}
         </h3>
       </div>
@@ -23,7 +23,7 @@
           {{ data?.first_name }} {{ data?.last_name }}
         </h3>
         <h3 *ngIf="data?.member_type !== 'player'">
-          {{ data.name }}
+          {{ data?.name }}
         </h3>
       </div>
     </ng-container>
@@ -171,30 +171,68 @@
           <span class="text">Gallery</span>
         </a>
       </li>
-      <li>
-        <a>
-          <span class="icon">
-            <img src="assets/images/global/timer.svg" alt="trial" />
-          </span>
-          <span class="text">My trial</span>
-        </a>
-      </li>
-      <li>
-        <a>
-          <span class="icon">
-            <img src="assets/images/global/contracts.svg" alt="contracts" />
-          </span>
-          <span class="text">My contracts</span>
-        </a>
-      </li>
-      <li>
-        <a>
-          <span class="icon">
-            <img src="assets/images/global/report-icon.svg" alt="Report" />
-          </span>
-          <span class="text">Report card</span>
-        </a>
-      </li>
+      <ng-container *ngIf="profile?.member_type === 'player'">
+        <li>
+          <a>
+            <span class="icon">
+              <img src="assets/images/global/timer.svg" alt="trial" />
+            </span>
+            <span class="text">My trials</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span class="icon">
+              <img src="assets/images/global/contracts.svg" alt="contracts" />
+            </span>
+            <span class="text">My contracts</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span class="icon">
+              <img src="assets/images/global/report-icon.svg" alt="Report" />
+            </span>
+            <span class="text">Report card</span>
+          </a>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="profile?.member_type !== 'player'">
+        <li>
+          <a>
+            <span class="icon">
+              <img src="assets/images/global/timer.svg" alt="trial" />
+            </span>
+            <span class="text">Trial management</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/member/manage-footplayer/contract-management']">
+            <span class="icon">
+              <img src="assets/images/global/contracts.svg" alt="contracts" />
+            </span>
+            <span class="text">Contract management</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/member/manage-footplayer/club-academy']">
+            <span class="icon">
+              <img src="assets/images/global/contracts.svg" alt="contracts" />
+            </span>
+            <span class="text"
+              >{{ profile?.member_type | titlecase }}'s FooTPlayers</span
+            >
+          </a>
+        </li>
+        <li>
+          <a>
+            <span class="icon">
+              <img src="assets/images/global/report-icon.svg" alt="Report" />
+            </span>
+            <span class="text">Report card</span>
+          </a>
+        </li>
+      </ng-container>
     </ul>
   </div>
 </div>

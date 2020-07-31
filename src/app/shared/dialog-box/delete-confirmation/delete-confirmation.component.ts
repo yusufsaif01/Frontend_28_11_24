@@ -7,8 +7,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./delete-confirmation.component.scss']
 })
 export class DeleteConfirmationComponent implements OnInit {
-  public header: string = 'Please Confirm';
-  public message: string = 'Are you sure you want to delete the user?';
+  public header: string = 'Please confirm';
+  public message: string = 'Are you sure you want to delete the user ?';
   public acceptText: string = 'Confirm';
   public rejectText: string = 'Cancel';
   public inputbox: boolean = false;

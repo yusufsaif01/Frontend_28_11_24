@@ -48,7 +48,7 @@
 
             h4 {
               font-weight: 500;
-              color: $second-color;
+              color: $fourth-color;
             }
           }
 
@@ -57,6 +57,7 @@
 
             p {
               font-size: $heading-fourth;
+              color: $second-color;
             }
           }
         }
@@ -114,6 +115,20 @@
     .document-wrapper {
       width: 90%;
       margin: 0 auto;
+
+      .info-label {
+        font-weight: 500;
+
+        span {
+          color: $primary-color;
+          margin-left: 0.5rem;
+        }
+
+        img {
+          width: 12px;
+          transform: translateY(2px);
+        }
+      }
 
       h3 {
         span {
