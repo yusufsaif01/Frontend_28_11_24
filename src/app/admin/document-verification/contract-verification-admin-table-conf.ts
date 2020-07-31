@@ -31,14 +31,18 @@ export class ContractListAdminTableConfig extends TableConfig {
         code: 'effective_date',
         text: 'Effective Date',
         getValue: (ele: any) => {
-          return ele[this.columns.effective_date.code];
+          let val: any = moment(ele.expiry_date);
+          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          return `${val}`;
         }
       },
       expiry_date: {
         code: 'expiry_date',
         text: 'Expiry Date',
         getValue: (ele: any) => {
-          return ele[this.columns.expiry_date.code];
+          let val: any = moment(ele.expiry_date);
+          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          return `${val}`;
         }
       },
       created_by: {
