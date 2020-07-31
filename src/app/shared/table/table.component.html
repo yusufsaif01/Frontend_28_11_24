@@ -12,9 +12,6 @@
         <p
           *ngIf="
             ![
-              'name',
-              'date_of_birth',
-              'added_on',
               'media',
               'aadhaarimg',
               'document_image',
@@ -22,14 +19,12 @@
               'profileimg',
               'type',
               'email',
-              'status',
               'avatar',
               'playerimg',
               'user_photo',
               'document',
+              'status',
               'aiff_image',
-              'effective_date',
-              'expiry_date',
               'club_academy_name',
               'created_by',
               'year',
@@ -55,7 +50,7 @@
             >
           </ng-container>
         </p>
-        <p
+        <!-- <p
           *ngIf="
             [
               'added_on',
@@ -68,8 +63,8 @@
           {{
             tableConfig.columns[col].getValue(element) | date: 'dd LLLL yyyy'
           }}
-        </p>
-        <div
+        </p> -->
+        <!-- <div
           class="name"
           *ngIf="col === 'name'"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
@@ -83,7 +78,7 @@
                   '...'
             }}
           </p>
-        </div>
+        </div> -->
         <p
           *ngIf="col === 'type'"
           matTooltip=" {{ tableConfig.columns[col].getValue(element) }}"

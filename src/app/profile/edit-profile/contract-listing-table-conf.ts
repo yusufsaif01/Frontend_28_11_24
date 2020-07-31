@@ -1,41 +1,44 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
-import moment from 'moment';
-export class EmploymentContractListTableConfig extends TableConfig {
+export class ContractListTableConfig extends TableConfig {
   constructor() {
     super();
     this.allowedColumns = [
+      'serialNumber',
       'name',
-      'effective_date',
-      'expiry_date',
+      'effectiveDate',
+      'expiryDate',
       'created_by',
       'status'
     ];
 
     this.columns = {
+      serialNumber: {
+        code: 'serialNumber',
+        text: 'S.No',
+        getValue: (ele: any) => {
+          return ele[this.columns.serialNumber.code];
+        }
+      },
       name: {
         code: 'name',
-        text: 'Club / Academy',
+        text: 'Club/Academy',
         getValue: (ele: any) => {
           let val: string = ele[this.columns.name.code];
           return val.length > 18 ? `${val.slice(0, 18)}...` : val;
         }
       },
-      effective_date: {
-        code: 'effective_date',
+      effectiveDate: {
+        code: 'effectiveDate',
         text: 'Effective Date',
         getValue: (ele: any) => {
-          let val: any = moment(ele.effective_date);
-          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
-          return `${val}`;
+          return ele[this.columns.effectiveDate.code];
         }
       },
-      expiry_date: {
-        code: 'expiry_date',
+      expiryDate: {
+        code: 'expiryDate',
         text: 'Expiry Date',
         getValue: (ele: any) => {
-          let val: any = moment(ele.expiry_date);
-          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
-          return `${val}`;
+          return ele[this.columns.expiryDate.code];
         }
       },
       created_by: {

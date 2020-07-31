@@ -1,4 +1,5 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
+import moment from 'moment';
 
 export class DocumentVerificationTableConfig extends TableConfig {
   text: string = 'Document Number';
@@ -49,7 +50,8 @@ export class DocumentVerificationTableConfig extends TableConfig {
         code: 'name',
         text: member_type === 'club' ? 'Club Name' : 'Academy Name',
         getValue: (ele: any) => {
-          return ele[this.columns.name.code];
+          let val: string = ele[this.columns.name.code];
+          return val.length > 18 ? `${val.slice(0, 18)}...` : val;
         }
       },
       player_name: {
@@ -63,14 +65,18 @@ export class DocumentVerificationTableConfig extends TableConfig {
         code: 'date_of_birth',
         text: 'DOB',
         getValue: (ele: any) => {
-          return ele[this.columns.date_of_birth.code];
+          let val: any = moment(ele.date_of_birth);
+          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          return `${val}`;
         }
       },
       added_on: {
         code: 'added_on',
         text: 'Added On',
         getValue: (ele: any) => {
-          return ele[this.columns.added_on.code];
+          let val: any = moment(ele.added_on);
+          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          return `${val}`;
         }
       },
       document_type: {
