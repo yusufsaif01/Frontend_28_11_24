@@ -182,13 +182,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.pageNo++;
     this.getMemberSearchList(this.searchText, this.keyCode, 'scrolled');
   }
+
   onScrollUp() {
     console.log('Scrolled Up');
   }
 
   openPublicProfile(user_id: string) {
     this._router.navigate([]).then(result => {
-      window.open(`/member/profile/view/${user_id}`, '_blank');
+      window.open(`/member/profile/public/${user_id}`, '_blank');
     });
   }
 }
