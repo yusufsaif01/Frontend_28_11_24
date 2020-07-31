@@ -1,208 +1,151 @@
 @import "src/assets/sass/abstracts/variables";
 @import "src/assets/sass/abstracts/mixins";
-@import url("https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&display=swap");
 
 .site-wrapper {
-  width: 85%;
-  max-width: 180rem;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
-  border-radius: 2rem;
+  background: $third-color;
+  margin-top: 8.5rem;
 
-  // Right Section
-  .right-section {
-    width: 75%;
-    margin: 3rem 2rem;
-    background: $color-white;
-    border-radius: 0.8rem;
-    .heading {
-      padding: 2rem;
-      border-bottom: 0.3rem solid #edf2f6;
-      h3 {
-        font-size: 2.8rem;
-      }
-    }
-    .tab-buttons {
-      padding: 2rem;
-      border-bottom: 0.3rem solid #edf2f6;
-      a {
-        padding: 1rem 2rem;
-        border-radius: 0.8rem;
-        border: 1px solid $blue;
-        color: $blue;
-        background: transparent;
-        margin-right: 1rem;
-        cursor: pointer;
-        outline: none;
-        display: inline-block;
-        font-size: 1.8rem;
-        text-decoration: none;
-        span {
-          font-size: 1.4rem;
-          border-radius: 0.7rem;
-          background: $blue;
-          padding: 0.2rem 1rem;
-          color: $color-white;
-          transform: translateY(-1px);
-          display: inline-block;
-          margin-left: 1rem;
-        }
-        &:hover,
-        &.active {
-          background: $blue;
-          color: $color-white;
-          span {
-            background: #289af5;
-          }
-        }
-      }
-    }
-    // filters
-    .filter-buttons {
-      padding: 2rem;
-      border-bottom: 0.3rem solid #edf2f6;
-      position: relative;
-      button {
-        padding: 1rem 3rem 1rem 2rem;
-        border-radius: 0.8rem;
-        border: 1px solid $blue;
-        color: $blue;
-        background: transparent;
-        margin-right: 1rem;
-        cursor: pointer;
-        position: relative;
-        outline: none;
-        i-feather {
-          position: absolute;
-          top: 1rem;
-          left: calc(100% - 2.5rem);
-        }
-        &:last-child {
-          padding: 1rem 2rem 1rem 2rem;
-        }
-        &:hover,
-        &.active {
-          background: $blue;
-          color: $color-white;
-          span {
-            background: #289af5;
-          }
-        }
-      }
+  .right-panel {
+    width: 76.25%;
+    position: relative;
+
+    .footer-fix {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
     }
 
-    // players
-    .playerwrapper {
-      padding: 1rem;
-      display: flex;
-      flex-wrap: wrap;
-      .playerbox {
-        border: 1px solid $border-color;
-        width: 31%;
+    .right-wrapper {
+      padding: 2rem;
+
+      .main {
+        background: $white-color;
+        @include shadow;
+        padding: 2rem;
         border-radius: 0.5rem;
-        margin: 1.35rem;
-        box-shadow: 0px 0px 4px 0px rgba($color-black, 0.1);
-        &:hover {
-          box-shadow: 0px 0px 0px 0px rgba($color-black, 0.1);
-          cursor: pointer;
-        }
-        .top {
-          display: flex;
-          padding: 2rem;
-          align-items: center;
-          .dp {
-            img {
-              width: 35px;
-              height: 35px;
-              border-radius: 35px;
-            }
-          }
-          .name {
-            margin-left: 1rem;
-            strong {
-              font-size: 1.9rem;
-              user-select: none;
-              &:hover {
-                color: $blue;
-              }
-            }
-            a {
-              text-decoration: none;
-              color: $color-black;
-            }
-            p {
-              font-size: 1.6rem;
-              color: $text-muted;
-            }
-          }
-        }
-        .middle {
-          padding: 2rem;
-          border-top: 1px solid $border-color;
+        margin-bottom: 10rem;
+
+        // heading css
+        .heading {
           display: flex;
           justify-content: space-between;
+          padding: 1rem 2rem 1rem 1rem;
+          color: $fourth-color;
+
+          button {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+
+            &:hover {
+              color: $primary-color;
+            }
+          }
+        }
+
+        // counters
+
+        .counts-wrapper {
+          display: flex;
           align-items: center;
-          h4 {
-            font-size: 1.8rem;
-            font-weight: 700;
+          width: 100%;
+          text-align: center;
+          justify-content: center;
+          margin-bottom: 4rem;
+
+          .counts {
+            margin: 0 2rem;
+
+            h2 {
+              font-weight: 400;
+              font-size: 3.6rem;
+              margin-bottom: 1rem;
+            }
+
             a {
-              color: $blue;
+              border: 1px solid $primary-color;
+              background: transparent;
+              color: $fourth-color;
+              padding: 1rem 3rem;
+              border-radius: 5rem;
+              font-weight: 500;
+              outline: 0px;
+              display: inline-block;
+              font-size: $heading-fourth;
+
+              &:hover {
+                background: $primary-color;
+                color: $white-color;
+              }
+            }
+
+            .active {
+              background: $primary-color;
+              color: $white-color;
+            }
+          }
+        }
+
+        // player section
+        .player-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          padding: 0 3rem;
+
+          .player-block {
+            display: flex;
+            align-items: center;
+            width: 33%;
+            padding: 1rem 2rem;
+            border-left: 0.5rem solid #fff0d3;
+            margin-bottom: 4rem;
+
+            img {
+              width: 6rem;
+              height: 6rem;
+              border-radius: 6rem;
+            }
+
+            .profile-details {
+              margin-left: 1rem;
+              width: 100%;
+
+              h3 {
+                font-weight: 500;
+                color: $fourth-color;
+                margin-bottom: 0.2rem;
+                font-size: 2.2rem;
+              }
+
+              p {
+                font-size: $heading-sixth;
+                color: $second-color;
+              }
+            }
+
+            .player-categroy {
+              display: flex;
+              justify-content: space-between;
+              color: $second-color;
+              width: 100%;
+
+              h5 {
+                font-weight: 700;
+                font-size: $heading-fifth;
+                color: $second-color;
+              }
+
+              a {
+                color: $primary-color;
+                font-size: $heading-fifth;
+                font-weight: 700;
+              }
             }
           }
         }
       }
     }
   }
-}
-
-// mega dropdown
-::ng-deep {
-  .mat-menu-panel {
-    max-width: 100rem !important;
-    width: 100% !important;
-    padding: 2rem;
-    .mat-menu-content {
-      h3 {
-        font-size: 2.2rem;
-        margin-bottom: 1rem;
-      }
-      .items {
-        span.chk-box {
-          display: inline-block;
-          font-size: 1.8rem;
-          margin: 1rem 2rem 1rem 0rem;
-          padding: 1rem 2rem;
-          box-shadow: 0rem 0rem 0.5rem 0rem rgba(0, 0, 0, 0.2);
-          ::ng-deep {
-            .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-              background: $blue !important;
-            }
-          }
-        }
-      }
-      .wrapper-location {
-        display: flex;
-        justify-content: space-between;
-        .slt-wrapper {
-          width: 25rem;
-          position: relative;
-          margin: 0 1rem;
-          select {
-            width: 100%;
-            padding: 1rem;
-            appearance: none;
-          }
-          i-feather {
-            position: absolute;
-            left: calc(100% - 3rem);
-            top: 1rem;
-          }
-        }
-      }
-    }
-  }
-}
-
-.gray {
-  color: gray;
 }
