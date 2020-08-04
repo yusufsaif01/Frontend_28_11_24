@@ -114,7 +114,7 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.followers = response.data.followers;
-          this.data.followers = this.followers;
+          this.data = { ...this.data, followers: this.followers };
           // this.sendFootData.emit(response.data);
         },
         error => {}
