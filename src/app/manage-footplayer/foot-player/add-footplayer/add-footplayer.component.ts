@@ -147,7 +147,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       is_verified &&
       (!club_name || this.own_member_type == 'academy')
     ) {
-      return { message: 'ADD', state: false };
+      return { message: 'Add', state: false };
     } else if (is_verified && club_name) {
       return {
         message: `This player is already a member of ${club_name}`,

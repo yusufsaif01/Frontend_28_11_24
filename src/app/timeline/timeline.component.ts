@@ -332,7 +332,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
       width: '50% ',
       panelClass: 'filterDialog',
       data: {
-        header: 'Delete Post',
+        header: 'Delete post',
         message: 'Are you sure you want to delete?'
       }
     });
@@ -352,7 +352,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
             error => {
               this._toastrService.error(
                 `${error.error.message}`,
-                'Delete Post'
+                'Delete post'
               );
             }
           );

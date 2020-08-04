@@ -29,7 +29,10 @@
               <img [src]="request.avatar" alt="" />
             </div>
             <div class="name">
-              <strong [routerLink]="['/member/profile/view/', request.user_id]">{{ request.name }}</strong>
+              <strong
+                [routerLink]="['/member/profile/public/', request.user_id]"
+                >{{ request.name }}</strong
+              >
               <p>{{ request.position }}</p>
             </div>
           </div>
@@ -104,7 +107,7 @@
       <div class="main">
         <!-- heading -->
         <div class="heading">
-          <h2>FooTMates</h2>
+          <h2>FooTRequests</h2>
           <button class="icon-btn">
             <mat-icon class="material-icons">filter_alt</mat-icon>
           </button>
