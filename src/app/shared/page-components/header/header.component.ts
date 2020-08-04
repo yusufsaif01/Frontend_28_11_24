@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/core/authentication/authentication.service';
 import { HeaderService } from './header.service';
@@ -38,7 +38,7 @@ let keyCodeObject = {
 export class HeaderComponent implements OnInit, OnDestroy {
   public isActive: boolean = true;
   public isFootplayerActive: boolean = true;
-  public avatar_url: string = localStorage.getItem('avatar_url');
+  @Input() public avatar_url: string = localStorage.getItem('avatar_url');
   public member_type: string = localStorage.getItem('member_type');
   memberList: MemberListContext[] = [];
   searchText: string = '';

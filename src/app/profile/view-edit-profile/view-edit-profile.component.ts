@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { HeaderComponent } from '@app/shared/page-components/header/header.component';
+import { LeftPanelComponent } from '@app/shared/page-components/left-panel/left-panel.component';
 
 @Component({
   selector: 'app-view-edit-profile',
@@ -6,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-edit-profile.component.scss']
 })
 export class ViewEditProfileComponent implements OnInit {
+  @ViewChild(HeaderComponent, { static: true }) header: HeaderComponent;
+  @ViewChild(LeftPanelComponent, { static: true })
+  leftPanel: LeftPanelComponent;
   clubAcademyType: string;
   componentName: string = 'personal';
   renderComponents: any[];
@@ -25,6 +30,11 @@ export class ViewEditProfileComponent implements OnInit {
 
   getClubAcademyType(value: string) {
     this.clubAcademyType = value;
+  }
+
+  getAvatarUrl(event: any) {
+    this.header.avatar_url = event;
+    this.leftPanel.profile.avatar_url = event;
   }
 
   getMemberType(value: string) {
