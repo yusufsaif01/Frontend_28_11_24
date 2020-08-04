@@ -1,14 +1,10 @@
 <div class="from-container">
   <div class="header">
     <div class="title">
-      <h3>Mutual FooTMates</h3>
+      <h2>Mutual FooTMates</h2>
     </div>
     <div class="close">
-      <img
-        [mat-dialog-close]
-        src="assets/images/icons/close-white.png"
-        alt=""
-      />
+      <mat-icon mat-dialog-close class="material-icons">close</mat-icon>
     </div>
   </div>
   <div class="modal-body">
@@ -22,20 +18,23 @@
       [scrollWindow]="false"
       class="footmates-wrapper"
     >
-      <div class="footmate-block" *ngFor="let footmate of mutualFootmate">
-        <div class="dp">
-          <img [src]="footmate.avatar" alt="profile-icon" />
-        </div>
-        <div class="details">
-          <h3>
-            <a
-              target="_blank"
-              [routerLink]="['/member/profile/public/' + footmate.user_id]"
-              >{{ footmate.name }}</a
-            >
-          </h3>
-          <h5>{{ footmate.player_type | titlecase }}</h5>
-          <p>{{ footmate.position }}</p>
+      <div class="player-wrapper">
+        <div class="player-block" *ngFor="let footmate of mutualFootmate">
+          <!-- <img [src]="footmate.avatar" alt="profile-icon" /> -->
+          <img src="assets/images/member/profile.png" alt="" />
+          <div class="profile-details">
+            <h3>
+              <a
+                target="_blank"
+                [routerLink]="['/member/profile/public/' + footmate.user_id]"
+                >{{ footmate.name }}</a
+              >
+            </h3>
+            <p>{{ footmate.position }}</p>
+            <div class="player-categroy">
+              <h5>{{ footmate.player_type | titlecase }}</h5>
+            </div>
+          </div>
         </div>
       </div>
     </div>
