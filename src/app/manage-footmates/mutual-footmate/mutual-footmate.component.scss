@@ -1,83 +1,119 @@
 @import "src/assets/sass/abstracts/variables";
 @import "src/assets/sass/abstracts/mixins";
+
 .from-container {
   margin: -24px;
+  width: 70rem;
 }
+
 .header {
-  background: $blue;
   display: flex;
   justify-content: space-between;
-  padding: 2rem 4rem;
+  padding: 1.5rem 3rem;
   align-items: center;
+  background: $fifth-color;
+
   .title {
     width: 70%;
-    h3 {
-      color: $color-white;
-      font-size: 2.8rem;
+
+    h2 {
+      color: $fourth-color;
+      font-weight: 600;
     }
   }
+
   .close {
     width: 30%;
     display: block;
     text-align: right;
-    img {
-      max-width: 2rem;
-      width: 100%;
+
+    .mat-icon {
       cursor: pointer;
+
+      &:hover {
+        color: $primary-color;
+      }
     }
   }
 }
 
 .modal-body {
+  padding: 2rem;
+
   .footmates-wrapper {
     display: flex;
-    padding: 2rem;
     flex-wrap: wrap;
     max-height: 50rem;
     overflow-y: scroll;
+
     &::-webkit-scrollbar {
       width: 0.5rem;
     }
+
     &::-webkit-scrollbar-track {
       box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     }
+
     &::-webkit-scrollbar-thumb {
-      background-color: darkgrey;
-      outline: 1px solid slategrey;
+      background-color: $primary-color;
+      outline: 1px solid $primary-color;
     }
-    .footmate-block {
-      padding: 1rem 2rem;
+
+    // player section
+    .player-wrapper {
       display: flex;
-      align-items: center;
-      width: 47%;
-      margin: 1rem;
-      box-shadow: 0rem 0rem 0.8rem 0rem rgba(0, 0, 0, 0.2);
-      .dp {
+      flex-wrap: wrap;
+      // padding: 0 3rem;
+      width: 100%;
+
+      .player-block {
+        display: flex;
+        align-items: center;
+        width: 50%;
+        padding: 1rem 2rem;
+        border-left: 0.5rem solid #fff0d3;
+        margin-bottom: 4rem;
+
         img {
           width: 6rem;
           height: 6rem;
-          border-radius: 7rem;
+          border-radius: 6rem;
         }
-      }
-      .details {
-        margin-left: 1rem;
-        h3 {
-          font-size: 2.2rem;
-          line-height: 3.5rem;
-          a {
-            color: $blue;
-            text-decoration: none;
+
+        .profile-details {
+          margin-left: 1rem;
+          width: 100%;
+
+          h3 {
+            font-weight: 500;
+            color: $fourth-color;
+            margin-bottom: 0.2rem;
+            font-size: 2.2rem;
+          }
+
+          p {
+            font-size: $heading-sixth;
+            color: $second-color;
           }
         }
-        h5 {
-          font-size: 1.8rem;
-          color: $text-muted;
-          line-height: 2.2rem;
-        }
-        p {
-          font-size: 1.6rem;
-          color: $text-muted;
-          line-height: 2.2rem;
+
+        .player-categroy {
+          display: flex;
+          justify-content: space-between;
+          color: $second-color;
+          width: 100%;
+
+          h5 {
+            font-weight: 700;
+            font-size: $heading-fifth;
+            color: $second-color;
+          }
+
+          a {
+            color: $primary-color;
+            font-size: $heading-fifth;
+            font-weight: 700;
+          }
         }
       }
     }
@@ -85,6 +121,6 @@
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
+  background-color: $primary-color;
   outline: 1px solid slategrey;
 }
