@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ViewEditProfileService } from '../view-edit-profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
@@ -12,7 +12,6 @@ import {
 } from '@angular/forms';
 import { environment } from '@env/environment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { HeaderComponent } from '@app/shared/page-components/header/header.component';
 import {
   MatDatepicker,
   MatDatepickerInputEvent,
@@ -59,7 +58,7 @@ export class PersonalDetailsComponent implements OnInit {
   profile_status: string;
   editMode: boolean = false;
   player_type: string = 'grassroot';
-  @ViewChild(HeaderComponent, { static: true }) header: HeaderComponent;
+  @Output() avatar_url = new EventEmitter<string>();
   constructor(
     private _editProfileService: ViewEditProfileService,
     private _sharedService: SharedService,
@@ -246,7 +245,7 @@ export class PersonalDetailsComponent implements OnInit {
             'avatar_url',
             environment.mediaUrl + res.data.avatar_url
           );
-          this.header.avatar_url = localStorage.getItem('avatar_url');
+          this.avatar_url.emit(localStorage.getItem('avatar_url'));
           this._toastrService.success('Success', 'Avatar updated successfully');
         },
         err => {
