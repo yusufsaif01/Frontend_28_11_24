@@ -97,7 +97,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
   // MatualFootmates
   openDialog(foot_mate: any): void {
     const dialogRef = this.dialog.open(MutualFootmateComponent, {
-      width: '40%',
+      // width: '40%',
       panelClass: 'MatualFootmate',
       data: { id: foot_mate.user_id }
     });
