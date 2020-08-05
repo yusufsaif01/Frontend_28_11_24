@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Output,
+  Input,
+  EventEmitter
+} from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { MutualFootmateComponent } from '@app/manage-footmates/mutual-footmate/mutual-footmate.component';
 import { FootMatesService } from '@app/manage-footmates/foot-mates/foot-mates.service';
@@ -60,6 +67,16 @@ export class FootMatesComponent implements OnInit, OnDestroy {
   checkFilters: boolean | undefined = undefined;
   public active: boolean;
   selectedPage: number;
+
+  // show and hide filter
+  // show = true;
+  // @Output() ishidefilter: EventEmitter<boolean> = new EventEmitter<boolean>();
+  // isFilterShow() {
+  //   this.ishidefilter.emit(this.show);
+  // }
+  // isFilterhide() {
+  //   this.ishidefilter.emit(!this.show);
+  // }
 
   menuOpened() {
     if (this.active) {

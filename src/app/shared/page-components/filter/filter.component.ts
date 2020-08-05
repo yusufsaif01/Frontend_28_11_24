@@ -75,6 +75,7 @@ export class FilterComponent implements OnInit {
     ability: false,
     status: false
   };
+
   @Output() filterChanges: EventEmitter<any> = new EventEmitter();
   @ViewChildren(
     'position, playercategory, age, location, strongfoot, teamTypes, ability, status'
