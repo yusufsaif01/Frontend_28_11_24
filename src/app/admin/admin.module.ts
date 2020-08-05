@@ -14,7 +14,7 @@ import { ManageDistrictComponent } from './masterdata/manage-location/manage-dis
 import { MemberTypeComponent } from './masterdata/member-type/member-type.component';
 import { ManagePositionComponent } from './masterdata/player-specialization/manage-position/manage-position.component';
 import { ManageAbilityComponent } from './masterdata/player-specialization/manage-ability/manage-ability.component';
-import { ManageParametersComponent } from './masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
+import { ManageAttributeComponent } from './masterdata/player-specialization/manage-ability/manage-attribute/manage-attribute.component';
 import { AdminComponent } from './admin.component';
 import { DocumentVerificationComponent } from './document-verification/document-verification.component';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
@@ -33,7 +33,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     MemberTypeComponent,
     ManagePositionComponent,
     ManageAbilityComponent,
-    ManageParametersComponent,
+    ManageAttributeComponent,
     AdminComponent,
     DocumentVerificationComponent
   ],

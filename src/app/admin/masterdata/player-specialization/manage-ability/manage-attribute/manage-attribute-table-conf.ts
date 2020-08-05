@@ -1,6 +1,6 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
 
-export class ManageParameterTableConfig extends TableConfig {
+export class ManageAttributeTableConfig extends TableConfig {
   constructor() {
     super();
     this.allowedColumns = ['serialNumber', 'name'];
@@ -15,7 +15,7 @@ export class ManageParameterTableConfig extends TableConfig {
       },
       name: {
         code: 'name',
-        text: 'Parameter',
+        text: 'Attribute',
         getValue: (ele: any) => {
           return ele[this.columns.name.code];
         }

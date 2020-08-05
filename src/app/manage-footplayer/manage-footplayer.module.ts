@@ -7,6 +7,7 @@ import { FootPlayerComponent } from './foot-player/foot-player.component';
 import { AddFootplayerComponent } from './foot-player/add-footplayer/add-footplayer.component';
 import { ClubAcademyFootplayerComponent } from './club-academy-footplayer/club-academy-footplayer.component';
 import { ContractManagementComponent } from './contract-management/contract-management.component';
+import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,12 @@ import { ContractManagementComponent } from './contract-management/contract-mana
     ClubAcademyFootplayerComponent,
     ContractManagementComponent
   ],
-  imports: [CommonModule, SharedModule, ManageFootplayerRoutingModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    ManageFootplayerRoutingModule,
+    NgxTrimDirectiveModule
+  ],
   entryComponents: [AddFootplayerComponent]
 })
 export class ManageFootplayerModule {}

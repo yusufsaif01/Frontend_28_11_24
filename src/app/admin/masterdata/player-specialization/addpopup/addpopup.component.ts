@@ -29,8 +29,8 @@ export class AddpopupComponent implements OnInit, OnDestroy {
   addSpecialization() {
     if (this.data.specialization === 'ability') {
       this.addAbility();
-    } else if (this.data.specialization === 'parameter') {
-      this.addParameter();
+    } else if (this.data.specialization === 'attribute') {
+      this.addAttribute();
     }
   }
 
@@ -50,15 +50,15 @@ export class AddpopupComponent implements OnInit, OnDestroy {
       );
   }
 
-  addParameter() {
+  addAttribute() {
     this.adminService
-      .addParameter({ ...this.addForm.value, ability_id: this.data.ability_id })
+      .addAttribute({ ...this.addForm.value, ability_id: this.data.ability_id })
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this.dialogRef.close('refresh');
 
-          this.toastrService.success(`Success`, 'Parameter added successfully');
+          this.toastrService.success(`Success`, 'Attribute added successfully');
         },
         error => {
           this.toastrService.error(`${error.error.message}`, 'Error');
