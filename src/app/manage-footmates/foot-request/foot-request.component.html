@@ -326,7 +326,16 @@
           </div> -->
         </div>
         <!-- Pagination -->
-        <app-pagination> </app-pagination>
+        <app-pagination
+          *ngIf="requestList.length !== 0"
+          [showData]="false"
+          [showCount]="show_count"
+          [totalRows]="foot_data.footmate_requests"
+          [rowsPerPage]="pageSize"
+          (onChange)="updatePage($event)"
+          [selectedPage]="selectedPage"
+        >
+        </app-pagination>
       </div>
     </div>
     <div class="footer-fix">

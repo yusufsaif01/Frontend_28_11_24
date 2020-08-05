@@ -34,6 +34,7 @@ export class ManageAcademyComponent implements OnInit, OnDestroy {
   tzoffset = new Date().getTimezoneOffset() * 60000;
   dialogData: any = {};
   filterValues: any = {};
+  searchText: string;
 
   public tableConfig: ManageAcademyTableConfig = new ManageAcademyTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -72,13 +73,13 @@ export class ManageAcademyComponent implements OnInit, OnDestroy {
     this.getAcademyList(this.pageSize, event.selectedPage);
   }
 
-  getAcademyList(page_size: number, page_no: number, search?: string) {
+  getAcademyList(page_size: number, page_no: number) {
     this.adminService
       .getAcademyList({
         ...{
           page_no: page_no,
           page_size: page_size,
-          search: search
+          search: this.searchText
         },
         ...this.filterValues
       })
@@ -224,8 +225,8 @@ export class ManageAcademyComponent implements OnInit, OnDestroy {
   }
 
   getSearchText(value: string) {
-    let filterValue = value;
-    this.getAcademyList(this.pageSize, 1, filterValue);
+    this.searchText = value;
+    this.getAcademyList(this.pageSize, 1);
     // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

@@ -29,6 +29,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   member_type: string;
   show_count: number;
   total_count: number;
+  searchText = '';
 
   // LEFT PANEL
   panelOptions: Partial<PanelOptions> = {
@@ -76,8 +77,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
     this.getFootPlayerList();
   }
 
-  getFootPlayerList(search?: string) {
-    this.filter.search = search;
+  getFootPlayerList() {
     this._footPlayerService
       .getFootPlayerList(this.filter)
       // .pipe(untilDestroyed(this))
@@ -92,10 +92,11 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
       });
   }
   getSearchText(value: string) {
-    let filterValue = value;
+    this.searchText = value;
+    this.filter.search = this.searchText;
     this.filter.page_no = 1;
     this.selectedPage = 1;
-    this.getFootPlayerList(filterValue);
+    this.getFootPlayerList();
   }
 
   // AddPlayerPopUp
