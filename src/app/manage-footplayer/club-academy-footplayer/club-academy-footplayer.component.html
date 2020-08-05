@@ -1,12 +1,8 @@
-<app-header></app-header>
+<!-- <app-header></app-header>
 <div class="site-wrapper">
-  <!-- left Sidebar -->
+
   <div class="left-section">
-    <app-left-panel
-      [achievements]="total_count"
-      [options]="panelOptions"
-      (sendMemberType)="getMemberType($event)"
-    >
+    <app-left-panel [achievements]="total_count" [options]="panelOptions" (sendMemberType)="getMemberType($event)">
     </app-left-panel>
   </div>
   <div class="right-section">
@@ -16,58 +12,349 @@
         <span>{{ footplayers }}</span>
       </div>
     </div>
-    <!-- filter -->
-    <app-filter
-      [allowedFilters]="filtersList"
-      (filterChanges)="onChangeFilter($event)"
-    ></app-filter>
-    <!-- search -->
+
+    <app-filter [allowedFilters]="filtersList" (filterChanges)="onChangeFilter($event)"></app-filter>
+
     <div class="search">
-      <app-grid-search-box
-        placeholder="Search Player"
-        (sendSearchText)="getSearchText($event)"
-      >
-      </app-grid-search-box>
+  <app-grid-search-box placeholder="Search Player" (sendSearchText)="getSearchText($event)">
+  </app-grid-search-box>
+</div>
+<div class="playerwrapper">
+  <ng-container *ngFor="let footPlayer of footPlayerList">
+    <div class="playerbox">
+      <div class="top">
+        <div class="dp">
+          <img [src]="footPlayer.avatar" alt="" />
+        </div>
+        <div class="name">
+          <strong>
+            <a target="_blank"
+              [routerLink]="['/member/profile/view/', footPlayer.user_id]">{{ footPlayer.name | titlecase }}</a>
+          </strong>
+          <p>{{ footPlayer.position | titlecase }}</p>
+        </div>
+      </div>
+      <div class="middle">
+        <h4 class="gray">{{ footPlayer.category | titlecase }}</h4>
+      </div>
     </div>
-    <div class="playerwrapper">
-      <ng-container *ngFor="let footPlayer of footPlayerList">
-        <div class="playerbox">
-          <div class="top">
-            <div class="dp">
-              <img [src]="footPlayer.avatar" alt="" />
-            </div>
-            <div class="name">
-              <strong>
-                <a
-                  target="_blank"
-                  [routerLink]="['/member/profile/view/', footPlayer.user_id]"
-                  >{{ footPlayer.name | titlecase }}</a
-                >
-              </strong>
-              <p>{{ footPlayer.position | titlecase }}</p>
-            </div>
-          </div>
-          <div class="middle">
-            <h4 class="gray">{{ footPlayer.category | titlecase }}</h4>
+  </ng-container>
+</div>
+
+<ng-container *ngIf="footPlayerList.length === 0">
+  <span class="no-data-found">
+    No FootPlayer Found
+  </span>
+</ng-container>
+<app-pagination *ngIf="footPlayerList.length !== 0" [showData]="false" [showCount]="show_count"
+  [totalRows]="total_count" [rowsPerPage]="pageSize" [selectedPage]="selectedPage" (onChange)="updatePage($event)">
+</app-pagination>
+</div>
+</div> -->
+
+<!-- <app-header></app-header>
+<div class="site-wrapper">
+
+  <div class="left-section">
+    <app-left-panel
+      [options]="panelOptions"
+      (sendFootData)="getConnectionStats($event)"
+    ></app-left-panel>
+  </div>
+  <div class="right-section">
+    <div class="heading">
+      <h3>Players You Might Know</h3>
+    </div>
+    <div class="tab-buttons">
+      <a
+        [routerLink]="['/member/manage/foot-requests']"
+        [routerLinkActive]="['active']"
+        >FootRequests <span>{{ foot_data.footmate_requests }}</span></a
+      >
+      <a
+        [routerLink]="['/member/manage/foot-mates']"
+        [routerLinkActive]="['active']"
+        >FootMates <span>{{ foot_data.footmates }}</span></a
+      >
+    </div>
+    <div class="filter-buttons">
+      <button
+        (click)="addActiveClass('activePosition')"
+        [matMenuTriggerFor]="position"
+        [ngClass]="{ active: switchClass.activePosition }"
+      >
+        Position
+        <i-feather class="icon-size" name="chevron-down"></i-feather>
+      </button>
+      <button
+        (click)="addActiveClass('activePlayerCategory')"
+        [matMenuTriggerFor]="playercategory"
+        [ngClass]="{ active: switchClass.activePlayerCategory }"
+      >
+        Player Category
+        <i-feather class="icon-size" name="chevron-down"></i-feather>
+      </button>
+      <button
+        (click)="addActiveClass('activeAge')"
+        [matMenuTriggerFor]="age"
+        [ngClass]="{ active: switchClass.activeAge }"
+      >
+        Age
+        <i-feather class="icon-size" name="chevron-down"></i-feather>
+      </button>
+      <button
+        (click)="addActiveClass('activeLocation')"
+        [matMenuTriggerFor]="location"
+        [ngClass]="{ active: switchClass.activeLocation }"
+      >
+        Location
+        <i-feather class="icon-size" name="chevron-down"></i-feather>
+      </button>
+      <button
+        (click)="addActiveClass('activeStrongFoot')"
+        [matMenuTriggerFor]="strongfoot"
+        [ngClass]="{ active: switchClass.activeStrongFoot }"
+      >
+        Strong Foot
+        <i-feather class="icon-size" name="chevron-down"></i-feather>
+      </button>
+      <button (click)="clearFilters()">Clear Filter</button>
+
+      <mat-menu #position="matMenu">
+        <div (click)="$event.stopPropagation()">
+          <h3>Select Position</h3>
+          <div class="items">
+            <span
+              class="chk-box"
+              *ngFor="let position of locationRangeFilters.positions"
+            >
+              <mat-checkbox
+                [value]="position.name"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.positionsArray,
+                    'position'
+                  )
+                "
+                [checked]="checkFilters"
+                >{{ position.name }}</mat-checkbox
+              >
+            </span>
           </div>
         </div>
-      </ng-container>
-    </div>
+      </mat-menu>
 
-    <ng-container *ngIf="footPlayerList.length === 0">
-      <span class="no-data-found">
-        No FootPlayer Found
+      <mat-menu #playercategory="matMenu">
+        <div (click)="$event.stopPropagation()">
+          <h3>Select Player Category</h3>
+          <div class="items">
+            <span
+              class="chk-box"
+              *ngFor="let type of locationRangeFilters.playerType"
+            >
+              <mat-checkbox
+                [value]="type.value"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.playerTypeArray,
+                    'player_category'
+                  )
+                "
+                [checked]="checkFilters"
+                >{{ type.name }}</mat-checkbox
+              >
+            </span>
+          </div>
+        </div>
+      </mat-menu>
+
+      <mat-menu #age="matMenu">
+        <div (click)="$event.stopPropagation()">
+          <h3>Select Age</h3>
+          <div class="items">
+            <span
+              class="chk-box"
+              *ngFor="let age of locationRangeFilters.ageRange"
+            >
+              <mat-checkbox
+                [value]="age.value"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.ageRangeArray,
+                    'age'
+                  )
+                "
+                [checked]="checkFilters"
+                >{{ age.name }}</mat-checkbox
+              >
+            </span>
+          </div>
+        </div>
+      </mat-menu>
+      <mat-menu #location="matMenu">
+
+        <div (click)="$event.stopPropagation()">
+  <h3>Select Location</h3>
+  <div class="wrapper-location">
+    <div class="slt-wrapper">
+      <select (change)="onSelectCountry($event)" [(ngModel)]="locationData.countryValue">
+        <option value="">Select Country</option>
+        <option *ngFor="let country of locationRangeFilters.countryData" [value]="getCountryValue(country)">
+          {{ country.country }}</option>
+      </select>
+      <i-feather class="icon-size" name="chevron-down"></i-feather>
+    </div>
+    <div class="slt-wrapper">
+      <select (change)="onSelectState($event)" [(ngModel)]="locationData.stateValue">
+        <option value="">Select State</option>
+        <option *ngFor="let state of locationRangeFilters.states" [value]="getStateValue(state)">{{ state.name }}
+        </option>
+      </select>
+      <i-feather class="icon-size" name="chevron-down"></i-feather>
+    </div>
+    <div class="slt-wrapper">
+      <select (change)="onSelectDistrict($event)" [(ngModel)]="locationData.districtValue">
+        <option value="">Select District</option>
+        <option *ngFor="let district of locationRangeFilters.districts" [value]="getDistrictValue(district)">
+          {{ district.name }}</option>
+      </select>
+      <i-feather class="icon-size" name="chevron-down"></i-feather>
+    </div>
+  </div>
+</div>
+</mat-menu>
+
+<mat-menu #strongfoot="matMenu">
+  <div (click)="$event.stopPropagation()">
+    <h3>Select Strong Foot</h3>
+    <div class="items">
+      <span class="chk-box" *ngFor="let type of locationRangeFilters.strongFoot">
+        <mat-checkbox [value]="type.value" (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.strongFootArray,
+                    'strong_foot'
+                  )
+                " [checked]="checkFilters">{{ type.name }}</mat-checkbox>
       </span>
-    </ng-container>
-    <app-pagination
-      *ngIf="footPlayerList.length !== 0"
-      [showData]="false"
-      [showCount]="show_count"
-      [totalRows]="total_count"
-      [rowsPerPage]="pageSize"
-      [selectedPage]="selectedPage"
-      (onChange)="updatePage($event)"
-    >
-    </app-pagination>
+    </div>
+  </div>
+</mat-menu>
+</div>
+<div class="playerwrapper">
+
+  <ng-container *ngFor="let footMate of footMatesList">
+  <div class="playerbox">
+    <div class="top">
+      <div class="dp">
+        <img [src]="footMate.avatar" alt="" />
+      </div>
+      <div class="name">
+        <strong>
+          <a target="_blank" [routerLink]="['/member/profile/view/', footMate.user_id]">{{ footMate.name }}
+          </a>
+        </strong>
+        <p>{{ footMate.position }}</p>
+      </div>
+    </div>
+    <div class="middle">
+      <h4 class="gray">{{ footMate.player_type }}</h4>
+      <h4 *ngIf="footMate.mutuals">
+        <a (click)="openDialog(footMate)">{{ footMate.mutuals }} Mutual Footmates</a>
+      </h4>
+    </div>
+  </div>
+</ng-container>
+</div>
+<ng-container *ngIf="footMatesList.length === 0">
+  <span class="no-data-found">
+    No FootMates Found
+  </span>
+</ng-container>
+
+<app-pagination *ngIf="footMatesList.length !== 0" [showData]="false" [showCount]="show_count"
+  [totalRows]="foot_data.footmates" [rowsPerPage]="pageSize" (onChange)="updatePage($event)"
+  [selectedPage]="selectedPage">
+</app-pagination>
+</div>
+</div> -->
+
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel">
+    <app-left-panel (sendMemberType)="getMemberType($event)"></app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main">
+        <!-- heading -->
+        <div class="heading">
+          <h2>{{ member_type | titlecase }}'s FooTPlayers</h2>
+          <button class="icon-btn">
+            <mat-icon class="material-icons">filter_alt</mat-icon>
+          </button>
+        </div>
+
+        <!-- count -->
+        <div class="counts-wrapper">
+          <div class="counts">
+            <span>{{ footplayers }}</span>
+            <h3>Total FooTPlayers</h3>
+          </div>
+        </div>
+        <!-- search and popupbtn -->
+        <div class="search-section">
+          <div class="search-wrapper">
+            <app-grid-search-box
+              placeholder="Search"
+              (sendSearchText)="getSearchText($event)"
+            >
+            </app-grid-search-box>
+          </div>
+        </div>
+        <!-- player section -->
+        <div class="player-wrapper">
+          <ng-container *ngFor="let footPlayer of footPlayerList">
+            <div class="player-block">
+              <img [src]="footPlayer.avatar" alt="" />
+              <div class="profile-details">
+                <h3>
+                  <a
+                    [routerLink]="['/member/profile/view/', footPlayer.user_id]"
+                    >{{ footPlayer.name | titlecase }}</a
+                  >
+                </h3>
+                <p>{{ footPlayer.position | titlecase }}</p>
+                <div class="player-categroy">
+                  <h5>{{ footPlayer.category | titlecase }}</h5>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="footPlayerList.length === 0">
+            <span class="no-data-found">
+              No FooTPlayers Found
+            </span>
+          </ng-container>
+        </div>
+        <!-- Pagination -->
+        <app-pagination
+          *ngIf="footPlayerList.length !== 0"
+          [showData]="false"
+          [showCount]="show_count"
+          [totalRows]="total_count"
+          [rowsPerPage]="pageSize"
+          [selectedPage]="selectedPage"
+          (onChange)="updatePage($event)"
+        ></app-pagination>
+      </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
   </div>
 </div>
