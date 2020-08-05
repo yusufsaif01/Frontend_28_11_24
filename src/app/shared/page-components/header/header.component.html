@@ -249,10 +249,6 @@
           </a>
         </li>
         <li *ngIf="member_type === 'player'">
-          <!-- <a
-            matTooltip="FootMates"
-            [routerLink]="['/member/manage/foot-requests']"
-          > -->
           <a
             matTooltip="FooTMates"
             [routerLink]="['/member/manage/foot-requests']"
@@ -264,11 +260,7 @@
           </a>
         </li>
         <li *ngIf="member_type !== 'player'">
-          <!-- <a
-            matTooltip="FootMates"
-            [routerLink]="['/member/manage/foot-requests']"
-          > -->
-          <a matTooltip="FooTMates" [matMenuTriggerFor]="footplayer">
+          <a matTooltip="FooTPlayers" [matMenuTriggerFor]="footplayer">
             <mat-icon class="material-icons">people_outline</mat-icon>
             <span *ngIf="stats.footmate_requests">{{
               stats.footmate_requests

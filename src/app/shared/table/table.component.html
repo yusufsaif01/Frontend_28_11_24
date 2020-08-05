@@ -167,6 +167,9 @@
         </p>
         <p *ngIf="col === 'avatar'">
           <img
+            *ngIf="
+              tableConfig.columns[col].getValue(element).includes('uploads')
+            "
             class="thumbnail"
             [src]="tableConfig.columns[col].getValue(element)"
             alt=""
@@ -181,6 +184,11 @@
             target="_blank"
           >
             <img
+              *ngIf="
+                tableConfig.columns[col]
+                  .getValue(element)
+                  .doc_front.includes('uploads')
+              "
               class="thumbnail"
               [src]="tableConfig.columns[col].getValue(element).doc_front"
               alt=""
@@ -193,6 +201,11 @@
             target="_blank"
           >
             <img
+              *ngIf="
+                tableConfig.columns[col]
+                  .getValue(element)
+                  .doc_back.includes('uploads')
+              "
               class="thumbnail"
               [src]="tableConfig.columns[col].getValue(element).doc_back"
               alt=""
@@ -223,7 +236,10 @@
             <img
               *ngIf="
                 tableConfig.columns[col].getValue(element).attachment_type !==
-                'pdf'
+                  'pdf' &&
+                tableConfig.columns[col]
+                  .getValue(element)
+                  .document.includes('uploads')
               "
               class="thumbnail"
               [src]="tableConfig.columns[col].getValue(element).document"
@@ -237,6 +253,9 @@
             (click)="openDialog(tableConfig.columns[col].getValue(element))"
           >
             <img
+              *ngIf="
+                tableConfig.columns[col].getValue(element).includes('uploads')
+              "
               class="thumbnail"
               [src]="tableConfig.columns[col].getValue(element)"
               alt=""
@@ -262,8 +281,12 @@
           *ngIf="col === 'player_name'"
           matTooltip="{{ tableConfig.columns[col].getValue(element).name }}"
         >
-          <img [src]="element.avatar" class="thumbnail" alt="" />
-
+          <img
+            *ngIf="element.avatar"
+            [src]="element.avatar"
+            class="thumbnail"
+            alt=""
+          />
           <p *ngIf="col === 'player_name'">
             <a
               *ngIf="tableConfig.columns[col].getValue(element).profileUrl"
