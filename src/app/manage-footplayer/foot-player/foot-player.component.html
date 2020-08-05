@@ -106,4 +106,7 @@
     </div>
   </div>
 </div>
-<app-filter></app-filter>
+<app-filter
+  [allowedFilters]="filtersList"
+  (filterChanges)="onChangeFilter($event)"
+></app-filter>

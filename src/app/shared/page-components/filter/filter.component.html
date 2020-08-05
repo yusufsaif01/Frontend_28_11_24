@@ -170,7 +170,7 @@
       <button (click)="clearFilters()">Clear filters</button>
     </div>
     <!-- position -->
-    <div class="filter-group">
+    <div class="filter-group" *ngIf="allowedFilters.position">
       <div class="filter-title">
         <h3>
           <a>
@@ -198,7 +198,7 @@
     </div>
 
     <!-- Player category -->
-    <div class="filter-group">
+    <div class="filter-group" *ngIf="allowedFilters.playerCategory">
       <div class="filter-title">
         <h3>
           <a
@@ -226,7 +226,7 @@
     </div>
 
     <!-- Age -->
-    <div class="filter-group">
+    <div class="filter-group" *ngIf="allowedFilters.age">
       <div class="filter-title">
         <h3>
           <a>
@@ -250,7 +250,7 @@
     </div>
 
     <!-- Location -->
-    <div class="filter-group">
+    <div class="filter-group" *ngIf="allowedFilters.location">
       <div class="filter-title">
         <h3>
           <a>
@@ -311,7 +311,7 @@
     </div>
 
     <!-- strong foot -->
-    <div class="filter-group">
+    <div class="filter-group" *ngIf="allowedFilters.strongFoot">
       <div class="filter-title">
         <h3>
           <a>
@@ -339,7 +339,7 @@
     </div>
 
     <!-- Status -->
-    <div class="filter-group">
+    <div class="filter-group" *ngIf="allowedFilters.status">
       <div class="filter-title">
         <h3>
           <a
@@ -367,7 +367,7 @@
     </div>
 
     <!-- ability -->
-    <div class="filter-group">
+    <div class="filter-group" *ngIf="allowedFilters.ability">
       <div class="filter-title">
         <h3>
           <a
@@ -395,7 +395,7 @@
     </div>
 
     <!-- Type of team -->
-    <div class="filter-group">
+    <div class="filter-group" *ngIf="allowedFilters.teamTypes">
       <div class="filter-title">
         <h3>
           <a
