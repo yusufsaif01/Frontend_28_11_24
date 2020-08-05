@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { ManageParameterTableConfig } from './manage-parameter-table-conf';
+import { ManageAttributeTableConfig } from './manage-attribute-table-conf';
 import { AddpopupComponent } from '../../addpopup/addpopup.component';
 import { AdminService } from '@app/admin/admin.service';
 import { ToastrService } from 'ngx-toastr';
@@ -9,16 +9,16 @@ import { ActivatedRoute } from '@angular/router';
 import { untilDestroyed } from '@app/core';
 
 @Component({
-  selector: 'app-manage-parameters',
-  templateUrl: './manage-parameters.component.html',
-  styleUrls: ['./manage-parameters.component.scss']
+  selector: 'app-manage-attribute',
+  templateUrl: './manage-attribute.component.html',
+  styleUrls: ['./manage-attribute.component.scss']
 })
-export class ManageParametersComponent implements OnInit, OnDestroy {
+export class ManageAttributeComponent implements OnInit, OnDestroy {
   // table config
-  public tableConfig: ManageParameterTableConfig = new ManageParameterTableConfig();
+  public tableConfig: ManageAttributeTableConfig = new ManageAttributeTableConfig();
   public dataSource = new MatTableDataSource([]);
   editMode: boolean = false;
-  parameterId: any;
+  attributeId: any;
   abilityId: string;
   abilityName: string = 'Loading...';
   row: any = {};
@@ -46,7 +46,7 @@ export class ManageParametersComponent implements OnInit, OnDestroy {
   openDialog(): void {
     const dialogRef = this.dialog.open(AddpopupComponent, {
       width: '40%',
-      data: { specialization: 'parameter', ability_id: this.abilityId },
+      data: { specialization: 'attribute', ability_id: this.abilityId },
       autoFocus: false
     });
     this.editMode = false;
@@ -54,17 +54,17 @@ export class ManageParametersComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'refresh') {
-        this.getParameterListByAbility(this.abilityId);
+        this.getAttributeListByAbility(this.abilityId);
       }
     });
   }
   ngOnInit() {
-    this.getParameterListByAbility(this.abilityId);
+    this.getAttributeListByAbility(this.abilityId);
   }
 
-  getParameterListByAbility(ability_id: string) {
+  getAttributeListByAbility(ability_id: string) {
     this.adminService
-      .getParameterListByAbility({ ability_id })
+      .getAttributeListByAbility({ ability_id })
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
@@ -75,14 +75,14 @@ export class ManageParametersComponent implements OnInit, OnDestroy {
         error => {}
       );
   }
-  editParameter(name: any, id: any) {
+  editAttribute(name: any, id: any) {
     let obj = { name, id };
     this.row = obj;
     this.editMode = true;
-    this.parameterId = id;
+    this.attributeId = id;
     // this.getAbilityList();
   }
-  updateParameter(name: any, id: any) {
+  updateAttribute(name: any, id: any) {
     if (!name || name == '') {
       return;
     }
@@ -92,37 +92,37 @@ export class ManageParametersComponent implements OnInit, OnDestroy {
       this.update = '';
     }, 1000);
   }
-  cancelParameter(user?: any) {
+  cancelAttribute(user?: any) {
     this.editMode = false;
     this.update = 'cancel';
-    this.getParameterListByAbility(this.abilityId);
+    this.getAttributeListByAbility(this.abilityId);
   }
   onChange(event: any) {
     if (event.id) {
-      this.updateParameterById(event);
+      this.updateAttributeById(event);
     }
   }
-  updateParameterById(body: { id: string; name: string }) {
+  updateAttributeById(body: { id: string; name: string }) {
     const { id, name } = body;
     delete body['serialNumber'];
     this.adminService
-      .updateParameterById({
+      .updateAttributeById({
         name: name,
         ability_id: this.abilityId,
-        parameter_id: id
+        attribute_id: id
       })
       .pipe(untilDestroyed(this))
       .subscribe(
         data => {
           this.toastrService.success(
             `Success`,
-            'Parameter updated successfully'
+            'Attribute updated successfully'
           );
-          this.getParameterListByAbility(this.abilityId);
+          this.getAttributeListByAbility(this.abilityId);
         },
         error => {
           this.toastrService.error(`${error.error.message}`, 'Error');
-          this.getParameterListByAbility(this.abilityId);
+          this.getAttributeListByAbility(this.abilityId);
         }
       );
   }
