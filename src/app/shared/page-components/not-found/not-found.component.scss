@@ -1,54 +1,75 @@
 @import "src/assets/sass/abstracts/variables";
 @import "src/assets/sass/abstracts/mixins";
 
-.bg-wapper {
-  background-image: url("../../../../assets/images/error-page.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  .middle {
-    margin: 0 auto;
-    width: 85%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100vh;
-    .left-panel {
-      width: 40%;
-      display: flex;
-      justify-content: center;
-      h3 {
-        font-size: 25rem;
-        color: $blue;
-        line-height: 23rem;
-        margin-bottom: 0px;
-        font-weight: 500;
-      }
-      h4 {
-        font-size: 4rem;
-        color: $text-color;
-        line-height: 4rem;
-        letter-spacing: 0.5rem;
-        font-weight: 500;
-      }
-      a {
-        @include admin-btn;
-        text-decoration: none;
-        font-size: 2.4rem;
-        padding: 1rem 4rem;
-        display: inline-block;
-        margin-top: 2rem;
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+// Header CSS
+.header {
+  .logo {
+    margin-top: 1rem;
+
+    span {
+      background-color: $third-color;
+      padding: 1rem 5rem 1rem 3rem;
+      display: inline-block;
+      -webkit-border-top-right-radius: 8rem;
+      -webkit-border-bottom-right-radius: 8rem;
+      -moz-border-top-right-radius: 8rem;
+      -moz-border-bottom-right-radius: 8rem;
+      border-top-right-radius: 8rem;
+      border-bottom-right-radius: 8rem;
+
+      img {
+        max-width: 25rem;
       }
     }
-    .right-panel {
-      width: 60%;
-      display: flex;
-      justify-content: center;
-      .img-container {
-        max-width: 60rem;
-        img {
-          width: 100%;
-        }
+  }
+}
+
+// Middle CSS
+.site-wrapper {
+  width: 85%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  min-height: 80vh;
+
+  .text-section {
+    width: 50%;
+
+    h2 {
+      font-size: 7rem;
+      font-weight: 100;
+      font-family: $secondary-text;
+      line-height: 1;
+    }
+
+    h3 {
+      font-size: 4rem;
+      color: $fourth-color;
+      font-family: $secondary-text;
+      position: relative;
+      letter-spacing: 1px;
+      font-weight: 100;
+      margin-bottom: 2rem;
+
+      span {
+        display: block;
       }
+    }
+
+    a {
+      display: inline-block;
+      color: $white-color;
+    }
+  }
+
+  .img-section {
+    width: 50%;
+
+    img {
+      width: 100%;
     }
   }
 }
