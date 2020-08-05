@@ -551,8 +551,8 @@ export class PersonalDetailsComponent implements OnInit {
   updatePersonalProfileDetails() {
     let requestData = this.toFormData(this.personalProfileDetailsForm.value);
 
-    if (this.profile_status === 'verified') requestData.delete('dob');
     this.dateModifier(requestData);
+    if (this.profile_status === 'verified') requestData.delete('dob');
 
     this._editProfileService
       .updatePersonalProfileDetails(requestData)
