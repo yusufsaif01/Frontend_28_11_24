@@ -30,7 +30,8 @@
               'year',
               'position',
               'category',
-              'player_name'
+              'player_name',
+              'name'
             ].includes(col)
           "
         >
@@ -64,12 +65,17 @@
             tableConfig.columns[col].getValue(element) | date: 'dd LLLL yyyy'
           }}
         </p> -->
-        <!-- <div
+        <div
           class="name"
           *ngIf="col === 'name'"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
         >
-          <img [src]="element.avatar" class="thumbnail" alt="" />
+          <img
+            *ngIf="element.avatar"
+            [src]="element.avatar"
+            class="thumbnail"
+            alt=""
+          />
           <p>
             {{
               tableConfig.columns[col].getValue(element).length < 15
@@ -78,7 +84,7 @@
                   '...'
             }}
           </p>
-        </div> -->
+        </div>
         <p
           *ngIf="col === 'type'"
           matTooltip=" {{ tableConfig.columns[col].getValue(element) }}"
