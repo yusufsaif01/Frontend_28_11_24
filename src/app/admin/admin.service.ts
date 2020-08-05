@@ -16,26 +16,26 @@ const routes = {
   getAbilityList: () => '/admin/master/player-specialization/ability/list',
   updateAbilityById: (c: UpdateAbilityByIdContext) =>
     '/admin/master/player-specialization/ability',
-  addParameter: (c: AddParameterContext) =>
-    '/admin/master/player-specialization/parameter/add',
-  getParameterListByAbility: (c: GetParameterListContext) =>
-    '/admin/master/player-specialization/parameter/list',
-  updateParameterById: (c: UpdateParameterByIdContext) =>
-    '/admin/master/player-specialization/parameter'
+  addAttribute: (c: AddAttributeContext) =>
+    '/admin/master/player-specialization/attribute/add',
+  getAttributeListByAbility: (c: GetAttributeListContext) =>
+    '/admin/master/player-specialization/attribute/list',
+  updateAttributeById: (c: UpdateAttributeByIdContext) =>
+    '/admin/master/player-specialization/attribute'
 };
 
-interface AddParameterContext {
+interface AddAttributeContext {
   name: string;
   ability_id: string;
 }
-interface AddParameterResponseContext {
+interface AddAttributeResponseContext {
   status: string;
   message: string;
 }
-interface GetParameterListContext {
+interface GetAttributeListContext {
   ability_id: string;
 }
-interface GetParameterListResponseContext {
+interface GetAttributeListResponseContext {
   status: string;
   message: string;
   data: {
@@ -47,12 +47,12 @@ interface GetParameterListResponseContext {
     }[];
   };
 }
-interface UpdateParameterByIdContext {
+interface UpdateAttributeByIdContext {
   name: string;
   ability_id: string;
-  parameter_id: string;
+  attribute_id: string;
 }
-interface UpdateParameterByIdResponseContext {
+interface UpdateAttributeByIdResponseContext {
   status: string;
   message: string;
 }
@@ -424,9 +424,9 @@ export class AdminService {
     );
   }
 
-  addParameter(
-    context: AddParameterContext
-  ): Observable<AddParameterResponseContext> {
+  addAttribute(
+    context: AddAttributeContext
+  ): Observable<AddAttributeResponseContext> {
     let token = this.credentialsService.isAuthenticated()
       ? this.credentialsService.credentials['data']['token']
       : '';
@@ -436,16 +436,16 @@ export class AdminService {
         Authorization: 'Bearer ' + token
       })
     };
-    return this.httpClient.post<AddParameterResponseContext>(
-      routes.addParameter(context),
+    return this.httpClient.post<AddAttributeResponseContext>(
+      routes.addAttribute(context),
       context,
       httpOptions
     );
   }
 
-  getParameterListByAbility(
-    context: GetParameterListContext
-  ): Observable<GetParameterListResponseContext> {
+  getAttributeListByAbility(
+    context: GetAttributeListContext
+  ): Observable<GetAttributeListResponseContext> {
     let token = this.credentialsService.isAuthenticated()
       ? this.credentialsService.credentials['data']['token']
       : '';
@@ -459,15 +459,15 @@ export class AdminService {
     if (context['ability_id']) {
       params += `${context['ability_id']}`;
     }
-    return this.httpClient.get<GetParameterListResponseContext>(
-      routes.getParameterListByAbility(context) + params,
+    return this.httpClient.get<GetAttributeListResponseContext>(
+      routes.getAttributeListByAbility(context) + params,
       httpOptions
     );
   }
 
-  updateParameterById(
-    context: UpdateParameterByIdContext
-  ): Observable<UpdateParameterByIdResponseContext> {
+  updateAttributeById(
+    context: UpdateAttributeByIdContext
+  ): Observable<UpdateAttributeByIdResponseContext> {
     let token = this.credentialsService.isAuthenticated()
       ? this.credentialsService.credentials['data']['token']
       : '';
@@ -481,13 +481,13 @@ export class AdminService {
     if (context['ability_id']) {
       params += `${context['ability_id']}`;
     }
-    if (context['parameter_id']) {
-      params += `/${context['parameter_id']}`;
+    if (context['attribute_id']) {
+      params += `/${context['attribute_id']}`;
     }
     const { name } = context;
 
-    return this.httpClient.put<UpdateParameterByIdResponseContext>(
-      routes.updateParameterById(context) + params,
+    return this.httpClient.put<UpdateAttributeByIdResponseContext>(
+      routes.updateAttributeById(context) + params,
       { name },
       httpOptions
     );

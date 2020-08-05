@@ -3,7 +3,7 @@
     <div class="title">
       <h3
         [innerText]="
-          data.specialization === 'ability' ? 'Add abilities' : 'Add parameter'
+          data.specialization === 'ability' ? 'Add abilities' : 'Add attribute'
         "
       >
         Add abilities
@@ -18,7 +18,7 @@
       <div class="form-block">
         <label
           [innerText]="
-            data.specialization === 'ability' ? 'Ability' : 'Parameter'
+            data.specialization === 'ability' ? 'Ability' : 'Attribute'
           "
           >Ability</label
         >
@@ -27,7 +27,7 @@
           type="text"
           matinput
           [placeholder]="
-            data.specialization === 'ability' ? 'Ability' : 'Parameter'
+            data.specialization === 'ability' ? 'Ability' : 'Attribute'
           "
           trim="blur"
         />
@@ -38,7 +38,7 @@
             [innerText]="
               data.specialization === 'ability'
                 ? 'Ability is required'
-                : 'Parameter is required'
+                : 'Attribute is required'
             "
             *ngIf="addForm.controls.name.errors.required"
             translate
@@ -49,7 +49,7 @@
             [innerText]="
               data.specialization === 'ability'
                 ? 'Ability format is invalid'
-                : 'Parameter format is invalid'
+                : 'Attribute format is invalid'
             "
             *ngIf="addForm.controls.name.errors.pattern"
           >
