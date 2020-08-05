@@ -1,16 +1,21 @@
-<div class="bg-wapper">
-  <div class="middle">
-    <div class="left-panel">
-      <div class="centee">
-        <h3>404</h3>
-        <h4>Page Not Found</h4>
-        <a [routerLink]="['/']">Home Page</a>
-      </div>
-    </div>
-    <div class="right-panel">
-      <div class="img-container">
-        <img src="assets/images/ball-error.png" alt="" />
-      </div>
-    </div>
+<header class="header">
+  <div class="logo">
+    <span>
+      <img src="assets/images/website/logo.png" alt="brand-logo" />
+    </span>
+  </div>
+</header>
+<div class="site-wrapper">
+  <div class="text-section">
+    <h2>404</h2>
+    <h3>
+      <span>We sincerely apologize.</span>
+      <span>The page you are looking for is not found</span>
+    </h3>
+    <a class="btn btn-primary" [routerLink]="['/']">Home</a>
+  </div>
+  <div class="img-section">
+    <img src="assets/images/website/not-found.png" alt="" />
   </div>
 </div>
+<app-copyright></app-copyright>
