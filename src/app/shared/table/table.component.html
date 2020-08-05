@@ -260,23 +260,11 @@
         <div
           class="name"
           *ngIf="col === 'player_name'"
-          matTooltip="{{ tableConfig.columns[col].getValue(element).name }}"
+          matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
         >
           <img [src]="element.avatar" class="thumbnail" alt="" />
-
-          <p *ngIf="col === 'player_name'">
-            <a
-              *ngIf="tableConfig.columns[col].getValue(element).profileUrl"
-              [href]="tableConfig.columns[col].getValue(element).profileUrl"
-              target="_blank"
-            >
-              {{ tableConfig.columns[col].getValue(element).name }}
-            </a>
-            <ng-container
-              *ngIf="!tableConfig.columns[col].getValue(element).profileUrl"
-            >
-              {{ tableConfig.columns[col].getValue(element).name }}
-            </ng-container>
+          <p>
+            {{ tableConfig.columns[col].getValue(element) }}
           </p>
         </div>
       </div>
