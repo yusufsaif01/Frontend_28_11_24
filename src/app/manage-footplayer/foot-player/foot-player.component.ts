@@ -10,6 +10,7 @@ import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confi
 import { ToastrService } from 'ngx-toastr';
 import { AddFootplayerComponent } from './add-footplayer/add-footplayer.component';
 import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
+import { SharedService } from '@app/shared/shared.service';
 
 @Component({
   selector: 'app-foot-player',
@@ -55,7 +56,8 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   constructor(
     private _footPlayerService: FootPlayerService,
     public dialog: MatDialog,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private _sharedService: SharedService
   ) {}
 
   ngOnInit() {
@@ -65,6 +67,10 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {}
+
+  openFilter() {
+    this._sharedService.setFilterDisplayValue(true);
+  }
 
   getMemberType(value: string) {
     this.member_type = value;
