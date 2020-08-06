@@ -9,7 +9,7 @@
         <!-- heading -->
         <div class="heading">
           <h2>{{ member_type | titlecase }}'s FooTPlayers</h2>
-          <button class="icon-btn">
+          <button class="icon-btn" (click)="openFilter()">
             <mat-icon class="material-icons">filter_alt</mat-icon>
           </button>
         </div>
@@ -74,3 +74,7 @@
     </div>
   </div>
 </div>
+<app-filter
+  [allowedFilters]="filtersList"
+  (filterChanges)="onChangeFilter($event)"
+></app-filter>

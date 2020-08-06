@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 const routes = {
   getDistrictList: (countryID: any, stateID: any) =>
@@ -13,6 +13,7 @@ const routes = {
   providedIn: 'root'
 })
 export class SharedService {
+  displayFilterSubject = new Subject<boolean>();
   constructor(private httpClient: HttpClient) {}
 
   getDistrictsList(
@@ -41,5 +42,13 @@ export class SharedService {
 
   getLocationStats(): Observable<any> {
     return this.httpClient.get<any>(routes.getLocationStats());
+  }
+
+  setFilterDisplayValue(value: boolean) {
+    this.displayFilterSubject.next(value);
+  }
+
+  getFilterDisplayValue(): Subject<boolean> {
+    return this.displayFilterSubject;
   }
 }
