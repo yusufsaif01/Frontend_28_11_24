@@ -37,12 +37,17 @@
             <div class="player-block">
               <img [src]="footPlayer.avatar" alt="" />
               <div class="profile-details">
-                <h3>
+                <h2 matTooltip="{{ footPlayer.name }}">
                   <a
                     [routerLink]="['/member/profile/view/', footPlayer.user_id]"
-                    >{{ footPlayer.name | titlecase }}</a
                   >
-                </h3>
+                    {{
+                      footPlayer.name.length < 17
+                        ? footPlayer.name
+                        : (footPlayer.name | slice: 0:17) + '...'
+                    }}
+                  </a>
+                </h2>
                 <p>{{ footPlayer.position | titlecase }}</p>
                 <div class="player-categroy">
                   <h5>{{ footPlayer.category | titlecase }}</h5>

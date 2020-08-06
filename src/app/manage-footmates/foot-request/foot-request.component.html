@@ -1,107 +1,11 @@
-<!-- <app-header></app-header>
-<div class="site-wrapper">
-  <div class="left-section">
-    <app-left-panel [options]="panelOptions" (sendFootData)="getConnectionStats($event)"
-      (sendProfileStatus)="getProfileStatus($event)"></app-left-panel>
-  </div>
-  <div class="right-section">
-    <div class="heading">
-      <h3>Players You Might Know</h3>
-    </div>
-    <div class="tab-buttons">
-      <a [routerLink]="['/member/manage/foot-requests']" [routerLinkActive]="['active']">FootRequests
-        <span>{{ foot_data.footmate_requests }}</span></a>
-      <a [routerLink]="['/member/manage/foot-mates']" [routerLinkActive]="['active']">FootMates
-        <span>{{ foot_data.footmates }}</span></a>
-    </div>
-
-    <div class="tab-buttons">
-      <a (click)="getType('player')" [ngClass]="requested_by === 'player' ? 'active' : ''">Player's FootRequests</a>
-      <a (click)="getType('club')" [ngClass]="requested_by === 'club' ? 'active' : ''">Club's FootRequests</a>
-      <a (click)="getType('academy')" [ngClass]="requested_by === 'academy' ? 'active' : ''">Academy's FootRequests</a>
-    </div>
-
-    <div class="playerwrapper">
-      <ng-container *ngFor="let request of requestList">
-        <div class="playerbox">
-          <div class="top">
-            <div class="dp">
-              <img [src]="request.avatar" alt="" />
-            </div>
-            <div class="name">
-              <strong
-                [routerLink]="['/member/profile/public/', request.user_id]"
-                >{{ request.name }}</strong
-              >
-              <p>{{ request.position }}</p>
-            </div>
-          </div>
-          <div class="middle">
-            <h4 class="gray">
-              {{ request.player_type || request.sub_category }}
-            </h4>
-            <h4 *ngIf="request.mutuals">
-              <a (click)="openDialog(request)">{{ request.mutuals }} Mutual Footmates</a>
-            </h4>
-          </div>
-          <div [matTooltip]="
-              requested_by !== 'player' && profile_status == 'non-verified'
-                ? 'Verify your documents in order to Accept/ Reject the request'
-                : ''
-            " class="bottom">
-            <ng-container *ngIf="request.hide !== true">
-              <button [ngClass]="{
-                  'btn-disable':
-                    requested_by !== 'player' &&
-                    profile_status == 'non-verified'
-                }" [disabled]="
-                  requested_by !== 'player' && profile_status == 'non-verified'
-                " (click)="acceptRequest(request)" class="accepted">
-                <i-feather class="icon-size" name="user-check"></i-feather>
-                Accept
-              </button>
-              <button [ngClass]="{
-                  'btn-disable':
-                    requested_by !== 'player' &&
-                    profile_status == 'non-verified'
-                }" [disabled]="
-                  requested_by !== 'player' && profile_status == 'non-verified'
-                " (click)="rejectRequest(request)" class="rejected">
-                <i-feather class="icon-size" name="user-x"></i-feather>Reject
-              </button>
-            </ng-container>
-            <ng-container *ngIf="request.hide === true">
-              <button [ngClass]="{
-                  accepted: request.accepted,
-                  rejected: !request.accepted
-                }">
-                <i-feather class="icon-size" [name]="request.accepted ? 'user-check' : 'user-x'"></i-feather>
-                {{ request.accepted ? 'Accepted' : 'Rejected' }}
-              </button>
-            </ng-container>
-          </div>
-        </div>
-      </ng-container>
-    </div>
-    <ng-container *ngIf="requestList.length === 0">
-      <span class="no-data-found">
-        No FootRequests Found
-      </span>
-    </ng-container>
-    <app-pagination *ngIf="requestList.length !== 0" [showData]="false" [showCount]="show_count"
-      [totalRows]="foot_data.footmate_requests" [rowsPerPage]="pageSize" (onChange)="updatePage($event)"
-      [selectedPage]="selectedPage">
-    </app-pagination>
-  </div>
-</div> -->
-
 <app-header></app-header>
 <div class="site-wrapper">
   <div class="left-panel">
     <app-left-panel
       (sendFootData)="getConnectionStats($event)"
       (sendProfileStatus)="getProfileStatus($event)"
-    ></app-left-panel>
+    >
+    </app-left-panel>
   </div>
   <div class="right-panel">
     <div class="right-wrapper">
@@ -152,78 +56,21 @@
             >Academies
           </a>
         </div>
-        <!--
-          <div class="playerwrapper">
-            <ng-container *ngFor="let request of requestList">
-              <div class="playerbox">
-                <div class="top">
-                  <div class="dp">
-                    <img [src]="request.avatar" alt="" />
-                  </div>
-                  <div class="name">
-                    <strong [routerLink]="['/member/profile/view/', request.user_id]">{{ request.name }}</strong>
-                    <p>{{ request.position }}</p>
-                  </div>
-                </div>
-                <div class="middle">
-                  <h4 class="gray">
-                    {{ request.player_type || request.sub_category }}
-                  </h4>
-                  <h4 *ngIf="request.mutuals">
-                    <a (click)="openDialog(request)">{{ request.mutuals }} Mutual Footmates</a>
-                  </h4>
-                </div>
-                <div [matTooltip]="
-              requested_by !== 'player' && profile_status == 'non-verified'
-                ? 'Verify your documents in order to Accept/ Reject the request'
-                : ''
-            " class="bottom">
-                  <ng-container *ngIf="request.hide !== true">
-                    <button [ngClass]="{
-                  'btn-disable':
-                    requested_by !== 'player' &&
-                    profile_status == 'non-verified'
-                }" [disabled]="
-                  requested_by !== 'player' && profile_status == 'non-verified'
-                " (click)="acceptRequest(request)" class="accepted">
-                      <i-feather class="icon-size" name="user-check"></i-feather>
-                      Accept
-                    </button>
-                    <button [ngClass]="{
-                  'btn-disable':
-                    requested_by !== 'player' &&
-                    profile_status == 'non-verified'
-                }" [disabled]="
-                  requested_by !== 'player' && profile_status == 'non-verified'
-                " (click)="rejectRequest(request)" class="rejected">
-                      <i-feather class="icon-size" name="user-x"></i-feather>Reject
-                    </button>
-                  </ng-container>
-                  <ng-container *ngIf="request.hide === true">
-                    <button [ngClass]="{
-                  accepted: request.accepted,
-                  rejected: !request.accepted
-                }">
-                      <i-feather class="icon-size" [name]="request.accepted ? 'user-check' : 'user-x'"></i-feather>
-                      {{ request.accepted ? 'Accepted' : 'Rejected' }}
-                    </button>
-                  </ng-container>
-                </div>
-              </div>
-            </ng-container>
-         -->
         <!-- player section -->
         <div class="player-wrapper">
           <ng-container *ngFor="let request of requestList">
             <div class="player-block">
               <img [src]="request.avatar" alt="" />
               <div class="profile-details">
-                <h3>
-                  <a
-                    [routerLink]="['/member/profile/public/', request.user_id]"
-                    >{{ request.name }}</a
-                  >
-                </h3>
+                <h2 matTooltip="{{ request.name }}">
+                  <a [routerLink]="['/member/profile/public/', request.user_id]"
+                    >{{
+                      request.name.length < 17
+                        ? request.name
+                        : (request.name | slice: 0:17) + '...'
+                    }}
+                  </a>
+                </h2>
                 <p>{{ request.position }}</p>
                 <div class="player-categroy">
                   <h5>
