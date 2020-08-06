@@ -55,8 +55,8 @@
             <mat-icon
               *ngIf="data?.profile_status?.status === 'verified'"
               class="material-icons"
-              >verified_user</mat-icon
-            >
+              >verified_user
+            </mat-icon>
           </span>
 
           <ng-container *ngIf="data?.member_type === 'player'">
@@ -217,7 +217,10 @@
         <li>
           <a [routerLink]="['/member/manage-footplayer/club-academy']">
             <span class="icon">
-              <img src="assets/images/global/contracts.svg" alt="contracts" />
+              <img
+                src="assets/images/global/club-academy.svg"
+                alt="club-academy"
+              />
             </span>
             <span class="text"
               >{{ profile?.member_type | titlecase }}'s FooTPlayers</span
