@@ -344,7 +344,13 @@
                       <h4>Email address</h4>
                     </div>
                     <div class="right">
-                      <p>{{ person?.email }}</p>
+                      <p matTooltip="{{ person?.email }}">
+                        {{
+                          person?.email.length < 22
+                            ? person?.email
+                            : (person?.email | slice: 0:22) + '...'
+                        }}
+                      </p>
                     </div>
                   </div>
                   <div class="half">
@@ -1265,7 +1271,9 @@
               >
                 <div class="two-fifth">
                   <div class="form-block">
-                    <label> <h3>Other association name</h3></label>
+                    <label>
+                      <h3>Other association name</h3>
+                    </label>
                     <input
                       formControlName="association_other"
                       type="text"

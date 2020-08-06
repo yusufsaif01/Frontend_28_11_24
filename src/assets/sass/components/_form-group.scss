@@ -87,7 +87,11 @@
   justify-content: space-between;
 
   .country-code {
-    min-width: 8rem;
+    min-width: 9rem;
+
+    select {
+      padding: 1rem 3rem 1rem 1rem;
+    }
   }
 
   .phone-number {
