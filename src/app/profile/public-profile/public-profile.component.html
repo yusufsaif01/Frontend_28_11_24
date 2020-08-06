@@ -693,7 +693,9 @@
                             <h4>Email address</h4>
                           </div>
                           <div class="right">
-                            <p>{{ person?.email }}</p>
+                            <p matTooltip="{{ person?.email }}">
+                              {{ (person?.email | slice: 0:20) + '...' }}
+                            </p>
                           </div>
                         </div>
                         <div class="full">
