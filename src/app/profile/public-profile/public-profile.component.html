@@ -1,7 +1,13 @@
 <app-header></app-header>
 <div class="site-wrapper">
   <div class="left-panel">
-    <app-left-panel [options]="panelOptions" [data]="data"> </app-left-panel>
+    <app-left-panel
+      [userId]="user_id"
+      [followers]="followers"
+      [options]="panelOptions"
+    >
+      <!-- [data]="data" -->
+    </app-left-panel>
   </div>
   <div class="right-panel">
     <div class="right-wrapper">
