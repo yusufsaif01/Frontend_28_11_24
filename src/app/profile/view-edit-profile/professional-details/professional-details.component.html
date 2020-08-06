@@ -345,7 +345,11 @@
                     </div>
                     <div class="right">
                       <p matTooltip="{{ person?.email }}">
-                        {{ (person?.email | slice: 0:20) + '...' }}
+                        {{
+                          person?.email.length < 22
+                            ? person?.email
+                            : (person?.email | slice: 0:22) + '...'
+                        }}
                       </p>
                     </div>
                   </div>
