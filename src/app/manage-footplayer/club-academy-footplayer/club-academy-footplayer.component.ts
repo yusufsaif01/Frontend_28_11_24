@@ -110,7 +110,7 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
     }
     this.filter.page_no = 1;
     this.filter.footplayers = 1;
-    this.filter.page_size = 10;
+    this.filter.page_size = 18;
     this.selectedPage = 1;
     this.getFootPlayerList();
   }
