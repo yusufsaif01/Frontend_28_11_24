@@ -1,21 +1,25 @@
-<header class="header">
-  <div class="logo">
-    <span>
-      <img src="assets/images/website/logo.png" alt="brand-logo" />
-    </span>
-  </div>
-</header>
 <div class="site-wrapper">
-  <div class="text-section">
-    <h2>404</h2>
-    <h3>
-      <span>We sincerely apologize.</span>
-      <span>The page you are looking for is not found</span>
-    </h3>
-    <a class="btn btn-primary" [routerLink]="['/']">Home</a>
+  <header class="header">
+    <div class="logo">
+      <span>
+        <img src="assets/images/website/logo.png" alt="brand-logo" />
+      </span>
+    </div>
+  </header>
+  <div class="middle-wrapper">
+    <div class="text-section">
+      <h2>404</h2>
+      <h3>
+        <span>We sincerely apologize.</span>
+        <span>The page you are looking for is not found</span>
+      </h3>
+      <a class="btn btn-primary" [routerLink]="['/']">Home</a>
+    </div>
+    <div class="img-section">
+      <img src="assets/images/website/not-found.png" alt="" />
+    </div>
   </div>
-  <div class="img-section">
-    <img src="assets/images/website/not-found.png" alt="" />
+  <div class="fixed-footer">
+    <app-copyright></app-copyright>
   </div>
 </div>
-<app-copyright></app-copyright>
