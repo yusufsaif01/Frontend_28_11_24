@@ -38,9 +38,10 @@ interface contactPersonObject {
 interface topSigningObject {
   name: string;
 }
-interface topAcademyPlayerObject {
-  name: string;
-}
+
+let trophyControl = {
+  trophies: [Validators.required]
+};
 
 @Component({
   selector: 'app-professional-details',
@@ -66,6 +67,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   professionalDetails: GetProfessionalDetailsResponseContext['data'];
   member_type: string = localStorage.getItem('member_type');
   viewMode = true;
+  showRemoveTrophy = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -373,19 +375,28 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   setCategoryValidators() {
     if (this.member_type === 'player') {
       this.setPlayerValidators();
-
-      const associationOther = this.professionalDetailsForm.get(
-        'association_other'
+    } else if (this.member_type === 'club') {
+      this.checkRequiredValidator(
+        this.professionalDetailsForm,
+        { trophies: trophyControl.trophies },
+        false
       );
-      this.professionalDetailsForm
-        .get('association')
-        .valueChanges.subscribe(association => {
-          if (association !== 'Others') {
-            associationOther.setValue('');
-          }
-        });
-      associationOther.updateValueAndValidity();
+      this.showRemoveTrophy = true;
+    } else if (this.member_type === 'academy') {
+      this.setControlValidation(this.professionalDetailsForm, trophyControl);
     }
+
+    const associationOther = this.professionalDetailsForm.get(
+      'association_other'
+    );
+    this.professionalDetailsForm
+      .get('association')
+      .valueChanges.subscribe(association => {
+        if (association !== 'Others') {
+          associationOther.setValue('');
+        }
+      });
+    associationOther.updateValueAndValidity();
   }
 
   toFormData<T>(formValue: T) {
@@ -466,7 +477,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       'contact_person'
     ) as FormArray;
 
-    if (data !== undefined) {
+    if (data !== undefined && Object.keys(data).length) {
       this.contact_person.push(
         this._formBuilder.group({
           designation: [data.designation, [Validators.required]],
@@ -510,7 +521,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   addTrophy = (data?: trophyObject) => {
     this.trophies = this.professionalDetailsForm.get('trophies') as FormArray;
 
-    if (data !== undefined) {
+    if (data !== undefined && Object.keys(data).length) {
       this.trophies.push(
         this._formBuilder.group({
           name: [data.name, [Validators.required]],
@@ -556,7 +567,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       'top_signings'
     ) as FormArray;
 
-    if (data !== undefined) {
+    if (data !== undefined && Object.keys(data).length) {
       this.top_signings.push(
         this._formBuilder.group({
           name: [data.name, []]

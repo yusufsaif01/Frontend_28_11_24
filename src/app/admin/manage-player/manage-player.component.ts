@@ -45,6 +45,7 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
   tzoffset = new Date().getTimezoneOffset() * 60000;
   dialogData: FilterDialogContext;
   filterValues: any = {};
+  searchText = '';
 
   public tableConfig: ManagePlayerTableConfig = new ManagePlayerTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -80,13 +81,13 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
     };
   }
 
-  getPlayerList(page_size: number, page_no: number, search?: string) {
+  getPlayerList(page_size: number, page_no: number) {
     this.adminService
       .getPlayerList({
         ...{
           page_no: page_no,
           page_size: page_size,
-          search: search
+          search: this.searchText
         },
         ...this.filterValues
       })
@@ -241,8 +242,8 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
   }
 
   getSearchText(value: string) {
-    let filterValue = value;
-    this.getPlayerList(this.pageSize, 1, filterValue);
+    this.searchText = value;
+    this.getPlayerList(this.pageSize, 1);
     // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

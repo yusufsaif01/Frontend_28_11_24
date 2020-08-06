@@ -14,7 +14,7 @@ interface ResponseContext {
   added_on: string;
   date_of_birth: string;
   name: string;
-  player_name: string;
+  player_name: any;
   document_type: string;
   document_image: any;
   document_number: string;
@@ -83,7 +83,7 @@ export class DocumentVerificationComponent implements OnInit {
   prepareResponse(data: any) {
     let document = data.documents[0];
     let modifiedResponse: Partial<ResponseContext> = {
-      player_name: data.player_name ? data.player_name : '',
+      player_name: data.player_name ? { name: data.player_name } : '',
       name: data.name ? data.name : '',
       date_of_birth: data.date_of_birth ? data.date_of_birth : '',
       added_on: document.added_on,

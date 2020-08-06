@@ -288,11 +288,21 @@
           <div class="section">
             <h3 class="section-heading mb-0">
               State association affiliated under
+              {{
+                professionalDetails?.association === 'Others' ? '(Other)' : ''
+              }}
             </h3>
             <div class="section-block">
               <div class="full">
                 <div class="right">
-                  <p>{{ professionalDetails?.association | titlecase }}</p>
+                  <p>
+                    {{
+                      (professionalDetails?.association === 'Others'
+                        ? professionalDetails?.association_other
+                        : professionalDetails?.association
+                      ) | titlecase
+                    }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -602,7 +612,7 @@
                       type="text"
                       matInput
                       autocomplete="off"
-                      placeholder="Other"
+                      placeholder="Other State Association Name"
                       trim="blur"
                     />
                     <mat-error class="error-text"> </mat-error>
@@ -835,7 +845,17 @@
           </div>
           <!-- major trophy wins -->
           <div class="section">
-            <h3>Major trophy wins</h3>
+            <h3>
+              Major trophy wins
+              <span *ngIf="this.member_type === 'academy'">*</span>
+            </h3>
+            <div class="input-container">
+              <div class="icon-btn" *ngIf="trophies.length <= 0">
+                <button class="add" (click)="addTrophy()">
+                  <mat-icon class="material-icons">add_circle</mat-icon>
+                </button>
+              </div>
+            </div>
             <div
               class="input-container"
               *ngFor="
@@ -849,7 +869,7 @@
               <ng-container [formGroupName]="i">
                 <div class="fourth">
                   <div class="form-block">
-                    <label>Trophy name</label>
+                    <label>Trophy name <span>*</span> </label>
                     <input
                       type="text"
                       matinput
@@ -883,7 +903,7 @@
 
                 <div class="fourth">
                   <div class="form-block">
-                    <label>Year</label>
+                    <label>Year <span>*</span> </label>
                     <input
                       type="text"
                       matinput
@@ -966,7 +986,7 @@
 
                 <div class="fourth">
                   <div class="form-block">
-                    <label>Position secured </label>
+                    <label>Position secured <span>*</span> </label>
                     <input
                       type="text"
                       matinput
@@ -1000,7 +1020,7 @@
 
                 <div class="icon-btn">
                   <button
-                    *ngIf="!first || first !== last"
+                    *ngIf="!first || first !== last || showRemoveTrophy"
                     class="remove"
                     (click)="removeTrophy(i)"
                   >
@@ -1086,6 +1106,13 @@
           <!-- Top signings -->
           <div class="section">
             <h3>Top signings</h3>
+            <div class="input-container">
+              <div class="icon-btn" *ngIf="top_signings.length <= 0">
+                <button class="add" (click)="addTopSigning()">
+                  <mat-icon class="material-icons">add_circle</mat-icon>
+                </button>
+              </div>
+            </div>
             <div class="input-container" formArrayName="top_signings">
               <ng-container
                 *ngFor="
@@ -1134,11 +1161,7 @@
                       </div>
                     </div>
                     <div class="icon-btn">
-                      <button
-                        class="remove"
-                        *ngIf="!first || first !== last"
-                        (click)="removeTopSigning(i)"
-                      >
+                      <button class="remove" (click)="removeTopSigning(i)">
                         <mat-icon class="material-icons"
                           >remove_circle</mat-icon
                         >
@@ -1199,11 +1222,7 @@
                 <div class="form-block">
                   <label>
                     <h3>
-                      {{
-                        member_type === 'player'
-                          ? 'Current State Association'
-                          : 'State association affiliated under'
-                      }}
+                      State association affiliated under
                       <span>*</span>
                     </h3>
                   </label>
@@ -1239,6 +1258,25 @@
                   </mat-error>
                 </div>
               </div>
+              <ng-container
+                *ngIf="
+                  professionalDetailsForm.get('association').value === 'Others'
+                "
+              >
+                <div class="two-fifth">
+                  <div class="form-block">
+                    <label> <h3>Other association name</h3></label>
+                    <input
+                      formControlName="association_other"
+                      type="text"
+                      matInput
+                      autocomplete="off"
+                      placeholder="Other association name"
+                      trim="blur"
+                    />
+                  </div>
+                </div>
+              </ng-container>
             </div>
           </div>
 

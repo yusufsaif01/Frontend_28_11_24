@@ -50,8 +50,7 @@ export class DocumentVerificationTableConfig extends TableConfig {
         code: 'name',
         text: member_type === 'club' ? 'Club Name' : 'Academy Name',
         getValue: (ele: any) => {
-          let val: string = ele[this.columns.name.code];
-          return val.length > 18 ? `${val.slice(0, 18)}...` : val;
+          return ele[this.columns.name.code];
         }
       },
       player_name: {

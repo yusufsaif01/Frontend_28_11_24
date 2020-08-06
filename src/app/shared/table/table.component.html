@@ -30,7 +30,8 @@
               'year',
               'position',
               'category',
-              'player_name'
+              'player_name',
+              'name'
             ].includes(col)
           "
         >
@@ -64,12 +65,17 @@
             tableConfig.columns[col].getValue(element) | date: 'dd LLLL yyyy'
           }}
         </p> -->
-        <!-- <div
+        <div
           class="name"
           *ngIf="col === 'name'"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
         >
-          <img [src]="element.avatar" class="thumbnail" alt="" />
+          <img
+            *ngIf="element.avatar"
+            [src]="element.avatar"
+            class="thumbnail"
+            alt=""
+          />
           <p>
             {{
               tableConfig.columns[col].getValue(element).length < 15
@@ -78,7 +84,7 @@
                   '...'
             }}
           </p>
-        </div> -->
+        </div>
         <p
           *ngIf="col === 'type'"
           matTooltip=" {{ tableConfig.columns[col].getValue(element) }}"
@@ -167,6 +173,9 @@
         </p>
         <p *ngIf="col === 'avatar'">
           <img
+            *ngIf="
+              tableConfig.columns[col].getValue(element).includes('uploads')
+            "
             class="thumbnail"
             [src]="tableConfig.columns[col].getValue(element)"
             alt=""
@@ -181,6 +190,11 @@
             target="_blank"
           >
             <img
+              *ngIf="
+                tableConfig.columns[col]
+                  .getValue(element)
+                  .doc_front.includes('uploads')
+              "
               class="thumbnail"
               [src]="tableConfig.columns[col].getValue(element).doc_front"
               alt=""
@@ -193,6 +207,11 @@
             target="_blank"
           >
             <img
+              *ngIf="
+                tableConfig.columns[col]
+                  .getValue(element)
+                  .doc_back.includes('uploads')
+              "
               class="thumbnail"
               [src]="tableConfig.columns[col].getValue(element).doc_back"
               alt=""
@@ -223,7 +242,10 @@
             <img
               *ngIf="
                 tableConfig.columns[col].getValue(element).attachment_type !==
-                'pdf'
+                  'pdf' &&
+                tableConfig.columns[col]
+                  .getValue(element)
+                  .document.includes('uploads')
               "
               class="thumbnail"
               [src]="tableConfig.columns[col].getValue(element).document"
@@ -237,6 +259,9 @@
             (click)="openDialog(tableConfig.columns[col].getValue(element))"
           >
             <img
+              *ngIf="
+                tableConfig.columns[col].getValue(element).includes('uploads')
+              "
               class="thumbnail"
               [src]="tableConfig.columns[col].getValue(element)"
               alt=""
@@ -249,12 +274,22 @@
             [href]="tableConfig.columns[col].getValue(element).profileUrl"
             target="_blank"
           >
-            {{ tableConfig.columns[col].getValue(element).name }}
+            {{
+              tableConfig.columns[col].getValue(element).name.length < 15
+                ? tableConfig.columns[col].getValue(element).name
+                : (tableConfig.columns[col].getValue(element).name
+                    | slice: 0:15) + '...'
+            }}
           </a>
           <ng-container
             *ngIf="!tableConfig.columns[col].getValue(element).profileUrl"
           >
-            {{ tableConfig.columns[col].getValue(element).name }}
+            {{
+              tableConfig.columns[col].getValue(element).name.length < 15
+                ? tableConfig.columns[col].getValue(element).name
+                : (tableConfig.columns[col].getValue(element).name
+                    | slice: 0:15) + '...'
+            }}
           </ng-container>
         </p>
         <div
@@ -262,20 +297,34 @@
           *ngIf="col === 'player_name'"
           matTooltip="{{ tableConfig.columns[col].getValue(element).name }}"
         >
-          <img [src]="element.avatar" class="thumbnail" alt="" />
-
+          <img
+            *ngIf="element.avatar"
+            [src]="element.avatar"
+            class="thumbnail"
+            alt=""
+          />
           <p *ngIf="col === 'player_name'">
             <a
               *ngIf="tableConfig.columns[col].getValue(element).profileUrl"
               [href]="tableConfig.columns[col].getValue(element).profileUrl"
               target="_blank"
             >
-              {{ tableConfig.columns[col].getValue(element).name }}
+              {{
+                tableConfig.columns[col].getValue(element).name.length < 15
+                  ? tableConfig.columns[col].getValue(element).name
+                  : (tableConfig.columns[col].getValue(element).name
+                      | slice: 0:15) + '...'
+              }}
             </a>
             <ng-container
               *ngIf="!tableConfig.columns[col].getValue(element).profileUrl"
             >
-              {{ tableConfig.columns[col].getValue(element).name }}
+              {{
+                tableConfig.columns[col].getValue(element).name.length < 15
+                  ? tableConfig.columns[col].getValue(element).name
+                  : (tableConfig.columns[col].getValue(element).name
+                      | slice: 0:15) + '...'
+              }}
             </ng-container>
           </p>
         </div>

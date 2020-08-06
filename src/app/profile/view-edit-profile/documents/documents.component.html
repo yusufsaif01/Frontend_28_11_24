@@ -4,22 +4,60 @@
     <div class="view-wrapper">
       <div class="heading">
         <h2>Documents</h2>
-        <span
-          [matTooltip]="
-            profile_status === 'verified'
-              ? 'Not allowed to update aadhaar details'
-              : ''
-          "
-        >
-          <button
-            [ngClass]="{
-              'icon-disable': profile_status == 'verified'
-            }"
-            (click)="toggleMode()"
+        <ng-container *ngIf="member_type === 'player'">
+          <span
+            [matTooltip]="
+              profile_status === 'verified'
+                ? 'Not allowed to update aadhaar details'
+                : ''
+            "
           >
-            <mat-icon class="material-icons">create</mat-icon>
-          </button>
-        </span>
+            <button
+              [ngClass]="{
+                'icon-disable': profile_status == 'verified'
+              }"
+              (click)="toggleMode()"
+            >
+              <mat-icon class="material-icons">create</mat-icon>
+            </button>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="member_type === 'club'">
+          <span
+            [matTooltip]="
+              profile_status === 'verified'
+                ? 'Not allowed to update AIFF document details'
+                : ''
+            "
+          >
+            <button
+              [ngClass]="{
+                'icon-disable': profile_status == 'verified'
+              }"
+              (click)="toggleMode()"
+            >
+              <mat-icon class="material-icons">create</mat-icon>
+            </button>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="member_type === 'academy'">
+          <span
+            [matTooltip]="
+              profile_status === 'verified'
+                ? 'Not allowed to update document details'
+                : ''
+            "
+          >
+            <button
+              [ngClass]="{
+                'icon-disable': profile_status == 'verified'
+              }"
+              (click)="toggleMode()"
+            >
+              <mat-icon class="material-icons">create</mat-icon>
+            </button>
+          </span>
+        </ng-container>
       </div>
 
       <div class="second-section">
@@ -574,7 +612,7 @@
                 <label
                   [matTooltip]="
                     profile_status === 'verified'
-                      ? 'Not allowed to update aadhaar details'
+                      ? 'Not allowed to update AIFF document details'
                       : ''
                   "
                   for="upload-pdf"
@@ -618,7 +656,7 @@
                   <label
                     [matTooltip]="
                       profile_status === 'verified'
-                        ? 'Not allowed to update aadhaar details'
+                        ? 'Not allowed to update AIFF document details'
                         : ''
                     "
                     >AIFF Id <span>*</span></label
@@ -805,7 +843,7 @@
                   <label
                     [matTooltip]="
                       profile_status === 'verified'
-                        ? 'Not allowed to update aadhaar details'
+                        ? 'Not allowed to update document details'
                         : ''
                     "
                     >Document number <span>*</span></label

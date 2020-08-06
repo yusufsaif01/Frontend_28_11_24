@@ -100,6 +100,7 @@
   <div class="left-panel">
     <app-left-panel
       (sendFootData)="getConnectionStats($event)"
+      (sendProfileStatus)="getProfileStatus($event)"
     ></app-left-panel>
   </div>
   <div class="right-panel">
@@ -219,7 +220,7 @@
               <div class="profile-details">
                 <h3>
                   <a
-                    [routerLink]="['/member/profile/view/', request.user_id]"
+                    [routerLink]="['/member/profile/public/', request.user_id]"
                     >{{ request.name }}</a
                   >
                 </h3>
@@ -231,7 +232,15 @@
                     }}
                   </h5>
                 </div>
-                <div class="btn-wrapper">
+                <div
+                  class="btn-wrapper"
+                  [matTooltip]="
+                    requested_by !== 'player' &&
+                    profile_status == 'non-verified'
+                      ? 'Verify your documents in order to Accept/ Reject the request'
+                      : ''
+                  "
+                >
                   <ng-container *ngIf="!request.hide">
                     <button
                       [ngClass]="{
@@ -317,7 +326,16 @@
           </div> -->
         </div>
         <!-- Pagination -->
-        <app-pagination> </app-pagination>
+        <app-pagination
+          *ngIf="requestList.length !== 0"
+          [showData]="false"
+          [showCount]="show_count"
+          [totalRows]="foot_data.footmate_requests"
+          [rowsPerPage]="pageSize"
+          (onChange)="updatePage($event)"
+          [selectedPage]="selectedPage"
+        >
+        </app-pagination>
       </div>
     </div>
     <div class="footer-fix">
