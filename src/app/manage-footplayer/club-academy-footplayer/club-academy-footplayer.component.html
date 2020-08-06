@@ -1,73 +1,85 @@
 <app-header></app-header>
 <div class="site-wrapper">
-  <!-- left Sidebar -->
-  <div class="left-section">
-    <app-left-panel
-      [achievements]="total_count"
-      [options]="panelOptions"
-      (sendMemberType)="getMemberType($event)"
-    >
-    </app-left-panel>
+  <div class="left-panel">
+    <app-left-panel (sendMemberType)="getMemberType($event)"></app-left-panel>
   </div>
-  <div class="right-section">
-    <div class="award-heading">
-      <div class="left-part">
-        <h2>{{ member_type | titlecase }}'s FootPlayers</h2>
-        <span>{{ footplayers }}</span>
-      </div>
-    </div>
-    <!-- filter -->
-    <app-filter
-      [allowedFilters]="filtersList"
-      (filterChanges)="onChangeFilter($event)"
-    ></app-filter>
-    <!-- search -->
-    <div class="search">
-      <app-grid-search-box
-        placeholder="Search Player"
-        (sendSearchText)="getSearchText($event)"
-      >
-      </app-grid-search-box>
-    </div>
-    <div class="playerwrapper">
-      <ng-container *ngFor="let footPlayer of footPlayerList">
-        <div class="playerbox">
-          <div class="top">
-            <div class="dp">
-              <img [src]="footPlayer.avatar" alt="" />
-            </div>
-            <div class="name">
-              <strong>
-                <a
-                  target="_blank"
-                  [routerLink]="['/member/profile/view/', footPlayer.user_id]"
-                  >{{ footPlayer.name | titlecase }}</a
-                >
-              </strong>
-              <p>{{ footPlayer.position | titlecase }}</p>
-            </div>
-          </div>
-          <div class="middle">
-            <h4 class="gray">{{ footPlayer.category | titlecase }}</h4>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main">
+        <!-- heading -->
+        <div class="heading">
+          <h2>{{ member_type | titlecase }}'s FooTPlayers</h2>
+          <button class="icon-btn" (click)="openFilter()">
+            <mat-icon class="material-icons">filter_alt</mat-icon>
+          </button>
+        </div>
+
+        <!-- count -->
+        <div class="counts-wrapper">
+          <div class="counts">
+            <span>{{ footplayers }}</span>
+            <h3>Total FooTPlayers</h3>
           </div>
         </div>
-      </ng-container>
-    </div>
+        <!-- search and popupbtn -->
+        <div class="search-section">
+          <div class="search-wrapper">
+            <app-grid-search-box
+              placeholder="Search"
+              (sendSearchText)="getSearchText($event)"
+            >
+            </app-grid-search-box>
+          </div>
+        </div>
+        <!-- player section -->
+        <div class="player-wrapper">
+          <ng-container *ngFor="let footPlayer of footPlayerList">
+            <div class="player-block">
+              <img [src]="footPlayer.avatar" alt="" />
+              <div class="profile-details">
+                <h2 matTooltip="{{ footPlayer.name }}">
+                  <a
+                    [routerLink]="['/member/profile/view/', footPlayer.user_id]"
+                  >
+                    {{
+                      footPlayer.name.length < 17
+                        ? footPlayer.name
+                        : (footPlayer.name | slice: 0:17) + '...'
+                    }}
+                  </a>
+                </h2>
+                <p>{{ footPlayer.position | titlecase }}</p>
+                <div class="player-categroy">
+                  <h5>{{ footPlayer.category | titlecase }}</h5>
+                </div>
+              </div>
+            </div>
+          </ng-container>
 
-    <ng-container *ngIf="footPlayerList.length === 0">
-      <span class="no-data-found">
-        No FootPlayer Found
-      </span>
-    </ng-container>
-    <app-pagination
-      *ngIf="footPlayerList.length !== 0"
-      [showData]="false"
-      [showCount]="show_count"
-      [totalRows]="total_count"
-      [rowsPerPage]="pageSize"
-      [selectedPage]="selectedPage"
-      (onChange)="updatePage($event)"
-    >
-    </app-pagination>
+          <ng-container *ngIf="footPlayerList.length === 0">
+            <span class="no-data-found">
+              No FooTPlayers Found
+            </span>
+          </ng-container>
+        </div>
+        <!-- Pagination -->
+        <app-pagination
+          *ngIf="footPlayerList.length !== 0"
+          [showData]="false"
+          [showCount]="show_count"
+          [totalRows]="total_count"
+          [rowsPerPage]="pageSize"
+          [selectedPage]="selectedPage"
+          (onChange)="updatePage($event)"
+        ></app-pagination>
+      </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
   </div>
 </div>
+<app-filter
+  [allowedFilters]="filtersList"
+  (filterChanges)="onChangeFilter($event)"
+></app-filter>

@@ -3,6 +3,7 @@ import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { FootPlayerService } from '../foot-player/foot-player.service';
 import { untilDestroyed } from '@app/core';
 import { environment } from '@env/environment';
+import { SharedService } from '@app/shared/shared.service';
 
 interface FootPlayerContext {
   user_id: string;
@@ -49,7 +50,10 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
     status: false
   };
 
-  constructor(private _footPlayerService: FootPlayerService) {}
+  constructor(
+    private _footPlayerService: FootPlayerService,
+    private _sharedService: SharedService
+  ) {}
 
   ngOnInit() {
     this.filter.page_size = this.pageSize;
@@ -59,6 +63,10 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {}
+
+  openFilter() {
+    this._sharedService.setFilterDisplayValue(true);
+  }
 
   getMemberType(value: string) {
     this.member_type = value;
@@ -102,7 +110,7 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
     }
     this.filter.page_no = 1;
     this.filter.footplayers = 1;
-    this.filter.page_size = 10;
+    this.filter.page_size = 18;
     this.selectedPage = 1;
     this.getFootPlayerList();
   }

@@ -51,7 +51,7 @@ export interface GetPublicProfileDetailsResponseContext {
       priority: string;
     }[];
 
-    city: { id: string; name: string };
+    district: { id: string; name: string };
     club_academy_details: {
       head_coach_name: string;
       head_coach_phone: string;

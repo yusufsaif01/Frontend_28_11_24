@@ -10,6 +10,7 @@ import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confi
 import { ToastrService } from 'ngx-toastr';
 import { AddFootplayerComponent } from './add-footplayer/add-footplayer.component';
 import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
+import { SharedService } from '@app/shared/shared.service';
 
 @Component({
   selector: 'app-foot-player',
@@ -29,6 +30,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   member_type: string;
   show_count: number;
   total_count: number;
+  searchText = '';
 
   // LEFT PANEL
   panelOptions: Partial<PanelOptions> = {
@@ -54,7 +56,8 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   constructor(
     private _footPlayerService: FootPlayerService,
     public dialog: MatDialog,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private _sharedService: SharedService
   ) {}
 
   ngOnInit() {
@@ -64,6 +67,10 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {}
+
+  openFilter() {
+    this._sharedService.setFilterDisplayValue(true);
+  }
 
   getMemberType(value: string) {
     this.member_type = value;
@@ -76,8 +83,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
     this.getFootPlayerList();
   }
 
-  getFootPlayerList(search?: string) {
-    this.filter.search = search;
+  getFootPlayerList() {
     this._footPlayerService
       .getFootPlayerList(this.filter)
       // .pipe(untilDestroyed(this))
@@ -92,10 +98,11 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
       });
   }
   getSearchText(value: string) {
-    let filterValue = value;
+    this.searchText = value;
+    this.filter.search = this.searchText;
     this.filter.page_no = 1;
     this.selectedPage = 1;
-    this.getFootPlayerList(filterValue);
+    this.getFootPlayerList();
   }
 
   // AddPlayerPopUp

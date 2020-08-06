@@ -1,225 +1,6 @@
 @import "src/assets/sass/abstracts/variables";
 @import "src/assets/sass/abstracts/mixins";
 
-// header {
-//   background-color: #1d2f38;
-
-//   .header {
-//     width: 85%;
-//     margin: 0 auto;
-//     display: flex;
-//     justify-content: space-between;
-//     min-height: 8rem;
-//     height: 100%;
-
-//     &-logo {
-//       width: 40%;
-//       display: flex;
-//       align-items: center;
-
-//       img {
-//         max-width: 120px;
-//         outline: none;
-//         cursor: pointer;
-//         border: 0;
-//         cursor: pointer;
-//       }
-//     }
-
-//     .search {
-//       margin-left: 5rem;
-//       display: flex;
-//       position: relative;
-//       width: 100%;
-
-//       input {
-//         width: 100%;
-//         background-color: #1d1d1d;
-//         padding: 1rem 2rem;
-//         border-radius: 0.8rem;
-//         border: none;
-//         outline: none;
-//         color: $text-muted;
-
-//         &::placeholder {
-//           color: $text-muted;
-//         }
-//       }
-
-//       span.search-icon {
-//         position: absolute;
-//         left: calc(100% - 4rem);
-//         top: 1rem;
-//         border: none;
-//         background: transparent;
-//         color: $text-muted;
-//       }
-//     }
-
-//     &-menu {
-//       display: flex;
-//       width: 20%;
-//       align-items: center;
-//       justify-content: flex-end;
-
-//       ul {
-//         list-style: none;
-//         display: flex;
-//         align-items: center;
-//         width: 100%;
-//         justify-content: space-between;
-
-//         li {
-//           // display: inline-block;
-//           // margin-left: 4rem;
-//           position: relative;
-
-//           a {
-//             font-size: 1.8rem;
-//             color: #ccced2;
-//             display: flex;
-//             align-items: center;
-//             position: relative;
-//             text-decoration: none;
-
-//             span {
-//               margin-right: 1rem;
-//             }
-
-//             span.count {
-//               position: absolute;
-//               height: 2rem;
-//               width: 2rem;
-//               background: red;
-//               text-align: center;
-//               right: -2.5rem;
-//               border-radius: 2rem;
-//               font-size: 1.4rem;
-//               top: -1rem;
-//               color: #fff;
-//               padding-right: 0.1rem;
-//             }
-
-//             img {
-//               height: 2.4rem;
-//             }
-//           }
-//         }
-//       }
-
-//       .profile {
-//         // padding: 1rem 0px;
-//         border-radius: 10rem;
-//         cursor: pointer;
-
-//         img {
-//           width: 4rem;
-//           height: 4rem;
-//           border-radius: 10rem;
-//         }
-
-//         i-feather.down {
-//           color: $text-muted;
-//           transform: translateY(-0.8rem);
-//         }
-//       }
-//     }
-//   }
-// }
-
-// .icon-size {
-//   width: 2rem;
-//   height: 2rem;
-//   margin-left: 1rem;
-// }
-
-// // dropdown
-// .dropdown {
-//   position: absolute;
-//   width: 28rem;
-//   left: -7rem;
-//   // top:2rem;
-//   background-color: #1d2f38;
-//   z-index: 999;
-
-//   ul {
-//     list-style: none;
-//     flex-direction: column;
-//     align-items: flex-start !important;
-
-//     li {
-//       display: block !important;
-//       margin-left: 0px !important;
-//       width: 100%;
-
-//       a {
-//         display: block;
-//         padding: 1rem;
-
-//         i-feather {
-//           transform: translateY(2px);
-//           margin-right: 1rem;
-//         }
-
-//         &:hover {
-//           background-color: #12181b;
-//         }
-//       }
-//     }
-//   }
-// }
-
-// // mat options
-// .search-options {
-//   ::ng-deep {
-//     .mat-option {
-//       border-bottom: 1px solid $border-color;
-
-//       &:last-child {
-//         border: none;
-//       }
-
-//       .mat-option-text {
-//         img {
-//           width: 25px;
-//           height: 25px;
-//           border-radius: 25px;
-//           transform: translateY(0.7rem);
-//         }
-
-//         strong {
-//           margin-left: 1rem;
-//         }
-
-//         small {
-//           margin-left: 1rem;
-//         }
-
-//         small.position {
-//           color: $blue;
-//         }
-//       }
-//     }
-//   }
-// }
-
-// ::ng-deep {
-//   .mat-autocomplete-panel.mat-autocomplete-visible div {
-//     max-height: 480px !important;
-//     overflow: scroll !important;
-//     position: relative;
-//   }
-
-//   .mat-autocomplete-panel.mat-autocomplete-visible mat-option {
-//     position: static !important;
-//   }
-
-//   .autocomplete-height {
-//     width: 150% !important;
-//     position: absolute !important;
-//   }
-// }
-
 .header {
   background-color: $fourth-color;
   position: fixed;
@@ -229,54 +10,63 @@
   &-wrapper {
     width: 95%;
     margin: 0 auto;
-    padding: 1rem 0;
+    padding: 1.5rem 0;
     display: flex;
     align-items: center;
 
     .logo {
       width: 20%;
+      text-align: center;
 
       img {
-        max-width: 20rem;
+        max-width: 16rem;
         width: 100%;
       }
     }
 
     .search {
-      width: 55%;
+      width: 56%;
+      display: flex;
+      justify-content: flex-end;
 
       .search-box {
-        width: 100%;
+        width: 94%;
         position: relative;
 
         input {
           width: 100%;
-          padding: 1.5rem 3rem;
+          padding: 1.3rem 5rem 1.3rem 2rem;
           border-radius: 5rem;
           background: #101010;
           border: none;
           outline: none;
-          color: $grey;
+          color: #770f0f;
 
           &::placeholder {
-            color: $grey !important;
+            color: #979696 !important;
           }
         }
 
         button {
           position: absolute;
-          right: 1rem;
-          top: 1rem;
+          right: 1.5rem;
+          top: 0.6rem;
           background: transparent;
           border: none;
           color: $white-color;
           outline: none;
+
+          .material-icons {
+            font-size: 3.6rem;
+            height: 4rem;
+            width: 4rem;
+          }
         }
       }
     }
 
     .links {
-      width: 25%;
+      width: 24%;
       display: flex;
       align-items: center;
       justify-content: flex-end;
@@ -286,12 +76,18 @@
 
         li {
           display: inline-block;
-          margin: 0 3rem;
+          margin-right: 4rem;
 
           a {
             font-size: $heading-fourth;
             color: $white-color;
             position: relative;
+
+            .material-icons {
+              font-size: 3.6rem;
+              height: 4rem;
+              width: 4rem;
+            }
 
             span {
               position: absolute;
@@ -301,18 +97,29 @@
               border-radius: 2rem;
               font-size: 1.2rem;
               width: 2rem;
-              top: -1.8rem;
-              right: -1rem;
+              top: -2rem;
+              right: 0rem;
               display: flex;
               align-items: center;
               justify-content: center;
+              font-weight: 100;
+            }
+          }
+        }
+
+        li:nth-of-type(2) {
+          a {
+            .material-icons {
+              font-size: 4rem;
+              height: 4rem;
+              width: 4rem;
             }
           }
         }
       }
 
       .profile-head {
-        padding: 0 2rem;
+        padding-left: 2rem;
         position: relative;
 
         a {

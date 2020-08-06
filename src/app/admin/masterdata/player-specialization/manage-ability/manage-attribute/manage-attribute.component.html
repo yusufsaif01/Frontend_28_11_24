@@ -13,14 +13,14 @@
       <!-- title breadcrum -->
       <div class="title-wrapper">
         <div class="title">
-          <h3>Manage Parameter</h3>
+          <h3>Manage Attribute</h3>
         </div>
         <div class="breadcrumb">
           <ul>
             <li>Master Data</li>
             <!-- <li>Player Specialization</li> -->
             <li>Ability</li>
-            <li>Manage Parameter</li>
+            <li>Manage Attribute</li>
           </ul>
         </div>
       </div>
@@ -31,7 +31,7 @@
         <div class="btn-popup">
           <div class="btn-wrapper">
             <h3>{{ abilityName }}</h3>
-            <button class="popup" (click)="openDialog()">Add Parameter</button>
+            <button class="popup" (click)="openDialog()">Add Attribute</button>
           </div>
         </div>
         <!-- table -->
@@ -49,19 +49,19 @@
           >
           </app-master-table>
           <ng-template #ListAction let-id="id" let-name="name">
-            <div class="action-buttons" *ngIf="!editMode || id != parameterId">
-              <button matTooltip="Edit" (click)="editParameter(name, id)">
+            <div class="action-buttons" *ngIf="!editMode || id != attributeId">
+              <button matTooltip="Edit" (click)="editAttribute(name, id)">
                 <img src=" assets/images/icons/edit.png" alt="Edit" />
               </button>
             </div>
             <!-- <button>
                                 <img src=" assets/images/icons/plus.png" alt="Edit" />
                             </button> -->
-            <div class="action-buttons" *ngIf="editMode && id == parameterId">
-              <button matTooltip="Save" (click)="updateParameter(name, id)">
+            <div class="action-buttons" *ngIf="editMode && id == attributeId">
+              <button matTooltip="Save" (click)="updateAttribute(name, id)">
                 <img src="assets/images/icons/tick.png" alt="Edit" />
               </button>
-              <button matTooltip="Cancel" (click)="cancelParameter(name, id)">
+              <button matTooltip="Cancel" (click)="cancelAttribute(name, id)">
                 <img src="assets/images/icons/close01.png" alt="Delete" />
               </button>
             </div>

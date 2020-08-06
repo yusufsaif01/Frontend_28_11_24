@@ -21,6 +21,7 @@
       <div class="main mt-2">
         <div [ngSwitch]="componentName">
           <app-personal-details
+            (avatar_url)="getAvatarUrl($event)"
             [clubAcademyType]="clubAcademyType"
             *ngSwitchCase="'personal'"
           ></app-personal-details>

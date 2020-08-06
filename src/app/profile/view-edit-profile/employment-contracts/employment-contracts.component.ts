@@ -35,9 +35,6 @@ export class EmploymentContractsComponent implements OnInit {
       .subscribe(
         (response: any) => {
           let records = response.data.records;
-          records.forEach((element: any) => {
-            element.name = 'jiwnefjknerijfnierjnfierjnfierjfnwerjifniejwfniwej';
-          });
           this.dataSource = new MatTableDataSource(records);
         },
         error => {

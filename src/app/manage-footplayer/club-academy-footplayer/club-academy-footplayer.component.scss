@@ -1,228 +1,158 @@
 @import "src/assets/sass/abstracts/variables";
 @import "src/assets/sass/abstracts/mixins";
-@import url("https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&display=swap");
 
 .site-wrapper {
-  width: 85%;
-  max-width: 180rem;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
-  border-radius: 2rem;
+  background: $third-color;
+  margin-top: 8.5rem;
 
-  // Right Section
-  .right-section {
-    width: 75%;
-    margin: 3rem 2rem;
-    background: $color-white;
-    border-radius: 0.8rem;
+  .right-panel {
+    width: 76.25%;
+    position: relative;
 
-    .award-heading {
-      display: flex;
-      justify-content: space-between;
-      padding: 2rem;
-      border-bottom: 0.3rem solid #edf2f6;
-
-      .left-part {
-        display: flex;
-        align-items: center;
-
-        h2 {
-          font-size: 2.8rem;
-        }
-
-        span {
-          background-color: $blue;
-          color: $color-white;
-          padding: 0.5rem 1rem;
-          margin-left: 1rem;
-          border-radius: 0.8rem;
-        }
-      }
-
-      .right-part {
-        button {
-          @include btn-primary-outline;
-        }
-      }
-    }
-
-    .search {
-      display: block;
-      text-align: right;
+    .footer-fix {
+      position: absolute;
       width: 100%;
-      padding: 2rem 2rem 0rem;
+      bottom: 0;
     }
 
-    // filters
-    .filter-buttons {
+    .right-wrapper {
       padding: 2rem;
-      border-bottom: 0.3rem solid #edf2f6;
-      position: relative;
 
-      button {
-        padding: 1rem 3rem 1rem 2rem;
-        border-radius: 0.8rem;
-        border: 1px solid $blue;
-        color: $blue;
-        background: transparent;
-        margin: 0.5rem;
-        cursor: pointer;
-        position: relative;
-        outline: none;
-
-        i-feather {
-          position: absolute;
-          top: 1rem;
-          left: calc(100% - 2.5rem);
-        }
-
-        &:last-child {
-          padding: 1rem 2rem 1rem 2rem;
-        }
-
-        &:hover,
-        &.active {
-          background: $blue;
-          color: $color-white;
-
-          span {
-            background: #289af5;
-          }
-        }
-      }
-    }
-
-    // players
-    .playerwrapper {
-      padding: 1rem;
-      display: flex;
-      flex-wrap: wrap;
-
-      .playerbox {
-        border: 1px solid $border-color;
-        width: 31%;
+      .main {
+        background: $white-color;
+        @include shadow;
+        padding: 2rem;
         border-radius: 0.5rem;
-        margin: 1.35rem;
-        box-shadow: 0px 0px 4px 0px rgba($color-black, 0.1);
+        margin-bottom: 10rem;
 
-        &:hover {
-          box-shadow: 0px 0px 0px 0px rgba($color-black, 0.1);
-          cursor: pointer;
-        }
-
-        .top {
+        // heading css
+        .heading {
           display: flex;
-          padding: 2rem;
-          align-items: center;
+          justify-content: space-between;
+          padding: 1rem 2rem 1rem 1rem;
+          color: $fourth-color;
 
-          .dp {
-            img {
-              width: 35px;
-              height: 35px;
-              border-radius: 35px;
+          button {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+
+            &:hover {
+              color: $primary-color;
             }
           }
+        }
 
-          .name {
-            margin-left: 1rem;
+        // counters
 
-            strong {
-              font-size: 1.9rem;
-              user-select: none;
+        .counts-wrapper {
+          padding: 1rem 3rem 1rem 3rem;
+          display: flex;
+          width: 100%;
 
-              &:hover {
-                color: $blue;
+          .counts {
+            background-color: $fifth-color;
+            display: flex;
+            border-radius: 5rem;
+            align-items: center;
+
+            h3 {
+              font-weight: 700;
+              margin-right: 2rem;
+              color: $fourth-color;
+            }
+
+            span {
+              font-size: $heading-Seoncdary;
+              font-weight: 700;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 5rem;
+              width: 5rem;
+              background: $primary-color;
+              border-radius: 5rem;
+              margin: 1rem;
+              color: $white-color;
+            }
+          }
+        }
+
+        // search section
+        .search-section {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+          padding: 1rem 3rem 1rem 3rem;
+
+          .search-wrapper {
+            max-width: 35rem;
+            width: 100%;
+          }
+        }
+
+        // player section
+        .player-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          padding: 0 3rem;
+
+          .player-block {
+            display: flex;
+            align-items: center;
+            width: 33%;
+            padding: 1rem 2rem;
+            border-left: 0.5rem solid #fff0d3;
+            margin-bottom: 4rem;
+
+            img {
+              width: 8rem;
+              height: 8rem;
+              border-radius: 6rem;
+            }
+
+            .profile-details {
+              margin-left: 1rem;
+              width: 100%;
+
+              h2 {
+                font-weight: 500;
+                margin-bottom: 0.2rem;
+
+                a {
+                  color: $black-color;
+                }
+              }
+
+              p {
+                font-size: $heading-sixth;
+                color: $second-color;
               }
             }
 
-            a {
-              text-decoration: none;
-              color: $color-black;
-            }
+            .player-categroy {
+              display: flex;
+              justify-content: space-between;
+              color: $second-color;
+              width: 100%;
 
-            p {
-              font-size: 1.6rem;
-              color: $text-muted;
-            }
-          }
-        }
+              h5 {
+                font-weight: 600;
+                font-size: $heading-fifth;
+                color: $second-color;
+              }
 
-        .middle {
-          padding: 2rem;
-          border-top: 1px solid $border-color;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-
-          h4 {
-            font-size: 1.8rem;
-            font-weight: 700;
-
-            a {
-              color: $blue;
+              a {
+                color: $primary-color;
+                font-size: $heading-fifth;
+                font-weight: 600;
+              }
             }
           }
         }
       }
     }
   }
-}
-
-// mega dropdown
-::ng-deep {
-  .mat-menu-panel {
-    max-width: 100rem !important;
-    width: 100% !important;
-    padding: 2rem;
-
-    .mat-menu-content {
-      h3 {
-        font-size: 2.2rem;
-        margin-bottom: 1rem;
-      }
-
-      .items {
-        span.chk-box {
-          display: inline-block;
-          font-size: 1.8rem;
-          margin: 1rem 2rem 1rem 0rem;
-          padding: 1rem 2rem;
-          box-shadow: 0rem 0rem 0.5rem 0rem rgba(0, 0, 0, 0.2);
-
-          ::ng-deep {
-            .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-              background: $blue !important;
-            }
-          }
-        }
-      }
-
-      .wrapper-location {
-        display: flex;
-        justify-content: space-between;
-
-        .slt-wrapper {
-          width: 25rem;
-          position: relative;
-          margin: 0 1rem;
-
-          select {
-            width: 100%;
-            padding: 1rem;
-            appearance: none;
-          }
-
-          i-feather {
-            position: absolute;
-            left: calc(100% - 3rem);
-            top: 1rem;
-          }
-        }
-      }
-    }
-  }
-}
-
-.gray {
-  color: gray;
 }

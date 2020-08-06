@@ -1,26 +1,3 @@
-<!-- <div class="pagination-wrapper">
-  <div class="showing-data">
-    <p *ngIf="showData">
-      <strong>Showing</strong>
-      {{ rowsPerPage > showCount ? showCount : rowsPerPage }}
-      / {{ totalRows }} Data
-    </p>
-  </div>
-  <div class="pagination">
-    <ul>
-      <li>
-        <a (click)="goToPage(selectedPage - 1)"><span> &#8592; </span></a>
-      </li>
-      <li *ngFor="let val of pages()">
-        <a [ngClass]="val == selectedPage ? 'active' : ''" (click)="val != selectedPage && goToPage(val)">{{ val }}</a>
-      </li>
-      <li>
-        <a (click)="goToPage(selectedPage + 1)"> <span>&#8594;</span> </a>
-      </li>
-    </ul>
-  </div>
-</div> -->
-
 <div class="pagination">
   <ul>
     <li>
@@ -29,9 +6,7 @@
         class="prev"
         (click)="goToPage(selectedPage - 1)"
       >
-        <span>
-          <mat-icon class="material-icons">arrow_back</mat-icon>
-        </span>
+        <img src="assets/images/member/icon/back.svg" alt="" />
         Previous
       </a>
     </li>
@@ -50,9 +25,7 @@
         class="next"
       >
         Next
-        <span>
-          <mat-icon class="material-icons">arrow_forward</mat-icon>
-        </span>
+        <img src="assets/images/member/icon/next.svg" alt="" />
       </a>
     </li>
   </ul>

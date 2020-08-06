@@ -11,7 +11,7 @@ import { ManageDistrictComponent } from './masterdata/manage-location/manage-dis
 import { MemberTypeComponent } from './masterdata/member-type/member-type.component';
 import { ManagePositionComponent } from './masterdata/player-specialization/manage-position/manage-position.component';
 import { ManageAbilityComponent } from './masterdata/player-specialization/manage-ability/manage-ability.component';
-import { ManageParametersComponent } from './masterdata/player-specialization/manage-ability/manage-parameters/manage-parameters.component';
+import { ManageAttributeComponent } from './masterdata/player-specialization/manage-ability/manage-attribute/manage-attribute.component';
 import { AdminComponent } from './admin.component';
 import { extract, AuthenticationGuard } from '@app/core';
 import { DocumentVerificationComponent } from './document-verification/document-verification.component';
@@ -84,9 +84,9 @@ const appRoutes: Routes = [
       },
 
       {
-        path: 'masterdata-parameter/:id',
-        component: ManageParametersComponent,
-        data: { title: extract('Manage Parameter') }
+        path: 'masterdata-attribute/:id',
+        component: ManageAttributeComponent,
+        data: { title: extract('Manage Attribute') }
       },
       { path: '**', component: ManagePlayerComponent }
     ]
