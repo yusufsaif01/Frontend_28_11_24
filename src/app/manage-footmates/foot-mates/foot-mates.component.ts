@@ -104,12 +104,16 @@ export class FootMatesComponent implements OnInit, OnDestroy {
   footMatesList: FootMatesContext[] = [];
   constructor(
     public dialog: MatDialog,
-    private footMatesService: FootMatesService,
-    private toastrService: ToastrService,
-    private sharedService: SharedService
+    private _footMatesService: FootMatesService,
+    private _toastrService: ToastrService,
+    private _sharedService: SharedService
   ) {}
 
   ngOnDestroy() {}
+
+  openFilter() {
+    this._sharedService.setFilterDisplayValue(true);
+  }
 
   // MatualFootmates
   openDialog(foot_mate: any): void {
@@ -162,7 +166,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
   }
 
   getLocationStats() {
-    this.sharedService
+    this._sharedService
       .getLocationStats()
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -170,12 +174,12 @@ export class FootMatesComponent implements OnInit, OnDestroy {
           this.locationRangeFilters.countryData = response.data;
         },
         error => {
-          this.toastrService.error('Error', error.error.message);
+          this._toastrService.error('Error', error.error.message);
         }
       );
   }
   getDistrictsListing(countryID: string, stateID: string) {
-    this.sharedService
+    this._sharedService
       .getDistrictsList(countryID, stateID)
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -183,12 +187,12 @@ export class FootMatesComponent implements OnInit, OnDestroy {
           this.locationRangeFilters.districts = response.data.records;
         },
         error => {
-          this.toastrService.error('Error', error.error.message);
+          this._toastrService.error('Error', error.error.message);
         }
       );
   }
   getStatesListing(countryID: string) {
-    this.sharedService
+    this._sharedService
       .getStatesListing(countryID)
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -196,12 +200,12 @@ export class FootMatesComponent implements OnInit, OnDestroy {
           this.locationRangeFilters.states = response.data.records;
         },
         error => {
-          this.toastrService.error('Error', error.error.message);
+          this._toastrService.error('Error', error.error.message);
         }
       );
   }
   getPositionsListing() {
-    this.footMatesService
+    this._footMatesService
       .getPositionsListing()
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -209,13 +213,13 @@ export class FootMatesComponent implements OnInit, OnDestroy {
           this.locationRangeFilters.positions = response.data.records;
         },
         error => {
-          this.toastrService.error('Error', error.error.message);
+          this._toastrService.error('Error', error.error.message);
         }
       );
   }
 
   getFootMateList(page_size: number, page_no: number) {
-    this.footMatesService
+    this._footMatesService
       .getFootMateList({ page_size, page_no, ...this.filter })
       .pipe(untilDestroyed(this))
       .subscribe(
