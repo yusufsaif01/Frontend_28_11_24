@@ -34,6 +34,7 @@ export class ManageClubComponent implements OnInit, OnDestroy {
   tzoffset = new Date().getTimezoneOffset() * 60000;
   dialogData: FilterDialogContext;
   filterValues: any = {};
+  searchText = '';
 
   public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
   public dataSource = new MatTableDataSource([]);
@@ -67,13 +68,13 @@ export class ManageClubComponent implements OnInit, OnDestroy {
     };
   }
 
-  getClubList(page_size: number, page_no: number, search?: string) {
+  getClubList(page_size: number, page_no: number) {
     this.adminService
       .getClubList({
         ...{
           page_no: page_no,
           page_size: page_size,
-          search: search
+          search: this.searchText
         },
         ...this.filterValues
       })
@@ -224,8 +225,8 @@ export class ManageClubComponent implements OnInit, OnDestroy {
   }
 
   getSearchText(value: string) {
-    let filterValue = value;
-    this.getClubList(this.pageSize, 1, filterValue);
+    this.searchText = value;
+    this.getClubList(this.pageSize, 1);
     // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

@@ -34,6 +34,7 @@ export class ManageDistrictComponent implements OnInit, OnDestroy {
   districtId: any;
   row: any = {};
   update: any = '';
+  searchText = '';
 
   // sidebar
   public sideBarToggle: boolean = true;
@@ -104,17 +105,12 @@ export class ManageDistrictComponent implements OnInit, OnDestroy {
     this.getDistrictListByState(value, this.pageSize, 1);
   }
 
-  getDistrictListByState(
-    state_id: string,
-    page_size: number,
-    page_no: number,
-    search?: string
-  ) {
+  getDistrictListByState(state_id: string, page_size: number, page_no: number) {
     this._sharedService
       .getDistrictsList(this.country_id, state_id, {
         page_no,
         page_size,
-        search
+        search: this.searchText
       })
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -123,6 +119,7 @@ export class ManageDistrictComponent implements OnInit, OnDestroy {
           this.total_count = response.data.total;
           this.show_count = response.data.records.length;
           this.dataSource = new MatTableDataSource(records);
+          this.selectedPage = page_no;
         },
         error => {
           if (error.status === 404)
@@ -141,8 +138,8 @@ export class ManageDistrictComponent implements OnInit, OnDestroy {
   }
 
   getSearchText(value: string) {
-    let filterValue = value;
-    this.getDistrictListByState(this.state_id, this.pageSize, 1, filterValue);
+    this.searchText = value;
+    this.getDistrictListByState(this.state_id, this.pageSize, 1);
   }
 
   createForm() {
