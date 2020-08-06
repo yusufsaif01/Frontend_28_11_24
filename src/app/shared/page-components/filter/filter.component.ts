@@ -159,6 +159,7 @@ export class FilterComponent implements OnInit {
         this.showFilter = value;
       });
   }
+
   closeFilter() {
     this._sharedService.setFilterDisplayValue(false);
     this.getFilterDisplayValue();

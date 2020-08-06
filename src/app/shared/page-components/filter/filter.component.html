@@ -158,276 +158,272 @@
   </div>
 </mat-menu> -->
 
-<ng-container *ngIf="showFilter">
-  <div class="filter-container">
-    <div class="filter-wrapper">
-      <div class="close">
-        <button class="icon-btn">
-          <mat-icon class="material-icons" (click)="closeFilter()"
-            >close</mat-icon
+<!-- <ng-container *ngIf="showFilter"> -->
+<div class="filter-container" [hidden]="!showFilter">
+  <div class="filter-wrapper">
+    <div class="close">
+      <button class="icon-btn">
+        <mat-icon class="material-icons" (click)="closeFilter()"
+          >close</mat-icon
+        >
+      </button>
+    </div>
+    <div class="head">
+      <h2>Player filter</h2>
+      <button (click)="clearFilters()">Clear filters</button>
+    </div>
+    <!-- position -->
+    <div class="filter-group" *ngIf="allowedFilters.position">
+      <div class="filter-title">
+        <h3>
+          <a>
+            Position
+            <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+          </a>
+        </h3>
+      </div>
+      <ul class="filter-checks">
+        <li *ngFor="let position of locationRangeFilters.positions">
+          <mat-checkbox
+            [value]="position.name"
+            (change)="
+              onChangeChecker(
+                $event,
+                locationRangeFilters.positionsArray,
+                'position'
+              )
+            "
+            [checked]="checkFilters"
+            >{{ position.name }}</mat-checkbox
           >
-        </button>
-      </div>
-      <div class="head">
-        <h2>Player filter</h2>
-        <button (click)="clearFilters()">Clear filters</button>
-      </div>
-      <!-- position -->
-      <div class="filter-group" *ngIf="allowedFilters.position">
-        <div class="filter-title">
-          <h3>
-            <a>
-              Position
-              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
-            </a>
-          </h3>
-        </div>
-        <ul class="filter-checks">
-          <li *ngFor="let position of locationRangeFilters.positions">
-            <mat-checkbox
-              [value]="position.name"
-              (change)="
-                onChangeChecker(
-                  $event,
-                  locationRangeFilters.positionsArray,
-                  'position'
-                )
-              "
-              [checked]="checkFilters"
-              >{{ position.name }}</mat-checkbox
-            >
-          </li>
-        </ul>
-      </div>
+        </li>
+      </ul>
+    </div>
 
-      <!-- Player category -->
-      <div class="filter-group" *ngIf="allowedFilters.playerCategory">
-        <div class="filter-title">
-          <h3>
-            <a
-              >Player category
-              <mat-icon class="material-icons">arrow_drop_down</mat-icon></a
-            >
-          </h3>
-        </div>
-        <ul class="filter-checks">
-          <li *ngFor="let type of locationRangeFilters.playerType">
-            <mat-checkbox
-              [value]="type.value"
-              (change)="
-                onChangeChecker(
-                  $event,
-                  locationRangeFilters.playerTypeArray,
-                  'footplayer_category'
-                )
-              "
-              [checked]="checkFilters"
-              >{{ type.name }}</mat-checkbox
-            >
-          </li>
-        </ul>
+    <!-- Player category -->
+    <div class="filter-group" *ngIf="allowedFilters.playerCategory">
+      <div class="filter-title">
+        <h3>
+          <a
+            >Player category
+            <mat-icon class="material-icons">arrow_drop_down</mat-icon></a
+          >
+        </h3>
       </div>
+      <ul class="filter-checks">
+        <li *ngFor="let type of locationRangeFilters.playerType">
+          <mat-checkbox
+            [value]="type.value"
+            (change)="
+              onChangeChecker(
+                $event,
+                locationRangeFilters.playerTypeArray,
+                'footplayer_category'
+              )
+            "
+            [checked]="checkFilters"
+            >{{ type.name }}</mat-checkbox
+          >
+        </li>
+      </ul>
+    </div>
 
-      <!-- Age -->
-      <div class="filter-group" *ngIf="allowedFilters.age">
-        <div class="filter-title">
-          <h3>
-            <a>
-              Age
-              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
-            </a>
-          </h3>
-        </div>
-        <ul class="filter-checks">
-          <li *ngFor="let age of locationRangeFilters.ageRange">
-            <mat-checkbox
-              [value]="age.value"
-              (change)="
-                onChangeChecker(
-                  $event,
-                  locationRangeFilters.ageRangeArray,
-                  'age'
-                )
-              "
-              [checked]="checkFilters"
-              >{{ age.name }}</mat-checkbox
-            >
-          </li>
-        </ul>
+    <!-- Age -->
+    <div class="filter-group" *ngIf="allowedFilters.age">
+      <div class="filter-title">
+        <h3>
+          <a>
+            Age
+            <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+          </a>
+        </h3>
       </div>
+      <ul class="filter-checks">
+        <li *ngFor="let age of locationRangeFilters.ageRange">
+          <mat-checkbox
+            [value]="age.value"
+            (change)="
+              onChangeChecker($event, locationRangeFilters.ageRangeArray, 'age')
+            "
+            [checked]="checkFilters"
+            >{{ age.name }}</mat-checkbox
+          >
+        </li>
+      </ul>
+    </div>
 
-      <!-- Location -->
-      <div class="filter-group" *ngIf="allowedFilters.location">
-        <div class="filter-title">
-          <h3>
-            <a>
-              Location
-              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
-            </a>
-          </h3>
-        </div>
-        <ul class="filter-checks">
-          <li>
-            <div class="form-block">
-              <select
-                (change)="onSelectCountry($event)"
-                [(ngModel)]="locationData.countryValue"
+    <!-- Location -->
+    <div class="filter-group" *ngIf="allowedFilters.location">
+      <div class="filter-title">
+        <h3>
+          <a>
+            Location
+            <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+          </a>
+        </h3>
+      </div>
+      <ul class="filter-checks">
+        <li>
+          <div class="form-block">
+            <select
+              (change)="onSelectCountry($event)"
+              [(ngModel)]="locationData.countryValue"
+            >
+              <option value="">Select Country</option>
+              <option
+                *ngFor="let country of locationRangeFilters.countryData"
+                [value]="getCountryValue(country)"
               >
-                <option value="">Select Country</option>
-                <option
-                  *ngFor="let country of locationRangeFilters.countryData"
-                  [value]="getCountryValue(country)"
-                >
-                  {{ country.country }}</option
-                >
-              </select>
-            </div>
-          </li>
-          <li>
-            <div class="form-block">
-              <select
-                (change)="onSelectState($event)"
-                [(ngModel)]="locationData.stateValue"
+                {{ country.country }}</option
               >
-                <option value="">Select State</option>
-                <option
-                  *ngFor="let state of locationRangeFilters.states"
-                  [value]="getStateValue(state)"
-                  >{{ state.name }}
-                </option>
-              </select>
-            </div>
-          </li>
-          <li>
-            <div class="form-block">
-              <select
-                (change)="onSelectDistrict($event)"
-                [(ngModel)]="locationData.districtValue"
+            </select>
+          </div>
+        </li>
+        <li>
+          <div class="form-block">
+            <select
+              (change)="onSelectState($event)"
+              [(ngModel)]="locationData.stateValue"
+            >
+              <option value="">Select State</option>
+              <option
+                *ngFor="let state of locationRangeFilters.states"
+                [value]="getStateValue(state)"
+                >{{ state.name }}
+              </option>
+            </select>
+          </div>
+        </li>
+        <li>
+          <div class="form-block">
+            <select
+              (change)="onSelectDistrict($event)"
+              [(ngModel)]="locationData.districtValue"
+            >
+              <option value="">Select District</option>
+              <option
+                *ngFor="let district of locationRangeFilters.districts"
+                [value]="getDistrictValue(district)"
               >
-                <option value="">Select District</option>
-                <option
-                  *ngFor="let district of locationRangeFilters.districts"
-                  [value]="getDistrictValue(district)"
-                >
-                  {{ district.name }}</option
-                >
-              </select>
-            </div>
-          </li>
-        </ul>
-      </div>
+                {{ district.name }}</option
+              >
+            </select>
+          </div>
+        </li>
+      </ul>
+    </div>
 
-      <!-- strong foot -->
-      <div class="filter-group" *ngIf="allowedFilters.strongFoot">
-        <div class="filter-title">
-          <h3>
-            <a>
-              Strong Foot
-              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
-            </a>
-          </h3>
-        </div>
-        <ul class="filter-checks">
-          <li *ngFor="let type of locationRangeFilters.strongFoot">
-            <mat-checkbox
-              [value]="type.value"
-              (change)="
-                onChangeChecker(
-                  $event,
-                  locationRangeFilters.strongFootArray,
-                  'strong_foot'
-                )
-              "
-              [checked]="checkFilters"
-              >{{ type.name }}</mat-checkbox
-            >
-          </li>
-        </ul>
+    <!-- strong foot -->
+    <div class="filter-group" *ngIf="allowedFilters.strongFoot">
+      <div class="filter-title">
+        <h3>
+          <a>
+            Strong Foot
+            <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+          </a>
+        </h3>
       </div>
+      <ul class="filter-checks">
+        <li *ngFor="let type of locationRangeFilters.strongFoot">
+          <mat-checkbox
+            [value]="type.value"
+            (change)="
+              onChangeChecker(
+                $event,
+                locationRangeFilters.strongFootArray,
+                'strong_foot'
+              )
+            "
+            [checked]="checkFilters"
+            >{{ type.name }}</mat-checkbox
+          >
+        </li>
+      </ul>
+    </div>
 
-      <!-- Status -->
-      <div class="filter-group" *ngIf="allowedFilters.status">
-        <div class="filter-title">
-          <h3>
-            <a
-              >Status
-              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
-            </a>
-          </h3>
-        </div>
-        <ul class="filter-checks">
-          <li *ngFor="let status of locationRangeFilters.status">
-            <mat-checkbox
-              [value]="status.value"
-              (change)="
-                onChangeChecker(
-                  $event,
-                  locationRangeFilters.statusArray,
-                  'status'
-                )
-              "
-              [checked]="checkFilters"
-              >{{ status.name }}</mat-checkbox
-            >
-          </li>
-        </ul>
+    <!-- Status -->
+    <div class="filter-group" *ngIf="allowedFilters.status">
+      <div class="filter-title">
+        <h3>
+          <a
+            >Status
+            <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+          </a>
+        </h3>
       </div>
+      <ul class="filter-checks">
+        <li *ngFor="let status of locationRangeFilters.status">
+          <mat-checkbox
+            [value]="status.value"
+            (change)="
+              onChangeChecker(
+                $event,
+                locationRangeFilters.statusArray,
+                'status'
+              )
+            "
+            [checked]="checkFilters"
+            >{{ status.name }}</mat-checkbox
+          >
+        </li>
+      </ul>
+    </div>
 
-      <!-- ability -->
-      <div class="filter-group" *ngIf="allowedFilters.ability">
-        <div class="filter-title">
-          <h3>
-            <a
-              >Ability
-              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
-            </a>
-          </h3>
-        </div>
-        <ul class="filter-checks">
-          <li *ngFor="let ability of locationRangeFilters.ability">
-            <mat-checkbox
-              [value]="ability.name"
-              (change)="
-                onChangeChecker(
-                  $event,
-                  locationRangeFilters.abilityArray,
-                  'ability'
-                )
-              "
-              [checked]="checkFilters"
-              >{{ ability.name }}</mat-checkbox
-            >
-          </li>
-        </ul>
+    <!-- ability -->
+    <div class="filter-group" *ngIf="allowedFilters.ability">
+      <div class="filter-title">
+        <h3>
+          <a
+            >Ability
+            <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+          </a>
+        </h3>
       </div>
+      <ul class="filter-checks">
+        <li *ngFor="let ability of locationRangeFilters.ability">
+          <mat-checkbox
+            [value]="ability.name"
+            (change)="
+              onChangeChecker(
+                $event,
+                locationRangeFilters.abilityArray,
+                'ability'
+              )
+            "
+            [checked]="checkFilters"
+            >{{ ability.name }}</mat-checkbox
+          >
+        </li>
+      </ul>
+    </div>
 
-      <!-- Type of team -->
-      <div class="filter-group" *ngIf="allowedFilters.teamTypes">
-        <div class="filter-title">
-          <h3>
-            <a
-              >Type of team
-              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
-            </a>
-          </h3>
-        </div>
-        <ul class="filter-checks">
-          <li *ngFor="let team of locationRangeFilters.teamTypes">
-            <mat-checkbox
-              [value]="team"
-              (change)="
-                onChangeChecker(
-                  $event,
-                  locationRangeFilters.teamTypesArray,
-                  'typeOfTeams'
-                )
-              "
-              [checked]="checkFilters"
-              >{{ team }}</mat-checkbox
-            >
-          </li>
-        </ul>
+    <!-- Type of team -->
+    <div class="filter-group" *ngIf="allowedFilters.teamTypes">
+      <div class="filter-title">
+        <h3>
+          <a
+            >Type of team
+            <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+          </a>
+        </h3>
       </div>
+      <ul class="filter-checks">
+        <li *ngFor="let team of locationRangeFilters.teamTypes">
+          <mat-checkbox
+            [value]="team"
+            (change)="
+              onChangeChecker(
+                $event,
+                locationRangeFilters.teamTypesArray,
+                'typeOfTeams'
+              )
+            "
+            [checked]="checkFilters"
+            >{{ team }}</mat-checkbox
+          >
+        </li>
+      </ul>
     </div>
   </div>
-</ng-container>
+</div>
+<!-- </ng-container> -->
