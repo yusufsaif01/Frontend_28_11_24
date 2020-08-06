@@ -75,6 +75,7 @@ export class FilterComponent implements OnInit {
     ability: false,
     status: false
   };
+  showFilter = false;
 
   @Output() filterChanges: EventEmitter<any> = new EventEmitter();
   @ViewChildren(
@@ -138,6 +139,7 @@ export class FilterComponent implements OnInit {
     this.deactivateAll();
     this.getLocationStats();
     this.getAbilityList();
+    this.getFilterDisplayValue();
   }
 
   ngAfterViewInit() {
@@ -147,6 +149,19 @@ export class FilterComponent implements OnInit {
     this.templates.forEach((el: any, index: number) => {
       this.buttons[index].matMenu = el;
     });
+  }
+
+  getFilterDisplayValue() {
+    this._sharedService
+      .getFilterDisplayValue()
+      .pipe(untilDestroyed(this))
+      .subscribe(value => {
+        this.showFilter = value;
+      });
+  }
+  closeFilter() {
+    this._sharedService.setFilterDisplayValue(false);
+    this.getFilterDisplayValue();
   }
 
   getAbilityList() {
