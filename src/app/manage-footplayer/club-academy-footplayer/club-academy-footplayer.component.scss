@@ -1,232 +1,3 @@
-// @import "src/assets/sass/abstracts/variables";
-// @import "src/assets/sass/abstracts/mixins";
-// @import url("https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&display=swap");
-
-// .site-wrapper {
-//   width: 85%;
-//   max-width: 180rem;
-//   margin: 0 auto;
-//   display: flex;
-//   border-radius: 2rem;
-
-//   // Right Section
-//   .right-section {
-//     width: 75%;
-//     margin: 3rem 2rem;
-//     background: $color-white;
-//     border-radius: 0.8rem;
-
-//     .award-heading {
-//       display: flex;
-//       justify-content: space-between;
-//       padding: 2rem;
-//       border-bottom: 0.3rem solid #edf2f6;
-
-//       .left-part {
-//         display: flex;
-//         align-items: center;
-
-//         h2 {
-//           font-size: 2.8rem;
-//         }
-
-//         span {
-//           background-color: $blue;
-//           color: $color-white;
-//           padding: 0.5rem 1rem;
-//           margin-left: 1rem;
-//           border-radius: 0.8rem;
-//         }
-//       }
-
-//       .right-part {
-//         button {
-//           @include btn-primary-outline;
-//         }
-//       }
-//     }
-
-//     .search {
-//       display: block;
-//       text-align: right;
-//       width: 100%;
-//       padding: 2rem 2rem 0rem;
-//     }
-
-//     // filters
-//     .filter-buttons {
-//       padding: 2rem;
-//       border-bottom: 0.3rem solid #edf2f6;
-//       position: relative;
-
-//       button {
-//         padding: 1rem 3rem 1rem 2rem;
-//         border-radius: 0.8rem;
-//         border: 1px solid $blue;
-//         color: $blue;
-//         background: transparent;
-//         margin: 0.5rem;
-//         cursor: pointer;
-//         position: relative;
-//         outline: none;
-
-//         i-feather {
-//           position: absolute;
-//           top: 1rem;
-//           left: calc(100% - 2.5rem);
-//         }
-
-//         &:last-child {
-//           padding: 1rem 2rem 1rem 2rem;
-//         }
-
-//         &:hover,
-//         &.active {
-//           background: $blue;
-//           color: $color-white;
-
-//           span {
-//             background: #289af5;
-//           }
-//         }
-//       }
-//     }
-
-//     // players
-//     .playerwrapper {
-//       padding: 1rem;
-//       display: flex;
-//       flex-wrap: wrap;
-
-//       .playerbox {
-//         border: 1px solid $border-color;
-//         width: 31%;
-//         border-radius: 0.5rem;
-//         margin: 1.35rem;
-//         box-shadow: 0px 0px 4px 0px rgba($color-black, 0.1);
-
-//         &:hover {
-//           box-shadow: 0px 0px 0px 0px rgba($color-black, 0.1);
-//           cursor: pointer;
-//         }
-
-//         .top {
-//           display: flex;
-//           padding: 2rem;
-//           align-items: center;
-
-//           .dp {
-//             img {
-//               width: 35px;
-//               height: 35px;
-//               border-radius: 35px;
-//             }
-//           }
-
-//           .name {
-//             margin-left: 1rem;
-
-//             strong {
-//               font-size: 1.9rem;
-//               user-select: none;
-
-//               &:hover {
-//                 color: $blue;
-//               }
-//             }
-
-//             a {
-//               text-decoration: none;
-//               color: $color-black;
-//             }
-
-//             p {
-//               font-size: 1.6rem;
-//               color: $text-muted;
-//             }
-//           }
-//         }
-
-//         .middle {
-//           padding: 2rem;
-//           border-top: 1px solid $border-color;
-//           display: flex;
-//           justify-content: space-between;
-//           align-items: center;
-
-//           h4 {
-//             font-size: 1.8rem;
-//             font-weight: 700;
-
-//             a {
-//               color: $blue;
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
-
-// // mega dropdown
-// ::ng-deep {
-//   .mat-menu-panel {
-//     max-width: 100rem !important;
-//     width: 100% !important;
-//     padding: 2rem;
-
-//     .mat-menu-content {
-//       h3 {
-//         font-size: 2.2rem;
-//         margin-bottom: 1rem;
-//       }
-
-//       .items {
-//         span.chk-box {
-//           display: inline-block;
-//           font-size: 1.8rem;
-//           margin: 1rem 2rem 1rem 0rem;
-//           padding: 1rem 2rem;
-//           box-shadow: 0rem 0rem 0.5rem 0rem rgba(0, 0, 0, 0.2);
-
-//           ::ng-deep {
-//             .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-//               background: $blue !important;
-//             }
-//           }
-//         }
-//       }
-
-//       .wrapper-location {
-//         display: flex;
-//         justify-content: space-between;
-
-//         .slt-wrapper {
-//           width: 25rem;
-//           position: relative;
-//           margin: 0 1rem;
-
-//           select {
-//             width: 100%;
-//             padding: 1rem;
-//             appearance: none;
-//           }
-
-//           i-feather {
-//             position: absolute;
-//             left: calc(100% - 3rem);
-//             top: 1rem;
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
-
-// .gray {
-//   color: gray;
-// }
-
 @import "src/assets/sass/abstracts/variables";
 @import "src/assets/sass/abstracts/mixins";
 
@@ -296,8 +67,11 @@
             span {
               font-size: $heading-Seoncdary;
               font-weight: 700;
-              display: inline-block;
-              padding: 2rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 5rem;
+              width: 5rem;
               background: $primary-color;
               border-radius: 5rem;
               margin: 1rem;
@@ -334,8 +108,8 @@
             margin-bottom: 4rem;
 
             img {
-              width: 6rem;
-              height: 6rem;
+              width: 8rem;
+              height: 8rem;
               border-radius: 6rem;
             }
 
@@ -343,11 +117,13 @@
               margin-left: 1rem;
               width: 100%;
 
-              h3 {
+              h2 {
                 font-weight: 500;
-                color: $fourth-color;
                 margin-bottom: 0.2rem;
-                font-size: 2.2rem;
+
+                a {
+                  color: $black-color;
+                }
               }
 
               p {
@@ -363,7 +139,7 @@
               width: 100%;
 
               h5 {
-                font-weight: 700;
+                font-weight: 600;
                 font-size: $heading-fifth;
                 color: $second-color;
               }
@@ -371,7 +147,7 @@
               a {
                 color: $primary-color;
                 font-size: $heading-fifth;
-                font-weight: 700;
+                font-weight: 600;
               }
             }
           }

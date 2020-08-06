@@ -5,71 +5,85 @@
 @import "src/assets/sass/abstracts/mixins";
 
 // Header CSS
-.header {
-  .logo {
-    margin-top: 1rem;
-
-    span {
-      background-color: $third-color;
-      padding: 1rem 5rem 1rem 3rem;
-      display: inline-block;
-      -webkit-border-top-right-radius: 8rem;
-      -webkit-border-bottom-right-radius: 8rem;
-      -moz-border-top-right-radius: 8rem;
-      -moz-border-bottom-right-radius: 8rem;
-      border-top-right-radius: 8rem;
-      border-bottom-right-radius: 8rem;
-
-      img {
-        max-width: 25rem;
-      }
-    }
-  }
-}
-
-// Middle CSS
 .site-wrapper {
-  width: 85%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  min-height: 80vh;
+  position: relative;
+  height: calc(100vh - 1rem);
+  box-sizing: border-box;
 
-  .text-section {
-    width: 50%;
+  .fixed-footer {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
 
-    h2 {
-      font-size: 7rem;
-      font-weight: 100;
-      font-family: $secondary-text;
-      line-height: 1;
-    }
-
-    h3 {
-      font-size: 4rem;
-      color: $fourth-color;
-      font-family: $secondary-text;
-      position: relative;
-      letter-spacing: 1px;
-      font-weight: 100;
-      margin-bottom: 2rem;
+  .header {
+    .logo {
+      margin-top: 1rem;
 
       span {
-        display: block;
-      }
-    }
+        background-color: $third-color;
+        padding: 1rem 5rem 1rem 3rem;
+        display: inline-block;
+        -webkit-border-top-right-radius: 8rem;
+        -webkit-border-bottom-right-radius: 8rem;
+        -moz-border-top-right-radius: 8rem;
+        -moz-border-bottom-right-radius: 8rem;
+        border-top-right-radius: 8rem;
+        border-bottom-right-radius: 8rem;
 
-    a {
-      display: inline-block;
-      color: $white-color;
+        img {
+          max-width: 25rem;
+        }
+      }
     }
   }
 
-  .img-section {
-    width: 50%;
+  // Middle CSS
+  .middle-wrapper {
+    width: 85%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    height: 79.5%;
 
-    img {
-      width: 100%;
+    .text-section {
+      width: 50%;
+
+      h2 {
+        font-size: 7rem;
+        font-weight: 100;
+        font-family: $secondary-text;
+        line-height: 1;
+      }
+
+      h3 {
+        font-size: 4rem;
+        color: $fourth-color;
+        font-family: $secondary-text;
+        position: relative;
+        letter-spacing: 1px;
+        font-weight: 100;
+        margin-bottom: 2rem;
+
+        span {
+          display: block;
+        }
+      }
+
+      a {
+        display: inline-block;
+        color: $white-color;
+        margin-top: 5r em;
+      }
+    }
+
+    .img-section {
+      width: 50%;
+
+      img {
+        width: 100%;
+      }
     }
   }
 }
