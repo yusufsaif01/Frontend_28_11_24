@@ -81,6 +81,15 @@ export class FootMatesComponent implements OnInit, OnDestroy {
   }
 
   getFootMateList() {
+    if (this.filter.hasOwnProperty('footplayer_category')) {
+      Object.defineProperty(
+        this.filter,
+        'player_category',
+        Object.getOwnPropertyDescriptor(this.filter, 'footplayer_category')
+      );
+      delete this.filter['footplayer_category'];
+    }
+
     this._footMatesService
       .getFootMateList(this.filter)
       .pipe(untilDestroyed(this))
