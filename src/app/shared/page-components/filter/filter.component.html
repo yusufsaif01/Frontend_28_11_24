@@ -193,7 +193,9 @@
                   'position'
                 )
               "
-              [checked]="checkFilters"
+              [checked]="
+                locationRangeFilters.positionsArray.includes(position.name)
+              "
               >{{ position.name }}</mat-checkbox
             >
           </li>
@@ -221,7 +223,9 @@
                   'footplayer_category'
                 )
               "
-              [checked]="checkFilters"
+              [checked]="
+                locationRangeFilters.playerTypeArray.includes(type.value)
+              "
               >{{ type.name }}</mat-checkbox
             >
           </li>
@@ -249,7 +253,7 @@
                   'age'
                 )
               "
-              [checked]="checkFilters"
+              [checked]="locationRangeFilters.ageRangeArray.includes(age.value)"
               >{{ age.name }}</mat-checkbox
             >
           </li>
@@ -338,7 +342,9 @@
                   'strong_foot'
                 )
               "
-              [checked]="checkFilters"
+              [checked]="
+                locationRangeFilters.strongFootArray.includes(type.value)
+              "
               >{{ type.name }}</mat-checkbox
             >
           </li>
@@ -366,7 +372,9 @@
                   'status'
                 )
               "
-              [checked]="checkFilters"
+              [checked]="
+                locationRangeFilters.statusArray.includes(status.value)
+              "
               >{{ status.name }}</mat-checkbox
             >
           </li>
@@ -394,7 +402,9 @@
                   'ability'
                 )
               "
-              [checked]="checkFilters"
+              [checked]="
+                locationRangeFilters.abilityArray.includes(ability.name)
+              "
               >{{ ability.name }}</mat-checkbox
             >
           </li>
@@ -422,7 +432,7 @@
                   'typeOfTeams'
                 )
               "
-              [checked]="checkFilters"
+              [checked]="locationRangeFilters.teamTypesArray.includes(team)"
               >{{ team }}</mat-checkbox
             >
           </li>
