@@ -8,9 +8,8 @@ describe('ManageReportCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManageReportCardComponent ]
-    })
-    .compileComponents();
+      declarations: [ManageReportCardComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

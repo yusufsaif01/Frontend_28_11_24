@@ -31,7 +31,8 @@
               'position',
               'category',
               'player_name',
-              'name'
+              'name',
+              'number_report_card'
             ].includes(col)
           "
         >
@@ -112,6 +113,7 @@
         <p *ngIf="col === 'position'">
           {{ tableConfig.columns[col].getValue(element) | titlecase }}
         </p>
+
         <p *ngIf="col === 'category'">
           {{ tableConfig.columns[col].getValue(element) | titlecase }}
         </p>
@@ -138,6 +140,11 @@
             src="./../../../assets/images/icons/tick.png"
             alt=""
           /> -->
+        </p>
+        <p *ngIf="col === 'number_report_card'">
+          <a href="#" class="color-primary">
+            {{ tableConfig.columns[col].getValue(element) | titlecase }}
+          </a>
         </p>
         <p *ngIf="col === 'media'">
           <a

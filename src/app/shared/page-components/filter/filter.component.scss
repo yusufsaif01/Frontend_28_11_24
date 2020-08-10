@@ -8,7 +8,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 999;
 
   .filter-wrapper {
     position: absolute;
@@ -78,6 +78,7 @@
             .mat-checkbox .mat-checkbox-layout .mat-checkbox-label {
               font-weight: 400 !important;
             }
+
             .mat-checkbox .mat-checkbox-layout .mat-checkbox-inner-container {
               width: 18px;
               height: 18px;
