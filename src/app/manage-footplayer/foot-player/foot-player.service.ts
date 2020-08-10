@@ -50,6 +50,7 @@ interface FindPlayerResponseContext {
       is_verified: boolean;
       club_name: string;
       email: string;
+      status: string;
     }[];
   };
 }

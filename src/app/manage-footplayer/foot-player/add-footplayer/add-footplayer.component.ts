@@ -14,6 +14,19 @@ import { environment } from '@env/environment';
 import { Subject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { distinctUntilChanged } from 'rxjs/operators';
+
+let emailControl = {
+  email: [Validators.required, Validators.email]
+};
+let phoneControl = {
+  phone: [
+    Validators.required,
+    Validators.minLength(10),
+    Validators.maxLength(10),
+    Validators.pattern(/^[0-9]+$/)
+  ]
+};
+
 @Component({
   selector: 'app-add-footplayer',
   templateUrl: './add-footplayer.component.html',
@@ -139,9 +152,15 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
   getStateToolTip(
     is_verified: boolean,
     club_name: string,
-    member_type: string
+    member_type: string,
+    status: string
   ) {
-    if (['club', 'academy'].includes(member_type)) {
+    if (status === 'pending') {
+      return {
+        message: 'Add request sent',
+        state: true
+      };
+    } else if (['club', 'academy'].includes(member_type)) {
       return { message: 'These details are for club/ academy', state: true };
     } else if (
       is_verified &&
@@ -171,50 +190,66 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       controlName.updateValueAndValidity();
     }
   }
-  checkRequiredValidator(controlname: any, paramname: any, type: number) {
-    if (type === 1)
-      paramname.includes(Validators.required)
-        ? controlname
-        : paramname.push(Validators.required);
-    else if (type === 2)
-      paramname.includes(Validators.required)
-        ? paramname.splice(paramname.findIndex(Validators.required), 1)
-        : controlname;
+  checkRequiredValidator(
+    form: FormGroup,
+    controlObject: { [name: string]: ValidatorFn[] },
+    require: boolean
+  ) {
+    const [name] = Object.keys(controlObject);
+
+    let controlName = form.get(name);
+    let validationArray = controlObject[name];
+    if (require) {
+      validationArray = [
+        ...new Set([...controlObject[name], Validators.required])
+      ];
+    } else {
+      validationArray = validationArray.filter(
+        validator => validator !== Validators.required
+      );
+    }
+
+    controlName.setValidators(validationArray);
+    controlName.updateValueAndValidity();
   }
 
   setValidators() {
     const phone = this.findPlayerForm.get('phone');
     const email = this.findPlayerForm.get('email');
-    let emailControl = {
-      email: [Validators.required, Validators.email]
-    };
-    let phoneControl = {
-      phone: [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(10),
-        Validators.pattern(/^[0-9]+$/)
-      ]
-    };
+
     this.setControlValidation(this.findPlayerForm, emailControl);
     this.setControlValidation(this.findPlayerForm, phoneControl);
 
     phone.valueChanges.pipe(distinctUntilChanged()).subscribe(value => {
       if (value) {
-        this.checkRequiredValidator(emailControl, emailControl.email, 2);
+        this.checkRequiredValidator(
+          this.findPlayerForm,
+          { email: emailControl.email },
+          false
+        );
       } else {
-        this.checkRequiredValidator(emailControl, emailControl.email, 1);
+        this.checkRequiredValidator(
+          this.findPlayerForm,
+          { email: emailControl.email },
+          true
+        );
       }
-      this.setControlValidation(this.findPlayerForm, emailControl);
     });
 
     email.valueChanges.pipe(distinctUntilChanged()).subscribe(value => {
       if (value) {
-        this.checkRequiredValidator(phoneControl, phoneControl.phone, 2);
+        this.checkRequiredValidator(
+          this.findPlayerForm,
+          { phone: phoneControl.phone },
+          false
+        );
       } else {
-        this.checkRequiredValidator(phoneControl, phoneControl.phone, 1);
+        this.checkRequiredValidator(
+          this.findPlayerForm,
+          { phone: phoneControl.phone },
+          true
+        );
       }
-      this.setControlValidation(this.findPlayerForm, phoneControl);
     });
   }
 
