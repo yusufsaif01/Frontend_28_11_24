@@ -182,7 +182,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks" #position>
+        <ul class="filter-checks position-filter" #position>
           <li *ngFor="let position of locationRangeFilters.positions">
             <mat-checkbox
               [value]="position.name"
@@ -212,7 +212,7 @@
             >
           </h3>
         </div>
-        <ul class="filter-checks" #playercategory>
+        <ul class="filter-checks playercategory-filter" #playercategory>
           <li *ngFor="let type of locationRangeFilters.playerType">
             <mat-checkbox
               [value]="type.value"
@@ -242,7 +242,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks" #age>
+        <ul class="filter-checks age-filter" #age>
           <li *ngFor="let age of locationRangeFilters.ageRange">
             <mat-checkbox
               [value]="age.value"
@@ -270,7 +270,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks" #location>
+        <ul class="filter-checks location-filter" #location>
           <li>
             <div class="form-block">
               <select
@@ -331,7 +331,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks" #strongfoot>
+        <ul class="filter-checks strongfoot-filter" #strongfoot>
           <li *ngFor="let type of locationRangeFilters.strongFoot">
             <mat-checkbox
               [value]="type.value"
@@ -361,7 +361,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks" #status>
+        <ul class="filter-checks status-filter" #status>
           <li *ngFor="let status of locationRangeFilters.status">
             <mat-checkbox
               [value]="status.value"
@@ -391,7 +391,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks" #ability>
+        <ul class="filter-checks ability-filter" #ability>
           <li *ngFor="let ability of locationRangeFilters.ability">
             <mat-checkbox
               [value]="ability.name"
@@ -421,7 +421,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks" #teamtype>
+        <ul class="filter-checks teamtype-filter" #teamtype>
           <li *ngFor="let team of locationRangeFilters.teamTypes">
             <mat-checkbox
               [value]="team"

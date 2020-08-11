@@ -53,16 +53,6 @@ export class FilterComponent implements OnInit {
   filter: any = {};
   locationRangeFilters: LocationRangeFilters;
   locationData: LocationsIds;
-  filterDisplay = [
-    'position',
-    'playercategory',
-    'age',
-    'location',
-    'strongfoot',
-    'status',
-    'ability',
-    'teamtype'
-  ];
 
   @Input() allowedFilters = {
     position: false,
@@ -98,12 +88,20 @@ export class FilterComponent implements OnInit {
   }
 
   toggleFilter(filter: string) {
-    let el = this.templates.filter(
-      (element, index) => index === this.filterDisplay.indexOf(filter)
-    )[0].nativeElement;
-    el.classList.contains('remove-filter')
-      ? this._renderer['removeClass'](el, 'remove-filter')
-      : this._renderer['addClass'](el, 'remove-filter');
+    let el = this.templates
+      .map((element, index) => {
+        return element.nativeElement.classList.contains(`${filter}-filter`)
+          ? element
+          : null;
+      })
+      .filter(element => {
+        return element != null;
+      });
+
+    let element = el[0].nativeElement;
+    element.classList.contains('remove-filter')
+      ? this._renderer['removeClass'](element, 'remove-filter')
+      : this._renderer['addClass'](element, 'remove-filter');
   }
 
   getFilterDisplayValue() {
