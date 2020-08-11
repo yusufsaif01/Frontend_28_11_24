@@ -31,8 +31,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem 0;
-      border-bottom: 1px solid $third-color;
+      padding: 1rem 0 2rem;
+      border-bottom: 1px solid $second-color;
+      margin-bottom: 1rem;
 
       h2 {
         color: $second-color;
@@ -78,6 +79,7 @@
             .mat-checkbox .mat-checkbox-layout .mat-checkbox-label {
               font-weight: 400 !important;
             }
+
             .mat-checkbox .mat-checkbox-layout .mat-checkbox-inner-container {
               width: 18px;
               height: 18px;
@@ -87,4 +89,8 @@
       }
     }
   }
+}
+
+.remove-filter {
+  display: none;
 }
