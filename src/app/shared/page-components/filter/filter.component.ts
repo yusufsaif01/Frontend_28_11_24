@@ -61,7 +61,8 @@ export class FilterComponent implements OnInit {
     strongFoot: false,
     teamTypes: false,
     ability: false,
-    status: false
+    status: false,
+    dateRange: false
   };
   showFilter = false;
 

@@ -16,7 +16,11 @@
         <!-- search and popupbtn -->
         <div class="search-section">
           <div class="search-wrapper">
-            <app-grid-search-box placeholder="Search"> </app-grid-search-box>
+            <app-grid-search-box
+              placeholder="Search"
+              (sendSearchText)="getSearchText($event)"
+            >
+            </app-grid-search-box>
           </div>
         </div>
         <!-- table -->
@@ -26,19 +30,23 @@
             [NumberColumn]="'true'"
             [rows]="dataSource"
             [TableActions]="!isPublic ? ListAction : false"
-            [sortEnabled]="false"
+            [sortEnabled]="true"
             [pageSize]="pageSize"
-            [pageNo]="currentPageNo"
+            [pageNo]="selectedPage"
           >
           </app-table>
-          <ng-template #ListAction>
+          <ng-template #ListAction let-status="status">
             <div class="action-buttons">
-              <button matTooltip="Edit" (click)="openEditDialog()">
-                <mat-icon class="material-icons">create</mat-icon>
-              </button>
-              <button matTooltip="Add">
-                <mat-icon class="material-icons">add_circle</mat-icon>
-              </button>
+              <ng-container *ngIf="status === 'draft'">
+                <button matTooltip="Edit Draft">
+                  <mat-icon class="material-icons">create</mat-icon>
+                </button>
+              </ng-container>
+              <ng-container *ngIf="status !== 'draft'">
+                <button matTooltip="Create Draft">
+                  <mat-icon class="material-icons">add_circle</mat-icon>
+                </button>
+              </ng-container>
             </div>
           </ng-template>
         </div>
@@ -60,4 +68,7 @@
     </div>
   </div>
 </div>
-<app-filter [allowedFilters]="filtersList"></app-filter>
+<app-filter
+  [allowedFilters]="filtersList"
+  (filterChanges)="onChangeFilter($event)"
+></app-filter>

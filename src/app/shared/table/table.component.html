@@ -32,7 +32,8 @@
               'category',
               'player_name',
               'name',
-              'number_report_card'
+              'number_report_card',
+              'no_of_report_cards'
             ].includes(col)
           "
         >
@@ -124,7 +125,10 @@
               element.status
             ),
             black: ['verified'].includes(element.status),
-            green: ['active', 'added', 'approved'].includes(element.status),
+            green: ['active', 'added', 'approved', 'published'].includes(
+              element.status
+            ),
+            'color-primary': ['draft'].includes(element.status),
             completeStatus: ['completed'].includes(element.status),
             yetStatus: ['yet_to_start'].includes(element.status),
             pendingStatus: ['pending'].includes(element.status)
@@ -273,6 +277,15 @@
               [src]="tableConfig.columns[col].getValue(element)"
               alt=""
             />
+          </a>
+        </p>
+        <p *ngIf="col === 'no_of_report_cards'">
+          <a
+            *ngIf="tableConfig.columns[col].getValue(element).url"
+            [href]="tableConfig.columns[col].getValue(element).url"
+            target="_blank"
+          >
+            {{ tableConfig.columns[col].getValue(element).total_report_cards }}
           </a>
         </p>
         <p *ngIf="col === 'club_academy_name'">
