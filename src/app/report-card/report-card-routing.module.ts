@@ -5,6 +5,7 @@ import { ManageReportCardComponent } from './manage-report-card/manage-report-ca
 import { ReportCardComponent } from './report-card.component';
 import { RoleGuardService } from '@app/core/authentication/role-guard.service';
 import { AddEditReportCardComponent } from './add-edit-report-card/add-edit-report-card.component';
+import { LinkReportCardComponent } from './link-report-card/link-report-card.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
         path: 'add-report-card',
         component: AddEditReportCardComponent,
         data: { title: extract('Add Report Card') }
+      },
+      {
+        path: 'link-report-card',
+        component: LinkReportCardComponent,
+        data: { title: extract('Link Report Card') }
       }
     ]
   }
