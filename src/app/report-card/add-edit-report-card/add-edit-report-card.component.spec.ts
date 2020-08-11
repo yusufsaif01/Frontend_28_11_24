@@ -8,9 +8,8 @@ describe('AddEditReportCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddEditReportCardComponent ]
-    })
-    .compileComponents();
+      declarations: [AddEditReportCardComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
