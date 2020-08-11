@@ -1,11 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { environment } from '@env/environment';
 
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { PostPopupComponent } from '@app/timeline/post-popup/post-popup.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { PanelOptions } from '@app/shared/models/panel-options.model';

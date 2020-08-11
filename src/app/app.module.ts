@@ -21,30 +21,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { RegistrationComponent } from './registration/registration.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MatSortModule } from '@angular/material/sort';
-import { FeatherModule } from 'angular-feather';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
-import {
-  Camera,
-  Heart,
-  Github,
-  Users,
-  Crosshair,
-  MessageSquare,
-  Bell,
-  AlertCircle,
-  Image,
-  Delete,
-  Trash2,
-  Facebook,
-  Instagram,
-  Youtube,
-  Twitter,
-  MapPin,
-  Clock,
-  Star,
-  Edit
-} from 'angular-feather/icons';
-
 import { DeleteConfirmationComponent } from './shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from './shared/dialog-box/status-confirmation/status-confirmation.component';
 import { AddEditPopupComponent } from './admin/masterdata/player-specialization/manage-position/add-edit-popup/add-edit-popup.component';
@@ -54,26 +31,6 @@ import { JwtInterceptor } from './core/http/jwt.interceptor';
 import { ErrorInterceptor } from './core/http/error.interceptor';
 
 import { HomeModule } from './home/home.module';
-const icons = {
-  Camera,
-  Heart,
-  Github,
-  Users,
-  Crosshair,
-  MessageSquare,
-  Bell,
-  AlertCircle,
-  Image,
-  Delete,
-  Trash2,
-  Facebook,
-  Instagram,
-  Youtube,
-  Twitter,
-  MapPin,
-  Clock,
-  Star
-};
 
 @NgModule({
   imports: [
@@ -93,15 +50,12 @@ const icons = {
     CommonModule,
     LoginModule,
     HomeModule,
-    FeatherModule.pick(icons),
     Angulartics2Module.forRoot(),
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
     NgxSpinnerModule,
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-top-right',
-      // toastClass: "toast border-red",
-      // preventDuplicates: true,
       closeButton: true
     }),
     NgxTrimDirectiveModule
