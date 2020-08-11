@@ -65,7 +65,7 @@
             tableConfig.columns[col].getValue(element) | date: 'dd LLLL yyyy'
           }}
         </p> -->
-        <div
+        <span
           class="name"
           *ngIf="col === 'name'"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
@@ -84,7 +84,7 @@
                   '...'
             }}
           </p>
-        </div>
+        </span>
         <p
           *ngIf="col === 'type'"
           matTooltip=" {{ tableConfig.columns[col].getValue(element) }}"
@@ -103,9 +103,9 @@
           [ngClass]="{ red: ['false'].includes(element.is_email_verified) }"
         >
           {{
-            tableConfig.columns[col].getValue(element).length < 18
+            tableConfig.columns[col].getValue(element).length < 12
               ? tableConfig.columns[col].getValue(element)
-              : (tableConfig.columns[col].getValue(element) | slice: 0:18) +
+              : (tableConfig.columns[col].getValue(element) | slice: 0:12) +
                 '...'
           }}
         </p>

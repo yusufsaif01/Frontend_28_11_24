@@ -15,17 +15,6 @@ import { FilterService } from './filter.service';
 import { AdminService } from '@app/admin/admin.service';
 import { MatMenu } from '@angular/material';
 
-interface ActiveClass {
-  activePosition: boolean;
-  activePlayerCategory: boolean;
-  activeAge: boolean;
-  activeLocation: boolean;
-  activeStrongFoot: boolean;
-  activeTeamTypes: boolean;
-  activeAbility: boolean;
-  activeStatus: boolean;
-}
-
 interface LocationRangeFilters {
   countryData: any[];
   positions: any[];
@@ -61,10 +50,9 @@ interface LocationsIds {
 })
 export class FilterComponent implements OnInit {
   filter: any = {};
-  // switchClass: ActiveClass;
   locationRangeFilters: LocationRangeFilters;
   locationData: LocationsIds;
-  // checkFilters: boolean | undefined = undefined;
+
   @Input() allowedFilters = {
     position: false,
     playerCategory: false,
@@ -83,50 +71,6 @@ export class FilterComponent implements OnInit {
   )
   templates: QueryList<MatMenu>;
 
-  // buttons: any[] = [];
-  // filterData: any[] = [
-  //   {
-  //     allowedFilters: 'position',
-  //     switchClass: 'activePosition',
-  //     filterName: 'Position'
-  //   },
-  //   {
-  //     allowedFilters: 'playerCategory',
-  //     switchClass: 'activePlayerCategory',
-  //     filterName: 'Player Category'
-  //   },
-  //   {
-  //     allowedFilters: 'age',
-  //     switchClass: 'activeAge',
-  //     filterName: 'Age'
-  //   },
-  //   {
-  //     allowedFilters: 'location',
-  //     switchClass: 'activeLocation',
-  //     filterName: 'Location'
-  //   },
-  //   {
-  //     allowedFilters: 'strongFoot',
-  //     switchClass: 'activeStrongFoot',
-  //     filterName: 'Strong Foot'
-  //   },
-  //   {
-  //     allowedFilters: 'status',
-  //     switchClass: 'activeStatus',
-  //     filterName: 'Status'
-  //   },
-  //   {
-  //     allowedFilters: 'ability',
-  //     switchClass: 'activeAbility',
-  //     filterName: 'Ability'
-  //   },
-  //   {
-  //     allowedFilters: 'teamTypes',
-  //     switchClass: 'activeTeamTypes',
-  //     filterName: 'Types Of Teams'
-  //   }
-  // ];
-
   constructor(
     private _toastrService: ToastrService,
     private _sharedService: SharedService,
@@ -136,20 +80,10 @@ export class FilterComponent implements OnInit {
 
   ngOnInit() {
     this.initialize();
-    // this.deactivateAll();
     this.getLocationStats();
     this.getAbilityList();
     this.getFilterDisplayValue();
   }
-
-  // ngAfterViewInit() {
-  //   this.filterData.forEach((filter: any) => {
-  //     this.buttons.push(filter);
-  //   });
-  //   this.templates.forEach((el: any, index: number) => {
-  //     this.buttons[index].matMenu = el;
-  //   });
-  // }
 
   getFilterDisplayValue() {
     this._sharedService
@@ -179,19 +113,6 @@ export class FilterComponent implements OnInit {
         }
       );
   }
-
-  // deactivateAll() {
-  //   this.switchClass = {
-  //     activePosition: false,
-  //     activePlayerCategory: false,
-  //     activeAge: false,
-  //     activeLocation: false,
-  //     activeStrongFoot: false,
-  //     activeTeamTypes: false,
-  //     activeAbility: false,
-  //     activeStatus: false
-  //   };
-  // }
 
   initialize() {
     this.locationRangeFilters = {
@@ -321,11 +242,6 @@ export class FilterComponent implements OnInit {
       );
   }
 
-  // addActiveClass(className: any) {
-  //   this.deactivateAll();
-  //   this.switchClass[className] = true;
-  // }
-
   ngOnDestroy() {}
 
   getPositionsListing() {
@@ -363,7 +279,6 @@ export class FilterComponent implements OnInit {
   onChangeChecker(event: any, filterArray: any, type: string) {
     let entityName: any = event.source.value;
     if (event.checked) {
-      // if (this.checkFilters === false) this.checkFilters = undefined;
       if (!filterArray.includes(entityName)) {
         filterArray.push(entityName);
       }
@@ -380,8 +295,6 @@ export class FilterComponent implements OnInit {
 
   clearFilters() {
     this.filter = {};
-    // this.deactivateAll();
-    // this.checkFilters = false;
     this.locationRangeFilters.positionsArray = [];
     this.locationRangeFilters.playerTypeArray = [];
     this.locationRangeFilters.ageRangeArray = [];
