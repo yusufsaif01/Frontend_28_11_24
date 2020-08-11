@@ -106,7 +106,7 @@
           }})
         </h4>
         <h4 *ngIf="data?.member_type !== 'player'">
-          ({{ data?.type | titlecase }})
+          {{ data?.type ? (data?.type | titlecase) : '' }}
         </h4>
       </div>
     </ng-container>
@@ -141,7 +141,7 @@
     <ul>
       <ng-container *ngIf="!options?.is_public">
         <li>
-          <a [routerLink]="['/member/timeline/']">
+          <a [routerLink]="['/member/timeline']">
             <span class="icon">
               <img src="assets/images/global/timeline.svg" alt="timeline" />
             </span>
@@ -149,7 +149,7 @@
           </a>
         </li>
         <li>
-          <a [routerLink]="['/member/profile/']">
+          <a [routerLink]="['/member/profile']">
             <span class="icon">
               <img src="assets/images/global/profile.svg" alt="profile" />
             </span>
@@ -158,7 +158,13 @@
         </li>
       </ng-container>
       <li>
-        <a [routerLink]="['/member/awardcertification', userId]">
+        <a
+          [routerLink]="
+            userId
+              ? ['/member/awardcertification', userId]
+              : ['/member/awardcertification']
+          "
+        >
           <span class="icon">
             <img src="assets/images/global/achievement.svg" alt="achievement" />
           </span>
@@ -225,7 +231,7 @@
         *ngIf="options?.is_public && data?.member_type !== 'player'"
       >
         <li>
-          <a [routerLink]="['/member/manage-footplayer/club-academy']">
+          <a [routerLink]="['/member/manage-footplayer/club-academy', userId]">
             <span class="icon">
               <img src="assets/images/global/contracts.svg" alt="contracts" />
             </span>
