@@ -80,9 +80,8 @@
   }
 
   ::ng-deep {
-    .mat-table .mat-row .mat-cell .action-buttons button.save {
-      @include admin-btn;
-      border-radius: 0.8rem;
+    .mat-table .mat-row .mat-cell .invite-btn button {
+      font-size: 1.6rem !important;
     }
   }
 }
