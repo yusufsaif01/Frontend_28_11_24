@@ -174,7 +174,7 @@
       </div>
       <!-- position -->
       <div class="filter-group" *ngIf="allowedFilters.position">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('position')">
           <h3>
             <a>
               Position
@@ -182,7 +182,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks" #position>
           <li *ngFor="let position of locationRangeFilters.positions">
             <mat-checkbox
               [value]="position.name"
@@ -204,7 +204,7 @@
 
       <!-- Player category -->
       <div class="filter-group" *ngIf="allowedFilters.playerCategory">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('playercategory')">
           <h3>
             <a
               >Player category
@@ -212,7 +212,7 @@
             >
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks" #playercategory>
           <li *ngFor="let type of locationRangeFilters.playerType">
             <mat-checkbox
               [value]="type.value"
@@ -234,7 +234,7 @@
 
       <!-- Age -->
       <div class="filter-group" *ngIf="allowedFilters.age">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('age')">
           <h3>
             <a>
               Age
@@ -242,7 +242,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks" #age>
           <li *ngFor="let age of locationRangeFilters.ageRange">
             <mat-checkbox
               [value]="age.value"
@@ -262,7 +262,7 @@
 
       <!-- Location -->
       <div class="filter-group" *ngIf="allowedFilters.location">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('location')">
           <h3>
             <a>
               Location
@@ -270,7 +270,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks" #location>
           <li>
             <div class="form-block">
               <select
@@ -280,7 +280,7 @@
                 <option value="">Select Country</option>
                 <option
                   *ngFor="let country of locationRangeFilters.countryData"
-                  [value]="getCountryValue(country)"
+                  [value]="getLocationValue(country)"
                 >
                   {{ country.country }}</option
                 >
@@ -296,7 +296,7 @@
                 <option value="">Select State</option>
                 <option
                   *ngFor="let state of locationRangeFilters.states"
-                  [value]="getStateValue(state)"
+                  [value]="getLocationValue(state)"
                   >{{ state.name }}
                 </option>
               </select>
@@ -311,7 +311,7 @@
                 <option value="">Select District</option>
                 <option
                   *ngFor="let district of locationRangeFilters.districts"
-                  [value]="getDistrictValue(district)"
+                  [value]="getLocationValue(district)"
                 >
                   {{ district.name }}</option
                 >
@@ -323,7 +323,7 @@
 
       <!-- strong foot -->
       <div class="filter-group" *ngIf="allowedFilters.strongFoot">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('strongfoot')">
           <h3>
             <a>
               Strong Foot
@@ -331,7 +331,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks" #strongfoot>
           <li *ngFor="let type of locationRangeFilters.strongFoot">
             <mat-checkbox
               [value]="type.value"
@@ -353,7 +353,7 @@
 
       <!-- Status -->
       <div class="filter-group" *ngIf="allowedFilters.status">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('status')">
           <h3>
             <a
               >Status
@@ -361,7 +361,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks" #status>
           <li *ngFor="let status of locationRangeFilters.status">
             <mat-checkbox
               [value]="status.value"
@@ -383,7 +383,7 @@
 
       <!-- ability -->
       <div class="filter-group" *ngIf="allowedFilters.ability">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('ability')">
           <h3>
             <a
               >Ability
@@ -391,7 +391,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks" #ability>
           <li *ngFor="let ability of locationRangeFilters.ability">
             <mat-checkbox
               [value]="ability.name"
@@ -413,7 +413,7 @@
 
       <!-- Type of team -->
       <div class="filter-group" *ngIf="allowedFilters.teamTypes">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('teamtype')">
           <h3>
             <a
               >Type of team
@@ -421,7 +421,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks" #teamtype>
           <li *ngFor="let team of locationRangeFilters.teamTypes">
             <mat-checkbox
               [value]="team"
