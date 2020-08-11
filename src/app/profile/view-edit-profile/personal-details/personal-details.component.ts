@@ -3,6 +3,7 @@ import { ViewEditProfileService } from '../view-edit-profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { SharedService } from '@app/shared/shared.service';
+import { Constants } from '@app/shared/static-data/static-data';
 
 import {
   FormGroup,
@@ -27,29 +28,10 @@ let addressControl = {
   address: [Validators.required]
 };
 
-const APP_DATE_FORMATS = {
-  DOB: {
-    parse: {
-      dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
-    },
-    display: {
-      dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
-    }
-  },
-  FOUNDED: {
-    parse: {
-      dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
-    },
-    display: {
-      dateInput: { year: 'numeric' }
-    }
-  }
-};
-
 export function dateFactory() {
   return localStorage.getItem('member_type') === 'player'
-    ? APP_DATE_FORMATS.DOB
-    : APP_DATE_FORMATS.FOUNDED;
+    ? Constants.PROFILE_DATE_FORMATS.DOB
+    : Constants.PROFILE_DATE_FORMATS.FOUNDED;
 }
 
 @Component({
