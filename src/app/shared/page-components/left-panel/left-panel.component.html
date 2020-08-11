@@ -85,7 +85,11 @@
           }})
         </h4>
         <h4 *ngIf="profile?.member_type !== 'player'">
-          ({{ professionalProfile?.type | titlecase }})
+          {{
+            professionalProfile?.type
+              ? (professionalProfile?.type | titlecase)
+              : ''
+          }}
         </h4>
       </div>
     </ng-container>
