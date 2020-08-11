@@ -41,6 +41,7 @@
           <!-- tab pannel -->
           <div class="tab-panel">
             <div class="scorecard-wrapper">
+              <!-- first -->
               <div class="score">
                 <div class="left">
                   <h4>Acceleration</h4>
@@ -63,13 +64,109 @@
                   </div>
                 </div>
               </div>
+
+              <!-- second -->
+              <div class="score">
+                <div class="left">
+                  <h4>Acceleration</h4>
+                  <span class="slider">
+                    <mat-slider [(ngModel)]="value"></mat-slider>
+                  </span>
+                  <p>0-99</p>
+                </div>
+                <div class="right">
+                  <div class="success">
+                    <div class="stroke">
+                      <mat-progress-spinner
+                        diameter="60"
+                        [mode]="mode"
+                        [value]="value"
+                      >
+                      </mat-progress-spinner>
+                      <span>{{ value }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- third -->
+              <div class="score">
+                <div class="left">
+                  <h4>Acceleration</h4>
+                  <span class="slider">
+                    <mat-slider [(ngModel)]="value"></mat-slider>
+                  </span>
+                  <p>0-99</p>
+                </div>
+                <div class="right">
+                  <div class="primary">
+                    <div class="stroke">
+                      <mat-progress-spinner
+                        diameter="60"
+                        [mode]="mode"
+                        [value]="value"
+                      >
+                      </mat-progress-spinner>
+                      <span>{{ value }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- fourth -->
+              <div class="score">
+                <div class="left">
+                  <h4>Acceleration</h4>
+                  <span class="slider">
+                    <mat-slider [(ngModel)]="value"></mat-slider>
+                  </span>
+                  <p>0-99</p>
+                </div>
+                <div class="right">
+                  <div class="success">
+                    <div class="stroke">
+                      <mat-progress-spinner
+                        diameter="60"
+                        [mode]="mode"
+                        [value]="value"
+                      >
+                      </mat-progress-spinner>
+                      <span>{{ value }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- fifth -->
+              <div class="score">
+                <div class="left">
+                  <h4>Acceleration</h4>
+                  <span class="slider">
+                    <mat-slider [(ngModel)]="value"></mat-slider>
+                  </span>
+                  <p>0-99</p>
+                </div>
+                <div class="right">
+                  <div class="primary">
+                    <div class="stroke">
+                      <mat-progress-spinner
+                        diameter="60"
+                        [mode]="mode"
+                        [value]="value"
+                      >
+                      </mat-progress-spinner>
+                      <span>{{ value }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           <!-- remark -->
           <div class="remark">
             <div class="form-block">
-              <h4>Remark</h4>
+              <label class="mb-1">Remark</label>
               <textarea name="remark" rows="5"></textarea>
             </div>
           </div>

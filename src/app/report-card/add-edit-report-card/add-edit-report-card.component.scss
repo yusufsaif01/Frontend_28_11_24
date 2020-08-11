@@ -61,6 +61,7 @@
           justify-content: space-between;
           padding: 1rem 2rem;
           color: $fourth-color;
+          margin-bottom: 1rem;
         }
 
         // reportCards wrapper
@@ -70,17 +71,18 @@
           // tabs buttons
           .tabs-buttons {
             width: 100%;
+            margin-bottom: 4rem;
 
             ul {
               list-style: none;
 
               li {
                 display: inline-block;
-                margin-right: 2rem;
+                margin-right: 8rem;
 
                 a {
                   color: $fourth-color;
-                  font-size: $heading-fourth;
+                  font-size: 2rem;
                   font-weight: 700;
                   display: inline-block;
                   padding: 1rem 2rem 1rem 0;
@@ -109,15 +111,26 @@
                 padding-left: 2rem;
                 display: flex;
                 align-items: center;
+                margin-bottom: 4rem;
 
                 .left {
                   padding-right: 1rem;
 
                   .slider {
+                    display: flex;
+                    height: 25px;
+                    align-items: center;
+
                     ::ng-deep {
                       .mat-slider-thumb,
-                      .mat-slider-thumb-label {
+                      .mat-slider-thumb-label,
+                      .mat-slider-track-fill {
                         background-color: $primary-color;
+                      }
+
+                      .mat-slider-horizontal {
+                        padding: 0px;
+                        margin-left: -1rem;
                       }
                     }
                   }
@@ -137,15 +150,15 @@
                 .right {
                   .stroke {
                     position: relative;
-                    border: 7px solid #bdbdbd;
+                    border: 6px solid #bdbdbd;
                     width: 60px;
                     height: 60px;
                     border-radius: 5rem;
 
                     .mat-progress-spinner {
                       position: absolute;
-                      left: -7px;
-                      top: -7px;
+                      left: -6px;
+                      top: -6px;
                     }
 
                     span {
