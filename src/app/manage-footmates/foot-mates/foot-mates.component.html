@@ -57,8 +57,12 @@
                 <div class="player-categroy">
                   <h5>{{ footMate.player_type | titlecase }}</h5>
                   <a *ngIf="footMate.mutuals" (click)="openDialog(footMate)"
-                    >{{ footMate.mutuals }} Mutual FooTMates</a
-                  >
+                    >{{
+                      footMate.mutuals +
+                        ' Mutual FooTMate' +
+                        (footMate.mutuals > 1 ? 's' : '')
+                    }}
+                  </a>
                 </div>
               </div>
             </div>
