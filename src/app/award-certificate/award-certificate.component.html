@@ -2,8 +2,10 @@
 <div class="site-wrapper">
   <div class="left-panel">
     <app-left-panel
+      [userId]="userId"
       (sendPlayerType)="getPlayerType($event)"
       (sendMemberType)="getMemberType($event)"
+      [options]="panelOptions"
     ></app-left-panel>
   </div>
   <div class="right-panel">
@@ -12,7 +14,11 @@
         <!-- award heading -->
         <div class="heading">
           <h2>My awards and certificates</h2>
-          <button class="secondary-btn" (click)="openDialog()">
+          <button
+            *ngIf="!isPublic"
+            class="secondary-btn"
+            (click)="openDialog()"
+          >
             Add awards and certificates
           </button>
         </div>

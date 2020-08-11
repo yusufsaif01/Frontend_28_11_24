@@ -23,7 +23,7 @@
             "tsConfig": "tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
             "assets": [
-              "src/assets/FavIcon_YFTChain.png",
+              "src/assets/favicon.ico",
               "src/apple-touch-icon.png",
               "src/robots.txt",
               "src/manifest.json",
@@ -96,7 +96,7 @@
             "scripts": [],
             "styles": ["src/styles.scss"],
             "assets": [
-              "src/assets/FavIcon_YFTChain.png",
+              "src/assets/favicon.ico",
               "src/apple-touch-icon.png",
               "src/robots.txt",
               "src/manifest.json",

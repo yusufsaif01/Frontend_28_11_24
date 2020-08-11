@@ -17,6 +17,7 @@ import { LeftPanelService } from './left-panel.service';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { PublicProfileService } from '@app/profile/public-profile/public-profile.service';
 
 interface countResponseDataContext {
   achievements: number;
@@ -37,16 +38,16 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   // profileDataPopulated: boolean = false;
   environment = environment;
   member_type: string = localStorage.getItem('member_type');
-  loggedin_userid: string = localStorage.getItem('user_id');
+  logged_user_id: string = localStorage.getItem('user_id');
   profile_status: string;
 
   @Input() data: any;
   @Input() achievements: number = 0;
   @Input() options: any;
-  @Input() userId: string;
+  @Input() userId: string = '';
   @Input() is_following = false;
   @Input() is_footmate = 'Not_footmate';
-  followers: number = 0;
+  @Input() followers: number;
   @Output() sendClubAcademyType = new EventEmitter<string>();
   @Output() sendPlayerType = new EventEmitter<string>();
   @Output() sendMemberType = new EventEmitter<string>();
@@ -64,16 +65,38 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     private _footRequestService: FootRequestService,
     private _router: Router,
     private _leftPanelService: LeftPanelService,
+    private _publicProfileService: PublicProfileService,
     private _toastrService: ToastrService
   ) {}
 
   ngOnDestroy() {}
 
   ngOnInit() {
+    if (this.userId) {
+      this.getPublicProfileDetails();
+    }
     this.getPersonalProfileDetails();
     this.getProfessionalProfileDetails();
     this.getAchievementCount();
     this.getConnectionStats();
+  }
+
+  getPublicProfileDetails() {
+    let data = { user_id: '' };
+    data.user_id = this.userId ? this.userId : this.logged_user_id;
+
+    this._publicProfileService
+      .getPublicProfileDetails(data)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.data = response.data;
+          this.setAvatar(this.data);
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
+        }
+      );
   }
 
   getProfessionalProfileDetails() {
@@ -105,7 +128,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
         response => {
           this.profile = response.data;
           // this.profileDataPopulated = true;
-          this.setAvatar();
+          this.setAvatar(this.profile);
           this.is_following = this.profile.is_followed;
           this.is_footmate = this.profile.footmate_status;
           this.profile_status = this.profile.profile_status.status;
@@ -152,80 +175,12 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
       );
   }
 
-  setAvatar() {
-    if (this.profile.avatar_url) {
-      this.profile.avatar_url =
-        this.environment.mediaUrl + this.profile.avatar_url;
+  setAvatar(data: any) {
+    if (data.avatar_url) {
+      data.avatar_url = this.environment.mediaUrl + data.avatar_url;
     } else {
-      this.profile.avatar_url =
+      data.avatar_url =
         this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
-    }
-  }
-
-  toggleFollow() {
-    if (this.is_following) {
-      this.following$ = this._leftPanelService
-        .unfollowUser({
-          to: this.userId
-        })
-        .pipe(
-          map(resp => {
-            console.log(resp);
-            this.is_following = false;
-            this.getConnectionStats();
-          }),
-          catchError(err => {
-            this._toastrService.error('Error', err.error.message);
-            throw err;
-          }),
-          untilDestroyed(this)
-        );
-    } else {
-      this.following$ = this._leftPanelService
-        .followUser({
-          to: this.userId
-        })
-        .pipe(
-          map(resp => {
-            console.log(resp);
-            this.is_following = true;
-            this.getConnectionStats();
-          }),
-          catchError(err => {
-            this._toastrService.error('Error', err.error.message);
-            throw err;
-          }),
-          untilDestroyed(this)
-        );
-    }
-  }
-
-  toggleFootMate() {
-    if (this.is_footmate === 'Not_footmate') {
-      this._leftPanelService
-        .sendFootMate({
-          to: this.userId
-        })
-        .pipe(untilDestroyed(this))
-        .subscribe(
-          response => {
-            this.is_footmate = 'Pending';
-          },
-          error => {}
-        );
-    } else if (this.is_footmate === 'Accepted') {
-      this._leftPanelService
-        .cancelFootMate({
-          to: this.userId
-        })
-        .pipe(untilDestroyed(this))
-        .subscribe(
-          response => {
-            this.is_footmate = 'Not_footmate';
-            this.is_following = false;
-          },
-          error => {}
-        );
     }
   }
 }
