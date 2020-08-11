@@ -110,19 +110,19 @@
         </h4>
       </div>
     </ng-container>
-    <ng-container *ngIf="!options?.is_public">
-      <div class="profile-counts">
-        <div class="count line">
-          <span>{{ followers }}</span>
-          <h5>Followers</h5>
-        </div>
-        <div class="count">
-          <span>{{ count.videos || 0 }}</span>
-          <h5>Videos</h5>
-        </div>
+    <!-- <ng-container *ngIf="!options?.is_public"> -->
+    <div class="profile-counts">
+      <div class="count line">
+        <span>{{ followers }}</span>
+        <h5>Followers</h5>
       </div>
-    </ng-container>
-    <ng-container *ngIf="options?.is_public">
+      <div class="count">
+        <span>{{ count.videos || 0 }}</span>
+        <h5>Videos</h5>
+      </div>
+    </div>
+    <!-- </ng-container> -->
+    <!-- <ng-container *ngIf="options?.is_public">
       <div class="profile-counts">
         <div class="count line">
           <span>{{ data?.followers }}</span>
@@ -133,30 +133,32 @@
           <h5>Videos</h5>
         </div>
       </div>
-    </ng-container>
+    </ng-container> -->
   </div>
 
   <!-- menu -->
   <div class="menus">
     <ul>
+      <ng-container *ngIf="!options?.is_public">
+        <li>
+          <a [routerLink]="['/member/timeline/']">
+            <span class="icon">
+              <img src="assets/images/global/timeline.svg" alt="timeline" />
+            </span>
+            <span class="text">Timeline</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/member/profile/']">
+            <span class="icon">
+              <img src="assets/images/global/profile.svg" alt="profile" />
+            </span>
+            <span class="text">My Profile</span>
+          </a>
+        </li>
+      </ng-container>
       <li>
-        <a [routerLink]="['/member/timeline/']">
-          <span class="icon">
-            <img src="assets/images/global/timeline.svg" alt="timeline" />
-          </span>
-          <span class="text">Timeline</span>
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/member/profile/']">
-          <span class="icon">
-            <img src="assets/images/global/profile.svg" alt="profile" />
-          </span>
-          <span class="text">My Profile</span>
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/member/awardcertification']">
+        <a [routerLink]="['/member/awardcertification', userId]">
           <span class="icon">
             <img src="assets/images/global/achievement.svg" alt="achievement" />
           </span>
@@ -171,13 +173,15 @@
           <span class="text">Gallery</span>
         </a>
       </li>
-      <ng-container *ngIf="profile?.member_type === 'player'">
+      <ng-container
+        *ngIf="!options?.is_public && profile?.member_type === 'player'"
+      >
         <li>
           <a>
             <span class="icon">
               <img src="assets/images/global/timer.svg" alt="trial" />
             </span>
-            <span class="text">My trials</span>
+            <span class="text">My trial</span>
           </a>
         </li>
         <li>
@@ -197,7 +201,9 @@
           </a>
         </li>
       </ng-container>
-      <ng-container *ngIf="profile?.member_type !== 'player'">
+      <ng-container
+        *ngIf="!options?.is_public && profile?.member_type !== 'player'"
+      >
         <li>
           <a>
             <span class="icon">
@@ -214,6 +220,10 @@
             <span class="text">Contract management</span>
           </a>
         </li>
+      </ng-container>
+      <ng-container
+        *ngIf="options?.is_public && data?.member_type !== 'player'"
+      >
         <li>
           <a [routerLink]="['/member/manage-footplayer/club-academy']">
             <span class="icon">
@@ -222,11 +232,33 @@
                 alt="club-academy"
               />
             </span>
-            <span class="text"
-              >{{ profile?.member_type | titlecase }}'s FooTPlayers</span
-            >
+            <span class="text">{{
+              data?.member_type
+                ? (data?.member_type | titlecase) + "'s FooTPlayers"
+                : ''
+            }}</span>
           </a>
         </li>
+      </ng-container>
+      <ng-container
+        *ngIf="!options?.is_public && profile?.member_type !== 'player'"
+      >
+        <li>
+          <a [routerLink]="['/member/manage-footplayer/club-academy']">
+            <span class="icon">
+              <img src="assets/images/global/contracts.svg" alt="contracts" />
+            </span>
+            <span class="text">{{
+              profile?.member_type
+                ? (profile?.member_type | titlecase) + "'s FooTPlayers"
+                : ''
+            }}</span>
+          </a>
+        </li>
+      </ng-container>
+      <ng-container
+        *ngIf="!options?.is_public && profile?.member_type !== 'player'"
+      >
         <li>
           <a>
             <span class="icon">
