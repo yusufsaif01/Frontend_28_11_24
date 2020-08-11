@@ -311,5 +311,9 @@ export class FilterComponent implements OnInit {
     this.locationData.stateValue = '';
     this.locationData.districtValue = '';
     this.filterChanges.emit(false);
+
+    this.templates.map((element, index) => {
+      this._renderer['removeClass'](element.nativeElement, 'remove-filter');
+    });
   }
 }
