@@ -32,8 +32,8 @@ export class FootMatesComponent implements OnInit, OnDestroy {
     location: true,
     strongFoot: true,
     teamTypes: false,
-    ability: true,
-    status: true
+    ability: false,
+    status: false
   };
 
   panelOptions: object = {
