@@ -39,7 +39,7 @@
             <div class="action-buttons">
               <ng-container *ngIf="status === 'draft'">
                 <button
-                  matTooltip="Edit Draft"
+                  matTooltip="Edit draft"
                   [routerLink]="[
                     '/member/manage-report-card/edit-report-card/',
                     user_id
@@ -50,7 +50,7 @@
               </ng-container>
               <ng-container *ngIf="status !== 'draft'">
                 <button
-                  matTooltip="Create Draft"
+                  matTooltip="Create draft"
                   [routerLink]="[
                     '/member/manage-report-card/add-report-card/',
                     user_id

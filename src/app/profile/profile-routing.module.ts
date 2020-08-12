@@ -24,32 +24,32 @@ const appRoutes: Routes = [
       {
         path: 'add-employment-contract',
         component: AddEditEmploymentContractComponent,
-        data: { title: extract('Add New Contract') }
+        data: { title: extract('Add new contract') }
       },
       {
         path: 'add-employment-contract/:send_to',
         component: AddEditEmploymentContractComponent,
-        data: { title: extract('Add New Contract') }
+        data: { title: extract('Add new contract') }
       },
       {
         path: 'edit-employment-contract/:contract_id',
         component: AddEditEmploymentContractComponent,
-        data: { title: extract('Edit Contract') }
+        data: { title: extract('Edit contract') }
       },
       {
         path: 'view-employment-contract/:id',
         component: ViewEmploymentContractComponent,
-        data: { title: extract('View Contract') }
+        data: { title: extract('View contract') }
       },
       {
         path: 'public',
         component: PublicProfileComponent,
-        data: { title: extract('Public Profile') }
+        data: { title: extract('Public profile') }
       },
       {
         path: 'public/:user_id',
         component: PublicProfileComponent,
-        data: { title: extract('Public Profile') }
+        data: { title: extract('Public profile') }
       },
       { path: '**', component: ViewEditProfileComponent }
     ]

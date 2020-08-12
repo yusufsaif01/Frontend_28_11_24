@@ -106,7 +106,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   }
 
   // AddPlayerPopUp
-  onaddfootplayer(): void {
+  onAddFootPlayer(): void {
     let data = {
       member_type: this.member_type
     };
