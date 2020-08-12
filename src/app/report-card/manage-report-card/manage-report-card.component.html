@@ -38,12 +38,12 @@
           <ng-template #ListAction let-status="status">
             <div class="action-buttons">
               <ng-container *ngIf="status === 'draft'">
-                <button matTooltip="Edit Draft">
+                <button matTooltip="Edit draft">
                   <mat-icon class="material-icons">create</mat-icon>
                 </button>
               </ng-container>
               <ng-container *ngIf="status !== 'draft'">
-                <button matTooltip="Create Draft">
+                <button matTooltip="Create draft">
                   <mat-icon class="material-icons">add_circle</mat-icon>
                 </button>
               </ng-container>
