@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { ContractManagementTableConfig } from './contract-management-table.conf';

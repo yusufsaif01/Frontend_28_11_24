@@ -28,7 +28,7 @@
             >
             </app-grid-search-box>
           </div>
-          <button class="secondary-btn" (click)="onaddfootplayer()">
+          <button class="secondary-btn" (click)="onAddFootPlayer()">
             Add player
           </button>
         </div>
@@ -58,7 +58,7 @@
           >
             <div class="action-buttons">
               <button
-                matTooltip="Resend Invitation"
+                matTooltip="Resend invitation"
                 [ngClass]="{
                   'icon-disable': ['pending', 'added', 'rejected'].includes(
                     status
@@ -77,7 +77,7 @@
                   '/member/profile/add-employment-contract',
                   user_id
                 ]"
-                matTooltip="Add Contract"
+                matTooltip="Add contract"
               >
                 <mat-icon class="material-icons">add_circle</mat-icon>
               </button>

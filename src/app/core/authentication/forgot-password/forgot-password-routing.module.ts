@@ -8,7 +8,7 @@ const appRoutes: Routes = [
   {
     path: '',
     component: ForgotPasswordComponent,
-    data: { title: extract('Forgot Password') }
+    data: { title: extract('Forgot password') }
   }
 ];
 

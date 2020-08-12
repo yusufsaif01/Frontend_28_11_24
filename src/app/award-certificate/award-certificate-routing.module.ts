@@ -15,12 +15,12 @@ const appRoutes: Routes = [
       {
         path: '',
         component: AwardCertificateComponent,
-        data: { title: extract('Awards and Certification') }
+        data: { title: extract('Awards & Certificates') }
       },
       {
         path: ':handle',
         component: AwardCertificateComponent,
-        data: { title: extract('Awards and Certification') }
+        data: { title: extract('Awards & Certificates') }
       },
       { path: '**', component: AwardCertificateComponent }
     ]

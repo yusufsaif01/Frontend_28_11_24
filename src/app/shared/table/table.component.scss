@@ -12,6 +12,10 @@
   color: green;
 }
 
+.color-primary {
+  color: $primary-color;
+}
+
 .activeStatus {
   color: $success;
 }

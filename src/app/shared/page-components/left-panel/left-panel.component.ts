@@ -10,12 +10,11 @@ import {
 import { AuthenticationService, untilDestroyed } from '@app/core';
 import { TimelineService } from '@app/timeline/timeline.service';
 import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env/environment';
 import { Router } from '@angular/router';
 import { ViewEditProfileService } from '@app/profile/view-edit-profile/view-edit-profile.service';
 import { LeftPanelService } from './left-panel.service';
 import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { PublicProfileService } from '@app/profile/public-profile/public-profile.service';
 
@@ -64,7 +63,6 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     private _timelineService: TimelineService,
     private _footRequestService: FootRequestService,
     private _router: Router,
-    private _leftPanelService: LeftPanelService,
     private _publicProfileService: PublicProfileService,
     private _toastrService: ToastrService
   ) {}

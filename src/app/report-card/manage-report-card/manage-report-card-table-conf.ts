@@ -1,13 +1,13 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
 import moment from 'moment';
-export class ContractManagementTableConfig extends TableConfig {
+export class ManageReportCardTableConfig extends TableConfig {
   constructor() {
     super();
     this.allowedColumns = [
       'name',
-      'effective_date',
-      'expiry_date',
-      'created_by',
+      'category',
+      'published_at',
+      'no_of_report_cards',
       'status'
     ];
 
@@ -19,31 +19,30 @@ export class ContractManagementTableConfig extends TableConfig {
           return ele[this.columns.name.code];
         }
       },
-      effective_date: {
-        code: 'effective_date',
-        text: 'Effective date',
+      category: {
+        code: 'category',
+        text: 'Category',
         getValue: (ele: any) => {
-          let val: any = moment(ele.effective_date);
-          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          return ele[this.columns.category.code];
+        }
+      },
+      published_at: {
+        code: 'published_at',
+        text: 'Published date ',
+        getValue: (ele: any) => {
+          let val: any = moment(ele.published_at);
+          val = val.isValid() ? val.format('DD-MMMM-YYYY') : '';
           return `${val}`;
         }
       },
-      expiry_date: {
-        code: 'expiry_date',
-        text: 'Expiry date',
+      no_of_report_cards: {
+        code: 'no_of_report_cards',
+        text: 'No. of report card',
         getValue: (ele: any) => {
-          let val: any = moment(ele.effective_date);
-          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
-          return `${val}`;
+          return ele[this.columns.no_of_report_cards.code];
         }
       },
-      created_by: {
-        code: 'created_by',
-        text: 'Created by',
-        getValue: (ele: any) => {
-          return ele[this.columns.created_by.code];
-        }
-      },
+
       status: {
         code: 'status',
         text: 'Status',
