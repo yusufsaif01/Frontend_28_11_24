@@ -34,6 +34,10 @@ interface LocationRangeFilters {
   teamTypesArray: any[];
   statusArray: any[];
   abilityArray: any[];
+  dateRange: {
+    to: any;
+    from: any;
+  };
 }
 
 interface LocationsIds {
@@ -53,6 +57,8 @@ export class FilterComponent implements OnInit {
   filter: any = {};
   locationRangeFilters: LocationRangeFilters;
   locationData: LocationsIds;
+  today = new Date();
+  tzoffset = new Date().getTimezoneOffset() * 60000;
 
   @Input() allowedFilters = {
     position: false,
@@ -69,7 +75,7 @@ export class FilterComponent implements OnInit {
 
   @Output() filterChanges: EventEmitter<any> = new EventEmitter();
   @ViewChildren(
-    'position, playercategory, age, location, strongfoot, ability, teamtype, status'
+    'position, playercategory, age, location, strongfoot, ability, teamtype, status, daterange'
   )
   templates: QueryList<ElementRef>;
 
@@ -152,7 +158,11 @@ export class FilterComponent implements OnInit {
       strongFootArray: [],
       teamTypesArray: [],
       statusArray: [],
-      abilityArray: []
+      abilityArray: [],
+      dateRange: {
+        to: '',
+        from: ''
+      }
     };
     this.locationData = {
       countryID: '',
@@ -299,6 +309,23 @@ export class FilterComponent implements OnInit {
     this.filterChanges.emit(this.filter);
   }
 
+  onDateChangeChecker(event: any, type: string) {
+    let { dateRange } = this.locationRangeFilters;
+    if (['to', 'from'].includes(type)) {
+      dateRange[type] = event.target.value;
+      // if (type === 'to') {
+      //   dateRange[type] = new Date(dateRange[type]).setHours(23, 59, 59);
+      // }
+      dateRange[type] = new Date(dateRange[type] - this.tzoffset).toISOString();
+    }
+    if (!Object.values(dateRange).includes('')) {
+      Object.keys(dateRange).forEach(range => {
+        this.filter[range] = dateRange[range];
+      });
+      this.filterChanges.emit(this.filter);
+    }
+  }
+
   clearFilters() {
     this.filter = {};
     this.locationRangeFilters.positionsArray = [];
@@ -308,6 +335,10 @@ export class FilterComponent implements OnInit {
     this.locationRangeFilters.statusArray = [];
     this.locationRangeFilters.teamTypesArray = [];
     this.locationRangeFilters.abilityArray = [];
+    this.locationRangeFilters.dateRange = {
+      to: '',
+      from: ''
+    };
     this.locationData.countryValue = '';
     this.locationData.stateValue = '';
     this.locationData.districtValue = '';

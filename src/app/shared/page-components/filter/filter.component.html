@@ -281,7 +281,7 @@
 
       <!-- Published date range -->
       <div class="filter-group" *ngIf="allowedFilters.dateRange">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('daterange')">
           <h3>
             <a>
               Published date range
@@ -289,19 +289,20 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks daterange-filter" #daterange>
           <li>
             <div class="form-block pb-0">
               <div class="double ">
                 <div class="half">
                   <div class="date pb-0">
                     <input
+                      [value]="locationRangeFilters.dateRange.from"
                       matInput
                       [matDatepicker]="fromYear"
                       readonly
                       placeholder="From"
-                      [min]="minDate"
-                      [max]="maxDate"
+                      [max]="today"
+                      (dateChange)="onDateChangeChecker($event, 'from')"
                     />
                     <mat-datepicker-toggle
                       matSuffix
@@ -313,12 +314,13 @@
                 <div class="half">
                   <div class="date pb-0">
                     <input
+                      [value]="locationRangeFilters.dateRange.to"
                       matInput
                       [matDatepicker]="toYear"
                       readonly
                       placeholder="To"
-                      [min]="minDate"
-                      [max]="maxDate"
+                      [max]="today"
+                      (dateChange)="onDateChangeChecker($event, 'to')"
                     />
                     <mat-datepicker-toggle
                       matSuffix

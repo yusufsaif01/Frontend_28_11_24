@@ -287,6 +287,9 @@
           >
             {{ tableConfig.columns[col].getValue(element).total_report_cards }}
           </a>
+          <ng-container *ngIf="!tableConfig.columns[col].getValue(element).url">
+            {{ tableConfig.columns[col].getValue(element).total_report_cards }}
+          </ng-container>
         </p>
         <p *ngIf="col === 'club_academy_name'">
           <a

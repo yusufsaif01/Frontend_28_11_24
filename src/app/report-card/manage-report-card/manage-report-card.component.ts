@@ -29,22 +29,22 @@ export class ManageReportCardComponent implements OnInit {
   searchText = '';
   isPublic = false;
 
-  panelOptions: Partial<PanelOptions> = {
-    // bio: true,
-    // member_type: true,
-    // my_achievements: false,
-    // view_profile_link: true,
-    // footplayers: true,
-    is_public: false
-  };
+  // panelOptions: Partial<PanelOptions> = {
+  //   bio: true,
+  //   member_type: true,
+  //   my_achievements: false,
+  //   view_profile_link: true,
+  //   footplayers: true,
+  //   is_public: false
+  // };
   filtersList = {
-    position: false,
+    // position: false,
     playerCategory: true,
-    age: false,
-    location: false,
-    strongFoot: false,
-    teamTypes: false,
-    ability: false,
+    // age: false,
+    // location: false,
+    // strongFoot: false,
+    // teamTypes: false,
+    // ability: false,
     status: true,
     dateRange: true
   };
@@ -56,6 +56,8 @@ export class ManageReportCardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.filter.page_size = this.pageSize;
+    this.filter.page_no = this.pageNo;
     this.getReportCardList();
   }
 
@@ -91,6 +93,14 @@ export class ManageReportCardComponent implements OnInit {
   }
 
   getReportCardList() {
+    if (this.filter.hasOwnProperty('footplayer_category')) {
+      Object.defineProperty(
+        this.filter,
+        'player_category',
+        Object.getOwnPropertyDescriptor(this.filter, 'footplayer_category')
+      );
+      delete this.filter['footplayer_category'];
+    }
     this._manageReportCardService
       .getReportCardList(this.filter)
       .pipe(untilDestroyed(this))
@@ -100,7 +110,7 @@ export class ManageReportCardComponent implements OnInit {
           for (let i = 0; i < records.length; i++) {
             records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
           }
-          let modifiedResponse = this.prepareContractResponse(records);
+          let modifiedResponse = this.prepareCardResponse(records);
           this.dataSource = new MatTableDataSource(modifiedResponse);
           this.show_count = response.data.records.length;
           this.total_count = response.data.total;
@@ -111,14 +121,20 @@ export class ManageReportCardComponent implements OnInit {
       );
   }
 
-  prepareContractResponse(
+  prepareCardResponse(
     records: GetReportCardListResponseContext['data']['records']
   ) {
     records.forEach(record => {
-      record['no_of_report_cards'] = {
-        total_report_cards: record.total_report_cards,
-        url: environment.mediaUrl + '' + record.user_id
-      };
+      if (record.total_report_cards <= 1) {
+        record['no_of_report_cards'] = {
+          total_report_cards: record.total_report_cards
+        };
+      } else {
+        record['no_of_report_cards'] = {
+          total_report_cards: record.total_report_cards,
+          url: environment.mediaUrl + '/' + record.user_id
+        };
+      }
     });
     return records;
   }

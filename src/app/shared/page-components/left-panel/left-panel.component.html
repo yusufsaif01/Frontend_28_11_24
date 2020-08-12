@@ -270,7 +270,7 @@
         *ngIf="!options?.is_public && profile?.member_type !== 'player'"
       >
         <li>
-          <a>
+          <a [routerLink]="['/member/manage-report-card']">
             <span class="icon">
               <img src="assets/images/global/report-icon.svg" alt="Report" />
             </span>
