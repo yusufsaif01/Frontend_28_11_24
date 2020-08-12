@@ -7,7 +7,7 @@
     <div class="right-wrapper">
       <div class="main">
         <div class="back">
-          <a>
+          <a [routerLink]="['/member/manage-report-card']">
             <span>
               <mat-icon class="material-icons">arrow_back_ios</mat-icon>
             </span>
@@ -23,7 +23,19 @@
           <!-- tabs -->
           <div class="tabs-buttons">
             <ul>
-              <li>
+              <ng-container *ngFor="let tab of tabs">
+                <li>
+                  <a
+                    [ngClass]="
+                      currentTab?.ability_id === tab?.ability_id ? 'active' : ''
+                    "
+                    (click)="getTab(tab.ability_id)"
+                  >
+                    {{ tab.ability_name }}
+                  </a>
+                </li>
+              </ng-container>
+              <!-- <li>
                 <a class="active">Physical</a>
               </li>
               <li>
@@ -34,13 +46,38 @@
               </li>
               <li>
                 <a>Goalkeeping</a>
-              </li>
+              </li> -->
             </ul>
           </div>
 
           <!-- tab pannel -->
           <div class="tab-panel">
             <div class="scorecard-wrapper">
+              <ng-container *ngFor="let attribute of currentTab?.attributes">
+                <div class="score">
+                  <div class="left">
+                    <h4>{{ attribute?.attribute_name }}</h4>
+                    <span class="slider">
+                      <mat-slider [(ngModel)]="value"></mat-slider>
+                    </span>
+                    <p>0-99</p>
+                  </div>
+                  <div class="right">
+                    <div class="success">
+                      <div class="stroke">
+                        <mat-progress-spinner
+                          diameter="60"
+                          [mode]="mode"
+                          [value]="value"
+                        >
+                        </mat-progress-spinner>
+                        <span>{{ attribute?.attribute_score }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+
               <!-- first -->
               <div class="score">
                 <div class="left">
@@ -52,102 +89,6 @@
                 </div>
                 <div class="right">
                   <div class="success">
-                    <div class="stroke">
-                      <mat-progress-spinner
-                        diameter="60"
-                        [mode]="mode"
-                        [value]="value"
-                      >
-                      </mat-progress-spinner>
-                      <span>{{ value }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- second -->
-              <div class="score">
-                <div class="left">
-                  <h4>Acceleration</h4>
-                  <span class="slider">
-                    <mat-slider [(ngModel)]="value"></mat-slider>
-                  </span>
-                  <p>0-99</p>
-                </div>
-                <div class="right">
-                  <div class="success">
-                    <div class="stroke">
-                      <mat-progress-spinner
-                        diameter="60"
-                        [mode]="mode"
-                        [value]="value"
-                      >
-                      </mat-progress-spinner>
-                      <span>{{ value }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- third -->
-              <div class="score">
-                <div class="left">
-                  <h4>Acceleration</h4>
-                  <span class="slider">
-                    <mat-slider [(ngModel)]="value"></mat-slider>
-                  </span>
-                  <p>0-99</p>
-                </div>
-                <div class="right">
-                  <div class="primary">
-                    <div class="stroke">
-                      <mat-progress-spinner
-                        diameter="60"
-                        [mode]="mode"
-                        [value]="value"
-                      >
-                      </mat-progress-spinner>
-                      <span>{{ value }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- fourth -->
-              <div class="score">
-                <div class="left">
-                  <h4>Acceleration</h4>
-                  <span class="slider">
-                    <mat-slider [(ngModel)]="value"></mat-slider>
-                  </span>
-                  <p>0-99</p>
-                </div>
-                <div class="right">
-                  <div class="success">
-                    <div class="stroke">
-                      <mat-progress-spinner
-                        diameter="60"
-                        [mode]="mode"
-                        [value]="value"
-                      >
-                      </mat-progress-spinner>
-                      <span>{{ value }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- fifth -->
-              <div class="score">
-                <div class="left">
-                  <h4>Acceleration</h4>
-                  <span class="slider">
-                    <mat-slider [(ngModel)]="value"></mat-slider>
-                  </span>
-                  <p>0-99</p>
-                </div>
-                <div class="right">
-                  <div class="primary">
                     <div class="stroke">
                       <mat-progress-spinner
                         diameter="60"
