@@ -17,6 +17,7 @@ import { untilDestroyed } from '@app/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { wordCount } from '@app/shared/validators/wordCount';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { VideoPopupComponent } from './video-popup/video-popup.component';
 
 interface PostContext {
   id: string;
@@ -376,5 +377,10 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   onScrollUp() {
     console.log('Scrolled Up');
+  }
+
+  // Video Popup
+  openVideoDialog(): void {
+    const dialogRef = this.dialog.open(VideoPopupComponent, {});
   }
 }

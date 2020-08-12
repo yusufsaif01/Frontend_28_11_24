@@ -1,0 +1,123 @@
+<div class="form-container">
+  <div class="header">
+    <div class="title">
+      <h2>Upload a new video</h2>
+    </div>
+    <div class="close">
+      <mat-icon mat-dialog-close class="material-icons">close</mat-icon>
+    </div>
+  </div>
+  <form>
+    <div class="modal-body">
+      <!-- radio  -->
+      <div class="radio-block">
+        <mat-radio-group>
+          <mat-radio-button checked value="Timeline video">
+            Timeline video
+          </mat-radio-button>
+          <mat-radio-button value="Learning or training video">
+            Learning or training video
+          </mat-radio-button>
+          <mat-radio-button value="Match video">
+            Match video
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <!-- steps -->
+      <div class="stepper">
+        <div class="steps active">
+          <div class="icon">
+            <mat-icon class="material-icons">
+              video_call
+            </mat-icon>
+          </div>
+          <p>Perform a skill and record a video</p>
+        </div>
+        <div class="steps steps-line active">
+          <div class="icon ">
+            <mat-icon class="material-icons">
+              av_timer
+            </mat-icon>
+          </div>
+          <p>Upload a video of length upto 150 mins</p>
+        </div>
+        <div class="steps steps-line  ">
+          <div class="icon">
+            <mat-icon class="material-icons">
+              trending_up
+            </mat-icon>
+          </div>
+          <p>Tag abilities and attributes</p>
+        </div>
+      </div>
+
+      <!-- ability -->
+      <div class="ability-wrapper">
+        <div class="btn-group mb-2">
+          <button class="btn-active">Physical</button>
+          <button>Mental</button>
+          <button>Technical</button>
+          <button class="btn-active">Goalkeeping</button>
+          <button>Other</button>
+        </div>
+      </div>
+      <!-- Attribute wrapper -->
+      <div class="attribute-wrapper">
+        <ul class="attribute-items">
+          <li>
+            <mat-checkbox value="acceleration">Acceleration</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="agility">Agility</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="jumping">Jumping</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="strength">Strength</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="sprint speed">Sprint speed</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="balance">Balance</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="stamina">Stamina</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="reactions">Reactions</mat-checkbox>
+          </li>
+        </ul>
+      </div>
+      <!-- video -->
+      <div class="upload-wrapper">
+        <div class="upload">
+          <img src="assets/images/member/video-placeholder.png" alt="" />
+          <div class="video-upload">
+            <span class="upload-video">
+              <label for="upload"
+                >Select a video
+                <input type="file" id="upload" />
+              </label>
+            </span>
+          </div>
+
+          <div class="uploader">
+            <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+            <span>Uploaded 40%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <!-- actions -->
+      <div class="action-block">
+        <div class="btn-group">
+          <button class="btn-normal" mat-dialog-close>Cancel</button>
+          <button class="btn-active" [mat-dialog-close]="true">Save</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
