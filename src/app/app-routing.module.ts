@@ -51,6 +51,10 @@ const routes: Routes = [
     loadChildren: './profile/profile.module#ProfileModule'
   },
   {
+    path: 'member/manage-report-card',
+    loadChildren: './report-card/report-card.module#ReportCardModule'
+  },
+  {
     path: 'member/manage',
     loadChildren:
       './manage-footmates/manage-footmates.module#ManageFootmatesModule'

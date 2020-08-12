@@ -31,7 +31,9 @@
               'position',
               'category',
               'player_name',
-              'name'
+              'name',
+              'number_report_card',
+              'no_of_report_cards'
             ].includes(col)
           "
         >
@@ -112,6 +114,7 @@
         <p *ngIf="col === 'position'">
           {{ tableConfig.columns[col].getValue(element) | titlecase }}
         </p>
+
         <p *ngIf="col === 'category'">
           {{ tableConfig.columns[col].getValue(element) | titlecase }}
         </p>
@@ -122,7 +125,10 @@
               element.status
             ),
             black: ['verified'].includes(element.status),
-            green: ['active', 'added', 'approved'].includes(element.status),
+            green: ['active', 'added', 'approved', 'published'].includes(
+              element.status
+            ),
+            'color-primary': ['draft'].includes(element.status),
             completeStatus: ['completed'].includes(element.status),
             yetStatus: ['yet_to_start'].includes(element.status),
             pendingStatus: ['pending'].includes(element.status)
@@ -138,6 +144,11 @@
             src="./../../../assets/images/icons/tick.png"
             alt=""
           /> -->
+        </p>
+        <p *ngIf="col === 'number_report_card'">
+          <a href="#" class="color-primary">
+            {{ tableConfig.columns[col].getValue(element) | titlecase }}
+          </a>
         </p>
         <p *ngIf="col === 'media'">
           <a
@@ -267,6 +278,18 @@
               alt=""
             />
           </a>
+        </p>
+        <p *ngIf="col === 'no_of_report_cards'">
+          <a
+            *ngIf="tableConfig.columns[col].getValue(element).url"
+            [href]="tableConfig.columns[col].getValue(element).url"
+            target="_blank"
+          >
+            {{ tableConfig.columns[col].getValue(element).total_report_cards }}
+          </a>
+          <ng-container *ngIf="!tableConfig.columns[col].getValue(element).url">
+            {{ tableConfig.columns[col].getValue(element).total_report_cards }}
+          </ng-container>
         </p>
         <p *ngIf="col === 'club_academy_name'">
           <a

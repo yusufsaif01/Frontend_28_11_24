@@ -1,0 +1,75 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel">
+    <app-left-panel> </app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main">
+        <!--  heading -->
+        <div class=" heading">
+          <h2>Manage report card</h2>
+          <button class="icon-btn" (click)="openFilter()">
+            <mat-icon class="material-icons">filter_alt</mat-icon>
+          </button>
+        </div>
+        <!-- search and popupbtn -->
+        <div class="search-section">
+          <div class="search-wrapper">
+            <app-grid-search-box
+              placeholder="Search"
+              (sendSearchText)="getSearchText($event)"
+            >
+            </app-grid-search-box>
+          </div>
+        </div>
+        <!-- table -->
+        <div class="table">
+          <app-table
+            [tableConfig]="tableConfig"
+            [NumberColumn]="'true'"
+            [rows]="dataSource"
+            [TableActions]="!isPublic ? ListAction : false"
+            [sortEnabled]="true"
+            [pageSize]="pageSize"
+            [pageNo]="selectedPage"
+          >
+          </app-table>
+          <ng-template #ListAction let-status="status">
+            <div class="action-buttons">
+              <ng-container *ngIf="status === 'draft'">
+                <button matTooltip="Edit Draft">
+                  <mat-icon class="material-icons">create</mat-icon>
+                </button>
+              </ng-container>
+              <ng-container *ngIf="status !== 'draft'">
+                <button matTooltip="Create Draft">
+                  <mat-icon class="material-icons">add_circle</mat-icon>
+                </button>
+              </ng-container>
+            </div>
+          </ng-template>
+        </div>
+        <!-- Pagination -->
+        <app-pagination
+          *ngIf="dataSource.data.length !== 0"
+          [showData]="false"
+          [showCount]="show_count"
+          [totalRows]="total_count"
+          [rowsPerPage]="pageSize"
+          [selectedPage]="selectedPage"
+          (onChange)="updatePage($event)"
+        >
+        </app-pagination>
+      </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
+  </div>
+</div>
+<app-filter
+  filterHeading="Filter"
+  [allowedFilters]="filtersList"
+  (filterChanges)="onChangeFilter($event)"
+></app-filter>
