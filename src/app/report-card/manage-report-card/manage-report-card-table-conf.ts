@@ -1,20 +1,20 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
+import moment from 'moment';
 export class ManageReportCardTableConfig extends TableConfig {
   constructor() {
     super();
     this.allowedColumns = [
       'name',
       'category',
-      'published_date',
-      'createby',
-      'number_report_card',
+      'published_at',
+      'no_of_report_cards',
       'status'
     ];
 
     this.columns = {
       name: {
         code: 'name',
-        text: 'Name',
+        text: 'Player name',
         getValue: (ele: any) => {
           return ele[this.columns.name.code];
         }
@@ -26,26 +26,20 @@ export class ManageReportCardTableConfig extends TableConfig {
           return ele[this.columns.category.code];
         }
       },
-      published_date: {
-        code: 'published_date',
+      published_at: {
+        code: 'published_at',
         text: 'Published date ',
         getValue: (ele: any) => {
-          return ele[this.columns.published_date.code];
+          let val: any = moment(ele.published_at);
+          val = val.isValid() ? val.format('DD-MMMM-YYYY') : '';
+          return `${val}`;
         }
       },
-      createby: {
-        code: 'createby',
-        text: 'Create By',
-        getValue: (ele: any) => {
-          return ele[this.columns.createby.code];
-        }
-      },
-
-      number_report_card: {
-        code: 'number_report_card',
+      no_of_report_cards: {
+        code: 'no_of_report_cards',
         text: 'No. of report card',
         getValue: (ele: any) => {
-          return ele[this.columns.number_report_card.code];
+          return ele[this.columns.no_of_report_cards.code];
         }
       },
 

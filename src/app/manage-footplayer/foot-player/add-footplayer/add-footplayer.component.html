@@ -166,12 +166,14 @@
           let-position="position"
           let-is_verified="is_verified"
           let-club_name="club_name"
+          let-status="status"
         >
           <div
             [matTooltip]="
-              getStateToolTip(is_verified, club_name, member_type).message
+              getStateToolTip(is_verified, club_name, member_type, status)
+                .message
             "
-            class="find-btn"
+            class="invite-btn"
           >
             <button
               (click)="sendFootPlayerRequest(user_id)"
@@ -179,15 +181,13 @@
                 'btn-disable': getStateToolTip(
                   is_verified,
                   club_name,
-                  member_type
+                  member_type,
+                  status
                 ).state
               }"
-              [disabled]="
-                getStateToolTip(is_verified, club_name, member_type).state
-              "
               class="btn btn-primary"
             >
-              Add
+              {{ status === 'pending' ? 'Add request sent' : 'Add' }}
             </button>
           </div>
         </ng-template>

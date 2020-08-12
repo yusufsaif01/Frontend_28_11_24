@@ -348,4 +348,28 @@ export abstract class Constants {
     { name: 'Added', value: 'added' },
     { name: 'Rejected', value: 'rejected' }
   ];
+
+  static readonly REPORT_STATUS: any = [
+    { name: 'Published', value: 'published' },
+    { name: 'Draft', value: 'draft' }
+  ];
+
+  static readonly PROFILE_DATE_FORMATS: any = {
+    DOB: {
+      parse: {
+        dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
+      },
+      display: {
+        dateInput: 'M/d/yy'
+      }
+    },
+    FOUNDED: {
+      parse: {
+        dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
+      },
+      display: {
+        dateInput: { year: 'numeric' }
+      }
+    }
+  };
 }

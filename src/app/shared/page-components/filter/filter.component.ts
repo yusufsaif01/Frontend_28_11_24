@@ -5,7 +5,9 @@ import {
   Output,
   EventEmitter,
   QueryList,
-  ViewChildren
+  ViewChildren,
+  Renderer2,
+  ElementRef
 } from '@angular/core';
 import { Constants } from '@app/shared/static-data/static-data';
 import { SharedService } from '@app/shared/shared.service';
@@ -13,7 +15,6 @@ import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { FilterService } from './filter.service';
 import { AdminService } from '@app/admin/admin.service';
-import { MatMenu } from '@angular/material';
 
 interface LocationRangeFilters {
   countryData: any[];
@@ -33,6 +34,12 @@ interface LocationRangeFilters {
   teamTypesArray: any[];
   statusArray: any[];
   abilityArray: any[];
+  dateRange: {
+    to: any;
+    from: any;
+  };
+  reportStatus: any[];
+  reportStatusArray: any[];
 }
 
 interface LocationsIds {
@@ -52,7 +59,9 @@ export class FilterComponent implements OnInit {
   filter: any = {};
   locationRangeFilters: LocationRangeFilters;
   locationData: LocationsIds;
-
+  today = new Date();
+  tzoffset = new Date().getTimezoneOffset() * 60000;
+  @Input() filterHeading = 'Player filter';
   @Input() allowedFilters = {
     position: false,
     playerCategory: false,
@@ -61,21 +70,24 @@ export class FilterComponent implements OnInit {
     strongFoot: false,
     teamTypes: false,
     ability: false,
-    status: false
+    status: false,
+    dateRange: false,
+    reportStatus: false
   };
   showFilter = false;
 
   @Output() filterChanges: EventEmitter<any> = new EventEmitter();
   @ViewChildren(
-    'position, playercategory, age, location, strongfoot, teamTypes, ability, status'
+    'position, playercategory, age, location, strongfoot, ability, teamtype, status, daterange,reportstatus'
   )
-  templates: QueryList<MatMenu>;
+  templates: QueryList<ElementRef>;
 
   constructor(
     private _toastrService: ToastrService,
     private _sharedService: SharedService,
     private _filterService: FilterService,
-    private _adminService: AdminService
+    private _adminService: AdminService,
+    private _renderer: Renderer2
   ) {}
 
   ngOnInit() {
@@ -83,6 +95,23 @@ export class FilterComponent implements OnInit {
     this.getLocationStats();
     this.getAbilityList();
     this.getFilterDisplayValue();
+  }
+
+  toggleFilter(filter: string) {
+    let el = this.templates
+      .map((element, index) => {
+        return element.nativeElement.classList.contains(`${filter}-filter`)
+          ? element
+          : null;
+      })
+      .filter(element => {
+        return element != null;
+      });
+
+    let element = el[0].nativeElement;
+    element.classList.contains('remove-filter')
+      ? this._renderer['removeClass'](element, 'remove-filter')
+      : this._renderer['addClass'](element, 'remove-filter');
   }
 
   getFilterDisplayValue() {
@@ -125,6 +154,7 @@ export class FilterComponent implements OnInit {
       districts: [],
       teamTypes: [],
       status: [],
+      reportStatus: [],
       ability: [],
       positionsArray: [],
       playerTypeArray: [],
@@ -132,7 +162,12 @@ export class FilterComponent implements OnInit {
       strongFootArray: [],
       teamTypesArray: [],
       statusArray: [],
-      abilityArray: []
+      abilityArray: [],
+      dateRange: {
+        to: '',
+        from: ''
+      },
+      reportStatusArray: []
     };
     this.locationData = {
       countryID: '',
@@ -149,6 +184,7 @@ export class FilterComponent implements OnInit {
     this.locationRangeFilters.ageRange = Constants.AGE_RANGE;
     this.locationRangeFilters.playerType = Constants.PLAYER_TYPE;
     this.locationRangeFilters.status = Constants.STATUS;
+    this.locationRangeFilters.reportStatus = Constants.REPORT_STATUS;
     if (localStorage.getItem('member_type') === 'academy') {
       this.locationRangeFilters.teamTypes = Constants.ACADEMY_TEAM_TYPES;
     }
@@ -258,22 +294,8 @@ export class FilterComponent implements OnInit {
       );
   }
 
-  getCountryValue(country: any) {
-    if (country) {
-      return JSON.stringify(country);
-    } else return '';
-  }
-
-  getStateValue(state: any) {
-    if (state) {
-      return JSON.stringify(state);
-    } else return '';
-  }
-
-  getDistrictValue(district: any) {
-    if (district) {
-      return JSON.stringify(district);
-    } else return '';
+  getLocationValue(location: any) {
+    return location ? JSON.stringify(location) : '';
   }
 
   onChangeChecker(event: any, filterArray: any, type: string) {
@@ -293,6 +315,23 @@ export class FilterComponent implements OnInit {
     this.filterChanges.emit(this.filter);
   }
 
+  onDateChangeChecker(event: any, type: string) {
+    let { dateRange } = this.locationRangeFilters;
+    if (['to', 'from'].includes(type)) {
+      dateRange[type] = event.target.value;
+      // if (type === 'to') {
+      //   dateRange[type] = new Date(dateRange[type]).setHours(23, 59, 59);
+      // }
+      dateRange[type] = new Date(dateRange[type] - this.tzoffset).toISOString();
+    }
+    if (!Object.values(dateRange).includes('')) {
+      Object.keys(dateRange).forEach(range => {
+        this.filter[range] = dateRange[range];
+      });
+      this.filterChanges.emit(this.filter);
+    }
+  }
+
   clearFilters() {
     this.filter = {};
     this.locationRangeFilters.positionsArray = [];
@@ -300,11 +339,20 @@ export class FilterComponent implements OnInit {
     this.locationRangeFilters.ageRangeArray = [];
     this.locationRangeFilters.strongFootArray = [];
     this.locationRangeFilters.statusArray = [];
+    this.locationRangeFilters.reportStatusArray = [];
     this.locationRangeFilters.teamTypesArray = [];
     this.locationRangeFilters.abilityArray = [];
+    this.locationRangeFilters.dateRange = {
+      to: '',
+      from: ''
+    };
     this.locationData.countryValue = '';
     this.locationData.stateValue = '';
     this.locationData.districtValue = '';
     this.filterChanges.emit(false);
+
+    this.templates.map((element, index) => {
+      this._renderer['removeClass'](element.nativeElement, 'remove-filter');
+    });
   }
 }

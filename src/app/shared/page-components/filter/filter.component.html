@@ -9,12 +9,12 @@
         </button>
       </div>
       <div class="head">
-        <h2>Player filter</h2>
+        <h2>{{ filterHeading }}</h2>
         <button (click)="clearFilters()">Clear filters</button>
       </div>
       <!-- position -->
       <div class="filter-group" *ngIf="allowedFilters.position">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('position')">
           <h3>
             <a>
               Position
@@ -22,7 +22,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks position-filter" #position>
           <li *ngFor="let position of locationRangeFilters.positions">
             <mat-checkbox
               [value]="position.name"
@@ -44,7 +44,7 @@
 
       <!-- Player category -->
       <div class="filter-group" *ngIf="allowedFilters.playerCategory">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('playercategory')">
           <h3>
             <a
               >Player category
@@ -52,7 +52,7 @@
             >
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks playercategory-filter" #playercategory>
           <li *ngFor="let type of locationRangeFilters.playerType">
             <mat-checkbox
               [value]="type.value"
@@ -74,7 +74,7 @@
 
       <!-- Age -->
       <div class="filter-group" *ngIf="allowedFilters.age">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('age')">
           <h3>
             <a>
               Age
@@ -82,7 +82,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks age-filter" #age>
           <li *ngFor="let age of locationRangeFilters.ageRange">
             <mat-checkbox
               [value]="age.value"
@@ -102,7 +102,7 @@
 
       <!-- Location -->
       <div class="filter-group" *ngIf="allowedFilters.location">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('location')">
           <h3>
             <a>
               Location
@@ -110,7 +110,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks location-filter" #location>
           <li>
             <div class="form-block">
               <select
@@ -120,7 +120,7 @@
                 <option value="">Select Country</option>
                 <option
                   *ngFor="let country of locationRangeFilters.countryData"
-                  [value]="getCountryValue(country)"
+                  [value]="getLocationValue(country)"
                 >
                   {{ country.country }}</option
                 >
@@ -136,9 +136,8 @@
                 <option value="">Select State</option>
                 <option
                   *ngFor="let state of locationRangeFilters.states"
-                  [value]="getStateValue(state)"
-                >
-                  {{ state.name }}
+                  [value]="getLocationValue(state)"
+                  >{{ state.name }}
                 </option>
               </select>
             </div>
@@ -152,7 +151,7 @@
                 <option value="">Select District</option>
                 <option
                   *ngFor="let district of locationRangeFilters.districts"
-                  [value]="getDistrictValue(district)"
+                  [value]="getLocationValue(district)"
                 >
                   {{ district.name }}</option
                 >
@@ -164,7 +163,7 @@
 
       <!-- strong foot -->
       <div class="filter-group" *ngIf="allowedFilters.strongFoot">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('strongfoot')">
           <h3>
             <a>
               Strong Foot
@@ -172,7 +171,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks strongfoot-filter" #strongfoot>
           <li *ngFor="let type of locationRangeFilters.strongFoot">
             <mat-checkbox
               [value]="type.value"
@@ -194,7 +193,7 @@
 
       <!-- Status -->
       <div class="filter-group" *ngIf="allowedFilters.status">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('status')">
           <h3>
             <a
               >Status
@@ -202,7 +201,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks status-filter" #status>
           <li *ngFor="let status of locationRangeFilters.status">
             <mat-checkbox
               [value]="status.value"
@@ -221,10 +220,40 @@
           </li>
         </ul>
       </div>
+      <div class="filter-group" *ngIf="allowedFilters.reportStatus">
+        <div class="filter-title" (click)="toggleFilter('reportstatus')">
+          <h3>
+            <a
+              >Status
+              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+            </a>
+          </h3>
+        </div>
+        <ul class="filter-checks reportstatus-filter" #reportstatus>
+          <li *ngFor="let reportStatus of locationRangeFilters.reportStatus">
+            <mat-checkbox
+              [value]="reportStatus.value"
+              (change)="
+                onChangeChecker(
+                  $event,
+                  locationRangeFilters.reportStatusArray,
+                  'report_status'
+                )
+              "
+              [checked]="
+                locationRangeFilters.reportStatusArray.includes(
+                  reportStatus.value
+                )
+              "
+              >{{ reportStatus.name }}</mat-checkbox
+            >
+          </li>
+        </ul>
+      </div>
 
       <!-- ability -->
       <div class="filter-group" *ngIf="allowedFilters.ability">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('ability')">
           <h3>
             <a
               >Ability
@@ -232,7 +261,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks ability-filter" #ability>
           <li *ngFor="let ability of locationRangeFilters.ability">
             <mat-checkbox
               [value]="ability.name"
@@ -254,7 +283,7 @@
 
       <!-- Type of team -->
       <div class="filter-group" *ngIf="allowedFilters.teamTypes">
-        <div class="filter-title">
+        <div class="filter-title" (click)="toggleFilter('teamtype')">
           <h3>
             <a
               >Type of team
@@ -262,7 +291,7 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks teamtype-filter" #teamtype>
           <li *ngFor="let team of locationRangeFilters.teamTypes">
             <mat-checkbox
               [value]="team"
@@ -281,8 +310,8 @@
       </div>
 
       <!-- Published date range -->
-      <div class="filter-group" *ngIf="allowedFilters.daterange">
-        <div class="filter-title">
+      <div class="filter-group" *ngIf="allowedFilters.dateRange">
+        <div class="filter-title" (click)="toggleFilter('daterange')">
           <h3>
             <a>
               Published date range
@@ -290,19 +319,20 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks daterange-filter" #daterange>
           <li>
             <div class="form-block pb-0">
               <div class="double ">
                 <div class="half">
                   <div class="date pb-0">
                     <input
+                      [value]="locationRangeFilters.dateRange.from"
                       matInput
                       [matDatepicker]="fromYear"
                       readonly
                       placeholder="From"
-                      [min]="minDate"
-                      [max]="maxDate"
+                      [max]="today"
+                      (dateChange)="onDateChangeChecker($event, 'from')"
                     />
                     <mat-datepicker-toggle
                       matSuffix
@@ -314,12 +344,13 @@
                 <div class="half">
                   <div class="date pb-0">
                     <input
+                      [value]="locationRangeFilters.dateRange.to"
                       matInput
                       [matDatepicker]="toYear"
                       readonly
                       placeholder="To"
-                      [min]="minDate"
-                      [max]="maxDate"
+                      [max]="today"
+                      (dateChange)="onDateChangeChecker($event, 'to')"
                     />
                     <mat-datepicker-toggle
                       matSuffix
