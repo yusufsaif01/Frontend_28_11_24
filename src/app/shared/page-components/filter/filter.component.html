@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="head">
-        <h2>Player filter</h2>
+        <h2>{{ filterHeading }}</h2>
         <button (click)="clearFilters()">Clear filters</button>
       </div>
       <!-- position -->
@@ -220,6 +220,36 @@
           </li>
         </ul>
       </div>
+      <div class="filter-group" *ngIf="allowedFilters.reportStatus">
+        <div class="filter-title" (click)="toggleFilter('reportstatus')">
+          <h3>
+            <a
+              >Status
+              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+            </a>
+          </h3>
+        </div>
+        <ul class="filter-checks reportstatus-filter" #reportstatus>
+          <li *ngFor="let reportStatus of locationRangeFilters.reportStatus">
+            <mat-checkbox
+              [value]="reportStatus.value"
+              (change)="
+                onChangeChecker(
+                  $event,
+                  locationRangeFilters.reportStatusArray,
+                  'report_status'
+                )
+              "
+              [checked]="
+                locationRangeFilters.reportStatusArray.includes(
+                  reportStatus.value
+                )
+              "
+              >{{ reportStatus.name }}</mat-checkbox
+            >
+          </li>
+        </ul>
+      </div>
 
       <!-- ability -->
       <div class="filter-group" *ngIf="allowedFilters.ability">
@@ -280,8 +310,8 @@
       </div>
 
       <!-- Published date range -->
-      <div class="filter-group" *ngIf="allowedFilters.daterange">
-        <div class="filter-title">
+      <div class="filter-group" *ngIf="allowedFilters.dateRange">
+        <div class="filter-title" (click)="toggleFilter('daterange')">
           <h3>
             <a>
               Published date range
@@ -289,19 +319,20 @@
             </a>
           </h3>
         </div>
-        <ul class="filter-checks">
+        <ul class="filter-checks daterange-filter" #daterange>
           <li>
             <div class="form-block pb-0">
               <div class="double ">
                 <div class="half">
                   <div class="date pb-0">
                     <input
+                      [value]="locationRangeFilters.dateRange.from"
                       matInput
                       [matDatepicker]="fromYear"
                       readonly
                       placeholder="From"
-                      [min]="minDate"
-                      [max]="maxDate"
+                      [max]="today"
+                      (dateChange)="onDateChangeChecker($event, 'from')"
                     />
                     <mat-datepicker-toggle
                       matSuffix
@@ -313,12 +344,13 @@
                 <div class="half">
                   <div class="date pb-0">
                     <input
+                      [value]="locationRangeFilters.dateRange.to"
                       matInput
                       [matDatepicker]="toYear"
                       readonly
                       placeholder="To"
-                      [min]="minDate"
-                      [max]="maxDate"
+                      [max]="today"
+                      (dateChange)="onDateChangeChecker($event, 'to')"
                     />
                     <mat-datepicker-toggle
                       matSuffix
