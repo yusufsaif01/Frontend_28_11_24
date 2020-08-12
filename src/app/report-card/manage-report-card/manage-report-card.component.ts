@@ -45,7 +45,7 @@ export class ManageReportCardComponent implements OnInit {
     // strongFoot: false,
     // teamTypes: false,
     // ability: false,
-    status: true,
+    reportStatus: true,
     dateRange: true
   };
 
@@ -100,6 +100,14 @@ export class ManageReportCardComponent implements OnInit {
         Object.getOwnPropertyDescriptor(this.filter, 'footplayer_category')
       );
       delete this.filter['footplayer_category'];
+    }
+    if (this.filter.hasOwnProperty('report_status')) {
+      Object.defineProperty(
+        this.filter,
+        'status',
+        Object.getOwnPropertyDescriptor(this.filter, 'report_status')
+      );
+      delete this.filter['report_status'];
     }
     this._manageReportCardService
       .getReportCardList(this.filter)

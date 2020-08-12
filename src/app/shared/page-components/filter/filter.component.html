@@ -220,6 +220,36 @@
           </li>
         </ul>
       </div>
+      <div class="filter-group" *ngIf="allowedFilters.reportStatus">
+        <div class="filter-title" (click)="toggleFilter('reportstatus')">
+          <h3>
+            <a
+              >Status
+              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+            </a>
+          </h3>
+        </div>
+        <ul class="filter-checks reportstatus-filter" #reportstatus>
+          <li *ngFor="let reportStatus of locationRangeFilters.reportStatus">
+            <mat-checkbox
+              [value]="reportStatus.value"
+              (change)="
+                onChangeChecker(
+                  $event,
+                  locationRangeFilters.reportStatusArray,
+                  'report_status'
+                )
+              "
+              [checked]="
+                locationRangeFilters.reportStatusArray.includes(
+                  reportStatus.value
+                )
+              "
+              >{{ reportStatus.name }}</mat-checkbox
+            >
+          </li>
+        </ul>
+      </div>
 
       <!-- ability -->
       <div class="filter-group" *ngIf="allowedFilters.ability">

@@ -38,6 +38,8 @@ interface LocationRangeFilters {
     to: any;
     from: any;
   };
+  reportStatus: any[];
+  reportStatusArray: any[];
 }
 
 interface LocationsIds {
@@ -69,13 +71,14 @@ export class FilterComponent implements OnInit {
     teamTypes: false,
     ability: false,
     status: false,
-    dateRange: false
+    dateRange: false,
+    reportStatus: false
   };
   showFilter = false;
 
   @Output() filterChanges: EventEmitter<any> = new EventEmitter();
   @ViewChildren(
-    'position, playercategory, age, location, strongfoot, ability, teamtype, status, daterange'
+    'position, playercategory, age, location, strongfoot, ability, teamtype, status, daterange,reportstatus'
   )
   templates: QueryList<ElementRef>;
 
@@ -151,6 +154,7 @@ export class FilterComponent implements OnInit {
       districts: [],
       teamTypes: [],
       status: [],
+      reportStatus: [],
       ability: [],
       positionsArray: [],
       playerTypeArray: [],
@@ -162,7 +166,8 @@ export class FilterComponent implements OnInit {
       dateRange: {
         to: '',
         from: ''
-      }
+      },
+      reportStatusArray: []
     };
     this.locationData = {
       countryID: '',
@@ -179,6 +184,7 @@ export class FilterComponent implements OnInit {
     this.locationRangeFilters.ageRange = Constants.AGE_RANGE;
     this.locationRangeFilters.playerType = Constants.PLAYER_TYPE;
     this.locationRangeFilters.status = Constants.STATUS;
+    this.locationRangeFilters.reportStatus = Constants.REPORT_STATUS;
     if (localStorage.getItem('member_type') === 'academy') {
       this.locationRangeFilters.teamTypes = Constants.ACADEMY_TEAM_TYPES;
     }
@@ -333,6 +339,7 @@ export class FilterComponent implements OnInit {
     this.locationRangeFilters.ageRangeArray = [];
     this.locationRangeFilters.strongFootArray = [];
     this.locationRangeFilters.statusArray = [];
+    this.locationRangeFilters.reportStatusArray = [];
     this.locationRangeFilters.teamTypesArray = [];
     this.locationRangeFilters.abilityArray = [];
     this.locationRangeFilters.dateRange = {
