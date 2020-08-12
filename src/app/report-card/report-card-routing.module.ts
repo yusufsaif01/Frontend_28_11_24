@@ -19,7 +19,7 @@ const routes: Routes = [
         data: { title: extract('Manage Report Card') }
       },
       {
-        path: 'add-report-card',
+        path: 'add-report-card/:send_to',
         component: AddEditReportCardComponent,
         data: { title: extract('Add Report Card') }
       }
