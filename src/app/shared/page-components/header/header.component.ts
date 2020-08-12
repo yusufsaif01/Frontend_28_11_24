@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/core/authentication/authentication.service';
 import { HeaderService } from './header.service';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { debounceTime, map } from 'rxjs/operators';

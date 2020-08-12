@@ -4,8 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ManageAcademyTableConfig } from './manage-academy-table-conf';
 import { FilterDialogAcademyComponent } from '../filter-dialog-academy/filter-dialog-academy.component';
 import { AdminService } from '../admin.service';
-import { DeleteConfirmationComponent } from '../../shared/dialog-box/delete-confirmation/delete-confirmation.component';
-import { StatusConfirmationComponent } from '../../shared/dialog-box/status-confirmation/status-confirmation.component';
+import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 

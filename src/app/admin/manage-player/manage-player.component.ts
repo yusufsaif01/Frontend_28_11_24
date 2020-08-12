@@ -1,18 +1,11 @@
-import {
-  Component,
-  OnInit,
-  EventEmitter,
-  Output,
-  ViewChild,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManagePlayerTableConfig } from './manage-player-table-conf';
 import { FilterDialogPlayerComponent } from '../filter-dialog-player/filter-dialog-player.component';
 import { AdminService } from '../admin.service';
-import { DeleteConfirmationComponent } from '../../shared/dialog-box/delete-confirmation/delete-confirmation.component';
-import { StatusConfirmationComponent } from '../../shared/dialog-box/status-confirmation/status-confirmation.component';
+import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 

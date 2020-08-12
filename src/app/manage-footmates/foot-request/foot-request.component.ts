@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { MutualFootmateComponent } from '../mutual-footmate/mutual-footmate.component';
 import { FootRequestService } from './foot-request.service';
-import { environment } from '../../../environments/environment';
+import { environment } from '@env/environment';
 import { untilDestroyed } from '@app/core';
 
 interface RequestContext {
