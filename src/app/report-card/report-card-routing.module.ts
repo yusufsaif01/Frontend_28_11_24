@@ -15,7 +15,7 @@ const routes: Routes = [
       {
         path: '',
         component: ManageReportCardComponent,
-        data: { title: extract('Manage Report Card') }
+        data: { title: extract('Manage report card') }
       }
     ]
   }
