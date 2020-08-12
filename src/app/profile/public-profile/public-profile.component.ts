@@ -79,11 +79,8 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
 
   getPublicProfileDetails() {
     let data = { user_id: '' };
-    if (this.user_id) {
-      data = { user_id: this.user_id };
-    } else {
-      data = { user_id: this.logged_user_id };
-    }
+    data.user_id = this.user_id ? this.user_id : this.logged_user_id;
+
     this._publicProfileService
       .getPublicProfileDetails(data)
       .pipe(untilDestroyed(this))
@@ -102,11 +99,7 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
   }
   getConnectionStats() {
     let data = { user_id: '' };
-    if (this.user_id) {
-      data = { user_id: this.user_id };
-    } else {
-      data = { user_id: this.logged_user_id };
-    }
+    data.user_id = this.user_id ? this.user_id : this.logged_user_id;
 
     this._footRequestService
       .connectionStats(data)
@@ -114,7 +107,6 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.followers = response.data.followers;
-          this.data = { ...this.data, followers: this.followers };
           // this.sendFootData.emit(response.data);
         },
         error => {}
