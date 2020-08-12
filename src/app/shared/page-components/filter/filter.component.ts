@@ -61,7 +61,7 @@ export class FilterComponent implements OnInit {
   locationData: LocationsIds;
   today = new Date();
   tzoffset = new Date().getTimezoneOffset() * 60000;
-
+  @Input() filterHeading = 'Player filter';
   @Input() allowedFilters = {
     position: false,
     playerCategory: false,
