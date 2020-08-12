@@ -117,7 +117,7 @@
                 (change)="onSelectCountry($event)"
                 [(ngModel)]="locationData.countryValue"
               >
-                <option value="">Select Country</option>
+                <option value="">Select country</option>
                 <option
                   *ngFor="let country of locationRangeFilters.countryData"
                   [value]="getLocationValue(country)"
@@ -133,7 +133,7 @@
                 (change)="onSelectState($event)"
                 [(ngModel)]="locationData.stateValue"
               >
-                <option value="">Select State</option>
+                <option value="">Select state</option>
                 <option
                   *ngFor="let state of locationRangeFilters.states"
                   [value]="getLocationValue(state)"
@@ -148,7 +148,7 @@
                 (change)="onSelectDistrict($event)"
                 [(ngModel)]="locationData.districtValue"
               >
-                <option value="">Select District</option>
+                <option value="">Select district</option>
                 <option
                   *ngFor="let district of locationRangeFilters.districts"
                   [value]="getLocationValue(district)"
@@ -166,7 +166,7 @@
         <div class="filter-title" (click)="toggleFilter('strongfoot')">
           <h3>
             <a>
-              Strong Foot
+              Strong foot
               <mat-icon class="material-icons">arrow_drop_down</mat-icon>
             </a>
           </h3>
