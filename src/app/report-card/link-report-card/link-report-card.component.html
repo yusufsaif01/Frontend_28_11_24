@@ -1,0 +1,60 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel">
+    <app-left-panel> </app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main">
+        <!-- back btn -->
+        <div class="back">
+          <a>
+            <span>
+              <mat-icon class="material-icons">arrow_back_ios</mat-icon>
+            </span>
+            Back
+          </a>
+        </div>
+        <!--  heading -->
+        <div class=" heading">
+          <h2>Jame Jordan report card</h2>
+          <button class="secondary-btn">Create report card</button>
+        </div>
+        <!-- table -->
+        <div class="table">
+          <app-table
+            [tableConfig]="tableConfig"
+            [NumberColumn]="'true'"
+            [rows]="dataSource"
+            [TableActions]="!isPublic ? ListAction : false"
+            [sortEnabled]="false"
+            [pageSize]="pageSize"
+            [pageNo]="currentPageNo"
+          >
+          </app-table>
+          <ng-template #ListAction>
+            <div class="action-buttons">
+              <button matTooltip="view">
+                <mat-icon class="material-icons">visibility</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+        </div>
+        <!-- Pagination -->
+        <app-pagination
+          *ngIf="dataSource.data.length !== 0"
+          [showData]="false"
+          [showCount]="show_count"
+          [totalRows]="total_count"
+          [rowsPerPage]="pageSize"
+          [selectedPage]="selectedPage"
+          (onChange)="updatePage($event)"
+        >
+        </app-pagination>
+      </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
+  </div>
+</div>
