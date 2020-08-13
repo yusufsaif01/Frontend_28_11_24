@@ -27,6 +27,35 @@
         border-radius: 0.5rem;
         margin-bottom: 10rem;
 
+        // back-btn
+        .back-btn {
+          a {
+            font-weight: 600;
+            font-size: 2rem;
+            display: inline-flex;
+            align-items: center;
+            padding-bottom: 2rem;
+
+            span {
+              height: 4rem;
+              width: 4rem;
+              margin-right: 1rem;
+              border-radius: 5rem;
+              background: $primary-color;
+              color: $white-color;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+
+              mat-icon {
+                font-size: 3rem;
+                height: 3rem;
+                width: 3rem;
+              }
+            }
+          }
+        }
+
         // heading css
         .heading {
           display: flex;
@@ -45,114 +74,58 @@
           }
         }
 
-        // post-section
-        .post-wrapper {
-          .post-header {
-            display: flex;
-            align-items: center;
-            padding: 2rem 3rem;
+        .single-wrapper {
+          display: flex;
 
-            .profile {
-              display: flex;
-              width: 80%;
-              align-items: center;
+          // video-part
+          .post {
+            width: 55%;
 
-              .profile-img {
-                img {
-                  width: 7rem;
-                  height: 7rem;
-                  border-radius: 7rem;
-                }
+            .video {
+              width: 100%;
+              padding-right: 2rem;
+              position: relative;
+
+              img {
+                width: 100%;
               }
 
-              .details {
-                // margin-top: 1rem;
-                margin-left: 1rem;
+              .playicon {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
 
-                h3 {
-                  font-weight: 500;
-                  word-break: break-all;
-                }
+                a {
+                  color: $white-color;
 
-                p {
-                  color: $second-color;
-
-                  span {
-                    font-weight: 500;
-                    margin-right: 0.5rem;
-                    text-transform: capitalize;
-                  }
-
-                  span.type {
+                  &:hover {
                     color: $primary-color;
-                    font-weight: 700;
                   }
 
-                  span.position {
-                    color: $success;
+                  mat-icon {
+                    font-size: 15rem;
+                    height: 15rem;
+                    width: 15rem;
                   }
-                }
-              }
-            }
-
-            .actions {
-              text-align: right;
-              display: block;
-              width: 20%;
-
-              span {
-                margin-left: 1rem;
-              }
-            }
-          }
-
-          // post body
-          .postbody {
-            padding: 2rem;
-
-            .post-content {
-              p {
-                font-size: $heading-fourth;
-                margin-bottom: 0.5rem;
-                word-break: break-all;
-
-                span {
-                  font-weight: 600;
-                  color: $primary-color;
-                  margin: 0 1rem 0 1rem;
                 }
               }
             }
           }
 
-          // likes comment icons
-          .like {
-            padding: 0rem 3rem 2rem;
-            display: flex;
+          // post-section
+          .post-wrapper {
+            width: 45%;
 
-            span {
+            .post-header {
               display: flex;
-              margin-right: 2rem;
               align-items: center;
-              color: $second-color;
-              font-size: $heading-third;
-              cursor: pointer;
-
-              mat-icon {
-                margin-right: 1rem;
-              }
-            }
-          }
-
-          .comment {
-            padding: 0 2rem 0rem 2rem;
-
-            .comment-box {
-              padding: 2rem 0;
+              padding: 1rem 3rem;
 
               .profile {
                 display: flex;
-                width: 100%;
+                width: 80%;
+                align-items: center;
 
                 .profile-img {
                   img {
@@ -163,96 +136,195 @@
                 }
 
                 .details {
-                  margin-top: 1rem;
+                  // margin-top: 1rem;
                   margin-left: 1rem;
-                  width: 100%;
 
-                  h4 {
+                  h3 {
                     font-weight: 500;
+                    word-break: break-all;
                   }
 
-                  .commenter-details {
-                    display: flex;
-                    width: 95%;
-                    justify-content: space-between;
+                  p {
+                    color: $second-color;
 
-                    p {
-                      color: $second-color;
-                      font-size: $heading-sixth;
+                    span {
+                      font-weight: 500;
+                      margin-right: 0.5rem;
+                      text-transform: capitalize;
+                    }
 
-                      span {
-                        font-weight: 500;
-                        margin-right: 0.5rem;
-                        text-transform: capitalize;
-                      }
+                    span.type {
+                      color: $primary-color;
+                      font-weight: 700;
+                    }
 
-                      span.type {
-                        color: $primary-color;
-                        font-weight: 700;
-                      }
-
-                      span.position {
-                        color: $success;
-                      }
+                    span.position {
+                      color: $success;
                     }
                   }
+                }
+              }
 
-                  .message {
-                    width: 100%;
-                    margin: 1rem 0;
-                    background: $third-color;
-                    padding: 2rem;
-                    border-radius: 5rem;
+              .actions {
+                text-align: right;
+                display: block;
+                width: 20%;
 
-                    p {
-                      color: $fourth-color;
-                      word-break: break-all;
-                    }
+                span {
+                  margin-left: 1rem;
+                }
+              }
+            }
+
+            // post body
+            .postbody {
+              padding: 1rem 2rem;
+
+              .post-content {
+                p {
+                  font-size: $heading-fourth;
+                  margin-bottom: 0.5rem;
+                  word-break: break-all;
+
+                  span {
+                    font-weight: 600;
+                    color: $primary-color;
+                    margin: 0 1rem 0 1rem;
+                    display: inline-block;
                   }
                 }
               }
             }
 
-            .post-comment {
+            // likes comment icons
+            .like {
+              padding: 0rem 3rem 0rem;
               display: flex;
-              align-items: center;
-              padding: 2rem 0;
 
-              .profile-img {
-                width: 12%;
+              span {
+                display: flex;
+                margin-right: 2rem;
+                align-items: center;
+                color: $second-color;
+                font-size: $heading-third;
+                cursor: pointer;
 
-                img {
-                  width: 7rem;
-                  height: 7rem;
-                  border-radius: 7rem;
+                mat-icon {
+                  margin-right: 1rem;
+                }
+              }
+            }
+
+            .comment {
+              padding: 0 2rem 0rem 2rem;
+
+              .comment-box {
+                padding: 1rem 0;
+
+                .profile {
+                  display: flex;
+                  width: 100%;
+
+                  .profile-img {
+                    img {
+                      width: 7rem;
+                      height: 7rem;
+                      border-radius: 7rem;
+                    }
+                  }
+
+                  .details {
+                    margin-top: 1rem;
+                    margin-left: 1rem;
+                    width: 100%;
+
+                    h4 {
+                      font-weight: 500;
+                    }
+
+                    .commenter-details {
+                      display: flex;
+                      width: 95%;
+                      justify-content: space-between;
+
+                      p {
+                        color: $second-color;
+                        font-size: $heading-sixth;
+
+                        span {
+                          font-weight: 500;
+                          margin-right: 0.5rem;
+                          text-transform: capitalize;
+                        }
+
+                        span.type {
+                          color: $primary-color;
+                          font-weight: 700;
+                        }
+
+                        span.position {
+                          color: $success;
+                        }
+                      }
+                    }
+
+                    .message {
+                      width: 100%;
+                      margin: 1rem 0;
+                      background: $third-color;
+                      padding: 2rem;
+                      border-radius: 5rem;
+
+                      p {
+                        color: $fourth-color;
+                        word-break: break-all;
+                      }
+                    }
+                  }
                 }
               }
 
-              .comment-input {
-                width: 88%;
+              .post-comment {
+                display: flex;
+                align-items: center;
+                padding: 1rem 0;
 
-                .input-wrapper {
-                  position: relative;
+                .profile-img {
+                  width: 12%;
 
-                  input {
-                    width: 100%;
-                    padding: 2rem;
-                    border-radius: 10rem;
-                    border: 1px solid $grey;
-                    outline: none;
-                    font-size: $heading-fourth;
+                  img {
+                    width: 7rem;
+                    height: 7rem;
+                    border-radius: 7rem;
                   }
+                }
 
-                  button {
-                    position: absolute;
-                    right: 2rem;
-                    top: 1.5rem;
-                    background: transparent;
-                    border: none;
-                    cursor: pointer;
+                .comment-input {
+                  width: 88%;
 
-                    &:hover {
-                      color: $primary-color;
+                  .input-wrapper {
+                    position: relative;
+
+                    input {
+                      width: 100%;
+                      padding: 2rem;
+                      border-radius: 10rem;
+                      border: 1px solid $grey;
+                      outline: none;
+                      font-size: $heading-fourth;
+                    }
+
+                    button {
+                      position: absolute;
+                      right: 2rem;
+                      top: 1.5rem;
+                      background: transparent;
+                      border: none;
+                      cursor: pointer;
+
+                      &:hover {
+                        color: $primary-color;
+                      }
                     }
                   }
                 }
