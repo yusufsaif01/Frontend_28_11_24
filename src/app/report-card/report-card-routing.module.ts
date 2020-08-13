@@ -16,12 +16,12 @@ const routes: Routes = [
       {
         path: '',
         component: ManageReportCardComponent,
-        data: { title: extract('Manage Report Card') }
+        data: { title: extract('Manage report card') }
       },
       {
         path: 'add-report-card/:send_to',
         component: AddEditReportCardComponent,
-        data: { title: extract('Add Report Card') }
+        data: { title: extract('Add report card') }
       }
     ]
   }

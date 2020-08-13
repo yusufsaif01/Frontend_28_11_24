@@ -5,16 +5,16 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { AddEditEmploymentContractService } from '@app/profile/add-edit-employment-contract/add-edit-employment-contract.service';
 import { untilDestroyed } from '@app/core';
-import { AdminService } from '@app/admin/admin.service';
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { SharedService } from '@app/shared/shared.service';
 
-interface tab {
+interface AbilityContext {
   ability_id: string;
   ability_name: string;
   attributes: {
     attribute_id: string;
     attribute_name: string;
-    attribute_score?: string;
+    attribute_score?: number;
   }[];
 }
 
@@ -24,29 +24,25 @@ interface tab {
   styleUrls: ['./add-edit-report-card.component.scss']
 })
 export class AddEditReportCardComponent implements OnInit, OnDestroy {
+  addEditReportForm: FormGroup;
+  abilities: FormArray;
+  attributes: FormArray;
   mode: ProgressSpinnerMode = 'determinate';
-  value = 50;
   send_to = '';
   playerDetails: any = {};
-  tabs: tab[] = [];
-  currentTab: tab = {
+  abilitiesArray: AbilityContext[] = [];
+  selectedAbility: AbilityContext = {
     ability_id: '',
     ability_name: '',
-    attributes: [
-      {
-        attribute_id: '',
-        attribute_name: '',
-        attribute_score: ''
-      }
-    ]
+    attributes: []
   };
   constructor(
     private _addEditReportCardService: AddEditReportCardService,
     private _employmentContractService: AddEditEmploymentContractService,
-    // private _sharedService: AdminService,
+    private _formBuilder: FormBuilder,
+    private _sharedService: SharedService,
     private _toastrService: ToastrService,
-    private _activatedRoute: ActivatedRoute,
-    private _sharedService: SharedService
+    private _activatedRoute: ActivatedRoute
   ) {
     this.createForm();
     this._activatedRoute.params.subscribe(param => {
@@ -58,7 +54,15 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getAbilityList();
+    this.getAbilityAttributeList();
+    this.setValidator();
+  }
+
+  setValidator() {
+    let abilities = this.addEditReportForm.get('abilities') as FormArray;
+
+    console.log(abilities);
+    console.log(abilities.controls);
   }
 
   getPlayerDetails(player_id: string) {
@@ -76,60 +80,99 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
   }
 
   getTab(val: string) {
-    this.currentTab = this.tabs.find(tab => {
+    this.selectedAbility = this.abilitiesArray.find(tab => {
       return tab.ability_id === val;
     });
   }
 
-  getAbilityList() {
+  getAbilityAttributeList() {
     this._sharedService
-      .getAbilityList()
+      .getAbilityAttributeList()
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          let records = response.data.records;
-          this.currentTab.ability_id = records[0].id;
-          records.forEach(record => {
-            let tab: tab = {
+          this.abilitiesArray = response.data.records.map(record => {
+            return {
               ability_id: record.id,
               ability_name: record.name,
-              attributes: []
+              attributes: record.attributes.length
+                ? record.attributes.map(attribute => {
+                    return {
+                      attribute_id: attribute.id,
+                      attribute_name: attribute.name,
+                      attribute_score: 0
+                    };
+                  })
+                : []
             };
-            let attribute: any = this.getAttributeListByAbility(record.id);
-            if (attribute && attribute.length) {
-              tab.attributes.push({
-                attribute_id: attribute.id,
-                attribute_name: attribute.name
-              });
-            }
-            this.tabs.push(tab);
           });
+
+          this.abilitiesArray.forEach(ability => {
+            this.populateAbilityControl(ability);
+          });
+          this.selectedAbility = this.abilitiesArray[0];
         },
         error => {}
       );
   }
+  prepareAttributeControl = (
+    attributes?: {
+      attribute_id: string;
+      attribute_name: string;
+      attribute_score?: number;
+    }[]
+  ) => {
+    attributes.forEach(data => {
+      if (data !== undefined && Object.keys(data).length) {
+        this.attributes.push(
+          this._formBuilder.group({
+            attribute_score: [
+              data.attribute_score,
+              [Validators.required, Validators.min(1)]
+            ],
+            attribute_name: [data.attribute_name],
+            attribute_id: [data.attribute_id]
+          })
+        );
+      } else {
+        this.attributes.push(
+          this._formBuilder.group({
+            attribute_score: [0, [Validators.required, Validators.min(1)]],
+            attribute_name: [''],
+            attribute_id: ['']
+          })
+        );
+      }
+    });
 
-  getAttributeListByAbility(ability_id: string) {
-    // this.tabs.forEach(tab => {
-    this._sharedService
-      .getAttributeListByAbility({
-        ability_id
+    return this.attributes;
+  };
+
+  populateAbilityControl(ability: AbilityContext) {
+    this.abilities = this.addEditReportForm.get('abilities') as FormArray;
+    this.attributes = this._formBuilder.array([]);
+    this.abilities.push(
+      this._formBuilder.group({
+        ability_name: [ability.ability_name],
+        ability_id: [ability.ability_id],
+        attributes: this.prepareAttributeControl(ability.attributes)
       })
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
-          return response.data.records;
-          // let tab = {}
-          // tab = response.data
-          // this.abilityName = .ability;
-          // let records = response.data.records;
-        },
-        error => {}
-      );
-    // });
+    );
   }
 
-  createForm() {}
+  setRequestDataObject(requestData: any, name: string) {
+    requestData.set(
+      name,
+      JSON.stringify(this.addEditReportForm.get(name).value)
+    );
+  }
+
+  createForm() {
+    this.addEditReportForm = this._formBuilder.group({
+      abilities: this._formBuilder.array([]),
+      remarks: ['']
+    });
+  }
 
   ngOnDestroy() {}
 }

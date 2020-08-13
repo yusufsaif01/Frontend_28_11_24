@@ -7,15 +7,11 @@ const routes = {
     `/master/district/list/${countryID}/${stateID}`,
   getStatesList: (countryID: any) => `/master/state/list/${countryID}`,
   getLocationStats: () => `/master/location/stats`,
-  getAbilityList: () => '/admin/master/player-specialization/ability/list',
-  getAttributeListByAbility: (c: GetAttributeListContext) =>
-    '/master/player-specialization/attribute/list'
+  getAbilityAttributeList: () =>
+    '/master/player-specialization/ability-attribute/list'
 };
 
-interface GetAttributeListContext {
-  ability_id: string;
-}
-interface GetAbilityListResponseContext {
+export interface GetAbilityAttributeListResponseContext {
   status: string;
   message: string;
   data: {
@@ -23,19 +19,10 @@ interface GetAbilityListResponseContext {
     records: {
       id: string;
       name: string;
-    }[];
-  };
-}
-
-interface GetAttributeListResponseContext {
-  status: string;
-  message: string;
-  data: {
-    ability: string;
-    total: number;
-    records: {
-      id: string;
-      name: string;
+      attributes: {
+        id: string;
+        name: string;
+      }[];
     }[];
   };
 }
@@ -83,21 +70,11 @@ export class SharedService {
     return this.displayFilterSubject;
   }
 
-  getAbilityList(): Observable<GetAbilityListResponseContext> {
-    return this.httpClient.get<GetAbilityListResponseContext>(
-      routes.getAbilityList()
-    );
-  }
-
-  getAttributeListByAbility(
-    context: GetAttributeListContext
-  ): Observable<GetAttributeListResponseContext> {
-    let params = '/';
-    if (context['ability_id']) {
-      params += `${context['ability_id']}`;
-    }
-    return this.httpClient.get<GetAttributeListResponseContext>(
-      routes.getAttributeListByAbility(context) + params
+  getAbilityAttributeList(): Observable<
+    GetAbilityAttributeListResponseContext
+  > {
+    return this.httpClient.get<GetAbilityAttributeListResponseContext>(
+      routes.getAbilityAttributeList()
     );
   }
 }
