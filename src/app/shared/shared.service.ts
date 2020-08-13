@@ -6,8 +6,26 @@ const routes = {
   getDistrictList: (countryID: any, stateID: any) =>
     `/master/district/list/${countryID}/${stateID}`,
   getStatesList: (countryID: any) => `/master/state/list/${countryID}`,
-  getLocationStats: () => `/master/location/stats`
+  getLocationStats: () => `/master/location/stats`,
+  getAbilityAttributeList: () =>
+    '/master/player-specialization/ability-attribute/list'
 };
+
+export interface GetAbilityAttributeListResponseContext {
+  status: string;
+  message: string;
+  data: {
+    total: number;
+    records: {
+      id: string;
+      name: string;
+      attributes: {
+        id: string;
+        name: string;
+      }[];
+    }[];
+  };
+}
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +68,13 @@ export class SharedService {
 
   getFilterDisplayValue(): Subject<boolean> {
     return this.displayFilterSubject;
+  }
+
+  getAbilityAttributeList(): Observable<
+    GetAbilityAttributeListResponseContext
+  > {
+    return this.httpClient.get<GetAbilityAttributeListResponseContext>(
+      routes.getAbilityAttributeList()
+    );
   }
 }

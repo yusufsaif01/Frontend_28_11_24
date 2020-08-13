@@ -1,0 +1,206 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+.site-wrapper {
+  width: 100%;
+  display: flex;
+  background: $third-color;
+  margin-top: 8.5rem;
+  box-sizing: border-box;
+
+  .right-panel {
+    width: 76.25%;
+    position: relative;
+
+    .footer-fix {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+    }
+
+    .right-wrapper {
+      padding: 2rem;
+
+      .main {
+        background: $white-color;
+        @include shadow;
+        padding: 2rem;
+        border-radius: 0.5rem;
+
+        // back btn
+        .back {
+          padding: 1rem 2rem;
+
+          a {
+            display: inline-flex;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: 700;
+
+            span {
+              height: 4rem;
+              width: 4rem;
+              background: $primary-color;
+              color: $white-color;
+              border-radius: 4rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-right: 1rem;
+
+              mat-icon {
+                margin-left: 0.8rem;
+              }
+            }
+          }
+        }
+
+        // heading
+        .heading {
+          display: flex;
+          justify-content: space-between;
+          padding: 1rem 2rem;
+          color: $fourth-color;
+          margin-bottom: 1rem;
+        }
+
+        // reportCards wrapper
+        .reportcards-wrapper {
+          padding-left: 4rem;
+
+          // tabs buttons
+          .tabs-buttons {
+            width: 100%;
+            margin-bottom: 4rem;
+
+            ul {
+              list-style: none;
+
+              li {
+                display: inline-block;
+                margin-right: 8rem;
+
+                a {
+                  color: $fourth-color;
+                  font-size: 2rem;
+                  font-weight: 700;
+                  display: inline-block;
+                  padding: 1rem 2rem 1rem 0;
+                  border-bottom: 2px solid transparent;
+                }
+
+                a.active {
+                  color: $primary-color;
+                  border-color: $primary-color;
+                }
+              }
+            }
+          }
+
+          .tab-panel {
+            width: 100%;
+            margin: 2rem 0;
+
+            .scorecard-wrapper {
+              display: flex;
+              flex-wrap: wrap;
+
+              .score {
+                width: 33%;
+                border-left: 0.5rem solid $fifth-color;
+                padding-left: 2rem;
+                display: flex;
+                align-items: center;
+                margin-bottom: 4rem;
+
+                .left {
+                  padding-right: 1rem;
+
+                  .slider {
+                    display: flex;
+                    height: 25px;
+                    align-items: center;
+
+                    ::ng-deep {
+                      .mat-slider-thumb,
+                      .mat-slider-thumb-label,
+                      .mat-slider-track-fill {
+                        background-color: $primary-color;
+                      }
+
+                      .mat-slider-horizontal {
+                        padding: 0px;
+                        margin-left: -1rem;
+                      }
+                    }
+                  }
+
+                  h4 {
+                    color: $fourth-color;
+                    font-weight: 600;
+                  }
+
+                  p {
+                    color: $second-color;
+                    font-weight: 500;
+                    font-size: 1.8rem;
+                  }
+                }
+
+                .right {
+                  .stroke {
+                    position: relative;
+                    border: 6px solid #bdbdbd;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 5rem;
+
+                    .mat-progress-spinner {
+                      position: absolute;
+                      left: -6px;
+                      top: -6px;
+                    }
+
+                    span {
+                      width: 100%;
+                      height: 100%;
+                      font-size: 2.2rem;
+                      font-weight: 700;
+                      position: absolute;
+                      top: 78%;
+                      left: 78%;
+                      transform: translate(-50%, -50%);
+                    }
+                  }
+
+                  .primary {
+                    span {
+                      color: $primary-color;
+                    }
+
+                    ::ng-deep .mat-progress-spinner circle,
+                    .mat-spinner circle {
+                      stroke: $primary-color;
+                    }
+                  }
+
+                  .success {
+                    span {
+                      color: $success;
+                      font-family: $primary-text;
+                    }
+
+                    ::ng-deep .mat-progress-spinner circle,
+                    .mat-spinner circle {
+                      stroke: $success;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
