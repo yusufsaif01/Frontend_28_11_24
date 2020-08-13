@@ -6,7 +6,9 @@ describe('AddEditReportCardService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: AddEditReportCardService = TestBed.get(AddEditReportCardService);
+    const service: AddEditReportCardService = TestBed.get(
+      AddEditReportCardService
+    );
     expect(service).toBeTruthy();
   });
 });
