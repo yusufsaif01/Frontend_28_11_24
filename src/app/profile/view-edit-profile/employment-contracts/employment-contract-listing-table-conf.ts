@@ -21,7 +21,7 @@ export class EmploymentContractListTableConfig extends TableConfig {
       },
       effective_date: {
         code: 'effective_date',
-        text: 'Effective Date',
+        text: 'Effective date',
         getValue: (ele: any) => {
           let val: any = moment(ele.effective_date);
           val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
@@ -30,7 +30,7 @@ export class EmploymentContractListTableConfig extends TableConfig {
       },
       expiry_date: {
         code: 'expiry_date',
-        text: 'Expiry Date',
+        text: 'Expiry date',
         getValue: (ele: any) => {
           let val: any = moment(ele.expiry_date);
           val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
@@ -39,7 +39,7 @@ export class EmploymentContractListTableConfig extends TableConfig {
       },
       created_by: {
         code: 'created_by',
-        text: 'Created By',
+        text: 'Created by',
         getValue: (ele: any) => {
           return ele[this.columns.created_by.code];
         }

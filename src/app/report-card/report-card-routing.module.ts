@@ -17,17 +17,22 @@ const routes: Routes = [
       {
         path: '',
         component: ManageReportCardComponent,
-        data: { title: extract('Manage Report Card') }
+        data: { title: extract('Manage report card') }
       },
       {
-        path: 'add-report-card',
+        path: 'edit-report-card/:send_to/:report_card_id',
         component: AddEditReportCardComponent,
-        data: { title: extract('Add Report Card') }
+        data: { title: extract('Add report card') }
+      },
+      {
+        path: 'add-report-card/:send_to',
+        component: AddEditReportCardComponent,
+        data: { title: extract('Add report card') }
       },
       {
         path: 'link-report-card',
         component: LinkReportCardComponent,
-        data: { title: extract('Link Report Card') }
+        data: { title: extract('Link report card') }
       }
     ]
   }

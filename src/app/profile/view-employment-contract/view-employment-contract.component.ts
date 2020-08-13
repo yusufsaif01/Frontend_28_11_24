@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ContractService } from './contract.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { VerificationPopupComponent } from '@app/shared/verification-popup/verification-popup.component';
+import { VerificationPopupComponent } from '@app/shared/dialog-box/verification-popup/verification-popup.component';
 
 @Component({
   selector: 'app-view-employment-contract',

@@ -27,7 +27,7 @@ const appRoutes: Routes = [
       {
         path: 'contract-management',
         component: ContractManagementComponent,
-        data: { title: extract('Contract Management') }
+        data: { title: extract('Contract management') }
       },
       { path: '**', component: FootPlayerComponent }
     ]

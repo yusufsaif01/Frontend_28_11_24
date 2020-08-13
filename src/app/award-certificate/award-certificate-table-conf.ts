@@ -28,7 +28,7 @@ export class AwardCertificateTableConfig extends TableConfig {
       },
       position: {
         code: 'position',
-        text: 'Position Secured',
+        text: 'Position secured',
         getValue: (ele: any) => {
           return ele[this.columns.position.code];
         }

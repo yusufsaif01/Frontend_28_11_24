@@ -7,7 +7,7 @@
     <div class="right-wrapper">
       <div class="main">
         <div class="back">
-          <a>
+          <a [routerLink]="['/member/manage-report-card']">
             <span>
               <mat-icon class="material-icons">arrow_back_ios</mat-icon>
             </span>
@@ -16,167 +16,151 @@
         </div>
         <!--  heading -->
         <div class=" heading">
-          <h2>Create report card of Jame Jordon</h2>
+          <h2>Create report card of {{ playerDetails?.name }}</h2>
         </div>
 
-        <div class="reportcards-wrapper">
-          <!-- tabs -->
-          <div class="tabs-buttons">
-            <ul>
-              <li>
-                <a class="active">Physical</a>
-              </li>
-              <li>
-                <a>Mental</a>
-              </li>
-              <li>
-                <a>Technical</a>
-              </li>
-              <li>
-                <a>Goalkeeping</a>
-              </li>
-            </ul>
-          </div>
+        <form [formGroup]="addEditReportForm">
+          <div class="reportcards-wrapper">
+            <!-- tabs -->
+            <div class="tabs-buttons">
+              <ul>
+                <ng-container *ngFor="let ability of abilitiesArray">
+                  <li>
+                    <a
+                      [ngClass]="
+                        selectedAbility?.ability_id === ability?.ability_id
+                          ? 'active'
+                          : ''
+                      "
+                      (click)="getTab(ability.ability_id)"
+                    >
+                      {{ ability.ability_name }}
+                    </a>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
 
-          <!-- tab pannel -->
-          <div class="tab-panel">
-            <div class="scorecard-wrapper">
-              <!-- first -->
-              <div class="score">
-                <div class="left">
-                  <h4>Acceleration</h4>
-                  <span class="slider">
-                    <mat-slider [(ngModel)]="value"></mat-slider>
-                  </span>
-                  <p>0-99</p>
-                </div>
-                <div class="right">
-                  <div class="success">
-                    <div class="stroke">
-                      <mat-progress-spinner
-                        diameter="60"
-                        [mode]="mode"
-                        [value]="value"
+            <!-- tab panel -->
+            <div class="tab-panel">
+              <div class="scorecard-wrapper">
+                <ng-container
+                  *ngFor="
+                    let ability of this.addEditReportForm.get('abilities')[
+                      'controls'
+                    ];
+                    let i = index
+                  "
+                  formArrayName="abilities"
+                >
+                  <ng-container
+                    *ngIf="
+                      ability.get('ability_id').value ===
+                      selectedAbility.ability_id
+                    "
+                  >
+                    <ng-container [formGroupName]="i">
+                      <ng-container
+                        *ngFor="
+                          let attribute of ability.get('attributes')[
+                            'controls'
+                          ];
+                          let j = index
+                        "
+                        formArrayName="attributes"
                       >
-                      </mat-progress-spinner>
-                      <span>{{ value }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- second -->
-              <div class="score">
-                <div class="left">
-                  <h4>Acceleration</h4>
-                  <span class="slider">
-                    <mat-slider [(ngModel)]="value"></mat-slider>
-                  </span>
-                  <p>0-99</p>
-                </div>
-                <div class="right">
-                  <div class="success">
-                    <div class="stroke">
-                      <mat-progress-spinner
-                        diameter="60"
-                        [mode]="mode"
-                        [value]="value"
-                      >
-                      </mat-progress-spinner>
-                      <span>{{ value }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- third -->
-              <div class="score">
-                <div class="left">
-                  <h4>Acceleration</h4>
-                  <span class="slider">
-                    <mat-slider [(ngModel)]="value"></mat-slider>
-                  </span>
-                  <p>0-99</p>
-                </div>
-                <div class="right">
-                  <div class="primary">
-                    <div class="stroke">
-                      <mat-progress-spinner
-                        diameter="60"
-                        [mode]="mode"
-                        [value]="value"
-                      >
-                      </mat-progress-spinner>
-                      <span>{{ value }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- fourth -->
-              <div class="score">
-                <div class="left">
-                  <h4>Acceleration</h4>
-                  <span class="slider">
-                    <mat-slider [(ngModel)]="value"></mat-slider>
-                  </span>
-                  <p>0-99</p>
-                </div>
-                <div class="right">
-                  <div class="success">
-                    <div class="stroke">
-                      <mat-progress-spinner
-                        diameter="60"
-                        [mode]="mode"
-                        [value]="value"
-                      >
-                      </mat-progress-spinner>
-                      <span>{{ value }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- fifth -->
-              <div class="score">
-                <div class="left">
-                  <h4>Acceleration</h4>
-                  <span class="slider">
-                    <mat-slider [(ngModel)]="value"></mat-slider>
-                  </span>
-                  <p>0-99</p>
-                </div>
-                <div class="right">
-                  <div class="primary">
-                    <div class="stroke">
-                      <mat-progress-spinner
-                        diameter="60"
-                        [mode]="mode"
-                        [value]="value"
-                      >
-                      </mat-progress-spinner>
-                      <span>{{ value }}</span>
-                    </div>
-                  </div>
-                </div>
+                        <ng-container [formGroupName]="j">
+                          <div class="score">
+                            <div class="left">
+                              <h4>
+                                {{ attribute.get('attribute_name').value }}
+                              </h4>
+                              <span class="slider">
+                                <mat-slider
+                                  min="0"
+                                  max="99"
+                                  formControlName="attribute_score"
+                                ></mat-slider>
+                              </span>
+                              <p>0-99</p>
+                            </div>
+                            <div class="right">
+                              <div
+                                [ngClass]="
+                                  attribute.get('attribute_score').value <= 50
+                                    ? 'primary'
+                                    : 'success'
+                                "
+                              >
+                                <div class="stroke">
+                                  <mat-progress-spinner
+                                    diameter="60"
+                                    [mode]="mode"
+                                    [value]="
+                                      attribute.get('attribute_score').value ||
+                                      0
+                                    "
+                                  >
+                                  </mat-progress-spinner>
+                                  <span>{{
+                                    attribute.get('attribute_score').value || 0
+                                  }}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
               </div>
             </div>
-          </div>
 
-          <!-- remark -->
-          <div class="remark">
-            <div class="form-block">
-              <label class="mb-1">Remark</label>
-              <textarea name="remark" rows="5"></textarea>
+            <mat-error *ngIf="addEditReportForm.controls.abilities.errors">
+              <span
+                *ngIf="
+                  addEditReportForm.controls.abilities.errors.requiredAttribute
+                "
+              >
+                Please provide scores for atleast 3 abilities and 3 related
+                attributes
+              </span>
+              <!-- <span
+                *ngIf="
+                  addEditReportForm.controls.abilities.errors
+                    .provideRequiredAttributes
+                "
+              >
+                Please provide scores 3 related attributes
+              </span> -->
+            </mat-error>
+
+            <!-- remark -->
+            <div class="remark">
+              <div class="form-block">
+                <label class="mb-1">Remarks</label>
+                <textarea formControlName="remarks" rows="5"></textarea>
+              </div>
+            </div>
+            <!-- button -->
+            <div class="btn-group">
+              <button (click)="resetForm()">Reset</button>
+              <button
+                [disabled]="!addEditReportForm.valid"
+                (click)="addEditReportCard('published')"
+              >
+                Publish
+              </button>
+              <button
+                [disabled]="!addEditReportForm.valid"
+                (click)="addEditReportCard('draft')"
+              >
+                Save as draft
+              </button>
             </div>
           </div>
-          <!-- button -->
-          <div class="btn-group">
-            <button>Reset</button>
-            <button>Publish</button>
-            <button>Save as draft</button>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
     <div class="footer-fix">
@@ -184,4 +168,3 @@
     </div>
   </div>
 </div>
-<app-filter [allowedFilters]="filtersList"></app-filter>
