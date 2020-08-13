@@ -1,0 +1,189 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel">
+    <app-left-panel> </app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main">
+        <!-- heading -->
+        <div class="heading">
+          <h2>Gallery</h2>
+          <button class="icon-btn" (click)="openFilter()">
+            <mat-icon class="material-icons">filter_alt</mat-icon>
+          </button>
+        </div>
+        <!-- counts -->
+        <div class="counts-wrapper">
+          <div class="counts">
+            <h2>
+              09
+            </h2>
+            <a>Photos</a>
+          </div>
+          <div class="counts">
+            <h2>14</h2>
+            <a class="active">Videos</a>
+          </div>
+        </div>
+
+        <div class="tab-buttons">
+          <a class="active">Timeline videos</a>
+          <a>Learning and training videos</a>
+          <a>Match videos</a>
+        </div>
+        <!-- gallery section -->
+        <div class="gallery-wrapper">
+          <div class="gallery-box">
+            <img
+              src="assets/images/member/video-banner.png"
+              alt="video-placehoder"
+            />
+            <span class="playicon">
+              <a>
+                <mat-icon class="material-icons">play_circle_outline</mat-icon>
+              </a>
+            </span>
+          </div>
+          <div class="gallery-box">
+            <img
+              src="assets/images/member/video-banner.png"
+              alt="video-placehoder"
+            />
+            <span class="playicon">
+              <a>
+                <mat-icon class="material-icons">play_circle_outline</mat-icon>
+              </a>
+            </span>
+          </div>
+          <div class="gallery-box">
+            <img
+              src="assets/images/member/video-banner.png"
+              alt="video-placehoder"
+            />
+            <span class="playicon">
+              <a>
+                <mat-icon class="material-icons">play_circle_outline</mat-icon>
+              </a>
+            </span>
+          </div>
+          <div class="gallery-box">
+            <img
+              src="assets/images/member/video-banner.png"
+              alt="video-placehoder"
+            />
+            <span class="playicon">
+              <a>
+                <mat-icon class="material-icons">play_circle_outline</mat-icon>
+              </a>
+            </span>
+          </div>
+          <div class="gallery-box">
+            <img
+              src="assets/images/member/video-banner.png"
+              alt="video-placehoder"
+            />
+            <span class="playicon">
+              <a>
+                <mat-icon class="material-icons">play_circle_outline</mat-icon>
+              </a>
+            </span>
+          </div>
+          <div class="gallery-box">
+            <img
+              src="assets/images/member/video-banner.png"
+              alt="video-placehoder"
+            />
+            <span class="playicon">
+              <a>
+                <mat-icon class="material-icons">play_circle_outline</mat-icon>
+              </a>
+            </span>
+          </div>
+          <div class="gallery-box">
+            <img
+              src="assets/images/member/video-banner.png"
+              alt="video-placehoder"
+            />
+            <span class="playicon">
+              <a>
+                <mat-icon class="material-icons">play_circle_outline</mat-icon>
+              </a>
+            </span>
+          </div>
+          <div class="gallery-box">
+            <img
+              src="assets/images/member/video-banner.png"
+              alt="video-placehoder"
+            />
+            <span class="playicon">
+              <a>
+                <mat-icon class="material-icons">play_circle_outline</mat-icon>
+              </a>
+            </span>
+          </div>
+          <div class="gallery-box">
+            <img
+              src="assets/images/member/video-banner.png"
+              alt="video-placehoder"
+            />
+            <span class="playicon">
+              <a>
+                <mat-icon class="material-icons">play_circle_outline</mat-icon>
+              </a>
+            </span>
+          </div>
+          <div class="gallery-box">
+            <img
+              src="assets/images/member/video-banner.png"
+              alt="video-placehoder"
+            />
+            <span class="playicon">
+              <a>
+                <mat-icon class="material-icons">play_circle_outline</mat-icon>
+              </a>
+            </span>
+          </div>
+          <div class="gallery-box">
+            <img
+              src="assets/images/member/video-banner.png"
+              alt="video-placehoder"
+            />
+            <span class="playicon">
+              <a>
+                <mat-icon class="material-icons">play_circle_outline</mat-icon>
+              </a>
+            </span>
+          </div>
+          <div class="gallery-box">
+            <img
+              src="assets/images/member/video-banner.png"
+              alt="video-placehoder"
+            />
+            <span class="playicon">
+              <a>
+                <mat-icon class="material-icons">play_circle_outline</mat-icon>
+              </a>
+            </span>
+          </div>
+        </div>
+        <!-- Pagination -->
+        <app-pagination
+          [showData]="false"
+          [showCount]="show_count"
+          [rowsPerPage]="pageSize"
+          (onChange)="updatePage($event)"
+          [selectedPage]="selectedPage"
+        >
+        </app-pagination>
+      </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
+  </div>
+</div>
+<app-filter
+  [allowedFilters]="filtersList"
+  (filterChanges)="onChangeFilter($event)"
+></app-filter>

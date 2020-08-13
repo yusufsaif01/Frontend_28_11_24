@@ -137,7 +137,8 @@
                 <option
                   *ngFor="let state of locationRangeFilters.states"
                   [value]="getLocationValue(state)"
-                  >{{ state.name }}
+                >
+                  {{ state.name }}
                 </option>
               </select>
             </div>
@@ -361,6 +362,137 @@
                 </div>
               </div>
             </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ###### abilities section ##### -->
+
+      <!-- Phyiscal -->
+      <div class="filter-group" *ngIf="allowedFilters.phyiscal">
+        <div class="filter-title" (click)="toggleFilter('physical')">
+          <h3>
+            <a
+              >Phyiscal
+              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+            </a>
+          </h3>
+        </div>
+        <ul class="filter-checks" #physical>
+          <li>
+            <mat-checkbox [value]="phyiscal">Acceleration</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="agility">Agility</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="jumping">Jumping</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="strength">Strength</mat-checkbox>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Mental -->
+      <div class="filter-group" *ngIf="allowedFilters.mental">
+        <div class="filter-title" (click)="toggleFilter('mental')">
+          <h3>
+            <a
+              >Mental
+              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+            </a>
+          </h3>
+        </div>
+        <ul class="filter-checks" #mental>
+          <li>
+            <mat-checkbox [value]="phyiscal">Acceleration</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="agility">Agility</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="jumping">Jumping</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="strength">Strength</mat-checkbox>
+          </li>
+        </ul>
+      </div>
+      <!-- Technical -->
+      <div class="filter-group" *ngIf="allowedFilters.technical">
+        <div class="filter-title" (click)="toggleFilter('technical')">
+          <h3>
+            <a
+              >Technical
+              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+            </a>
+          </h3>
+        </div>
+        <ul class="filter-checks" #technical>
+          <li>
+            <mat-checkbox [value]="phyiscal">Acceleration</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="agility">Agility</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="jumping">Jumping</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="strength">Strength</mat-checkbox>
+          </li>
+        </ul>
+      </div>
+
+      <!-- goalkeeping -->
+      <div class="filter-group" *ngIf="allowedFilters.goalkeeping">
+        <div class="filter-title" (click)="toggleFilter('goalkeeping')">
+          <h3>
+            <a
+              >Goalkeeping
+              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+            </a>
+          </h3>
+        </div>
+        <ul class="filter-checks" #goalkeeping>
+          <li>
+            <mat-checkbox [value]="phyiscal">Acceleration</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="agility">Agility</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="jumping">Jumping</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="strength">Strength</mat-checkbox>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Other -->
+      <div class="filter-group" *ngIf="allowedFilters.otherability">
+        <div class="filter-title" (click)="toggleFilter('otherability')">
+          <h3>
+            <a
+              >Other
+              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+            </a>
+          </h3>
+        </div>
+        <ul class="filter-checks" #otherability>
+          <li>
+            <mat-checkbox [value]="phyiscal">Acceleration</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="agility">Agility</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="jumping">Jumping</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox [value]="strength">Strength</mat-checkbox>
           </li>
         </ul>
       </div>

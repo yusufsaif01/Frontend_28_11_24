@@ -72,7 +72,12 @@ export class FilterComponent implements OnInit {
     ability: false,
     status: false,
     dateRange: false,
-    reportStatus: false
+    reportStatus: false,
+    phyiscal: true,
+    mental: true,
+    technical: true,
+    goalkeeping: true,
+    otherability: true
   };
   showFilter = false;
 

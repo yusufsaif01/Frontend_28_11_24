@@ -1,0 +1,215 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main">
+        <div class="single-wrapper">
+          <div class="post">
+            <div class="video">
+              <img src="assets/images/member/video-banner.png" alt="" />
+            </div>
+            <!-- post section -->
+            <div class="post-wrapper">
+              <!-- postHeader -->
+              <div class="post-header">
+                <!-- PostProfile -->
+                <div class="profile">
+                  <div class="profile-img">
+                    <img
+                      src="../../../assets/images/member/profile.png"
+                      alt="profile"
+                    />
+                  </div>
+                  <div class="details">
+                    <a target="_blank">
+                      <h3>Jame Jordon</h3>
+                    </a>
+                    <p>
+                      <span class="type">Professional;</span>
+                      <span class="position">GoalKeeper</span>
+
+                      3 July 2020
+                    </p>
+                  </div>
+                </div>
+                <!-- icons -->
+                <div class="actions">
+                  <span>
+                    <a>
+                      <mat-icon class="material-icons">link</mat-icon>
+                    </a>
+                  </span>
+                  <span>
+                    <a>
+                      <mat-icon class="material-icons">edit</mat-icon>
+                    </a>
+                  </span>
+                  <span>
+                    <a>
+                      <mat-icon class="material-icons">delete</mat-icon>
+                    </a>
+                  </span>
+                </div>
+              </div>
+              <!-- postbody -->
+              <div class="postbody">
+                <div class="post-content">
+                  <p>
+                    <span>#Acceleration</span>
+                    <span>#Agility</span>
+                    <span>#Jumping</span>
+                    <span>#Strength</span>
+                    <span>#Sprint speed</span>
+                    <span>#Balance</span>
+                    <span>#Stamina</span>
+                  </p>
+                </div>
+                <div class="post-img">
+                  <img [src]="post.post.media_url" alt="" />
+                </div>
+              </div>
+              <!-- like comment -->
+              <div class="like">
+                <span>
+                  <mat-icon
+                    (click)="toggleLike(post)"
+                    [ngClass]="{ active: post.is_liked }"
+                    class="material-icons big-icons"
+                    >favorite</mat-icon
+                  >
+                  {{ post.likes }}
+                </span>
+                <ng-container *ngIf="post.addComment$ | async"></ng-container>
+                <ng-container
+                  *ngIf="!['amateur', 'grassroot'].includes(player_type)"
+                >
+                  <span
+                    (click)="activateCommentBox(post)"
+                    [ngClass]="{
+                      chatdisable:
+                        !player_type &&
+                        !['academy', 'club'].includes(member_type)
+                    }"
+                  >
+                    <mat-icon class="material-icons big-icons"
+                      >mode_comment</mat-icon
+                    >
+                    {{ post.comments.total }}
+                  </span>
+                </ng-container>
+              </div>
+              <div class="comment">
+                <div
+                  class="partition"
+                  *ngIf="
+                    post.comments.total > 3 &&
+                    post.comments.total !== post.commentListing.length
+                  "
+                >
+                  <a
+                    *ngIf="
+                      post.comments.total > 3 &&
+                      post.comments.total !== post.commentListing.length
+                    "
+                    (click)="loadComments(post)"
+                    >View previous comments</a
+                  >
+                </div>
+                <div class="comment-box">
+                  <div
+                    class="commnet"
+                    *ngFor="let comment of post.commentListing"
+                  >
+                    <div class="profile">
+                      <div class="profile-img">
+                        <img
+                          [src]="comment.commented_by.avatar"
+                          alt="profile"
+                        />
+                      </div>
+                      <div class="details">
+                        <h4>{{ comment.commented_by.name }}</h4>
+                        <div class="commenter-details">
+                          <p>
+                            <ng-container
+                              *ngIf="
+                                comment.commented_by.member_type === 'player'
+                              "
+                            >
+                              <span class="type">{{
+                                comment.commented_by.type
+                              }}</span>
+                              <span class="position"
+                                >{{ comment.commented_by.position }}
+                              </span>
+                            </ng-container>
+
+                            <ng-container
+                              *ngIf="
+                                comment.commented_by.member_type !== 'player'
+                              "
+                            >
+                              <span class="type">{{
+                                comment.commented_by.member_type
+                              }}</span>
+                              <span class="position"
+                                >{{ comment.commented_by.type }}
+                              </span>
+                            </ng-container>
+                          </p>
+                          <p>{{ comment.commented_at }}</p>
+                        </div>
+                        <div class="message">
+                          <p>{{ comment.comment }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="post-comment" *ngIf="post.show_comment_box">
+                  <div class="profile-img">
+                    <img [src]="avatar_url" alt="profile" />
+                  </div>
+                  <div class="comment-input">
+                    <form [formGroup]="post.commentForm">
+                      <div class="input-wrapper">
+                        <input
+                          formControlName="comment"
+                          autocomplete="off"
+                          placeholder="Add a comment"
+                        />
+                        <button
+                          [disabled]="!post.commentForm.valid"
+                          (click)="addComment(post)"
+                        >
+                          <mat-icon class="material-icons">send</mat-icon>
+                        </button>
+                        <mat-error
+                          *ngIf="
+                            post.commentForm.controls.comment.invalid &&
+                            post.commentForm.controls.comment.touched
+                          "
+                        >
+                          <span
+                            *ngIf="
+                              post.commentForm.controls.comment.errors.wordCount
+                            "
+                          >
+                            Please provide upto 60 words
+                          </span>
+                        </mat-error>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
+  </div>
+</div>
