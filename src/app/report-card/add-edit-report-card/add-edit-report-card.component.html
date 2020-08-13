@@ -87,7 +87,7 @@
                             <div class="right">
                               <div
                                 [ngClass]="
-                                  attribute.get('attribute_score').value < 50
+                                  attribute.get('attribute_score').value <= 50
                                     ? 'primary'
                                     : 'success'
                                 "
@@ -97,12 +97,13 @@
                                     diameter="60"
                                     [mode]="mode"
                                     [value]="
-                                      attribute.get('attribute_score').value
+                                      attribute.get('attribute_score').value ||
+                                      0
                                     "
                                   >
                                   </mat-progress-spinner>
                                   <span>{{
-                                    attribute.get('attribute_score').value
+                                    attribute.get('attribute_score').value || 0
                                   }}</span>
                                 </div>
                               </div>
@@ -113,44 +114,48 @@
                     </ng-container>
                   </ng-container>
                 </ng-container>
-                <!-- first -->
-                <!-- <div class="score">
-                <div class="left">
-                  <h4>Acceleration</h4>
-                  <span class="slider">
-                    <mat-slider [(ngModel)]="value"></mat-slider>
-                  </span>
-                  <p>0-99</p>
-                </div>
-                <div class="right">
-                  <div class="success">
-                    <div class="stroke">
-                      <mat-progress-spinner
-                        diameter="60"
-                        [mode]="mode"
-                        [value]="value"
-                      >
-                      </mat-progress-spinner>
-                      <span>{{ value }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
               </div>
             </div>
+
+            <mat-error *ngIf="addEditReportForm.controls.abilities.errors">
+              <span
+                *ngIf="
+                  addEditReportForm.controls.abilities.errors.requiredAttribute
+                "
+              >
+                Please provide scores for atleast 3 abilities and 3 related
+                attributes
+              </span>
+              <!-- <span
+                *ngIf="
+                  addEditReportForm.controls.abilities.errors
+                    .provideRequiredAttributes
+                "
+              >
+                Please provide scores 3 related attributes
+              </span> -->
+            </mat-error>
 
             <!-- remark -->
             <div class="remark">
               <div class="form-block">
-                <label class="mb-1">Remark</label>
-                <textarea name="remark" rows="5"></textarea>
+                <label class="mb-1">Remarks</label>
+                <textarea formControlName="remarks" rows="5"></textarea>
               </div>
             </div>
             <!-- button -->
             <div class="btn-group">
-              <button>Reset</button>
-              <button [disabled]="!addEditReportForm.valid">Publish</button>
-              <button [disabled]="!addEditReportForm.valid">
+              <button (click)="resetForm()">Reset</button>
+              <button
+                [disabled]="!addEditReportForm.valid"
+                (click)="addEditReportCard('published')"
+              >
+                Publish
+              </button>
+              <button
+                [disabled]="!addEditReportForm.valid"
+                (click)="addEditReportCard('draft')"
+              >
                 Save as draft
               </button>
             </div>

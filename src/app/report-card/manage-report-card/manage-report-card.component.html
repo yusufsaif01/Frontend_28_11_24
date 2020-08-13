@@ -35,14 +35,20 @@
             [pageNo]="selectedPage"
           >
           </app-table>
-          <ng-template #ListAction let-status="status" let-user_id="user_id">
+          <ng-template
+            #ListAction
+            let-status="status"
+            let-user_id="user_id"
+            let-id="id"
+          >
             <div class="action-buttons">
               <ng-container *ngIf="status === 'draft'">
                 <button
                   matTooltip="Edit draft"
                   [routerLink]="[
                     '/member/manage-report-card/edit-report-card/',
-                    user_id
+                    user_id,
+                    id
                   ]"
                 >
                   <mat-icon class="material-icons">create</mat-icon>

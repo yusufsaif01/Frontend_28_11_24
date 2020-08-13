@@ -19,6 +19,11 @@ const routes: Routes = [
         data: { title: extract('Manage report card') }
       },
       {
+        path: 'edit-report-card/:send_to/:report_card_id',
+        component: AddEditReportCardComponent,
+        data: { title: extract('Add report card') }
+      },
+      {
         path: 'add-report-card/:send_to',
         component: AddEditReportCardComponent,
         data: { title: extract('Add report card') }
