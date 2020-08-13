@@ -39,7 +39,10 @@
               <div class="profile-details">
                 <h2 matTooltip="{{ footPlayer.name }}">
                   <a
-                    [routerLink]="['/member/profile/view/', footPlayer.user_id]"
+                    [routerLink]="[
+                      '/member/profile/public/',
+                      footPlayer.user_id
+                    ]"
                   >
                     {{
                       footPlayer.name.length < 17
