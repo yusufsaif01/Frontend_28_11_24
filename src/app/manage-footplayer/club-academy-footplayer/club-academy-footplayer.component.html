@@ -1,7 +1,11 @@
 <app-header></app-header>
 <div class="site-wrapper">
   <div class="left-panel">
-    <app-left-panel (sendMemberType)="getMemberType($event)"></app-left-panel>
+    <app-left-panel
+      [userId]="userId"
+      (sendMemberType)="getMemberType($event)"
+      [options]="panelOptions"
+    ></app-left-panel>
   </div>
   <div class="right-panel">
     <div class="right-wrapper">

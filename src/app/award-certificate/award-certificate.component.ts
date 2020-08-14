@@ -5,7 +5,7 @@ import { AwardCertificateTableConfig } from './award-certificate-table-conf';
 import { EditAddPopupComponent } from './edit-add-popup/edit-add-popup.component';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { AwardCertificateService } from './award-certificate.service';
-import { environment } from '../../environments/environment';
+import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { PanelOptions } from '@app/shared/models/panel-options.model';

@@ -24,7 +24,7 @@ export class DatePipe implements PipeTransform {
     }
     if (hours >= 24) {
       let finalDate = new DatePipeAngular('en-US');
-      created_at = finalDate.transform(created_at, 'dd MMMM yyyy');
+      created_at = finalDate.transform(created_at, 'MM-dd-yyyy');
     }
     return created_at;
   }
