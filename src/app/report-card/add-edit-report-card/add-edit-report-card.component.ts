@@ -127,6 +127,7 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
         }
       );
   }
+
   populateView() {
     this._addEditReportCardService
       .getReportCard({ report_card_id: this.report_card_id })
@@ -203,14 +204,12 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
             };
           });
 
-          this.abilitiesArray.forEach(ability => {
-            this.populateAbilityControl(ability);
-          });
-          this.selectedAbility = this.abilitiesArray[0];
+          this.initializeAbilities();
         },
         error => {}
       );
   }
+
   prepareAttributeControl = (
     attributes?: {
       attribute_id: string;
@@ -272,6 +271,7 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
       JSON.stringify(this.changeFormData(this.addEditReportForm.value)[name])
     );
   }
+
   changeFormData(formValues: { remarks: string; abilities: AbilityContext[] }) {
     let data = {
       ...formValues,
@@ -291,15 +291,15 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
       })
     };
 
-    data.abilities = data.abilities.filter(ability => {
-      return !ability.attributes.every(attribute => attribute === null);
-    });
-
-    data.abilities.forEach(ability => {
-      ability.attributes = ability.attributes.filter(attribute => {
-        return attribute !== null;
+    data.abilities
+      .filter(ability => {
+        return !ability.attributes.every(attribute => attribute === null);
+      })
+      .forEach(ability => {
+        ability.attributes = ability.attributes.filter(attribute => {
+          return attribute !== null;
+        });
       });
-    });
 
     return data;
   }
@@ -347,6 +347,10 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
   resetForm() {
     this.addEditReportForm.get('remarks').setValue('');
     this.abilities.clear();
+    this.initializeAbilities();
+  }
+
+  initializeAbilities() {
     this.abilitiesArray.forEach(ability => {
       this.populateAbilityControl(ability);
     });
