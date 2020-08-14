@@ -1,22 +1,26 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
+import moment from 'moment';
+
 export class LinkReportCardTableConfig extends TableConfig {
   constructor() {
     super();
-    this.allowedColumns = ['published_date', 'createby', 'status'];
+    this.allowedColumns = ['published_at', 'created_by', 'status'];
 
     this.columns = {
-      published_date: {
-        code: 'published_date',
+      published_at: {
+        code: 'published_at',
         text: 'Published date ',
         getValue: (ele: any) => {
-          return ele[this.columns.published_date.code];
+          let val: any = moment(ele.published_at);
+          val = val.isValid() ? val.format('MM-DD-YYYY') : '';
+          return `${val}`;
         }
       },
-      createby: {
-        code: 'createby',
-        text: 'Create By',
+      created_by: {
+        code: 'created_by',
+        text: 'Created by',
         getValue: (ele: any) => {
-          return ele[this.columns.createby.code];
+          return ele[this.columns.created_by.code];
         }
       },
 
