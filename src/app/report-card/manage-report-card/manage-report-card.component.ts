@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import {
   ManageReportCardService,
   GetReportCardListResponseContext,
@@ -132,23 +132,26 @@ export class ManageReportCardComponent implements OnInit {
       );
   }
 
-  // prepareCardResponse(
-  //   records: GetReportCardListResponseContext['data']['records']
-  // ) {
-  //   records.forEach(record => {
-  //     if (record.total_report_cards <= 1) {
-  //       record['no_of_report_cards'] = {
-  //         total_report_cards: record.total_report_cards
-  //       };
-  //     } else {
-  //       record['no_of_report_cards'] = {
-  //         total_report_cards: record.total_report_cards,
-  //         url: environment.mediaUrl + '/' + record.user_id
-  //       };
-  //     }
-  //   });
-  //   return records;
-  // }
+  prepareCardResponse(
+    records: GetReportCardListResponseContext['data']['records']
+  ) {
+    records.forEach(record => {
+      if (record.total_report_cards <= 1) {
+        record['no_of_report_cards'] = {
+          total_report_cards: record.total_report_cards
+        };
+      } else {
+        record['no_of_report_cards'] = {
+          total_report_cards: record.total_report_cards,
+          url:
+            environment.mediaUrl +
+            '/member/manage-report-card/link-report-card/' +
+            record.user_id
+        };
+      }
+    });
+    return records;
+  }
 
   ngOnDestroy() {}
 }

@@ -43,6 +43,7 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
   };
   reportCardData: GetReportCardResponseContext['data'];
   editMode = false;
+  viewMode = false;
 
   constructor(
     private _addEditReportCardService: AddEditReportCardService,
@@ -66,9 +67,19 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
       if (param.report_card_id) {
         this.editMode = true;
         this.report_card_id = param.report_card_id;
+        if (param.player_id) {
+          this.viewMode = true;
+          this.editMode = false;
+          // this.setControlState();
+        }
         this.populateView();
       }
     });
+  }
+
+  setControlState() {
+    // this.addEditReportForm.get('abilities.attributes').disable();
+    // this.abilities.disable();
   }
 
   getPlayerDetails(player_id: string) {
@@ -138,6 +149,16 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
 
   populateFormFields() {
     this.addEditReportForm.patchValue(this.reportCardData);
+    if (this.editMode) {
+    }
+    if (this.viewMode) {
+      // this.abilitiesArray = [];
+      // this.abilitiesArray = this.reportCardData.abilities;
+      // this.abilitiesArray.forEach(ability => {
+      //   this.populateAbilityControl(ability);
+      // });
+      // this.selectedAbility = this.abilitiesArray[0];
+    }
     // console.log(this.reportCardData);
     // console.log(this.abilitiesArray);
     // let x = this.abilitiesArray.map(ability => {
