@@ -21,7 +21,7 @@
     .logo {
       margin-top: 1rem;
 
-      span {
+      a {
         background-color: $third-color;
         padding: 1rem 5rem 1rem 3rem;
         display: inline-block;
@@ -32,6 +32,7 @@
         border-top-right-radius: 8rem;
         border-bottom-right-radius: 8rem;
         cursor: pointer;
+
         img {
           max-width: 25rem;
         }
