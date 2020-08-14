@@ -18,7 +18,7 @@ import { ManageReportCardTableConfig } from './manage-report-card-table-conf';
   styleUrls: ['./manage-report-card.component.scss']
 })
 export class ManageReportCardComponent implements OnInit {
-  tableConfig: ManageReportCardTableConfig = new ManageReportCardTableConfig();
+  tableConfig: ManageReportCardTableConfig;
   dataSource = new MatTableDataSource([]);
   filter: GetReportCardListContext = {};
   pageSize = 10;
@@ -28,6 +28,7 @@ export class ManageReportCardComponent implements OnInit {
   total_count = 0;
   searchText = '';
   isPublic = false;
+  member_type: string = localStorage.getItem('member_type');
 
   // panelOptions: Partial<PanelOptions> = {
   //   bio: true,
@@ -53,7 +54,9 @@ export class ManageReportCardComponent implements OnInit {
     private _manageReportCardService: ManageReportCardService,
     private _toastrService: ToastrService,
     private _sharedService: SharedService
-  ) {}
+  ) {
+    this.tableConfig = new ManageReportCardTableConfig(this.member_type);
+  }
 
   ngOnInit() {
     this.filter.page_size = this.pageSize;
@@ -110,16 +113,16 @@ export class ManageReportCardComponent implements OnInit {
       delete this.filter['report_status'];
     }
     this._manageReportCardService
-      .getReportCardList(this.filter)
+      .getReportCardList(this.member_type, this.filter)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           let records = response.data.records;
-          for (let i = 0; i < records.length; i++) {
-            records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
-          }
-          let modifiedResponse = this.prepareCardResponse(records);
-          this.dataSource = new MatTableDataSource(modifiedResponse);
+          // for (let i = 0; i < records.length; i++) {
+          //   records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
+          // }
+          // let modifiedResponse = this.prepareCardResponse(records);
+          this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
           this.total_count = response.data.total;
         },
@@ -129,23 +132,23 @@ export class ManageReportCardComponent implements OnInit {
       );
   }
 
-  prepareCardResponse(
-    records: GetReportCardListResponseContext['data']['records']
-  ) {
-    records.forEach(record => {
-      if (record.total_report_cards <= 1) {
-        record['no_of_report_cards'] = {
-          total_report_cards: record.total_report_cards
-        };
-      } else {
-        record['no_of_report_cards'] = {
-          total_report_cards: record.total_report_cards,
-          url: environment.mediaUrl + '/' + record.user_id
-        };
-      }
-    });
-    return records;
-  }
+  // prepareCardResponse(
+  //   records: GetReportCardListResponseContext['data']['records']
+  // ) {
+  //   records.forEach(record => {
+  //     if (record.total_report_cards <= 1) {
+  //       record['no_of_report_cards'] = {
+  //         total_report_cards: record.total_report_cards
+  //       };
+  //     } else {
+  //       record['no_of_report_cards'] = {
+  //         total_report_cards: record.total_report_cards,
+  //         url: environment.mediaUrl + '/' + record.user_id
+  //       };
+  //     }
+  //   });
+  //   return records;
+  // }
 
   ngOnDestroy() {}
 }

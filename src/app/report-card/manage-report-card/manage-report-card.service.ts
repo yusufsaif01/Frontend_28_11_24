@@ -4,7 +4,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/custom-http-param-encoder.component';
 
 const routes = {
-  getReportCardList: (query: string) => `/manage/report-card/list?${query}`
+  getReportCardList: (query: string) => `/manage/report-card/list?${query}`,
+  getPlayerReportCardList: (query: string) =>
+    `/player/report-card/list?${query}`
 };
 
 export interface GetReportCardListContext {
@@ -40,14 +42,21 @@ export class ManageReportCardService {
   constructor(private _httpClient: HttpClient) {}
 
   getReportCardList(
+    member_type: string,
     context: GetReportCardListContext
   ): Observable<GetReportCardListResponseContext> {
     let httpParams = new HttpParams({ encoder: new CustomHttpParamEncoder() });
     Object.keys(context).forEach(key => {
       if (context[key]) httpParams = httpParams.append(key, context[key]);
     });
+
+    if (member_type !== 'player')
+      return this._httpClient.get<GetReportCardListResponseContext>(
+        routes.getReportCardList(httpParams.toString())
+      );
+
     return this._httpClient.get<GetReportCardListResponseContext>(
-      routes.getReportCardList(httpParams.toString())
+      routes.getPlayerReportCardList(httpParams.toString())
     );
   }
 }
