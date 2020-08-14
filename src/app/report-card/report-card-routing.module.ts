@@ -22,7 +22,7 @@ const routes: Routes = [
       {
         path: 'edit-report-card/:send_to/:report_card_id',
         component: AddEditReportCardComponent,
-        data: { title: extract('Add report card') }
+        data: { title: extract('Edit report card') }
       },
       {
         path: 'add-report-card/:send_to',
@@ -30,7 +30,12 @@ const routes: Routes = [
         data: { title: extract('Add report card') }
       },
       {
-        path: 'link-report-card',
+        path: 'view-report-card/:player_id/:report_card_id',
+        component: AddEditReportCardComponent,
+        data: { title: extract('View report card') }
+      },
+      {
+        path: 'link-report-card/:player_id',
         component: LinkReportCardComponent,
         data: { title: extract('Link report card') }
       }
