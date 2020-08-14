@@ -45,9 +45,16 @@
             [pageNo]="selectedPage"
           >
           </app-table>
-          <ng-template #ListAction>
+          <ng-template #ListAction let-id="id">
             <div class="action-buttons">
-              <button matTooltip="view">
+              <button
+                matTooltip="view"
+                [routerLink]="[
+                  '/member/manage-report-card/view-report-card/',
+                  player_id,
+                  id
+                ]"
+              >
                 <mat-icon class="material-icons">visibility</mat-icon>
               </button>
             </div>

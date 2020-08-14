@@ -30,6 +30,11 @@ const routes: Routes = [
         data: { title: extract('Add report card') }
       },
       {
+        path: 'view-report-card/:player_id/:report_card_id',
+        component: AddEditReportCardComponent,
+        data: { title: extract('View report card') }
+      },
+      {
         path: 'link-report-card/:player_id',
         component: LinkReportCardComponent,
         data: { title: extract('Link report card') }
