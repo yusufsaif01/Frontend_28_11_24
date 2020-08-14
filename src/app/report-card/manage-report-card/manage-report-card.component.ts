@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import {
   ManageReportCardService,
   GetReportCardListResponseContext,
@@ -17,7 +17,7 @@ import { ManageReportCardTableConfig } from './manage-report-card-table-conf';
   templateUrl: './manage-report-card.component.html',
   styleUrls: ['./manage-report-card.component.scss']
 })
-export class ManageReportCardComponent implements OnInit {
+export class ManageReportCardComponent implements OnInit, OnDestroy {
   tableConfig: ManageReportCardTableConfig = new ManageReportCardTableConfig();
   dataSource = new MatTableDataSource([]);
   filter: GetReportCardListContext = {};
@@ -140,7 +140,10 @@ export class ManageReportCardComponent implements OnInit {
       } else {
         record['no_of_report_cards'] = {
           total_report_cards: record.total_report_cards,
-          url: environment.mediaUrl + '/' + record.user_id
+          url:
+            environment.mediaUrl +
+            '/member/manage-report-card/link-report-card/' +
+            record.user_id
         };
       }
     });
