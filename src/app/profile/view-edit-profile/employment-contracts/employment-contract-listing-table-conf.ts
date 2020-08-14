@@ -24,7 +24,7 @@ export class EmploymentContractListTableConfig extends TableConfig {
         text: 'Effective date',
         getValue: (ele: any) => {
           let val: any = moment(ele.effective_date);
-          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          val = val.isValid() ? val.format('MM-DD-YYYY') : 'NA';
           return `${val}`;
         }
       },
@@ -33,7 +33,7 @@ export class EmploymentContractListTableConfig extends TableConfig {
         text: 'Expiry date',
         getValue: (ele: any) => {
           let val: any = moment(ele.expiry_date);
-          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          val = val.isValid() ? val.format('MM-DD-YYYY') : 'NA';
           return `${val}`;
         }
       },

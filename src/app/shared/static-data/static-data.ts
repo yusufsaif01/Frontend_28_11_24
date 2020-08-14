@@ -360,7 +360,7 @@ export abstract class Constants {
         dateInput: { month: 'short', year: 'numeric', day: 'numeric' }
       },
       display: {
-        dateInput: 'M/d/yy'
+        dateInput: 'input'
       }
     },
     FOUNDED: {
