@@ -42,7 +42,7 @@ export class ManageReportCardTableConfig extends TableConfig {
         text: 'Published date ',
         getValue: (ele: any) => {
           let val: any = moment(ele.published_at);
-          val = val.isValid() ? val.format('DD-MMMM-YYYY') : '';
+          val = val.isValid() ? val.format('MM-DD-YYYY') : '';
           return `${val}`;
         }
       },
