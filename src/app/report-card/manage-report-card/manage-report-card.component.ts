@@ -30,25 +30,7 @@ export class ManageReportCardComponent implements OnInit {
   isPublic = false;
   member_type: string = localStorage.getItem('member_type');
 
-  // panelOptions: Partial<PanelOptions> = {
-  //   bio: true,
-  //   member_type: true,
-  //   my_achievements: false,
-  //   view_profile_link: true,
-  //   footplayers: true,
-  //   is_public: false
-  // };
-  filtersList = {
-    // position: false,
-    playerCategory: true,
-    // age: false,
-    // location: false,
-    // strongFoot: false,
-    // teamTypes: false,
-    // ability: false,
-    reportStatus: true,
-    dateRange: true
-  };
+  filtersList = {};
 
   constructor(
     private _manageReportCardService: ManageReportCardService,
@@ -56,6 +38,19 @@ export class ManageReportCardComponent implements OnInit {
     private _sharedService: SharedService
   ) {
     this.tableConfig = new ManageReportCardTableConfig(this.member_type);
+    if (this.member_type === 'player') {
+      this.filtersList = {
+        dateRange: true,
+        createdBy: true,
+        clubAcademyName: true
+      };
+    } else {
+      this.filtersList = {
+        playerCategory: true,
+        reportStatus: true,
+        dateRange: true
+      };
+    }
   }
 
   ngOnInit() {

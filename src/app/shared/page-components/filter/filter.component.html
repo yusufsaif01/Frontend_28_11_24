@@ -364,6 +364,56 @@
           </li>
         </ul>
       </div>
+
+      <div class="filter-group" *ngIf="allowedFilters.createdBy">
+        <div class="filter-title" (click)="toggleFilter('createdby')">
+          <h3>
+            <a
+              >Created by
+              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+            </a>
+          </h3>
+        </div>
+        <ul class="filter-checks createdby-filter" #createdby>
+          <li *ngFor="let entity of locationRangeFilters.createdBy">
+            <mat-checkbox
+              [value]="entity"
+              (change)="
+                onChangeChecker(
+                  $event,
+                  locationRangeFilters.createdByArray,
+                  'createdBy'
+                )
+              "
+              [checked]="locationRangeFilters.createdByArray.includes(entity)"
+              >{{ entity | titlecase }}</mat-checkbox
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="filter-group" *ngIf="allowedFilters.clubAcademyName">
+        <div class="filter-title">
+          <h3>
+            <a>Name</a>
+          </h3>
+        </div>
+        <ul class="filter-checks clubacademyname-filter">
+          <li>
+            <div class="form-block pb-0">
+              <div class="double">
+                <input
+                  [value]="locationRangeFilters.clubAcademyName"
+                  matInput
+                  autocomplete="off"
+                  placeholder="Name"
+                  (keyup)="onNameChangeChecker($event)"
+                />
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </ng-container>
