@@ -17,15 +17,7 @@
 
         <!--  heading -->
         <div class=" heading">
-          <ng-container *ngIf="viewMode">
-            <h2>
-              Report card published on
-              {{ reportCardData?.published_at | date: 'MM-dd-yyyy' }}
-            </h2>
-          </ng-container>
-          <ng-container *ngIf="!viewMode">
-            <h2>Create report card of {{ playerDetails?.name }}</h2>
-          </ng-container>
+          <h2>Create report card of {{ playerDetails?.name }}</h2>
         </div>
 
         <form [formGroup]="addEditReportForm">
@@ -153,7 +145,7 @@
               </div>
             </div>
             <!-- button -->
-            <div class="btn-group" *ngIf="!viewMode">
+            <div class="btn-group">
               <button (click)="resetForm()">Reset</button>
               <button
                 [disabled]="!addEditReportForm.valid"
