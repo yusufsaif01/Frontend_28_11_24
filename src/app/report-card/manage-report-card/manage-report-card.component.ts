@@ -121,7 +121,7 @@ export class ManageReportCardComponent implements OnInit {
   ) {
     if (this.member_type !== 'player') {
       records.forEach(record => {
-        if (record.total_report_cards <= 1) {
+        if (record.total_report_cards < 1) {
           record['no_of_report_cards'] = {
             total_report_cards: record.total_report_cards
           };

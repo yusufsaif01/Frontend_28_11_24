@@ -18,7 +18,7 @@ export class ManageReportCardTableConfig extends TableConfig {
     this.columns = {
       name: {
         code: 'name',
-        text: 'Player name',
+        text: member_type === 'player' ? 'Name' : 'Player name',
         getValue: (ele: any) => {
           return ele[this.columns.name.code];
         }

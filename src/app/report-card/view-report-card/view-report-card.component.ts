@@ -47,10 +47,6 @@ export class ViewReportCardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getAbilityAttributeList();
     this._activatedRoute.params.subscribe(param => {
-      // if (param.send_to) {
-      //   this.send_to = param.send_to;
-      //   this.getPlayerDetails(this.send_to);
-      // }
       if (param.report_card_id) {
         this.report_card_id = param.report_card_id;
         this.populateView();

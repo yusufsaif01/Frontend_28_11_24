@@ -67,9 +67,6 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
       if (param.report_card_id) {
         this.editMode = true;
         this.report_card_id = param.report_card_id;
-        if (param.player_id) {
-          this.editMode = false;
-        }
         this.populateView();
       }
     });
