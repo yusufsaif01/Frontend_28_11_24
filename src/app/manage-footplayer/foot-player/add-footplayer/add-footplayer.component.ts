@@ -61,6 +61,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
   ngOnInit() {
     this.setValidators();
   }
@@ -95,6 +96,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
         }
       );
   }
+
   prepareResponse(records: any) {
     records.forEach((element: any) => {
       element.player_name = {
@@ -104,9 +106,6 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       };
     });
     return records;
-  }
-  attachDocumentUrl(documentUrl: string) {
-    return environment.mediaUrl + documentUrl;
   }
 
   sendFootPlayerRequest(user_id: string) {

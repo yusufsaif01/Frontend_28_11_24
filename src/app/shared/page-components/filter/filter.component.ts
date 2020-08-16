@@ -34,6 +34,15 @@ interface LocationRangeFilters {
   teamTypesArray: any[];
   statusArray: any[];
   abilityArray: any[];
+  dateRange: {
+    to: any;
+    from: any;
+  };
+  clubAcademyName: string;
+  reportStatus: any[];
+  reportStatusArray: any[];
+  createdBy: any[];
+  createdByArray: any[];
 }
 
 interface LocationsIds {
@@ -53,7 +62,9 @@ export class FilterComponent implements OnInit {
   filter: any = {};
   locationRangeFilters: LocationRangeFilters;
   locationData: LocationsIds;
-
+  today = new Date();
+  tzoffset = new Date().getTimezoneOffset() * 60000;
+  @Input() filterHeading = 'Player filter';
   @Input() allowedFilters = {
     position: false,
     playerCategory: false,
@@ -62,13 +73,17 @@ export class FilterComponent implements OnInit {
     strongFoot: false,
     teamTypes: false,
     ability: false,
-    status: false
+    status: false,
+    dateRange: false,
+    clubAcademyName: false,
+    createdBy: false,
+    reportStatus: false
   };
   showFilter = false;
 
   @Output() filterChanges: EventEmitter<any> = new EventEmitter();
   @ViewChildren(
-    'position, playercategory, age, location, strongfoot, ability, teamtype, status'
+    'position, playercategory, age, location, strongfoot, ability, teamtype, status, daterange, reportstatus, clubacademyname, createdby'
   )
   templates: QueryList<ElementRef>;
 
@@ -144,6 +159,8 @@ export class FilterComponent implements OnInit {
       districts: [],
       teamTypes: [],
       status: [],
+      reportStatus: [],
+      createdBy: ['club', 'academy'],
       ability: [],
       positionsArray: [],
       playerTypeArray: [],
@@ -151,7 +168,14 @@ export class FilterComponent implements OnInit {
       strongFootArray: [],
       teamTypesArray: [],
       statusArray: [],
-      abilityArray: []
+      abilityArray: [],
+      dateRange: {
+        to: '',
+        from: ''
+      },
+      clubAcademyName: '',
+      reportStatusArray: [],
+      createdByArray: []
     };
     this.locationData = {
       countryID: '',
@@ -168,6 +192,7 @@ export class FilterComponent implements OnInit {
     this.locationRangeFilters.ageRange = Constants.AGE_RANGE;
     this.locationRangeFilters.playerType = Constants.PLAYER_TYPE;
     this.locationRangeFilters.status = Constants.STATUS;
+    this.locationRangeFilters.reportStatus = Constants.REPORT_STATUS;
     if (localStorage.getItem('member_type') === 'academy') {
       this.locationRangeFilters.teamTypes = Constants.ACADEMY_TEAM_TYPES;
     }
@@ -298,6 +323,28 @@ export class FilterComponent implements OnInit {
     this.filterChanges.emit(this.filter);
   }
 
+  onDateChangeChecker(event: any, type: string) {
+    let { dateRange } = this.locationRangeFilters;
+    if (['to', 'from'].includes(type)) {
+      dateRange[type] = event.target.value;
+      // if (type === 'to') {
+      //   dateRange[type] = new Date(dateRange[type]).setHours(23, 59, 59);
+      // }
+      dateRange[type] = new Date(dateRange[type] - this.tzoffset).toISOString();
+    }
+    if (!Object.values(dateRange).includes('')) {
+      Object.keys(dateRange).forEach(range => {
+        this.filter[range] = dateRange[range];
+      });
+      this.filterChanges.emit(this.filter);
+    }
+  }
+
+  onNameChangeChecker(event: any) {
+    this.filter.name = event.target.value;
+    this.filterChanges.emit(this.filter);
+  }
+
   clearFilters() {
     this.filter = {};
     this.locationRangeFilters.positionsArray = [];
@@ -305,8 +352,15 @@ export class FilterComponent implements OnInit {
     this.locationRangeFilters.ageRangeArray = [];
     this.locationRangeFilters.strongFootArray = [];
     this.locationRangeFilters.statusArray = [];
+    this.locationRangeFilters.reportStatusArray = [];
+    this.locationRangeFilters.createdByArray = [];
     this.locationRangeFilters.teamTypesArray = [];
     this.locationRangeFilters.abilityArray = [];
+    this.locationRangeFilters.dateRange = {
+      to: '',
+      from: ''
+    };
+    this.locationRangeFilters.clubAcademyName = '';
     this.locationData.countryValue = '';
     this.locationData.stateValue = '';
     this.locationData.districtValue = '';

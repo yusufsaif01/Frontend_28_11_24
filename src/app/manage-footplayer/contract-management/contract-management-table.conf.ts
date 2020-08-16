@@ -14,32 +14,32 @@ export class ContractManagementTableConfig extends TableConfig {
     this.columns = {
       name: {
         code: 'name',
-        text: 'Player Name',
+        text: 'Player name',
         getValue: (ele: any) => {
           return ele[this.columns.name.code];
         }
       },
       effective_date: {
         code: 'effective_date',
-        text: 'Effective Date',
+        text: 'Effective date',
         getValue: (ele: any) => {
           let val: any = moment(ele.effective_date);
-          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          val = val.isValid() ? val.format('MM-DD-YYYY') : 'NA';
           return `${val}`;
         }
       },
       expiry_date: {
         code: 'expiry_date',
-        text: 'Expiry Date',
+        text: 'Expiry date',
         getValue: (ele: any) => {
           let val: any = moment(ele.effective_date);
-          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          val = val.isValid() ? val.format('MM-DD-YYYY') : 'NA';
           return `${val}`;
         }
       },
       created_by: {
         code: 'created_by',
-        text: 'Created By',
+        text: 'Created by',
         getValue: (ele: any) => {
           return ele[this.columns.created_by.code];
         }

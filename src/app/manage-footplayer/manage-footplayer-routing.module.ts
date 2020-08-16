@@ -12,7 +12,7 @@ const appRoutes: Routes = [
     path: '',
     component: ManageFootPlayerComponent,
     canActivate: [RoleGuardService, AuthenticationGuard],
-    data: { expectedRole: ['club', 'academy'] },
+    data: { expectedRole: ['player', 'club', 'academy'] },
     children: [
       {
         path: '',
@@ -25,9 +25,14 @@ const appRoutes: Routes = [
         data: { title: extract('FooTPlayers') }
       },
       {
+        path: 'club-academy/:handle',
+        component: ClubAcademyFootplayerComponent,
+        data: { title: extract('FooTPlayers') }
+      },
+      {
         path: 'contract-management',
         component: ContractManagementComponent,
-        data: { title: extract('Contract Management') }
+        data: { title: extract('Contract management') }
       },
       { path: '**', component: FootPlayerComponent }
     ]

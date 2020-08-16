@@ -1,163 +1,3 @@
-<!-- <div class="filter-buttons">
-  <ng-container *ngFor="let button of buttons">
-    <button
-      *ngIf="allowedFilters[button.allowedFilters]"
-      (click)="addActiveClass(button.switchClass)"
-      [matMenuTriggerFor]="button.matMenu"
-      [ngClass]="{ active: switchClass[button.switchClass] }"
-    >
-      {{ button.filterName }}
-      <i-feather class="icon-size" name="chevron-down"></i-feather>
-    </button>
-  </ng-container>
-  <button (click)="clearFilters()">Clear Filter</button>
-</div>
-
-<mat-menu #position>
-  <div (click)="$event.stopPropagation()">
-    <h3>Select Position</h3>
-    <div class="items">
-      <span class="chk-box" *ngFor="let position of locationRangeFilters.positions">
-        <mat-checkbox [value]="position.name" (change)="
-            onChangeChecker(
-              $event,
-              locationRangeFilters.positionsArray,
-              'position'
-            )
-          " [checked]="checkFilters">{{ position.name }}</mat-checkbox>
-      </span>
-    </div>
-  </div>
-</mat-menu>
-
-<mat-menu #playercategory>
-  <div (click)="$event.stopPropagation()">
-    <h3>Select Player Category</h3>
-    <div class="items">
-      <span class="chk-box" *ngFor="let type of locationRangeFilters.playerType">
-        <mat-checkbox [value]="type.value" (change)="
-            onChangeChecker(
-              $event,
-              locationRangeFilters.playerTypeArray,
-              'footplayer_category'
-            )
-          " [checked]="checkFilters">{{ type.name }}</mat-checkbox>
-      </span>
-    </div>
-  </div>
-</mat-menu>
-
-<mat-menu #age>
-  <div (click)="$event.stopPropagation()">
-    <h3>Select Age</h3>
-    <div class="items">
-      <span class="chk-box" *ngFor="let age of locationRangeFilters.ageRange">
-        <mat-checkbox [value]="age.value" (change)="
-            onChangeChecker($event, locationRangeFilters.ageRangeArray, 'age')
-          " [checked]="checkFilters">{{ age.name }}</mat-checkbox>
-      </span>
-    </div>
-  </div>
-</mat-menu>
-<mat-menu #location>
-
-  <div (click)="$event.stopPropagation()">
-    <h3>Select Location</h3>
-    <div class="wrapper-location">
-      <div class="slt-wrapper">
-        <select (change)="onSelectCountry($event)" [(ngModel)]="locationData.countryValue">
-          <option value="">Select Country</option>
-          <option *ngFor="let country of locationRangeFilters.countryData" [value]="getCountryValue(country)">
-            {{ country.country }}</option>
-        </select>
-        <i-feather class="icon-size" name="chevron-down"></i-feather>
-      </div>
-      <div class="slt-wrapper">
-        <select (change)="onSelectState($event)" [(ngModel)]="locationData.stateValue">
-          <option value="">Select State</option>
-          <option *ngFor="let state of locationRangeFilters.states" [value]="getStateValue(state)">{{ state.name }}
-          </option>
-        </select>
-        <i-feather class="icon-size" name="chevron-down"></i-feather>
-      </div>
-      <div class="slt-wrapper">
-        <select (change)="onSelectDistrict($event)" [(ngModel)]="locationData.districtValue">
-          <option value="">Select District</option>
-          <option *ngFor="let district of locationRangeFilters.districts" [value]="getDistrictValue(district)">
-            {{ district.name }}</option>
-        </select>
-        <i-feather class="icon-size" name="chevron-down"></i-feather>
-      </div>
-    </div>
-  </div>
-</mat-menu>
-
-<mat-menu #strongfoot>
-  <div (click)="$event.stopPropagation()">
-    <h3>Select Strong Foot</h3>
-    <div class="items">
-      <span class="chk-box" *ngFor="let type of locationRangeFilters.strongFoot">
-        <mat-checkbox [value]="type.value" (change)="
-            onChangeChecker(
-              $event,
-              locationRangeFilters.strongFootArray,
-              'strong_foot'
-            )
-          " [checked]="checkFilters">{{ type.name }}</mat-checkbox>
-      </span>
-    </div>
-  </div>
-</mat-menu>
-
-<mat-menu #status>
-  <div (click)="$event.stopPropagation()">
-    <h3>Select Status</h3>
-    <div class="items">
-      <span class="chk-box" *ngFor="let status of locationRangeFilters.status">
-        <mat-checkbox [value]="status.value" (change)="
-            onChangeChecker($event, locationRangeFilters.statusArray, 'status')
-          " [checked]="checkFilters">{{ status.name }}</mat-checkbox>
-      </span>
-    </div>
-  </div>
-</mat-menu>
-
-
-<mat-menu #ability>
-  <div (click)="$event.stopPropagation()">
-    <h3>Select Ability</h3>
-    <div class="items">
-      <span class="chk-box" *ngFor="let ability of locationRangeFilters.ability">
-        <mat-checkbox [value]="ability.name" (change)="
-            onChangeChecker(
-              $event,
-              locationRangeFilters.abilityArray,
-              'ability'
-            )
-          " [checked]="checkFilters">{{ ability.name }}</mat-checkbox>
-      </span>
-    </div>
-  </div>
-</mat-menu>
-
-
-<mat-menu #teamTypes>
-  <div (click)="$event.stopPropagation()">
-    <h3>Select Type Of Teams</h3>
-    <div class="items">
-      <span class="chk-box" *ngFor="let team of locationRangeFilters.teamTypes">
-        <mat-checkbox [value]="team" (change)="
-            onChangeChecker(
-              $event,
-              locationRangeFilters.teamTypesArray,
-              'typeOfTeams'
-            )
-          " [checked]="checkFilters">{{ team }}</mat-checkbox>
-      </span>
-    </div>
-  </div>
-</mat-menu> -->
-
 <ng-container *ngIf="showFilter">
   <div class="filter-container">
     <div class="filter-wrapper">
@@ -169,7 +9,7 @@
         </button>
       </div>
       <div class="head">
-        <h2>Player filter</h2>
+        <h2>{{ filterHeading }}</h2>
         <button (click)="clearFilters()">Clear filters</button>
       </div>
       <!-- position -->
@@ -277,7 +117,7 @@
                 (change)="onSelectCountry($event)"
                 [(ngModel)]="locationData.countryValue"
               >
-                <option value="">Select Country</option>
+                <option value="">Select country</option>
                 <option
                   *ngFor="let country of locationRangeFilters.countryData"
                   [value]="getLocationValue(country)"
@@ -293,7 +133,7 @@
                 (change)="onSelectState($event)"
                 [(ngModel)]="locationData.stateValue"
               >
-                <option value="">Select State</option>
+                <option value="">Select state</option>
                 <option
                   *ngFor="let state of locationRangeFilters.states"
                   [value]="getLocationValue(state)"
@@ -308,7 +148,7 @@
                 (change)="onSelectDistrict($event)"
                 [(ngModel)]="locationData.districtValue"
               >
-                <option value="">Select District</option>
+                <option value="">Select district</option>
                 <option
                   *ngFor="let district of locationRangeFilters.districts"
                   [value]="getLocationValue(district)"
@@ -326,7 +166,7 @@
         <div class="filter-title" (click)="toggleFilter('strongfoot')">
           <h3>
             <a>
-              Strong Foot
+              Strong foot
               <mat-icon class="material-icons">arrow_drop_down</mat-icon>
             </a>
           </h3>
@@ -376,6 +216,36 @@
                 locationRangeFilters.statusArray.includes(status.value)
               "
               >{{ status.name }}</mat-checkbox
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="filter-group" *ngIf="allowedFilters.reportStatus">
+        <div class="filter-title" (click)="toggleFilter('reportstatus')">
+          <h3>
+            <a
+              >Status
+              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+            </a>
+          </h3>
+        </div>
+        <ul class="filter-checks reportstatus-filter" #reportstatus>
+          <li *ngFor="let reportStatus of locationRangeFilters.reportStatus">
+            <mat-checkbox
+              [value]="reportStatus.value"
+              (change)="
+                onChangeChecker(
+                  $event,
+                  locationRangeFilters.reportStatusArray,
+                  'report_status'
+                )
+              "
+              [checked]="
+                locationRangeFilters.reportStatusArray.includes(
+                  reportStatus.value
+                )
+              "
+              >{{ reportStatus.name }}</mat-checkbox
             >
           </li>
         </ul>
@@ -435,6 +305,112 @@
               [checked]="locationRangeFilters.teamTypesArray.includes(team)"
               >{{ team }}</mat-checkbox
             >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Published date range -->
+      <div class="filter-group" *ngIf="allowedFilters.dateRange">
+        <div class="filter-title" (click)="toggleFilter('daterange')">
+          <h3>
+            <a>
+              Published date range
+              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+            </a>
+          </h3>
+        </div>
+        <ul class="filter-checks daterange-filter" #daterange>
+          <li>
+            <div class="form-block pb-0">
+              <div class="double ">
+                <div class="half">
+                  <div class="date pb-0">
+                    <input
+                      [value]="locationRangeFilters.dateRange.from"
+                      matInput
+                      [matDatepicker]="fromYear"
+                      readonly
+                      placeholder="From"
+                      [max]="today"
+                      (dateChange)="onDateChangeChecker($event, 'from')"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="fromYear"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #fromYear> </mat-datepicker>
+                  </div>
+                </div>
+                <div class="half">
+                  <div class="date pb-0">
+                    <input
+                      [value]="locationRangeFilters.dateRange.to"
+                      matInput
+                      [matDatepicker]="toYear"
+                      readonly
+                      placeholder="To"
+                      [max]="today"
+                      (dateChange)="onDateChangeChecker($event, 'to')"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="toYear"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #toYear> </mat-datepicker>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="filter-group" *ngIf="allowedFilters.createdBy">
+        <div class="filter-title" (click)="toggleFilter('createdby')">
+          <h3>
+            <a
+              >Created by
+              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+            </a>
+          </h3>
+        </div>
+        <ul class="filter-checks createdby-filter" #createdby>
+          <li *ngFor="let entity of locationRangeFilters.createdBy">
+            <mat-checkbox
+              [value]="entity"
+              (change)="
+                onChangeChecker(
+                  $event,
+                  locationRangeFilters.createdByArray,
+                  'created_by'
+                )
+              "
+              [checked]="locationRangeFilters.createdByArray.includes(entity)"
+              >{{ entity | titlecase }}</mat-checkbox
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="filter-group" *ngIf="allowedFilters.clubAcademyName">
+        <div class="filter-title">
+          <h3>
+            <a>Name</a>
+          </h3>
+        </div>
+        <ul class="filter-checks clubacademyname-filter">
+          <li>
+            <div class="form-block pb-0">
+              <div class="double">
+                <input
+                  [value]="locationRangeFilters.clubAcademyName"
+                  matInput
+                  autocomplete="off"
+                  placeholder="Name"
+                  (keyup)="onNameChangeChecker($event)"
+                />
+              </div>
+            </div>
           </li>
         </ul>
       </div>
