@@ -32,7 +32,7 @@ export class ContractListAdminTableConfig extends TableConfig {
         text: 'Effective Date',
         getValue: (ele: any) => {
           let val: any = moment(ele.expiry_date);
-          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          val = val.isValid() ? val.format('MM-DD-YYYY') : 'NA';
           return `${val}`;
         }
       },
@@ -41,7 +41,7 @@ export class ContractListAdminTableConfig extends TableConfig {
         text: 'Expiry Date',
         getValue: (ele: any) => {
           let val: any = moment(ele.expiry_date);
-          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          val = val.isValid() ? val.format('MM-DD-YYYY') : 'NA';
           return `${val}`;
         }
       },

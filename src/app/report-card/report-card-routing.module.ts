@@ -5,6 +5,7 @@ import { ManageReportCardComponent } from './manage-report-card/manage-report-ca
 import { ReportCardComponent } from './report-card.component';
 import { RoleGuardService } from '@app/core/authentication/role-guard.service';
 import { AddEditReportCardComponent } from './add-edit-report-card/add-edit-report-card.component';
+import { ViewReportCardComponent } from './view-report-card/view-report-card.component';
 import { LinkReportCardComponent } from './link-report-card/link-report-card.component';
 
 const routes: Routes = [
@@ -22,7 +23,7 @@ const routes: Routes = [
       {
         path: 'edit-report-card/:send_to/:report_card_id',
         component: AddEditReportCardComponent,
-        data: { title: extract('Add report card') }
+        data: { title: extract('Edit report card') }
       },
       {
         path: 'add-report-card/:send_to',
@@ -30,7 +31,17 @@ const routes: Routes = [
         data: { title: extract('Add report card') }
       },
       {
-        path: 'link-report-card',
+        path: 'view-report-card/:report_card_id',
+        component: ViewReportCardComponent,
+        data: { title: extract('View report card') }
+      },
+      {
+        path: 'view-report-card/:player_id/:report_card_id',
+        component: ViewReportCardComponent,
+        data: { title: extract('View report card') }
+      },
+      {
+        path: 'link-report-card/:player_id',
         component: LinkReportCardComponent,
         data: { title: extract('Link report card') }
       }

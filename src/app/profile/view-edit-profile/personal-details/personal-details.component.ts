@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { SharedService } from '@app/shared/shared.service';
 import { Constants } from '@app/shared/static-data/static-data';
-
 import {
   FormGroup,
   FormBuilder,
@@ -15,11 +14,13 @@ import {
 import { environment } from '@env/environment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import {
+  DateAdapter,
   MatDatepicker,
   MatDatepickerInputEvent,
   MAT_DATE_FORMATS
 } from '@angular/material';
 import { DateConversion } from '@app/shared/utilities/date-conversion';
+import { AppDateAdapter } from '@app/shared/utilities/format-datepicker';
 
 let pincodeControl = {
   pincode: [Validators.required, Validators.pattern(/^\d+$/)]
@@ -39,6 +40,7 @@ export function dateFactory() {
   templateUrl: './personal-details.component.html',
   styleUrls: ['./personal-details.component.scss'],
   providers: [
+    { provide: DateAdapter, useClass: AppDateAdapter },
     { provide: MAT_DATE_FORMATS, useFactory: dateFactory },
     DateConversion
   ]
@@ -47,7 +49,6 @@ export class PersonalDetailsComponent implements OnInit {
   @Input() clubAcademyType = '';
   member_type: string = localStorage.getItem('member_type') || 'player';
   currentYear = new Date().getFullYear();
-  tomorrow = new Date();
   today = new Date();
   countryArray: any[] = [];
   stateArray: any[] = [];
@@ -68,7 +69,6 @@ export class PersonalDetailsComponent implements OnInit {
   ) {
     this.createForm();
     this.manageCommonControls();
-    this.tomorrow.setDate(this.tomorrow.getDate() + 1);
   }
 
   ngOnInit() {

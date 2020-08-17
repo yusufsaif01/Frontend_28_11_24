@@ -8,7 +8,7 @@
       <div class="main">
         <!-- back btn -->
         <div class="back">
-          <a>
+          <a [routerLink]="['/member/manage-report-card']">
             <span>
               <mat-icon class="material-icons">arrow_back_ios</mat-icon>
             </span>
@@ -17,8 +17,21 @@
         </div>
         <!--  heading -->
         <div class=" heading">
-          <h2>Jame Jordan report card</h2>
-          <button class="secondary-btn">Create report card</button>
+          <h2>{{ playerName }} report card</h2>
+          <button
+            [routerLink]="
+              draft_id
+                ? [
+                    '/member/manage-report-card/edit-report-card/',
+                    player_id,
+                    draft_id
+                  ]
+                : ['/member/manage-report-card/add-report-card/', player_id]
+            "
+            class="secondary-btn"
+          >
+            {{ draft_id ? 'Edit draft' : 'Create report card' }}
+          </button>
         </div>
         <!-- table -->
         <div class="table">
@@ -29,12 +42,19 @@
             [TableActions]="!isPublic ? ListAction : false"
             [sortEnabled]="false"
             [pageSize]="pageSize"
-            [pageNo]="currentPageNo"
+            [pageNo]="selectedPage"
           >
           </app-table>
-          <ng-template #ListAction>
+          <ng-template #ListAction let-id="id">
             <div class="action-buttons">
-              <button matTooltip="view">
+              <button
+                matTooltip="View"
+                [routerLink]="[
+                  '/member/manage-report-card/view-report-card/',
+                  player_id,
+                  id
+                ]"
+              >
                 <mat-icon class="material-icons">visibility</mat-icon>
               </button>
             </div>
