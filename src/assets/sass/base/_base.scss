@@ -1,4 +1,5 @@
 @import "./../abstracts/variables";
+@import "./../abstracts/mixins";
 
 *,
 *::before,
@@ -6,11 +7,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body,
-html {
-  font-size: 10px;
 }
 
 .mt-1 {
@@ -46,10 +42,18 @@ html {
 }
 
 .info {
-  font-size: $heading-sixth;
+  height: 1.6rem;
   display: inline-block;
   margin-right: 0.5rem;
   cursor: pointer;
+
+  @include responsive(tablet) {
+    height: 2rem;
+  }
+
+  @include responsive(tablet) {
+    height: 1.6rem;
+  }
 }
 
 .partition {
@@ -113,52 +117,4 @@ html {
 
 body::-webkit-scrollbar-button {
   display: none;
-}
-
-@media (max-width: 1920px) {
-  html {
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 1366px) {
-  html {
-    font-size: 8px;
-  }
-}
-
-@media (max-width: 1199px) {
-  html {
-    font-size: 7px;
-  }
-}
-
-@media (max-width: 991px) {
-  html {
-    font-size: 6.6px;
-  }
-}
-
-@media (max-width: 767px) {
-  html {
-    font-size: 6.4px;
-  }
-}
-
-@media (max-width: 640px) {
-  html {
-    font-size: 6px;
-  }
-}
-
-@media (max-width: 480px) {
-  html {
-    font-size: 5.3px;
-  }
-}
-
-@media (max-width: 320px) {
-  html {
-    font-size: 5.3px;
-  }
 }
