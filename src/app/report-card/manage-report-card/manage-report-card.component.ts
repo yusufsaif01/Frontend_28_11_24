@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   ManageReportCardService,
   GetReportCardListResponseContext,
@@ -18,7 +18,7 @@ import { ManageReportCardTableConfig } from './manage-report-card-table-conf';
   styleUrls: ['./manage-report-card.component.scss']
 })
 export class ManageReportCardComponent implements OnInit {
-  tableConfig: ManageReportCardTableConfig = new ManageReportCardTableConfig();
+  tableConfig: ManageReportCardTableConfig;
   dataSource = new MatTableDataSource([]);
   filter: GetReportCardListContext = {};
   pageSize = 10;
@@ -28,32 +28,30 @@ export class ManageReportCardComponent implements OnInit {
   total_count = 0;
   searchText = '';
   isPublic = false;
+  member_type: string = localStorage.getItem('member_type');
 
-  // panelOptions: Partial<PanelOptions> = {
-  //   bio: true,
-  //   member_type: true,
-  //   my_achievements: false,
-  //   view_profile_link: true,
-  //   footplayers: true,
-  //   is_public: false
-  // };
-  filtersList = {
-    // position: false,
-    playerCategory: true,
-    // age: false,
-    // location: false,
-    // strongFoot: false,
-    // teamTypes: false,
-    // ability: false,
-    reportStatus: true,
-    dateRange: true
-  };
+  filtersList = {};
 
   constructor(
     private _manageReportCardService: ManageReportCardService,
     private _toastrService: ToastrService,
     private _sharedService: SharedService
-  ) {}
+  ) {
+    this.tableConfig = new ManageReportCardTableConfig(this.member_type);
+    if (this.member_type === 'player') {
+      this.filtersList = {
+        dateRange: true,
+        createdBy: true,
+        clubAcademyName: true
+      };
+    } else {
+      this.filtersList = {
+        playerCategory: true,
+        reportStatus: true,
+        dateRange: true
+      };
+    }
+  }
 
   ngOnInit() {
     this.filter.page_size = this.pageSize;
@@ -93,31 +91,15 @@ export class ManageReportCardComponent implements OnInit {
   }
 
   getReportCardList() {
-    if (this.filter.hasOwnProperty('footplayer_category')) {
-      Object.defineProperty(
-        this.filter,
-        'player_category',
-        Object.getOwnPropertyDescriptor(this.filter, 'footplayer_category')
-      );
-      delete this.filter['footplayer_category'];
-    }
-    if (this.filter.hasOwnProperty('report_status')) {
-      Object.defineProperty(
-        this.filter,
-        'status',
-        Object.getOwnPropertyDescriptor(this.filter, 'report_status')
-      );
-      delete this.filter['report_status'];
-    }
+    this.replaceFilterProperty('footplayer_category', 'player_category');
+    this.replaceFilterProperty('report_status', 'status');
+
     this._manageReportCardService
-      .getReportCardList(this.filter)
+      .getReportCardList(this.member_type, this.filter)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           let records = response.data.records;
-          for (let i = 0; i < records.length; i++) {
-            records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
-          }
           let modifiedResponse = this.prepareCardResponse(records);
           this.dataSource = new MatTableDataSource(modifiedResponse);
           this.show_count = response.data.records.length;
@@ -132,19 +114,41 @@ export class ManageReportCardComponent implements OnInit {
   prepareCardResponse(
     records: GetReportCardListResponseContext['data']['records']
   ) {
-    records.forEach(record => {
-      if (record.total_report_cards <= 1) {
-        record['no_of_report_cards'] = {
-          total_report_cards: record.total_report_cards
-        };
-      } else {
-        record['no_of_report_cards'] = {
-          total_report_cards: record.total_report_cards,
-          url: environment.mediaUrl + '/' + record.user_id
-        };
-      }
-    });
+    if (this.member_type !== 'player') {
+      records.forEach(record => {
+        if (record.total_report_cards < 1) {
+          record['no_of_report_cards'] = {
+            total_report_cards: record.total_report_cards
+          };
+        } else {
+          record['no_of_report_cards'] = {
+            total_report_cards: record.total_report_cards,
+            url: this.attachEnvironmentUrl(
+              '/member/manage-report-card/link-report-card/' + record.user_id
+            )
+          };
+        }
+        record.avatar = this.attachEnvironmentUrl(record.avatar);
+      });
+
+      return records;
+    }
     return records;
+  }
+
+  replaceFilterProperty(searchProp: string, replaceProp: string) {
+    if (this.filter.hasOwnProperty(searchProp)) {
+      Object.defineProperty(
+        this.filter,
+        replaceProp,
+        Object.getOwnPropertyDescriptor(this.filter, searchProp)
+      );
+      delete this.filter[searchProp];
+    }
+  }
+
+  attachEnvironmentUrl(value: String) {
+    return environment.mediaUrl + value;
   }
 
   ngOnDestroy() {}

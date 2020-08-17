@@ -38,8 +38,11 @@ interface LocationRangeFilters {
     to: any;
     from: any;
   };
+  clubAcademyName: string;
   reportStatus: any[];
   reportStatusArray: any[];
+  createdBy: any[];
+  createdByArray: any[];
 }
 
 interface LocationsIds {
@@ -72,13 +75,15 @@ export class FilterComponent implements OnInit {
     ability: false,
     status: false,
     dateRange: false,
+    clubAcademyName: false,
+    createdBy: false,
     reportStatus: false
   };
   showFilter = false;
 
   @Output() filterChanges: EventEmitter<any> = new EventEmitter();
   @ViewChildren(
-    'position, playercategory, age, location, strongfoot, ability, teamtype, status, daterange,reportstatus'
+    'position, playercategory, age, location, strongfoot, ability, teamtype, status, daterange, reportstatus, clubacademyname, createdby'
   )
   templates: QueryList<ElementRef>;
 
@@ -155,6 +160,7 @@ export class FilterComponent implements OnInit {
       teamTypes: [],
       status: [],
       reportStatus: [],
+      createdBy: ['club', 'academy'],
       ability: [],
       positionsArray: [],
       playerTypeArray: [],
@@ -167,7 +173,9 @@ export class FilterComponent implements OnInit {
         to: '',
         from: ''
       },
-      reportStatusArray: []
+      clubAcademyName: '',
+      reportStatusArray: [],
+      createdByArray: []
     };
     this.locationData = {
       countryID: '',
@@ -332,6 +340,11 @@ export class FilterComponent implements OnInit {
     }
   }
 
+  onNameChangeChecker(event: any) {
+    this.filter.name = event.target.value;
+    this.filterChanges.emit(this.filter);
+  }
+
   clearFilters() {
     this.filter = {};
     this.locationRangeFilters.positionsArray = [];
@@ -340,12 +353,14 @@ export class FilterComponent implements OnInit {
     this.locationRangeFilters.strongFootArray = [];
     this.locationRangeFilters.statusArray = [];
     this.locationRangeFilters.reportStatusArray = [];
+    this.locationRangeFilters.createdByArray = [];
     this.locationRangeFilters.teamTypesArray = [];
     this.locationRangeFilters.abilityArray = [];
     this.locationRangeFilters.dateRange = {
       to: '',
       from: ''
     };
+    this.locationRangeFilters.clubAcademyName = '';
     this.locationData.countryValue = '';
     this.locationData.stateValue = '';
     this.locationData.districtValue = '';

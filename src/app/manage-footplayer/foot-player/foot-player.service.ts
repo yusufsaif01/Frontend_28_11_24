@@ -106,6 +106,7 @@ export class FootPlayerService {
       routes.getFootPlayerList(httpParams.toString())
     );
   }
+
   deleteFootPlayer(id: string) {
     return this.httpClient.delete<any>(routes.deleteFootplayer(id));
   }

@@ -65,7 +65,7 @@ export class DocumentVerificationTableConfig extends TableConfig {
         text: 'DOB',
         getValue: (ele: any) => {
           let val: any = moment(ele.date_of_birth);
-          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          val = val.isValid() ? val.format('MM-DD-YYYY') : 'NA';
           return `${val}`;
         }
       },
@@ -74,7 +74,7 @@ export class DocumentVerificationTableConfig extends TableConfig {
         text: 'Added On',
         getValue: (ele: any) => {
           let val: any = moment(ele.added_on);
-          val = val.isValid() ? val.format('DD-MMMM-YYYY') : 'NA';
+          val = val.isValid() ? val.format('MM-DD-YYYY') : 'NA';
           return `${val}`;
         }
       },
