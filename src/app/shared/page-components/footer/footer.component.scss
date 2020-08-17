@@ -61,7 +61,7 @@
           width: 30%;
         }
 
-        @include responsive(bigphone) {
+        @include responsive(smallphone) {
           width: 50%;
           justify-content: flex-start;
         }
