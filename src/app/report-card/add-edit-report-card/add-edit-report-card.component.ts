@@ -256,15 +256,15 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
       })
     };
 
-    data.abilities
-      .filter(ability => {
-        return !ability.attributes.every(attribute => attribute === null);
-      })
-      .forEach(ability => {
-        ability.attributes = ability.attributes.filter(attribute => {
-          return attribute !== null;
-        });
+    data.abilities = data.abilities.filter(ability => {
+      return !ability.attributes.every(attribute => attribute === null);
+    });
+
+    data.abilities.forEach(ability => {
+      ability.attributes = ability.attributes.filter(attribute => {
+        return attribute !== null;
       });
+    });
 
     return data;
   }
