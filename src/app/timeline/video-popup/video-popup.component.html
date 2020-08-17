@@ -10,7 +10,7 @@
   <form>
     <div class="modal-body">
       <!-- radio  -->
-      <div class="radio-block">
+      <div class="radio-block" *ngIf="member_type !== 'player'">
         <mat-radio-group>
           <mat-radio-button checked value="Timeline video">
             Timeline video
@@ -39,7 +39,7 @@
               av_timer
             </mat-icon>
           </div>
-          <p>Upload a video of length upto 150 mins</p>
+          <p>Upload a video of length upto {{ getUploadLength() }} mins</p>
         </div>
         <div class="steps steps-line  ">
           <div class="icon">
