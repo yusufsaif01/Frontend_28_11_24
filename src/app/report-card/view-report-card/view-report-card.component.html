@@ -1,0 +1,121 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel">
+    <app-left-panel> </app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main">
+        <div class="back">
+          <a [routerLink]="['/member/manage-report-card']">
+            <span>
+              <mat-icon class="material-icons">arrow_back_ios</mat-icon>
+            </span>
+            Back
+          </a>
+        </div>
+
+        <!--  heading -->
+        <div class=" heading">
+          <h2>
+            Report card published on
+            {{ reportCardData?.published_at | date: 'MM-dd-yyyy' }}
+          </h2>
+        </div>
+
+        <div class="reportcards-wrapper">
+          <!-- tabs -->
+          <div class="tabs-buttons">
+            <ul>
+              <ng-container *ngFor="let ability of abilitiesArray">
+                <li>
+                  <a
+                    [ngClass]="
+                      selectedAbility.ability_id === ability.ability_id
+                        ? 'active'
+                        : ''
+                    "
+                    (click)="getTab(ability.ability_id)"
+                  >
+                    {{ ability.ability_name }}
+                  </a>
+                </li>
+              </ng-container>
+            </ul>
+          </div>
+
+          <!-- tab panel -->
+          <div class="tab-panel">
+            <div class="scorecard-wrapper">
+              <ng-container *ngFor="let ability of reportCardData?.abilities">
+                <ng-container
+                  *ngIf="ability.ability_id === selectedAbility.ability_id"
+                >
+                  <ng-container>
+                    <ng-container *ngFor="let attribute of ability.attributes">
+                      <ng-container>
+                        <div class="score">
+                          <div class="left">
+                            <h4>
+                              {{ attribute.attribute_name }}
+                            </h4>
+                            <span class="slider">
+                              <mat-slider
+                                min="0"
+                                max="99"
+                                [value]="attribute.attribute_score"
+                                disabled
+                              ></mat-slider>
+                            </span>
+                            <p>0-99</p>
+                          </div>
+                          <div class="right">
+                            <div
+                              [ngClass]="
+                                attribute.attribute_score <= 50
+                                  ? 'primary'
+                                  : 'success'
+                              "
+                            >
+                              <div class="stroke">
+                                <mat-progress-spinner
+                                  diameter="60"
+                                  [mode]="mode"
+                                  [value]="attribute.attribute_score || 0"
+                                >
+                                </mat-progress-spinner>
+                                <span>{{
+                                  attribute.attribute_score || 0
+                                }}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+
+          <!-- remark -->
+          <div class="remark">
+            <div class="form-block">
+              <label class="mb-1">Remarks</label>
+              <textarea
+                rows="5"
+                disabled
+                [value]="reportCardData?.remarks"
+              ></textarea>
+            </div>
+          </div>
+          <!-- button -->
+        </div>
+      </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
+  </div>
+</div>

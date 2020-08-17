@@ -1,22 +1,33 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
 import moment from 'moment';
 export class ManageReportCardTableConfig extends TableConfig {
-  constructor() {
+  constructor(member_type: string) {
     super();
-    this.allowedColumns = [
-      'name',
-      'category',
-      'published_at',
-      'no_of_report_cards',
-      'status'
-    ];
+    if (member_type === 'player') {
+      this.allowedColumns = ['created_by', 'name', 'published_at'];
+    } else if (member_type !== 'player') {
+      this.allowedColumns = [
+        'name',
+        'category',
+        'published_at',
+        'no_of_report_cards',
+        'status'
+      ];
+    }
 
     this.columns = {
       name: {
         code: 'name',
-        text: 'Player name',
+        text: member_type === 'player' ? 'Name' : 'Player name',
         getValue: (ele: any) => {
           return ele[this.columns.name.code];
+        }
+      },
+      created_by: {
+        code: 'created_by',
+        text: 'Created by',
+        getValue: (ele: any) => {
+          return ele[this.columns.created_by.code];
         }
       },
       category: {
@@ -31,7 +42,7 @@ export class ManageReportCardTableConfig extends TableConfig {
         text: 'Published date ',
         getValue: (ele: any) => {
           let val: any = moment(ele.published_at);
-          val = val.isValid() ? val.format('DD-MMMM-YYYY') : '';
+          val = val.isValid() ? val.format('MM-DD-YYYY') : '';
           return `${val}`;
         }
       },

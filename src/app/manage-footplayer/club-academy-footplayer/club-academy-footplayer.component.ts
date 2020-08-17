@@ -4,6 +4,7 @@ import { FootPlayerService } from '../foot-player/foot-player.service';
 import { untilDestroyed } from '@app/core';
 import { environment } from '@env/environment';
 import { SharedService } from '@app/shared/shared.service';
+import { ActivatedRoute } from '@angular/router';
 
 interface FootPlayerContext {
   user_id: string;
@@ -38,6 +39,8 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
     is_public: false,
     is_league: true
   };
+  isPublic: boolean = false;
+  userId: string;
 
   filtersList = {
     position: true,
@@ -52,8 +55,17 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
 
   constructor(
     private _footPlayerService: FootPlayerService,
-    private _sharedService: SharedService
-  ) {}
+    private _sharedService: SharedService,
+    private _activatedRoute: ActivatedRoute
+  ) {
+    this._activatedRoute.params.subscribe(params => {
+      if (params['handle']) {
+        this.panelOptions.is_public = true;
+        this.isPublic = true;
+        this.userId = params['handle'];
+      }
+    });
+  }
 
   ngOnInit() {
     this.filter.page_size = this.pageSize;
@@ -87,8 +99,12 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
 
   getFootPlayerList(search?: string) {
     this.filter.search = search;
+    let data = this.isPublic
+      ? { user_id: this.userId, ...this.filter }
+      : this.filter;
+
     this._footPlayerService
-      .getFootPlayerList(this.filter)
+      .getFootPlayerList(data)
       .pipe(untilDestroyed(this))
       .subscribe(response => {
         let records = response.data.records;
