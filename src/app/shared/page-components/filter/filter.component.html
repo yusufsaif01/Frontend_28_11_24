@@ -366,133 +366,52 @@
         </ul>
       </div>
 
-      <!-- ###### abilities section ##### -->
-
-      <!-- Phyiscal -->
-      <div class="filter-group" *ngIf="allowedFilters.phyiscal">
-        <div class="filter-title" (click)="toggleFilter('physical')">
+      <div class="filter-group" *ngIf="allowedFilters.createdBy">
+        <div class="filter-title" (click)="toggleFilter('createdby')">
           <h3>
             <a
-              >Phyiscal
+              >Created by
               <mat-icon class="material-icons">arrow_drop_down</mat-icon>
             </a>
           </h3>
         </div>
-        <ul class="filter-checks" #physical>
-          <li>
-            <mat-checkbox [value]="phyiscal">Acceleration</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="agility">Agility</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="jumping">Jumping</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="strength">Strength</mat-checkbox>
+        <ul class="filter-checks createdby-filter" #createdby>
+          <li *ngFor="let entity of locationRangeFilters.createdBy">
+            <mat-checkbox
+              [value]="entity"
+              (change)="
+                onChangeChecker(
+                  $event,
+                  locationRangeFilters.createdByArray,
+                  'created_by'
+                )
+              "
+              [checked]="locationRangeFilters.createdByArray.includes(entity)"
+              >{{ entity | titlecase }}</mat-checkbox
+            >
           </li>
         </ul>
       </div>
 
-      <!-- Mental -->
-      <div class="filter-group" *ngIf="allowedFilters.mental">
-        <div class="filter-title" (click)="toggleFilter('mental')">
+      <div class="filter-group" *ngIf="allowedFilters.clubAcademyName">
+        <div class="filter-title">
           <h3>
-            <a
-              >Mental
-              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
-            </a>
+            <a>Name</a>
           </h3>
         </div>
-        <ul class="filter-checks" #mental>
+        <ul class="filter-checks clubacademyname-filter">
           <li>
-            <mat-checkbox [value]="phyiscal">Acceleration</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="agility">Agility</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="jumping">Jumping</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="strength">Strength</mat-checkbox>
-          </li>
-        </ul>
-      </div>
-      <!-- Technical -->
-      <div class="filter-group" *ngIf="allowedFilters.technical">
-        <div class="filter-title" (click)="toggleFilter('technical')">
-          <h3>
-            <a
-              >Technical
-              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
-            </a>
-          </h3>
-        </div>
-        <ul class="filter-checks" #technical>
-          <li>
-            <mat-checkbox [value]="phyiscal">Acceleration</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="agility">Agility</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="jumping">Jumping</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="strength">Strength</mat-checkbox>
-          </li>
-        </ul>
-      </div>
-
-      <!-- goalkeeping -->
-      <div class="filter-group" *ngIf="allowedFilters.goalkeeping">
-        <div class="filter-title" (click)="toggleFilter('goalkeeping')">
-          <h3>
-            <a
-              >Goalkeeping
-              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
-            </a>
-          </h3>
-        </div>
-        <ul class="filter-checks" #goalkeeping>
-          <li>
-            <mat-checkbox [value]="phyiscal">Acceleration</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="agility">Agility</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="jumping">Jumping</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="strength">Strength</mat-checkbox>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Other -->
-      <div class="filter-group" *ngIf="allowedFilters.otherability">
-        <div class="filter-title" (click)="toggleFilter('otherability')">
-          <h3>
-            <a
-              >Other
-              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
-            </a>
-          </h3>
-        </div>
-        <ul class="filter-checks" #otherability>
-          <li>
-            <mat-checkbox [value]="phyiscal">Acceleration</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="agility">Agility</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="jumping">Jumping</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox [value]="strength">Strength</mat-checkbox>
+            <div class="form-block pb-0">
+              <div class="double">
+                <input
+                  [value]="locationRangeFilters.clubAcademyName"
+                  matInput
+                  autocomplete="off"
+                  placeholder="Name"
+                  (keyup)="onNameChangeChecker($event)"
+                />
+              </div>
+            </div>
           </li>
         </ul>
       </div>
