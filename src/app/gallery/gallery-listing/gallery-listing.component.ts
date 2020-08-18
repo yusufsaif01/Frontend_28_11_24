@@ -21,6 +21,7 @@ export class GalleryListingComponent implements OnInit {
   ) {}
 
   filter: GetGalleryListContext = {};
+  galleryList: GetGalleryListContext[] = [];
   pageSize = 10;
   pageNo = 1;
   selectedPage = 1;
@@ -29,6 +30,7 @@ export class GalleryListingComponent implements OnInit {
   searchText = '';
   isPublic = false;
   member_type: string = localStorage.getItem('member_type');
+  video_type: string = 'timeline';
   // filtersList = {
   //   position: false,
   //   playerCategory: false,
@@ -50,6 +52,11 @@ export class GalleryListingComponent implements OnInit {
   ngOnInit() {
     this.filter.page_size = this.pageSize;
     this.filter.page_no = this.pageNo;
+    this.getGalleryList();
+  }
+
+  toggleVideoType(type: string) {
+    this.video_type = type;
     this.getGalleryList();
   }
 
@@ -86,11 +93,11 @@ export class GalleryListingComponent implements OnInit {
 
   getGalleryList() {
     this._galleryListingService
-      .getGalleryList(this.member_type, this.filter)
+      .getGalleryList({ type: this.video_type, ...this.filter })
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          let records = response.data.records;
+          this.galleryList = response.data.records;
           this.show_count = response.data.records.length;
           this.total_count = response.data.total;
         },

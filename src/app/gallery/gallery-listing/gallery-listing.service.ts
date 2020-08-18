@@ -4,16 +4,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/custom-http-param-encoder.component';
 
 const routes = {
-  getClubAcademyGalleryList: (query: string) =>
-    `/manage/report-card/list?${query}`,
-  getPlayerGalleryList: (query: string) => `/manage/report-card/list?${query}`
+  getGalleryList: (query: string) => `/video/gallery?${query}`
 };
 
 export interface GetGalleryListContext {
   search?: string;
   page_no?: number;
   page_size?: number;
-  player_category?: string;
+  type?: string;
   status?: string;
   from?: string;
   to?: string;
@@ -42,21 +40,20 @@ export class GalleryListingService {
   constructor(private _httpClient: HttpClient) {}
 
   getGalleryList(
-    member_type: string,
     context: GetGalleryListContext
   ): Observable<GetGalleryListResponseContext> {
-    let httpParams = new HttpParams({ encoder: new CustomHttpParamEncoder() });
+    let query = '?',
+      httpParams = new HttpParams({ encoder: new CustomHttpParamEncoder() });
     Object.keys(context).forEach(key => {
       if (context[key]) httpParams = httpParams.append(key, context[key]);
     });
 
-    if (member_type !== 'player')
-      return this._httpClient.get<GetGalleryListResponseContext>(
-        routes.getClubAcademyGalleryList(httpParams.toString())
-      );
+    if (context['type']) {
+      query += 'type=' + context['type'];
+    }
 
     return this._httpClient.get<GetGalleryListResponseContext>(
-      routes.getPlayerGalleryList(httpParams.toString())
+      routes.getGalleryList(httpParams.toString())
     );
   }
 }

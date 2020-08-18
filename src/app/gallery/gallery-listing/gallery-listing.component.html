@@ -17,151 +17,42 @@
         <div class="counts-wrapper">
           <div class="counts">
             <h2>
-              09
+              00
             </h2>
             <a>Photos</a>
           </div>
           <div class="counts">
-            <h2>14</h2>
+            <h2>{{ total_count | padzero }}</h2>
             <a class="active">Videos</a>
           </div>
         </div>
 
-        <div class="tab-buttons">
-          <a class="active">Timeline videos</a>
-          <a>Learning and training videos</a>
-          <a>Match videos</a>
+        <div class="tab-buttons" *ngIf="member_type !== 'player'">
+          <a
+            [ngClass]="{ active: video_type === 'timeline' }"
+            (click)="toggleVideoType('timeline')"
+            >Timeline videos</a
+          >
+          <a
+            [ngClass]="{ active: video_type === 'learning_or_training_video' }"
+            (click)="toggleVideoType('learning_or_training_video')"
+            >Learning and training videos</a
+          >
+          <a
+            [ngClass]="{ active: video_type === 'match_videos' }"
+            (click)="toggleVideoType('match_videos')"
+            >Match videos</a
+          >
         </div>
         <!-- gallery section -->
         <div class="gallery-wrapper">
-          <div class="gallery-box">
+          <div class="gallery-box" *ngFor="let gallery of galleryList">
             <img
-              src="assets/images/member/video-banner.png"
+              [src]="gallery.media.media_thumbnail.sizes[0].link"
               alt="video-placehoder"
             />
             <span class="playicon">
-              <a>
-                <mat-icon class="material-icons">play_circle_outline</mat-icon>
-              </a>
-            </span>
-          </div>
-          <div class="gallery-box">
-            <img
-              src="assets/images/member/video-banner.png"
-              alt="video-placehoder"
-            />
-            <span class="playicon">
-              <a>
-                <mat-icon class="material-icons">play_circle_outline</mat-icon>
-              </a>
-            </span>
-          </div>
-          <div class="gallery-box">
-            <img
-              src="assets/images/member/video-banner.png"
-              alt="video-placehoder"
-            />
-            <span class="playicon">
-              <a>
-                <mat-icon class="material-icons">play_circle_outline</mat-icon>
-              </a>
-            </span>
-          </div>
-          <div class="gallery-box">
-            <img
-              src="assets/images/member/video-banner.png"
-              alt="video-placehoder"
-            />
-            <span class="playicon">
-              <a>
-                <mat-icon class="material-icons">play_circle_outline</mat-icon>
-              </a>
-            </span>
-          </div>
-          <div class="gallery-box">
-            <img
-              src="assets/images/member/video-banner.png"
-              alt="video-placehoder"
-            />
-            <span class="playicon">
-              <a>
-                <mat-icon class="material-icons">play_circle_outline</mat-icon>
-              </a>
-            </span>
-          </div>
-          <div class="gallery-box">
-            <img
-              src="assets/images/member/video-banner.png"
-              alt="video-placehoder"
-            />
-            <span class="playicon">
-              <a>
-                <mat-icon class="material-icons">play_circle_outline</mat-icon>
-              </a>
-            </span>
-          </div>
-          <div class="gallery-box">
-            <img
-              src="assets/images/member/video-banner.png"
-              alt="video-placehoder"
-            />
-            <span class="playicon">
-              <a>
-                <mat-icon class="material-icons">play_circle_outline</mat-icon>
-              </a>
-            </span>
-          </div>
-          <div class="gallery-box">
-            <img
-              src="assets/images/member/video-banner.png"
-              alt="video-placehoder"
-            />
-            <span class="playicon">
-              <a>
-                <mat-icon class="material-icons">play_circle_outline</mat-icon>
-              </a>
-            </span>
-          </div>
-          <div class="gallery-box">
-            <img
-              src="assets/images/member/video-banner.png"
-              alt="video-placehoder"
-            />
-            <span class="playicon">
-              <a>
-                <mat-icon class="material-icons">play_circle_outline</mat-icon>
-              </a>
-            </span>
-          </div>
-          <div class="gallery-box">
-            <img
-              src="assets/images/member/video-banner.png"
-              alt="video-placehoder"
-            />
-            <span class="playicon">
-              <a>
-                <mat-icon class="material-icons">play_circle_outline</mat-icon>
-              </a>
-            </span>
-          </div>
-          <div class="gallery-box">
-            <img
-              src="assets/images/member/video-banner.png"
-              alt="video-placehoder"
-            />
-            <span class="playicon">
-              <a>
-                <mat-icon class="material-icons">play_circle_outline</mat-icon>
-              </a>
-            </span>
-          </div>
-          <div class="gallery-box">
-            <img
-              src="assets/images/member/video-banner.png"
-              alt="video-placehoder"
-            />
-            <span class="playicon">
-              <a>
+              <a [routerLink]="['/member/gallery/gallery-view', gallery.id]">
                 <mat-icon class="material-icons">play_circle_outline</mat-icon>
               </a>
             </span>
