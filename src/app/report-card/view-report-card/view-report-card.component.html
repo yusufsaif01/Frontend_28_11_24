@@ -106,7 +106,11 @@
               <textarea
                 rows="5"
                 disabled
-                [value]="reportCardData?.remarks"
+                [value]="
+                  reportCardData && reportCardData.remarks
+                    ? reportCardData.remarks
+                    : ''
+                "
               ></textarea>
             </div>
           </div>
