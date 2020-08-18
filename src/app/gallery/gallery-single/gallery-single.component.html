@@ -4,14 +4,15 @@
     <div class="right-wrapper">
       <div class="main">
         <!-- back -->
-        <div class="back-btn">
+        <!-- <div class="back-btn">
           <a>
             <span>
               <mat-icon class="material-icons">chevron_left</mat-icon>
             </span>
             Back
           </a>
-        </div>
+        </div> -->
+        <app-back-navigation></app-back-navigation>
         <div class="single-wrapper">
           <div class="post">
             <div class="video">
@@ -60,7 +61,7 @@
                       <span class="position">{{ post.posted_by.type }}</span>
                     </ng-container>
 
-                    {{ post.created_at | datePipe }}
+                    {{ post.created_at | customDatePipe }}
                   </p>
                 </div>
               </div>
@@ -128,6 +129,22 @@
               </ng-container>
             </div>
             <div class="comment">
+              <div
+                class="partition"
+                *ngIf="
+                  post.comments.total > 3 &&
+                  post.comments.total !== post.commentListing.length
+                "
+              >
+                <a
+                  *ngIf="
+                    post.comments.total > 3 &&
+                    post.comments.total !== post.commentListing.length
+                  "
+                  (click)="loadComments(post)"
+                  >View previous comments</a
+                >
+              </div>
               <div class="comment-box">
                 <div
                   class="commnet"
@@ -167,7 +184,7 @@
                             </span>
                           </ng-container>
                         </p>
-                        <p>{{ comment.commented_at | datePipe }}</p>
+                        <p>{{ comment.commented_at | customDatePipe }}</p>
                       </div>
                       <div class="message">
                         <p>{{ comment.comment }}</p>

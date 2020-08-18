@@ -80,10 +80,15 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute
   ) {
     this._activatedRoute.params.subscribe(param => {
-      this.getVideo(param.video_id);
+      if (param.video_id) {
+        this.videoId = param.video_id;
+        this.getVideo();
+      }
     });
   }
 
+  avatar_url: string = '';
+  videoId: string;
   environment = environment;
   postListing: PostContext[] = [];
   pageNo: number = 1;
@@ -96,7 +101,9 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
     player_type: true
   };
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.avatar_url = localStorage.getItem('avatar_url');
+  }
 
   addComment(post: PostContext) {
     post.addComment$ = this._gallerySingleService
@@ -197,56 +204,54 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
     });
   }
 
-  getVideo(videoId: string) {
+  getVideo() {
     this._gallerySingleService
-      .getVideo(videoId, {
-        comments: 1
+      .getVideo({
+        comments: 1,
+        video_id: this.videoId
       })
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          let posts: PostContext = [response.data];
-          // console.log(post);
-          // this.postCount = response.data.records.length;
-          posts.forEach(post => {
-            if (post.posted_by.avatar) {
-              post.posted_by.avatar =
-                environment.mediaUrl + post.posted_by.avatar;
-            }
-            if (post.post.media_url) {
-              post.post.media_url = environment.mediaUrl + post.post.media_url;
-            }
-            post.commentPageNo = 1;
-            post.commentPageSize = 3;
-            post.commentListing = [];
-            let comments: CommentContext[] = post.comments.data;
-            comments.forEach(comment => {
-              if (comment.commented_by.avatar) {
-                comment.commented_by.avatar =
-                  environment.mediaUrl + comment.commented_by.avatar;
-              }
-            });
-            post.commentListing = comments;
-            post.commentListing.reverse();
-            // this.getCommentListing(post, false, false);
-            let commentForm: FormGroup;
-            post.commentForm = commentForm;
-            this.createCommentForm(post);
-          });
-          // if (!scrolled) {
-          //   this.postListing = posts;
-          // } else {
-          posts.forEach(post => {
-            if (!this.postListing.includes(post)) {
-              this.postListing.push(post);
+          let post: PostContext = response.data;
+          if (post.posted_by.avatar) {
+            post.posted_by.avatar =
+              environment.mediaUrl + post.posted_by.avatar;
+          }
+          if (post.post.media_url) {
+            post.post.media_url = environment.mediaUrl + post.post.media_url;
+          }
+          post.commentPageNo = 1;
+          post.commentPageSize = 3;
+          post.commentListing = [];
+          let comments: CommentContext[] = post.comments.data;
+          comments.forEach(comment => {
+            if (comment.commented_by.avatar) {
+              comment.commented_by.avatar =
+                environment.mediaUrl + comment.commented_by.avatar;
             }
           });
-          // }
+          post.commentListing = comments;
+          post.commentListing.reverse();
+
+          let commentForm: FormGroup;
+          post.commentForm = commentForm;
+          this.createCommentForm(post);
+
+          if (!this.postListing.includes(post)) {
+            this.postListing.push(post);
+          }
         },
         error => {
           this._toastrService.error('Error', error.error.message);
         }
       );
+  }
+
+  loadComments(post: PostContext) {
+    if (post.comments.total === post.commentListing.length) return;
+    post.commentPageNo++;
+    this.getCommentListing(post, true);
   }
 
   deletePost(post_id: string) {
@@ -269,7 +274,7 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
                 `Success`,
                 'Post deleted successfully'
               );
-              this.getPost();
+              this.getVideo();
             },
             error => {
               this._toastrService.error(

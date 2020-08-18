@@ -17,6 +17,7 @@ interface GetPostListingContext {
   page_no?: number;
   page_size?: number;
   comments?: number;
+  video_id: string;
 }
 
 interface GetCommentListingContext {
@@ -49,41 +50,38 @@ interface GetPostListingResponseContext {
   status: string;
   message: string;
   data: {
-    total: number;
-    records: {
-      id: string;
-      post: {
-        text: string;
-        media_url: string;
-        media_type: string;
-      };
-      posted_by: {
-        avatar: string;
-        member_type: string;
-        user_id: string;
-        name: string;
-        type: string;
-        position: string;
-      };
-      is_liked: boolean;
-      likes: number;
-      comments: {
-        total: number;
-        data: {
-          comment: string;
-          commented_by: {
-            avatar: string;
-            member_type: string;
-            user_id: string;
-            name: string;
-            type: string;
-            position: string;
-          };
-          commented_at: string;
-        }[];
-      };
-      created_at: string;
-    }[];
+    id: string;
+    post: {
+      text: string;
+      media_url: string;
+      media_type: string;
+    };
+    posted_by: {
+      avatar: string;
+      member_type: string;
+      user_id: string;
+      name: string;
+      type: string;
+      position: string;
+    };
+    is_liked: boolean;
+    likes: number;
+    comments: {
+      total: number;
+      data: {
+        comment: string;
+        commented_by: {
+          avatar: string;
+          member_type: string;
+          user_id: string;
+          name: string;
+          type: string;
+          position: string;
+        };
+        commented_at: string;
+      }[];
+    };
+    created_at: string;
   };
 }
 
@@ -156,17 +154,20 @@ export class GallerySingleService {
   }
 
   getVideo(
-    videoId: string,
     context: GetPostListingContext
   ): Observable<GetPostListingResponseContext> {
-    let query = '?';
+    let params = '';
+    if (context['video_id']) {
+      params += `${context['video_id']}`;
+    }
 
+    let query = '?';
     if (context['comments']) {
-      query += '&comments=' + context['comments'];
+      query += 'comments=' + context['comments'];
     }
 
     return this.httpClient.get<GetPostListingResponseContext>(
-      routes.getVideo(videoId, query)
+      routes.getVideo(params, query)
     );
   }
 
