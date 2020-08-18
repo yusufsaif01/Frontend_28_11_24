@@ -6,7 +6,7 @@ const routes = {
   addComment: (params: string) => `/post/${params}/comment`,
   likePost: (params: string) => `/post/${params}/like`,
   unlikePost: (params: string) => `/post/${params}/dislike`,
-  getPost: (query: string) => `/posts/list${query}`,
+  getVideo: (params: string, query: string) => `/video/${params}/${query}`,
   updatePost: (post_id: string) => `/post/${post_id}`,
   deletePost: (post_id: string) => `/post/${post_id}`,
   getCommentListing: (params: string, query: string) =>
@@ -155,7 +155,8 @@ export class GallerySingleService {
     return this.httpClient.delete<any>(routes.deletePost(post_id));
   }
 
-  getPost(
+  getVideo(
+    videoId: string,
     context: GetPostListingContext
   ): Observable<GetPostListingResponseContext> {
     let query = '?';
@@ -165,7 +166,7 @@ export class GallerySingleService {
     }
 
     return this.httpClient.get<GetPostListingResponseContext>(
-      routes.getPost(query)
+      routes.getVideo(videoId, query)
     );
   }
 

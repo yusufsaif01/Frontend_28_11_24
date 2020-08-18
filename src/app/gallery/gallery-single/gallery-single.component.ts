@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '@env/environment';
-
+import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { GallerySingleService } from './gallery-single.service';
@@ -76,8 +76,13 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
     private _gallerySingleService: GallerySingleService,
     private _toastrService: ToastrService,
     private _formBuilder: FormBuilder,
-    private dialog: MatDialog
-  ) {}
+    private dialog: MatDialog,
+    private _activatedRoute: ActivatedRoute
+  ) {
+    this._activatedRoute.params.subscribe(param => {
+      this.getVideo(param.video_id);
+    });
+  }
 
   environment = environment;
   postListing: PostContext[] = [];
@@ -91,9 +96,7 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
     player_type: true
   };
 
-  ngOnInit() {
-    this.getPost();
-  }
+  ngOnInit() {}
 
   addComment(post: PostContext) {
     post.addComment$ = this._gallerySingleService
@@ -194,18 +197,16 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
     });
   }
 
-  getPost(scrolled?: string) {
-    if (!scrolled) {
-      this.pageNo = 1;
-    }
+  getVideo(videoId: string) {
     this._gallerySingleService
-      .getPost({
+      .getVideo(videoId, {
         comments: 1
       })
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          let posts: PostContext[] = response.data.records;
+          let posts: PostContext = [response.data];
+          // console.log(post);
           // this.postCount = response.data.records.length;
           posts.forEach(post => {
             if (post.posted_by.avatar) {
@@ -232,15 +233,15 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
             post.commentForm = commentForm;
             this.createCommentForm(post);
           });
-          if (!scrolled) {
-            this.postListing = posts;
-          } else {
-            posts.forEach(post => {
-              if (!this.postListing.includes(post)) {
-                this.postListing.push(post);
-              }
-            });
-          }
+          // if (!scrolled) {
+          //   this.postListing = posts;
+          // } else {
+          posts.forEach(post => {
+            if (!this.postListing.includes(post)) {
+              this.postListing.push(post);
+            }
+          });
+          // }
         },
         error => {
           this._toastrService.error('Error', error.error.message);
