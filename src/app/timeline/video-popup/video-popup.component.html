@@ -34,88 +34,138 @@
           <p>Perform a skill and record a video</p>
         </div>
         <div class="steps steps-line active">
-          <div class="icon ">
+          <div class="icon" (click)="setStep(steps.selectVideo)">
             <mat-icon class="material-icons">
               av_timer
             </mat-icon>
           </div>
-          <p>Upload a video of length upto {{ getUploadLength() }} mins</p>
+          <p>Upload a video of length upto {{ getUploadVideoLength() }} mins</p>
         </div>
-        <div class="steps steps-line  ">
-          <div class="icon">
+        <div
+          class="steps steps-line"
+          [ngClass]="{ active: currentStep === 'tags' }"
+        >
+          <div class="icon" (click)="setStep(steps.tags)">
             <mat-icon class="material-icons">
               trending_up
             </mat-icon>
           </div>
-          <p>Tag abilities and attributes</p>
+          <p>Tag upto 2 abilities and 3 attributes each</p>
         </div>
       </div>
-
-      <!-- ability -->
-      <div class="ability-wrapper">
-        <div class="btn-group mb-2">
-          <button class="btn-active">Physical</button>
-          <button>Mental</button>
-          <button>Technical</button>
-          <button class="btn-active">Goalkeeping</button>
-          <button>Other</button>
-        </div>
-      </div>
-      <!-- Attribute wrapper -->
-      <div class="attribute-wrapper">
-        <ul class="attribute-items">
-          <li>
-            <mat-checkbox value="acceleration">Acceleration</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="agility">Agility</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="jumping">Jumping</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="strength">Strength</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="sprint speed">Sprint speed</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="balance">Balance</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="stamina">Stamina</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="reactions">Reactions</mat-checkbox>
-          </li>
-        </ul>
-      </div>
-      <!-- video -->
-      <div class="upload-wrapper">
-        <div class="upload">
-          <img src="assets/images/member/video-placeholder.png" alt="" />
-          <div class="video-upload">
-            <span class="upload-video">
-              <label for="upload"
-                >Select a video
-                <input type="file" id="upload" />
-              </label>
-            </span>
+      <form [formGroup]="createVideoPostForm">
+        <ng-container *ngIf="currentStep === 'tags'">
+          <!-- ability -->
+          <div class="ability-wrapper">
+            <div class="btn-group mb-2">
+              <ng-container *ngFor="let ability of tagsArray">
+                <button
+                  [ngClass]="
+                    selectedAbilityIdList.includes(ability?.ability)
+                      ? 'btn-active'
+                      : ''
+                  "
+                  (click)="toggleSelection(ability.ability)"
+                >
+                  {{ ability.ability_name }}
+                </button>
+              </ng-container>
+              <button>Other</button>
+            </div>
           </div>
-
-          <div class="uploader">
-            <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-            <span>Uploaded 40%</span>
+          <!-- Attribute wrapper -->
+          <div class="attribute-wrapper">
+            <ul class="attribute-items">
+              <ng-container
+                *ngFor="
+                  let ability of this.createVideoPostForm.get('tags')[
+                    'controls'
+                  ];
+                  let i = index
+                "
+                formArrayName="tags"
+              >
+                <ng-container
+                  *ngIf="
+                    ability.get('ability').value === selectedAbility.ability
+                  "
+                >
+                  <ng-container [formGroupName]="i">
+                    <ng-container
+                      *ngFor="
+                        let attribute of ability.get('attributes')['controls'];
+                        let j = index
+                      "
+                      formArrayName="attributes"
+                    >
+                      <ng-container [formGroupName]="j">
+                        <li>
+                          <mat-checkbox
+                            formControlName="attribute"
+                            [value]="attribute.get('attribute').value"
+                            >{{
+                              attribute.get('attribute_name').value
+                            }}</mat-checkbox
+                          >
+                        </li>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ul>
           </div>
-        </div>
-      </div>
+        </ng-container>
+
+        <ng-container *ngIf="currentStep === 'selectVideo'">
+          <!-- video -->
+          <div class="upload-wrapper" *ngIf="media === null">
+            <div class="upload">
+              <div class="video-upload">
+                <span class="upload-video">
+                  <label for="upload"
+                    >Select a video
+                    <input
+                      formControlName="media"
+                      type="file"
+                      id="upload"
+                      (change)="uploadVideo($event.target.files)"
+                    />
+                  </label>
+                </span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="media !== null">
+          <div class="upload-wrapper">
+            <div class="upload">
+              <img src="assets/images/member/video-placeholder.png" alt="" />
+
+              <div class="uploader">
+                <mat-progress-bar
+                  mode="determinate"
+                  value="40"
+                ></mat-progress-bar>
+                <span>Uploaded 40%</span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </form>
     </div>
     <div class="modal-footer">
       <!-- actions -->
       <div class="action-block">
         <div class="btn-group">
           <button class="btn-normal" mat-dialog-close>Cancel</button>
-          <button class="btn-active" [mat-dialog-close]="true">Save</button>
+          <button
+            [disabled]="!createVideoPostForm.valid"
+            (click)="createVideoPost()"
+            class="btn-active"
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>

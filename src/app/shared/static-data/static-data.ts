@@ -372,4 +372,6 @@ export abstract class Constants {
       }
     }
   };
+
+  static readonly TIMELINE_VIDEO_EXTENSION: string[] = ['mp4', 'avi', 'mkv'];
 }
