@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe as DatePipeAngular } from '@angular/common';
 @Pipe({
-  name: 'datePipe'
+  name: 'customDatePipe'
 })
-export class DatePipe implements PipeTransform {
+export class CustomDatePipe implements PipeTransform {
   transform(date: any): any {
     let created_at: any = new Date(date);
     let dateNow: any = new Date(Date.now());

@@ -4,14 +4,15 @@
     <div class="right-wrapper">
       <div class="main">
         <!-- back -->
-        <div class="back-btn">
+        <!-- <div class="back-btn">
           <a>
             <span>
               <mat-icon class="material-icons">chevron_left</mat-icon>
             </span>
             Back
           </a>
-        </div>
+        </div> -->
+        <app-back-navigation></app-back-navigation>
         <div class="single-wrapper">
           <div class="post">
             <div class="video">
@@ -26,26 +27,41 @@
             </div>
           </div>
           <!-- post section -->
-          <div class="post-wrapper">
+          <div class="post-wrapper" *ngFor="let post of postListing">
             <!-- postHeader -->
             <div class="post-header">
               <!-- PostProfile -->
               <div class="profile">
                 <div class="profile-img">
-                  <img
-                    src="../../../assets/images/member/profile.png"
-                    alt="profile"
-                  />
+                  <img [src]="post.posted_by.avatar" alt="profile" />
                 </div>
                 <div class="details">
-                  <a target="_blank">
-                    <h3>Jame Jordon</h3>
+                  <a
+                    [routerLink]="[
+                      '/member/profile/public/',
+                      post.posted_by.user_id
+                    ]"
+                  >
+                    <h3>{{ post.posted_by.name }}</h3>
                   </a>
                   <p>
-                    <span class="type">Professional;</span>
-                    <span class="position">GoalKeeper</span>
+                    <ng-container
+                      *ngIf="post.posted_by.member_type === 'player'"
+                    >
+                      <span class="type">{{ post.posted_by.type }}</span>
+                      <span class="position">{{
+                        post.posted_by.position
+                      }}</span>
+                    </ng-container>
 
-                    3 July 2020
+                    <ng-container
+                      *ngIf="post.posted_by.member_type !== 'player'"
+                    >
+                      <span class="type">{{ post.posted_by.member_type }}</span>
+                      <span class="position">{{ post.posted_by.type }}</span>
+                    </ng-container>
+
+                    {{ post.created_at | customDatePipe }}
                   </p>
                 </div>
               </div>
@@ -84,116 +100,131 @@
             </div>
             <!-- like comment -->
             <div class="like">
+              <ng-container *ngIf="post.like$ | async"></ng-container>
               <span>
-                <mat-icon class="material-icons big-icons">favorite</mat-icon>
-                12
-              </span>
-              <span>
-                <mat-icon class="material-icons big-icons"
-                  >mode_comment</mat-icon
+                <mat-icon
+                  (click)="toggleLike(post)"
+                  [ngClass]="{ active: post.is_liked }"
+                  class="material-icons big-icons"
+                  >favorite</mat-icon
                 >
-                34
+                {{ post.likes }}
               </span>
+              <ng-container *ngIf="post.addComment$ | async"></ng-container>
+              <ng-container
+                *ngIf="!['amateur', 'grassroot'].includes(player_type)"
+              >
+                <span
+                  (click)="activateCommentBox(post)"
+                  [ngClass]="{
+                    chatdisable:
+                      !player_type && !['academy', 'club'].includes(member_type)
+                  }"
+                >
+                  <mat-icon class="material-icons big-icons"
+                    >mode_comment</mat-icon
+                  >
+                  {{ post.comments.total }}
+                </span>
+              </ng-container>
             </div>
             <div class="comment">
-              <div class="partition">
-                <a>View previous comments</a>
+              <div
+                class="partition"
+                *ngIf="
+                  post.comments.total > 3 &&
+                  post.comments.total !== post.commentListing.length
+                "
+              >
+                <a
+                  *ngIf="
+                    post.comments.total > 3 &&
+                    post.comments.total !== post.commentListing.length
+                  "
+                  (click)="loadComments(post)"
+                  >View previous comments</a
+                >
               </div>
               <div class="comment-box">
-                <div class="commnet">
+                <div
+                  class="commnet"
+                  *ngFor="let comment of post.commentListing"
+                >
                   <div class="profile">
                     <div class="profile-img">
-                      <img
-                        src="assets/images/member/profile.png"
-                        alt="profile"
-                      />
+                      <img [src]="comment.commented_by.avatar" alt="profile" />
                     </div>
                     <div class="details">
-                      <h4>Jame Jordon</h4>
+                      <h4>{{ comment.commented_by.name }}</h4>
                       <div class="commenter-details">
                         <p>
-                          <span class="type">
-                            Professional
-                          </span>
-                          <span class="position">GoalKeeper </span>
+                          <ng-container
+                            *ngIf="
+                              comment.commented_by.member_type === 'player'
+                            "
+                          >
+                            <span class="type">{{
+                              comment.commented_by.type
+                            }}</span>
+                            <span class="position"
+                              >{{ comment.commented_by.position }}
+                            </span>
+                          </ng-container>
+
+                          <ng-container
+                            *ngIf="
+                              comment.commented_by.member_type !== 'player'
+                            "
+                          >
+                            <span class="type">{{
+                              comment.commented_by.member_type
+                            }}</span>
+                            <span class="position"
+                              >{{ comment.commented_by.type }}
+                            </span>
+                          </ng-container>
                         </p>
-                        <p>3 sec ago</p>
+                        <p>{{ comment.commented_at | customDatePipe }}</p>
                       </div>
                       <div class="message">
-                        <p>Played well I liked that shot</p>
+                        <p>{{ comment.comment }}</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="comment-box">
-                <div class="commnet">
-                  <div class="profile">
-                    <div class="profile-img">
-                      <img
-                        src="assets/images/member/profile.png"
-                        alt="profile"
-                      />
-                    </div>
-                    <div class="details">
-                      <h4>Jame Jordon</h4>
-                      <div class="commenter-details">
-                        <p>
-                          <span class="type">
-                            Professional
-                          </span>
-                          <span class="position">GoalKeeper </span>
-                        </p>
-                        <p>3 sec ago</p>
-                      </div>
-                      <div class="message">
-                        <p>Played well I liked that shot</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="comment-box">
-                <div class="commnet">
-                  <div class="profile">
-                    <div class="profile-img">
-                      <img
-                        src="assets/images/member/profile.png"
-                        alt="profile"
-                      />
-                    </div>
-                    <div class="details">
-                      <h4>Jame Jordon</h4>
-                      <div class="commenter-details">
-                        <p>
-                          <span class="type">
-                            Professional
-                          </span>
-                          <span class="position">GoalKeeper </span>
-                        </p>
-                        <p>3 sec ago</p>
-                      </div>
-                      <div class="message">
-                        <p>Played well I liked that shot</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="post-comment">
+              <div class="post-comment" *ngIf="post.show_comment_box">
                 <div class="profile-img">
-                  <img
-                    src="../../../assets/images/member/profile.png"
-                    alt="profile"
-                  />
+                  <img [src]="avatar_url" alt="profile" />
                 </div>
                 <div class="comment-input">
-                  <form>
+                  <form [formGroup]="post.commentForm">
                     <div class="input-wrapper">
-                      <input autocomplete="off" placeholder="Add a comment" />
-                      <button>
+                      <input
+                        formControlName="comment"
+                        autocomplete="off"
+                        placeholder="Add a comment"
+                      />
+                      <button
+                        [disabled]="!post.commentForm.valid"
+                        (click)="addComment(post)"
+                      >
                         <mat-icon class="material-icons">send</mat-icon>
                       </button>
+                      <mat-error
+                        *ngIf="
+                          post.commentForm.controls.comment.invalid &&
+                          post.commentForm.controls.comment.touched
+                        "
+                      >
+                        <span
+                          *ngIf="
+                            post.commentForm.controls.comment.errors.wordCount
+                          "
+                        >
+                          Please provide upto 60 words
+                        </span>
+                      </mat-error>
                     </div>
                   </form>
                 </div>
