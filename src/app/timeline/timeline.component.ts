@@ -169,8 +169,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(PostPopupComponent, {
-      width: '50%',
-      panelClass: 'dialogbox'
+      panelClass: 'postpopup'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -311,7 +310,6 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   editPost(post: any) {
     const dialogRef = this.dialog.open(PostPopupComponent, {
-      width: '40%',
       panelClass: 'postpopup',
       data: post
     });
