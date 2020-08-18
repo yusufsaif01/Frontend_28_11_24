@@ -1,27 +1,5 @@
 @import "src/assets/sass/abstracts/variables";
-// footer {
-//   position: fixed;
-//   bottom: 0;
-//   width: 100%;
-//   display: block;
-//   box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
-//   text-align: center;
-//   font-size: 1.8rem;
-//   line-height: 5rem;
-//   color: #66788a;
-//   z-index: 1;
-//   font-family: "Muli";
-//   font-weight: 700;
-//   padding: 1rem 0;
-//   background: $color-white;
-//   a {
-//     color: $color-primary;
-//     text-decoration: none;
-//     .mat-icon {
-//       fill: $blue !important;
-//     }
-//   }
-// }
+@import "src/assets/sass/abstracts/mixins";
 
 .footer {
   .mainfooter {
@@ -33,11 +11,24 @@
       margin: auto;
       display: flex;
 
+      @include responsive(tablet) {
+        width: 95%;
+        flex-wrap: wrap;
+      }
+
       .logo {
         width: 40%;
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        @include responsive(bigphone) {
+          flex-direction: column;
+        }
+
+        @include responsive(smallphone) {
+          width: 100%;
+        }
 
         img {
           max-width: 25rem;
@@ -48,6 +39,15 @@
           font-weight: 700;
           font-style: italic;
           padding-left: 2rem;
+
+          @include responsive(tablet) {
+            font-size: 1.6rem;
+            padding-left: 0rem;
+          }
+
+          @include responsive(smallphone) {
+            padding-bottom: 2rem;
+          }
         }
       }
 
@@ -56,6 +56,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        @include responsive(bigphone) {
+          width: 30%;
+        }
+
+        @include responsive(smallphone) {
+          width: 50%;
+          justify-content: flex-start;
+        }
 
         ul {
           list-style: none;
@@ -76,6 +85,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        @include responsive(bigphone) {
+          width: 100%;
+          justify-content: center;
+          margin-top: 2rem;
+        }
 
         ul {
           list-style: none;

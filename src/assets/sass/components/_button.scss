@@ -47,6 +47,11 @@
   cursor: pointer;
   border: none;
 
+  @include responsive(bigphone) {
+    padding: 1.2rem 3rem;
+    font-size: $heading-fourth;
+  }
+
   &-block {
     width: 100%;
   }
