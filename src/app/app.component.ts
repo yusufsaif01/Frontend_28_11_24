@@ -24,6 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
           router.routerState.root
         ).join('-');
         this.titleService.setTitle(title);
+        window.scrollTo(0, 0);
       }
     });
   }

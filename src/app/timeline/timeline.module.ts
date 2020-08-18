@@ -5,10 +5,9 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { TimelineComponent } from './timeline.component';
 import { PostPopupComponent } from './post-popup/post-popup.component';
 import { TimelineRoutingModule } from './timeline-routing.module';
-import { DatePipe } from '@app/shared/pipes/date.pipe';
 
 @NgModule({
-  declarations: [TimelineComponent, PostPopupComponent, DatePipe],
+  declarations: [TimelineComponent, PostPopupComponent],
   imports: [CommonModule, TimelineRoutingModule, SharedModule, CarouselModule],
   entryComponents: [PostPopupComponent]
 })
