@@ -85,7 +85,7 @@
                 <h4>Contract signing date</h4>
               </div>
               <div class="right">
-                <p>{{ contractDetails.signing_date | date }}</p>
+                <p>{{ contractDetails.signing_date | date: 'MM-dd-yyyy' }}</p>
               </div>
             </div>
 
@@ -94,7 +94,7 @@
                 <h4>Contract effective date</h4>
               </div>
               <div class="right">
-                <p>{{ contractDetails.effective_date | date }}</p>
+                <p>{{ contractDetails.effective_date | date: 'MM-dd-yyyy' }}</p>
               </div>
             </div>
 
@@ -103,7 +103,7 @@
                 <h4>Contract expiry date</h4>
               </div>
               <div class="right">
-                <p>{{ contractDetails.expiry_date | date }}</p>
+                <p>{{ contractDetails.expiry_date | date: 'MM-dd-yyyy' }}</p>
               </div>
             </div>
 
