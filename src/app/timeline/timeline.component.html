@@ -86,7 +86,7 @@
                     <span class="position">{{ post.posted_by.type }}</span>
                   </ng-container>
 
-                  {{ post.created_at | datePipe }}
+                  {{ post.created_at | customDatePipe }}
                 </p>
               </div>
             </div>
@@ -194,7 +194,7 @@
                           </span>
                         </ng-container>
                       </p>
-                      <p>{{ comment.commented_at | datePipe }}</p>
+                      <p>{{ comment.commented_at | customDatePipe }}</p>
                     </div>
                     <div class="message">
                       <p>{{ comment.comment }}</p>
