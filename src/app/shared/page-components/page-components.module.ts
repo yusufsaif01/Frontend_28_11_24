@@ -13,6 +13,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { LinkExpiredComponent } from './link-expired/link-expired.component';
 import { LeftPanelComponent } from './left-panel/left-panel.component';
 import { FilterComponent } from './filter/filter.component';
+import { BackNavigationComponent } from './back-navigation/back-navigation.component';
 import { FormsModule } from '@angular/forms';
 import { CopyrightComponent } from './copyright/copyright.component';
 
@@ -28,6 +29,7 @@ import { CopyrightComponent } from './copyright/copyright.component';
     LinkExpiredComponent,
     LeftPanelComponent,
     FilterComponent,
+    BackNavigationComponent,
     CopyrightComponent
   ],
   imports: [
@@ -47,6 +49,7 @@ import { CopyrightComponent } from './copyright/copyright.component';
     LeftPanelComponent,
     InfiniteScrollModule,
     FilterComponent,
+    BackNavigationComponent,
     FormsModule,
     CopyrightComponent
   ]

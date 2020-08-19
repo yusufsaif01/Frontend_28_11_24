@@ -60,6 +60,10 @@ const routes: Routes = [
       './manage-footmates/manage-footmates.module#ManageFootmatesModule'
   },
   {
+    path: 'member/gallery',
+    loadChildren: './gallery/gallery.module#GalleryModule'
+  },
+  {
     path: 'member/manage-footplayer',
     loadChildren:
       './manage-footplayer/manage-footplayer.module#ManageFootplayerModule'
