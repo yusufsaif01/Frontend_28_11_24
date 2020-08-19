@@ -6,14 +6,7 @@
   <div class="right-panel">
     <div class="right-wrapper">
       <div class="main">
-        <div class="back">
-          <a [routerLink]="['/member/manage-report-card']">
-            <span>
-              <mat-icon class="material-icons">arrow_back_ios</mat-icon>
-            </span>
-            Back
-          </a>
-        </div>
+        <app-back-navigation></app-back-navigation>
 
         <!--  heading -->
         <div class=" heading">
@@ -106,7 +99,11 @@
               <textarea
                 rows="5"
                 disabled
-                [value]="reportCardData?.remarks"
+                [value]="
+                  reportCardData && reportCardData.remarks
+                    ? reportCardData.remarks
+                    : ''
+                "
               ></textarea>
             </div>
           </div>
