@@ -35,7 +35,7 @@
   .mobile {
     @include responsive(tablet) {
       display: none;
-      transition-delay: ease-in 0s;
+      transition: ease-in 0.5s;
     }
 
     .profile {
@@ -145,6 +145,7 @@
 
     .menus {
       margin: 2rem 0;
+      padding-bottom: 15rem;
 
       ul {
         list-style: none;
