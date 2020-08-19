@@ -7,12 +7,25 @@
   background: $third-color;
   margin-top: 8.5rem;
 
+  @include responsive(bigphone) {
+    flex-wrap: wrap;
+    margin-top: 14rem;
+  }
+
   .right-panel {
     width: 76.25%;
     position: relative;
 
+    @include responsive(tablet) {
+      width: 100%;
+    }
+
     .right-wrapper {
       display: flex;
+
+      @include responsive(bigphone) {
+        flex-wrap: wrap;
+      }
 
       .post-container {
         width: 65%;
@@ -20,13 +33,26 @@
         margin-top: 2rem;
         padding-bottom: 10rem;
 
+        @include responsive(bigphone) {
+          width: 100%;
+          margin: 2rem;
+          padding-bottom: 0rem;
+        }
+
         .slider {
           max-width: 95rem;
           margin-bottom: 2rem;
           @include shadow;
           position: relative;
-          // width: 100%;
-          // margin-bottom: 2rem; // Need to check
+
+          @include responsive(tablet) {
+            max-width: 105rem;
+          }
+
+          @include responsive(bigphone) {
+            display: none;
+            max-width: 76rem;
+          }
 
           .advertise {
             position: relative;
@@ -131,8 +157,20 @@
               display: block;
               width: 20%;
 
+              @include responsive(smallphone) {
+                width: 25%;
+              }
+
               span {
                 margin-left: 1rem;
+
+                mat-icon {
+                  @include responsive(smallphone) {
+                    width: 3rem !important;
+                    height: 3rem !important;
+                    font-size: 3rem !important;
+                  }
+                }
               }
             }
           }
@@ -297,11 +335,37 @@
         width: 30%;
         margin: 2rem;
 
+        @include responsive(bigphone) {
+          width: 100%;
+          margin: 0 2rem;
+          padding-bottom: 10rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+        }
+
+        @include responsive(smallphone) {
+          flex-wrap: wrap;
+        }
+
         .suggestion {
           @include shadow;
           background: $white-color;
           padding: 2rem;
           border-radius: 0.5rem;
+
+          @include responsive(bigphone) {
+            width: 45%;
+          }
+
+          @include responsive(mediumphone) {
+            width: 55%;
+          }
+
+          @include responsive(smallphone) {
+            width: 100%;
+            margin-bottom: 2rem;
+          }
 
           .heading {
             padding: 0rem 1rem;
@@ -347,6 +411,19 @@
           @include shadow;
           margin-top: 2rem;
 
+          @include responsive(bigphone) {
+            width: 53%;
+            margin-top: 0rem;
+          }
+
+          @include responsive(mediumphone) {
+            width: 43%;
+          }
+
+          @include responsive(smallphone) {
+            width: 100%;
+          }
+
           img {
             width: 100%;
           }
@@ -385,7 +462,8 @@
 
 //  post popup
 ::ng-deep {
-  .postpopup {
+  .postpopup,
+  .deleteconfirmation {
     width: 50%;
 
     @include responsive(tablet) {

@@ -323,8 +323,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   deletePost(post_id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      width: '50% ',
-      panelClass: 'filterDialog',
+      panelClass: 'deleteconfirmation',
       data: {
         header: 'Delete post',
         message: 'Are you sure you want to delete?'
@@ -371,4 +370,6 @@ export class TimelineComponent implements OnInit, OnDestroy {
   onScrollUp() {
     console.log('Scrolled Up');
   }
+  // toggle sidebar on mobile
+  public sidebar = true;
 }

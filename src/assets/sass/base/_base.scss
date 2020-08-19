@@ -69,6 +69,10 @@
     width: 66%;
     height: 1px;
     background: $grey;
+
+    @include responsive(smallphone) {
+      background: transparent;
+    }
   }
 
   a {
@@ -117,4 +121,31 @@
 
 body::-webkit-scrollbar-button {
   display: none;
+}
+
+.toggle-btn {
+  display: none;
+
+  @include responsive(tablet) {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 2.5rem;
+    top: 10rem;
+    z-index: 999;
+    background: $primary-color;
+    color: $white-color !important;
+    height: 5rem;
+    width: 5rem;
+    border-radius: 5rem;
+
+    mat-icon {
+      margin-left: 2px;
+    }
+  }
+
+  @include responsive(bigphone) {
+    top: 16rem;
+  }
 }
