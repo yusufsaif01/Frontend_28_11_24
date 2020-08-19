@@ -169,8 +169,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(PostPopupComponent, {
-      width: '50%',
-      panelClass: 'dialogbox'
+      panelClass: 'postpopup'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -311,7 +310,6 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   editPost(post: any) {
     const dialogRef = this.dialog.open(PostPopupComponent, {
-      width: '40%',
       panelClass: 'postpopup',
       data: post
     });
@@ -325,8 +323,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   deletePost(post_id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      width: '50% ',
-      panelClass: 'filterDialog',
+      panelClass: 'deleteconfirmation',
       data: {
         header: 'Delete post',
         message: 'Are you sure you want to delete?'
@@ -373,4 +370,6 @@ export class TimelineComponent implements OnInit, OnDestroy {
   onScrollUp() {
     console.log('Scrolled Up');
   }
+  // toggle sidebar on mobile
+  public sidebar = false;
 }
