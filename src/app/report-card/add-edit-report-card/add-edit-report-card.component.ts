@@ -138,7 +138,23 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
   }
 
   populateFormFields() {
-    this.addEditReportForm.patchValue(this.reportCardData);
+    let data = this.addEditReportForm.get('abilities') as FormArray;
+
+    Object.keys(this.reportCardData.abilities).forEach(index => {
+      for (let i = 0; i < data.length; i++) {
+        if (
+          this.reportCardData.abilities[index].ability_id ===
+          data.at(i).value.ability_id
+        ) {
+          data
+            .at(i)
+            .patchValue({
+              attributes: this.reportCardData.abilities[index].attributes
+            });
+          break;
+        }
+      }
+    });
   }
 
   getTab(val: string) {
