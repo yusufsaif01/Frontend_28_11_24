@@ -371,5 +371,5 @@ export class TimelineComponent implements OnInit, OnDestroy {
     console.log('Scrolled Up');
   }
   // toggle sidebar on mobile
-  public sidebar = true;
+  public sidebar = false;
 }
