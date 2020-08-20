@@ -127,6 +127,13 @@
   cursor: not-allowed;
   user-select: none;
   color: $grey !important;
+
+  button {
+    pointer-events: none;
+    cursor: not-allowed;
+    user-select: none;
+    color: $grey !important;
+  }
 }
 
 .pb-3 {
