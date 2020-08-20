@@ -79,7 +79,7 @@
   width: 100%;
 
   button {
-    margin-right: 2rem;
+    margin: 1rem;
     background: $fourth-color;
     font-family: $primary-text;
     border: none;
@@ -91,6 +91,10 @@
     outline: 0px;
     cursor: pointer;
     @include shadow-btn-secondary;
+
+    @include responsive(smallestphone) {
+      width: 100%;
+    }
 
     &:hover {
       background: $primary-color;

@@ -146,11 +146,9 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
           this.reportCardData.abilities[index].ability_id ===
           data.at(i).value.ability_id
         ) {
-          data
-            .at(i)
-            .patchValue({
-              attributes: this.reportCardData.abilities[index].attributes
-            });
+          data.at(i).patchValue({
+            attributes: this.reportCardData.abilities[index].attributes
+          });
           break;
         }
       }

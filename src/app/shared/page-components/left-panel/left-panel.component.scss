@@ -173,6 +173,10 @@
               background: $fifth-color;
               margin-right: 3rem;
 
+              @include responsive(smalldesktop) {
+                margin-right: 1.2rem;
+              }
+
               img {
                 width: 2.4rem;
               }
