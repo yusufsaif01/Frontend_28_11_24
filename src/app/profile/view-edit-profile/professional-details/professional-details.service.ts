@@ -35,6 +35,7 @@ export interface GetProfessionalDetailsResponseContext {
       id: string;
       priority: string;
     }[];
+    player_type: string;
     associated_club_academy: string;
     club_academy_details: {
       head_coach_name: string;

@@ -22,7 +22,7 @@
 }
 
 .mb-1 {
-  margin-bottom: 1rem;
+  margin-bottom: 1rem !important;
 }
 
 .mr-3 {
@@ -131,6 +131,10 @@ body::-webkit-scrollbar-button {
   display: none;
 }
 
+.asterisk {
+  color: $primary-color;
+}
+
 .toggle-btn {
   display: none;
 
@@ -151,9 +155,9 @@ body::-webkit-scrollbar-button {
     mat-icon {
       margin-left: 2px;
     }
-  }
 
-  @include responsive(bigphone) {
-    top: 16rem;
+    @include responsive(bigphone) {
+      top: 16rem;
+    }
   }
 }
