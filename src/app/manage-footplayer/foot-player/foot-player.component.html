@@ -54,37 +54,49 @@
             let-status="status"
             let-email="email"
             let-user_id="user_id"
+            let-profile_status="profile_status"
             let-canAddContract="canAddContract"
           >
-            <div class="action-buttons">
-              <button
-                matTooltip="Resend invitation"
-                [ngClass]="{
-                  'icon-disable': ['pending', 'added', 'rejected'].includes(
-                    status
-                  )
-                }"
-                (click)="resendInvitationPopup(email)"
+            <div
+              [matTooltip]="
+                profile_status !== 'verified'
+                  ? 'This player is not verified'
+                  : ''
+              "
+            >
+              <div
+                class="action-buttons"
+                [ngClass]="{ 'icon-disable': profile_status !== 'verified' }"
               >
-                <mat-icon class="material-icons">autorenew</mat-icon>
-              </button>
+                <button
+                  matTooltip="Resend invitation"
+                  [ngClass]="{
+                    'icon-disable': ['pending', 'added', 'rejected'].includes(
+                      status
+                    )
+                  }"
+                  (click)="resendInvitationPopup(email)"
+                >
+                  <mat-icon class="material-icons">autorenew</mat-icon>
+                </button>
 
-              <button
-                [ngClass]="{
-                  'icon-disable': !canAddContract
-                }"
-                [routerLink]="[
-                  '/member/profile/add-employment-contract',
-                  user_id
-                ]"
-                matTooltip="Add contract"
-              >
-                <mat-icon class="material-icons">add_circle</mat-icon>
-              </button>
+                <button
+                  [ngClass]="{
+                    'icon-disable': !canAddContract
+                  }"
+                  [routerLink]="[
+                    '/member/profile/add-employment-contract',
+                    user_id
+                  ]"
+                  matTooltip="Add contract"
+                >
+                  <mat-icon class="material-icons">add_circle</mat-icon>
+                </button>
 
-              <button matTooltip="Delete" (click)="deletePopup(id)">
-                <mat-icon class="material-icons">delete</mat-icon>
-              </button>
+                <button matTooltip="Delete" (click)="deletePopup(id)">
+                  <mat-icon class="material-icons">delete</mat-icon>
+                </button>
+              </div>
             </div>
           </ng-template>
         </div>
