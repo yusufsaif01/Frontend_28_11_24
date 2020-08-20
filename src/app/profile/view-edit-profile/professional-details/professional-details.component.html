@@ -11,96 +11,104 @@
 
         <div class="second-section">
           <!-- row -->
-          <h3 class="mb-1">Preferred playing position :</h3>
-
-          <div class="view-details">
-            <div class="details">
-              <div class="full">
-                <p
-                  *ngFor="
-                    let data of professionalDetails?.position;
-                    let i = index
-                  "
-                >
-                  <span>{{ i + 1 }}. </span>
-                  {{ data.name | titlecase }}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="view-details">
-            <div class="details">
-              <div class="left">
-                <h4>Strong foot</h4>
-              </div>
-              <div class="right">
+          <div class="section">
+            <h3 class="section-heading">
+              Preferred playing position
+            </h3>
+            <div class="section-block">
+              <div
+                class="third"
+                *ngFor="
+                  let data of professionalDetails?.position;
+                  let i = index
+                "
+              >
                 <p>
-                  {{ professionalDetails?.strong_foot | titlecase }}
+                  <span>{{ i + 1 }}.</span> {{ data.name | titlecase }}
                 </p>
               </div>
             </div>
           </div>
-          <!-- second row -->
-          <div class="view-details">
-            <div class="details">
-              <div class="left">
-                <h4>Weak foot</h4>
-              </div>
-              <div class="right">
-                <div class="stars">
-                  <ng-container *ngFor="let number of [1, 2, 3, 4, 5]">
-                    <ng-container
-                      *ngIf="number <= professionalDetails?.weak_foot"
-                    >
-                      <mat-icon class="material-icons active">
-                        star_border
-                      </mat-icon>
-                    </ng-container>
-                    <ng-container
-                      *ngIf="number > professionalDetails?.weak_foot"
-                    >
-                      <mat-icon class="material-icons "> star_border </mat-icon>
-                    </ng-container>
-                  </ng-container>
+
+          <div class="section">
+            <h3 class="section-heading mb-0">
+              Strong foot
+            </h3>
+            <div class="section-block">
+              <div class="full">
+                <div class="right">
+                  <p>{{ professionalDetails?.strong_foot | titlecase }}</p>
                 </div>
               </div>
             </div>
           </div>
-          <!-- third row -->
-          <div class="view-details">
-            <div class="details">
-              <div class="left">
-                <h4>
-                  Current state association
-                  {{
-                    professionalDetails?.association === 'Others'
-                      ? '(Other)'
-                      : ''
-                  }}
-                </h4>
-              </div>
-              <div class="right">
-                <p>
-                  {{
-                    (professionalDetails?.association === 'Others'
-                      ? professionalDetails?.association_other
-                      : professionalDetails?.association
-                    ) | titlecase
-                  }}
-                </p>
+
+          <div class="section mb-1">
+            <h3 class="section-heading mb-0">
+              Weak foot
+            </h3>
+            <div class="section-block">
+              <div class="info">
+                <div class="full">
+                  <div class="left">
+                    <div class="stars">
+                      <ng-container *ngFor="let number of [1, 2, 3, 4, 5]">
+                        <ng-container
+                          *ngIf="number <= professionalDetails?.weak_foot"
+                        >
+                          <mat-icon class="material-icons active">
+                            star_border
+                          </mat-icon>
+                        </ng-container>
+                        <ng-container
+                          *ngIf="number > professionalDetails?.weak_foot"
+                        >
+                          <mat-icon class="material-icons ">
+                            star_border
+                          </mat-icon>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="view-details">
-            <div class="details">
-              <div class="left">
-                <h4>Former club / academy</h4>
+
+          <div class="section">
+            <h3 class="section-heading mb-0">
+              Current state association
+              {{
+                professionalDetails?.association === 'Others' ? '(Other)' : ''
+              }}
+            </h3>
+            <div class="section-block">
+              <div class="full">
+                <div class="right">
+                  <p>
+                    {{
+                      (professionalDetails?.association === 'Others'
+                        ? professionalDetails?.association_other
+                        : professionalDetails?.association
+                      ) | titlecase
+                    }}
+                  </p>
+                </div>
               </div>
-              <div class="right">
-                <p>
-                  {{ professionalDetails?.former_club_academy | titlecase }}
-                </p>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-heading mb-0">
+              Former club / academy
+            </h3>
+            <div class="section-block">
+              <div class="full">
+                <div class="right">
+                  <p>
+                    {{ professionalDetails?.former_club_academy | titlecase }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -453,10 +461,11 @@
                 </div>
               </ng-container>
             </div>
+
+            <h3>Strong foot <span class="asterisk">*</span></h3>
             <div class="input-container">
               <div class="third">
                 <div class="form-block">
-                  <label>Strong foot<span>*</span></label>
                   <select
                     formControlName="strong_foot"
                     matNativeControl
@@ -488,9 +497,12 @@
                   </mat-error>
                 </div>
               </div>
+            </div>
+
+            <h3>Weak foot</h3>
+            <div class="input-container">
               <div class="third">
-                <div class="form-block">
-                  <label>Weak foot</label>
+                <div class="form-block pb-1">
                   <div class="details">
                     <div class="right">
                       <div class="star-rating">
@@ -570,10 +582,11 @@
                 </div>
               </div>
             </div>
+
+            <h3>Current state association <span class="asterisk">*</span></h3>
             <div class="input-container">
               <div class="third">
                 <div class="form-block">
-                  <label>Current state association<span>*</span></label>
                   <select
                     formControlName="association"
                     matNativeControl
@@ -605,33 +618,38 @@
                   </mat-error>
                 </div>
               </div>
-              <ng-container
-                *ngIf="
-                  professionalDetailsForm.get('association').value === 'Others'
-                "
-              >
+            </div>
+
+            <ng-container
+              *ngIf="
+                professionalDetailsForm.get('association').value === 'Others'
+              "
+            >
+              <h3>Other state association name</h3>
+              <div class="input-container">
                 <div class="third">
                   <div class="form-block">
-                    <label>Other State Association Name</label>
                     <input
                       formControlName="association_other"
                       type="text"
                       matInput
                       autocomplete="off"
-                      placeholder="Other State Association Name"
+                      placeholder="Other state association name"
                       trim="blur"
                     />
                     <mat-error class="error-text"> </mat-error>
                   </div>
                 </div>
-              </ng-container>
-            </div>
+              </div>
+            </ng-container>
+
             <div class="input-container">
               <div class="full">
                 <h3 class="mb-1">
-                  Currently associated with club / academy ? <span>*</span>
+                  Currently associated with club / academy ?
+                  <span class="asterisk">*</span>
                 </h3>
-                <div class="radio-block">
+                <div class=" radio-block">
                   <mat-radio-group
                     formControlName="associated_club_academy"
                     class="example-radio-group"
@@ -689,7 +707,7 @@
                             .errors.pattern
                         "
                         translate
-                        >Head Coach Name format is invalid
+                        >Head coach name format is invalid
                       </span>
                     </mat-error>
                   </div>
@@ -710,7 +728,7 @@
                           matInput
                           autocomplete="off"
                           required
-                          placeholder="Mobile Number"
+                          placeholder="Mobile number"
                           trim="blur"
                         />
                       </div>
@@ -730,7 +748,7 @@
                             .errors.required
                         "
                         translate
-                        >Head Coach Phone is required</span
+                        >Head coach phone is required</span
                       >
                       <ng-template #lengthBlock>
                         <span
@@ -769,7 +787,7 @@
                           else lengthBlock
                         "
                       >
-                        Phone Number format is invalid
+                        Phone number format is invalid
                       </span>
                     </mat-error>
                   </div>
@@ -800,7 +818,7 @@
                             .errors.email
                         "
                         translate
-                        >Head Coach Email format is invalid
+                        >Head coach email format is invalid
                       </span>
                     </mat-error>
                   </div>
@@ -808,18 +826,16 @@
               </div>
             </ng-container>
 
+            <h3>Former club / academy (optional, if any)</h3>
             <div class="input-container">
               <div class="third">
                 <div class="form-block">
-                  <label class="label-small"
-                    >Former club / academy (optional, if any)</label
-                  >
                   <input
                     formControlName="former_club_academy"
                     type="text"
                     matInput
                     autocomplete="off"
-                    placeholder="Former Club / Academy"
+                    placeholder="Former club / academy"
                     trim="blur"
                   />
                   <mat-error class="error-text"> </mat-error>
