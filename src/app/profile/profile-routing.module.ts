@@ -19,12 +19,12 @@ const appRoutes: Routes = [
       {
         path: '',
         component: ViewEditProfileComponent,
-        data: { title: extract('My Profile') }
+        data: { title: extract('My profile') }
       },
       {
         path: ':tabname',
         component: ViewEditProfileComponent,
-        data: { title: extract('My Profile') }
+        data: { title: extract('My profile') }
       },
       {
         path: 'add-employment-contract',
