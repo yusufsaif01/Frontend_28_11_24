@@ -98,17 +98,18 @@
             </div>
           </div>
 
-          <div class="section">
-            <h3 class="section-heading mb-0">
-              Former club / academy
-            </h3>
-            <div class="section-block">
-              <div class="full">
-                <div class="right">
-                  <p>
-                    {{ professionalDetails?.former_club_academy | titlecase }}
-                  </p>
-                </div>
+          <div
+            class="view-details"
+            *ngIf="professionalDetails?.player_type !== 'grassroot'"
+          >
+            <div class="details">
+              <div class="left">
+                <h4>Former club / academy</h4>
+              </div>
+              <div class="right">
+                <p>
+                  {{ professionalDetails?.former_club_academy | titlecase }}
+                </p>
               </div>
             </div>
           </div>
@@ -826,8 +827,10 @@
               </div>
             </ng-container>
 
-            <h3>Former club / academy (optional, if any)</h3>
-            <div class="input-container">
+            <div
+              class="input-container"
+              *ngIf="professionalDetails?.player_type !== 'grassroot'"
+            >
               <div class="third">
                 <div class="form-block">
                   <input
