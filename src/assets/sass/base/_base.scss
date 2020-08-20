@@ -26,7 +26,7 @@ html {
 }
 
 .mb-1 {
-  margin-bottom: 1rem;
+  margin-bottom: 1rem !important;
 }
 
 .mb-2 {
@@ -113,6 +113,10 @@ html {
 
 body::-webkit-scrollbar-button {
   display: none;
+}
+
+.asterisk {
+  color: $primary-color;
 }
 
 @media (max-width: 1920px) {

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HeaderComponent } from '@app/shared/page-components/header/header.component';
 import { LeftPanelComponent } from '@app/shared/page-components/left-panel/left-panel.component';
-
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-view-edit-profile',
   templateUrl: './view-edit-profile.component.html',
@@ -20,12 +20,19 @@ export class ViewEditProfileComponent implements OnInit {
     { name: 'Documents', value: 'documents' },
     { name: 'Employment contracts', value: 'contracts' }
   ];
-  constructor() {}
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router
+  ) {
+    this._activatedRoute.params.subscribe(params => {
+      if (params['tabname']) this.componentName = params['tabname'];
+    });
+  }
 
   ngOnInit() {}
 
   switch(componentName: string) {
-    this.componentName = componentName;
+    this._router.navigate(['/member/profile', componentName]);
   }
 
   getClubAcademyType(value: string) {

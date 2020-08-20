@@ -22,6 +22,11 @@ const appRoutes: Routes = [
         data: { title: extract('My Profile') }
       },
       {
+        path: ':tabname',
+        component: ViewEditProfileComponent,
+        data: { title: extract('My Profile') }
+      },
+      {
         path: 'add-employment-contract',
         component: AddEditEmploymentContractComponent,
         data: { title: extract('Add new contract') }
