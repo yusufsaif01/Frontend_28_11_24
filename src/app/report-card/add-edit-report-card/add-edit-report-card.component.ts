@@ -11,6 +11,7 @@ import { untilDestroyed } from '@app/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { abilityAttribute } from '@app/shared/validators/abilityAttribute';
 import { SharedService } from '@app/shared/shared.service';
+import { result } from 'lodash';
 
 export interface AbilityContext {
   ability_id: string;
@@ -137,10 +138,30 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
     this.editMode ? this.editReportCard(status) : this.createReportCard(status);
   }
 
-  populateFormFields() {
-    this.addEditReportForm.patchValue(this.reportCardData); // Patching remarks
-    let data = this.addEditReportForm.get('abilities') as FormArray;
+  populateAttributes(formdata: any, resultdata: any) {
+    const mergedArray = [...resultdata, ...formdata];
+    const result = Array.from(
+      new Set(mergedArray.map(s => s.attribute_id))
+    ).map(attribute_id => {
+      return mergedArray.find(s => {
+        if (s.attribute_id === attribute_id && s.attribute_score) {
+          return s;
+        }
+        if (s.attribute_id === attribute_id) {
+          return s;
+        }
+      });
+    });
 
+    return result;
+  }
+
+  populateFormFields() {
+    this.addEditReportForm.patchValue({
+      remarks: this.reportCardData.remarks
+    });
+
+    let data = this.addEditReportForm.get('abilities') as FormArray;
     Object.keys(this.reportCardData.abilities).forEach(index => {
       for (let i = 0; i < data.length; i++) {
         if (
@@ -148,7 +169,10 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
           data.at(i).value.ability_id
         ) {
           data.at(i).patchValue({
-            attributes: this.reportCardData.abilities[index].attributes
+            attributes: this.populateAttributes(
+              data.at(i).value.attributes,
+              this.reportCardData.abilities[index].attributes
+            )
           });
           break;
         }
