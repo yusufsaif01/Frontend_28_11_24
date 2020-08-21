@@ -76,7 +76,7 @@ const routes: Routes = [
   {
     path: 'change-password',
     component: ChangePasswordComponent,
-    data: { title: extract('Change Password') },
+    data: { title: extract('Change password') },
     canActivate: [AuthenticationGuard]
   },
   {
@@ -87,7 +87,7 @@ const routes: Routes = [
   {
     path: 'link-expired',
     component: LinkExpiredComponent,
-    data: { title: extract('Link Expired') }
+    data: { title: extract('Link expired') }
   },
   { path: '404', component: NotFoundComponent },
 

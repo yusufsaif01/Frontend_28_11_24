@@ -416,10 +416,10 @@
                           ? 'Third'
                           : ''
                       }}
-                      Position <span>*</span></label
+                      position <span>*</span></label
                     >
                     <select formControlName="id" matNativeControl required>
-                      <option value="">Select Position</option>
+                      <option value="">Select position</option>
 
                       <option
                         *ngFor="let position of positionArray"
@@ -455,7 +455,7 @@
                             ? 'Third'
                             : ''
                         }}
-                        Position is required</span
+                        position is required</span
                       >
                     </mat-error>
                   </div>
@@ -700,7 +700,7 @@
                             .errors.required
                         "
                         translate
-                        >Head Coach Name is required
+                        >Head coach name is required
                       </span>
                       <span
                         *ngIf="
@@ -1120,7 +1120,7 @@
                           .pattern
                       "
                       translate
-                      >Other League format is invalid</span
+                      >Other league format is invalid</span
                     >
                   </mat-error>
                 </div>
@@ -1309,7 +1309,7 @@
 
           <!-- Contact detials -->
           <div class="section">
-            <h3>Contact Details <span> *</span></h3>
+            <h3>Contact details <span> *</span></h3>
             <div
               class="input-container"
               *ngFor="
