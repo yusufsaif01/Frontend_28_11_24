@@ -12,7 +12,10 @@ import { untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+import { AppDateAdapter } from '@app/shared/utilities/format-datepicker';
 import { DateConversion } from '@app/shared/utilities/date-conversion';
+import { Constants } from '@app/shared/static-data/static-data';
 
 interface clubAcadArrayContext {
   name: string;
@@ -46,11 +49,19 @@ let playerEmailControl = {
   player_email: [Validators.required, Validators.email]
 };
 
+export function dateFactory() {
+  return Constants.PROFILE_DATE_FORMATS.DOB;
+}
+
 @Component({
   selector: 'app-add-edit-employment-contract',
   templateUrl: './add-edit-employment-contract.component.html',
   styleUrls: ['./add-edit-employment-contract.component.scss'],
-  providers: [DateConversion]
+  providers: [
+    { provide: DateAdapter, useClass: AppDateAdapter },
+    { provide: MAT_DATE_FORMATS, useFactory: dateFactory },
+    DateConversion
+  ]
 })
 export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
   panelOptions: Partial<PanelOptions> = {

@@ -390,7 +390,7 @@
                             .required
                         "
                         translate
-                        >First Name is required</span
+                        >First name is required</span
                       >
                       <span
                         *ngIf="
@@ -400,7 +400,7 @@
                             .pattern
                         "
                         translate
-                        >First Name is invalid</span
+                        >First name is invalid</span
                       >
                     </mat-error>
                   </div>
@@ -429,7 +429,7 @@
                             .required
                         "
                         translate
-                        >Last Name is required</span
+                        >Last name is required</span
                       >
                       <span
                         *ngIf="
@@ -439,7 +439,7 @@
                             .pattern
                         "
                         translate
-                        >Last Name is invalid</span
+                        >Last name is invalid</span
                       >
                     </mat-error>
                   </div>
@@ -569,7 +569,7 @@
                           else patternBlock
                         "
                         translate
-                        >Height in Feet is required</span
+                        >Height in feet is required</span
                       >
                       <ng-template #patternBlock>
                         <span
@@ -580,7 +580,7 @@
                             else maxBlock
                           "
                         >
-                          Height in Feet format is invalid
+                          Height in feet format is invalid
                         </span>
                       </ng-template>
                       <ng-template #maxBlock>
@@ -593,7 +593,7 @@
                               .errors.min
                           "
                         >
-                          Height in Feet must be between 1 and 10
+                          Height in feet must be between 1 and 10
                         </span>
                       </ng-template>
                     </mat-error>
@@ -624,7 +624,7 @@
                           else patternBlock
                         "
                         translate
-                        >Height in Inches is required</span
+                        >Height in inches is required</span
                       >
                       <ng-template #patternBlock>
                         <span
@@ -635,7 +635,7 @@
                             else maxBlock
                           "
                         >
-                          Height in Inches format is invalid
+                          Height in inches format is invalid
                         </span>
                       </ng-template>
                       <ng-template #maxBlock>
@@ -648,7 +648,7 @@
                               .errors.min
                           "
                         >
-                          Height in Inches must be between 0 and 12
+                          Height in inches must be between 0 and 12
                         </span>
                       </ng-template>
                     </mat-error>
@@ -688,7 +688,7 @@
                             .required
                         "
                         translate
-                        >Phone Number is required</span
+                        >Phone number is required</span
                       >
                       <ng-template #lengthBlock>
                         <span
@@ -731,7 +731,7 @@
                         "
                         translate
                       >
-                        Phone Number format is invalid
+                        Phone number format is invalid
                       </span>
                     </mat-error>
                   </div>
@@ -768,7 +768,7 @@
                         personalProfileDetailsForm.controls.dob.errors.required
                       "
                       translate
-                      >Date of Birth is required</span
+                      >Date of birth is required</span
                     >
                   </mat-error>
                 </div>
@@ -843,7 +843,7 @@
                   formControlName="state"
                   (change)="onSelectState($event)"
                 >
-                  <option value="">Select State/UT </option>
+                  <option value="">Select state / UT </option>
                   <ng-container *ngFor="let state of stateArray">
                     <option value="{{ state.id }}">{{ state.name }}</option>
                   </ng-container>
@@ -1256,7 +1256,7 @@
                   formControlName="country"
                   (change)="onSelectCountry($event)"
                 >
-                  <option value="">Select Country</option>
+                  <option value="">Select country</option>
                   <ng-container *ngFor="let country of countryArray">
                     <option [value]="country.country_id">{{
                       country.country
@@ -1314,7 +1314,7 @@
               <div class="form-block">
                 <label>District <span>*</span></label>
                 <select formControlName="district">
-                  <option value="">Select District</option>
+                  <option value="">Select district</option>
                   <ng-container *ngFor="let district of districtArray">
                     <option [value]="district.id">{{ district.name }}</option>
                   </ng-container>

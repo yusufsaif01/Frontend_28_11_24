@@ -10,6 +10,7 @@ import { TableComponent } from './table/table.component';
 import { MasterTableComponent } from './master-table/master-table.component';
 import { RouterModule } from '@angular/router';
 import { PaginationComponent } from './pagination/pagination.component';
+import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { TrimPipe } from './pipes/trim.pipe';
 import { MaskPipe } from './pipes/mask.pipe';
@@ -40,6 +41,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     TrimPipe,
     MaskPipe,
     PadzeroPipe,
+    CustomDatePipe,
     GridSearchBoxComponent,
     TextSectionComponent,
     PasswordDirective
@@ -51,6 +53,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     TrimPipe,
     MaskPipe,
     PadzeroPipe,
+    CustomDatePipe,
     PageComponentsModule,
     FlexLayoutModule,
     MaterialModule,
