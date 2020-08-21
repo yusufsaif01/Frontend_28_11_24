@@ -78,6 +78,10 @@
 .btn-group {
   width: 100%;
 
+  @include responsive(smallestphone) {
+    width: 95%;
+  }
+
   button {
     margin: 1rem;
     background: $fourth-color;
