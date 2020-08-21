@@ -167,6 +167,12 @@
 
 // media query manager
 @mixin responsive($breakpoint) {
+  @if $breakpoint==smallestphone {
+    @media only screen and (max-width: 375px) {
+      @content;
+    }
+  }
+
   @if $breakpoint==smallphone {
     @media only screen and (max-width: 479px) {
       @content;
