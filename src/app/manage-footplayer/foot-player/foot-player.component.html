@@ -59,14 +59,17 @@
           >
             <div
               [matTooltip]="
-                profile_status !== 'verified'
+                profile_status !== 'verified' && status === 'added'
                   ? 'This player is not verified'
                   : ''
               "
             >
               <div
                 class="action-buttons"
-                [ngClass]="{ 'icon-disable': profile_status !== 'verified' }"
+                [ngClass]="{
+                  'icon-disable':
+                    profile_status !== 'verified' && status === 'added'
+                }"
               >
                 <button
                   matTooltip="Resend invitation"
