@@ -40,11 +40,27 @@
 
         .details {
           display: flex;
-          width: 50%;
+          width: 60%;
           margin: 1rem 0;
+
+          @include responsive(bigphone) {
+            width: 100%;
+          }
+
+          @include responsive(smallestphone) {
+            flex-wrap: wrap;
+          }
 
           .left {
             width: 40%;
+
+            @include responsive(smallphone) {
+              width: 50%;
+            }
+
+            @include responsive(smallestphone) {
+              width: 100%;
+            }
 
             h4 {
               font-weight: 500;
@@ -55,9 +71,21 @@
           .right {
             width: 60%;
 
+            @include responsive(smallphone) {
+              width: 50%;
+            }
+
+            @include responsive(smallestphone) {
+              width: 100%;
+            }
+
             p {
               font-size: $heading-fourth;
               color: $second-color;
+
+              @include responsive(smallestphone) {
+                padding: 0.5rem 0;
+              }
             }
           }
         }
@@ -69,16 +97,32 @@
       width: 90%;
       margin: 2rem auto;
 
+      @include responsive(smallphone) {
+        flex-wrap: wrap;
+      }
+
       .doc-img {
         width: 30%;
+        margin-right: 2rem;
+
+        @include responsive(bigphone) {
+          width: 35%;
+        }
+
+        @include responsive(mediumphone) {
+          width: 48%;
+        }
+
+        @include responsive(smallphone) {
+          width: 100%;
+        }
 
         h5 {
           font-weight: 600;
         }
 
         img {
-          max-height: 15rem;
-          max-width: 100%;
+          width: 100%;
           border-radius: 1rem;
         }
 
@@ -116,8 +160,13 @@
       width: 90%;
       margin: 0 auto;
 
+      @include responsive(bigphone) {
+        width: 100%;
+      }
+
       .info-label {
         font-weight: 500;
+        font-size: 1.6rem;
 
         span {
           color: $primary-color;
@@ -160,12 +209,34 @@
           display: flex;
           width: 100%;
 
+          @include responsive(smallphone) {
+            flex-wrap: wrap;
+          }
+
           label {
-            width: 33%;
+            width: 40%;
             margin-right: 4rem;
             font-weight: 600;
             color: $fourth-color;
             cursor: pointer;
+            font-size: 1.6rem;
+
+            @include responsive(tablet) {
+              max-width: 33rem;
+            }
+
+            @include responsive(bigphone) {
+              margin-right: 2rem;
+            }
+
+            @include responsive(mediumphone) {
+              width: 50%;
+            }
+
+            @include responsive(smallphone) {
+              width: 100%;
+              margin-right: 0rem;
+            }
 
             p {
               font-weight: 400;
@@ -185,6 +256,10 @@
               img {
                 max-width: 8rem;
                 margin-right: 2rem;
+
+                @include responsive(smalldesktop) {
+                  max-width: 7rem;
+                }
               }
 
               span {
@@ -207,6 +282,7 @@
                   width: 100%;
                   text-align: center;
                   max-width: 12rem;
+                  font-size: 1.4rem;
                 }
               }
             }
@@ -304,6 +380,27 @@
       .third {
         width: 31%;
         margin-right: 3rem;
+
+        @include responsive(mediumphone) {
+          width: 50%;
+        }
+
+        @include responsive(smallphone) {
+          width: 100%;
+        }
+      }
+
+      .w-40 {
+        width: 40%;
+        max-width: 33rem;
+
+        @include responsive(mediumphone) {
+          width: 50%;
+        }
+
+        @include responsive(smallphone) {
+          width: 100%;
+        }
       }
 
       .two-third {
