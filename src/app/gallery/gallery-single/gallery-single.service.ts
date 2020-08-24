@@ -55,6 +55,16 @@ interface GetPostListingResponseContext {
       text: string;
       media_url: string;
       media_type: string;
+      media_thumbnail: {
+        sizes: string;
+      }[];
+      meta?: {
+        abilities: {
+          ability_name: string;
+          attributes: [];
+        }[];
+        others: [];
+      };
     };
     posted_by: {
       avatar: string;

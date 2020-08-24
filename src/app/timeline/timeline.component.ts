@@ -14,6 +14,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { wordCount } from '@app/shared/validators/wordCount';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { VideoPopupComponent } from './video-popup/video-popup.component';
+import { ClipboardService } from 'ngx-clipboard';
 
 interface PostContext {
   id: string;
@@ -21,6 +22,16 @@ interface PostContext {
     text: string;
     media_url: string;
     media_type: string;
+    media_thumbnail: {
+      sizes: string;
+    }[];
+    meta?: {
+      abilities: {
+        ability_name: string;
+        attributes: [];
+      }[];
+      others: [];
+    };
   };
   posted_by: {
     avatar: string;
@@ -127,6 +138,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private _timelineService: TimelineService,
     private _toastrService: ToastrService,
+    private _clipboardService: ClipboardService,
     private _formBuilder: FormBuilder
   ) {}
 
@@ -383,5 +395,11 @@ export class TimelineComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(VideoPopupComponent, {
       data
     });
+  }
+
+  copyToClipboard(videoId: string) {
+    let url = environment.mediaUrl + '/member/gallery/gallery-view/' + videoId;
+    this._clipboardService.copyFromContent(url);
+    this._toastrService.success('Success', 'Link copied to clipboard');
   }
 }

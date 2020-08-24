@@ -99,11 +99,13 @@
             </div>
             <!-- icons -->
             <div class="actions" *ngIf="userId == post.posted_by.user_id">
-              <span>
-                <a (click)="editPost(post)">
-                  <mat-icon class="material-icons">link</mat-icon>
-                </a>
-              </span>
+              <ng-container *ngIf="post.post.media_type === 'video'">
+                <span>
+                  <a (click)="copyToClipboard(post.id)">
+                    <mat-icon class="material-icons">link</mat-icon>
+                  </a>
+                </span>
+              </ng-container>
               <span>
                 <a (click)="editPost(post)">
                   <mat-icon class="material-icons">edit</mat-icon>
@@ -117,19 +119,27 @@
             </div>
           </div>
           <!-- postbody -->
-          <div class="postbody">
+          <div
+            class="postbody"
+            *ngIf="!post.post.media_type || post.post.media_type === 'image'"
+          >
             <div class="post-content">
               <p>
                 {{ post.post.text }}
               </p>
-              <p>
-                <span>#Stamina</span> <span>#Balance</span>
-                <span>#Sprint speed</span>
-                <span>#Strength</span>
-              </p>
             </div>
             <div class="post-img">
               <img [src]="post.post.media_url" alt="" />
+            </div>
+          </div>
+
+          <div class="postbody" *ngIf="post.post.media_type === 'video'">
+            <div class="post-content">
+              <p>
+                <span *ngFor="let attribute of post.post.meta.abilities"
+                  >#{{ attribute.attributes.join(' #') }}</span
+                >
+              </p>
             </div>
           </div>
           <!-- like comment -->

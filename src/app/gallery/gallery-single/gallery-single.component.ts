@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { wordCount } from '@app/shared/validators/wordCount';
+import { ClipboardService } from 'ngx-clipboard';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 
 interface PostContext {
@@ -18,6 +19,16 @@ interface PostContext {
     text: string;
     media_url: string;
     media_type: string;
+    media_thumbnail: {
+      sizes: string;
+    }[];
+    meta?: {
+      abilities: {
+        ability_name: string;
+        attributes: [];
+      }[];
+      others: [];
+    };
   };
   posted_by: {
     avatar: string;
@@ -75,6 +86,7 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
   constructor(
     private _gallerySingleService: GallerySingleService,
     private _toastrService: ToastrService,
+    private _clipboardService: ClipboardService,
     private _formBuilder: FormBuilder,
     private dialog: MatDialog,
     private _activatedRoute: ActivatedRoute
@@ -285,6 +297,12 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
           );
       }
     });
+  }
+
+  copyToClipboard(videoId: string) {
+    let url = environment.mediaUrl + '/member/gallery/gallery-view/' + videoId;
+    this._clipboardService.copyFromContent(url);
+    this._toastrService.success('Success', 'Link copied to clipboard');
   }
 
   ngOnDestroy() {}

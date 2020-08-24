@@ -68,7 +68,7 @@
               <!-- icons -->
               <div class="actions">
                 <span>
-                  <a>
+                  <a (click)="copyToClipboard(post.id)">
                     <mat-icon class="material-icons">link</mat-icon>
                   </a>
                 </span>
@@ -88,13 +88,9 @@
             <div class="postbody">
               <div class="post-content">
                 <p>
-                  <span>#Acceleration</span>
-                  <span>#Agility</span>
-                  <span>#Jumping</span>
-                  <span>#Strength</span>
-                  <span>#Sprint speed</span>
-                  <span>#Balance</span>
-                  <span>#Stamina</span>
+                  <span *ngFor="let attribute of post.post.meta.abilities"
+                    >#{{ attribute.attributes.join(' #') }}</span
+                  >
                 </p>
               </div>
             </div>

@@ -202,7 +202,20 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
   createVideoPost() {
     let requestData = this.toFormData(this.createVideoPostForm.value);
+    let abc = [
+      {
+        ability: '4dfbd731-f523-49fa-94d8-7eb8238de403',
+        attributes: ['bd32daac-8e53-4b1a-a88e-24999477a58e']
+      },
+      {
+        ability: '2e9bb4e4-4778-42c9-881c-d300798fbfb6',
+        attributes: ['b1ed6794-e5a6-441c-a918-c1e236ec6319']
+      }
+    ];
+
     if (this.media) requestData.set('media', this.media);
+    requestData.set('tags', JSON.stringify(abc));
+
     this._timelineService
       .createVideoPost({ requestData, type: this.type })
       .pipe(untilDestroyed(this))
@@ -212,6 +225,10 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
           this._toastrService.error('Error', error.error.message);
         }
       );
+  }
+
+  setRequestDataObject(requestData: any, name: string) {
+    requestData.set(name, JSON.stringify(this.createVideoPostForm.value[name]));
   }
 
   createForm() {
