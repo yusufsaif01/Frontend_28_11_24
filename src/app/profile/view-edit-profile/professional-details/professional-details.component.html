@@ -99,17 +99,17 @@
           </div>
 
           <div
-            class="view-details"
+            class="section"
             *ngIf="professionalDetails?.player_type !== 'grassroot'"
           >
-            <div class="details">
-              <div class="left">
-                <h4>Former club / academy</h4>
-              </div>
-              <div class="right">
-                <p>
-                  {{ professionalDetails?.former_club_academy | titlecase }}
-                </p>
+            <h3 class="section-heading mb-0">Former club / academy</h3>
+            <div class="section-block">
+              <div class="full">
+                <div class="right">
+                  <p>
+                    {{ professionalDetails?.former_club_academy | titlecase }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -416,10 +416,10 @@
                           ? 'Third'
                           : ''
                       }}
-                      Position <span>*</span></label
+                      position <span>*</span></label
                     >
                     <select formControlName="id" matNativeControl required>
-                      <option value="">Select Position</option>
+                      <option value="">Select position</option>
 
                       <option
                         *ngFor="let position of positionArray"
@@ -455,7 +455,7 @@
                             ? 'Third'
                             : ''
                         }}
-                        Position is required</span
+                        position is required</span
                       >
                     </mat-error>
                   </div>
@@ -700,7 +700,7 @@
                             .errors.required
                         "
                         translate
-                        >Head Coach Name is required
+                        >Head coach name is required
                       </span>
                       <span
                         *ngIf="
@@ -827,24 +827,26 @@
               </div>
             </ng-container>
 
-            <div
-              class="input-container"
+            <ng-container
               *ngIf="professionalDetails?.player_type !== 'grassroot'"
             >
-              <div class="third">
-                <div class="form-block">
-                  <input
-                    formControlName="former_club_academy"
-                    type="text"
-                    matInput
-                    autocomplete="off"
-                    placeholder="Former club / academy"
-                    trim="blur"
-                  />
-                  <mat-error class="error-text"> </mat-error>
+              <h3>Former club / academy</h3>
+              <div class="input-container">
+                <div class="third">
+                  <div class="form-block">
+                    <input
+                      formControlName="former_club_academy"
+                      type="text"
+                      matInput
+                      autocomplete="off"
+                      placeholder="Former club / academy"
+                      trim="blur"
+                    />
+                    <mat-error class="error-text"> </mat-error>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ng-container>
 
             <div class="actions mt-2 mb-2">
               <div class="btn-group">
@@ -1120,7 +1122,7 @@
                           .pattern
                       "
                       translate
-                      >Other League format is invalid</span
+                      >Other league format is invalid</span
                     >
                   </mat-error>
                 </div>
@@ -1309,7 +1311,7 @@
 
           <!-- Contact detials -->
           <div class="section">
-            <h3>Contact Details <span> *</span></h3>
+            <h3>Contact details <span> *</span></h3>
             <div
               class="input-container"
               *ngFor="

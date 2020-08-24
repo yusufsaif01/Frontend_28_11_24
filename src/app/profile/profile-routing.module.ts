@@ -19,12 +19,7 @@ const appRoutes: Routes = [
       {
         path: '',
         component: ViewEditProfileComponent,
-        data: { title: extract('My Profile') }
-      },
-      {
-        path: ':tabname',
-        component: ViewEditProfileComponent,
-        data: { title: extract('My Profile') }
+        data: { title: extract('My profile') }
       },
       {
         path: 'add-employment-contract',
@@ -55,6 +50,11 @@ const appRoutes: Routes = [
         path: 'public/:user_id',
         component: PublicProfileComponent,
         data: { title: extract('Public profile') }
+      },
+      {
+        path: ':tabname',
+        component: ViewEditProfileComponent,
+        data: { title: extract('My profile') }
       },
       { path: '**', component: ViewEditProfileComponent }
     ]
