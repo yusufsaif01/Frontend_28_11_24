@@ -177,6 +177,10 @@
                 margin-right: 1.2rem;
               }
 
+              @include responsive(tablet) {
+                margin-right: 3rem;
+              }
+
               img {
                 width: 2.4rem;
               }
