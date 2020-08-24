@@ -140,6 +140,10 @@
   cursor: not-allowed;
   user-select: none;
   color: $grey !important;
+
+  button {
+    @extend .icon-disable;
+  }
 }
 
 .pb-3 {
