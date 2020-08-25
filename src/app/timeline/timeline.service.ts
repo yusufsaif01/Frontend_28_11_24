@@ -14,7 +14,7 @@ const routes = {
   getCommentListing: (params: string, query: string) =>
     `/post/${params}/comments${query}`,
   createVideoPost: (query: string) => `/video/${query}`,
-  updateVideoPost: (video_id: string) => `/post/${video_id}`
+  updateVideoPost: (video_id: string) => `/video/${video_id}`
 };
 
 interface createVideoPostContext {
@@ -260,17 +260,9 @@ export class TimelineService {
   }
 
   updateVideoPost(
+    video_id: string,
     context: createVideoPostContext
   ): Observable<CommonResponseContext> {
-    let query = '?';
-
-    if (context['type']) {
-      query += 'type=' + context['type'];
-    }
-
-    return this.httpClient.put<CommonResponseContext>(
-      routes.updateVideoPost(query),
-      context.requestData
-    );
+    return this.httpClient.put<any>(routes.updateVideoPost(video_id), context);
   }
 }

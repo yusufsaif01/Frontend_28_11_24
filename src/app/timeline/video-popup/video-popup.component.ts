@@ -7,6 +7,8 @@ import { untilDestroyed } from '@app/core';
 import { SharedService } from '@app/shared/shared.service';
 import { requiredVideo } from '@app/shared/validators/requiredVideo';
 import { videoTags } from '@app/shared/validators/videoTags';
+import { element } from 'protractor';
+import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_FACTORY } from '@angular/cdk/overlay/typings/overlay-directives';
 
 export interface TagContext {
   ability: string;
@@ -52,7 +54,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     ability_name: '',
     attributes: []
   };
-  currentStep = 'tags';
+  currentStep = 'selectVideo';
   member_type = '';
 
   constructor(
@@ -67,13 +69,12 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
       this.member_type = this.data.member_type;
     }
     this.createForm();
-    if (this.data) {
-      this.patchValue();
-    }
   }
 
   ngOnInit() {
     this.getAbilityAttributeList();
+    // if(this.data)
+    //   this.patchValue();
   }
 
   getAbilityAttributeList() {
@@ -114,6 +115,8 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
         ability.ability ===
         this.selectedAbilityIdList[this.selectedAbilityIdList.length - 1]
     );
+
+    if (this.data) this.patchValue();
   }
 
   populateAbilityControl(ability: TagContext) {
@@ -172,21 +175,12 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
       this.selectedAbilityIdList.push(ability);
     }
     // this.checkSample(ability);
-    console.log(this.selectedAbilityIdList);
+    // console.log(this.selectedAbilityIdList);
     this.selectedAbility = this.tagsArray.find(
       ability =>
         ability.ability ===
         this.selectedAbilityIdList[this.selectedAbilityIdList.length - 1]
     );
-  }
-
-  checkSample(abilityId: string) {
-    this.createVideoPostForm.value['tags'].map(ability => {
-      let data = ability.attributes.some(o => o.attribute === true);
-      if (ability.ability === abilityId && data) return true;
-    });
-
-    return false;
   }
 
   getUploadVideoLength() {
@@ -247,15 +241,22 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     return data;
   }
 
-  createVideoPost() {
+  videoPost() {
     let data = this.changeFormData(this.createVideoPostForm.value);
     let requestData = this.toFormData({
       ...data
     });
 
-    if (this.media) requestData.set('media', this.media);
     this.setRequestDataObject(requestData, 'tags');
 
+    if (this.data) this.updateVideoPost(requestData);
+    else {
+      if (this.media) requestData.set('media', this.media);
+      this.createVideoPost(requestData);
+    }
+  }
+
+  createVideoPost(requestData: any) {
     this._timelineService
       .createVideoPost({ requestData, type: this.type })
       .pipe(untilDestroyed(this))
@@ -269,17 +270,9 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
       );
   }
 
-  updateVideoPost() {
-    let data = this.changeFormData(this.createVideoPostForm.value);
-    let requestData = this.toFormData({
-      ...data
-    });
-
-    if (this.media) requestData.set('media', this.media);
-    this.setRequestDataObject(requestData, 'tags');
-
+  updateVideoPost(requestData: any) {
     this._timelineService
-      .updateVideoPost({ requestData, type: this.type })
+      .updateVideoPost(this.data.id, requestData)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
@@ -306,9 +299,30 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   }
 
   patchValue() {
-    this.createVideoPostForm.patchValue({
-      tags: this.data.post.meta.abilities
+    let formdata = this.createVideoPostForm.get('tags') as FormArray;
+    let attributesArray = this.getAllAttributes();
+
+    for (let i = 0; i < formdata.length; i++) {
+      formdata.at(i).value.attributes.some((el: any) => {
+        if (attributesArray.includes(el.attribute)) el.attribute_value = true;
+      });
+
+      formdata.at(i).patchValue({
+        attributes: formdata.at(i).value.attributes
+      });
+    }
+  }
+
+  getAllAttributes() {
+    let attributeArray: any = [];
+
+    this.data.post.meta.abilities.forEach((result: any, index: number) => {
+      result.attributes.some(el => {
+        attributeArray.push(el.attribute_id);
+      });
     });
+
+    return attributeArray;
   }
 
   ngOnDestroy() {}

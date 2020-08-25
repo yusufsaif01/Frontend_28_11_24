@@ -145,9 +145,11 @@
           <div class="postbody" *ngIf="post.post.media_type === 'video'">
             <div class="post-content">
               <p>
-                <span *ngFor="let attribute of post.post.meta.abilities"
-                  >#{{ attribute.attributes.join(' #') }}</span
-                >
+                <span *ngFor="let ability of post.post.meta.abilities">
+                  <ng-container *ngFor="let attribute of ability.attributes">
+                    #{{ attribute.attribute_name }}
+                  </ng-container>
+                </span>
               </p>
             </div>
           </div>
