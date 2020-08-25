@@ -7,7 +7,7 @@
   background: $third-color;
   margin-top: 8.5rem;
 
-  @include responsive(tablet) {
+  @include responsive(bigphone) {
     margin-top: 14rem;
   }
 

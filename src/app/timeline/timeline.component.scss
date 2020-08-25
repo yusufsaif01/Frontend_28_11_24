@@ -463,7 +463,7 @@
 //  post popup
 ::ng-deep {
   .postpopup,
-  .delelepopup {
+  .deletepopup {
     width: 50% !important;
 
     @include responsive(tablet) {

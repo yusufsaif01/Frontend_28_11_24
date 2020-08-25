@@ -127,7 +127,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   // delete
   deletePopup(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      panelClass: 'delelepopup',
+      panelClass: 'deletepopup',
       data: {
         header: 'Please confirm',
         message: 'Are you sure you want to delete?',

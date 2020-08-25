@@ -44,7 +44,7 @@ export class EmploymentContractsComponent implements OnInit {
   }
   deletePopup(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      panelClass: 'delelepopup',
+      panelClass: 'deletepopup',
       data: {
         message: 'Are you sure you want to delete?',
         acceptText: 'Confirm',

@@ -150,7 +150,7 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
 
   deletePopup(user_id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      panelClass: 'delelepopup',
+      panelClass: 'deletepopup',
       data: {
         header: 'Delete player'
       }

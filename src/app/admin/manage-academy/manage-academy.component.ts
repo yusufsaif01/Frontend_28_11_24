@@ -140,7 +140,7 @@ export class ManageAcademyComponent implements OnInit, OnDestroy {
 
   deletePopup(user_id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      panelClass: 'delelepopup',
+      panelClass: 'deletepopup',
       data: {
         header: 'Delete academy'
       }

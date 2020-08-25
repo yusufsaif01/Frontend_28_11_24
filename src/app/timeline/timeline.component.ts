@@ -323,7 +323,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   deletePost(post_id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      panelClass: 'delelepopup',
+      panelClass: 'deletepopup',
       data: {
         header: 'Delete post',
         message: 'Are you sure you want to delete?'
