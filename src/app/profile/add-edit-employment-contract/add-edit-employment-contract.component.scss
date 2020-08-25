@@ -7,9 +7,17 @@
   background: $third-color;
   margin-top: 8.5rem;
 
+  @include responsive(tablet) {
+    margin-top: 14rem;
+  }
+
   .right-panel {
     width: 76.25%;
     position: relative;
+
+    @include responsive(tablet) {
+      width: 100%;
+    }
 
     .footer-fix {
       position: absolute;
@@ -40,19 +48,49 @@
           width: 90%;
           margin: 0 auto;
 
+          @include responsive(bigphone) {
+            width: 100%;
+          }
+
           .form-sections {
             .block {
               display: flex;
               padding-left: 3rem;
               flex-wrap: wrap;
 
+              @include responsive(smallestphone) {
+                padding-left: 0rem;
+              }
+
               .half {
                 width: 40%;
                 margin-right: 2rem;
+
+                @include responsive(bigphone) {
+                  width: 47%;
+                }
+
+                @include responsive(mediumphone) {
+                  width: 45%;
+                }
+
+                @include responsive(smallphone) {
+                  width: 100%;
+                  margin-right: 0rem;
+                }
               }
 
               .full {
                 width: 82%;
+
+                @include responsive(bigphone) {
+                  width: 96.5%;
+                }
+
+                @include responsive(smallphone) {
+                  width: 100%;
+                  margin-right: 0rem;
+                }
               }
             }
           }
