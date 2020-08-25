@@ -256,8 +256,7 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
 
   deletePost(post_id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      width: '50% ',
-      panelClass: 'filterDialog',
+      panelClass: 'delelepopup',
       data: {
         header: 'Delete post',
         message: 'Are you sure you want to delete?'

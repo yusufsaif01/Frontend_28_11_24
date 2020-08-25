@@ -7,9 +7,17 @@
   background: $third-color;
   margin-top: 8.5rem;
 
+  @include responsive(tablet) {
+    margin-top: 14rem;
+  }
+
   .right-panel {
     width: 76.25%;
     position: relative;
+
+    @include responsive(tablet) {
+      width: 100%;
+    }
 
     .footer-fix {
       position: absolute;
@@ -34,6 +42,10 @@
           padding: 2rem 3rem;
           color: $fourth-color;
 
+          @include responsive(smallphone) {
+            padding: 2rem 0rem;
+          }
+
           button {
             border: none;
             background: transparent;
@@ -51,6 +63,10 @@
           margin: auto;
           margin-bottom: 3rem;
 
+          @include responsive(smallphone) {
+            width: 100%;
+          }
+
           h3 {
             span {
               font-weight: 400;
@@ -63,14 +79,48 @@
             display: flex;
             flex-wrap: wrap;
 
+            @include responsive(smallphone) {
+              padding-left: 0rem;
+            }
+
             .detail-panel,
             .detail-panel-full {
               display: flex;
               width: 48%;
               margin: 1rem 0;
 
+              @include responsive(bigphone) {
+                flex-wrap: wrap;
+              }
+
+              @include responsive(mediumphone) {
+                flex-wrap: nowrap;
+                width: 100%;
+              }
+
+              @include responsive(smallphone) {
+                flex-wrap: wrap;
+                width: 48%;
+              }
+
+              @include responsive(smallestphone) {
+                width: 100%;
+              }
+
               .left {
                 width: 50%;
+
+                @include responsive(bigphone) {
+                  width: 100%;
+                }
+
+                @include responsive(smallphone) {
+                  width: 100%;
+                }
+
+                @include responsive(mediumphone) {
+                  width: 50%;
+                }
 
                 h4 {
                   font-weight: 500;
@@ -80,9 +130,33 @@
               .right {
                 width: 50%;
 
+                @include responsive(bigphone) {
+                  width: 100%;
+                }
+
+                @include responsive(mediumphone) {
+                  width: 50%;
+                }
+
+                @include responsive(smallphone) {
+                  width: 100%;
+                }
+
                 p {
                   font-size: $heading-fourth;
                   color: $second-color;
+
+                  @include responsive(bigphone) {
+                    padding: 1rem 0;
+                  }
+
+                  @include responsive(mediumphone) {
+                    padding: 0;
+                  }
+
+                  @include responsive(smallphone) {
+                    padding: 1rem 0;
+                  }
                 }
               }
             }
@@ -96,10 +170,13 @@
         .agentheading-wrappper {
           display: flex;
           width: 100%;
-          // align-items: center;
 
           h3 {
             width: 51%;
+
+            @include responsive(bigphone) {
+              width: 80%;
+            }
           }
 
           span {
@@ -115,6 +192,29 @@
           margin-bottom: 3rem;
         }
       }
+    }
+  }
+}
+
+//  popup
+::ng-deep {
+  .verificationpopup {
+    width: 50%;
+
+    @include responsive(tablet) {
+      width: 60%;
+    }
+
+    @include responsive(bigphone) {
+      width: 75%;
+    }
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallphone) {
+      max-width: 95vw !important;
     }
   }
 }
