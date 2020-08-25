@@ -251,6 +251,7 @@
                       <input
                         formControlName="signing_date"
                         matInput
+                        readonly
                         [matDatepicker]="signing"
                         [max]="yesterday"
                         placeholder="Contract signing date"
@@ -285,6 +286,7 @@
                       <input
                         formControlName="effective_date"
                         matInput
+                        readonly
                         [matDatepicker]="effective"
                         [min]="addEditContractForm.get('signing_date').value"
                         placeholder="Contract effective date"
@@ -319,6 +321,7 @@
                       <input
                         formControlName="expiry_date"
                         matInput
+                        readonly
                         [matDatepicker]="expiry"
                         [min]="addEditContractForm.get('effective_date').value"
                         [max]="fiveYearFromNow"
