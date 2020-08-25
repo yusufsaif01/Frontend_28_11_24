@@ -320,7 +320,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     let attributeArray: any = [];
 
     this.data.post.meta.abilities.forEach((result: any, index: number) => {
-      result.attributes.some(el => {
+      result.attributes.some((el: any) => {
         attributeArray.push(el.attribute_id);
       });
     });
