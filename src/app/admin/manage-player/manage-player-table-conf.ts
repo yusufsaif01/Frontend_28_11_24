@@ -10,7 +10,8 @@ export class ManagePlayerTableConfig extends TableConfig {
         code: 'name',
         text: 'Player Name',
         getValue: (ele: any) => {
-          return ele[this.columns.name.code];
+          return `${ele[this.columns.name.code].charAt(0).toUpperCase() +
+            ele[this.columns.name.code].slice(1)}`;
         }
       },
       position: {

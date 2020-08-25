@@ -138,8 +138,13 @@ export class DocumentVerificationComponent implements OnInit {
       }
       data = {
         header: 'Approve',
-        message: `Do you want to approve ${message} of ${this.documentDetails
-          .player_name || this.documentDetails.name} ${this.member_type} ?`
+        message: `Do you want to approve ${message} of ${
+          this.documentDetails.player_name
+            ? this.documentDetails.player_name.charAt(0).toUpperCase() +
+              this.documentDetails.player_name.slice(1)
+            : this.documentDetails.name.charAt(0).toUpperCase() +
+              this.documentDetails.name.slice(1)
+        } ${this.member_type} ?`
       };
     } else if (status === 'disapproved') {
       data = {
@@ -241,7 +246,9 @@ export class DocumentVerificationComponent implements OnInit {
     }
     if (status === 'approved') {
       (header = 'Please confirm'),
-        (message = `Do you want to approve the Employment Contract of ${playerName} player ?`);
+        (message = `Do you want to approve the Employment Contract of ${playerName
+          .charAt(0)
+          .toUpperCase() + playerName.slice(1)} player ?`);
       disApprove = false;
     }
     const dialogRef = this.dialog.open(VerificationPopupComponent, {

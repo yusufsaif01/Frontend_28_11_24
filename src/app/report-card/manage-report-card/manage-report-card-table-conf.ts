@@ -20,7 +20,8 @@ export class ManageReportCardTableConfig extends TableConfig {
         code: 'name',
         text: member_type === 'player' ? 'Name' : 'Player name',
         getValue: (ele: any) => {
-          return ele[this.columns.name.code];
+          return `${ele[this.columns.name.code].charAt(0).toUpperCase() +
+            ele[this.columns.name.code].slice(1)}`;
         }
       },
       created_by: {

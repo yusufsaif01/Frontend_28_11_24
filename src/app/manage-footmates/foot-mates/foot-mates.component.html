@@ -42,14 +42,15 @@
             <div class="player-block">
               <img [src]="footMate.avatar" alt="" />
               <div class="profile-details">
-                <h2 matTooltip="{{ footMate.name }}">
+                <h2 matTooltip="{{ footMate.name | capitalize }}">
                   <a
                     target="_blank"
                     [routerLink]="['/member/profile/public/', footMate.user_id]"
                     >{{
-                      footMate.name.length < 17
+                      (footMate.name.length < 17
                         ? footMate.name
                         : (footMate.name | slice: 0:17) + '...'
+                      ) | capitalize
                     }}
                   </a>
                 </h2>
