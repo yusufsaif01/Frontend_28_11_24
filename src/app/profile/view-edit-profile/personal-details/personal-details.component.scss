@@ -225,6 +225,10 @@
               width: 40%;
             }
 
+            @include responsive(smallestphone) {
+              width: 50%;
+            }
+
             h4 {
               font-weight: 500;
               color: $second-color;
@@ -236,6 +240,10 @@
 
             @include responsive(bigphone) {
               width: 60%;
+            }
+
+            @include responsive(smallestphone) {
+              width: 50%;
             }
 
             p {
