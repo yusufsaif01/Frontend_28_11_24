@@ -7,9 +7,17 @@
   background: $third-color;
   margin-top: 8.5rem;
 
+  @include responsive(bigphone) {
+    margin-top: 13rem;
+  }
+
   .right-panel {
     width: 76.25%;
     position: relative;
+
+    @include responsive(tablet) {
+      width: 100%;
+    }
 
     .footer-fix {
       left: 0;
@@ -66,8 +74,17 @@
             align-items: center;
             justify-content: space-between;
 
+            @include responsive(mediumphone) {
+              flex-wrap: wrap;
+            }
+
             // buttons
             .right {
+              @include responsive(mediumphone) {
+                width: 100%;
+                margin-top: 1rem;
+              }
+
               button {
                 padding: 1rem 3rem;
                 border: 1px solid $primary-color;
@@ -76,6 +93,16 @@
                 background: transparent;
                 cursor: pointer;
                 outline: none;
+
+                @include responsive(mediumphone) {
+                  margin-left: 0rem;
+                  margin-right: 1rem;
+                }
+
+                @include responsive(smallestphone) {
+                  margin: 1rem 0rem 1rem 0;
+                  width: 100%;
+                }
 
                 &:hover {
                   background: $primary-color;
@@ -121,6 +148,12 @@
                 display: inline-block;
                 margin: 0 1rem;
 
+                @include responsive(smallestphone) {
+                  width: 100%;
+                  text-align: center;
+                  margin-bottom: 1rem;
+                }
+
                 a {
                   color: $fourth-color;
                   font-size: $heading-fourth;
@@ -128,11 +161,27 @@
                   display: inline-block;
                   padding: 1rem 2rem 1rem 0;
                   border-bottom: 2px solid transparent;
+
+                  @include responsive(smallestphone) {
+                    width: 100%;
+                    text-align: center;
+                    margin-bottom: 1rem;
+                    font-weight: 500;
+                    border-radius: 5rem;
+                    border: 2px solid $black-color;
+                    background: $black-color;
+                    color: $white-color;
+                  }
                 }
 
                 a.active {
                   color: $primary-color;
                   border-color: $primary-color;
+
+                  @include responsive(smallestphone) {
+                    background: $primary-color;
+                    color: $white-color;
+                  }
                 }
               }
             }
@@ -166,8 +215,20 @@
     align-items: center;
     margin: 1rem 0;
 
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallestphone) {
+      flex-wrap: wrap;
+    }
+
     .left {
       width: 44%;
+
+      @include responsive(smallestphone) {
+        width: 100%;
+      }
 
       h4 {
         font-weight: 500;
@@ -177,9 +238,17 @@
     .right {
       width: 53%;
 
+      @include responsive(smallestphone) {
+        width: 100%;
+      }
+
       p {
         font-size: $heading-fourth;
         color: $second-color;
+
+        @include responsive(smallestphone) {
+          padding: 0.5rem 0;
+        }
       }
     }
   }
@@ -190,8 +259,24 @@
     align-items: center;
     margin: 1rem 0;
 
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallestphone) {
+      flex-wrap: wrap;
+    }
+
     .left {
       width: 22%;
+
+      @include responsive(mediumphone) {
+        width: 44%;
+      }
+
+      @include responsive(smallestphone) {
+        width: 100%;
+      }
 
       h4 {
         font-weight: 500;
@@ -201,9 +286,21 @@
     .right {
       width: 75%;
 
+      @include responsive(mediumphone) {
+        width: 53%;
+      }
+
+      @include responsive(smallestphone) {
+        width: 100%;
+      }
+
       p {
         font-size: $heading-fourth;
         color: $second-color;
+
+        @include responsive(smallestphone) {
+          padding: 0.5rem 0;
+        }
       }
     }
   }
@@ -213,13 +310,25 @@
 .section {
   width: 70%;
 
+  @include responsive(bigphone) {
+    width: 100%;
+  }
+
   .positions {
     display: flex;
     justify-content: space-between;
     margin: 2rem 0;
 
+    @include responsive(smallphone) {
+      flex-wrap: wrap;
+    }
+
     p {
       color: $second-color;
+
+      @include responsive(smallphone) {
+        width: 100%;
+      }
 
       span {
         font-weight: 700;
@@ -233,8 +342,16 @@
     display: flex;
     margin: 1rem 0;
 
+    @include responsive(smallestphone) {
+      flex-wrap: wrap;
+    }
+
     .left {
       width: 35%;
+
+      @include responsive(smallestphone) {
+        width: 100%;
+      }
 
       h4 {
         font-weight: 500;
@@ -244,9 +361,17 @@
     .right {
       width: 65%;
 
+      @include responsive(smallestphone) {
+        width: 100%;
+      }
+
       p {
         color: $second-color;
         font-size: $heading-fourth;
+
+        @include responsive(smallestphone) {
+          padding: 0.5rem 0;
+        }
       }
 
       .stars {
@@ -277,8 +402,16 @@
         display: flex;
         margin: 1rem 0;
 
+        @include responsive(smallphone) {
+          flex-wrap: wrap;
+        }
+
         .left {
           width: 35%;
+
+          @include responsive(smallphone) {
+            width: 100%;
+          }
 
           h4 {
             font-weight: 500;
@@ -288,9 +421,17 @@
         .right {
           width: 65%;
 
+          @include responsive(smallphone) {
+            width: 100%;
+          }
+
           p {
             font-size: $heading-fourth;
             color: $fourth-color;
+
+            @include responsive(smallphone) {
+              padding: 0.5rem 0;
+            }
           }
         }
       }
@@ -329,8 +470,16 @@
     display: flex;
     margin: 1rem 0;
 
+    @include responsive(smallphone) {
+      flex-wrap: wrap;
+    }
+
     .left {
       width: 25.5%;
+
+      @include responsive(smallphone) {
+        width: 100%;
+      }
 
       h4 {
         font-weight: 500;
@@ -340,9 +489,17 @@
     .right {
       width: 74.5%;
 
+      @include responsive(smallphone) {
+        width: 100%;
+      }
+
       p {
         font-size: $heading-fourth;
         color: $fourth-color;
+
+        @include responsive(smallphone) {
+          padding: 0.5rem 0;
+        }
       }
     }
   }
@@ -391,8 +548,20 @@
       margin: 0.5rem 0;
       width: 48%;
 
+      @include responsive(mediumphone) {
+        width: 100%;
+      }
+
+      @include responsive(smallphone) {
+        flex-wrap: wrap;
+      }
+
       .left {
         width: 35%;
+
+        @include responsive(smallphone) {
+          width: 100%;
+        }
 
         h4 {
           font-weight: 500;
@@ -402,33 +571,41 @@
       .right {
         width: 65%;
 
+        @include responsive(smallphone) {
+          width: 100%;
+        }
+
         p {
           font-size: $heading-fourth;
           color: $fourth-color;
+
+          @include responsive(smallphone) {
+            padding: 0.5rem 0;
+          }
         }
       }
     }
-  }
 
-  .league {
-    .full {
-      display: flex;
-      margin: 1rem 0;
+    .league {
+      .full {
+        display: flex;
+        margin: 1rem 0;
 
-      .left {
-        width: 35%;
+        .left {
+          width: 35%;
 
-        h4 {
-          font-weight: 500;
+          h4 {
+            font-weight: 500;
+          }
         }
-      }
 
-      .right {
-        width: 65%;
+        .right {
+          width: 65%;
 
-        p {
-          font-size: $heading-fourth;
-          color: $fourth-color;
+          p {
+            font-size: $heading-fourth;
+            color: $fourth-color;
+          }
         }
       }
     }

@@ -14,20 +14,24 @@
       <input type="text" [(ngModel)]="disApproveReason" />
     </div>
     <div class="action-block">
-      <div class="btn-group">
-        <button *ngIf="!disApprove" class="btn-active" (click)="cofirmDialog()">
-          {{ acceptText }}
-        </button>
-        <button
-          [disabled]="!disApproveReason"
-          *ngIf="disApprove"
-          class="btn-active"
-          (click)="cofirmDialog()"
-        >
-          {{ acceptText }}
-        </button>
-        <button class="btn-normal" mat-dialog-close>{{ rejectText }}</button>
-      </div>
+      <button
+        *ngIf="!disApprove"
+        class="btn btn-primary"
+        (click)="cofirmDialog()"
+      >
+        {{ acceptText }}
+      </button>
+      <button
+        [disabled]="!disApproveReason"
+        *ngIf="disApprove"
+        class="btn btn-primary"
+        (click)="cofirmDialog()"
+      >
+        {{ acceptText }}
+      </button>
+      <button class="btn btn-secondary ml-1" mat-dialog-close>
+        {{ rejectText }}
+      </button>
     </div>
   </div>
 </div>
