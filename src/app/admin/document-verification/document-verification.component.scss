@@ -188,7 +188,7 @@
 //  popup
 ::ng-deep {
   .verificationpopup {
-    width: 50% !important;
+    width: 50%;
 
     @include responsive(tablet) {
       width: 60%;
