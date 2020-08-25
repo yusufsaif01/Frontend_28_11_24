@@ -56,6 +56,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   };
   currentStep = 'selectVideo';
   member_type = '';
+  editMode: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<VideoPopupComponent>,
@@ -73,8 +74,6 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getAbilityAttributeList();
-    // if(this.data)
-    //   this.patchValue();
   }
 
   getAbilityAttributeList() {
@@ -116,7 +115,11 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
         this.selectedAbilityIdList[this.selectedAbilityIdList.length - 1]
     );
 
-    if (this.data) this.patchValue();
+    if (this.data.id) {
+      this.currentStep = 'tags';
+      this.editMode = true;
+      this.patchValue();
+    }
   }
 
   populateAbilityControl(ability: TagContext) {

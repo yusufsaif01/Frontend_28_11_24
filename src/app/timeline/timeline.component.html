@@ -145,11 +145,11 @@
           <div class="postbody" *ngIf="post.post.media_type === 'video'">
             <div class="post-content">
               <p>
-                <span *ngFor="let ability of post.post.meta.abilities">
+                <ng-container *ngFor="let ability of post.post.meta.abilities">
                   <ng-container *ngFor="let attribute of ability.attributes">
-                    #{{ attribute.attribute_name }}
+                    <span>#{{ attribute.attribute_name }}</span>
                   </ng-container>
-                </span>
+                </ng-container>
               </p>
             </div>
           </div>

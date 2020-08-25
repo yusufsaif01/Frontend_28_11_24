@@ -1,7 +1,7 @@
 <div class="form-container">
   <div class="header">
     <div class="title">
-      <h2>Upload a new video</h2>
+      <h2>{{ editMode ? 'Edit video tags' : 'Upload a new video' }}</h2>
     </div>
     <div class="close">
       <mat-icon mat-dialog-close class="material-icons">close</mat-icon>
@@ -140,18 +140,18 @@
             </div>
           </div>
         </ng-container>
-        <ng-container *ngIf="media !== null">
+        <ng-container *ngIf="media !== null || editMode">
           <div class="upload-wrapper">
             <div class="upload">
               <img src="assets/images/member/video-placeholder.png" alt="" />
 
-              <div class="uploader">
+              <!-- <div class="uploader">
                 <mat-progress-bar
                   mode="determinate"
                   value="40"
                 ></mat-progress-bar>
                 <span>Uploaded 40%</span>
-              </div>
+              </div> -->
             </div>
           </div>
         </ng-container>
