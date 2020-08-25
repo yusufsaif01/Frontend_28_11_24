@@ -1,11 +1,15 @@
 @import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
 @import "src/assets/sass/components/admin-sidenav";
+
 .admin-wrapper {
   background-color: #fff;
   height: 100%;
+
   .admin-sidebar {
     background-color: $color-white;
   }
+
   .admin-main {
     background-color: $color-white;
     width: calc(100%);
@@ -21,21 +25,25 @@
   padding: 2rem;
   background-color: $color-white;
   box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+
   .title {
     h3 {
       font-size: 2.4rem;
       color: $text-color;
     }
   }
+
   .breadcrumb {
     ul {
       list-style: none;
+
       li {
         display: inline-block;
         color: $text-color;
         padding: 0rem 2rem;
         font-size: 1.8rem;
         border-right: 2px solid $text-color;
+
         &:last-child {
           border-right: 0px solid transparent;
         }
@@ -50,6 +58,7 @@
   margin: 3rem auto;
   display: flex;
   justify-content: space-between;
+
   .count-block {
     width: 23%;
     background-color: $color-white;
@@ -57,20 +66,25 @@
     padding: 1rem;
     display: flex;
     align-items: center;
+
     .count-img {
       width: 40%;
       padding: 1rem;
+
       img {
         width: 100%;
       }
     }
+
     .count-details {
       width: 60%;
       padding: 1rem;
+
       h3 {
         color: $text-color;
         font-size: 2.8rem;
       }
+
       h5 {
         color: $blue;
         font-size: 4rem;
@@ -97,14 +111,18 @@
   padding: 2rem;
   justify-content: space-between;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+
   .filter {
     width: 40%;
+
     ul {
       list-style: none;
       margin-bottom: 0rem;
+
       li {
         margin-right: 1rem;
         display: inline-block;
+
         a {
           font-size: 1rem;
           display: inline-flex;
@@ -114,6 +132,7 @@
           width: 5rem;
           height: 5rem;
           border-radius: 4rem;
+
           img {
             width: 2.5rem;
             height: 2.5rem;
@@ -122,13 +141,16 @@
       }
     }
   }
+
   .search {
     width: 60%;
     display: flex;
     justify-content: flex-end;
+
     .search-box {
       margin-left: 2rem;
       position: relative;
+
       select,
       input {
         padding: 1rem;
@@ -149,6 +171,7 @@
   background-size: 2rem;
   background-position: calc(100% - 1rem);
 }
+
 .search-icon {
   left: calc(100% - 3rem);
   -webkit-appearance: none;
@@ -163,4 +186,27 @@
 .table-container {
   width: 95%;
   margin: 2rem auto;
+}
+
+::ng-deep {
+  .delelepopup,
+  .statusconfirmation {
+    width: 50%;
+
+    @include responsive(tablet) {
+      width: 60%;
+    }
+
+    @include responsive(bigphone) {
+      width: 75%;
+    }
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallphone) {
+      max-width: 95vw !important;
+    }
+  }
 }

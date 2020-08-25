@@ -1,4 +1,5 @@
 @import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
 @import "src/assets/sass/components/admin-sidenav";
 
 .admin-wrapper {
@@ -184,4 +185,25 @@
   }
 }
 
-// actions btns
+//  popup
+::ng-deep {
+  .verificationpopup {
+    width: 50% !important;
+
+    @include responsive(tablet) {
+      width: 60%;
+    }
+
+    @include responsive(bigphone) {
+      width: 75%;
+    }
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallphone) {
+      max-width: 95vw !important;
+    }
+  }
+}

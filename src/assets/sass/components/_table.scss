@@ -21,13 +21,6 @@
       &.mat-column-position {
         padding: 0;
       }
-
-      // &.mat-column-action {
-      //   // justify-content: center;
-      // }
-      // &.mat-column-select {
-      //   // justify-content: center;
-      // }
     }
   }
 
@@ -54,24 +47,6 @@
 
       &.mat-column-position {
         padding: 0;
-      }
-
-      // &.mat-column-action {
-      //   // justify-content: center;
-      // }
-      // &.mat-column-select {
-      //   // justify-content: center;
-      // }
-      span.badge {
-        background-image: linear-gradient(
-          -3deg,
-          $color-primary-dark 0%,
-          $color-primary-light 100%
-        );
-        border-radius: 1.2rem;
-        padding: 0.5rem 3rem;
-        color: $color-white;
-        line-height: 1;
       }
 
       .action-buttons {
@@ -103,7 +78,25 @@
   text-align: center;
   color: $text-color;
   font-size: 2.4rem;
-  //box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
   background: rgba($border-color, 0.3);
   box-sizing: border-box;
 }
+
+// app-table {
+//   .mat-table {
+//     overflow: auto;
+//     width: 100%;
+//     padding-bottom: 2rem;
+//   }
+
+//   .mat-header-cell,
+//   .mat-cell {
+//     min-width: 16rem;
+//   }
+
+//   .mat-row,
+//   .mat-header-row {
+//     min-width: 1500px;
+//     width: 100%;
+//   }
+// }

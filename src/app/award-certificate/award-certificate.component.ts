@@ -167,8 +167,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
   // delete
   deletePopup(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      width: '40% ',
-      panelClass: 'filterDialog',
+      panelClass: 'delelepopup',
       data: {
         message: 'Are you sure you want to delete?',
         acceptText: 'Yes',
