@@ -463,8 +463,8 @@
 //  post popup
 ::ng-deep {
   .postpopup,
-  .deleteconfirmation {
-    width: 50%;
+  .delelepopup {
+    width: 50% !important;
 
     @include responsive(tablet) {
       width: 60%;

@@ -336,3 +336,25 @@
     }
   }
 }
+
+::ng-deep {
+  .delelepopup {
+    width: 50%;
+
+    @include responsive(tablet) {
+      width: 60%;
+    }
+
+    @include responsive(bigphone) {
+      width: 75%;
+    }
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallphone) {
+      max-width: 95vw !important;
+    }
+  }
+}

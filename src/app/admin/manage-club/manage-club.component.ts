@@ -140,8 +140,7 @@ export class ManageClubComponent implements OnInit, OnDestroy {
 
   deletePopup(user_id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      width: '50% ',
-      panelClass: 'filterDialog',
+      panelClass: 'delelepopup',
       data: {
         header: 'Delete Club'
       }
@@ -172,8 +171,7 @@ export class ManageClubComponent implements OnInit, OnDestroy {
       return;
     }
     const dialogRef = this.dialog.open(StatusConfirmationComponent, {
-      width: '50% ',
-      panelClass: 'filterDialog',
+      panelClass: 'statusconfirmation',
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {

@@ -81,7 +81,7 @@ export class ViewEmploymentContractComponent implements OnInit {
       disApprove = false;
     }
     const dialogRef = this.dialog.open(VerificationPopupComponent, {
-      width: '50%',
+      panelClass: 'verificationpopup',
       data: {
         header: header,
         message: message,
