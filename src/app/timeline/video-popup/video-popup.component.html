@@ -33,7 +33,10 @@
           </div>
           <p>Perform a skill and record a video</p>
         </div>
-        <div class="steps steps-line active">
+        <div
+          class="steps steps-line active"
+          [ngClass]="{ active: currentStep === 'selectVideo' }"
+        >
           <div class="icon" (click)="setStep(steps.selectVideo)">
             <mat-icon class="material-icons">
               av_timer
@@ -101,8 +104,8 @@
                       <ng-container [formGroupName]="j">
                         <li>
                           <mat-checkbox
-                            formControlName="attribute"
-                            [value]="attribute.get('attribute').id"
+                            formControlName="attribute_value"
+                            [value]="attribute.get('attribute_value').value"
                             >{{
                               attribute.get('attribute_name').value
                             }}</mat-checkbox
@@ -159,11 +162,7 @@
       <div class="action-block">
         <div class="btn-group">
           <button class="btn-normal" mat-dialog-close>Cancel</button>
-          <button
-            [disabled]="!createVideoPostForm.valid"
-            (click)="createVideoPost()"
-            class="btn-active"
-          >
+          <button (click)="createVideoPost()" class="btn-active">
             Save
           </button>
         </div>

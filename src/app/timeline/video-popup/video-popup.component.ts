@@ -14,6 +14,7 @@ export interface TagContext {
   attributes: {
     attribute: string;
     attribute_name: string;
+    attribute_value?: boolean;
   }[];
 }
 // post format
@@ -51,7 +52,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     ability_name: '',
     attributes: []
   };
-  currentStep = 'selectVideo';
+  currentStep = 'tags';
   member_type = '';
 
   constructor(
@@ -62,10 +63,13 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     private _sharedService: SharedService,
     private _toastrService: ToastrService
   ) {
-    if (data.member_type) {
-      this.member_type = data.member_type;
+    if (this.data.member_type) {
+      this.member_type = this.data.member_type;
     }
     this.createForm();
+    if (this.data) {
+      this.patchValue();
+    }
   }
 
   ngOnInit() {
@@ -86,7 +90,8 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
                 ? record.attributes.map(attribute => {
                     return {
                       attribute: attribute.id,
-                      attribute_name: attribute.name
+                      attribute_name: attribute.name,
+                      attribute_value: false
                     };
                   })
                 : []
@@ -127,6 +132,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     attributes?: {
       attribute: string;
       attribute_name: string;
+      attribute_value?: boolean;
     }[]
   ) => {
     attributes.forEach(data => {
@@ -134,14 +140,16 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
         this.attributes.push(
           this._formBuilder.group({
             attribute_name: [data.attribute_name],
-            attribute: ['']
+            attribute: [data.attribute],
+            attribute_value: [data.attribute_value]
           })
         );
       } else {
         this.attributes.push(
           this._formBuilder.group({
-            attribute_name: [''],
-            attribute: ['']
+            attribute_name: [data.attribute_name],
+            attribute: [data.attribute],
+            attribute_value: [false]
           })
         );
       }
@@ -163,11 +171,22 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     } else {
       this.selectedAbilityIdList.push(ability);
     }
+    // this.checkSample(ability);
+    console.log(this.selectedAbilityIdList);
     this.selectedAbility = this.tagsArray.find(
       ability =>
         ability.ability ===
         this.selectedAbilityIdList[this.selectedAbilityIdList.length - 1]
     );
+  }
+
+  checkSample(abilityId: string) {
+    this.createVideoPostForm.value['tags'].map(ability => {
+      let data = ability.attributes.some(o => o.attribute === true);
+      if (ability.ability === abilityId && data) return true;
+    });
+
+    return false;
   }
 
   getUploadVideoLength() {
@@ -200,27 +219,72 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     return formData;
   }
 
+  changeFormData(formValues: { media: File; tags: TagContext[] }) {
+    let data = {
+      ...formValues,
+      tags: formValues.tags.map(tag => {
+        return {
+          ability: tag.ability,
+          attributes: tag.attributes.map(attribute => {
+            if (attribute.attribute_value) return attribute.attribute;
+
+            return null;
+          })
+        };
+      })
+    };
+
+    data.tags = data.tags.filter(ability => {
+      return !ability.attributes.every(attribute => attribute === null);
+    });
+
+    data.tags.forEach(ability => {
+      ability.attributes = ability.attributes.filter(attribute => {
+        return attribute !== null;
+      });
+    });
+
+    return data;
+  }
+
   createVideoPost() {
-    let requestData = this.toFormData(this.createVideoPostForm.value);
-    let abc = [
-      {
-        ability: '4dfbd731-f523-49fa-94d8-7eb8238de403',
-        attributes: ['bd32daac-8e53-4b1a-a88e-24999477a58e']
-      },
-      {
-        ability: '2e9bb4e4-4778-42c9-881c-d300798fbfb6',
-        attributes: ['b1ed6794-e5a6-441c-a918-c1e236ec6319']
-      }
-    ];
+    let data = this.changeFormData(this.createVideoPostForm.value);
+    let requestData = this.toFormData({
+      ...data
+    });
 
     if (this.media) requestData.set('media', this.media);
-    requestData.set('tags', JSON.stringify(abc));
+    this.setRequestDataObject(requestData, 'tags');
 
     this._timelineService
       .createVideoPost({ requestData, type: this.type })
       .pipe(untilDestroyed(this))
       .subscribe(
-        response => {},
+        response => {
+          this._toastrService.success('Success', 'Video uploaded successfully');
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
+        }
+      );
+  }
+
+  updateVideoPost() {
+    let data = this.changeFormData(this.createVideoPostForm.value);
+    let requestData = this.toFormData({
+      ...data
+    });
+
+    if (this.media) requestData.set('media', this.media);
+    this.setRequestDataObject(requestData, 'tags');
+
+    this._timelineService
+      .updateVideoPost({ requestData, type: this.type })
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this._toastrService.success('Success', 'Video uploaded successfully');
+        },
         error => {
           this._toastrService.error('Error', error.error.message);
         }
@@ -228,13 +292,22 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   }
 
   setRequestDataObject(requestData: any, name: string) {
-    requestData.set(name, JSON.stringify(this.createVideoPostForm.value[name]));
+    requestData.set(
+      name,
+      JSON.stringify(this.changeFormData(this.createVideoPostForm.value)[name])
+    );
   }
 
   createForm() {
     this.createVideoPostForm = this._formBuilder.group({
       media: ['', [Validators.required, requiredVideo]],
       tags: this._formBuilder.array([], [videoTags])
+    });
+  }
+
+  patchValue() {
+    this.createVideoPostForm.patchValue({
+      tags: this.data.post.meta.abilities
     });
   }
 

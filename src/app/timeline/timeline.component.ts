@@ -336,6 +336,19 @@ export class TimelineComponent implements OnInit, OnDestroy {
     });
   }
 
+  editVideoPost(post: any) {
+    let member_type = this.member_type;
+    const dialogRef = this.dialog.open(VideoPopupComponent, {
+      data: { ...post, member_type }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'success') {
+        this.getPostListing();
+      }
+    });
+  }
+
   deletePost(post_id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
       width: '50% ',

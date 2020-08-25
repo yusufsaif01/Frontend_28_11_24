@@ -106,11 +106,20 @@
                   </a>
                 </span>
               </ng-container>
-              <span>
-                <a (click)="editPost(post)">
-                  <mat-icon class="material-icons">edit</mat-icon>
-                </a>
-              </span>
+              <ng-container *ngIf="post.post.media_type === 'video'">
+                <span>
+                  <a (click)="editVideoPost(post)">
+                    <mat-icon class="material-icons">edit</mat-icon>
+                  </a>
+                </span>
+              </ng-container>
+              <ng-container *ngIf="post.post.media_type !== 'video'">
+                <span>
+                  <a (click)="editPost(post)">
+                    <mat-icon class="material-icons">edit</mat-icon>
+                  </a>
+                </span>
+              </ng-container>
               <span>
                 <a (click)="deletePost(post.id)">
                   <mat-icon class="material-icons">delete</mat-icon>
