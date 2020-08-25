@@ -1,3 +1,6 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
 .toast-container .ngx-toastr {
   box-shadow: 0 0 1rem rgba($second-color, 0.2) !important;
 
@@ -21,6 +24,10 @@
   border-left: 0.5rem solid $success;
   background-position: 2rem 2.5rem !important;
   background-size: 3rem 3rem !important;
+
+  @include responsive(bigdesktop) {
+    background-position: 1.5rem 2.5rem !important;
+  }
 }
 
 .toast-info {
@@ -36,7 +43,7 @@
   background-image: url("./assets/images/toastr/warning.svg") !important;
   background-repeat: no-repeat !important;
   border-left: 0.5rem solid $warning;
-  background-position: 2rem 2.5rem !important;
+  // background-position: 2rem 2.5rem !important;
   background-size: 3rem 3rem !important;
 }
 
