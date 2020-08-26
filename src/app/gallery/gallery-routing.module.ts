@@ -20,6 +20,11 @@ const appRoutes: Routes = [
         data: { title: extract('Gallery') }
       },
       {
+        path: ':handle',
+        component: GalleryListingComponent,
+        data: { title: extract('Gallery') }
+      },
+      {
         path: 'gallery-view/:video_id',
         component: GallerySingleComponent,
         data: { title: extract('Gallery View') }
