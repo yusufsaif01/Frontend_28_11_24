@@ -34,32 +34,41 @@
             >Timeline videos</a
           >
           <a
-            [ngClass]="{ active: video_type === 'learning_or_training_video' }"
-            (click)="toggleVideoType('learning_or_training_video')"
+            [ngClass]="{ active: video_type === 'learning_or_training' }"
+            (click)="toggleVideoType('learning_or_training')"
             >Learning and training videos</a
           >
           <a
-            [ngClass]="{ active: video_type === 'match_videos' }"
-            (click)="toggleVideoType('match_videos')"
+            [ngClass]="{ active: video_type === 'match' }"
+            (click)="toggleVideoType('match')"
             >Match videos</a
           >
         </div>
         <!-- gallery section -->
         <div class="gallery-wrapper">
-          <div class="gallery-box" *ngFor="let gallery of galleryList">
-            <img
-              [src]="gallery.media.media_thumbnail.sizes[0].link"
-              alt="video-placehoder"
-            />
-            <span class="playicon">
-              <a [routerLink]="['/member/gallery/gallery-view', gallery.id]">
-                <mat-icon class="material-icons">play_circle_outline</mat-icon>
-              </a>
+          <ng-container *ngFor="let gallery of galleryList">
+            <div class="gallery-box">
+              <img alt="video-placehoder" />
+              <span class="playicon">
+                <a [routerLink]="['/member/gallery/gallery-view', gallery.id]">
+                  <mat-icon class="material-icons"
+                    >play_circle_outline</mat-icon
+                  >
+                </a>
+              </span>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="galleryList.length === 0">
+            <span class="no-data-found">
+              No videos found
             </span>
-          </div>
+          </ng-container>
         </div>
+
         <!-- Pagination -->
         <app-pagination
+          *ngIf="galleryList.length !== 0"
           [showData]="false"
           [showCount]="show_count"
           [rowsPerPage]="pageSize"

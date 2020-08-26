@@ -117,6 +117,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
     if (this.data.id) {
       this.currentStep = 'tags';
+      this.type = this.data.type;
       this.editMode = true;
       this.patchValue();
     }
@@ -252,7 +253,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
     this.setRequestDataObject(requestData, 'tags');
 
-    if (this.data) this.updateVideoPost(requestData);
+    if (this.data.id) this.updateVideoPost(requestData);
     else {
       if (this.media) requestData.set('media', this.media);
       this.createVideoPost(requestData);
