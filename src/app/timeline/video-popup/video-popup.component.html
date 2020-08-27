@@ -123,6 +123,24 @@
               </ng-container>
             </ul>
           </div>
+
+          <div class="attribute-wrapper">
+            <ul class="attribute-items">
+              <ng-container
+                *ngFor="let others of otherTags; let i = index"
+                formArrayName="others"
+              >
+                <li>
+                  <mat-checkbox
+                    (change)="addOthersValue($event, others.value)"
+                    [checked]="others.checked"
+                    [value]="others.value"
+                    >{{ others.value }}</mat-checkbox
+                  >
+                </li>
+              </ng-container>
+            </ul>
+          </div>
         </ng-container>
 
         <ng-container *ngIf="currentStep === 'selectVideo'">
