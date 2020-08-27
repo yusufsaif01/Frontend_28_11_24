@@ -114,12 +114,12 @@
                   width: 100%;
                 }
 
-                @include responsive(smallphone) {
-                  width: 100%;
-                }
-
                 @include responsive(mediumphone) {
                   width: 50%;
+                }
+
+                @include responsive(smallphone) {
+                  width: 100%;
                 }
 
                 h4 {
