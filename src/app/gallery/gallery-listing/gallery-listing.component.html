@@ -27,7 +27,7 @@
           </div>
         </div>
 
-        <div class="tab-buttons" *ngIf="member_type !== 'player'">
+        <div class="tab-buttons" *ngIf="member_type !== 'player' || isPublic">
           <a
             [ngClass]="{ active: video_type === 'timeline' }"
             (click)="toggleVideoType('timeline')"
@@ -50,7 +50,13 @@
             <div class="gallery-box">
               <img alt="video-placehoder" />
               <span class="playicon">
-                <a [routerLink]="['/member/gallery/gallery-view', gallery.id]">
+                <a
+                  [routerLink]="
+                    isPublic
+                      ? ['/member/gallery/gallery-view', gallery.id, userId]
+                      : ['/member/gallery/gallery-view', gallery.id]
+                  "
+                >
                   <mat-icon class="material-icons"
                     >play_circle_outline</mat-icon
                   >

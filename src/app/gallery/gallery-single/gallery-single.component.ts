@@ -94,15 +94,23 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute
   ) {
     this._activatedRoute.params.subscribe(param => {
+      if (param.video_id && param.handle) {
+        this.isPublic = true;
+        this.videoId = param.video_id;
+        this.userId = param.handle;
+      }
       if (param.video_id) {
         this.videoId = param.video_id;
-        this.getVideo();
       }
+
+      this.getVideo();
     });
   }
 
   avatar_url: string = '';
   videoId: string;
+  userId: string;
+  isPublic: boolean = false;
   environment = environment;
   postListing: PostContext[] = [];
   pageNo: number = 1;
@@ -219,11 +227,11 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
   }
 
   getVideo() {
+    let data = this.isPublic
+      ? { user_id: this.userId, comments: 1, video_id: this.videoId }
+      : { comments: 1, video_id: this.videoId };
     this._gallerySingleService
-      .getVideo({
-        comments: 1,
-        video_id: this.videoId
-      })
+      .getVideo(data)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {

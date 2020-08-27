@@ -6,7 +6,7 @@ import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/cu
 const routes = {
   getGalleryList: (query: string) => `/video/gallery?${query}`,
   getPublicGalleryList: (user_id: string, query: string) =>
-    `/video/gallery/${user_id}/public?${query}`
+    `/video/public/gallery/${user_id}?${query}`
 };
 
 export interface GetGalleryListContext {
@@ -24,6 +24,7 @@ export interface GetGalleryListResponseContext {
   data: {
     total: number;
     records: {
+      id: string;
       user_id: string;
       avatar: string;
       name: string;
