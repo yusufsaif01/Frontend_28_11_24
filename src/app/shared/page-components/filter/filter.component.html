@@ -415,6 +415,43 @@
           </li>
         </ul>
       </div>
+
+      <div class="filter-group" *ngIf="allowedFilters.abilityAttribute">
+        <ng-container *ngFor="let ability of tagsArray">
+          <div class="filter-title" (click)="toggleFilter(ability.ability)">
+            <h3>
+              <a>
+                {{ ability.ability_name }}
+                <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+              </a>
+            </h3>
+          </div>
+          <ul
+            class="filter-checks"
+            [ngClass]="ability.ability + '-filter'"
+            #abilityattribute
+          >
+            <li *ngFor="let attribute of ability.attributes">
+              <mat-checkbox
+                [value]="attribute.attribute_name"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.attributeArray,
+                    'attribute'
+                  )
+                "
+                [checked]="
+                  locationRangeFilters.attributeArray.includes(
+                    attribute.attribute_name
+                  )
+                "
+                >{{ attribute.attribute_name }}</mat-checkbox
+              >
+            </li>
+          </ul>
+        </ng-container>
+      </div>
     </div>
   </div>
 </ng-container>

@@ -90,6 +90,7 @@
   </div>
 </div>
 <app-filter
+  [filterHeading]="'Filter'"
   [allowedFilters]="filtersList"
   (filterChanges)="onChangeFilter($event)"
 ></app-filter>

@@ -41,23 +41,10 @@ export class GalleryListingComponent implements OnInit {
   member_type: string = localStorage.getItem('member_type');
   video_type: string = 'timeline';
   userId: string;
-  // filtersList = {
-  //   position: false,
-  //   playerCategory: false,
-  //   age: false,
-  //   location: false,
-  //   strongFoot: false,
-  //   teamTypes: false,
-  //   ability: false,
-  //   status: false,
-  //   phyiscal: true,
-  //   mental: true,
-  //   technical: true,
-  //   goalkeeping: true,
-  //   otherability: true
-  // };
 
-  filtersList = {};
+  filtersList = {
+    abilityAttribute: true
+  };
 
   ngOnInit() {
     this.filter.page_size = this.pageSize;
