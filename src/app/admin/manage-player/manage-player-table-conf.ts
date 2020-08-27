@@ -1,17 +1,17 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
+import { CapitalizePipe } from './../../shared/pipes/capitalize.pipe';
 
 export class ManagePlayerTableConfig extends TableConfig {
-  constructor() {
+  constructor(private capitalize?: CapitalizePipe) {
     super();
     this.allowedColumns = ['name', 'position', 'type', 'email', 'status'];
-
+    this.capitalize = new CapitalizePipe();
     this.columns = {
       name: {
         code: 'name',
         text: 'Player Name',
         getValue: (ele: any) => {
-          return `${ele[this.columns.name.code].charAt(0).toUpperCase() +
-            ele[this.columns.name.code].slice(1)}`;
+          return this.capitalize.transform(ele[this.columns.name.code]);
         }
       },
       position: {

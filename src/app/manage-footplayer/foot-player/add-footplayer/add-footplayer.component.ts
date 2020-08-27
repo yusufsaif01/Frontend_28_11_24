@@ -14,6 +14,7 @@ import { environment } from '@env/environment';
 import { Subject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { CapitalizePipe } from './../../../shared/pipes/capitalize.pipe';
 
 let emailControl = {
   email: [Validators.required, Validators.email]
@@ -30,7 +31,8 @@ let phoneControl = {
 @Component({
   selector: 'app-add-footplayer',
   templateUrl: './add-footplayer.component.html',
-  styleUrls: ['./add-footplayer.component.scss']
+  styleUrls: ['./add-footplayer.component.scss'],
+  providers: [CapitalizePipe]
 })
 export class AddFootplayerComponent implements OnInit, OnDestroy {
   // TABLE CONFIG
@@ -51,7 +53,8 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddFootplayerComponent>,
     private _toastrService: ToastrService,
-    @Inject(MAT_DIALOG_DATA) private data: any
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private capitalize?: CapitalizePipe
   ) {
     this.createForm();
     this.own_member_type = data.member_type;
@@ -168,9 +171,9 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
       return { message: 'Add', state: false };
     } else if (is_verified && club_name) {
       return {
-        message: `This player is already a member of ${club_name
-          .charAt(0)
-          .toUpperCase() + club_name.slice(1)}`,
+        message: `This player is already a member of ${this.capitalize.transform(
+          club_name
+        )}`,
         state: true
       };
     } else if (!is_verified) {
