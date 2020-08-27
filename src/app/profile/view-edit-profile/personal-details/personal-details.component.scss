@@ -225,6 +225,14 @@
               width: 40%;
             }
 
+            @include responsive(mediumphone) {
+              width: 50%;
+            }
+
+            @include responsive(smallphone) {
+              width: 40%;
+            }
+
             @include responsive(smallestphone) {
               width: 50%;
             }
@@ -239,6 +247,14 @@
             width: 80%;
 
             @include responsive(bigphone) {
+              width: 60%;
+            }
+
+            @include responsive(mediumphone) {
+              width: 50%;
+            }
+
+            @include responsive(smallphone) {
               width: 60%;
             }
 
