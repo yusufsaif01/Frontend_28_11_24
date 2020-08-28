@@ -23,7 +23,7 @@
               [value]="videos"
               (change)="type = $event.value"
             >
-              {{ videos | titlecase }} video
+              {{ videos | titlecase | replace: '_':' ' }} video
             </mat-radio-button>
           </ng-container>
         </mat-radio-group>

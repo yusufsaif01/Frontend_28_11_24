@@ -29,7 +29,7 @@ export interface TagContext {
   styleUrls: ['./video-popup.component.scss']
 })
 export class VideoPopupComponent implements OnInit, OnDestroy {
-  type: 'timeline' | 'learning_or_training_video' | 'match_videos' = 'timeline';
+  type: 'timeline' | 'learning_or_training' | 'match' = 'timeline';
   createVideoPostForm: FormGroup;
   media: File = null;
   steps = {
@@ -122,7 +122,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
     if (this.data.id) {
       this.currentStep = 'tags';
-      this.type = this.data.type;
+      this.type = this.data.post.meta.type;
       this.editMode = true;
       this.patchValue();
     }
