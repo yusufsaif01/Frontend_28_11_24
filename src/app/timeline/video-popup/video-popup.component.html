@@ -40,7 +40,9 @@
         </div>
         <div
           class="steps steps-line active"
-          [ngClass]="{ active: currentStep === 'selectVideo' }"
+          [ngClass]="{
+            active: currentStep === 'selectVideo' || currentStep === 'tags'
+          }"
         >
           <div class="icon" (click)="setStep(steps.selectVideo)">
             <mat-icon class="material-icons">

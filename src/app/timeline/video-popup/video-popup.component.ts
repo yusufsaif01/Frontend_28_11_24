@@ -122,7 +122,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
     if (this.data.id) {
       this.currentStep = 'tags';
-      this.type = this.data.post.meta.type;
+      this.type = this.data.post.type;
       this.editMode = true;
       this.patchValue();
     }
