@@ -100,7 +100,7 @@ export class FilterComponent implements OnInit {
 
   @Output() filterChanges: EventEmitter<any> = new EventEmitter();
   @ViewChildren(
-    'position, playercategory, age, location, strongfoot, ability, teamtype, status, daterange, reportstatus, clubacademyname, createdby, abilityattribute'
+    'position, playercategory, age, location, strongfoot, ability, teamtype, status, daterange, reportstatus, clubacademyname, createdby, abilityattribute, othertags'
   )
   templates: QueryList<ElementRef>;
 
