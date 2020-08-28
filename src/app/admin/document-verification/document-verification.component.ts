@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material';
 import { untilDestroyed } from '@app/core';
 import { VerificationPopupComponent } from '@app/shared/dialog-box/verification-popup/verification-popup.component';
 import { environment } from '@env/environment';
+import { CapitalizePipe } from '@app/shared/pipes/capitalize.pipe';
 
 interface ResponseContext {
   added_on: string;
@@ -29,7 +30,8 @@ interface ResponseContext {
 @Component({
   selector: 'app-document-verification',
   templateUrl: './document-verification.component.html',
-  styleUrls: ['./document-verification.component.scss']
+  styleUrls: ['./document-verification.component.scss'],
+  providers: [CapitalizePipe]
 })
 export class DocumentVerificationComponent implements OnInit {
   public sideBarToggle: boolean = true;
@@ -46,7 +48,8 @@ export class DocumentVerificationComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private _documentVerficationService: DocumentVerificationService,
     private _toastrService: ToastrService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private capitalize?: CapitalizePipe
   ) {
     this.activatedRoute.params.subscribe(param => {
       this.user_id = param.id;
@@ -138,8 +141,11 @@ export class DocumentVerificationComponent implements OnInit {
       }
       data = {
         header: 'Approve',
-        message: `Do you want to approve ${message} of ${this.documentDetails
-          .player_name || this.documentDetails.name} ${this.member_type} ?`
+        message: `Do you want to approve ${message} of ${
+          this.documentDetails.player_name
+            ? this.capitalize.transform(this.documentDetails.player_name)
+            : this.capitalize.transform(this.documentDetails.name)
+        } ${this.member_type} ?`
       };
     } else if (status === 'disapproved') {
       data = {
@@ -241,7 +247,9 @@ export class DocumentVerificationComponent implements OnInit {
     }
     if (status === 'approved') {
       (header = 'Please confirm'),
-        (message = `Do you want to approve the Employment Contract of ${playerName} player ?`);
+        (message = `Do you want to approve the Employment Contract of ${this.capitalize.transform(
+          playerName
+        )} player ?`);
       disApprove = false;
     }
     const dialogRef = this.dialog.open(VerificationPopupComponent, {

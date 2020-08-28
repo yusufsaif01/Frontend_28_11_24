@@ -1,7 +1,8 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
 import moment from 'moment';
+import { CapitalizePipe } from '@app/shared/pipes/capitalize.pipe';
 export class EmploymentContractListTableConfig extends TableConfig {
-  constructor() {
+  constructor(private capitalize?: CapitalizePipe) {
     super();
     this.allowedColumns = [
       'name',
@@ -10,13 +11,14 @@ export class EmploymentContractListTableConfig extends TableConfig {
       'created_by',
       'status'
     ];
+    this.capitalize = new CapitalizePipe();
 
     this.columns = {
       name: {
         code: 'name',
         text: 'Club / Academy',
         getValue: (ele: any) => {
-          return ele[this.columns.name.code];
+          return this.capitalize.transform(ele[this.columns.name.code]);
         }
       },
       effective_date: {
