@@ -285,7 +285,6 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.dialogRef.close('success');
-          this._toastrService.success('Success', 'Video uploaded successfully');
         },
         error => {
           this._toastrService.error('Error', error.error.message);
@@ -300,7 +299,6 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.dialogRef.close('success');
-          this._toastrService.success('Success', 'Video uploaded successfully');
         },
         error => {
           this._toastrService.error('Error', error.error.message);

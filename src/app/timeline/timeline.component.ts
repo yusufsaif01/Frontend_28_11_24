@@ -402,11 +402,15 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   // Video Popup
   openVideoDialog(): void {
-    let data = {
-      member_type: this.member_type
-    };
+    let data = { member_type: this.member_type };
     const dialogRef = this.dialog.open(VideoPopupComponent, {
       data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'success') {
+        this.getPostListing();
+      }
     });
   }
 
