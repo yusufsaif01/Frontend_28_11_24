@@ -43,7 +43,8 @@ export class GalleryListingComponent implements OnInit {
   userId: string;
 
   filtersList = {
-    abilityAttribute: true
+    abilityAttribute: true,
+    otherTags: true
   };
 
   ngOnInit() {

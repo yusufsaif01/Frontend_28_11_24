@@ -45,6 +45,8 @@ interface LocationRangeFilters {
   createdByArray: any[];
   attribute: any[];
   attributeArray: any[];
+  otherTags: any[];
+  otherTagsArray: any[];
 }
 
 interface LocationsIds {
@@ -91,7 +93,8 @@ export class FilterComponent implements OnInit {
     clubAcademyName: false,
     createdBy: false,
     reportStatus: false,
-    abilityAttribute: false
+    abilityAttribute: false,
+    otherTags: false
   };
   showFilter = false;
 
@@ -203,6 +206,7 @@ export class FilterComponent implements OnInit {
       reportStatus: [],
       createdBy: ['club', 'academy'],
       attribute: [],
+      otherTags: ['Celebration', 'Team play', 'Press conference', 'Interviews'],
       ability: [],
       positionsArray: [],
       playerTypeArray: [],
@@ -218,7 +222,8 @@ export class FilterComponent implements OnInit {
       clubAcademyName: '',
       reportStatusArray: [],
       createdByArray: [],
-      attributeArray: []
+      attributeArray: [],
+      otherTagsArray: []
     };
     this.locationData = {
       countryID: '',
@@ -398,6 +403,7 @@ export class FilterComponent implements OnInit {
     this.locationRangeFilters.reportStatusArray = [];
     this.locationRangeFilters.createdByArray = [];
     this.locationRangeFilters.attributeArray = [];
+    this.locationRangeFilters.otherTagsArray = [];
     this.locationRangeFilters.teamTypesArray = [];
     this.locationRangeFilters.abilityArray = [];
     this.locationRangeFilters.dateRange = {
