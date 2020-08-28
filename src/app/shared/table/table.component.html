@@ -40,7 +40,7 @@
           {{ tableConfig.columns[col].getValue(element) }}
         </p>
         <p *ngIf="col === 'created_by'">
-          {{ tableConfig.columns[col].getValue(element) | titlecase }}
+          {{ tableConfig.columns[col].getValue(element) | capitalize }}
         </p>
         <p *ngIf="col === 'year'">{{ element.from }}-{{ element.to }}</p>
         <p *ngIf="col === 'document_type'">
@@ -283,27 +283,31 @@
             target="_blank"
           >
             {{
-              tableConfig.columns[col].getValue(element).name.length < 15
+              (tableConfig.columns[col].getValue(element).name.length < 15
                 ? tableConfig.columns[col].getValue(element).name
                 : (tableConfig.columns[col].getValue(element).name
                     | slice: 0:15) + '...'
+              ) | capitalize
             }}
           </a>
           <ng-container
             *ngIf="!tableConfig.columns[col].getValue(element).profileUrl"
           >
             {{
-              tableConfig.columns[col].getValue(element).name.length < 15
+              (tableConfig.columns[col].getValue(element).name.length < 15
                 ? tableConfig.columns[col].getValue(element).name
                 : (tableConfig.columns[col].getValue(element).name
                     | slice: 0:15) + '...'
+              ) | capitalize
             }}
           </ng-container>
         </p>
         <div
           class="name"
           *ngIf="col === 'player_name'"
-          matTooltip="{{ tableConfig.columns[col].getValue(element).name }}"
+          matTooltip="{{
+            tableConfig.columns[col].getValue(element).name | capitalize
+          }}"
         >
           <img
             *ngIf="element.avatar"
@@ -318,20 +322,22 @@
               target="_blank"
             >
               {{
-                tableConfig.columns[col].getValue(element).name.length < 15
+                (tableConfig.columns[col].getValue(element).name.length < 15
                   ? tableConfig.columns[col].getValue(element).name
                   : (tableConfig.columns[col].getValue(element).name
                       | slice: 0:15) + '...'
+                ) | capitalize
               }}
             </a>
             <ng-container
               *ngIf="!tableConfig.columns[col].getValue(element).profileUrl"
             >
               {{
-                tableConfig.columns[col].getValue(element).name.length < 15
+                (tableConfig.columns[col].getValue(element).name.length < 15
                   ? tableConfig.columns[col].getValue(element).name
                   : (tableConfig.columns[col].getValue(element).name
                       | slice: 0:15) + '...'
+                ) | capitalize
               }}
             </ng-container>
           </p>

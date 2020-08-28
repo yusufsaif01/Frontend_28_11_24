@@ -1,8 +1,10 @@
+import { CapitalizePipe } from '@app/shared/pipes/capitalize.pipe';
 import { TableConfig } from '@app/shared/table/TableConfig';
 import moment from 'moment';
 export class ManageReportCardTableConfig extends TableConfig {
-  constructor(member_type: string) {
+  constructor(member_type: string, private capitalize?: CapitalizePipe) {
     super();
+    this.capitalize = new CapitalizePipe();
     if (member_type === 'player') {
       this.allowedColumns = ['created_by', 'name', 'published_at'];
     } else if (member_type !== 'player') {
@@ -20,7 +22,7 @@ export class ManageReportCardTableConfig extends TableConfig {
         code: 'name',
         text: member_type === 'player' ? 'Name' : 'Player name',
         getValue: (ele: any) => {
-          return ele[this.columns.name.code];
+          return this.capitalize.transform(ele[this.columns.name.code]);
         }
       },
       created_by: {

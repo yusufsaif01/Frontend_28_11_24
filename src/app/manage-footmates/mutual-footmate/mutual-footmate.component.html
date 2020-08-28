@@ -27,7 +27,7 @@
               <a
                 target="_blank"
                 [routerLink]="['/member/profile/public/' + footmate.user_id]"
-                >{{ footmate.name }}</a
+                >{{ footmate.name | capitalize }}</a
               >
             </h3>
             <p>{{ footmate.position }}</p>

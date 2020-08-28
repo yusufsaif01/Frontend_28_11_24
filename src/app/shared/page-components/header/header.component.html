@@ -32,8 +32,8 @@
                 (onSelectionChange)="openPublicProfile(member.user_id)"
               >
                 <img class="dp" aria-hidden [src]="member.avatar" />
-                <span matTooltip="{{ member.name }}">{{
-                  (member.name | slice: 0:25) + '...'
+                <span matTooltip="{{ member.name | capitalize }}">{{
+                  (member.name | slice: 0:25) + '...' | capitalize
                 }}</span>
                 <small class="category">{{
                   member.player_type || member.member_type | titlecase
