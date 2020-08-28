@@ -159,7 +159,7 @@
               width: 50%;
             }
 
-            @include responsive(smallphone) {
+            @media (max-width: 530px) {
               width: 100%;
             }
 
@@ -256,6 +256,14 @@
                 color: $white-color;
                 margin-right: 1rem;
                 @include shadow-btn-secondary;
+
+                @include responsive(smalldesktop) {
+                  padding: 0.5rem 2rem;
+                }
+
+                @include responsive(smalldesktop) {
+                  margin-right: 0.5rem;
+                }
 
                 &:hover {
                   background: $primary-color;

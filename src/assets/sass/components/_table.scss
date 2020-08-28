@@ -1,4 +1,5 @@
 @import "../abstracts/variables";
+@import "../abstracts/mixins";
 
 .mat-table {
   // ::ng-deep{
@@ -80,23 +81,12 @@
   font-size: 2.4rem;
   background: rgba($border-color, 0.3);
   box-sizing: border-box;
+
+  @include responsive(bigphone) {
+    font-size: 2rem;
+  }
+
+  @include responsive(smallphone) {
+    font-size: 1.8rem;
+  }
 }
-
-// app-table {
-//   .mat-table {
-//     overflow: auto;
-//     width: 100%;
-//     padding-bottom: 2rem;
-//   }
-
-//   .mat-header-cell,
-//   .mat-cell {
-//     min-width: 16rem;
-//   }
-
-//   .mat-row,
-//   .mat-header-row {
-//     min-width: 1500px;
-//     width: 100%;
-//   }
-// }
