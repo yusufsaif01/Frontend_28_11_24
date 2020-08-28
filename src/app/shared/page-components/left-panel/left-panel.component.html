@@ -10,20 +10,20 @@
     <ng-container *ngIf="!options?.is_public">
       <div class="profile-name">
         <h3 *ngIf="profile?.member_type === 'player'">
-          {{ profile?.first_name }} {{ profile?.last_name }}
+          {{ profile?.first_name | capitalize }} {{ profile?.last_name }}
         </h3>
         <h3 *ngIf="profile?.member_type !== 'player'">
-          {{ profile?.name }}
+          {{ profile?.name | capitalize }}
         </h3>
       </div>
     </ng-container>
     <ng-container *ngIf="options?.is_public">
       <div class="profile-name">
         <h3 *ngIf="data?.member_type === 'player'">
-          {{ data?.first_name }} {{ data?.last_name }}
+          {{ data?.first_name | capitalize }} {{ data?.last_name }}
         </h3>
         <h3 *ngIf="data?.member_type !== 'player'">
-          {{ data?.name }}
+          {{ data?.name | capitalize }}
         </h3>
       </div>
     </ng-container>

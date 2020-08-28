@@ -17,6 +17,7 @@ import { FilterComponent } from './filter/filter.component';
 import { BackNavigationComponent } from './back-navigation/back-navigation.component';
 import { FormsModule } from '@angular/forms';
 import { CopyrightComponent } from './copyright/copyright.component';
+import { CapitalizePipe } from './../pipes/capitalize.pipe';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CopyrightComponent } from './copyright/copyright.component';
     VideoPlayerComponent,
     FilterComponent,
     BackNavigationComponent,
-    CopyrightComponent
+    CopyrightComponent,
+    CapitalizePipe
   ],
   imports: [
     CommonModule,
@@ -54,7 +56,8 @@ import { CopyrightComponent } from './copyright/copyright.component';
     FilterComponent,
     BackNavigationComponent,
     FormsModule,
-    CopyrightComponent
+    CopyrightComponent,
+    CapitalizePipe
   ]
 })
 export class PageComponentsModule {}
