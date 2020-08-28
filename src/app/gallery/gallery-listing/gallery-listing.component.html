@@ -1,7 +1,8 @@
 <app-header></app-header>
 <div class="site-wrapper">
   <div class="left-panel">
-    <app-left-panel> </app-left-panel>
+    <app-left-panel [userId]="userId" [options]="panelOptions">
+    </app-left-panel>
   </div>
   <div class="right-panel">
     <div class="right-wrapper">

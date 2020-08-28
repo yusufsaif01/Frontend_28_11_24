@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {
   GalleryListingService,
-  GetGalleryListResponseContext,
   GetGalleryListContext
 } from './gallery-listing.service';
 import { untilDestroyed } from '@app/core';
 import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '@app/shared/shared.service';
+import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-gallery-listing',
@@ -23,6 +23,7 @@ export class GalleryListingComponent implements OnInit {
   ) {
     this._activatedRoute.params.subscribe(params => {
       if (params['handle']) {
+        this.panelOptions.is_public = true;
         this.isPublic = true;
         this.userId = params['handle'];
       }
@@ -45,6 +46,15 @@ export class GalleryListingComponent implements OnInit {
   filtersList = {
     abilityAttribute: true,
     otherTags: true
+  };
+
+  panelOptions: Partial<PanelOptions> = {
+    bio: true,
+    member_type: true,
+    my_achievements: false,
+    view_profile_link: true,
+    footplayers: true,
+    is_public: false
   };
 
   ngOnInit() {
