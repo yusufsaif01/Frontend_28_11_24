@@ -2,14 +2,23 @@
 @import "../abstracts/mixins";
 
 .mat-table {
+  @include responsive(bigphone) {
+    width: 767px !important;
+    width: 100%;
+    overflow: auto;
+  }
   // ::ng-deep{
   .mat-header-row {
     background-color: $third-color;
     border-radius: 0.4rem;
     border: none;
 
+    // @include responsive(bigphone) {
+    //   width: 155rem;
+    // }
+
     .mat-header-cell {
-      font-family: $primary-text;
+      font-family: $primary-text !important;
       font-size: 2rem;
       line-height: 3rem;
       color: $fourth-color;
@@ -29,11 +38,16 @@
     border-bottom: 1px solid $grey;
     background: $color-white;
 
+    // @include responsive(bigphone) {
+    //   width: 155rem;
+    // }
+
     &:last-child {
       border-bottom: none;
     }
 
     .mat-cell {
+      font-family: $primary-text !important;
       padding-top: 2rem;
       padding-bottom: 2rem;
 
@@ -69,6 +83,13 @@
         }
       }
     }
+  }
+}
+
+.table {
+  @include responsive(tablet) {
+    width: calc(100vw - 8rem);
+    overflow-x: auto;
   }
 }
 

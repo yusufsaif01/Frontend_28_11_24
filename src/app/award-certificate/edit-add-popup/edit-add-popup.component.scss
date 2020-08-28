@@ -44,8 +44,16 @@
     display: flex;
     justify-content: space-between;
 
+    @include responsive(smallphone) {
+      flex-wrap: wrap;
+    }
+
     .form-block {
       width: 48%;
+
+      @include responsive(smallphone) {
+        width: 100%;
+      }
     }
   }
 }

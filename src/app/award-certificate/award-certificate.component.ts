@@ -63,8 +63,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
   // dialog box open
   openDialog(): void {
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
-      width: '50%',
-      panelClass: 'dialogbox',
+      panelClass: 'addeditawards',
       data: {
         player_type: this.player_type,
         member_type: this.member_type,
@@ -101,8 +100,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
       member_type: this.member_type
     };
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
-      width: '50%',
-      panelClass: 'dialogbox',
+      panelClass: 'addeditawards',
       data: {
         ...data,
         options: { header: 'Edit', buttonName: 'Update' }
