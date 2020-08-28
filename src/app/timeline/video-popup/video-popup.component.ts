@@ -8,6 +8,7 @@ import { untilDestroyed } from '@app/core';
 import { SharedService } from '@app/shared/shared.service';
 import { requiredVideo } from '@app/shared/validators/requiredVideo';
 import { videoTags } from '@app/shared/validators/videoTags';
+import * as R from 'ramda';
 
 export interface TagContext {
   ability: string;
@@ -53,7 +54,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     ability_name: '',
     attributes: []
   };
-  currentStep = 'selectVideo';
+  currentStep = 'tags';
   member_type = '';
   editMode: boolean = false;
   otherTags: any = [];
@@ -187,14 +188,52 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     this.currentStep = val;
   }
 
-  toggleSelection(ability: TagContext['ability']) {
-    if (this.selectedAbilityIdList.includes(ability)) {
-      this.selectedAbilityIdList = this.selectedAbilityIdList.filter(val => {
-        return val !== ability;
-      });
-    } else {
-      this.selectedAbilityIdList.push(ability);
+  sample() {
+    let formdata = this.createVideoPostForm.get('tags') as FormArray;
+    for (let i = 0; i < formdata.length; i++) {
+      if (
+        R.filter(R.propEq('attribute_value', true))(
+          formdata.at(i).value.attributes
+        ).length === 0
+      ) {
+        this.selectedAbilityIdList = R.reject(
+          o => o === formdata.at(i).value.ability,
+          this.selectedAbilityIdList
+        );
+        break;
+      }
     }
+    console.log(this.selectedAbilityIdList, 'Dubba');
+    // this.selectedAbility = this.tagsArray.find(
+    //   ability =>
+    //     ability.ability ===
+    //     this.selectedAbilityIdList[this.selectedAbilityIdList.length - 1]
+    // );
+  }
+
+  toggleSelection(ability: TagContext['ability']) {
+    this.selectedAbilityIdList.push(ability);
+
+    let formdata = this.createVideoPostForm.get('tags') as FormArray;
+    for (let i = 0; i < formdata.length; i++) {
+      if (
+        R.filter(R.propEq('attribute_value', true))(
+          formdata.at(i).value.attributes
+        ).length !== 0 &&
+        !this.selectedAbilityIdList.includes(ability)
+      ) {
+        this.selectedAbilityIdList.push(formdata.at(i).value.ability);
+        break;
+      }
+    }
+
+    // if (this.selectedAbilityIdList.includes(ability)) {
+    //   this.selectedAbilityIdList = this.selectedAbilityIdList.filter(val => {
+    //     return val !== ability;
+    //   });
+    // } else {
+    //   this.selectedAbilityIdList.push(ability);
+    // }
     // this.checkSample(ability);
     // console.log(this.selectedAbilityIdList);
     this.selectedAbility = this.tagsArray.find(

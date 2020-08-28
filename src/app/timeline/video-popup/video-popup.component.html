@@ -109,7 +109,7 @@
                       formArrayName="attributes"
                     >
                       <ng-container [formGroupName]="j">
-                        <li>
+                        <li (click)="sample()">
                           <mat-checkbox
                             formControlName="attribute_value"
                             [value]="attribute.get('attribute_value').value"

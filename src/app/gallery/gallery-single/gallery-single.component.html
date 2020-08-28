@@ -113,7 +113,7 @@
                   (click)="activateCommentBox(post)"
                   [ngClass]="{
                     chatdisable:
-                      player_type && !['academy', 'club'].includes(member_type)
+                      !player_type && !['academy', 'club'].includes(member_type)
                   }"
                 >
                   <mat-icon class="material-icons big-icons"
