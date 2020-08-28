@@ -14,11 +14,14 @@
         </div>
         <div class="details">
           <ng-container *ngIf="member_type === 'player'">
-            <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+            <h2>
+              {{ profile.first_name | capitalize }}
+              {{ profile.last_name }}
+            </h2>
             <p>{{ profile.player_type | titlecase }}</p>
           </ng-container>
           <ng-container *ngIf="member_type !== 'player'">
-            <h2>{{ profile?.name }}</h2>
+            <h2>{{ profile?.name | capitalize }}</h2>
             <p>{{ profile?.short_name }}</p>
             <p>{{ (clubAcademyType ? clubAcademyType : '') | titlecase }}</p>
           </ng-container>

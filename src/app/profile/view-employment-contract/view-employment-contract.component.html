@@ -34,7 +34,7 @@
                 <h4>Player name on contract</h4>
               </div>
               <div class="right">
-                <p>{{ contractDetails.player_name }}</p>
+                <p>{{ contractDetails.player_name | capitalize }}</p>
               </div>
             </div>
 
@@ -127,7 +127,7 @@
                 <h4>{{ contractWith | titlecase }} name</h4>
               </div>
               <div class="right">
-                <p>{{ contractDetails.club_academy_name }}</p>
+                <p>{{ contractDetails.club_academy_name | capitalize }}</p>
               </div>
             </div>
 
