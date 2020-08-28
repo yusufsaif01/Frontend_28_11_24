@@ -23,7 +23,7 @@
               [value]="videos"
               (change)="type = $event.value"
             >
-              {{ videos | titlecase }} video
+              {{ videos | titlecase | replace: '_':' ' }} video
             </mat-radio-button>
           </ng-container>
         </mat-radio-group>
@@ -120,6 +120,24 @@
                     </ng-container>
                   </ng-container>
                 </ng-container>
+              </ng-container>
+            </ul>
+          </div>
+
+          <div class="attribute-wrapper">
+            <ul class="attribute-items">
+              <ng-container
+                *ngFor="let others of otherTags; let i = index"
+                formArrayName="others"
+              >
+                <li>
+                  <mat-checkbox
+                    (change)="addOthersValue($event, others.value)"
+                    [checked]="others.checked"
+                    [value]="others.value"
+                    >{{ others.value }}</mat-checkbox
+                  >
+                </li>
               </ng-container>
             </ul>
           </div>

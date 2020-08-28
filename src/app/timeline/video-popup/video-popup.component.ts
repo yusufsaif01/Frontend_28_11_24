@@ -2,13 +2,12 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Constants } from '@app/shared/static-data/static-data';
 import { TimelineService } from '../timeline.service';
 import { untilDestroyed } from '@app/core';
 import { SharedService } from '@app/shared/shared.service';
 import { requiredVideo } from '@app/shared/validators/requiredVideo';
 import { videoTags } from '@app/shared/validators/videoTags';
-import { element } from 'protractor';
-import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_FACTORY } from '@angular/cdk/overlay/typings/overlay-directives';
 
 export interface TagContext {
   ability: string;
@@ -30,7 +29,7 @@ export interface TagContext {
   styleUrls: ['./video-popup.component.scss']
 })
 export class VideoPopupComponent implements OnInit, OnDestroy {
-  type: 'timeline' | 'learning_or_training_video' | 'match_videos' = 'timeline';
+  type: 'timeline' | 'learning_or_training' | 'match' = 'timeline';
   createVideoPostForm: FormGroup;
   media: File = null;
   steps = {
@@ -57,6 +56,8 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   currentStep = 'selectVideo';
   member_type = '';
   editMode: boolean = false;
+  otherTags: any = [];
+  otherValue: any = [];
 
   constructor(
     public dialogRef: MatDialogRef<VideoPopupComponent>,
@@ -68,6 +69,10 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   ) {
     if (this.data.member_type) {
       this.member_type = this.data.member_type;
+      this.otherTags =
+        this.member_type === 'player'
+          ? Constants.OTHER_TAGS.player
+          : Constants.OTHER_TAGS.clubacademy;
     }
     this.createForm();
   }
@@ -117,7 +122,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
     if (this.data.id) {
       this.currentStep = 'tags';
-      this.type = this.data.type;
+      this.type = this.data.post.meta.type;
       this.editMode = true;
       this.patchValue();
     }
@@ -164,6 +169,18 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
     return this.attributes;
   };
+
+  addOthersValue(event: any, val: string) {
+    if (event.checked && !this.otherValue.includes(val)) {
+      this.otherValue.push(val);
+    } else {
+      this.otherValue.forEach((element: any, index: number) => {
+        if (element == val) {
+          this.otherValue.splice(index, 1);
+        }
+      });
+    }
+  }
 
   setStep(val: string) {
     if (this.media === null) return;
@@ -252,6 +269,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     });
 
     this.setRequestDataObject(requestData, 'tags');
+    requestData.set('others', JSON.stringify(this.otherValue));
 
     if (this.data.id) this.updateVideoPost(requestData);
     else {
@@ -298,7 +316,8 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   createForm() {
     this.createVideoPostForm = this._formBuilder.group({
       media: ['', [Validators.required, requiredVideo]],
-      tags: this._formBuilder.array([], [videoTags])
+      tags: this._formBuilder.array([], [videoTags]),
+      others: this._formBuilder.array([])
     });
   }
 
@@ -315,6 +334,19 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
         attributes: formdata.at(i).value.attributes
       });
     }
+
+    this.createVideoPostForm.patchValue({
+      others: this.data.post.meta.others
+    });
+
+    this.otherTags.forEach((element: any) => {
+      this.data.post.meta.others.forEach((el: any) => {
+        if (element.value === el) {
+          element.checked = true;
+          this.otherValue.push(element.value);
+        }
+      });
+    });
   }
 
   getAllAttributes() {

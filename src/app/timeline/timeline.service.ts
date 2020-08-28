@@ -19,7 +19,7 @@ const routes = {
 
 interface createVideoPostContext {
   requestData: FormData;
-  type: 'timeline' | 'learning_or_training_video' | 'match_videos';
+  type: 'timeline' | 'learning_or_training' | 'match';
 }
 
 interface GetPostListingContext {
