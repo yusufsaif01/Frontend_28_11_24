@@ -374,4 +374,17 @@ export abstract class Constants {
   };
 
   static readonly TIMELINE_VIDEO_EXTENSION: string[] = ['mp4', 'avi', 'mkv'];
+
+  static readonly OTHER_TAGS: any = {
+    player: [
+      { checked: false, value: 'Celebration' },
+      { checked: false, value: 'Team play' }
+    ],
+    clubacademy: [
+      { checked: false, value: 'Celebration' },
+      { checked: false, value: 'Team play' },
+      { checked: false, value: 'Press conference' },
+      { checked: false, value: 'Interviews' }
+    ]
+  };
 }

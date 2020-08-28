@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '@env/environment';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { GallerySingleService } from './gallery-single.service';
@@ -12,6 +12,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { wordCount } from '@app/shared/validators/wordCount';
 import { ClipboardService } from 'ngx-clipboard';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { VideoPopupComponent } from '@app/timeline/video-popup/video-popup.component';
 
 interface PostContext {
   id: string;
@@ -89,18 +90,27 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
     private _clipboardService: ClipboardService,
     private _formBuilder: FormBuilder,
     private dialog: MatDialog,
+    private _router: Router,
     private _activatedRoute: ActivatedRoute
   ) {
     this._activatedRoute.params.subscribe(param => {
+      if (param.video_id && param.handle) {
+        this.isPublic = true;
+        this.videoId = param.video_id;
+        this.userId = param.handle;
+      }
       if (param.video_id) {
         this.videoId = param.video_id;
-        this.getVideo();
       }
+
+      this.getVideo();
     });
   }
 
   avatar_url: string = '';
   videoId: string;
+  userId: string;
+  isPublic: boolean = false;
   environment = environment;
   postListing: PostContext[] = [];
   pageNo: number = 1;
@@ -217,11 +227,11 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
   }
 
   getVideo() {
+    let data = this.isPublic
+      ? { user_id: this.userId, comments: 1, video_id: this.videoId }
+      : { comments: 1, video_id: this.videoId };
     this._gallerySingleService
-      .getVideo({
-        comments: 1,
-        video_id: this.videoId
-      })
+      .getVideo(data)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
@@ -266,27 +276,40 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
     this.getCommentListing(post, true);
   }
 
-  deletePost(post_id: string) {
+  editVideoPost(post: any) {
+    let member_type = 'player';
+    const dialogRef = this.dialog.open(VideoPopupComponent, {
+      data: { ...post, member_type }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'success') {
+        this.getVideo();
+      }
+    });
+  }
+
+  deleteVideo(video_id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
       width: '50% ',
       panelClass: 'filterDialog',
       data: {
-        header: 'Delete post',
+        header: 'Delete video',
         message: 'Are you sure you want to delete?'
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this._gallerySingleService
-          .deletePost(post_id)
+          .deletePost(video_id)
           .pipe(untilDestroyed(this))
           .subscribe(
             response => {
               this._toastrService.success(
                 `Success`,
-                'Post deleted successfully'
+                'Video deleted successfully'
               );
-              this.getVideo();
+              this._router.navigateByUrl('/member/timeline');
             },
             error => {
               this._toastrService.error(

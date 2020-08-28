@@ -5,11 +5,10 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { TimelineComponent } from './timeline.component';
 import { PostPopupComponent } from './post-popup/post-popup.component';
 import { TimelineRoutingModule } from './timeline-routing.module';
-import { VideoPopupComponent } from './video-popup/video-popup.component';
 
 @NgModule({
-  declarations: [TimelineComponent, PostPopupComponent, VideoPopupComponent],
+  declarations: [TimelineComponent, PostPopupComponent],
   imports: [CommonModule, TimelineRoutingModule, SharedModule, CarouselModule],
-  entryComponents: [PostPopupComponent, VideoPopupComponent]
+  entryComponents: [PostPopupComponent]
 })
 export class TimelineModule {}

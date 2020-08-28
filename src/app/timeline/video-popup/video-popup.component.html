@@ -12,15 +12,20 @@
       <!-- radio  -->
       <div class="radio-block" *ngIf="member_type !== 'player'">
         <mat-radio-group>
-          <mat-radio-button checked value="Timeline video">
-            Timeline video
-          </mat-radio-button>
-          <mat-radio-button value="Learning or training video">
-            Learning or training video
-          </mat-radio-button>
-          <mat-radio-button value="Match video">
-            Match video
-          </mat-radio-button>
+          <ng-container
+            *ngFor="
+              let videos of ['timeline', 'learning_or_training', 'match'];
+              let i = index
+            "
+          >
+            <mat-radio-button
+              [checked]="type == videos"
+              [value]="videos"
+              (change)="type = $event.value"
+            >
+              {{ videos | titlecase | replace: '_':' ' }} video
+            </mat-radio-button>
+          </ng-container>
         </mat-radio-group>
       </div>
       <!-- steps -->
@@ -115,6 +120,24 @@
                     </ng-container>
                   </ng-container>
                 </ng-container>
+              </ng-container>
+            </ul>
+          </div>
+
+          <div class="attribute-wrapper">
+            <ul class="attribute-items">
+              <ng-container
+                *ngFor="let others of otherTags; let i = index"
+                formArrayName="others"
+              >
+                <li>
+                  <mat-checkbox
+                    (change)="addOthersValue($event, others.value)"
+                    [checked]="others.checked"
+                    [value]="others.value"
+                    >{{ others.value }}</mat-checkbox
+                  >
+                </li>
               </ng-container>
             </ul>
           </div>
