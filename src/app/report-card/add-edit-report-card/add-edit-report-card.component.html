@@ -10,7 +10,7 @@
 
         <!--  heading -->
         <div class=" heading">
-          <h2>Create report card of {{ playerDetails?.name }}</h2>
+          <h2>Create report card of {{ playerDetails?.name | capitalize }}</h2>
         </div>
 
         <form [formGroup]="addEditReportForm">

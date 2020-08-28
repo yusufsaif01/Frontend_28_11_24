@@ -73,7 +73,7 @@
                     post.posted_by.user_id
                   ]"
                 >
-                  <h3>{{ post.posted_by.name }}</h3>
+                  <h3>{{ post.posted_by.name | capitalize }}</h3>
                 </a>
                 <p>
                   <ng-container *ngIf="post.posted_by.member_type === 'player'">
@@ -169,7 +169,7 @@
                     <img [src]="comment.commented_by.avatar" alt="profile" />
                   </div>
                   <div class="details">
-                    <h4>{{ comment.commented_by.name }}</h4>
+                    <h4>{{ comment.commented_by.name | capitalize }}</h4>
                     <div class="commenter-details">
                       <p>
                         <ng-container

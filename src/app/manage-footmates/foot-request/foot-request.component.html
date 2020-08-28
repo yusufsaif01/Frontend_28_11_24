@@ -62,12 +62,13 @@
             <div class="player-block">
               <img [src]="request.avatar" alt="" />
               <div class="profile-details">
-                <h2 matTooltip="{{ request.name }}">
+                <h2 matTooltip="{{ request.name | capitalize }}">
                   <a [routerLink]="['/member/profile/public/', request.user_id]"
                     >{{
-                      request.name.length < 17
+                      (request.name.length < 17
                         ? request.name
                         : (request.name | slice: 0:17) + '...'
+                      ) | capitalize
                     }}
                   </a>
                 </h2>
