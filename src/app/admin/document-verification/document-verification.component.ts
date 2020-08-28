@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material';
 import { untilDestroyed } from '@app/core';
 import { VerificationPopupComponent } from '@app/shared/dialog-box/verification-popup/verification-popup.component';
 import { environment } from '@env/environment';
-import { CapitalizePipe } from './../../shared/pipes/capitalize.pipe';
+import { CapitalizePipe } from '@app/shared/pipes/capitalize.pipe';
 
 interface ResponseContext {
   added_on: string;

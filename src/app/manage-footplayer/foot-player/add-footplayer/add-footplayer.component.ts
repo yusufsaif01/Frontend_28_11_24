@@ -14,7 +14,7 @@ import { environment } from '@env/environment';
 import { Subject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { CapitalizePipe } from './../../../shared/pipes/capitalize.pipe';
+import { CapitalizePipe } from '@app/shared/pipes/capitalize.pipe';
 
 let emailControl = {
   email: [Validators.required, Validators.email]

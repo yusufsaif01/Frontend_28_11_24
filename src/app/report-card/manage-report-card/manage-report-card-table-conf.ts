@@ -1,4 +1,4 @@
-import { CapitalizePipe } from './../../shared/pipes/capitalize.pipe';
+import { CapitalizePipe } from '@app/shared/pipes/capitalize.pipe';
 import { TableConfig } from '@app/shared/table/TableConfig';
 import moment from 'moment';
 export class ManageReportCardTableConfig extends TableConfig {

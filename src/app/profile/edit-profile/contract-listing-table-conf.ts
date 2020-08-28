@@ -1,5 +1,5 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
-import { CapitalizePipe } from './../../shared/pipes/capitalize.pipe';
+import { CapitalizePipe } from '@app/shared/pipes/capitalize.pipe';
 export class ContractListTableConfig extends TableConfig {
   constructor(private capitalize?: CapitalizePipe) {
     super();
