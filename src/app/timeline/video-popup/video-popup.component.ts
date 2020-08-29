@@ -59,6 +59,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   editMode: boolean = false;
   otherTags: any = [];
   otherValue: any = [];
+  othersTab: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<VideoPopupComponent>,
@@ -187,6 +188,10 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     }
   }
 
+  toggleOthersTab() {
+    this.othersTab = !this.othersTab;
+  }
+
   setStep(val: string) {
     if (this.media === null) return;
     this.currentStep = val;
@@ -213,6 +218,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   }
 
   toggleSelection(ability: TagContext['ability']) {
+    this.othersTab = false;
     this.selectedAbilityIdList.push(ability);
 
     let formdata = this.createVideoPostForm.get('tags') as FormArray;
@@ -378,14 +384,16 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
       others: this.data.post.meta.others
     });
 
-    this.otherTags.forEach((element: any) => {
-      this.data.post.meta.others.forEach((el: any) => {
-        if (element.value === el) {
-          element.checked = true;
-          this.otherValue.push(element.value);
-        }
+    if (this.data.post.meta.others) {
+      this.otherTags.forEach((element: any) => {
+        this.data.post.meta.others.forEach((el: any) => {
+          if (element.value === el) {
+            element.checked = true;
+            this.otherValue.push(element.value);
+          }
+        });
       });
-    });
+    }
   }
 
   getAllAttributes() {

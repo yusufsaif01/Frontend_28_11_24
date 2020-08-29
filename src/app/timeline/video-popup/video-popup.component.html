@@ -80,7 +80,7 @@
                   {{ ability.ability_name }}
                 </button>
               </ng-container>
-              <button>Other</button>
+              <button (click)="toggleOthersTab()">Other</button>
             </div>
           </div>
           <!-- Attribute wrapper -->
@@ -97,7 +97,8 @@
               >
                 <ng-container
                   *ngIf="
-                    ability.get('ability').value === selectedAbility.ability
+                    ability.get('ability').value === selectedAbility.ability &&
+                    !othersTab
                   "
                 >
                   <ng-container [formGroupName]="i">
@@ -124,10 +125,26 @@
                   </ng-container>
                 </ng-container>
               </ng-container>
+
+              <ng-container *ngIf="othersTab">
+                <ng-container
+                  *ngFor="let others of otherTags; let i = index"
+                  formArrayName="others"
+                >
+                  <li>
+                    <mat-checkbox
+                      (change)="addOthersValue($event, others.value)"
+                      [checked]="others.checked"
+                      [value]="others.value"
+                      >{{ others.value }}</mat-checkbox
+                    >
+                  </li>
+                </ng-container>
+              </ng-container>
             </ul>
           </div>
 
-          <div class="attribute-wrapper">
+          <!-- <div class="attribute-wrapper">
             <ul class="attribute-items">
               <ng-container
                 *ngFor="let others of otherTags; let i = index"
@@ -143,7 +160,7 @@
                 </li>
               </ng-container>
             </ul>
-          </div>
+          </div> -->
         </ng-container>
 
         <ng-container *ngIf="currentStep === 'selectVideo'">
