@@ -192,10 +192,11 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     this.currentStep = val;
   }
 
-  sample() {
+  abilityChecker(ability: string) {
     let formdata = this.createVideoPostForm.get('tags') as FormArray;
     for (let i = 0; i < formdata.length; i++) {
       if (
+        formdata.at(i).value.ability === ability &&
         R.filter(R.propEq('attribute_value', true))(
           formdata.at(i).value.attributes
         ).length === 0
@@ -205,14 +206,10 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
           this.selectedAbilityIdList
         );
         break;
+      } else {
+        this.selectedAbilityIdList.push(ability);
       }
     }
-    console.log(this.selectedAbilityIdList, 'Dubba');
-    // this.selectedAbility = this.tagsArray.find(
-    //   ability =>
-    //     ability.ability ===
-    //     this.selectedAbilityIdList[this.selectedAbilityIdList.length - 1]
-    // );
   }
 
   toggleSelection(ability: TagContext['ability']) {
@@ -221,25 +218,17 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     let formdata = this.createVideoPostForm.get('tags') as FormArray;
     for (let i = 0; i < formdata.length; i++) {
       if (
+        formdata.at(i).value.ability === ability &&
         R.filter(R.propEq('attribute_value', true))(
           formdata.at(i).value.attributes
         ).length !== 0 &&
         !this.selectedAbilityIdList.includes(ability)
       ) {
-        this.selectedAbilityIdList.push(formdata.at(i).value.ability);
+        this.selectedAbilityIdList.push(ability);
         break;
       }
     }
 
-    // if (this.selectedAbilityIdList.includes(ability)) {
-    //   this.selectedAbilityIdList = this.selectedAbilityIdList.filter(val => {
-    //     return val !== ability;
-    //   });
-    // } else {
-    //   this.selectedAbilityIdList.push(ability);
-    // }
-    // this.checkSample(ability);
-    // console.log(this.selectedAbilityIdList);
     this.selectedAbility = this.tagsArray.find(
       ability =>
         ability.ability ===
@@ -372,6 +361,13 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
       formdata.at(i).value.attributes.some((el: any) => {
         if (attributesArray.includes(el.attribute)) el.attribute_value = true;
       });
+
+      if (
+        R.filter(R.propEq('attribute_value', true))(
+          formdata.at(i).value.attributes
+        ).length !== 0
+      )
+        this.selectedAbilityIdList.push(formdata.at(i).value.ability);
 
       formdata.at(i).patchValue({
         attributes: formdata.at(i).value.attributes

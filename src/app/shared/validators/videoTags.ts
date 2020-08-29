@@ -13,7 +13,6 @@ export function videoTags(controlName: AbstractControl) {
   };
 
   let tags: TagContext[] = tagsControl.value;
-  console.log(tags);
 
   let abilityCount = 0;
   let attributeCountList: number[] = [];
