@@ -74,6 +74,10 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
         this.member_type === 'player'
           ? Constants.OTHER_TAGS.player
           : Constants.OTHER_TAGS.clubacademy;
+
+      this.otherTags = R.curry((val, items) =>
+        R.map(R.assoc('checked', val), items)
+      )(false, this.otherTags);
     }
     this.createForm();
   }
