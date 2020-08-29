@@ -50,7 +50,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     ability_name: '',
     attributes: []
   };
-  currentStep = 'tags';
+  currentStep = 'selectVideo';
   member_type = '';
   editMode: boolean = false;
   otherTags: any = [];
