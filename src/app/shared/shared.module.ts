@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
 import { PaginationComponent } from './pagination/pagination.component';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
-import { TrimPipe } from './pipes/trim.pipe';
+import { ReplacePipe } from './pipes/replace.pipe';
 import { MaskPipe } from './pipes/mask.pipe';
 import { PadzeroPipe } from './pipes/padzero.pipe';
 import { NgxImageCompressService } from 'ngx-image-compress';
@@ -38,7 +38,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     MasterTableComponent,
     PaginationComponent,
     TruncatePipe,
-    TrimPipe,
+    ReplacePipe,
     MaskPipe,
     PadzeroPipe,
     CustomDatePipe,
@@ -50,7 +50,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
   exports: [
     LoaderComponent,
     TruncatePipe,
-    TrimPipe,
+    ReplacePipe,
     MaskPipe,
     PadzeroPipe,
     CustomDatePipe,

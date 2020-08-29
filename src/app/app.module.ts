@@ -25,6 +25,7 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { DeleteConfirmationComponent } from './shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from './shared/dialog-box/status-confirmation/status-confirmation.component';
 import { VerificationPopupComponent } from './shared/dialog-box/verification-popup/verification-popup.component';
+import { VideoPopupComponent } from '@app/timeline/video-popup/video-popup.component';
 import { AddEditPopupComponent } from './admin/masterdata/player-specialization/manage-position/add-edit-popup/add-edit-popup.component';
 import { AddpopupComponent } from './admin/masterdata/player-specialization/addpopup/addpopup.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
@@ -69,7 +70,8 @@ import { HomeModule } from './home/home.module';
     StatusConfirmationComponent,
     VerificationPopupComponent,
     AddEditPopupComponent,
-    AddpopupComponent
+    AddpopupComponent,
+    VideoPopupComponent
   ],
   providers: [
     RoleGuardService,
@@ -92,7 +94,8 @@ import { HomeModule } from './home/home.module';
     StatusConfirmationComponent,
     VerificationPopupComponent,
     AddEditPopupComponent,
-    AddpopupComponent
+    AddpopupComponent,
+    VideoPopupComponent
   ]
 })
 export class AppModule {}

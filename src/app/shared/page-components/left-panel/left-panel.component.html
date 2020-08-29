@@ -176,7 +176,11 @@
         </a>
       </li>
       <li>
-        <a [routerLink]="['/member/gallery']">
+        <a
+          [routerLink]="
+            userId ? ['/member/gallery', userId] : ['/member/gallery']
+          "
+        >
           <span class="icon">
             <img src="assets/images/global/gallery.svg" alt="gallery" />
           </span>

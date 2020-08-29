@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {
   GalleryListingService,
-  GetGalleryListResponseContext,
   GetGalleryListContext
 } from './gallery-listing.service';
 import { untilDestroyed } from '@app/core';
 import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '@app/shared/shared.service';
+import { PanelOptions } from '@app/shared/models/panel-options.model';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-gallery-listing',
   templateUrl: './gallery-listing.component.html',
@@ -17,8 +18,17 @@ export class GalleryListingComponent implements OnInit {
   constructor(
     private _sharedService: SharedService,
     private _galleryListingService: GalleryListingService,
-    private _toastrService: ToastrService
-  ) {}
+    private _toastrService: ToastrService,
+    private _activatedRoute: ActivatedRoute
+  ) {
+    this._activatedRoute.params.subscribe(params => {
+      if (params['handle']) {
+        this.panelOptions.is_public = true;
+        this.isPublic = true;
+        this.userId = params['handle'];
+      }
+    });
+  }
 
   filter: GetGalleryListContext = {};
   galleryList: GetGalleryListContext[] = [];
@@ -31,23 +41,21 @@ export class GalleryListingComponent implements OnInit {
   isPublic = false;
   member_type: string = localStorage.getItem('member_type');
   video_type: string = 'timeline';
-  // filtersList = {
-  //   position: false,
-  //   playerCategory: false,
-  //   age: false,
-  //   location: false,
-  //   strongFoot: false,
-  //   teamTypes: false,
-  //   ability: false,
-  //   status: false,
-  //   phyiscal: true,
-  //   mental: true,
-  //   technical: true,
-  //   goalkeeping: true,
-  //   otherability: true
-  // };
+  userId: string;
 
-  filtersList = {};
+  filtersList = {
+    abilityAttribute: true,
+    otherTags: true
+  };
+
+  panelOptions: Partial<PanelOptions> = {
+    bio: true,
+    member_type: true,
+    my_achievements: false,
+    view_profile_link: true,
+    footplayers: true,
+    is_public: false
+  };
 
   ngOnInit() {
     this.filter.page_size = this.pageSize;
@@ -92,19 +100,38 @@ export class GalleryListingComponent implements OnInit {
   }
 
   getGalleryList() {
-    this._galleryListingService
-      .getGalleryList({ type: this.video_type, ...this.filter })
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
-          this.galleryList = response.data.records;
-          this.show_count = response.data.records.length;
-          this.total_count = response.data.total;
-        },
-        error => {
-          this._toastrService.error(error.error.message, 'Error');
-        }
-      );
+    if (this.isPublic) {
+      this._galleryListingService
+        .getPublicGalleryList(this.userId, {
+          type: this.video_type,
+          ...this.filter
+        })
+        .pipe(untilDestroyed(this))
+        .subscribe(
+          response => {
+            this.galleryList = response.data.records;
+            this.show_count = response.data.records.length;
+            this.total_count = response.data.total;
+          },
+          error => {
+            this._toastrService.error(error.error.message, 'Error');
+          }
+        );
+    } else {
+      this._galleryListingService
+        .getGalleryList({ type: this.video_type, ...this.filter })
+        .pipe(untilDestroyed(this))
+        .subscribe(
+          response => {
+            this.galleryList = response.data.records;
+            this.show_count = response.data.records.length;
+            this.total_count = response.data.total;
+          },
+          error => {
+            this._toastrService.error(error.error.message, 'Error');
+          }
+        );
+    }
   }
 
   replaceFilterProperty(searchProp: string, replaceProp: string) {

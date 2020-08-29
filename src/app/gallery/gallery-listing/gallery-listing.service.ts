@@ -4,7 +4,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/custom-http-param-encoder.component';
 
 const routes = {
-  getGalleryList: (query: string) => `/video/gallery?${query}`
+  getGalleryList: (query: string) => `/video/gallery?${query}`,
+  getPublicGalleryList: (user_id: string, query: string) =>
+    `/video/public/gallery/${user_id}?${query}`
 };
 
 export interface GetGalleryListContext {
@@ -22,6 +24,7 @@ export interface GetGalleryListResponseContext {
   data: {
     total: number;
     records: {
+      id: string;
       user_id: string;
       avatar: string;
       name: string;
@@ -54,6 +57,25 @@ export class GalleryListingService {
 
     return this._httpClient.get<GetGalleryListResponseContext>(
       routes.getGalleryList(httpParams.toString())
+    );
+  }
+
+  getPublicGalleryList(
+    userId: string,
+    context: GetGalleryListContext
+  ): Observable<GetGalleryListResponseContext> {
+    let query = '?',
+      httpParams = new HttpParams({ encoder: new CustomHttpParamEncoder() });
+    Object.keys(context).forEach(key => {
+      if (context[key]) httpParams = httpParams.append(key, context[key]);
+    });
+
+    if (context['type']) {
+      query += 'type=' + context['type'];
+    }
+
+    return this._httpClient.get<GetGalleryListResponseContext>(
+      routes.getPublicGalleryList(userId, httpParams.toString())
     );
   }
 }

@@ -1,0 +1,215 @@
+<div class="form-container">
+  <div class="header">
+    <div class="title">
+      <h2>{{ editMode ? 'Edit video tags' : 'Upload a new video' }}</h2>
+    </div>
+    <div class="close">
+      <mat-icon mat-dialog-close class="material-icons">close</mat-icon>
+    </div>
+  </div>
+  <form>
+    <div class="modal-body">
+      <!-- radio  -->
+      <div class="radio-block" *ngIf="member_type !== 'player'">
+        <mat-radio-group>
+          <ng-container
+            *ngFor="
+              let videos of ['timeline', 'learning_or_training', 'match'];
+              let i = index
+            "
+          >
+            <mat-radio-button
+              [checked]="type == videos"
+              [value]="videos"
+              (change)="type = $event.value"
+            >
+              {{ videos | titlecase | replace: '_':' ' }} video
+            </mat-radio-button>
+          </ng-container>
+        </mat-radio-group>
+      </div>
+      <!-- steps -->
+      <div class="stepper">
+        <div class="steps active">
+          <div class="icon">
+            <mat-icon class="material-icons">
+              video_call
+            </mat-icon>
+          </div>
+          <p>Perform a skill and record a video</p>
+        </div>
+        <div
+          class="steps steps-line active"
+          [ngClass]="{
+            active: currentStep === 'selectVideo' || currentStep === 'tags'
+          }"
+        >
+          <div class="icon" (click)="setStep(steps.selectVideo)">
+            <mat-icon class="material-icons">
+              av_timer
+            </mat-icon>
+          </div>
+          <p>Upload a video of length upto {{ getUploadVideoLength() }} mins</p>
+        </div>
+        <div
+          class="steps steps-line"
+          [ngClass]="{ active: currentStep === 'tags' }"
+        >
+          <div class="icon" (click)="setStep(steps.tags)">
+            <mat-icon class="material-icons">
+              trending_up
+            </mat-icon>
+          </div>
+          <p>Tag upto 2 abilities and 3 attributes each</p>
+        </div>
+      </div>
+      <form [formGroup]="createVideoPostForm">
+        <ng-container *ngIf="currentStep === 'tags'">
+          <!-- ability -->
+          <div class="ability-wrapper">
+            <div class="btn-group mb-2">
+              <ng-container *ngFor="let ability of tagsArray">
+                <button
+                  [ngClass]="
+                    selectedAbilityIdList.includes(ability?.ability)
+                      ? 'btn-active'
+                      : ''
+                  "
+                  (click)="toggleSelection(ability.ability)"
+                >
+                  {{ ability.ability_name }}
+                </button>
+              </ng-container>
+              <button (click)="toggleOthersTab()">Other</button>
+            </div>
+          </div>
+          <!-- Attribute wrapper -->
+          <div class="attribute-wrapper">
+            <ul class="attribute-items">
+              <ng-container
+                *ngFor="
+                  let ability of this.createVideoPostForm.get('tags')[
+                    'controls'
+                  ];
+                  let i = index
+                "
+                formArrayName="tags"
+              >
+                <ng-container
+                  *ngIf="
+                    ability.get('ability').value === selectedAbility.ability &&
+                    !othersTab
+                  "
+                >
+                  <ng-container [formGroupName]="i">
+                    <ng-container
+                      *ngFor="
+                        let attribute of ability.get('attributes')['controls'];
+                        let j = index
+                      "
+                      formArrayName="attributes"
+                    >
+                      <ng-container [formGroupName]="j">
+                        <li>
+                          <mat-checkbox
+                            (change)="abilityChecker(selectedAbility.ability)"
+                            formControlName="attribute_value"
+                            [value]="attribute.get('attribute_value').value"
+                            >{{
+                              attribute.get('attribute_name').value
+                            }}</mat-checkbox
+                          >
+                        </li>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+
+              <ng-container *ngIf="othersTab">
+                <ng-container
+                  *ngFor="let others of otherTags; let i = index"
+                  formArrayName="others"
+                >
+                  <li>
+                    <mat-checkbox
+                      (change)="addOthersValue($event, others.value)"
+                      [checked]="others.checked"
+                      [value]="others.value"
+                      >{{ others.value }}</mat-checkbox
+                    >
+                  </li>
+                </ng-container>
+              </ng-container>
+            </ul>
+          </div>
+
+          <!-- <div class="attribute-wrapper">
+            <ul class="attribute-items">
+              <ng-container
+                *ngFor="let others of otherTags; let i = index"
+                formArrayName="others"
+              >
+                <li>
+                  <mat-checkbox
+                    (change)="addOthersValue($event, others.value)"
+                    [checked]="others.checked"
+                    [value]="others.value"
+                    >{{ others.value }}</mat-checkbox
+                  >
+                </li>
+              </ng-container>
+            </ul>
+          </div> -->
+        </ng-container>
+
+        <ng-container *ngIf="currentStep === 'selectVideo'">
+          <!-- video -->
+          <div class="upload-wrapper" *ngIf="media">
+            <div class="upload">
+              <div class="video-upload">
+                <span class="upload-video">
+                  <label for="upload"
+                    >Select a video
+                    <input
+                      formControlName="media"
+                      type="file"
+                      id="upload"
+                      (change)="uploadVideo($event.target.files)"
+                    />
+                  </label>
+                </span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="!media || editMode">
+          <div class="upload-wrapper">
+            <div class="upload">
+              <img src="assets/images/member/video-placeholder.png" alt="" />
+
+              <!-- <div class="uploader">
+                <mat-progress-bar
+                  mode="determinate"
+                  value="40"
+                ></mat-progress-bar>
+                <span>Uploaded 40%</span>
+              </div> -->
+            </div>
+          </div>
+        </ng-container>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <!-- actions -->
+      <div class="action-block">
+        <div class="btn-group">
+          <button class="btn-normal" mat-dialog-close>Cancel</button>
+          <button (click)="videoPost()" class="btn-active">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
