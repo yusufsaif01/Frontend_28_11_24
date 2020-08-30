@@ -12,10 +12,12 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LinkExpiredComponent } from './link-expired/link-expired.component';
 import { LeftPanelComponent } from './left-panel/left-panel.component';
+import { VideoPlayerComponent } from './video-player/video-player.component';
 import { FilterComponent } from './filter/filter.component';
 import { BackNavigationComponent } from './back-navigation/back-navigation.component';
 import { FormsModule } from '@angular/forms';
 import { CopyrightComponent } from './copyright/copyright.component';
+import { CapitalizePipe } from './../pipes/capitalize.pipe';
 
 @NgModule({
   declarations: [
@@ -28,9 +30,11 @@ import { CopyrightComponent } from './copyright/copyright.component';
     NotFoundComponent,
     LinkExpiredComponent,
     LeftPanelComponent,
+    VideoPlayerComponent,
     FilterComponent,
     BackNavigationComponent,
-    CopyrightComponent
+    CopyrightComponent,
+    CapitalizePipe
   ],
   imports: [
     CommonModule,
@@ -47,11 +51,13 @@ import { CopyrightComponent } from './copyright/copyright.component';
     AdminHeaderComponent,
     AdminSidebarComponent,
     LeftPanelComponent,
+    VideoPlayerComponent,
     InfiniteScrollModule,
     FilterComponent,
     BackNavigationComponent,
     FormsModule,
-    CopyrightComponent
+    CopyrightComponent,
+    CapitalizePipe
   ]
 })
 export class PageComponentsModule {}

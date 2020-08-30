@@ -1,0 +1,230 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+.form-container {
+  margin: -24px;
+  min-width: 45vw;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+  align-items: center;
+  background: $fifth-color;
+
+  .title {
+    width: 70%;
+
+    h2 {
+      color: $fourth-color;
+      font-weight: 600;
+    }
+  }
+
+  .close {
+    width: 30%;
+    display: block;
+    text-align: right;
+
+    .mat-icon {
+      cursor: pointer;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+.modal-body {
+  padding: 2rem 3rem 0;
+  display: block;
+  text-align: center;
+
+  // radio{
+  .radio-block {
+    display: block;
+    text-align: center;
+  }
+
+  // stepper
+  .stepper {
+    display: flex;
+    margin-bottom: 2rem;
+    width: 100%;
+    justify-content: space-between;
+
+    .steps {
+      max-width: 20rem;
+      display: block;
+      text-align: center;
+
+      .icon {
+        width: 5rem;
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $fourth-color;
+        color: $white-color;
+        border-radius: 6rem;
+        margin: auto;
+        position: relative;
+        z-index: 10;
+        cursor: pointer;
+      }
+
+      p {
+        color: $second-color;
+        margin-top: 1rem;
+      }
+    }
+
+    .steps-line {
+      position: relative;
+
+      &::after {
+        content: "";
+        height: 2px;
+        width: 26rem;
+        position: absolute;
+        top: 2.5rem;
+        left: -18rem;
+        z-index: 1;
+        background: $fourth-color;
+      }
+    }
+
+    .active {
+      &::after {
+        background: $primary-color !important;
+      }
+
+      .icon {
+        background: $primary-color !important;
+      }
+    }
+  }
+
+  // abilties
+  .ability-wrapper {
+    max-width: fit-content;
+
+    .btn-group {
+      display: flex;
+
+      button {
+        font-size: 1.6rem;
+        padding: 1rem 2.5rem;
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  // attribute box
+  .attribute-wrapper {
+    height: 15rem;
+    overflow-y: scroll;
+    background: $third-color;
+    margin-bottom: 2rem;
+    max-width: 100%;
+
+    .attribute-items {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 2rem;
+
+      li {
+        margin: 0 2rem 2rem 0rem;
+
+        ::ng-deep {
+          .mat-checkbox .mat-checkbox-frame {
+            border-color: $primary-color !important;
+          }
+
+          .mat-checkbox .mat-checkbox-layout .mat-checkbox-label {
+            font-weight: 400 !important;
+          }
+
+          .mat-checkbox .mat-checkbox-layout .mat-checkbox-inner-container {
+            width: 18px;
+            height: 18px;
+          }
+        }
+      }
+    }
+  }
+
+  // upload
+  .upload-wrapper {
+    background: $third-color;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 2rem;
+
+    .upload {
+      img {
+        max-height: 10rem;
+      }
+
+      .video-upload {
+        padding: 2rem 0;
+
+        .upload-video {
+          display: inline-block;
+          cursor: pointer;
+          padding: 1rem 3rem;
+          background: $primary-color;
+          font-size: 1.8rem;
+          color: $white-color;
+          border-radius: 5rem;
+
+          label {
+            cursor: pointer;
+          }
+
+          input {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .uploader {
+      max-width: 30rem;
+      margin: auto;
+
+      span {
+        font-size: 1.8rem;
+        color: $primary-color;
+        margin-top: 1rem;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+//
+.modal-footer {
+  padding: 2rem 3rem;
+  display: block;
+
+  // action button
+  .action-block {
+    text-align: right;
+
+    button {
+      font-size: $heading-fifth;
+      margin: 0 0 0 2rem;
+
+      &:hover {
+        box-shadow: none;
+      }
+    }
+  }
+}

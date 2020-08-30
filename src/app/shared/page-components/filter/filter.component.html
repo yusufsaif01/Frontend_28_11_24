@@ -415,6 +415,70 @@
           </li>
         </ul>
       </div>
+
+      <div class="filter-group" *ngIf="allowedFilters.abilityAttribute">
+        <ng-container *ngFor="let ability of tagsArray">
+          <div class="filter-title" (click)="toggleFilter(ability.ability)">
+            <h3>
+              <a>
+                {{ ability.ability_name }}
+                <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+              </a>
+            </h3>
+          </div>
+          <ul
+            class="filter-checks"
+            [ngClass]="ability.ability + '-filter'"
+            #abilityattribute
+          >
+            <li *ngFor="let attribute of ability.attributes">
+              <mat-checkbox
+                [value]="attribute.attribute_name"
+                (change)="
+                  onChangeChecker(
+                    $event,
+                    locationRangeFilters.attributeArray,
+                    'attribute'
+                  )
+                "
+                [checked]="
+                  locationRangeFilters.attributeArray.includes(
+                    attribute.attribute_name
+                  )
+                "
+                >{{ attribute.attribute_name }}</mat-checkbox
+              >
+            </li>
+          </ul>
+        </ng-container>
+      </div>
+
+      <div class="filter-group" *ngIf="allowedFilters.otherTags">
+        <div class="filter-title" (click)="toggleFilter('othertags')">
+          <h3>
+            <a
+              >Others
+              <mat-icon class="material-icons">arrow_drop_down</mat-icon>
+            </a>
+          </h3>
+        </div>
+        <ul class="filter-checks othertags-filter" #othertags>
+          <li *ngFor="let entity of locationRangeFilters.otherTags">
+            <mat-checkbox
+              [value]="entity"
+              (change)="
+                onChangeChecker(
+                  $event,
+                  locationRangeFilters.otherTagsArray,
+                  'others'
+                )
+              "
+              [checked]="locationRangeFilters.otherTagsArray.includes(entity)"
+              >{{ entity | titlecase }}</mat-checkbox
+            >
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </ng-container>
