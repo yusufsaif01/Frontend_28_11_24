@@ -18,20 +18,41 @@ export interface GetGalleryListContext {
   from?: string;
   to?: string;
 }
-export interface GetGalleryListResponseContext {
+
+interface GetGalleryListResponseContext {
   status: string;
   message: string;
   data: {
     total: number;
     records: {
+      created_at: string;
       id: string;
-      user_id: string;
-      avatar: string;
-      name: string;
-      category: 'professional' | 'amateur' | 'grassroot';
-      total_report_cards: number;
-      published_at: string;
-      status: 'published' | 'draft' | '';
+      media: {
+        media_url: string;
+        media_type: string;
+        media_thumbnail: {
+          sizes: {
+            width: number;
+            height: number;
+            link: string;
+            link_with_play_button: string;
+          }[];
+          url: string;
+        };
+      };
+      meta?: {
+        abilities: {
+          ability_name: string;
+          attributes: [];
+        }[];
+        others: [];
+      };
+      posted_by: {
+        member_type: string;
+        user_id: string;
+      };
+      status: string;
+      type: string;
     }[];
   };
 }

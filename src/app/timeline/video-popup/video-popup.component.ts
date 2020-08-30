@@ -8,7 +8,7 @@ import { untilDestroyed } from '@app/core';
 import { SharedService } from '@app/shared/shared.service';
 import { requiredVideo } from '@app/shared/validators/requiredVideo';
 import { videoTags } from '@app/shared/validators/videoTags';
-import * as R from 'ramda';
+const R = require('ramda');
 
 export interface TagContext {
   ability: string;
@@ -19,11 +19,7 @@ export interface TagContext {
     attribute_value?: boolean;
   }[];
 }
-// post format
-// tags: {
-//   ability: string;
-//   attributes: string[];
-// }[];
+
 @Component({
   selector: 'app-video-popup',
   templateUrl: './video-popup.component.html',
@@ -54,7 +50,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     ability_name: '',
     attributes: []
   };
-  currentStep = 'tags';
+  currentStep = 'selectVideo';
   member_type = '';
   editMode: boolean = false;
   otherTags: any = [];
@@ -76,7 +72,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
           ? Constants.OTHER_TAGS.player
           : Constants.OTHER_TAGS.clubacademy;
 
-      this.otherTags = R.curry((val, items) =>
+      this.otherTags = R.curry((val: any, items: any) =>
         R.map(R.assoc('checked', val), items)
       )(false, this.otherTags);
     }
@@ -207,7 +203,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
         ).length === 0
       ) {
         this.selectedAbilityIdList = R.reject(
-          o => o === formdata.at(i).value.ability,
+          (o: any) => o === formdata.at(i).value.ability,
           this.selectedAbilityIdList
         );
         break;

@@ -9,6 +9,37 @@ import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '@app/shared/shared.service';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { ActivatedRoute } from '@angular/router';
+
+export interface GetGalleryListResponseContext {
+  created_at: string;
+  id: string;
+  media: {
+    media_url: string;
+    media_type: string;
+    media_thumbnail: {
+      sizes: {
+        width: number;
+        height: number;
+        link: string;
+        link_with_play_button: string;
+      }[];
+      url: string;
+    };
+  };
+  meta?: {
+    abilities: {
+      ability_name: string;
+      attributes: [];
+    }[];
+    others: [];
+  };
+  posted_by: {
+    member_type: string;
+    user_id: string;
+  };
+  status: string;
+  type: string;
+}
 @Component({
   selector: 'app-gallery-listing',
   templateUrl: './gallery-listing.component.html',
@@ -31,7 +62,7 @@ export class GalleryListingComponent implements OnInit {
   }
 
   filter: GetGalleryListContext = {};
-  galleryList: GetGalleryListContext[] = [];
+  galleryList: GetGalleryListResponseContext[] = [];
   pageSize = 10;
   pageNo = 1;
   selectedPage = 1;

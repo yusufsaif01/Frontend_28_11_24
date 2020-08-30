@@ -49,7 +49,15 @@
         <div class="gallery-wrapper">
           <ng-container *ngFor="let gallery of galleryList">
             <div class="gallery-box">
-              <img alt="video-placehoder" />
+              <img
+                alt="video-placehoder"
+                [src]="
+                  gallery.media.media_thumbnail.sizes &&
+                  gallery.media.media_thumbnail.sizes[0]
+                    ? gallery.media.media_thumbnail.sizes[0].link
+                    : ''
+                "
+              />
               <span class="playicon">
                 <a
                   [routerLink]="

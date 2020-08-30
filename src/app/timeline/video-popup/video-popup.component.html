@@ -165,7 +165,7 @@
 
         <ng-container *ngIf="currentStep === 'selectVideo'">
           <!-- video -->
-          <div class="upload-wrapper" *ngIf="media">
+          <div class="upload-wrapper" *ngIf="!media">
             <div class="upload">
               <div class="video-upload">
                 <span class="upload-video">
@@ -183,7 +183,7 @@
             </div>
           </div>
         </ng-container>
-        <ng-container *ngIf="!media || editMode">
+        <ng-container *ngIf="media || editMode">
           <div class="upload-wrapper">
             <div class="upload">
               <img src="assets/images/member/video-placeholder.png" alt="" />
