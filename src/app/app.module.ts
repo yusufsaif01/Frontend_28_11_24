@@ -33,6 +33,7 @@ import { JwtInterceptor } from './core/http/jwt.interceptor';
 import { ErrorInterceptor } from './core/http/error.interceptor';
 
 import { HomeModule } from './home/home.module';
+import { SecurityModule } from './security/security.module';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { HomeModule } from './home/home.module';
     SharedModule,
     MaterialModule,
     CommonModule,
+    SecurityModule,
     LoginModule,
     HomeModule,
     Angulartics2Module.forRoot(),

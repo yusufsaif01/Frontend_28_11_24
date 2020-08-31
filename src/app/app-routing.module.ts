@@ -12,12 +12,16 @@ import { NotFoundComponent } from '@app/shared/page-components/not-found/not-fou
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'security',
     pathMatch: 'full'
   },
   {
     path: 'home',
     loadChildren: './home/home.module#HomeModule'
+  },
+  {
+    path: 'security',
+    loadChildren: './security/security.module#SecurityModule'
   },
   {
     path: 'login',
