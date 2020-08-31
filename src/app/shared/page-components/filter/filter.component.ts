@@ -43,6 +43,10 @@ interface LocationRangeFilters {
   reportStatusArray: any[];
   createdBy: any[];
   createdByArray: any[];
+  attribute: any[];
+  attributeArray: any[];
+  otherTags: any[];
+  otherTagsArray: any[];
 }
 
 interface LocationsIds {
@@ -53,6 +57,16 @@ interface LocationsIds {
   districtValue: string;
 }
 
+interface TagContext {
+  ability: string;
+  ability_name: string;
+  attributes: {
+    attribute: string;
+    attribute_name: string;
+    attribute_value?: boolean;
+  }[];
+}
+
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
@@ -60,6 +74,7 @@ interface LocationsIds {
 })
 export class FilterComponent implements OnInit {
   filter: any = {};
+  tagsArray: TagContext[] = [];
   locationRangeFilters: LocationRangeFilters;
   locationData: LocationsIds;
   today = new Date();
@@ -77,13 +92,15 @@ export class FilterComponent implements OnInit {
     dateRange: false,
     clubAcademyName: false,
     createdBy: false,
-    reportStatus: false
+    reportStatus: false,
+    abilityAttribute: false,
+    otherTags: false
   };
   showFilter = false;
 
   @Output() filterChanges: EventEmitter<any> = new EventEmitter();
   @ViewChildren(
-    'position, playercategory, age, location, strongfoot, ability, teamtype, status, daterange, reportstatus, clubacademyname, createdby'
+    'position, playercategory, age, location, strongfoot, ability, teamtype, status, daterange, reportstatus, clubacademyname, createdby, abilityattribute, othertags'
   )
   templates: QueryList<ElementRef>;
 
@@ -100,6 +117,7 @@ export class FilterComponent implements OnInit {
     this.getLocationStats();
     this.getAbilityList();
     this.getFilterDisplayValue();
+    if (this.allowedFilters.abilityAttribute) this.getAbilityAttributeList();
   }
 
   toggleFilter(filter: string) {
@@ -148,6 +166,32 @@ export class FilterComponent implements OnInit {
       );
   }
 
+  getAbilityAttributeList() {
+    this._sharedService
+      .getAbilityAttributeList()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          this.tagsArray = response.data.records.map(record => {
+            return {
+              ability: record.id,
+              ability_name: record.name,
+              attributes: record.attributes.length
+                ? record.attributes.map(attribute => {
+                    return {
+                      attribute: attribute.id,
+                      attribute_name: attribute.name,
+                      attribute_value: false
+                    };
+                  })
+                : []
+            };
+          });
+        },
+        error => {}
+      );
+  }
+
   initialize() {
     this.locationRangeFilters = {
       countryData: [],
@@ -161,6 +205,8 @@ export class FilterComponent implements OnInit {
       status: [],
       reportStatus: [],
       createdBy: ['club', 'academy'],
+      attribute: [],
+      otherTags: ['Celebration', 'Team play', 'Press conference', 'Interviews'],
       ability: [],
       positionsArray: [],
       playerTypeArray: [],
@@ -175,7 +221,9 @@ export class FilterComponent implements OnInit {
       },
       clubAcademyName: '',
       reportStatusArray: [],
-      createdByArray: []
+      createdByArray: [],
+      attributeArray: [],
+      otherTagsArray: []
     };
     this.locationData = {
       countryID: '',
@@ -354,6 +402,8 @@ export class FilterComponent implements OnInit {
     this.locationRangeFilters.statusArray = [];
     this.locationRangeFilters.reportStatusArray = [];
     this.locationRangeFilters.createdByArray = [];
+    this.locationRangeFilters.attributeArray = [];
+    this.locationRangeFilters.otherTagsArray = [];
     this.locationRangeFilters.teamTypesArray = [];
     this.locationRangeFilters.abilityArray = [];
     this.locationRangeFilters.dateRange = {

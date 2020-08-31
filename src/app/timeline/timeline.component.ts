@@ -13,6 +13,8 @@ import { untilDestroyed } from '@app/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { wordCount } from '@app/shared/validators/wordCount';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
+import { VideoPopupComponent } from './video-popup/video-popup.component';
+import { ClipboardService } from 'ngx-clipboard';
 
 interface PostContext {
   id: string;
@@ -20,6 +22,16 @@ interface PostContext {
     text: string;
     media_url: string;
     media_type: string;
+    media_thumbnail: {
+      sizes: string;
+    }[];
+    meta?: {
+      abilities: {
+        ability_name: string;
+        attributes: [];
+      }[];
+      others: [];
+    };
   };
   posted_by: {
     avatar: string;
@@ -126,6 +138,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private _timelineService: TimelineService,
     private _toastrService: ToastrService,
+    private _clipboardService: ClipboardService,
     private _formBuilder: FormBuilder
   ) {}
 
@@ -321,6 +334,19 @@ export class TimelineComponent implements OnInit, OnDestroy {
     });
   }
 
+  editVideoPost(post: any) {
+    let member_type = this.member_type;
+    const dialogRef = this.dialog.open(VideoPopupComponent, {
+      data: { ...post, member_type }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'success') {
+        this.getPostListing();
+      }
+    });
+  }
+
   deletePost(post_id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
       panelClass: 'deletepopup',
@@ -372,4 +398,24 @@ export class TimelineComponent implements OnInit, OnDestroy {
   }
   // toggle sidebar on mobile
   public sidebar = false;
+
+  // Video Popup
+  openVideoDialog(): void {
+    let data = { member_type: this.member_type };
+    const dialogRef = this.dialog.open(VideoPopupComponent, {
+      data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'success') {
+        this.getPostListing();
+      }
+    });
+  }
+
+  copyToClipboard(videoId: string) {
+    let url = environment.mediaUrl + '/member/gallery/gallery-view/' + videoId;
+    this._clipboardService.copyFromContent(url);
+    this._toastrService.success('Success', 'Link copied to clipboard');
+  }
 }

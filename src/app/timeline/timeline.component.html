@@ -55,6 +55,13 @@
             <img src=" assets/images/member/create.png" alt="share-post" />
             Share a FooTPost
           </button>
+          <button
+            class="btn btn-primary btn-shadow"
+            (click)="openVideoDialog()"
+          >
+            <img src=" assets/images/member/create.png" alt="share-post" />
+            Share a Video
+          </button>
         </div>
         <!-- postwrapper -->
         <div class="post-wrapper" *ngFor="let post of postListing">
@@ -92,11 +99,27 @@
             </div>
             <!-- icons -->
             <div class="actions" *ngIf="userId == post.posted_by.user_id">
-              <span>
-                <a (click)="editPost(post)">
-                  <mat-icon class="material-icons">edit</mat-icon>
-                </a>
-              </span>
+              <ng-container *ngIf="post.post.media_type === 'video'">
+                <span>
+                  <a (click)="copyToClipboard(post.id)">
+                    <mat-icon class="material-icons">link</mat-icon>
+                  </a>
+                </span>
+              </ng-container>
+              <ng-container *ngIf="post.post.media_type === 'video'">
+                <span>
+                  <a (click)="editVideoPost(post)">
+                    <mat-icon class="material-icons">edit</mat-icon>
+                  </a>
+                </span>
+              </ng-container>
+              <ng-container *ngIf="post.post.media_type !== 'video'">
+                <span>
+                  <a (click)="editPost(post)">
+                    <mat-icon class="material-icons">edit</mat-icon>
+                  </a>
+                </span>
+              </ng-container>
               <span>
                 <a (click)="deletePost(post.id)">
                   <mat-icon class="material-icons">delete</mat-icon>
@@ -105,7 +128,10 @@
             </div>
           </div>
           <!-- postbody -->
-          <div class="postbody">
+          <div
+            class="postbody"
+            *ngIf="!post.post.media_type || post.post.media_type === 'image'"
+          >
             <div class="post-content">
               <p>
                 {{ post.post.text }}
@@ -113,6 +139,22 @@
             </div>
             <div class="post-img">
               <img [src]="post.post.media_url" alt="" />
+            </div>
+          </div>
+
+          <div class="postbody" *ngIf="post.post.media_type === 'video'">
+            <div class="post-content">
+              <p>
+                <ng-container *ngFor="let ability of post.post.meta.abilities">
+                  <ng-container *ngFor="let attribute of ability.attributes">
+                    <span>#{{ attribute.attribute_name }}</span>
+                  </ng-container>
+                </ng-container>
+              </p>
+              <app-video-player
+                [source]="post.post.media_url"
+                [postId]="post.id"
+              ></app-video-player>
             </div>
           </div>
           <!-- like comment -->
@@ -305,3 +347,24 @@
 <span class="toggle-btn" (click)="sidebar = !sidebar">
   <mat-icon class=" material-icons">menu_open</mat-icon>
 </span>
+<div class="videoupload">
+  <button [matMenuTriggerFor]="uploadToggle">
+    <mat-icon class="material-icons">cloud_upload</mat-icon>
+  </button>
+  <mat-menu #uploadToggle="matMenu" yPosition="above">
+    <div class="mini-uploader">
+      <div class="left">
+        <span>
+          <mat-icon class="material-icons">cloud_upload</mat-icon>
+        </span>
+      </div>
+      <div class="right">
+        <h5>Upload video file</h5>
+        <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+        <mat-error class="error-text">
+          <span>Video failed to upload</span>
+        </mat-error>
+      </div>
+    </div>
+  </mat-menu>
+</div>

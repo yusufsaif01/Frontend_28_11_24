@@ -12,8 +12,15 @@ const routes = {
   updatePost: (post_id: string) => `/post/${post_id}`,
   deletePost: (post_id: string) => `/post/${post_id}`,
   getCommentListing: (params: string, query: string) =>
-    `/post/${params}/comments${query}`
+    `/post/${params}/comments${query}`,
+  createVideoPost: (query: string) => `/video/${query}`,
+  updateVideoPost: (video_id: string) => `/video/${video_id}`
 };
+
+interface createVideoPostContext {
+  requestData: FormData;
+  type: 'timeline' | 'learning_or_training' | 'match';
+}
 
 interface GetPostListingContext {
   page_no?: number;
@@ -58,6 +65,16 @@ interface GetPostListingResponseContext {
         text: string;
         media_url: string;
         media_type: string;
+        media_thumbnail: {
+          sizes: string;
+        }[];
+        meta?: {
+          abilities: {
+            ability_name: string;
+            attributes: [];
+          }[];
+          others: [];
+        };
       };
       posted_by: {
         avatar: string;
@@ -225,5 +242,27 @@ export class TimelineService {
     return this.httpClient.get<GetCommentListingResponseContext>(
       routes.getCommentListing(params, query)
     );
+  }
+
+  createVideoPost(
+    context: createVideoPostContext
+  ): Observable<CommonResponseContext> {
+    let query = '?';
+
+    if (context['type']) {
+      query += 'type=' + context['type'];
+    }
+
+    return this.httpClient.post<CommonResponseContext>(
+      routes.createVideoPost(query),
+      context.requestData
+    );
+  }
+
+  updateVideoPost(
+    video_id: string,
+    context: createVideoPostContext
+  ): Observable<CommonResponseContext> {
+    return this.httpClient.put<any>(routes.updateVideoPost(video_id), context);
   }
 }
