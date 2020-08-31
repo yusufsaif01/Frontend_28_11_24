@@ -1,7 +1,8 @@
 <app-header></app-header>
 <div class="site-wrapper">
   <div class="left-panel">
-    <app-left-panel> </app-left-panel>
+    <app-left-panel [userId]="userId" [options]="panelOptions">
+    </app-left-panel>
   </div>
   <div class="right-panel">
     <div class="right-wrapper">
@@ -27,39 +28,62 @@
           </div>
         </div>
 
-        <div class="tab-buttons" *ngIf="member_type !== 'player'">
+        <div class="tab-buttons" *ngIf="member_type !== 'player' || isPublic">
           <a
             [ngClass]="{ active: video_type === 'timeline' }"
             (click)="toggleVideoType('timeline')"
             >Timeline videos</a
           >
           <a
-            [ngClass]="{ active: video_type === 'learning_or_training_video' }"
-            (click)="toggleVideoType('learning_or_training_video')"
+            [ngClass]="{ active: video_type === 'learning_or_training' }"
+            (click)="toggleVideoType('learning_or_training')"
             >Learning and training videos</a
           >
           <a
-            [ngClass]="{ active: video_type === 'match_videos' }"
-            (click)="toggleVideoType('match_videos')"
+            [ngClass]="{ active: video_type === 'match' }"
+            (click)="toggleVideoType('match')"
             >Match videos</a
           >
         </div>
         <!-- gallery section -->
         <div class="gallery-wrapper">
-          <div class="gallery-box" *ngFor="let gallery of galleryList">
-            <img
-              [src]="gallery.media.media_thumbnail.sizes[0].link"
-              alt="video-placehoder"
-            />
-            <span class="playicon">
-              <a [routerLink]="['/member/gallery/gallery-view', gallery.id]">
-                <mat-icon class="material-icons">play_circle_outline</mat-icon>
-              </a>
+          <ng-container *ngFor="let gallery of galleryList">
+            <div class="gallery-box">
+              <img
+                alt="video-placehoder"
+                [src]="
+                  gallery.media.media_thumbnail.sizes &&
+                  gallery.media.media_thumbnail.sizes[0]
+                    ? gallery.media.media_thumbnail.sizes[0].link
+                    : ''
+                "
+              />
+              <span class="playicon">
+                <a
+                  [routerLink]="
+                    isPublic
+                      ? ['/member/gallery/gallery-view', gallery.id, userId]
+                      : ['/member/gallery/gallery-view', gallery.id]
+                  "
+                >
+                  <mat-icon class="material-icons"
+                    >play_circle_outline</mat-icon
+                  >
+                </a>
+              </span>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="galleryList.length === 0">
+            <span class="no-data-found">
+              No videos found
             </span>
-          </div>
+          </ng-container>
         </div>
+
         <!-- Pagination -->
         <app-pagination
+          *ngIf="galleryList.length !== 0"
           [showData]="false"
           [showCount]="show_count"
           [rowsPerPage]="pageSize"
@@ -75,6 +99,7 @@
   </div>
 </div>
 <app-filter
+  [filterHeading]="'Filter'"
   [allowedFilters]="filtersList"
   (filterChanges)="onChangeFilter($event)"
 ></app-filter>

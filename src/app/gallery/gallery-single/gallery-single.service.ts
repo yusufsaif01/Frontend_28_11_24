@@ -6,7 +6,9 @@ const routes = {
   addComment: (params: string) => `/post/${params}/comment`,
   likePost: (params: string) => `/post/${params}/like`,
   unlikePost: (params: string) => `/post/${params}/dislike`,
-  getVideo: (params: string, query: string) => `/video/${params}/${query}`,
+  getVideo: (params: string, query: string) => `/video/${params}${query}`,
+  getPublicVideo: (params: string, query: string) =>
+    `/video/public/gallery/${params}${query}`,
   updatePost: (post_id: string) => `/post/${post_id}`,
   deletePost: (post_id: string) => `/post/${post_id}`,
   getCommentListing: (params: string, query: string) =>
@@ -55,6 +57,16 @@ interface GetPostListingResponseContext {
       text: string;
       media_url: string;
       media_type: string;
+      media_thumbnail: {
+        sizes: string;
+      }[];
+      meta?: {
+        abilities: {
+          ability_name: string;
+          attributes: [];
+        }[];
+        others: [];
+      };
     };
     posted_by: {
       avatar: string;
@@ -157,18 +169,23 @@ export class GallerySingleService {
     context: GetPostListingContext
   ): Observable<GetPostListingResponseContext> {
     let params = '';
-    if (context['video_id']) {
-      params += `${context['video_id']}`;
-    }
 
     let query = '?';
     if (context['comments']) {
       query += 'comments=' + context['comments'];
     }
 
-    return this.httpClient.get<GetPostListingResponseContext>(
-      routes.getVideo(params, query)
-    );
+    if (context['user_id']) {
+      params += `${context['user_id']}/${context['video_id']}`;
+      return this.httpClient.get<GetPostListingResponseContext>(
+        routes.getPublicVideo(params, query)
+      );
+    } else if (context['video_id']) {
+      params += `${context['video_id']}`;
+      return this.httpClient.get<GetPostListingResponseContext>(
+        routes.getVideo(params, query)
+      );
+    }
   }
 
   getCommentListing(

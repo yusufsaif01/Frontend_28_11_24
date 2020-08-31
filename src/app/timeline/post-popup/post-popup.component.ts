@@ -172,6 +172,7 @@ export class PostPopupComponent implements OnInit {
     body.text = this.createPostForm.value.text;
     delete body.media_type;
     delete body.media_url;
+    delete body.status;
     let requestData = this.toFormData(body);
     if (this.media) requestData.set('media', this.convertedFile);
     this.service
