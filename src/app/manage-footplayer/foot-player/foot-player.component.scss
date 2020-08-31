@@ -7,9 +7,17 @@
   background: $third-color;
   margin-top: 8.5rem;
 
+  @include responsive(bigphone) {
+    margin-top: 13rem;
+  }
+
   .right-panel {
     width: 76.25%;
     position: relative;
+
+    @include responsive(tablet) {
+      width: 100%;
+    }
 
     .footer-fix {
       position: absolute;
@@ -41,18 +49,26 @@
           justify-content: space-between;
           margin-bottom: 1rem;
 
+          @include responsive(smallphone) {
+            flex-wrap: wrap;
+          }
+
           .search-wrapper {
             max-width: 35rem;
             width: 100%;
+
+            @include responsive(smallphone) {
+              max-width: 100rem;
+            }
+          }
+
+          button.secondary-btn {
+            @include responsive(smallphone) {
+              margin-top: 1rem;
+            }
           }
         }
       }
-    }
-
-    .footer-fix {
-      position: absolute;
-      bottom: 0px;
-      width: 100%;
     }
   }
 }
