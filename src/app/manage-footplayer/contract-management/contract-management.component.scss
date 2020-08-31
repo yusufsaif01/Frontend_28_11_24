@@ -7,9 +7,17 @@
   background: $third-color;
   margin-top: 8.5rem;
 
+  @include responsive(bigphone) {
+    margin-top: 13rem;
+  }
+
   .right-panel {
     width: 76.25%;
     position: relative;
+
+    @include responsive(tablet) {
+      width: 100%;
+    }
 
     .footer-fix {
       position: absolute;
@@ -41,6 +49,30 @@
       position: absolute;
       bottom: 0px;
       width: 100%;
+    }
+  }
+}
+
+//  post popup
+::ng-deep {
+  .postpopup,
+  .deletepopup {
+    width: 50%;
+
+    @include responsive(tablet) {
+      width: 60%;
+    }
+
+    @include responsive(bigphone) {
+      width: 75%;
+    }
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallphone) {
+      max-width: 95vw !important;
     }
   }
 }

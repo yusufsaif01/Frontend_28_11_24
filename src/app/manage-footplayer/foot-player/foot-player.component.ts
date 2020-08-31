@@ -111,7 +111,8 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
       member_type: this.member_type
     };
     const dialogRef = this.dialog.open(AddFootplayerComponent, {
-      width: '99%',
+      // width: '99%',
+      panelClass: 'addfootplayer',
       data: {
         ...data
       }
