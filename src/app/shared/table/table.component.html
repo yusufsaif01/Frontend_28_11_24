@@ -55,7 +55,7 @@
         </p>
         <span
           class="name"
-          *ngIf="col === 'name'"
+          *ngIf="col === 'name' && tableConfig.columns[col].getValue(element)"
           matTooltip="{{ tableConfig.columns[col].getValue(element) }}"
         >
           <img
