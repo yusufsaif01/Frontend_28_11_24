@@ -5,7 +5,7 @@ import { environment } from '@env/environment';
 import { Logger, I18nService, untilDestroyed } from '@app/core';
 import { TimelineService } from '@app/timeline/timeline.service';
 import { SharedService } from '@app/shared/shared.service';
-
+import { Store } from '@ngrx/store';
 const log = new Logger('App');
 
 @Component({
@@ -15,12 +15,14 @@ const log = new Logger('App');
 })
 export class AppComponent implements OnInit, OnDestroy {
   message: any;
+  uploader: boolean;
 
   constructor(
     private titleService: Title,
     private i18nService: I18nService,
     private _timelineService: TimelineService,
     private _sharedService: SharedService,
+    private _store: Store<any>,
     private router: Router
   ) {
     router.events.subscribe(event => {
@@ -31,7 +33,12 @@ export class AppComponent implements OnInit, OnDestroy {
         ).join('-');
         this.titleService.setTitle(title);
         window.scrollTo(0, 0);
+        if (router.navigated && !this.uploader) alert('Hello world');
       }
+    });
+
+    _store.select('uploader').subscribe(uploader => {
+      this.uploader = uploader;
     });
   }
 
@@ -70,17 +77,24 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   trigger() {
+    this.dispatcher('PENDING_UPLOAD');
     this._timelineService
       .createVideoPost(this.message)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
+          this.dispatcher('COMPLETED_UPLOAD');
           console.log('Yes');
         },
         error => {
           console.log(error);
+          this.dispatcher('ERROR_UPLOAD');
         }
       );
+  }
+
+  dispatcher(type: string) {
+    this._store.dispatch({ type: type });
   }
 
   ngOnDestroy() {
