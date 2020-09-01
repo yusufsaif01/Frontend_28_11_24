@@ -5,6 +5,7 @@
   position: fixed;
   right: 3rem;
   bottom: 3rem;
+  z-index: 999;
 
   button {
     background: $fourth-color;
