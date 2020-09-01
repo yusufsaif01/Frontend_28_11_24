@@ -7,6 +7,10 @@
   background: $third-color;
   margin-top: 8.5rem;
 
+  @include responsive(bigphone) {
+    margin-top: 14rem;
+  }
+
   .right-panel {
     width: 100%;
     position: relative;
@@ -77,14 +81,26 @@
         .single-wrapper {
           display: flex;
 
+          @include responsive(bigphone) {
+            flex-wrap: wrap;
+          }
+
           // video-part
           .post {
             width: 55%;
+
+            @include responsive(bigphone) {
+              width: 100%;
+            }
 
             .video {
               width: 100%;
               padding-right: 2rem;
               position: relative;
+
+              @include responsive(bigphone) {
+                padding-right: 0rem;
+              }
 
               img {
                 width: 100%;
@@ -117,15 +133,31 @@
           .post-wrapper {
             width: 45%;
 
+            @include responsive(bigphone) {
+              width: 100%;
+            }
+
             .post-header {
               display: flex;
               align-items: center;
               padding: 1rem 3rem;
 
+              @include responsive(mediumphone) {
+                padding: 1rem 0rem;
+              }
+
+              @include responsive(smallestphone) {
+                flex-wrap: wrap;
+              }
+
               .profile {
                 display: flex;
-                width: 80%;
+                width: 70%;
                 align-items: center;
+
+                @include responsive(smallestphone) {
+                  width: 100%;
+                }
 
                 .profile-img {
                   img {
@@ -151,6 +183,10 @@
                       font-weight: 500;
                       margin-right: 0.5rem;
                       text-transform: capitalize;
+
+                      @include responsive(smallestphone) {
+                        display: block;
+                      }
                     }
 
                     span.type {
@@ -168,7 +204,13 @@
               .actions {
                 text-align: right;
                 display: block;
-                width: 20%;
+                width: 30%;
+
+                @include responsive(smallestphone) {
+                  width: 100%;
+                  text-align: left;
+                  padding: 1rem 0;
+                }
 
                 span {
                   margin-left: 1rem;
@@ -179,6 +221,10 @@
             // post body
             .postbody {
               padding: 1rem 2rem;
+
+              @include responsive(smallphone) {
+                padding: 1rem 0rem;
+              }
 
               .post-content {
                 p {
@@ -201,6 +247,10 @@
               padding: 0rem 3rem 0rem;
               display: flex;
 
+              @include responsive(smallphone) {
+                padding: 0rem 0rem 0rem;
+              }
+
               span {
                 display: flex;
                 margin-right: 2rem;
@@ -217,6 +267,10 @@
 
             .comment {
               padding: 0 2rem 0rem 2rem;
+
+              @include responsive(smallphone) {
+                padding: 0rem 0rem 0rem;
+              }
 
               .comment-box {
                 padding: 1rem 0;
@@ -246,6 +300,10 @@
                       display: flex;
                       width: 95%;
                       justify-content: space-between;
+
+                      @include responsive(smallphone) {
+                        flex-wrap: wrap;
+                      }
 
                       p {
                         color: $second-color;
