@@ -1,5 +1,8 @@
 <div class="custom-theme" fxFlex>
-  <app-upload-progress [progress]="file?.progress"></app-upload-progress>
+  <app-upload-progress
+    *ngIf="uploader"
+    [progress]="file && file.progress ? file.progress : 0"
+  ></app-upload-progress>
   <router-outlet></router-outlet>
   <ngx-spinner></ngx-spinner>
 </div>

@@ -41,7 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     _store.select('uploader').subscribe(uploader => {
-      this.uploader = uploader;
+      this.uploader = uploader.data;
     });
   }
 
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this._sharedService.sharedMessage.subscribe(requestData => {
       if (requestData) {
         this.videoRequest = requestData;
-        this.createFileObject(this.videoRequest.requestData.get('media'));
+        this.triggerUpload(this.videoRequest.requestData.get('media'));
       }
     });
   }
@@ -79,22 +79,19 @@ export class AppComponent implements OnInit, OnDestroy {
     return data;
   }
 
-  createFileObject(file: any) {
+  triggerUpload(file: any) {
     this.file = {
       data: file,
       progress: 0,
       inProgress: true
     };
-    this.trigger();
-  }
 
-  trigger() {
-    this.dispatcher('PENDING_UPLOAD');
+    this.dispatcher('COMPLETED_UPLOAD');
     this._timelineService
       .createVideoPost(this.videoRequest)
+      .pipe(untilDestroyed(this))
       .pipe(
         map((event: any) => {
-          console.log(event.type, 'Case event type');
           switch (event.type) {
             case HttpEventType.UploadProgress:
               this.file.progress = Math.round(
