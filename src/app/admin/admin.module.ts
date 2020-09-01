@@ -18,6 +18,8 @@ import { ManageAttributeComponent } from './masterdata/player-specialization/man
 import { AdminComponent } from './admin.component';
 import { DocumentVerificationComponent } from './document-verification/document-verification.component';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
+import { ManagePrivacyComponent } from './manage-privacy/manage-privacy.component';
+import { AddEditPopupComponent } from './manage-privacy/add-edit-popup/add-edit-popup.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     ManageAbilityComponent,
     ManageAttributeComponent,
     AdminComponent,
-    DocumentVerificationComponent
+    DocumentVerificationComponent,
+    ManagePrivacyComponent,
+    AddEditPopupComponent
   ],
   imports: [
     CommonModule,

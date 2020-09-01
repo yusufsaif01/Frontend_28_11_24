@@ -1,0 +1,71 @@
+<app-admin-header
+  [toggler]="sideBarToggle"
+  (toggleChange)="updateSidebar($event)"
+></app-admin-header>
+
+<mat-drawer-container class="admin-wrapper" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side" [opened]="sideBarToggle">
+    <app-admin-sidebar></app-admin-sidebar>
+  </mat-drawer>
+
+  <div class="sidenav-content" [ngClass]="{ sidenavToogle: !sideBarToggle }">
+    <div class="admin-main">
+      <div class="title-wrapper">
+        <div class="title">
+          <h3>Manage Privacy</h3>
+        </div>
+      </div>
+
+      <div class="middle-part">
+        <div class="btn-popup">
+          <div class="btn-wrapper">
+            <button class="popup" (click)="openDialog()">Add Person</button>
+          </div>
+        </div>
+        <div class="table-container">
+          <app-table
+            [tableConfig]="tableConfig"
+            [NumberColumn]="'true'"
+            [rows]="dataSource"
+            [TableActions]="ListAction"
+          >
+          </app-table>
+          <ng-template
+            #ListAction
+            let-id="id"
+            let-name="name"
+            let-phone="phone"
+            let-email="email"
+            let-status="status"
+          >
+            <div class="action-buttons">
+              <button
+                matTooltip="Edit"
+                (click)="editRow(id, name, phone, email)"
+              >
+                <img src=" assets/images/icons/edit.png" alt="Edit" />
+              </button>
+              <button
+                [matTooltip]="'Activate / Deactivate'"
+                (click)="statusPopup(id, status)"
+              >
+                <img
+                  [src]="
+                    status === 'inactive'
+                      ? 'assets/images/icons/close01.png'
+                      : 'assets/images/icons/tick.png'
+                  "
+                  alt="Edit"
+                />
+              </button>
+              <button (click)="deletePopup(id)" matTooltip="Delete">
+                <img src="assets/images/icons/bin.png" alt="Delete" />
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-drawer-container>
+<app-footer></app-footer>
