@@ -253,6 +253,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
       return;
     }
     this.media = files[0];
+    this.currentStep = 'tags';
   }
 
   toFormData<T>(formValue: T) {
