@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { HttpEventType } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
 import { Logger, I18nService, untilDestroyed } from '@app/core';
 import { TimelineService } from '@app/timeline/timeline.service';
 import { SharedService } from '@app/shared/shared.service';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 const log = new Logger('App');
 
 @Component({
@@ -14,8 +16,9 @@ const log = new Logger('App');
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  message: any;
+  videoRequest: any;
   uploader: boolean;
+  file: any;
 
   constructor(
     private titleService: Title,
@@ -56,10 +59,10 @@ export class AppComponent implements OnInit, OnDestroy {
       environment.supportedLanguages
     );
 
-    this._sharedService.sharedMessage.subscribe(message => {
-      if (message) {
-        this.message = message;
-        this.trigger();
+    this._sharedService.sharedMessage.subscribe(requestData => {
+      if (requestData) {
+        this.videoRequest = requestData;
+        this.createFileObject(this.videoRequest.requestData.get('media'));
       }
     });
   }
@@ -76,15 +79,36 @@ export class AppComponent implements OnInit, OnDestroy {
     return data;
   }
 
+  createFileObject(file: any) {
+    this.file = {
+      data: file,
+      progress: 0,
+      inProgress: true
+    };
+    this.trigger();
+  }
+
   trigger() {
     this.dispatcher('PENDING_UPLOAD');
     this._timelineService
-      .createVideoPost(this.message)
-      .pipe(untilDestroyed(this))
+      .createVideoPost(this.videoRequest)
+      .pipe(
+        map((event: any) => {
+          console.log(event.type, 'Case event type');
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              this.file.progress = Math.round(
+                (event.loaded * 100) / event.total
+              );
+              break;
+            case HttpEventType.Response:
+              return event;
+          }
+        })
+      )
       .subscribe(
         response => {
           this.dispatcher('COMPLETED_UPLOAD');
-          console.log('Yes');
         },
         error => {
           console.log(error);

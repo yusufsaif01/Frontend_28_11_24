@@ -11,7 +11,10 @@
       </div>
       <div class="right">
         <h5>Upload video file</h5>
-        <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+        <mat-progress-bar
+          mode="determinate"
+          [value]="progress"
+        ></mat-progress-bar>
         <mat-error class="error-text">
           <span>Video failed to upload</span>
         </mat-error>
