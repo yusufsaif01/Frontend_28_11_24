@@ -2,7 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
-import { Logger, I18nService } from '@app/core';
+import { Logger, I18nService, untilDestroyed } from '@app/core';
+import { TimelineService } from '@app/timeline/timeline.service';
+import { SharedService } from '@app/shared/shared.service';
 
 const log = new Logger('App');
 
@@ -12,9 +14,13 @@ const log = new Logger('App');
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
+  message: any;
+
   constructor(
     private titleService: Title,
     private i18nService: I18nService,
+    private _timelineService: TimelineService,
+    private _sharedService: SharedService,
     private router: Router
   ) {
     router.events.subscribe(event => {
@@ -42,6 +48,13 @@ export class AppComponent implements OnInit, OnDestroy {
       environment.defaultLanguage,
       environment.supportedLanguages
     );
+
+    this._sharedService.sharedMessage.subscribe(message => {
+      if (message) {
+        this.message = message;
+        this.trigger();
+      }
+    });
   }
   // collect that title data properties from all child routes
   getTitle(state: any, parent: any): any {
@@ -54,6 +67,20 @@ export class AppComponent implements OnInit, OnDestroy {
       data.push(...this.getTitle(state, state.firstChild(parent)));
     }
     return data;
+  }
+
+  trigger() {
+    this._timelineService
+      .createVideoPost(this.message)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          console.log('Yes');
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
   ngOnDestroy() {

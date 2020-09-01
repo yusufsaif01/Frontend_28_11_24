@@ -313,17 +313,12 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   }
 
   createVideoPost(requestData: any) {
-    this._timelineService
-      .createVideoPost({ requestData, type: this.type })
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
-          this.dialogRef.close('success');
-        },
-        error => {
-          this._toastrService.error('Error', error.error.message);
-        }
-      );
+    this._sharedService.setVideoRequest({ requestData, type: this.type });
+
+    this._toastrService.success(
+      'Success',
+      'Video uploading would start shortly'
+    );
   }
 
   updateVideoPost(requestData: any) {
