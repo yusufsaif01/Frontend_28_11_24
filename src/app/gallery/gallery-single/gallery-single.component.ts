@@ -294,7 +294,6 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
       width: '50% ',
       panelClass: 'filterDialog',
       data: {
-        header: 'Delete video',
         message: 'Are you sure you want to delete?'
       }
     });
