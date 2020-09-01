@@ -6,7 +6,8 @@ const routes = {
   updateWhiteListUser: (id: any) => `/admin/access-whitelist/${id}`,
   updateStatus: (id: any) => `/admin/access-whitelist/${id}/status`,
   getWhiteList: () => `/admin/access-whitelist`,
-  whiteListUser: () => `/admin/access-whitelist`
+  whiteListUser: () => `/admin/access-whitelist`,
+  deleteUser: (id: any) => `/admin/access-whitelist/${id}`
 };
 
 @Injectable({
@@ -26,5 +27,8 @@ export class ManagePrivacyService {
   }
   getWhiteList() {
     return this.httpClient.get<any>(routes.getWhiteList());
+  }
+  deleteUser(id: any): Observable<any> {
+    return this.httpClient.delete<any>(routes.deleteUser(id));
   }
 }

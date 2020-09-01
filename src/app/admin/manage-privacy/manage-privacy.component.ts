@@ -7,6 +7,7 @@ import { ManagePrivacyService } from './manage-privacy-service';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
+import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-manage-privacy',
@@ -109,6 +110,39 @@ export class ManagePrivacyComponent implements OnInit, OnDestroy {
               this.toastrService.error(
                 `${error.error.message}`,
                 'Status update'
+              );
+            }
+          );
+      }
+    });
+  }
+
+  deletePopup(id: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '50% ',
+      panelClass: 'filterDialog',
+      data: {
+        header: 'Delete person',
+        message: 'Are you sure you want to delete the person ?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.managePrivacyService
+          .deleteUser(id)
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this.toastrService.success(
+                `Success`,
+                'Person deleted successfully'
+              );
+              this.getWhiteList();
+            },
+            error => {
+              this.toastrService.error(
+                `${error.error.message}`,
+                'Delete person'
               );
             }
           );
