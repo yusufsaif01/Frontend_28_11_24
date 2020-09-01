@@ -47,7 +47,9 @@
               </button>
               <button
                 [matTooltip]="'Activate / Deactivate'"
-                (click)="statusPopup(id, status)"
+                (click)="
+                  statusPopup(id, status === 'active' ? 'inactive' : 'active')
+                "
               >
                 <img
                   [src]="

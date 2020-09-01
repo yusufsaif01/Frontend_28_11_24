@@ -6,6 +6,7 @@ import { PersonAddEditPopupComponent } from './person-add-edit-popup/person-add-
 import { ManagePrivacyService } from './manage-privacy-service';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
+import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
 
 @Component({
   selector: 'app-manage-privacy',
@@ -78,6 +79,39 @@ export class ManagePrivacyComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'refresh') {
         this.getWhiteList();
+      }
+    });
+  }
+
+  statusPopup(id: string, status: string) {
+    if (status === 'pending') {
+      return;
+    }
+    const dialogRef = this.dialog.open(StatusConfirmationComponent, {
+      width: '50% ',
+      panelClass: 'filterDialog',
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.managePrivacyService
+          .updateStatus(id, { status: status })
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this.toastrService.success(
+                `Success`,
+                'Status updated successfully'
+              );
+              this.getWhiteList();
+            },
+            error => {
+              this.toastrService.error(
+                `${error.error.message}`,
+                'Status update'
+              );
+            }
+          );
       }
     });
   }
