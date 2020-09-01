@@ -28,6 +28,7 @@ import { VerificationPopupComponent } from './shared/dialog-box/verification-pop
 import { VideoPopupComponent } from '@app/timeline/video-popup/video-popup.component';
 import { AddEditPopupComponent } from './admin/masterdata/player-specialization/manage-position/add-edit-popup/add-edit-popup.component';
 import { AddpopupComponent } from './admin/masterdata/player-specialization/addpopup/addpopup.component';
+import { PersonAddEditPopupComponent } from './admin/manage-privacy/person-add-edit-popup/person-add-edit-popup.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
 import { JwtInterceptor } from './core/http/jwt.interceptor';
 import { ErrorInterceptor } from './core/http/error.interceptor';
@@ -73,7 +74,8 @@ import { SecurityModule } from './security/security.module';
     VerificationPopupComponent,
     AddEditPopupComponent,
     AddpopupComponent,
-    VideoPopupComponent
+    VideoPopupComponent,
+    PersonAddEditPopupComponent
   ],
   providers: [
     RoleGuardService,
@@ -97,7 +99,8 @@ import { SecurityModule } from './security/security.module';
     VerificationPopupComponent,
     AddEditPopupComponent,
     AddpopupComponent,
-    VideoPopupComponent
+    VideoPopupComponent,
+    PersonAddEditPopupComponent
   ]
 })
 export class AppModule {}

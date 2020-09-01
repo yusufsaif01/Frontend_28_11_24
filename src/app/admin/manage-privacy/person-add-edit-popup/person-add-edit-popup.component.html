@@ -1,0 +1,118 @@
+<div class="modal-header">
+  <div class="heading">
+    <h4>{{ options.header }} person</h4>
+  </div>
+  <div class="close">
+    <img [mat-dialog-close] src="assets/images/icons/close.png" alt="" />
+  </div>
+</div>
+<form [formGroup]="whiteListUserForm">
+  <div class="form-wrapper">
+    <!-- position -->
+    <div class="input__group">
+      <label>Name</label>
+      <input
+        formControlName="name"
+        type="text"
+        placeholder="Name"
+        trim="blur"
+      />
+      <mat-error
+        *ngIf="
+          whiteListUserForm.controls.name.invalid &&
+          whiteListUserForm.controls.name.touched
+        "
+      >
+        <span *ngIf="whiteListUserForm.controls.name.errors.pattern">
+          Name is invalid
+        </span>
+      </mat-error>
+    </div>
+    <div class="input__group">
+      <label>Phone number</label>
+      <input
+        formControlName="phone"
+        type="text"
+        matInput
+        placeholder="Phone number"
+        autocomplete="off"
+        trim="blur"
+      />
+      <mat-error
+        class="error-text"
+        *ngIf="
+          whiteListUserForm.controls.phone.invalid &&
+          whiteListUserForm.controls.phone.touched
+        "
+      >
+        <ng-template #lengthBlock>
+          <span
+            translate
+            *ngIf="whiteListUserForm.controls.phone.errors.minlength"
+          >
+            Please provide number upto
+            {{
+              whiteListUserForm.controls.phone.errors.minlength.requiredLength
+            }}
+            digits
+          </span>
+          <span
+            translate
+            *ngIf="whiteListUserForm.controls.phone.errors.maxlength"
+          >
+            Please provide number upto
+            {{
+              whiteListUserForm.controls.phone.errors.maxlength.requiredLength
+            }}
+            digits
+          </span>
+        </ng-template>
+        <span
+          *ngIf="
+            whiteListUserForm.controls.phone.errors.pattern;
+            else lengthBlock
+          "
+          translate
+        >
+          Phone number format is invalid
+        </span>
+      </mat-error>
+    </div>
+    <div class="input__group">
+      <label>Email </label>
+      <input
+        formControlName="email"
+        type="email"
+        matInput
+        placeholder="Email"
+        autocomplete="off"
+      />
+      <mat-error
+        class="error-text"
+        *ngIf="
+          whiteListUserForm.controls.email.invalid &&
+          whiteListUserForm.controls.email.touched
+        "
+      >
+        <span *ngIf="whiteListUserForm.controls.email.errors.required" translate
+          >Email is required
+        </span>
+        <span *ngIf="whiteListUserForm.controls.email.errors.email" translate
+          >Email format is invalid
+        </span>
+      </mat-error>
+    </div>
+  </div>
+  <div class="action-block">
+    <button class="cancel" [mat-dialog-close]>
+      Cancel
+    </button>
+    <button
+      [disabled]="whiteListUserForm.invalid"
+      class="update"
+      (click)="editAddFormValue()"
+    >
+      {{ options.buttonName }}
+    </button>
+  </div>
+</form>

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ManagePrivacyTableConfig } from './manage-privacy-table-conf';
-import { AddEditPopupComponent } from './add-edit-popup/add-edit-popup.component';
+import { PersonAddEditPopupComponent } from './person-add-edit-popup/person-add-edit-popup.component';
 import { ManagePrivacyService } from './manage-privacy-service';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
@@ -46,5 +46,39 @@ export class ManagePrivacyComponent implements OnInit, OnDestroy {
           this.toastrService.error(`${error.error.message}`, 'Error');
         }
       );
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(PersonAddEditPopupComponent, {
+      width: '50%',
+      data: {
+        options: { header: 'Add', buttonName: 'Save' }
+      },
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'refresh') {
+        this.getWhiteList();
+      }
+    });
+  }
+
+  editRow(id: any, name: any, phone: any, email: any) {
+    let data = { id, name, phone, email };
+    const dialogRef = this.dialog.open(PersonAddEditPopupComponent, {
+      width: '50%',
+      data: {
+        data,
+        options: { header: 'Edit', buttonName: 'Update' }
+      },
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'refresh') {
+        this.getWhiteList();
+      }
+    });
   }
 }
