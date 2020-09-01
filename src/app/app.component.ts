@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
         ).join('-');
         this.titleService.setTitle(title);
         window.scrollTo(0, 0);
-        if (router.navigated && !this.uploader) alert('Hello world');
+        // if (router.navigated && !this.uploader) alert('Hello world');
       }
     });
 
