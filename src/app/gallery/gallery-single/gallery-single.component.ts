@@ -265,7 +265,8 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
           }
         },
         error => {
-          this._toastrService.error('Error', error.error.message);
+          if (error.error.code === 'NOT_FOUND') this._router.navigate(['/404']);
+          else this._toastrService.error('Error', error.error.message);
         }
       );
   }
