@@ -1,31 +1,6 @@
 @import "src/assets/sass/abstracts/variables";
 @import "src/assets/sass/abstracts/mixins";
 
-// Header CSS
-.header {
-  .logo {
-    margin-top: 1rem;
-
-    a {
-      background-color: $third-color;
-      padding: 1rem 5rem 1rem 3rem;
-      display: inline-block;
-      -webkit-border-top-right-radius: 8rem;
-      -webkit-border-bottom-right-radius: 8rem;
-      -moz-border-top-right-radius: 8rem;
-      -moz-border-bottom-right-radius: 8rem;
-      border-top-right-radius: 8rem;
-      border-bottom-right-radius: 8rem;
-      cursor: pointer;
-
-      img {
-        max-width: 25rem;
-      }
-    }
-  }
-}
-
-// Middle CSS
 .site-wrapper {
   width: 85%;
   margin: auto;
