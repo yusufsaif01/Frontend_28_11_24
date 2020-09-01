@@ -15,8 +15,8 @@
           mode="determinate"
           [value]="progress"
         ></mat-progress-bar>
-        <mat-error class="error-text">
-          <span>Video failed to upload</span>
+        <mat-error class="error-text" *ngIf="error">
+          <span>{{ error }}</span>
         </mat-error>
       </div>
     </div>

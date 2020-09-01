@@ -2,6 +2,7 @@
   <app-upload-progress
     *ngIf="uploader"
     [progress]="file && file.progress ? file.progress : 0"
+    [error]="file && file.error ? file.error : null"
   ></app-upload-progress>
   <router-outlet></router-outlet>
   <ngx-spinner></ngx-spinner>

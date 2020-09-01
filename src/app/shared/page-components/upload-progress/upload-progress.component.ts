@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class UploadProgressComponent implements OnInit {
   @Input() progress: string;
+  @Input() error: any;
   constructor() {}
 
   ngOnInit() {}

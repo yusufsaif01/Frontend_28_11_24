@@ -83,7 +83,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.file = {
       data: file,
       progress: 0,
-      inProgress: true
+      inProgress: true,
+      error: ''
     };
 
     this.dispatcher('COMPLETED_UPLOAD');
@@ -108,7 +109,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.dispatcher('COMPLETED_UPLOAD');
         },
         error => {
-          console.log(error);
+          this.file.error = error;
           this.dispatcher('ERROR_UPLOAD');
         }
       );
