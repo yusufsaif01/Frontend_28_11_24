@@ -35,12 +35,6 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     selectVideo: 'selectVideo',
     tags: 'tags'
   };
-  videoLength = {
-    player: 2,
-    timeline: 10,
-    learning: 30,
-    match: 150
-  };
 
   selectedAbilityIdList: TagContext['ability'][] = [];
   tags: FormArray;
@@ -59,8 +53,8 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   othersTab: boolean = false;
   videoUrl: SafeUrl;
   duration: number = null;
-  showVideoErroMsg: boolean = false;
-  videoErroMsg: string = '';
+  showVideoErrorMsg: boolean = false;
+  videoErrorMsg: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<VideoPopupComponent>,
@@ -246,8 +240,9 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
   getUploadVideoLength() {
     if (this.member_type === 'player') {
-      return this.videoLength.player;
+      return Constants.VIDEO_LENGTH.player;
     }
+    return Constants.VIDEO_LENGTH[this.type];
   }
 
   uploadVideo(files: FileList) {
@@ -327,8 +322,8 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     if (this.data.id) this.updateVideoPost(requestData);
     else {
       if (this.media) requestData.set('media', this.media);
-      if (this.showVideoErroMsg)
-        this._toastrService.error('Error', this.videoErroMsg);
+      if (this.showVideoErrorMsg)
+        this._toastrService.error('Error', this.videoErrorMsg);
       else this.createVideoPost(requestData);
     }
   }
@@ -423,33 +418,23 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   validateVideoLength(type: any) {
     this.type = type;
     if (this.duration) {
-      this.showVideoErroMsg = false;
-      this.videoErroMsg = '';
+      this.showVideoErrorMsg = false;
+      this.videoErrorMsg = '';
       if (
         this.member_type === 'player' &&
-        this.duration > this.videoLength.player
+        this.duration > Constants.VIDEO_LENGTH.player
       ) {
-        this.videoErroMsg = 'Max 2 mins length of video allowed';
-        this.showVideoErroMsg = true;
+        this.videoErrorMsg = 'Max 2 mins length of video allowed';
+        this.showVideoErrorMsg = true;
       }
       if (
-        this.type === 'timeline' &&
         this.member_type !== 'player' &&
-        this.duration > this.videoLength.timeline
+        this.duration > Constants.VIDEO_LENGTH[this.type]
       ) {
-        this.videoErroMsg = 'Max 10 mins length of video allowed';
-        this.showVideoErroMsg = true;
-      }
-      if (
-        this.type === 'learning_or_training' &&
-        this.duration > this.videoLength.learning
-      ) {
-        this.videoErroMsg = 'Max 30 mins length of video allowed';
-        this.showVideoErroMsg = true;
-      }
-      if (this.type === 'match' && this.duration > this.videoLength.match) {
-        this.videoErroMsg = 'Max 150 mins length of video allowed';
-        this.showVideoErroMsg = true;
+        this.videoErrorMsg = `Max ${
+          Constants.VIDEO_LENGTH[this.type]
+        } mins length of video allowed`;
+        this.showVideoErrorMsg = true;
       }
     }
   }
