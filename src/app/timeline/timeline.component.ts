@@ -328,14 +328,14 @@ export class TimelineComponent implements OnInit, OnDestroy {
   generateHashtags(postmeta: any) {
     let hashtags: any = [];
     if (postmeta.abilities) {
-      postmeta.abilities.map(d => {
-        d.attributes.map(at => {
+      postmeta.abilities.map((d: any) => {
+        d.attributes.map((at: any) => {
           hashtags.push(at.attribute_name);
         });
       });
     }
     if (postmeta.others) {
-      postmeta.others.map(d => {
+      postmeta.others.map((d: any) => {
         hashtags.push(d);
       });
     }
