@@ -8,6 +8,7 @@ import { untilDestroyed } from '@app/core';
 import { SharedService } from '@app/shared/shared.service';
 import { requiredVideo } from '@app/shared/validators/requiredVideo';
 import { videoTags } from '@app/shared/validators/videoTags';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 const R = require('ramda');
 
 export interface TagContext {
@@ -56,6 +57,10 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   otherTags: any = [];
   otherValue: any = [];
   othersTab: boolean = false;
+  videoUrl: SafeUrl;
+  duration: number = null;
+  showVideoErroMsg: boolean = false;
+  videoErroMsg: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<VideoPopupComponent>,
@@ -63,7 +68,8 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     private _timelineService: TimelineService,
     private _sharedService: SharedService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private sanitizer: DomSanitizer
   ) {
     if (this.data.member_type) {
       this.member_type = this.data.member_type;
@@ -254,6 +260,18 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     }
     this.media = files[0];
     this.currentStep = 'tags';
+    this.setVideoUrl(this.media);
+  }
+
+  setVideoUrl(file: File) {
+    this.videoUrl = this.sanitizer.bypassSecurityTrustUrl(
+      URL.createObjectURL(file)
+    );
+  }
+
+  getDuration(e: any) {
+    this.duration = e.target.duration / 60;
+    this.validateVideoLength(this.type);
   }
 
   toFormData<T>(formValue: T) {
@@ -309,7 +327,9 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     if (this.data.id) this.updateVideoPost(requestData);
     else {
       if (this.media) requestData.set('media', this.media);
-      this.createVideoPost(requestData);
+      if (this.showVideoErroMsg)
+        this._toastrService.error('Error', this.videoErroMsg);
+      else this.createVideoPost(requestData);
     }
   }
 
@@ -398,6 +418,40 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     });
 
     return attributeArray;
+  }
+
+  validateVideoLength(type: any) {
+    this.type = type;
+    if (this.duration) {
+      this.showVideoErroMsg = false;
+      this.videoErroMsg = '';
+      if (
+        this.member_type === 'player' &&
+        this.duration > this.videoLength.player
+      ) {
+        this.videoErroMsg = 'Max 2 mins length of video allowed';
+        this.showVideoErroMsg = true;
+      }
+      if (
+        this.type === 'timeline' &&
+        this.member_type !== 'player' &&
+        this.duration > this.videoLength.timeline
+      ) {
+        this.videoErroMsg = 'Max 10 mins length of video allowed';
+        this.showVideoErroMsg = true;
+      }
+      if (
+        this.type === 'learning_or_training' &&
+        this.duration > this.videoLength.learning
+      ) {
+        this.videoErroMsg = 'Max 30 mins length of video allowed';
+        this.showVideoErroMsg = true;
+      }
+      if (this.type === 'match' && this.duration > this.videoLength.match) {
+        this.videoErroMsg = 'Max 150 mins length of video allowed';
+        this.showVideoErroMsg = true;
+      }
+    }
   }
 
   ngOnDestroy() {}
