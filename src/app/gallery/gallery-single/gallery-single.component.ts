@@ -265,7 +265,8 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
           }
         },
         error => {
-          this._toastrService.error('Error', error.error.message);
+          if (error.error.code === 'NOT_FOUND') this._router.navigate(['/404']);
+          else this._toastrService.error('Error', error.error.message);
         }
       );
   }
@@ -293,7 +294,6 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
       panelClass: 'deletepopup',
       data: {
-        header: 'Delete video',
         message: 'Are you sure you want to delete?'
       }
     });
