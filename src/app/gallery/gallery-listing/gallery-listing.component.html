@@ -86,6 +86,7 @@
           *ngIf="galleryList.length !== 0"
           [showData]="false"
           [showCount]="show_count"
+          [totalRows]="total_count"
           [rowsPerPage]="pageSize"
           (onChange)="updatePage($event)"
           [selectedPage]="selectedPage"
