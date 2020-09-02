@@ -10,6 +10,7 @@
   .right-panel {
     width: 100%;
     position: relative;
+    min-height: calc(100vh - 8.5rem);
 
     .footer-fix {
       position: absolute;
