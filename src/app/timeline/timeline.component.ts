@@ -337,6 +337,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   editVideoPost(post: any) {
     let member_type = this.member_type;
     const dialogRef = this.dialog.open(VideoPopupComponent, {
+      panelClass: 'videopopup',
       data: { ...post, member_type }
     });
 
@@ -403,6 +404,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   openVideoDialog(): void {
     let data = { member_type: this.member_type };
     const dialogRef = this.dialog.open(VideoPopupComponent, {
+      panelClass: 'videopopup',
       data
     });
 
