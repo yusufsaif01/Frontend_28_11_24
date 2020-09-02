@@ -354,7 +354,6 @@ export class TimelineComponent implements OnInit, OnDestroy {
       width: '50% ',
       panelClass: 'filterDialog',
       data: {
-        header: 'Delete post',
         message: 'Are you sure you want to delete?'
       }
     });
