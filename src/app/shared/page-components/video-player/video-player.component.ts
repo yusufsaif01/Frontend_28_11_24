@@ -7,8 +7,9 @@ import Player from '@vimeo/player';
   styleUrls: ['./video-player.component.scss']
 })
 export class VideoPlayerComponent implements OnInit {
-  @Input() source: string = '';
-  @Input() postId: string = '';
+  @Input() source: string;
+  @Input() postId: string;
+  @Input() status: string;
 
   private player: Player;
   constructor() {}
@@ -24,15 +25,19 @@ export class VideoPlayerComponent implements OnInit {
   }
 
   vimeoPlayer() {
-    let videoId = parseInt(this.source.split('/').find(num => !!parseInt(num)));
-    if (!this.player) {
-      setTimeout(() => {
-        this.player = new Player(`vimeo-video-player-${this.postId}`, {
-          id: videoId
-        });
-      }, 500);
-    } else if (videoId && this.player) {
-      this.player.loadVideo(videoId);
+    if (this.status === 'published') {
+      let videoId = parseInt(
+        this.source.split('/').find(num => !!parseInt(num))
+      );
+      if (!this.player) {
+        setTimeout(() => {
+          this.player = new Player(`vimeo-video-player-${this.postId}`, {
+            id: videoId
+          });
+        }, 500);
+      } else if (videoId && this.player) {
+        this.player.loadVideo(videoId);
+      }
     }
   }
 }

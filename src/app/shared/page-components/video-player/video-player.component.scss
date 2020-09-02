@@ -2,6 +2,9 @@
 .course-video {
   margin-bottom: 1.6rem;
   .video-list {
+    img {
+      width: 100%;
+    }
     .audio-inner {
       display: none;
       @keyframes fade {

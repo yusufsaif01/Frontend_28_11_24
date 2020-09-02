@@ -1,7 +1,11 @@
 <div class="course-video">
   <div class="video-list">
     <div class="audio-inner audio-active">
+      <div *ngIf="status === 'pending'">
+        <img src="assets/images/video-in-processing.jpg" alt="Unavailable" />
+      </div>
       <div
+        *ngIf="status === 'published'"
         class="audio-file"
         #vimeo_player
         [id]="'vimeo-video-player-' + postId"
