@@ -18,7 +18,8 @@ export class LoaderInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.loaderService.show();
+    if (req.method === 'POST' && /\b\/api\/video\b/.test(req.url)) {
+    } else this.loaderService.show();
     return next.handle(req).pipe(finalize(() => this.loaderService.hide()));
   }
 }

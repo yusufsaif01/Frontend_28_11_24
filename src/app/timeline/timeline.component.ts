@@ -32,6 +32,7 @@ interface PostContext {
       }[];
       others: [];
     };
+    status?: string;
   };
   posted_by: {
     avatar: string;
