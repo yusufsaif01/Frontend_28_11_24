@@ -7,6 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { debounceTime, map } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
+import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
 import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
 
 interface MemberListContext {
@@ -51,14 +54,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
   subject = new Subject();
   totalRecordSubject$ = new Subject();
   stats: any = {};
+  uploader: any;
 
   constructor(
+    private dialog: MatDialog,
     private _router: Router,
     private _authenticationService: AuthenticationService,
     private _headerService: HeaderService,
     private _toastrService: ToastrService,
-    private _footRequestService: FootRequestService
-  ) {}
+    private _footRequestService: FootRequestService,
+    private _store: Store<any>
+  ) {
+    _store.select('uploader').subscribe(uploader => {
+      this.uploader = uploader.data;
+    });
+  }
 
   ngOnDestroy() {}
 
@@ -79,7 +89,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
       );
   }
   logout() {
-    this._authenticationService.logout();
+    if (this.uploader) {
+      const dialogRef = this.dialog.open(StatusConfirmationComponent, {
+        width: '50% ',
+        panelClass: 'filterDialog',
+        data: {
+          header: 'Status confirmation'
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === true) this._authenticationService.logout();
+      });
+    } else {
+      this._authenticationService.logout();
+    }
   }
   changeDropdown() {
     if (this.isActive) {

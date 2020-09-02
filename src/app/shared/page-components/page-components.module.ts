@@ -15,6 +15,7 @@ import { LeftPanelComponent } from './left-panel/left-panel.component';
 import { VideoPlayerComponent } from './video-player/video-player.component';
 import { FilterComponent } from './filter/filter.component';
 import { BackNavigationComponent } from './back-navigation/back-navigation.component';
+import { UploadProgressComponent } from './upload-progress/upload-progress.component';
 import { FormsModule } from '@angular/forms';
 import { CopyrightComponent } from './copyright/copyright.component';
 import { CapitalizePipe } from './../pipes/capitalize.pipe';
@@ -33,6 +34,7 @@ import { CapitalizePipe } from './../pipes/capitalize.pipe';
     VideoPlayerComponent,
     FilterComponent,
     BackNavigationComponent,
+    UploadProgressComponent,
     CopyrightComponent,
     CapitalizePipe
   ],
@@ -55,6 +57,7 @@ import { CapitalizePipe } from './../pipes/capitalize.pipe';
     InfiniteScrollModule,
     FilterComponent,
     BackNavigationComponent,
+    UploadProgressComponent,
     FormsModule,
     CopyrightComponent,
     CapitalizePipe
