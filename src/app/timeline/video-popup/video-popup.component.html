@@ -60,7 +60,12 @@
               trending_up
             </mat-icon>
           </div>
-          <p>Tag upto 2 abilities and 3 attributes each</p>
+          <p *ngIf="member_type === 'player'; else clubAcademy">
+            Tag upto 2 abilities and 3 attributes each
+          </p>
+          <ng-template #clubAcademy
+            ><p>Tag abilities and attributes</p></ng-template
+          >
         </div>
       </div>
       <form [formGroup]="createVideoPostForm">
