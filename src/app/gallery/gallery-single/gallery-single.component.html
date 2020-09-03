@@ -84,13 +84,9 @@
             <div class="postbody">
               <div class="post-content">
                 <p>
-                  <ng-container
-                    *ngFor="let ability of post.post.meta.abilities"
+                  <span *ngFor="let attribute of post.attributeListing"
+                    >#{{ attribute }}</span
                   >
-                    <ng-container *ngFor="let attribute of ability.attributes">
-                      <span>#{{ attribute.attribute_name }}</span>
-                    </ng-container>
-                  </ng-container>
                 </p>
               </div>
             </div>

@@ -92,7 +92,9 @@
                     <span class="type">{{ post.posted_by.member_type }}</span>
                     <span class="position">{{ post.posted_by.type }}</span>
                   </ng-container>
-                  <span>{{ post.created_at | customDatePipe }}</span>
+                  <span class="details-created-at">{{
+                    post.created_at | customDatePipe
+                  }}</span>
                 </p>
               </div>
             </div>
