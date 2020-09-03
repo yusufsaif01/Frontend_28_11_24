@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '@env/environment';
-
 import { MatDialog } from '@angular/material/dialog';
 import { PostPopupComponent } from '@app/timeline/post-popup/post-popup.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -32,6 +31,7 @@ interface PostContext {
       }[];
       others: [];
     };
+    status?: string;
   };
   posted_by: {
     avatar: string;
@@ -60,6 +60,7 @@ interface PostContext {
   };
   created_at: string;
   show_comment_box?: boolean;
+  attributeListing?: [];
   commentListing?: CommentContext[];
   commentForm?: FormGroup;
   commentPageNo?: number;
@@ -304,6 +305,9 @@ export class TimelineComponent implements OnInit, OnDestroy {
             let commentForm: FormGroup;
             post.commentForm = commentForm;
             this.createCommentForm(post);
+
+            if (post.post.media_type === 'video')
+              post.attributeListing = this.generateHashtags(post.post.meta);
           });
           if (!scrolled) {
             this.postListing = posts;
@@ -319,6 +323,23 @@ export class TimelineComponent implements OnInit, OnDestroy {
           this._toastrService.error('Error', error.error.message);
         }
       );
+  }
+
+  generateHashtags(postmeta: any) {
+    let hashtags: any = [];
+    if (postmeta.abilities) {
+      postmeta.abilities.map((d: any) => {
+        d.attributes.map((at: any) => {
+          hashtags.push(at.attribute_name);
+        });
+      });
+    }
+    if (postmeta.others) {
+      postmeta.others.map((d: any) => {
+        hashtags.push(d);
+      });
+    }
+    return hashtags;
   }
 
   editPost(post: any) {

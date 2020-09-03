@@ -8,6 +8,7 @@ import { untilDestroyed } from '@app/core';
 import { SharedService } from '@app/shared/shared.service';
 import { requiredVideo } from '@app/shared/validators/requiredVideo';
 import { videoTags } from '@app/shared/validators/videoTags';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 const R = require('ramda');
 
 export interface TagContext {
@@ -34,12 +35,6 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     selectVideo: 'selectVideo',
     tags: 'tags'
   };
-  videoLength = {
-    player: 2,
-    timeline: 10,
-    learning: 30,
-    match: 150
-  };
 
   selectedAbilityIdList: TagContext['ability'][] = [];
   tags: FormArray;
@@ -56,6 +51,10 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   otherTags: any = [];
   otherValue: any = [];
   othersTab: boolean = false;
+  videoUrl: SafeUrl;
+  duration: number = null;
+  showVideoErrorMsg: boolean = false;
+  videoErrorMsg: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<VideoPopupComponent>,
@@ -63,7 +62,8 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     private _timelineService: TimelineService,
     private _sharedService: SharedService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private sanitizer: DomSanitizer
   ) {
     if (this.data.member_type) {
       this.member_type = this.data.member_type;
@@ -240,8 +240,9 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
   getUploadVideoLength() {
     if (this.member_type === 'player') {
-      return this.videoLength.player;
+      return Constants.VIDEO_LENGTH.player;
     }
+    return Constants.VIDEO_LENGTH[this.type];
   }
 
   uploadVideo(files: FileList) {
@@ -254,6 +255,18 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     }
     this.media = files[0];
     this.currentStep = 'tags';
+    this.setVideoUrl(this.media);
+  }
+
+  setVideoUrl(file: File) {
+    this.videoUrl = this.sanitizer.bypassSecurityTrustUrl(
+      URL.createObjectURL(file)
+    );
+  }
+
+  getDuration(e: any) {
+    this.duration = e.target.duration / 60;
+    this.validateVideoLength(this.type);
   }
 
   toFormData<T>(formValue: T) {
@@ -309,22 +322,19 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     if (this.data.id) this.updateVideoPost(requestData);
     else {
       if (this.media) requestData.set('media', this.media);
-      this.createVideoPost(requestData);
+      if (this.showVideoErrorMsg)
+        this._toastrService.error('Error', this.videoErrorMsg);
+      else this.createVideoPost(requestData);
     }
   }
 
   createVideoPost(requestData: any) {
-    this._timelineService
-      .createVideoPost({ requestData, type: this.type })
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
-          this.dialogRef.close('success');
-        },
-        error => {
-          this._toastrService.error('Error', error.error.message);
-        }
-      );
+    this._sharedService.setVideoRequest({ requestData, type: this.type });
+
+    this._toastrService.success(
+      'Success',
+      'Video uploading would start shortly'
+    );
   }
 
   updateVideoPost(requestData: any) {
@@ -403,6 +413,30 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     });
 
     return attributeArray;
+  }
+
+  validateVideoLength(type: any) {
+    this.type = type;
+    if (this.duration) {
+      this.showVideoErrorMsg = false;
+      this.videoErrorMsg = '';
+      if (
+        this.member_type === 'player' &&
+        this.duration > Constants.VIDEO_LENGTH.player
+      ) {
+        this.videoErrorMsg = 'Max 2 mins length of video allowed';
+        this.showVideoErrorMsg = true;
+      }
+      if (
+        this.member_type !== 'player' &&
+        this.duration > Constants.VIDEO_LENGTH[this.type]
+      ) {
+        this.videoErrorMsg = `Max ${
+          Constants.VIDEO_LENGTH[this.type]
+        } mins length of video allowed`;
+        this.showVideoErrorMsg = true;
+      }
+    }
   }
 
   ngOnDestroy() {}

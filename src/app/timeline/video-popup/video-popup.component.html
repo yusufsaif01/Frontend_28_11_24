@@ -21,7 +21,7 @@
             <mat-radio-button
               [checked]="type == videos"
               [value]="videos"
-              (change)="type = $event.value"
+              (change)="validateVideoLength($event.value)"
             >
               {{ videos | titlecase | replace: '_':' ' }} video
             </mat-radio-button>
@@ -60,7 +60,12 @@
               trending_up
             </mat-icon>
           </div>
-          <p>Tag upto 2 abilities and 3 attributes each</p>
+          <p *ngIf="member_type === 'player'; else clubAcademy">
+            Tag upto 2 abilities and 3 attributes each
+          </p>
+          <ng-template #clubAcademy
+            ><p>Tag abilities and attributes</p></ng-template
+          >
         </div>
       </div>
       <form [formGroup]="createVideoPostForm">
@@ -183,6 +188,16 @@
             </div>
           </div>
         </ng-container>
+        <video
+          #video
+          style="display: none;"
+          *ngIf="videoUrl"
+          width="320"
+          height="240"
+          controls
+          [attr.src]="videoUrl"
+          (loadedmetadata)="getDuration($event)"
+        ></video>
         <ng-container *ngIf="media || editMode">
           <div class="upload-wrapper">
             <div class="upload">
