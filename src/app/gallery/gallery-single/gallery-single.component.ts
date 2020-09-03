@@ -310,7 +310,7 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
                 `Success`,
                 'Video deleted successfully'
               );
-              this._router.navigateByUrl('/member/timeline');
+              this._router.navigateByUrl('/member/gallery');
             },
             error => {
               this._toastrService.error(
