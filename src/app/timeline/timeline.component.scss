@@ -122,13 +122,17 @@
             align-items: center;
             padding: 2rem 3rem;
 
+            @include responsive(smallphone) {
+              flex-wrap: wrap-reverse;
+            }
+
             .profile {
               display: flex;
               width: 80%;
               align-items: center;
 
-              @include responsive(smallestphone) {
-                width: 60%;
+              @include responsive(smallphone) {
+                width: 100%;
               }
 
               .profile-img {
@@ -155,15 +159,24 @@
                     font-weight: 500;
                     margin-right: 0.5rem;
                     text-transform: capitalize;
+                    @include responsive(smallphone) {
+                      display: block;
+                    }
                   }
 
                   span.type {
                     color: $primary-color;
                     font-weight: 700;
+                    @include responsive(smallphone) {
+                      display: inline-block;
+                    }
                   }
 
                   span.position {
                     color: $success;
+                    @include responsive(smallphone) {
+                      display: inline-block;
+                    }
                   }
                 }
               }
@@ -175,11 +188,7 @@
               width: 20%;
 
               @include responsive(smallphone) {
-                width: 25%;
-              }
-
-              @include responsive(smallestphone) {
-                width: 40%;
+                width: 100%;
               }
 
               span {

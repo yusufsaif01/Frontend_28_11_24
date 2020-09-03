@@ -147,8 +147,8 @@
                 padding: 1rem 0rem;
               }
 
-              @include responsive(smallestphone) {
-                flex-wrap: wrap;
+              @include responsive(smallphone) {
+                flex-wrap: wrap-reverse;
               }
 
               .profile {
@@ -156,7 +156,7 @@
                 width: 70%;
                 align-items: center;
 
-                @include responsive(smallestphone) {
+                @include responsive(smallphone) {
                   width: 100%;
                 }
 
@@ -185,7 +185,7 @@
                       margin-right: 0.5rem;
                       text-transform: capitalize;
 
-                      @include responsive(smallestphone) {
+                      @include responsive(smallphone) {
                         display: block;
                       }
                     }
@@ -193,10 +193,18 @@
                     span.type {
                       color: $primary-color;
                       font-weight: 700;
+
+                      @include responsive(smallphone) {
+                        display: inline-block;
+                      }
                     }
 
                     span.position {
                       color: $success;
+
+                      @include responsive(smallphone) {
+                        display: inline-block;
+                      }
                     }
                   }
                 }
@@ -207,10 +215,10 @@
                 display: block;
                 width: 30%;
 
-                @include responsive(smallestphone) {
+                @include responsive(smallphone) {
                   width: 100%;
-                  text-align: left;
-                  padding: 1rem 0;
+                  // text-align: left;
+                  // padding: 1rem 0;
                 }
 
                 span {

@@ -136,6 +136,8 @@
       color: $white-color;
       display: inline-block;
       margin: 2rem 0;
+      position: relative;
+      z-index: 9;
     }
   }
 
@@ -233,8 +235,8 @@
         width: 20rem;
         height: 5rem;
         background: #323232;
-        bottom: 0rem;
-        left: -4rem;
+        bottom: 2px;
+        left: -3rem;
         z-index: 99;
       }
     }
@@ -396,12 +398,13 @@
         width: 20rem;
         height: 5rem;
         background: #323232;
-        bottom: 0rem;
+        bottom: 2px;
         right: -2rem;
         z-index: 99;
 
         @include responsive(mediumphone) {
-          left: -2rem;
+          left: -3rem;
+          right: unset;
         }
       }
     }
@@ -553,7 +556,7 @@
         width: 20rem;
         height: 5rem;
         background: #323232;
-        bottom: 0rem;
+        bottom: 2px;
         left: -4rem;
         z-index: 99;
       }
