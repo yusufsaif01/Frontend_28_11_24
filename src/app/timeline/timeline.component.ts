@@ -88,6 +88,7 @@ interface CommentContext {
   styleUrls: ['./timeline.component.scss']
 })
 export class TimelineComponent implements OnInit, OnDestroy {
+  sidebar: boolean = false;
   environment = environment;
   postListing: PostContext[] = [];
   pageNo: number = 1;
@@ -418,7 +419,6 @@ export class TimelineComponent implements OnInit, OnDestroy {
     console.log('Scrolled Up');
   }
   // toggle sidebar on mobile
-  public sidebar = false;
 
   // Video Popup
   openVideoDialog(): void {

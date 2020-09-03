@@ -28,7 +28,13 @@
           </div>
         </div>
 
-        <div class="tab-buttons" *ngIf="member_type !== 'player' || isPublic">
+        <div
+          class="tab-buttons"
+          *ngIf="
+            (member_type !== 'player' && !isPublic) ||
+            (publicMemberType !== 'player' && isPublic && publicFootplayer)
+          "
+        >
           <a
             [ngClass]="{ active: video_type === 'timeline' }"
             (click)="toggleVideoType('timeline')"

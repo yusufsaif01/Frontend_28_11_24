@@ -18,9 +18,9 @@ import { SharedService } from '@app/shared/shared.service';
   styleUrls: ['./foot-player.component.scss']
 })
 export class FootPlayerComponent implements OnInit, OnDestroy {
-  // TABLE CONFIG
   public tableConfig: FootPlayerTableConfig = new FootPlayerTableConfig();
   public dataSource = new MatTableDataSource([]);
+  sidebar: boolean = false;
   filter: any = {};
   pageSize: number = 10;
   pageNo: number = 1;

@@ -18,6 +18,7 @@ import { ManageReportCardTableConfig } from './manage-report-card-table-conf';
   styleUrls: ['./manage-report-card.component.scss']
 })
 export class ManageReportCardComponent implements OnInit {
+  sidebar: boolean = false;
   tableConfig: ManageReportCardTableConfig;
   dataSource = new MatTableDataSource([]);
   filter: GetReportCardListContext = {};

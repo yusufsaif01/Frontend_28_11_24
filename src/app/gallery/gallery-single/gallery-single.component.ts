@@ -30,6 +30,7 @@ interface PostContext {
       }[];
       others: [];
     };
+    status: string;
   };
   posted_by: {
     avatar: string;
@@ -235,6 +236,7 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
+          this.postListing = [];
           let post: PostContext = response.data;
           if (post.posted_by.avatar) {
             post.posted_by.avatar =
@@ -308,7 +310,7 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
                 `Success`,
                 'Video deleted successfully'
               );
-              this._router.navigateByUrl('/member/timeline');
+              this._router.navigateByUrl('/member/gallery');
             },
             error => {
               this._toastrService.error(

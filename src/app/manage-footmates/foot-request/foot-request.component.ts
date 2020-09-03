@@ -24,6 +24,7 @@ interface RequestContext {
   styleUrls: ['./foot-request.component.scss']
 })
 export class FootRequestComponent implements OnInit, OnDestroy {
+  sidebar: boolean = false;
   panelOptions: object = {
     bio: true,
     member_type: true,

@@ -22,6 +22,7 @@ interface FootMatesContext {
   styleUrls: ['./foot-mates.component.scss']
 })
 export class FootMatesComponent implements OnInit, OnDestroy {
+  sidebar: boolean = false;
   filter: any = {};
   selectedPage: number;
 

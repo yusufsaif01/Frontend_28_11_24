@@ -27,7 +27,7 @@
     h4 {
       color: #ff9933;
 
-      @include responsive(smallphone) {
+      @include responsive(mediumphone) {
         text-align: center;
       }
     }

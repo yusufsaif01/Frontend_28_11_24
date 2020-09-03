@@ -17,6 +17,7 @@ import { environment } from '@env/environment';
 export class ContractManagementComponent implements OnInit, OnDestroy {
   public tableConfig: ContractManagementTableConfig = new ContractManagementTableConfig();
   public dataSource = new MatTableDataSource([]);
+  sidebar: boolean = false;
   pageSize: number = 10;
   selectedPage: number = 1;
   member_type: string;

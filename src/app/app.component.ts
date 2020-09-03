@@ -18,6 +18,7 @@ const log = new Logger('App');
 export class AppComponent implements OnInit, OnDestroy {
   videoRequest: any;
   uploader: boolean;
+  loggedIn: boolean;
   file: any;
 
   constructor(
@@ -87,7 +88,7 @@ export class AppComponent implements OnInit, OnDestroy {
       error: ''
     };
 
-    this.dispatcher('COMPLETED_UPLOAD');
+    this.dispatcher('PENDING_UPLOAD');
     this._timelineService
       .createVideoPost(this.videoRequest)
       .pipe(untilDestroyed(this))
@@ -106,10 +107,13 @@ export class AppComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         response => {
-          this.dispatcher('COMPLETED_UPLOAD');
+          // if(this.file.progress == '100')
+          //   this.dispatcher('PENDING_UPLOAD');
+
+          if (response) this.dispatcher('COMPLETED_UPLOAD');
         },
         error => {
-          this.file.error = error;
+          this.file.error = error.msg;
           this.dispatcher('ERROR_UPLOAD');
         }
       );
