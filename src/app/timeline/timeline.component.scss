@@ -164,6 +164,10 @@
                     }
                   }
 
+                  span.details-created-at {
+                    text-transform: none;
+                  }
+
                   span.type {
                     color: $primary-color;
                     font-weight: 700;

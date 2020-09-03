@@ -59,6 +59,7 @@ interface PostContext {
   };
   created_at: string;
   show_comment_box?: boolean;
+  attributeListing?: [];
   commentListing?: CommentContext[];
   commentForm?: FormGroup;
   commentPageNo?: number;
@@ -262,6 +263,9 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
           post.commentForm = commentForm;
           this.createCommentForm(post);
 
+          if (post.post.media_type === 'video')
+            post.attributeListing = this.generateHashtags(post.post.meta);
+
           if (!this.postListing.includes(post)) {
             this.postListing.push(post);
           }
@@ -271,6 +275,23 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
           else this._toastrService.error('Error', error.error.message);
         }
       );
+  }
+
+  generateHashtags(postmeta: any) {
+    let hashtags: any = [];
+    if (postmeta.abilities) {
+      postmeta.abilities.map((d: any) => {
+        d.attributes.map((at: any) => {
+          hashtags.push(at.attribute_name);
+        });
+      });
+    }
+    if (postmeta.others) {
+      postmeta.others.map((d: any) => {
+        hashtags.push(d);
+      });
+    }
+    return hashtags;
   }
 
   loadComments(post: PostContext) {
