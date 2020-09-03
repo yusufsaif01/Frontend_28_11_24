@@ -33,10 +33,6 @@ export interface GetGalleryListResponseContext {
     }[];
     others: [];
   };
-  posted_by: {
-    member_type: string;
-    user_id: string;
-  };
   status: string;
   type: string;
 }
@@ -71,6 +67,8 @@ export class GalleryListingComponent implements OnInit {
   total_count = 0;
   searchText = '';
   isPublic = false;
+  publicMemberType: string;
+  publicFootplayer: boolean;
   member_type: string = localStorage.getItem('member_type');
   video_type: string = 'timeline';
   userId: string;
@@ -142,6 +140,8 @@ export class GalleryListingComponent implements OnInit {
         .subscribe(
           response => {
             this.galleryList = response.data.records;
+            this.publicMemberType = response.data.posted_by.member_type;
+            this.publicFootplayer = response.data.is_footplayer;
             this.show_count = response.data.records.length;
             this.total_count = response.data.total;
           },
