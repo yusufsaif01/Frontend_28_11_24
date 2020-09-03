@@ -1,4 +1,4 @@
-export const uploader = (state: boolean = false, action: any) => {
+export function uploader(state: boolean = false, action: any) {
   switch (action.type) {
     case 'PENDING_UPLOAD':
       return Object.assign({}, state, {
@@ -11,4 +11,4 @@ export const uploader = (state: boolean = false, action: any) => {
     default:
       return state;
   }
-};
+}

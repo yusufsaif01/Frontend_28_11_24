@@ -18,6 +18,7 @@ import { untilDestroyed } from '@app/core';
 export class AwardCertificateComponent implements OnInit, OnDestroy {
   public tableConfig: AwardCertificateTableConfig = new AwardCertificateTableConfig();
   public dataSource = new MatTableDataSource([]);
+  sidebar: boolean = false;
   pageSize: number = 10;
   currentPageNo: number = 1;
   selectedPage: number;

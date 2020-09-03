@@ -61,6 +61,7 @@ export class GalleryListingComponent implements OnInit {
     });
   }
 
+  sidebar: boolean = false;
   filter: GetGalleryListContext = {};
   galleryList: GetGalleryListResponseContext[] = [];
   pageSize = 10;
