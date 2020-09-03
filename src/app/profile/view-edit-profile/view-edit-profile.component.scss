@@ -7,9 +7,18 @@
   background: $third-color;
   margin-top: 8.5rem;
 
+  @include responsive(bigphone) {
+    margin-top: 14rem;
+  }
+
   .right-panel {
     width: 76.25%;
     position: relative;
+    padding-bottom: 15rem;
+
+    @include responsive(tablet) {
+      width: 100%;
+    }
 
     .footer-fix {
       position: absolute;

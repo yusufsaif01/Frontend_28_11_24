@@ -10,6 +10,14 @@
   a {
     color: $white-color;
     margin-right: 10rem;
+
+    @include responsive(tablet) {
+      margin-right: 4rem;
+    }
+
+    @include responsive(smallphone) {
+      margin-right: 2rem;
+    }
   }
 
   .logo {
@@ -29,6 +37,14 @@
 
       img {
         max-width: 25rem;
+
+        @include responsive(bigphone) {
+          max-width: 21rem;
+        }
+
+        @include responsive(smallphone) {
+          max-width: 18rem;
+        }
       }
     }
   }
@@ -40,6 +56,11 @@
   align-items: center;
   position: relative;
   padding: 2rem 0;
+
+  @include responsive(mediumphone) {
+    flex-wrap: wrap;
+    padding: 5rem 0;
+  }
 
   .down-arrow {
     position: absolute;
@@ -58,8 +79,21 @@
     padding-left: 13rem;
     position: absolute;
 
+    @include responsive(smalldesktop) {
+      padding-left: 8rem;
+    }
+
+    @include responsive(tablet) {
+      padding-left: 4rem;
+    }
+
+    @include responsive(mediumphone) {
+      width: 100%;
+      position: static;
+    }
+
     h2 {
-      font-size: 7rem;
+      font-size: 6.5rem;
       color: $fourth-color;
       font-family: $secondary-text;
       font-weight: 100;
@@ -67,6 +101,16 @@
       letter-spacing: 1px;
       padding-bottom: 2rem;
       line-height: 1.2;
+
+      @include responsive(bigphone) {
+        font-size: 4.5rem;
+        padding-bottom: 1rem;
+      }
+
+      @include responsive(mediumphone) {
+        font-size: 5rem;
+        padding-bottom: 2rem;
+      }
 
       span {
         display: block;
@@ -78,12 +122,22 @@
       color: $fourth-color;
       padding-right: 2rem;
       word-break: normal;
+
+      @include responsive(bigphone) {
+        font-size: $heading-third;
+      }
+
+      @include responsive(mediumphone) {
+        font-size: $heading-Seoncdary;
+      }
     }
 
     a.btn {
       color: $white-color;
       display: inline-block;
       margin: 2rem 0;
+      position: relative;
+      z-index: 9;
     }
   }
 
@@ -91,8 +145,16 @@
     width: 100%;
     text-align: right;
 
+    @include responsive(mediumphone) {
+      margin-top: -5rem;
+    }
+
     img {
       width: 57%;
+
+      @include responsive(mediumphone) {
+        width: 80%;
+      }
     }
   }
 }
@@ -104,6 +166,10 @@
   display: flex;
   position: relative;
   padding: 5rem 0;
+
+  @include responsive(mediumphone) {
+    flex-wrap: wrap;
+  }
 
   .backtext {
     position: absolute;
@@ -118,6 +184,21 @@
     width: 8rem;
     line-height: 0.8;
 
+    @include responsive(smalldesktop) {
+      font-size: 25rem;
+      bottom: -8rem;
+    }
+
+    @include responsive(tablet) {
+      font-size: 20rem;
+      bottom: -5rem;
+      left: 5rem;
+    }
+
+    @include responsive(mediumphone) {
+      display: none;
+    }
+
     span {
       display: block;
     }
@@ -126,13 +207,26 @@
   .footballers-image {
     width: 60%;
 
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
     .img-wrap {
       position: relative;
+
+      @include responsive(mediumphone) {
+        width: 90%;
+        margin: 0 auto;
+      }
 
       img {
         width: 80%;
         z-index: 11;
         padding-left: 3rem;
+
+        @include responsive(mediumphone) {
+          width: 100%;
+        }
       }
 
       &::before {
@@ -141,8 +235,8 @@
         width: 20rem;
         height: 5rem;
         background: #323232;
-        bottom: 0.5rem;
-        left: -4rem;
+        bottom: 2px;
+        left: -3rem;
         z-index: 99;
       }
     }
@@ -152,15 +246,45 @@
     width: 50%;
     text-align: right;
 
+    @include responsive(mediumphone) {
+      width: 90%;
+      margin: 0 auto;
+    }
+
     h2 {
       font-size: 6.5rem;
       font-family: $secondary-text;
       font-weight: 100;
       margin-right: 5rem;
 
+      @include responsive(smalldesktop) {
+        font-size: 5.5rem;
+      }
+
+      @include responsive(tablet) {
+        margin-right: 0rem;
+        font-size: 5rem;
+      }
+
+      @include responsive(bigphone) {
+        font-size: 4rem;
+      }
+
       span {
         font-size: 8rem;
         display: block;
+
+        @include responsive(smalldesktop) {
+          font-size: 7rem;
+        }
+
+        @include responsive(tablet) {
+          font-size: 6rem;
+        }
+
+        @include responsive(bigphone) {
+          font-size: 5rem;
+        }
       }
     }
 
@@ -168,6 +292,10 @@
       max-width: 65rem;
       width: 100%;
       margin-top: 5rem;
+
+      @include responsive(tablet) {
+        margin-top: 0rem;
+      }
     }
 
     ul {
@@ -175,6 +303,10 @@
       padding: 4rem 4rem 4rem 2rem;
       border-right: 1.5rem solid $primary-color;
       margin: 3rem 5rem 3rem 0rem;
+
+      @include responsive(tablet) {
+        margin: 3rem 0rem 3rem 0rem;
+      }
 
       li {
         font-size: $heading-third;
@@ -195,6 +327,10 @@
     display: flex;
     position: relative;
 
+    @include responsive(mediumphone) {
+      flex-wrap: wrap;
+    }
+
     .backtext {
       position: absolute;
       font-size: 21rem;
@@ -208,70 +344,140 @@
       word-break: break-all;
       text-align: right;
 
-      span {
-        display: block;
+      @include responsive(smalldesktop) {
+        font-size: 20rem;
+        right: 8rem;
+        width: 85rem;
+      }
+
+      @include responsive(tablet) {
+        right: 10rem;
+        width: 80rem;
+        top: 9rem;
+      }
+
+      @include responsive(mediumphone) {
+        display: none;
       }
     }
 
-    .academy-image {
-      width: 55%;
+    span {
+      display: block;
+    }
+  }
+
+  .academy-image {
+    width: 55%;
+    position: relative;
+    text-align: right;
+    z-index: 11;
+
+    @include responsive(mediumphone) {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .img-wrap {
       position: relative;
-      text-align: right;
-      z-index: 11;
-
-      .img-wrap {
-        position: relative;
-
-        img {
-          width: 80%;
-          z-index: 11;
-          padding-right: 3rem;
-        }
-
-        &::before {
-          content: "";
-          position: absolute;
-          width: 20rem;
-          height: 5rem;
-          background: #323232;
-          bottom: 0.4rem;
-          right: -2rem;
-          z-index: 99;
-        }
-      }
-    }
-
-    .academy-details {
-      width: 45%;
-      // text-align: right;
-
-      h2 {
-        font-size: 6.5rem;
-        font-family: $secondary-text;
-        font-weight: 100;
-        margin-left: 5rem;
-
-        span {
-          font-size: 8rem;
-          display: block;
-        }
-      }
 
       img {
-        max-width: 65rem;
-        width: 100%;
-        margin-top: 5rem;
+        width: 80%;
+        z-index: 11;
+        padding-right: 3rem;
+
+        @include responsive(mediumphone) {
+          width: 100%;
+          padding-right: 0rem;
+          padding-left: 3rem;
+        }
       }
 
-      ul {
-        list-style: none;
-        padding: 4rem 2rem 4rem 4rem;
-        border-left: 1.5rem solid $primary-color;
-        margin: 3rem 0rem 3rem 5rem;
+      &::before {
+        content: "";
+        position: absolute;
+        width: 20rem;
+        height: 5rem;
+        background: #323232;
+        bottom: 2px;
+        right: -2rem;
+        z-index: 99;
 
-        li {
-          font-size: $heading-third;
+        @include responsive(mediumphone) {
+          left: -3rem;
+          right: unset;
         }
+      }
+    }
+  }
+
+  .academy-details {
+    width: 45%;
+
+    @include responsive(mediumphone) {
+      width: 90%;
+      margin: 0 auto;
+      order: 2;
+    }
+
+    h2 {
+      font-size: 6.5rem;
+      font-family: $secondary-text;
+      font-weight: 100;
+      margin-left: 5rem;
+
+      @include responsive(smalldesktop) {
+        font-size: 5.5rem;
+      }
+
+      @include responsive(tablet) {
+        margin-left: 0rem;
+        font-size: 5rem;
+      }
+
+      @include responsive(bigphone) {
+        font-size: 4rem;
+      }
+
+      span {
+        font-size: 8rem;
+        display: block;
+
+        @include responsive(smalldesktop) {
+          font-size: 7rem;
+        }
+
+        @include responsive(tablet) {
+          font-size: 6rem;
+        }
+
+        @include responsive(bigphone) {
+          font-size: 5rem;
+        }
+      }
+    }
+
+    img {
+      max-width: 65rem;
+      width: 100%;
+      margin-top: 5rem;
+
+      @include responsive(tablet) {
+        margin-top: 0rem;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 4rem 2rem 4rem 4rem;
+      border-left: 1.5rem solid $primary-color;
+      margin: 3rem 0rem 3rem 5rem;
+
+      @include responsive(tablet) {
+        margin: 3rem 0rem 3rem 0rem;
+      }
+
+      li {
+        font-size: $heading-third;
       }
     }
   }
@@ -284,6 +490,10 @@
   display: flex;
   position: relative;
   padding: 5rem 0;
+
+  @include responsive(mediumphone) {
+    flex-wrap: wrap;
+  }
 
   .backtext {
     position: absolute;
@@ -298,6 +508,21 @@
     width: 8rem;
     line-height: 0.8;
 
+    @include responsive(smalldesktop) {
+      font-size: 25rem;
+      bottom: 0rem;
+    }
+
+    @include responsive(tablet) {
+      font-size: 20rem;
+      bottom: 10rem;
+      left: -4rem;
+    }
+
+    @include responsive(mediumphone) {
+      display: none;
+    }
+
     span {
       display: block;
     }
@@ -306,6 +531,12 @@
   .forindia-image {
     width: 60%;
 
+    @include responsive(mediumphone) {
+      width: 100%;
+      margin: 0 auto;
+      padding: 3rem;
+    }
+
     .img-wrap {
       position: relative;
 
@@ -313,6 +544,10 @@
         width: 80%;
         z-index: 11;
         padding-left: 3rem;
+
+        @include responsive(mediumphone) {
+          width: 100%;
+        }
       }
 
       &::before {
@@ -321,7 +556,7 @@
         width: 20rem;
         height: 5rem;
         background: #323232;
-        bottom: 0.5rem;
+        bottom: 2px;
         left: -4rem;
         z-index: 99;
       }
@@ -332,15 +567,40 @@
     width: 50%;
     text-align: right;
 
+    @include responsive(mediumphone) {
+      width: 90%;
+      margin: 0 auto;
+    }
+
     h2 {
       font-size: 6.5rem;
       font-family: $secondary-text;
       margin-right: 5rem;
       font-weight: 100;
 
+      @include responsive(smalldesktop) {
+        font-size: 5.5rem;
+      }
+
+      @include responsive(tablet) {
+        margin-right: 0rem;
+      }
+
+      @include responsive(bigphone) {
+        font-size: 4rem;
+      }
+
       span {
         font-size: 8rem;
         display: block;
+
+        @include responsive(smalldesktop) {
+          font-size: 7rem;
+        }
+
+        @include responsive(bigphone) {
+          font-size: 5rem;
+        }
       }
     }
 
@@ -348,6 +608,10 @@
       max-width: 65rem;
       width: 100%;
       margin-top: 5rem;
+
+      @include responsive(tablet) {
+        margin-top: 0rem;
+      }
     }
 
     ul {
@@ -355,6 +619,10 @@
       padding: 4rem 4rem 4rem 2rem;
       border-right: 1.5rem solid $primary-color;
       margin: 3rem 5rem 3rem 0rem;
+
+      @include responsive(tablet) {
+        margin: 3rem 0rem 3rem 0rem;
+      }
 
       li {
         font-size: $heading-third;
@@ -373,6 +641,14 @@
       font-size: 6.5rem;
       font-family: $secondary-text;
       font-weight: 100;
+
+      @include responsive(smalldesktop) {
+        font-size: 5.5rem;
+      }
+
+      @include responsive(bigphone) {
+        font-size: 4rem;
+      }
     }
 
     p {
@@ -382,6 +658,14 @@
       word-break: normal;
       color: $fourth-color;
       margin: 2rem 1rem;
+
+      @include responsive(smalldesktop) {
+        font-size: 2.4rem;
+      }
+
+      @include responsive(bigphone) {
+        font-size: 2rem;
+      }
     }
   }
 
@@ -390,9 +674,24 @@
     padding: 1rem 0 10rem;
     justify-content: space-between;
 
+    @include responsive(mediumphone) {
+      flex-direction: column;
+      align-items: center;
+    }
+
     .stratregy-blocks {
       width: 25%;
       text-align: left;
+
+      @include responsive(mediumphone) {
+        width: 50%;
+        text-align: center;
+      }
+
+      @include responsive(mediumphone) {
+        width: 75%;
+        text-align: center;
+      }
 
       .part-one {
         display: flex;
@@ -435,6 +734,18 @@
           text-align: right;
           color: $third-color;
           font-weight: 100;
+
+          @include responsive(tablet) {
+            font-size: 20rem;
+          }
+
+          @include responsive(bigphone) {
+            font-size: 15rem;
+          }
+
+          @include responsive(mediumphone) {
+            margin-left: 3rem;
+          }
         }
       }
 
@@ -445,14 +756,38 @@
 
       .digitize {
         max-width: 23rem;
+
+        @include responsive(bigphone) {
+          max-width: 20rem;
+        }
+
+        @include responsive(mediumphone) {
+          max-width: 23rem;
+        }
       }
 
       .democratize {
         max-width: 30rem;
+
+        @include responsive(bigphone) {
+          max-width: 25rem;
+        }
+
+        @include responsive(mediumphone) {
+          max-width: 30rem;
+        }
       }
 
       .develop {
         max-width: 30rem;
+
+        @include responsive(bigphone) {
+          max-width: 25rem;
+        }
+
+        @include responsive(mediumphone) {
+          max-width: 30rem;
+        }
       }
     }
   }

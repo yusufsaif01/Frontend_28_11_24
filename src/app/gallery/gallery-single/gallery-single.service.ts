@@ -67,6 +67,7 @@ interface GetPostListingResponseContext {
         }[];
         others: [];
       };
+      status: string;
     };
     posted_by: {
       avatar: string;

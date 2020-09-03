@@ -64,6 +64,7 @@ export function dateFactory() {
   ]
 })
 export class AddEditEmploymentContractComponent implements OnInit, OnDestroy {
+  sidebar: boolean = false;
   panelOptions: Partial<PanelOptions> = {
     player_type: false,
     logout_link: true,

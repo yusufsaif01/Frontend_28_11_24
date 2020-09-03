@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="site-wrapper">
-  <div class="left-panel">
+  <div class="left-panel" [ngClass]="{ show: sidebar, hide: !sidebar }">
     <app-left-panel [userId]="userId" [options]="panelOptions">
     </app-left-panel>
   </div>
@@ -28,7 +28,13 @@
           </div>
         </div>
 
-        <div class="tab-buttons" *ngIf="member_type !== 'player' || isPublic">
+        <div
+          class="tab-buttons"
+          *ngIf="
+            (member_type !== 'player' && !isPublic) ||
+            (publicMemberType !== 'player' && isPublic && publicFootplayer)
+          "
+        >
           <a
             [ngClass]="{ active: video_type === 'timeline' }"
             (click)="toggleVideoType('timeline')"
@@ -49,14 +55,21 @@
         <div class="gallery-wrapper">
           <ng-container *ngFor="let gallery of galleryList">
             <div class="gallery-box">
+              <!-- <img src="assets/images/video-in-processing.jpg" alt="" /> -->
               <img
                 alt="video-placehoder"
+                *ngIf="gallery.status === 'published'"
                 [src]="
                   gallery.media.media_thumbnail.sizes &&
                   gallery.media.media_thumbnail.sizes[0]
                     ? gallery.media.media_thumbnail.sizes[0].link
                     : ''
                 "
+              />
+              <img
+                alt="video-placehoder"
+                *ngIf="gallery.status === 'pending'"
+                src="assets/images/video-in-processing.jpg"
               />
               <span class="playicon">
                 <a
@@ -86,6 +99,7 @@
           *ngIf="galleryList.length !== 0"
           [showData]="false"
           [showCount]="show_count"
+          [totalRows]="total_count"
           [rowsPerPage]="pageSize"
           (onChange)="updatePage($event)"
           [selectedPage]="selectedPage"
@@ -103,3 +117,8 @@
   [allowedFilters]="filtersList"
   (filterChanges)="onChangeFilter($event)"
 ></app-filter>
+
+<!-- toogle mobile btn -->
+<span class="toggle-btn" (click)="sidebar = !sidebar">
+  <mat-icon class=" material-icons">menu_open</mat-icon>
+</span>

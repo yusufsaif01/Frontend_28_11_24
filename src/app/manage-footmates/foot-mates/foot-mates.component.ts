@@ -22,6 +22,7 @@ interface FootMatesContext {
   styleUrls: ['./foot-mates.component.scss']
 })
 export class FootMatesComponent implements OnInit, OnDestroy {
+  sidebar: boolean = false;
   filter: any = {};
   selectedPage: number;
 
@@ -68,7 +69,7 @@ export class FootMatesComponent implements OnInit, OnDestroy {
   openDialog(foot_mate: any): void {
     const dialogRef = this.dialog.open(MutualFootmateComponent, {
       // width: '40%',
-      panelClass: 'MutualFootmate',
+      panelClass: 'mutualfootmate',
       data: { id: foot_mate.user_id }
     });
   }

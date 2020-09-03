@@ -8,9 +8,18 @@
   margin-top: 8.5rem;
   box-sizing: border-box;
 
+  @include responsive(bigphone) {
+    margin-top: 14rem;
+  }
+
   .right-panel {
     width: 76.25%;
     position: relative;
+    padding-bottom: 15rem;
+
+    @include responsive(tablet) {
+      width: 100%;
+    }
 
     .footer-fix {
       position: absolute;
@@ -62,11 +71,19 @@
           padding: 1rem 2rem;
           color: $fourth-color;
           margin-bottom: 1rem;
+
+          @include responsive(bigphone) {
+            padding: 1rem 0rem;
+          }
         }
 
         // reportCards wrapper
         .reportcards-wrapper {
           padding-left: 4rem;
+
+          @include responsive(bigphone) {
+            padding-left: 0rem;
+          }
 
           // tabs buttons
           .tabs-buttons {
@@ -79,6 +96,10 @@
               li {
                 display: inline-block;
                 margin-right: 8rem;
+
+                @include responsive(bigphone) {
+                  margin-right: 4rem;
+                }
 
                 a {
                   color: $fourth-color;
@@ -112,6 +133,14 @@
                 display: flex;
                 align-items: center;
                 margin-bottom: 4rem;
+
+                @include responsive(bigphone) {
+                  width: 50%;
+                }
+
+                @include responsive(smallphone) {
+                  width: 100%;
+                }
 
                 .left {
                   padding-right: 1rem;

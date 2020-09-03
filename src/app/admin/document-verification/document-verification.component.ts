@@ -159,8 +159,7 @@ export class DocumentVerificationComponent implements OnInit {
 
   updateDocumentStatus(status: string) {
     const dialogRef = this.dialog.open(VerificationPopupComponent, {
-      width: '50% ',
-      panelClass: 'filterDialog',
+      panelClass: 'verificationpopup',
       data: this.prepareModalData(status)
     });
 
@@ -198,7 +197,7 @@ export class DocumentVerificationComponent implements OnInit {
 
   openDialog(event: string) {
     this.dialog.open(VerificationPopupComponent, {
-      width: '40%',
+      panelClass: 'verificationpopup',
       autoFocus: false,
       data: { imageURL: event }
     });
@@ -253,7 +252,7 @@ export class DocumentVerificationComponent implements OnInit {
       disApprove = false;
     }
     const dialogRef = this.dialog.open(VerificationPopupComponent, {
-      width: '50%',
+      panelClass: 'verificationpopup',
       data: {
         header: header,
         message: message,

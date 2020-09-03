@@ -244,9 +244,7 @@ export class TimelineService {
     );
   }
 
-  createVideoPost(
-    context: createVideoPostContext
-  ): Observable<CommonResponseContext> {
+  createVideoPost(context: createVideoPostContext): Observable<any> {
     let query = '?';
 
     if (context['type']) {
@@ -255,7 +253,8 @@ export class TimelineService {
 
     return this.httpClient.post<CommonResponseContext>(
       routes.createVideoPost(query),
-      context.requestData
+      context.requestData,
+      { reportProgress: true, observe: 'events' }
     );
   }
 

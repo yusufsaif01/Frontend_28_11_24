@@ -7,7 +7,7 @@
         (click)="goToPage(selectedPage - 1)"
       >
         <img src="assets/images/member/icon/back.svg" alt="" />
-        Previous
+        <span>Previous</span>
       </a>
     </li>
     <li *ngFor="let val of pages()">
@@ -24,7 +24,7 @@
         (click)="goToPage(selectedPage + 1)"
         class="next"
       >
-        Next
+        <span>Next</span>
         <img src="assets/images/member/icon/next.svg" alt="" />
       </a>
     </li>

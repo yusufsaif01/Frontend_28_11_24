@@ -8,9 +8,18 @@
   margin-top: 8.5rem;
   box-sizing: border-box;
 
+  @include responsive(bigphone) {
+    margin-top: 13rem;
+  }
+
   .right-panel {
     width: 76.25%;
     position: relative;
+    padding-bottom: 15rem;
+
+    @include responsive(tablet) {
+      width: 100%;
+    }
 
     .footer-fix {
       position: absolute;
@@ -27,17 +36,55 @@
         padding: 2rem;
         border-radius: 0.5rem;
 
+        // heading css
         .heading {
           display: flex;
           justify-content: space-between;
-          padding: 2rem 0;
+          padding: 2rem 0rem;
           color: $fourth-color;
-        }
 
-        // .table {
-        //    max-width: 130rem;
-        // }
+          @include responsive(mediumphone) {
+            flex-wrap: wrap;
+          }
+
+          h2 {
+            @include responsive(mediumphone) {
+              width: 100%;
+            }
+          }
+
+          button.secondary-btn {
+            @include responsive(mediumphone) {
+              margin-top: 2rem;
+              width: 100%;
+              max-width: 35rem;
+            }
+          }
+        }
       }
+    }
+  }
+}
+
+::ng-deep {
+  .deletepopup,
+  .addeditawards {
+    width: 50%;
+
+    @include responsive(tablet) {
+      width: 60%;
+    }
+
+    @include responsive(bigphone) {
+      width: 75%;
+    }
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallphone) {
+      max-width: 95vw !important;
     }
   }
 }

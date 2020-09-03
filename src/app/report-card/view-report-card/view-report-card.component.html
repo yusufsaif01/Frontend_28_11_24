@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="site-wrapper">
-  <div class="left-panel">
+  <div class="left-panel" [ngClass]="{ show: sidebar, hide: !sidebar }">
     <app-left-panel> </app-left-panel>
   </div>
   <div class="right-panel">
@@ -116,3 +116,8 @@
     </div>
   </div>
 </div>
+
+<!-- toogle mobile btn -->
+<span class="toggle-btn" (click)="sidebar = !sidebar">
+  <mat-icon class=" material-icons">menu_open</mat-icon>
+</span>

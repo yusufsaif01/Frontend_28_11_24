@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="site-wrapper">
-  <div class="left-panel">
+  <div class="left-panel" [ngClass]="{ show: sidebar, hide: !sidebar }">
     <app-left-panel
       [achievements]="total_count"
       [options]="panelOptions"
@@ -125,3 +125,8 @@
   [allowedFilters]="filtersList"
   (filterChanges)="onChangeFilter($event)"
 ></app-filter>
+
+<!-- toggle btn -->
+<span class="toggle-btn" (click)="sidebar = !sidebar">
+  <mat-icon class=" material-icons">menu_open</mat-icon>
+</span>

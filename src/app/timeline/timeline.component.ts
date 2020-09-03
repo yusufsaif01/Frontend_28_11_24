@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '@env/environment';
-
 import { MatDialog } from '@angular/material/dialog';
 import { PostPopupComponent } from '@app/timeline/post-popup/post-popup.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -32,6 +31,7 @@ interface PostContext {
       }[];
       others: [];
     };
+    status?: string;
   };
   posted_by: {
     avatar: string;
@@ -60,6 +60,7 @@ interface PostContext {
   };
   created_at: string;
   show_comment_box?: boolean;
+  attributeListing?: [];
   commentListing?: CommentContext[];
   commentForm?: FormGroup;
   commentPageNo?: number;
@@ -87,6 +88,7 @@ interface CommentContext {
   styleUrls: ['./timeline.component.scss']
 })
 export class TimelineComponent implements OnInit, OnDestroy {
+  sidebar: boolean = false;
   environment = environment;
   postListing: PostContext[] = [];
   pageNo: number = 1;
@@ -182,8 +184,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(PostPopupComponent, {
-      width: '50%',
-      panelClass: 'dialogbox'
+      panelClass: 'postpopup'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -305,6 +306,9 @@ export class TimelineComponent implements OnInit, OnDestroy {
             let commentForm: FormGroup;
             post.commentForm = commentForm;
             this.createCommentForm(post);
+
+            if (post.post.media_type === 'video')
+              post.attributeListing = this.generateHashtags(post.post.meta);
           });
           if (!scrolled) {
             this.postListing = posts;
@@ -322,9 +326,25 @@ export class TimelineComponent implements OnInit, OnDestroy {
       );
   }
 
+  generateHashtags(postmeta: any) {
+    let hashtags: any = [];
+    if (postmeta.abilities) {
+      postmeta.abilities.map((d: any) => {
+        d.attributes.map((at: any) => {
+          hashtags.push(at.attribute_name);
+        });
+      });
+    }
+    if (postmeta.others) {
+      postmeta.others.map((d: any) => {
+        hashtags.push(d);
+      });
+    }
+    return hashtags;
+  }
+
   editPost(post: any) {
     const dialogRef = this.dialog.open(PostPopupComponent, {
-      width: '40%',
       panelClass: 'postpopup',
       data: post
     });
@@ -339,6 +359,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   editVideoPost(post: any) {
     let member_type = this.member_type;
     const dialogRef = this.dialog.open(VideoPopupComponent, {
+      panelClass: 'videopopup',
       data: { ...post, member_type }
     });
 
@@ -351,10 +372,8 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   deletePost(post_id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      width: '50% ',
-      panelClass: 'filterDialog',
+      panelClass: 'deletepopup',
       data: {
-        header: 'Delete post',
         message: 'Are you sure you want to delete?'
       }
     });
@@ -399,11 +418,13 @@ export class TimelineComponent implements OnInit, OnDestroy {
   onScrollUp() {
     console.log('Scrolled Up');
   }
+  // toggle sidebar on mobile
 
   // Video Popup
   openVideoDialog(): void {
     let data = { member_type: this.member_type };
     const dialogRef = this.dialog.open(VideoPopupComponent, {
+      panelClass: 'videopopup',
       data
     });
 

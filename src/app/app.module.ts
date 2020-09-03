@@ -31,7 +31,8 @@ import { AddpopupComponent } from './admin/masterdata/player-specialization/addp
 import { RoleGuardService } from './core/authentication/role-guard.service';
 import { JwtInterceptor } from './core/http/jwt.interceptor';
 import { ErrorInterceptor } from './core/http/error.interceptor';
-
+import { StoreModule } from '@ngrx/store';
+import { uploader } from './redux/reducer';
 import { HomeModule } from './home/home.module';
 
 @NgModule({
@@ -60,6 +61,7 @@ import { HomeModule } from './home/home.module';
       positionClass: 'toast-top-right',
       closeButton: true
     }),
+    StoreModule.forRoot({ uploader }),
     NgxTrimDirectiveModule
   ],
   declarations: [
