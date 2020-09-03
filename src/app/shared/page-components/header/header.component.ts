@@ -102,6 +102,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result === true) this._authenticationService.logout();
+        this._store.dispatch({ type: 'COMPLETED_UPLOAD' });
       });
     } else {
       this._authenticationService.logout();

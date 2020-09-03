@@ -6,7 +6,6 @@ import { environment } from '@env/environment';
 import { Logger, I18nService, untilDestroyed } from '@app/core';
 import { TimelineService } from '@app/timeline/timeline.service';
 import { SharedService } from '@app/shared/shared.service';
-import { CredentialsService } from '@app/core/authentication/credentials.service';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 const log = new Logger('App');
@@ -25,7 +24,6 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private titleService: Title,
     private i18nService: I18nService,
-    private _credentialsService: CredentialsService,
     private _timelineService: TimelineService,
     private _sharedService: SharedService,
     private _store: Store<any>,
@@ -46,8 +44,6 @@ export class AppComponent implements OnInit, OnDestroy {
     _store.select('uploader').subscribe(uploader => {
       this.uploader = uploader.data;
     });
-
-    this.loggedIn = this._credentialsService.isAuthenticated();
   }
 
   ngOnInit() {
@@ -92,7 +88,7 @@ export class AppComponent implements OnInit, OnDestroy {
       error: ''
     };
 
-    this.dispatcher('COMPLETED_UPLOAD');
+    this.dispatcher('PENDING_UPLOAD');
     this._timelineService
       .createVideoPost(this.videoRequest)
       .pipe(untilDestroyed(this))
@@ -111,7 +107,10 @@ export class AppComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         response => {
-          this.dispatcher('COMPLETED_UPLOAD');
+          // if(this.file.progress == '100')
+          //   this.dispatcher('PENDING_UPLOAD');
+
+          if (response) this.dispatcher('COMPLETED_UPLOAD');
         },
         error => {
           this.file.error = error.msg;
