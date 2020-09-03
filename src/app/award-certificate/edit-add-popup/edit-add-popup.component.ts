@@ -7,7 +7,8 @@ import { AwardCertificateService } from '../award-certificate.service';
 import { ToastrService } from 'ngx-toastr';
 import { requiredFileDocument } from '@app/shared/validators/requiredFileDocument';
 import { DateConversion } from '@app/shared/utilities/date-conversion';
-import { environment } from '../../../environments/environment';
+import { environment } from '@env/environment';
+import { Constants } from '@app/shared/static-data/static-data';
 import { untilDestroyed } from '@app/core';
 
 interface ArrayTypeContext {
@@ -72,11 +73,11 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.member_type === 'player') {
-      this.awardsArray = this.playerAwardTypeArray;
+      this.awardsArray = Constants.AWARD_TYPE.PLAYER;
     } else if (this.member_type === 'club') {
-      this.awardsArray = this.clubAwardTypeArray;
+      this.awardsArray = Constants.AWARD_TYPE.CLUB;
     } else if (this.member_type === 'academy') {
-      this.awardsArray = this.academyAwardTypeArray;
+      this.awardsArray = Constants.AWARD_TYPE.ACADEMY;
     }
 
     if (this.data.id) {
@@ -93,62 +94,6 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {}
-
-  clubAwardTypeArray = [
-    {
-      name: 'Club Level Competition Certificates',
-      value: 'Club Level Competition Certificates'
-    },
-    {
-      name: 'Other Awards',
-      value: 'Other Awards'
-    }
-  ];
-  academyAwardTypeArray = [
-    {
-      name: 'Private Tournament Certificates',
-      value: 'Private Tournament Certificates'
-    },
-    {
-      name: 'Other Awards',
-      value: 'Other Awards'
-    }
-  ];
-
-  playerAwardTypeArray = [
-    {
-      name: 'School Tournament Certificates',
-      value: 'School Tournament Certificates'
-    },
-    {
-      name: 'Private Tournament Certificates',
-      value: 'Private Tournament Certificates'
-    },
-    {
-      name: 'National Tournaments',
-      value: 'National Tournaments'
-    },
-    {
-      name: 'State Level Tournaments',
-      value: 'State Level Tournaments'
-    },
-    {
-      name: 'Club Level Tournaments',
-      value: 'Club Level Tournaments'
-    },
-    {
-      name: 'Academy Level Tournaments',
-      value: 'Academy Level Tournaments'
-    },
-    {
-      name: 'International Tournament Certificates',
-      value: 'International Tournament Certificates'
-    },
-    {
-      name: 'Other Awards',
-      value: 'Other Awards'
-    }
-  ];
 
   toFormData<T>(formValue: T) {
     const formData = new FormData();

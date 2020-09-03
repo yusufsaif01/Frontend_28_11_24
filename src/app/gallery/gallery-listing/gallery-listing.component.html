@@ -52,12 +52,18 @@
               <!-- <img src="assets/images/video-in-processing.jpg" alt="" /> -->
               <img
                 alt="video-placehoder"
+                *ngIf="gallery.status === 'published'"
                 [src]="
                   gallery.media.media_thumbnail.sizes &&
                   gallery.media.media_thumbnail.sizes[0]
                     ? gallery.media.media_thumbnail.sizes[0].link
                     : ''
                 "
+              />
+              <img
+                alt="video-placehoder"
+                *ngIf="gallery.status === 'pending'"
+                src="assets/images/video-in-processing.jpg"
               />
               <span class="playicon">
                 <a
@@ -87,6 +93,7 @@
           *ngIf="galleryList.length !== 0"
           [showData]="false"
           [showCount]="show_count"
+          [totalRows]="total_count"
           [rowsPerPage]="pageSize"
           (onChange)="updatePage($event)"
           [selectedPage]="selectedPage"
