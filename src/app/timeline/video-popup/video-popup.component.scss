@@ -197,7 +197,7 @@
         padding: 1rem 2.5rem;
         margin-right: 1rem;
         @include responsive(smallestphone) {
-          width: inherit;
+          width: initial;
         }
       }
     }
