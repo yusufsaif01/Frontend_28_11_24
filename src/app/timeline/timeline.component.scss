@@ -7,13 +7,26 @@
   background: $third-color;
   margin-top: 8.5rem;
 
+  @include responsive(bigphone) {
+    flex-wrap: wrap;
+    margin-top: 14rem;
+  }
+
   .right-panel {
     width: 76.25%;
     position: relative;
     padding-bottom: 15rem;
 
+    @include responsive(tablet) {
+      width: 100%;
+    }
+
     .right-wrapper {
       display: flex;
+
+      @include responsive(bigphone) {
+        flex-wrap: wrap;
+      }
 
       .post-container {
         width: 65%;
@@ -21,13 +34,26 @@
         margin-top: 2rem;
         padding-bottom: 10rem;
 
+        @include responsive(bigphone) {
+          width: 100%;
+          margin: 2rem;
+          padding-bottom: 0rem;
+        }
+
         .slider {
           max-width: 95rem;
           margin-bottom: 2rem;
           @include shadow;
           position: relative;
-          // width: 100%;
-          // margin-bottom: 2rem; // Need to check
+
+          @include responsive(tablet) {
+            max-width: 105rem;
+          }
+
+          @include responsive(bigphone) {
+            display: none;
+            max-width: 76rem;
+          }
 
           .advertise {
             position: relative;
@@ -63,11 +89,21 @@
           border-top-right-radius: 0.5rem;
           display: flex;
 
+          @media (max-width: 425px) {
+            flex-wrap: wrap;
+          }
+
           button {
             display: flex;
             align-items: center;
             font-size: $heading-fourth;
             margin-right: 2rem;
+
+            @media (max-width: 425px) {
+              width: 100%;
+              margin-right: 0rem;
+              justify-content: center;
+            }
 
             img {
               width: 1.8rem;
@@ -90,6 +126,10 @@
               display: flex;
               width: 80%;
               align-items: center;
+
+              @include responsive(smallestphone) {
+                width: 60%;
+              }
 
               .profile-img {
                 img {
@@ -134,8 +174,24 @@
               display: block;
               width: 20%;
 
+              @include responsive(smallphone) {
+                width: 25%;
+              }
+
+              @include responsive(smallestphone) {
+                width: 40%;
+              }
+
               span {
                 margin-left: 1rem;
+
+                mat-icon {
+                  @include responsive(smallphone) {
+                    width: 3rem !important;
+                    height: 3rem !important;
+                    font-size: 3rem !important;
+                  }
+                }
               }
             }
           }
@@ -224,6 +280,9 @@
                         font-weight: 500;
                         margin-right: 0.5rem;
                         text-transform: capitalize;
+                        @include responsive(smallestphone) {
+                          display: block;
+                        }
                       }
 
                       span.type {
@@ -306,11 +365,37 @@
         width: 30%;
         margin: 2rem;
 
+        @include responsive(bigphone) {
+          width: 100%;
+          margin: 0 2rem;
+          padding-bottom: 10rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+        }
+
+        @include responsive(smallphone) {
+          flex-wrap: wrap;
+        }
+
         .suggestion {
           @include shadow;
           background: $white-color;
           padding: 2rem;
           border-radius: 0.5rem;
+
+          @include responsive(bigphone) {
+            width: 45%;
+          }
+
+          @include responsive(mediumphone) {
+            width: 55%;
+          }
+
+          @include responsive(smallphone) {
+            width: 100%;
+            margin-bottom: 2rem;
+          }
 
           .heading {
             padding: 0rem 1rem;
@@ -356,6 +441,19 @@
           @include shadow;
           margin-top: 2rem;
 
+          @include responsive(bigphone) {
+            width: 53%;
+            margin-top: 0rem;
+          }
+
+          @include responsive(mediumphone) {
+            width: 43%;
+          }
+
+          @include responsive(smallphone) {
+            width: 100%;
+          }
+
           img {
             width: 100%;
           }
@@ -391,4 +489,58 @@
   top: 45%;
   transform: translateY(-50%);
   left: 3rem;
+}
+
+//  post popup
+::ng-deep {
+  .postpopup,
+  .deletepopup {
+    width: 50%;
+
+    @include responsive(tablet) {
+      width: 60%;
+    }
+
+    @include responsive(bigphone) {
+      width: 75%;
+    }
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallphone) {
+      max-width: 95vw !important;
+    }
+  }
+}
+
+::ng-deep {
+  .videopopup {
+    width: 50%;
+
+    @include responsive(tablet) {
+      width: 60%;
+    }
+
+    @media (max-width: 820px) {
+      width: 65%;
+    }
+
+    @include responsive(bigphone) {
+      width: 75%;
+    }
+
+    @media (max-width: 750px) {
+      width: 80%;
+    }
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallphone) {
+      max-width: 95vw !important;
+    }
+  }
 }

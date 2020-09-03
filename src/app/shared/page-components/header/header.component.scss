@@ -16,9 +16,18 @@
     display: flex;
     align-items: center;
 
+    @include responsive(bigphone) {
+      flex-wrap: wrap;
+    }
+
     .logo {
       width: 20%;
       text-align: center;
+
+      @include responsive(bigphone) {
+        width: 40%;
+        text-align: left;
+      }
 
       img {
         max-width: 16rem;
@@ -31,9 +40,19 @@
       display: flex;
       justify-content: flex-end;
 
+      @include responsive(bigphone) {
+        width: 100%;
+        order: 3;
+      }
+
       .search-box {
         width: 94%;
         position: relative;
+
+        @include responsive(bigphone) {
+          width: 100%;
+          margin-top: 1rem;
+        }
 
         input {
           width: 100%;
@@ -62,6 +81,12 @@
             font-size: 3.6rem;
             height: 4rem;
             width: 4rem;
+
+            @include responsive(smallphone) {
+              font-size: 3rem;
+              height: 3rem;
+              width: 3rem;
+            }
           }
         }
       }
@@ -73,12 +98,28 @@
       align-items: center;
       justify-content: flex-end;
 
+      @include responsive(tablet) {
+        width: 30%;
+      }
+
+      @include responsive(bigphone) {
+        width: 60%;
+      }
+
       ul {
         list-style: none;
 
         li {
           display: inline-block;
           margin-right: 4rem;
+
+          @include responsive(smalldesktop) {
+            margin-right: 3rem;
+          }
+
+          @include responsive(tablet) {
+            margin-right: 2rem;
+          }
 
           a {
             font-size: $heading-fourth;
@@ -89,6 +130,12 @@
               font-size: 3.6rem;
               height: 4rem;
               width: 4rem;
+
+              @include responsive(smallphone) {
+                font-size: 3rem;
+                height: 3rem;
+                width: 3rem;
+              }
             }
 
             span {
@@ -105,6 +152,10 @@
               align-items: center;
               justify-content: center;
               font-weight: 100;
+
+              @include responsive(smallphone) {
+                right: -0.5rem;
+              }
             }
           }
         }
@@ -115,6 +166,12 @@
               font-size: 4rem;
               height: 4rem;
               width: 4rem;
+
+              @include responsive(smallphone) {
+                font-size: 3.6rem;
+                height: 3.6rem;
+                width: 3.6rem;
+              }
             }
           }
         }
@@ -124,11 +181,21 @@
         padding-left: 2rem;
         position: relative;
 
+        @include responsive(smallphone) {
+          padding-left: 1rem;
+        }
+
         a {
           img {
             width: 5rem;
             height: 5rem;
             border-radius: 5rem;
+
+            @include responsive(smallphone) {
+              width: 4rem;
+              height: 4rem;
+              border-radius: 4rem;
+            }
           }
         }
       }

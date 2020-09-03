@@ -7,10 +7,18 @@
   background: $third-color;
   margin-top: 8.5rem;
 
+  @include responsive(bigphone) {
+    margin-top: 13rem;
+  }
+
   .right-panel {
     width: 76.25%;
     position: relative;
     min-height: calc(100vh - 8.5rem);
+
+    @include responsive(tablet) {
+      width: 100%;
+    }
 
     .footer-fix {
       position: absolute;
@@ -59,6 +67,10 @@
           .counts {
             margin: 0 2rem;
 
+            @include responsive(smallphone) {
+              margin: 0 1rem;
+            }
+
             h2 {
               font-weight: 400;
               font-size: 3.6rem;
@@ -95,6 +107,11 @@
           justify-content: center;
           align-items: center;
 
+          @include responsive(mediumphone) {
+            flex-wrap: wrap;
+            flex-direction: column;
+          }
+
           a {
             font-size: 2rem;
             font-weight: 500;
@@ -102,6 +119,15 @@
             border-bottom: 2px solid transparent;
             color: $fourth-color;
             margin: 0 3rem;
+
+            @include responsive(bigphone) {
+              padding: 1rem 2rem;
+              margin: 0 2rem;
+            }
+
+            @include responsive(mediumphone) {
+              display: block;
+            }
           }
 
           .active {
@@ -121,6 +147,18 @@
             width: calc(25% - 2rem);
             margin: 1rem;
             position: relative;
+
+            @include responsive(bigphone) {
+              width: calc(33% - 2rem);
+            }
+
+            @include responsive(mediumphone) {
+              width: calc(50% - 2rem);
+            }
+
+            @include responsive(smallestphone) {
+              width: calc(100% - 2rem);
+            }
 
             img {
               width: 100%;

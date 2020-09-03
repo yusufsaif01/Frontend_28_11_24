@@ -292,8 +292,7 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
 
   deleteVideo(video_id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      width: '50% ',
-      panelClass: 'filterDialog',
+      panelClass: 'deletepopup',
       data: {
         message: 'Are you sure you want to delete?'
       }

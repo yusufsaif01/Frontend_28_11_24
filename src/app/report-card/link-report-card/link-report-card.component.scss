@@ -8,9 +8,18 @@
   margin-top: 8.5rem;
   box-sizing: border-box;
 
+  @include responsive(bigphone) {
+    margin-top: 14rem;
+  }
+
   .right-panel {
     width: 76.25%;
     position: relative;
+    padding-bottom: 15rem;
+
+    @include responsive(tablet) {
+      width: 100%;
+    }
 
     .footer-fix {
       position: absolute;
@@ -62,6 +71,16 @@
           padding: 2rem 0;
           color: $fourth-color;
           align-items: center;
+
+          @include responsive(smallphone) {
+            flex-wrap: wrap;
+          }
+          .secondary-btn {
+            @include responsive(smallphone) {
+              width: 100%;
+              margin: 2rem 0 1rem;
+            }
+          }
         }
 
         // search section

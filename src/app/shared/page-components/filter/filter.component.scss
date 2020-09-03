@@ -22,6 +22,11 @@
     @include shadow;
     padding: 2rem;
     overflow-y: scroll;
+    padding-bottom: 15rem;
+
+    @include responsive(bigphone) {
+      top: 14.5rem;
+    }
 
     .close {
       text-align: right;
