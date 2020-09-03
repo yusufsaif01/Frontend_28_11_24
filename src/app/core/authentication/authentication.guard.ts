@@ -28,6 +28,14 @@ export class AuthenticationGuard implements CanActivate {
       return true;
     }
 
+    if (
+      !this.credentialsService.isAuthenticated() &&
+      state.url.indexOf('gallery-view') !== -1
+    ) {
+      this.router.navigate(['/home']);
+      return true;
+    }
+
     log.debug('Not authenticated, redirecting and adding redirect url...');
     this.router.navigate(['/login'], {
       queryParams: { redirect: state.url },
