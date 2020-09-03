@@ -94,6 +94,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         width: '50% ',
         panelClass: 'filterDialog',
         data: {
+          message:
+            'Are you sure you want to logout? Video upload is currently in progress, please wait until completion else your video will not be saved and published on your profile.',
           header: 'Status confirmation'
         }
       });

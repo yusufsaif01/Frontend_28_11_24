@@ -6,6 +6,7 @@ import { environment } from '@env/environment';
 import { Logger, I18nService, untilDestroyed } from '@app/core';
 import { TimelineService } from '@app/timeline/timeline.service';
 import { SharedService } from '@app/shared/shared.service';
+import { CredentialsService } from '@app/core/authentication/credentials.service';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 const log = new Logger('App');
@@ -18,11 +19,13 @@ const log = new Logger('App');
 export class AppComponent implements OnInit, OnDestroy {
   videoRequest: any;
   uploader: boolean;
+  loggedIn: boolean;
   file: any;
 
   constructor(
     private titleService: Title,
     private i18nService: I18nService,
+    private _credentialsService: CredentialsService,
     private _timelineService: TimelineService,
     private _sharedService: SharedService,
     private _store: Store<any>,
@@ -43,6 +46,8 @@ export class AppComponent implements OnInit, OnDestroy {
     _store.select('uploader').subscribe(uploader => {
       this.uploader = uploader.data;
     });
+
+    this.loggedIn = this._credentialsService.isAuthenticated();
   }
 
   ngOnInit() {
