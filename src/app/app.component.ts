@@ -114,7 +114,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.dispatcher('COMPLETED_UPLOAD');
         },
         error => {
-          this.file.error = error;
+          this.file.error = error.msg;
           this.dispatcher('ERROR_UPLOAD');
         }
       );

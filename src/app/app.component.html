@@ -1,6 +1,6 @@
 <div class="custom-theme" fxFlex>
   <app-upload-progress
-    *ngIf="uploader && loggedIn"
+    *ngIf="uploader"
     [progress]="file && file.progress ? file.progress : 0"
     [error]="file && file.error ? file.error : null"
   ></app-upload-progress>
