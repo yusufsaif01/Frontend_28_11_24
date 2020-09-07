@@ -330,7 +330,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
   createVideoPost(requestData: any) {
     this._sharedService.setVideoRequest({ requestData, type: this.type });
-
+    this.dialogRef.close('success');
     this._toastrService.success(
       'Success',
       'Video uploading would start shortly'
