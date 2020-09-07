@@ -322,6 +322,8 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     if (this.data.id) this.updateVideoPost(requestData);
     else {
       if (this.media) requestData.set('media', this.media);
+      else this._toastrService.error('Error', 'Please select a video file');
+
       if (this.showVideoErrorMsg)
         this._toastrService.error('Error', this.videoErrorMsg);
       else this.createVideoPost(requestData);
