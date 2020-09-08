@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 const routes = {
   getDistrictList: (countryID: any, stateID: any) =>
@@ -32,6 +32,9 @@ export interface GetAbilityAttributeListResponseContext {
 })
 export class SharedService {
   displayFilterSubject = new Subject<boolean>();
+  videoRequest = new BehaviorSubject('');
+  sharedMessage = this.videoRequest.asObservable();
+
   constructor(private httpClient: HttpClient) {}
 
   getDistrictsList(
@@ -68,6 +71,10 @@ export class SharedService {
 
   getFilterDisplayValue(): Subject<boolean> {
     return this.displayFilterSubject;
+  }
+
+  setVideoRequest(data: any) {
+    this.videoRequest.next(data);
   }
 
   getAbilityAttributeList(): Observable<

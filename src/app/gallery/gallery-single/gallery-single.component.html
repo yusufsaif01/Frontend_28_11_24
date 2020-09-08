@@ -18,6 +18,7 @@
               </span> -->
               <app-video-player
                 [source]="post.post.media_url"
+                [status]="post.post.status"
               ></app-video-player>
             </div>
           </div>
@@ -56,7 +57,7 @@
                       <span class="position">{{ post.posted_by.type }}</span>
                     </ng-container>
 
-                    {{ post.created_at | customDatePipe }}
+                    <span>{{ post.created_at | customDatePipe }}</span>
                   </p>
                 </div>
               </div>
@@ -83,13 +84,9 @@
             <div class="postbody">
               <div class="post-content">
                 <p>
-                  <ng-container
-                    *ngFor="let ability of post.post.meta.abilities"
+                  <span *ngFor="let attribute of post.attributeListing"
+                    >#{{ attribute }}</span
                   >
-                    <ng-container *ngFor="let attribute of ability.attributes">
-                      <span>#{{ attribute.attribute_name }}</span>
-                    </ng-container>
-                  </ng-container>
                 </p>
               </div>
             </div>

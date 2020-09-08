@@ -14,6 +14,7 @@ import { LinkReportCardService } from './link-report-card.service';
 export class LinkReportCardComponent implements OnInit, OnDestroy {
   tableConfig: LinkReportCardTableConfig = new LinkReportCardTableConfig();
   dataSource = new MatTableDataSource([]);
+  sidebar: boolean = false;
   playerName = '';
   player_id = '';
   draft_id = '';

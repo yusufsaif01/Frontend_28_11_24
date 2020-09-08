@@ -48,27 +48,25 @@
               Weak foot
             </h3>
             <div class="section-block">
-              <div class="info">
-                <div class="full">
-                  <div class="left">
-                    <div class="stars">
-                      <ng-container *ngFor="let number of [1, 2, 3, 4, 5]">
-                        <ng-container
-                          *ngIf="number <= professionalDetails?.weak_foot"
-                        >
-                          <mat-icon class="material-icons active">
-                            star_border
-                          </mat-icon>
-                        </ng-container>
-                        <ng-container
-                          *ngIf="number > professionalDetails?.weak_foot"
-                        >
-                          <mat-icon class="material-icons ">
-                            star_border
-                          </mat-icon>
-                        </ng-container>
+              <div class="full">
+                <div class="right">
+                  <div class="stars">
+                    <ng-container *ngFor="let number of [1, 2, 3, 4, 5]">
+                      <ng-container
+                        *ngIf="number <= professionalDetails?.weak_foot"
+                      >
+                        <mat-icon class="material-icons active">
+                          star_border
+                        </mat-icon>
                       </ng-container>
-                    </div>
+                      <ng-container
+                        *ngIf="number > professionalDetails?.weak_foot"
+                      >
+                        <mat-icon class="material-icons ">
+                          star_border
+                        </mat-icon>
+                      </ng-container>
+                    </ng-container>
                   </div>
                 </div>
               </div>
@@ -162,7 +160,7 @@
                   <h4>Email</h4>
                 </div>
                 <div class="right">
-                  <p>
+                  <p class="email">
                     {{
                       professionalDetails?.club_academy_details
                         ?.head_coach_email
@@ -201,7 +199,7 @@
                 "
               >
                 <span class="count">{{ i + 1 }}.</span>
-                <div class="info">
+                <div class="info-listing">
                   <div class="full">
                     <div class="left">
                       <h4>Trophy name</h4>
@@ -331,7 +329,7 @@
                 "
               >
                 <span class="count">{{ i + 1 }}.</span>
-                <div class="info">
+                <div class="contact-listing">
                   <div class="half">
                     <div class="left">
                       <h4>Name</h4>
@@ -1210,7 +1208,7 @@
           <!--  -->
           <div class="section">
             <div class="input-container">
-              <div class="two-fifth">
+              <div class="w-35">
                 <div class="form-block">
                   <label>
                     <h3>
@@ -1245,7 +1243,7 @@
                   </mat-error>
                 </div>
               </div>
-              <div class="two-fifth">
+              <div class="w-35">
                 <div class="form-block">
                   <label>
                     <h3>

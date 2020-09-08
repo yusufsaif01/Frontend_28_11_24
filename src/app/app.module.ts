@@ -32,7 +32,8 @@ import { PersonAddEditPopupComponent } from './admin/manage-privacy/person-add-e
 import { RoleGuardService } from './core/authentication/role-guard.service';
 import { JwtInterceptor } from './core/http/jwt.interceptor';
 import { ErrorInterceptor } from './core/http/error.interceptor';
-
+import { StoreModule } from '@ngrx/store';
+import { uploader } from './redux/reducer';
 import { HomeModule } from './home/home.module';
 import { SecurityModule } from './security/security.module';
 
@@ -63,6 +64,7 @@ import { SecurityModule } from './security/security.module';
       positionClass: 'toast-top-right',
       closeButton: true
     }),
+    StoreModule.forRoot({ uploader }),
     NgxTrimDirectiveModule
   ],
   declarations: [

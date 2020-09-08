@@ -43,8 +43,20 @@
     display: flex;
     justify-content: space-between;
 
+    @include responsive(bigphone) {
+      flex-wrap: wrap;
+    }
+
     .input-wrapper {
       width: 28%;
+
+      @include responsive(bigphone) {
+        width: 48%;
+      }
+
+      @include responsive(smallphone) {
+        width: 100%;
+      }
     }
   }
 }
@@ -53,6 +65,11 @@
   align-self: center;
   width: 16%;
   max-width: 15rem;
+
+  @include responsive(bigphone) {
+    max-width: 100%;
+    width: 48%;
+  }
 
   button {
     padding: 1.2rem 5rem;

@@ -14,155 +14,200 @@
   box-shadow: 0px 0px 1rem rgba($fourth-color, 0.04),
     0px 0.2rem 0.6rem rgba($fourth-color, 0.04),
     0px 1.6rem 2.4rem rgba($fourth-color, 0.06);
-  // position: fixed;
-  // left: 0px;
-  // top: 0rem;
 
-  .profile {
-    width: 100%;
-    border: 1px solid $third-color;
-    border-radius: 0.5rem;
+  @include responsive(tablet) {
+    width: 0%;
+    position: fixed;
+    left: 0px;
+    top: calc(8.5rem);
+    z-index: 99;
+    max-width: 40rem;
+    height: 100%;
+    overflow-y: scroll;
+    padding: 0 0 15rem 0;
+    transition: ease-in 0.5s;
+  }
 
-    &-img {
-      position: relative;
+  @include responsive(bigphone) {
+    top: calc(14.3rem);
+  }
 
-      img {
-        width: 21rem;
-        height: 21rem;
-        border-radius: 25rem;
-        margin-top: 5%;
-        z-index: 9;
+  .mobile {
+    @include responsive(tablet) {
+      display: none;
+      transition: ease-in 0.5s;
+    }
+
+    .profile {
+      width: 100%;
+      border: 1px solid $third-color;
+      border-radius: 0.5rem;
+
+      &-img {
         position: relative;
-      }
 
-      &::before {
-        content: "";
-        position: absolute;
-        background: $primary-color;
-        border-top-left-radius: 0.5rem;
-        border-top-right-radius: 0.5rem;
-        width: 100%;
-        height: 55%;
-        left: 0;
-        top: 0;
-        z-index: 1;
-      }
-    }
-
-    &-name {
-      h3 {
-        color: $fourth-color;
-        font-weight: 500;
-        padding: 1rem 1rem 0.5rem 1rem;
-        word-break: break-all;
-      }
-    }
-
-    &-position {
-      h4 {
-        color: $success;
-        font-weight: 500;
-      }
-    }
-
-    &-catergory {
-      h4 {
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: $primary-color;
-        margin: 0.5rem 0;
-
-        span {
-          color: $success;
+        img {
+          width: 21rem;
+          height: 21rem;
+          border-radius: 25rem;
+          margin-top: 5%;
+          z-index: 9;
+          position: relative;
         }
-      }
-    }
-
-    &-counts {
-      display: flex;
-      margin: 2rem auto;
-
-      .line {
-        position: relative;
 
         &::before {
           content: "";
-          height: 3rem;
-          width: 0.1rem;
-          background: $grey;
           position: absolute;
-          right: 0rem;
-          top: 1rem;
+          background: $primary-color;
+          border-top-left-radius: 0.5rem;
+          border-top-right-radius: 0.5rem;
+          width: 100%;
+          height: 55%;
+          left: 0;
+          top: 0;
+          z-index: 1;
         }
       }
 
-      .count {
-        display: block;
-        text-align: center;
-        width: 90%;
-        margin: auto;
+      &-name {
+        h3 {
+          color: $fourth-color;
+          font-weight: 500;
+          padding: 1rem 1rem 0.5rem 1rem;
+          word-break: break-all;
+        }
+      }
 
-        span {
-          display: inline-block;
-          font-size: $heading-fourth;
-          border-radius: 10rem;
-          padding: 1rem 2rem;
-          font-weight: 300;
-          font-size: $heading-Seoncdary;
-          background: $fifth-color;
+      &-position {
+        h4 {
+          color: $success;
+          font-weight: 500;
+        }
+      }
+
+      &-catergory {
+        h4 {
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $primary-color;
+          margin: 0.5rem 0;
+
+          span {
+            color: $success;
+          }
+        }
+      }
+
+      &-counts {
+        display: flex;
+        margin: 2rem auto;
+
+        .line {
+          position: relative;
+
+          &::before {
+            content: "";
+            height: 3rem;
+            width: 0.1rem;
+            background: $grey;
+            position: absolute;
+            right: 0rem;
+            top: 1rem;
+          }
         }
 
-        h5 {
-          font-weight: 500;
-          margin: 1rem auto;
-          color: $fourth-color;
+        .count {
+          display: block;
+          text-align: center;
+          width: 90%;
+          margin: auto;
+
+          span {
+            display: inline-block;
+            font-size: $heading-fourth;
+            border-radius: 10rem;
+            padding: 1rem 2rem;
+            font-weight: 300;
+            font-size: $heading-Seoncdary;
+            background: $fifth-color;
+          }
+
+          h5 {
+            font-weight: 500;
+            margin: 1rem auto;
+            color: $fourth-color;
+          }
+        }
+      }
+    }
+
+    .menus {
+      margin: 2rem 0;
+      padding-bottom: 15rem;
+
+      ul {
+        list-style: none;
+
+        li {
+          padding: 1rem 0;
+
+          a {
+            display: flex;
+            align-items: center;
+
+            &:hover {
+              span.icon {
+                opacity: 0.6;
+              }
+            }
+
+            span.icon {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 10rem;
+              width: 5rem;
+              height: 5rem;
+              background: $fifth-color;
+              margin-right: 3rem;
+
+              @include responsive(smalldesktop) {
+                margin-right: 1.2rem;
+              }
+
+              @include responsive(tablet) {
+                margin-right: 3rem;
+              }
+
+              img {
+                width: 2.4rem;
+              }
+            }
+
+            span.text {
+              font-size: $heading-fourth;
+              font-weight: 500;
+            }
+          }
         }
       }
     }
   }
+}
 
-  .menus {
-    margin: 2rem 0;
+.show {
+  @include responsive(tablet) {
+    width: 100%;
+    transition: ease-in 0.5s;
+    padding: 2rem 3rem 2rem 3rem;
+  }
 
-    ul {
-      list-style: none;
-
-      li {
-        padding: 1rem 0;
-
-        a {
-          display: flex;
-          align-items: center;
-
-          &:hover {
-            span.icon {
-              opacity: 0.6;
-            }
-          }
-
-          span.icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10rem;
-            width: 5rem;
-            height: 5rem;
-            background: $fifth-color;
-            margin-right: 3rem;
-
-            img {
-              width: 2.4rem;
-            }
-          }
-
-          span.text {
-            font-size: $heading-fourth;
-            font-weight: 500;
-          }
-        }
-      }
+  .mobile {
+    @include responsive(tablet) {
+      display: block;
+      transition-delay: ease-in 0.5s;
     }
   }
 }

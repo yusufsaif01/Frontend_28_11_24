@@ -301,6 +301,63 @@ export abstract class Constants {
     { name: 'Others', value: 'Others' }
   ];
 
+  static readonly AWARD_TYPE: any = {
+    PLAYER: [
+      {
+        name: 'School Tournament Certificates',
+        value: 'School Tournament Certificates'
+      },
+      {
+        name: 'Private Tournament Certificates',
+        value: 'Private Tournament Certificates'
+      },
+      {
+        name: 'National Tournaments',
+        value: 'National Tournaments'
+      },
+      {
+        name: 'State Level Tournaments',
+        value: 'State Level Tournaments'
+      },
+      {
+        name: 'Club Level Tournaments',
+        value: 'Club Level Tournaments'
+      },
+      {
+        name: 'Academy Level Tournaments',
+        value: 'Academy Level Tournaments'
+      },
+      {
+        name: 'International Tournament Certificates',
+        value: 'International Tournament Certificates'
+      },
+      {
+        name: 'Other Awards',
+        value: 'Other Awards'
+      }
+    ],
+    CLUB: [
+      {
+        name: 'Club Level Competition Certificates',
+        value: 'Club Level Competition Certificates'
+      },
+      {
+        name: 'Other Awards',
+        value: 'Other Awards'
+      }
+    ],
+    ACADEMY: [
+      {
+        name: 'Private Tournament Certificates',
+        value: 'Private Tournament Certificates'
+      },
+      {
+        name: 'Other Awards',
+        value: 'Other Awards'
+      }
+    ]
+  };
+
   static readonly SIDEBAR_LIST: {
     link: string;
     name: string;
@@ -386,5 +443,12 @@ export abstract class Constants {
       { checked: false, value: 'Press conference' },
       { checked: false, value: 'Interviews' }
     ]
+  };
+
+  static readonly VIDEO_LENGTH: any = {
+    player: 2,
+    timeline: 10,
+    learning_or_training: 30,
+    match: 150
   };
 }

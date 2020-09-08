@@ -18,9 +18,9 @@ import { SharedService } from '@app/shared/shared.service';
   styleUrls: ['./foot-player.component.scss']
 })
 export class FootPlayerComponent implements OnInit, OnDestroy {
-  // TABLE CONFIG
   public tableConfig: FootPlayerTableConfig = new FootPlayerTableConfig();
   public dataSource = new MatTableDataSource([]);
+  sidebar: boolean = false;
   filter: any = {};
   pageSize: number = 10;
   pageNo: number = 1;
@@ -111,7 +111,8 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
       member_type: this.member_type
     };
     const dialogRef = this.dialog.open(AddFootplayerComponent, {
-      width: '99%',
+      // width: '99%',
+      panelClass: 'addfootplayer',
       data: {
         ...data
       }
@@ -127,8 +128,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   // delete
   deletePopup(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      width: '40% ',
-      panelClass: 'filterDialog',
+      panelClass: 'deletepopup',
       data: {
         header: 'Please confirm',
         message: 'Are you sure you want to delete?',
@@ -166,8 +166,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
 
   resendInvitationPopup(email: string) {
     const dialogRef = this.dialog.open(StatusConfirmationComponent, {
-      width: '40% ',
-      panelClass: 'filterDialog',
+      panelClass: 'statusconfirmation',
       data: {
         header: 'Please confirm',
         message: 'Do you want to Resend Invitation?',

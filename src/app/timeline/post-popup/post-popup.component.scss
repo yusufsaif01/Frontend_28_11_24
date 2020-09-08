@@ -14,8 +14,7 @@
   .title {
     width: 70%;
 
-    h3 {
-      font-size: $heading-third;
+    h2 {
       color: $fourth-color;
       font-weight: 600;
     }
@@ -37,7 +36,7 @@
 }
 
 .modal-body {
-  padding: 0rem 4rem;
+  padding: 0rem 3rem;
 
   .form-block {
     textarea {
@@ -69,12 +68,12 @@
 }
 
 .modal-footer {
-  padding: 2rem 4rem;
+  padding: 2rem 2rem;
   display: flex;
   align-items: center;
 
   .left {
-    width: 60%;
+    width: 40%;
 
     ul {
       list-style: none;
@@ -109,7 +108,7 @@
   }
 
   .right {
-    width: 40%;
+    width: 60%;
     display: block;
     text-align: right;
 

@@ -23,7 +23,12 @@ interface GetGalleryListResponseContext {
   status: string;
   message: string;
   data: {
+    is_footplayer: boolean;
     total: number;
+    posted_by: {
+      member_type: string;
+      user_id: string;
+    };
     records: {
       created_at: string;
       id: string;

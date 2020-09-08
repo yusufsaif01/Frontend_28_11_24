@@ -187,4 +187,7 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {}
+
+  // toggle sidebar on mobile
+  public sidebar = false;
 }
