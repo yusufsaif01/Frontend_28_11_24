@@ -18,6 +18,7 @@ import { untilDestroyed } from '@app/core';
 export class AwardCertificateComponent implements OnInit, OnDestroy {
   public tableConfig: AwardCertificateTableConfig = new AwardCertificateTableConfig();
   public dataSource = new MatTableDataSource([]);
+  sidebar: boolean = false;
   pageSize: number = 10;
   currentPageNo: number = 1;
   selectedPage: number;
@@ -63,8 +64,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
   // dialog box open
   openDialog(): void {
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
-      width: '50%',
-      panelClass: 'dialogbox',
+      panelClass: 'addeditawards',
       data: {
         player_type: this.player_type,
         member_type: this.member_type,
@@ -101,8 +101,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
       member_type: this.member_type
     };
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
-      width: '50%',
-      panelClass: 'dialogbox',
+      panelClass: 'addeditawards',
       data: {
         ...data,
         options: { header: 'Edit', buttonName: 'Update' }
@@ -167,8 +166,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
   // delete
   deletePopup(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      width: '40% ',
-      panelClass: 'filterDialog',
+      panelClass: 'deletepopup',
       data: {
         message: 'Are you sure you want to delete?',
         acceptText: 'Yes',

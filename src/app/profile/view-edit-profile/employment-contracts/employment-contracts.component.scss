@@ -10,6 +10,33 @@
     justify-content: space-between;
     padding: 2rem 0rem;
     color: $fourth-color;
+
+    @include responsive(smallphone) {
+      flex-wrap: wrap;
+    }
+
+    h2 {
+      @include responsive(smallphone) {
+        width: inherit;
+      }
+    }
+    button {
+      @include responsive(smallphone) {
+        width: inherit;
+      }
+    }
+
+    button.secondary-btn {
+      @media (max-width: 450px) {
+        margin-top: 2rem;
+        width: 50%;
+      }
+
+      @include responsive(smallestphone) {
+        width: 100%;
+        max-width: 28rem;
+      }
+    }
   }
 }
 
@@ -40,4 +67,26 @@
 
 .yet-status {
   background-color: $yet;
+}
+
+::ng-deep {
+  .deletepopup {
+    width: 50%;
+
+    @include responsive(tablet) {
+      width: 60%;
+    }
+
+    @include responsive(bigphone) {
+      width: 75%;
+    }
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallphone) {
+      max-width: 95vw !important;
+    }
+  }
 }

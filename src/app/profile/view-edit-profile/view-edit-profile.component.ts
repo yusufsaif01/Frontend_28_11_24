@@ -50,4 +50,7 @@ export class ViewEditProfileComponent implements OnInit {
       return item.value;
     });
   }
+
+  // toggle sidebar on mobile
+  public sidebar = false;
 }

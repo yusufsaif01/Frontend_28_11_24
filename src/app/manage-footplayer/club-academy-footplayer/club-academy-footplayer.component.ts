@@ -20,6 +20,7 @@ interface FootPlayerContext {
   styleUrls: ['./club-academy-footplayer.component.scss']
 })
 export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
+  sidebar: boolean = false;
   filter: any = {};
   footPlayerList: FootPlayerContext[] = [];
   pageSize: number = 18;

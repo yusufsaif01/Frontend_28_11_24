@@ -7,9 +7,17 @@
   background: $third-color;
   margin-top: 8.5rem;
 
+  @include responsive(bigphone) {
+    margin-top: 14rem;
+  }
+
   .right-panel {
     width: 76.25%;
     position: relative;
+
+    @include responsive(tablet) {
+      width: 100%;
+    }
 
     .footer-fix {
       position: absolute;
@@ -58,6 +66,10 @@
           .counts {
             margin: 0 2rem;
 
+            @include responsive(smallestphone) {
+              margin: 0 1rem;
+            }
+
             h2 {
               font-weight: 400;
               font-size: 3.6rem;
@@ -74,6 +86,10 @@
               outline: 0px;
               display: inline-block;
               font-size: $heading-fourth;
+
+              @include responsive(smallestphone) {
+                padding: 1rem 2rem;
+              }
 
               &:hover {
                 background: $primary-color;
@@ -92,20 +108,36 @@
         .player-wrapper {
           display: flex;
           flex-wrap: wrap;
-          padding-left: 1rem;
+
+          @include responsive(bigphone) {
+            width: 100%;
+            margin: auto;
+          }
 
           .player-block {
             display: flex;
             align-items: center;
             width: 33%;
-            padding: 1rem 1rem 1rem 2rem;
+            padding: 1rem 1rem 1rem 1rem;
             border-left: 0.5rem solid #fff0d3;
             margin-bottom: 4rem;
 
+            @include responsive(tablet) {
+              padding: 1rem 2rem 1rem 2rem;
+            }
+
+            @include responsive(bigphone) {
+              width: 50%;
+            }
+
+            @include responsive(smallphone) {
+              width: 100%;
+            }
+
             img {
-              width: 8rem;
-              height: 8rem;
-              border-radius: 8rem;
+              width: 7rem;
+              height: 7rem;
+              border-radius: 7rem;
             }
 
             .profile-details {
@@ -125,6 +157,9 @@
               p {
                 font-size: $heading-sixth;
                 color: $second-color;
+                @include responsive(smalldesktop) {
+                  font-size: $heading-sixth;
+                }
               }
             }
 
@@ -134,21 +169,79 @@
               color: $second-color;
               width: 100%;
 
+              @include responsive(smalldesktop) {
+                flex-wrap: wrap;
+              }
+
+              @include responsive(smallphone) {
+                flex-wrap: nowrap;
+              }
+
+              @media (max-width: 360px) {
+                flex-wrap: wrap;
+              }
+
               h5 {
                 font-weight: 600;
                 font-size: $heading-fifth;
                 color: $second-color;
+
+                @include responsive(smalldesktop) {
+                  width: 100%;
+                }
+
+                @include responsive(smallphone) {
+                  width: initial;
+                }
+
+                @media (max-width: 360px) {
+                  width: 100%;
+                }
               }
 
               a {
                 color: $primary-color;
                 font-size: $heading-fifth;
                 font-weight: 600;
+                @include responsive(smalldesktop) {
+                  width: 100%;
+                }
+
+                @include responsive(smallphone) {
+                  width: initial;
+                }
+
+                @media (max-width: 360px) {
+                  width: 100%;
+                }
               }
             }
           }
         }
       }
+    }
+  }
+}
+
+//  post popup
+::ng-deep {
+  .mutualfootmate {
+    width: 50%;
+
+    @include responsive(tablet) {
+      width: 60%;
+    }
+
+    @include responsive(bigphone) {
+      width: 75%;
+    }
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallphone) {
+      max-width: 95vw !important;
     }
   }
 }

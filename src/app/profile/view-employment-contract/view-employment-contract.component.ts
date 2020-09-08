@@ -12,6 +12,7 @@ import { VerificationPopupComponent } from '@app/shared/dialog-box/verification-
   styleUrls: ['./view-employment-contract.component.scss']
 })
 export class ViewEmploymentContractComponent implements OnInit {
+  sidebar: boolean = false;
   panelOptions: Partial<PanelOptions> = {
     player_type: false,
     logout_link: true,
@@ -81,7 +82,7 @@ export class ViewEmploymentContractComponent implements OnInit {
       disApprove = false;
     }
     const dialogRef = this.dialog.open(VerificationPopupComponent, {
-      width: '50%',
+      panelClass: 'verificationpopup',
       data: {
         header: header,
         message: message,

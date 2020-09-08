@@ -3,7 +3,7 @@
 
 .form-container {
   margin: -24px;
-  min-width: 45vw;
+  // min-width: 45vw;
 }
 
 .header {
@@ -41,6 +41,12 @@
   padding: 2rem 3rem 0;
   display: block;
   text-align: center;
+  overflow: auto;
+
+  @include responsive(bigphone) {
+    overflow: scroll;
+    max-height: 60vh;
+  }
 
   // radio{
   .radio-block {
@@ -90,9 +96,80 @@
         width: 26rem;
         position: absolute;
         top: 2.5rem;
-        left: -18rem;
+        left: -17rem;
         z-index: 1;
         background: $fourth-color;
+
+        @media (max-width: 1920px) {
+          width: 36rem;
+          left: -28rem;
+        }
+
+        @media (max-width: 1800px) {
+          width: 33rem;
+          left: -24rem;
+        }
+
+        @media (max-width: 1700px) {
+          width: 32rem;
+          left: -22rem;
+        }
+
+        @media (max-width: 1600px) {
+          left: -21rem;
+        }
+
+        @media (max-width: 1500px) {
+          left: -23rem;
+        }
+
+        @media (max-width: 1400px) {
+          width: 29rem;
+          left: -19rem;
+        }
+
+        @media (max-width: 1264px) {
+          width: 28rem;
+          left: -17rem;
+        }
+
+        @media (max-width: 1100px) {
+          width: 26rem;
+          left: -14rem;
+        }
+
+        @include responsive(tablet) {
+          width: 25rem;
+          left: -17rem;
+        }
+
+        @media (max-width: 877px) {
+          width: 24rem;
+          left: -12rem;
+        }
+
+        @include responsive(bigphone) {
+          width: 26rem;
+          left: -18rem;
+        }
+
+        @media (max-width: 720px) {
+          left: -14rem;
+        }
+
+        @include responsive(mediumphone) {
+          width: 20rem;
+          left: -12rem;
+        }
+
+        @media (max-width: 568px) {
+          left: -9.5rem;
+        }
+
+        @include responsive(smallphone) {
+          width: 17rem;
+          left: -8rem;
+        }
       }
     }
 
@@ -113,11 +190,15 @@
 
     .btn-group {
       display: flex;
+      flex-wrap: wrap;
 
       button {
         font-size: 1.6rem;
         padding: 1rem 2.5rem;
         margin-right: 1rem;
+        @include responsive(smallestphone) {
+          width: initial;
+        }
       }
     }
   }
@@ -170,6 +251,9 @@
     .upload {
       img {
         max-height: 10rem;
+        @include responsive(smallestphone) {
+          max-height: 6rem;
+        }
       }
 
       .video-upload {

@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="site-wrapper">
-  <div class="left-panel">
+  <div class="left-panel" [ngClass]="{ show: sidebar, hide: !sidebar }">
     <app-left-panel
       (sendClubAcademyType)="getClubAcademyType($event)"
       (sendMemberType)="getMemberType($event)"
@@ -40,3 +40,8 @@
     </div>
   </div>
 </div>
+
+<!-- mobile toggle btn -->
+<span class="toggle-btn" (click)="sidebar = !sidebar">
+  <mat-icon class=" material-icons">menu_open</mat-icon>
+</span>

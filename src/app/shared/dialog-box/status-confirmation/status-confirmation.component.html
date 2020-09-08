@@ -11,14 +11,12 @@
   <div class="modal-body">
     <h4>{{ message }}</h4>
     <div class="action-block">
-      <div class="btn-group">
-        <button class="btn-active" [mat-dialog-close]="true">
-          {{ acceptText }}
-        </button>
-        <button class="btn-normal" mat-dialog-close>
-          {{ rejectText }}
-        </button>
-      </div>
+      <button class="btn btn-primary" [mat-dialog-close]="true">
+        {{ acceptText }}
+      </button>
+      <button class="btn btn-secondary ml-1 " mat-dialog-close>
+        {{ rejectText }}
+      </button>
     </div>
   </div>
 </div>

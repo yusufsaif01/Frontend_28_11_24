@@ -25,6 +25,7 @@ export interface AbilityContext {
   styleUrls: ['./view-report-card.component.scss']
 })
 export class ViewReportCardComponent implements OnInit, OnDestroy {
+  sidebar: boolean = false;
   mode: ProgressSpinnerMode = 'determinate';
   send_to = '';
   report_card_id = '';

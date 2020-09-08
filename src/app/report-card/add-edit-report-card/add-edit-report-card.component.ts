@@ -29,6 +29,7 @@ export interface AbilityContext {
   styleUrls: ['./add-edit-report-card.component.scss']
 })
 export class AddEditReportCardComponent implements OnInit, OnDestroy {
+  sidebar: boolean = false;
   addEditReportForm: FormGroup;
   abilities: FormArray;
   attributes: FormArray;

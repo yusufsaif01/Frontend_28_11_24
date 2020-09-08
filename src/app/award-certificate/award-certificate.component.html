@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="site-wrapper">
-  <div class="left-panel">
+  <div class="left-panel" [ngClass]="{ show: sidebar, hide: !sidebar }">
     <app-left-panel
       [userId]="userId"
       (sendPlayerType)="getPlayerType($event)"
@@ -10,7 +10,7 @@
   </div>
   <div class="right-panel">
     <div class="right-wrapper">
-      <div class="main mt-2">
+      <div class="main">
         <!-- award heading -->
         <div class="heading">
           <h2>My awards and certificates</h2>
@@ -77,3 +77,8 @@
     </div>
   </div>
 </div>
+
+<!-- mobile toggle -->
+<span class="toggle-btn" (click)="sidebar = !sidebar">
+  <mat-icon class=" material-icons">menu_open</mat-icon>
+</span>

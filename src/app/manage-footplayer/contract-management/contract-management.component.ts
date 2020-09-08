@@ -17,6 +17,7 @@ import { environment } from '@env/environment';
 export class ContractManagementComponent implements OnInit, OnDestroy {
   public tableConfig: ContractManagementTableConfig = new ContractManagementTableConfig();
   public dataSource = new MatTableDataSource([]);
+  sidebar: boolean = false;
   pageSize: number = 10;
   selectedPage: number = 1;
   member_type: string;
@@ -56,8 +57,7 @@ export class ContractManagementComponent implements OnInit, OnDestroy {
 
   deletePopup(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      width: '40% ',
-      panelClass: 'filterDialog',
+      panelClass: 'deletepopup',
       data: {
         message: 'Are you sure you want to delete?',
         acceptText: 'Confirm',

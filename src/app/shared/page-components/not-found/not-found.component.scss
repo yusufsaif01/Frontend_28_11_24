@@ -10,11 +10,19 @@
   height: calc(100vh - 1rem);
   box-sizing: border-box;
 
+  @include responsive(bigphone) {
+    height: auto;
+  }
+
   .fixed-footer {
     width: 100%;
     position: absolute;
     left: 0;
     bottom: 0;
+
+    @include responsive(bigphone) {
+      position: static;
+    }
   }
 
   .header {
@@ -35,6 +43,10 @@
 
         img {
           max-width: 25rem;
+
+          @include responsive(bigphone) {
+            max-width: 21rem;
+          }
         }
       }
     }
@@ -48,14 +60,39 @@
     align-items: center;
     height: 79.5%;
 
+    @include responsive(bigphone) {
+      flex-direction: column-reverse;
+      height: auto;
+      padding: 5rem 0;
+    }
+
     .text-section {
       width: 50%;
+
+      @include responsive(bigphone) {
+        display: block;
+        text-align: center;
+        width: 100%;
+        margin-top: 4rem;
+      }
+
+      @include responsive(smallphone) {
+        margin: 5rem 0 3rem;
+      }
 
       h2 {
         font-size: 7rem;
         font-weight: 100;
         font-family: $secondary-text;
         line-height: 1;
+
+        @include responsive(tablet) {
+          font-size: 6rem;
+        }
+
+        @include responsive(bigphone) {
+          font-size: 5rem;
+        }
       }
 
       h3 {
@@ -66,6 +103,18 @@
         letter-spacing: 1px;
         font-weight: 100;
         margin-bottom: 2rem;
+
+        @include responsive(tablet) {
+          font-size: 3.5rem;
+        }
+
+        @include responsive(bigphone) {
+          font-size: 3rem;
+        }
+
+        @include responsive(smallphone) {
+          font-size: 2.5rem;
+        }
 
         span {
           display: block;
@@ -80,6 +129,10 @@
 
     .img-section {
       width: 50%;
+
+      @include responsive(bigphone) {
+        width: 100%;
+      }
 
       img {
         width: 100%;

@@ -5,6 +5,10 @@
 .back {
   padding: 1rem 2rem;
 
+  @include responsive(bigphone) {
+    padding: 1rem 0rem;
+  }
+
   a {
     display: inline-flex;
     align-items: center;

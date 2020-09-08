@@ -7,10 +7,17 @@
   background: $third-color;
   margin-top: 8.5rem;
 
+  @include responsive(bigphone) {
+    margin-top: 14rem;
+  }
+
   .right-panel {
     width: 76.25%;
     position: relative;
 
+    @include responsive(tablet) {
+      width: 100%;
+    }
     .footer-fix {
       position: absolute;
       width: 100%;
@@ -52,11 +59,19 @@
           display: flex;
           width: 100%;
 
+          @include responsive(bigphone) {
+            padding: 1rem 0rem 1rem 0rem;
+          }
+
           .counts {
             background-color: $fifth-color;
             display: flex;
             border-radius: 5rem;
             align-items: center;
+
+            @include responsive(smallphone) {
+              width: 100%;
+            }
 
             h3 {
               font-weight: 700;
@@ -87,9 +102,17 @@
           margin-bottom: 1rem;
           padding: 1rem 3rem 1rem 3rem;
 
+          @include responsive(bigphone) {
+            padding: 1rem 0rem 1rem 0rem;
+          }
+
           .search-wrapper {
             max-width: 35rem;
             width: 100%;
+
+            @include responsive(smallphone) {
+              max-width: 100%;
+            }
           }
         }
 
@@ -99,6 +122,10 @@
           flex-wrap: wrap;
           padding: 0 3rem;
 
+          @include responsive(bigphone) {
+            padding: 0rem;
+          }
+
           .player-block {
             display: flex;
             align-items: center;
@@ -106,6 +133,18 @@
             padding: 1rem 2rem;
             border-left: 0.5rem solid #fff0d3;
             margin-bottom: 4rem;
+
+            @include responsive(tablet) {
+              padding: 1rem 2rem 1rem 2rem;
+            }
+
+            @include responsive(bigphone) {
+              width: 50%;
+            }
+
+            @include responsive(smallphone) {
+              width: 100%;
+            }
 
             img {
               width: 8rem;
