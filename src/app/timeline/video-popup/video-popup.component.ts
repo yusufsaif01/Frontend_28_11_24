@@ -210,6 +210,19 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
       } else {
         this.selectedAbilityIdList.push(ability);
       }
+
+      if (
+        formdata.at(i).value.ability === ability &&
+        R.filter(R.propEq('attribute_value', true))(
+          formdata.at(i).value.attributes
+        ).length > 3
+      ) {
+        this._toastrService.error(
+          'Error',
+          'Only 3 attributes can be selected per ability'
+        );
+        break;
+      }
     }
   }
 
