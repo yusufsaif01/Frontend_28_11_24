@@ -473,8 +473,10 @@
                   'others'
                 )
               "
-              [checked]="locationRangeFilters.otherTagsArray.includes(entity)"
-              >{{ entity | titlecase }}</mat-checkbox
+              [checked]="
+                locationRangeFilters.otherTagsArray.includes(entity.value)
+              "
+              >{{ entity.value | titlecase }}</mat-checkbox
             >
           </li>
         </ul>
