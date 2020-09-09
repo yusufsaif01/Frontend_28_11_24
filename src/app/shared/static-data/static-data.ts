@@ -430,7 +430,18 @@ export abstract class Constants {
     }
   };
 
-  static readonly TIMELINE_VIDEO_EXTENSION: string[] = ['mp4', 'avi', 'mkv'];
+  static readonly TIMELINE_VIDEO_EXTENSION: string[] = [
+    'mp4',
+    'avi',
+    'mkv',
+    'webm',
+    'mpg',
+    'mp2',
+    'ogg',
+    'wmv',
+    'mov',
+    'flv'
+  ];
 
   static readonly OTHER_TAGS: any = {
     player: [

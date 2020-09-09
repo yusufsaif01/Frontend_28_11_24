@@ -60,7 +60,7 @@ export class GalleryListingComponent implements OnInit {
   sidebar: boolean = false;
   filter: GetGalleryListContext = {};
   galleryList: GetGalleryListResponseContext[] = [];
-  pageSize = 10;
+  pageSize = 12;
   pageNo = 1;
   selectedPage = 1;
   show_count = 0;

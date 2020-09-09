@@ -46,6 +46,10 @@ export class MutualFootmateComponent implements OnInit, OnDestroy {
       .subscribe(
         (response: any) => {
           let records = response.data.records;
+          for (let i = 0; i < records.length; i++) {
+            records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
+          }
+
           if (!scrolled) {
             this.mutualFootmate = records;
           } else {

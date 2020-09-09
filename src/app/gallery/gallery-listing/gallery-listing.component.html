@@ -113,6 +113,10 @@
   </div>
 </div>
 <app-filter
+  [otherTagsFilter]="
+    (member_type !== 'player' && !isPublic) ||
+    (publicMemberType !== 'player' && isPublic && publicFootplayer)
+  "
   [filterHeading]="'Filter'"
   [allowedFilters]="filtersList"
   (filterChanges)="onChangeFilter($event)"
