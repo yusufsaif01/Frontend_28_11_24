@@ -18,6 +18,7 @@ import { ManageAttributeComponent } from './masterdata/player-specialization/man
 import { AdminComponent } from './admin.component';
 import { DocumentVerificationComponent } from './document-verification/document-verification.component';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
+import { ManagePrivacyComponent } from './manage-privacy/manage-privacy.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
     ManageAbilityComponent,
     ManageAttributeComponent,
     AdminComponent,
-    DocumentVerificationComponent
+    DocumentVerificationComponent,
+    ManagePrivacyComponent
   ],
   imports: [
     CommonModule,

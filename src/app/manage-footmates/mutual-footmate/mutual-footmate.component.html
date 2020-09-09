@@ -21,7 +21,7 @@
       <div class="player-wrapper">
         <div class="player-block" *ngFor="let footmate of mutualFootmate">
           <!-- <img [src]="footmate.avatar" alt="profile-icon" /> -->
-          <img src="assets/images/member/profile.png" alt="" />
+          <img [src]="footmate.avatar" alt="" />
           <div class="profile-details">
             <h3>
               <a
