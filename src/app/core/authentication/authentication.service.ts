@@ -14,7 +14,10 @@ const routes = {
   forgotPassword: (c: ForgotPasswordContext) => '/forgot-password',
   createPassword: (c: ResetPasswordContext) => '/create-password',
   emailVerification: () => '/activate',
-  resetLinkStatus: () => '/link/status'
+  resetLinkStatus: () => '/link/status',
+  accessTokenRequest: (c: AccessTokenRequestContext) => '/access-token/request',
+  accessTokenVerification: (c: AccessTokenVerificationContext) =>
+    '/access-token/verify'
 };
 
 export interface LoginContext {
@@ -45,6 +48,15 @@ export interface ChangePasswordContext {
   old_password: string;
   new_password: string;
   confirm_password: string;
+}
+
+export interface AccessTokenRequestContext {
+  email: string;
+}
+
+export interface AccessTokenVerificationContext {
+  email: string;
+  otp: string;
 }
 
 /**
@@ -168,6 +180,19 @@ export class AuthenticationService {
     };
 
     return this.httpClient.get(routes.resetLinkStatus(), httpOptions);
+  }
+
+  accessTokenRequest(context: AccessTokenRequestContext): Observable<any> {
+    return this.httpClient.post(routes.accessTokenRequest(context), context);
+  }
+
+  accessTokenVerification(
+    context: AccessTokenVerificationContext
+  ): Observable<any> {
+    return this.httpClient.post(
+      routes.accessTokenVerification(context),
+      context
+    );
   }
   ngOnDestroy() {}
 }

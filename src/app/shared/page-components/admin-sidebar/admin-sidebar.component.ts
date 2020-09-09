@@ -54,6 +54,11 @@ export class AdminSidebarComponent implements OnInit {
     },
     {
       link: './courses',
+      name: 'Manage Privacy',
+      imagePath: 'manage-privacy'
+    },
+    {
+      link: './courses',
       name: 'Manage Contracts',
       imagePath: 'manage-contracts'
     },

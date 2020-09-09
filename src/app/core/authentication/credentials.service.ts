@@ -5,9 +5,11 @@ export interface Credentials {
   username: string;
   token: string;
   role: string;
+  access_token: string;
 }
 
 const credentialsKey = 'credentials';
+const accesstokenKey = 'access_token';
 
 /**
  * Provides storage for authentication credentials.
@@ -17,14 +19,24 @@ const credentialsKey = 'credentials';
   providedIn: 'root'
 })
 export class CredentialsService {
-  private _credentials: Credentials | null = null;
+  private _credentials: Partial<Credentials> | null = null;
+  private _accesstoken: string | null = null;
 
   constructor() {
     const savedCredentials =
       sessionStorage.getItem(credentialsKey) ||
       localStorage.getItem(credentialsKey);
+
+    const savedAccessToken =
+      sessionStorage.getItem(accesstokenKey) ||
+      localStorage.getItem(accesstokenKey);
+
     if (savedCredentials) {
       this._credentials = JSON.parse(savedCredentials);
+    }
+
+    if (savedAccessToken) {
+      this._accesstoken = savedAccessToken;
     }
   }
 
@@ -35,6 +47,14 @@ export class CredentialsService {
   isAuthenticated(): boolean {
     // return !!this.credentials;
     if (localStorage.getItem('credentials')) {
+      return true;
+    }
+    return false;
+  }
+
+  isRestricted(): boolean {
+    // return !!this.credentials;
+    if (localStorage.getItem('access_token')) {
       return true;
     }
     return false;
@@ -51,7 +71,7 @@ export class CredentialsService {
    * Gets the user credentials.
    * @return The user credentials or null if the user is not authenticated.
    */
-  get credentials(): Credentials | null {
+  get credentials(): Partial<Credentials> | null {
     return this._credentials;
   }
 
@@ -62,7 +82,7 @@ export class CredentialsService {
    * @param credentials The user credentials.
    * @param remember True to remember credentials across sessions.
    */
-  setCredentials(credentials?: Credentials, remember?: boolean) {
+  setCredentials(credentials?: Partial<Credentials>, remember?: boolean) {
     this._credentials = credentials || null;
 
     if (credentials) {
@@ -71,6 +91,25 @@ export class CredentialsService {
     } else {
       sessionStorage.removeItem(credentialsKey);
       localStorage.removeItem(credentialsKey);
+
+      let access_token = localStorage.getItem('access_token')
+        ? localStorage.getItem('access_token')
+        : null;
+      localStorage.clear();
+      sessionStorage.clear();
+      localStorage.setItem('access_token', access_token);
+    }
+  }
+
+  setAccessToken(credentials?: string, remember?: boolean) {
+    this._accesstoken = credentials || null;
+
+    if (credentials) {
+      const storage = remember ? localStorage : sessionStorage;
+      storage.setItem(accesstokenKey, credentials);
+    } else {
+      sessionStorage.removeItem(accesstokenKey);
+      localStorage.removeItem(accesstokenKey);
       localStorage.clear();
       sessionStorage.clear();
     }

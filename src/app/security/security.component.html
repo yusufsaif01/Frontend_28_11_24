@@ -1,0 +1,143 @@
+<div class="site-wrapper">
+  <div class="form-section">
+    <div class="form-box">
+      <h2 *ngIf="!showAccessTokenVerificationForm">Enter your email</h2>
+      <h2 *ngIf="showAccessTokenVerificationForm">
+        Enter an OTP sent on your email
+      </h2>
+      <div *ngIf="!showAccessTokenVerificationForm">
+        <form
+          (ngSubmit)="accessTokenRequest()"
+          [formGroup]="accessTokenRequestForm"
+          class="form"
+        >
+          <div class="form-block">
+            <label>Email</label>
+            <input
+              placeholder="Email"
+              formControlName="email"
+              type="email"
+              matInput
+              placeholder="Email"
+              [ngClass]="{
+                'error-input':
+                  accessTokenRequestForm.controls.email.invalid &&
+                  accessTokenRequestForm.controls.email.touched &&
+                  (accessTokenRequestForm.controls.email.errors.required ||
+                    accessTokenRequestForm.controls.email.errors.email)
+              }"
+            />
+            <ng-container
+              *ngIf="
+                accessTokenRequestForm.controls.email.touched &&
+                accessTokenRequestForm.controls.email.invalid
+              "
+            >
+              <mat-error
+                class="error-text"
+                *ngIf="accessTokenRequestForm.controls.email.errors.required"
+              >
+                Email is required
+              </mat-error>
+              <mat-error
+                class="error-text"
+                *ngIf="accessTokenRequestForm.controls.email.errors.email"
+              >
+                Email format is Invalid
+              </mat-error>
+            </ng-container>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            [disabled]="accessTokenRequestForm.invalid"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+      <div *ngIf="showAccessTokenVerificationForm">
+        <form
+          (ngSubmit)="accessTokenVerification()"
+          [formGroup]="accessTokenVerificationForm"
+          class="form"
+        >
+          <div class="form-block">
+            <label>Email</label>
+            <input
+              placeholder="Email"
+              formControlName="email"
+              type="email"
+              matInput
+              placeholder="Email"
+              [ngClass]="{
+                'error-input':
+                  accessTokenVerificationForm.controls.email.invalid &&
+                  accessTokenVerificationForm.controls.email.touched &&
+                  (accessTokenVerificationForm.controls.email.errors.required ||
+                    accessTokenVerificationForm.controls.email.errors.email)
+              }"
+            />
+            <ng-container
+              *ngIf="
+                accessTokenVerificationForm.controls.email.touched &&
+                accessTokenVerificationForm.controls.email.invalid
+              "
+            >
+              <mat-error
+                class="error-text"
+                *ngIf="
+                  accessTokenVerificationForm.controls.email.errors.required
+                "
+              >
+                Email is required
+              </mat-error>
+              <mat-error
+                class="error-text"
+                *ngIf="accessTokenVerificationForm.controls.email.errors.email"
+              >
+                Email format is Invalid
+              </mat-error>
+            </ng-container>
+          </div>
+          <div class="form-block">
+            <label>OTP</label>
+            <input
+              placeholder="OTP"
+              formControlName="otp"
+              type="password"
+              matInput
+              placeholder="OTP"
+              [ngClass]="{
+                'error-input':
+                  accessTokenVerificationForm.controls.otp.invalid &&
+                  accessTokenVerificationForm.controls.otp.touched &&
+                  accessTokenVerificationForm.controls.otp.errors.required
+              }"
+            />
+            <ng-container
+              *ngIf="
+                accessTokenVerificationForm.controls.otp.touched &&
+                accessTokenVerificationForm.controls.otp.invalid
+              "
+            >
+              <mat-error
+                class="error-text"
+                *ngIf="accessTokenVerificationForm.controls.otp.errors.required"
+              >
+                OTP is required
+              </mat-error>
+            </ng-container>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            [disabled]="accessTokenVerificationForm.invalid"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
