@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Angulartics2Module } from 'angulartics2';
-
+import { GlobalErrorHandler } from './global-error-handler';
 import { environment } from '@env/environment';
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
@@ -28,6 +28,7 @@ import { VerificationPopupComponent } from './shared/dialog-box/verification-pop
 import { VideoPopupComponent } from '@app/timeline/video-popup/video-popup.component';
 import { AddEditPopupComponent } from './admin/masterdata/player-specialization/manage-position/add-edit-popup/add-edit-popup.component';
 import { AddpopupComponent } from './admin/masterdata/player-specialization/addpopup/addpopup.component';
+import { PersonAddEditPopupComponent } from './admin/manage-privacy/person-add-edit-popup/person-add-edit-popup.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
 import { JwtInterceptor } from './core/http/jwt.interceptor';
 import { ErrorInterceptor } from './core/http/error.interceptor';
@@ -75,7 +76,8 @@ import { SecurityModule } from './security/security.module';
     VerificationPopupComponent,
     AddEditPopupComponent,
     AddpopupComponent,
-    VideoPopupComponent
+    VideoPopupComponent,
+    PersonAddEditPopupComponent
   ],
   providers: [
     RoleGuardService,
@@ -89,7 +91,8 @@ import { SecurityModule } from './security/security.module';
       useClass: JwtInterceptor,
       multi: true
     },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: ErrorHandler, useClass: GlobalErrorHandler }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -99,7 +102,8 @@ import { SecurityModule } from './security/security.module';
     VerificationPopupComponent,
     AddEditPopupComponent,
     AddpopupComponent,
-    VideoPopupComponent
+    VideoPopupComponent,
+    PersonAddEditPopupComponent
   ]
 })
 export class AppModule {}

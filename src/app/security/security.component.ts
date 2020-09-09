@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '@app/core';
+import { AuthenticationService, CredentialsService } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -18,6 +18,7 @@ export class SecurityComponent implements OnInit, OnDestroy {
   constructor(
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
+    private _credentialsService: CredentialsService,
     private _toastrService: ToastrService,
     private router: Router,
     private route: ActivatedRoute
@@ -29,7 +30,7 @@ export class SecurityComponent implements OnInit, OnDestroy {
   ngOnInit() {}
 
   accessTokenRequest() {
-    this._toastrService.info('we are verifying your email', 'Please wait');
+    this._toastrService.info('We are verifying your email', 'Please wait');
 
     this._authenticationService
       .accessTokenRequest(this.accessTokenRequestForm.value)
@@ -41,7 +42,12 @@ export class SecurityComponent implements OnInit, OnDestroy {
           this.createAccessTokenVerificationForm();
         },
         error => {
-          this._toastrService.error(`${error.error.message}`, 'Failed');
+          if (error.status === 404)
+            this._toastrService.error(
+              'Error',
+              'You are not an authorized user. Please contact admin for help'
+            );
+          else this._toastrService.error('Error', `${error.error.message}`);
         }
       );
   }
@@ -53,14 +59,14 @@ export class SecurityComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this._toastrService.success('Success', 'OTP verified');
-          this.router.navigate(
-            [this.route.snapshot.queryParams.redirect || '/home'],
-            { replaceUrl: true }
+          this._credentialsService.setAccessToken(
+            response.data.access_token,
+            true
           );
+          this.router.navigate(['/home']);
         },
         error => {
-          this._toastrService.error(`${error.error.message}`, 'Failed');
-          this.showAccessTokenVerificationForm = false;
+          this._toastrService.error('Failed', `${error.error.message}`);
         }
       );
   }

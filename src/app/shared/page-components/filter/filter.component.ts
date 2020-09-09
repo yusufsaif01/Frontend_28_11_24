@@ -7,7 +7,8 @@ import {
   QueryList,
   ViewChildren,
   Renderer2,
-  ElementRef
+  ElementRef,
+  SimpleChange
 } from '@angular/core';
 import { Constants } from '@app/shared/static-data/static-data';
 import { SharedService } from '@app/shared/shared.service';
@@ -15,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { FilterService } from './filter.service';
 import { AdminService } from '@app/admin/admin.service';
+const R = require('ramda');
 
 interface LocationRangeFilters {
   countryData: any[];
@@ -75,11 +77,13 @@ interface TagContext {
 export class FilterComponent implements OnInit {
   filter: any = {};
   tagsArray: TagContext[] = [];
+  otherTags: any = [];
   locationRangeFilters: LocationRangeFilters;
   locationData: LocationsIds;
   today = new Date();
   tzoffset = new Date().getTimezoneOffset() * 60000;
-  @Input() filterHeading = 'Player filter';
+  @Input() filterHeading: string = 'Player filter';
+  @Input() otherTagsFilter: boolean;
   @Input() allowedFilters = {
     position: false,
     playerCategory: false,
@@ -118,6 +122,13 @@ export class FilterComponent implements OnInit {
     this.getAbilityList();
     this.getFilterDisplayValue();
     if (this.allowedFilters.abilityAttribute) this.getAbilityAttributeList();
+  }
+
+  ngOnChanges(changes: SimpleChange) {
+    this.otherTags = this.otherTagsFilter
+      ? R.pluck('value')(Constants.OTHER_TAGS.clubacademy)
+      : R.pluck('value')(Constants.OTHER_TAGS.player);
+    this.initialize();
   }
 
   toggleFilter(filter: string) {
@@ -206,7 +217,7 @@ export class FilterComponent implements OnInit {
       reportStatus: [],
       createdBy: ['club', 'academy'],
       attribute: [],
-      otherTags: ['Celebration', 'Team play', 'Press conference', 'Interviews'],
+      otherTags: this.otherTags,
       ability: [],
       positionsArray: [],
       playerTypeArray: [],

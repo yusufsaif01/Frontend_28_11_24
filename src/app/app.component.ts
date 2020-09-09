@@ -6,6 +6,7 @@ import { environment } from '@env/environment';
 import { Logger, I18nService, untilDestroyed } from '@app/core';
 import { TimelineService } from '@app/timeline/timeline.service';
 import { SharedService } from '@app/shared/shared.service';
+import { ToastrService } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 const log = new Logger('App');
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private i18nService: I18nService,
     private _timelineService: TimelineService,
     private _sharedService: SharedService,
+    private _toastrService: ToastrService,
     private _store: Store<any>,
     private router: Router
   ) {
@@ -110,7 +112,13 @@ export class AppComponent implements OnInit, OnDestroy {
           // if(this.file.progress == '100')
           //   this.dispatcher('PENDING_UPLOAD');
 
-          if (response) this.dispatcher('COMPLETED_UPLOAD');
+          if (response) {
+            this.dispatcher('COMPLETED_UPLOAD');
+            this._toastrService.success(
+              'Success',
+              'Video uploaded successfully'
+            );
+          }
         },
         error => {
           this.file.error = error.msg;

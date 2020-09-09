@@ -1,7 +1,13 @@
 <header class="header">
   <div class="header-wrapper">
     <div class="logo">
-      <a [routerLink]="['/member/timeline']">
+      <a
+        [routerLink]="
+          member_type !== 'undefined'
+            ? ['/member/timeline']
+            : ['/admin/manage-player']
+        "
+      >
         <img src="assets/images/member/logo.png" alt="brand-logo" />
       </a>
     </div>

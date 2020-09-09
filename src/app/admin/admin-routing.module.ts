@@ -15,6 +15,7 @@ import { ManageAttributeComponent } from './masterdata/player-specialization/man
 import { AdminComponent } from './admin.component';
 import { extract, AuthenticationGuard } from '@app/core';
 import { DocumentVerificationComponent } from './document-verification/document-verification.component';
+import { ManagePrivacyComponent } from './manage-privacy/manage-privacy.component';
 
 const appRoutes: Routes = [
   {
@@ -87,6 +88,11 @@ const appRoutes: Routes = [
         path: 'masterdata-attribute/:id',
         component: ManageAttributeComponent,
         data: { title: extract('Manage Attribute') }
+      },
+      {
+        path: 'manage-privacy',
+        component: ManagePrivacyComponent,
+        data: { title: extract('Manage Privacy') }
       },
       { path: '**', component: ManagePlayerComponent }
     ]
