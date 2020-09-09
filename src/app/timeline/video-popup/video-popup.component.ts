@@ -210,6 +210,19 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
       } else {
         this.selectedAbilityIdList.push(ability);
       }
+
+      if (
+        formdata.at(i).value.ability === ability &&
+        R.filter(R.propEq('attribute_value', true))(
+          formdata.at(i).value.attributes
+        ).length > 3
+      ) {
+        this._toastrService.error(
+          'Error',
+          'Only 3 attributes can be selected per ability'
+        );
+        break;
+      }
     }
   }
 
@@ -321,16 +334,18 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
     if (this.data.id) this.updateVideoPost(requestData);
     else {
-      if (this.media) requestData.set('media', this.media);
-      if (this.showVideoErrorMsg)
-        this._toastrService.error('Error', this.videoErrorMsg);
-      else this.createVideoPost(requestData);
+      if (this.media) {
+        requestData.set('media', this.media);
+        if (this.showVideoErrorMsg)
+          this._toastrService.error('Error', this.videoErrorMsg);
+        else this.createVideoPost(requestData);
+      } else this._toastrService.error('Error', 'Please select a video file');
     }
   }
 
   createVideoPost(requestData: any) {
     this._sharedService.setVideoRequest({ requestData, type: this.type });
-
+    this.dialogRef.close('success');
     this._toastrService.success(
       'Success',
       'Video uploading would start shortly'
