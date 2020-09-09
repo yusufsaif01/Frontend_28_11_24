@@ -4,7 +4,7 @@ import {
   RouterModule
   // , PreloadAllModules
 } from '@angular/router';
-import { extract, AuthenticationGuard } from '@app/core';
+import { extract, AuthenticationGuard, RestrictionGuard } from '@app/core';
 import { RegistrationComponent } from './registration/registration.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
@@ -12,7 +12,7 @@ import { NotFoundComponent } from '@app/shared/page-components/not-found/not-fou
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'security',
     pathMatch: 'full'
   },
   {
@@ -20,7 +20,12 @@ const routes: Routes = [
     loadChildren: './home/home.module#HomeModule'
   },
   {
+    path: 'security',
+    loadChildren: './security/security.module#SecurityModule'
+  },
+  {
     path: 'login',
+    canActivate: [RestrictionGuard],
     loadChildren: './core/authentication/login/login.module#LoginModule'
   },
   {
@@ -38,11 +43,13 @@ const routes: Routes = [
   },
   {
     path: 'forgot-password',
+    canActivate: [RestrictionGuard],
     loadChildren:
       './core/authentication/forgot-password/forgot-password.module#ForgotPasswordModule'
   },
   {
     path: 'reset-password',
+    canActivate: [RestrictionGuard],
     loadChildren:
       './core/authentication/reset-password/reset-password.module#ResetPasswordModule'
   },
@@ -70,6 +77,7 @@ const routes: Routes = [
   },
   {
     path: 'register',
+    canActivate: [RestrictionGuard],
     component: RegistrationComponent,
     data: { title: extract('Registration') }
   },
@@ -81,6 +89,7 @@ const routes: Routes = [
   },
   {
     path: 'create-password',
+    canActivate: [RestrictionGuard],
     loadChildren:
       './core/authentication/create-password/create-password.module#CreatePasswordModule'
   },

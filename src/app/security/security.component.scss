@@ -1,0 +1,81 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+.site-wrapper {
+  width: 85%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  min-height: 80vh;
+
+  .text-section {
+    width: 45%;
+
+    h2 {
+      font-size: 6rem;
+      color: $fourth-color;
+      font-family: $secondary-text;
+      position: relative;
+      padding-bottom: 2rem;
+      letter-spacing: 1px;
+      font-weight: 100;
+
+      span {
+        display: block;
+      }
+
+      img {
+        position: absolute;
+        bottom: 0;
+        right: 3.5rem;
+        max-width: 8rem;
+      }
+    }
+
+    p {
+      font-size: $heading-Seoncdary;
+      padding-right: 2rem;
+      color: $fourth-color;
+    }
+  }
+
+  .form-section {
+    width: 55%;
+    margin: auto;
+
+    .form-box {
+      width: 60%;
+      margin: auto;
+      -webkit-box-shadow: 0rem 0rem 1.8rem 0rem rgba($fourth-color, 0.12);
+      -moz-box-shadow: 0rem 0rem 1.8rem 0rem rgba($fourth-color, 0.12);
+      box-shadow: 0rem 0rem 1.8rem 0rem rgba($fourth-color, 0.12);
+      -webkit-border-radius: 1rem;
+      -moz-border-radius: 1rem;
+      border-radius: 1rem;
+      padding: 3rem 4rem;
+
+      h2 {
+        font-size: $heading-primary;
+        color: $fourth-color;
+        font-family: $secondary-text;
+        position: relative;
+        padding-bottom: 2rem;
+        font-weight: 100;
+      }
+
+      p {
+        color: $fourth-color;
+        display: block;
+        text-align: center;
+        font-weight: 500;
+        font-size: $heading-fourth;
+        margin-top: 2rem;
+
+        a {
+          color: $primary-color;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
