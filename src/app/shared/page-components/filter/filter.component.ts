@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { FilterService } from './filter.service';
 import { AdminService } from '@app/admin/admin.service';
+const R = require('ramda');
 
 interface LocationRangeFilters {
   countryData: any[];
@@ -125,8 +126,8 @@ export class FilterComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChange) {
     this.otherTags = this.otherTagsFilter
-      ? Constants.OTHER_TAGS.clubacademy
-      : Constants.OTHER_TAGS.player;
+      ? R.pluck('value')(Constants.OTHER_TAGS.clubacademy)
+      : R.pluck('value')(Constants.OTHER_TAGS.player);
     this.initialize();
   }
 
