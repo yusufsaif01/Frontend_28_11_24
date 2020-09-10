@@ -8,20 +8,14 @@ import {
   OnDestroy
 } from '@angular/core';
 import { AuthenticationService, untilDestroyed } from '@app/core';
-import { TimelineService } from '@app/timeline/timeline.service';
 import { FootRequestService } from '@app/manage-footmates/foot-request/foot-request.service';
 import { environment } from '@env/environment';
 import { Router } from '@angular/router';
 import { ViewEditProfileService } from '@app/profile/view-edit-profile/view-edit-profile.service';
-import { LeftPanelService } from './left-panel.service';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { PublicProfileService } from '@app/profile/public-profile/public-profile.service';
 
-interface countResponseDataContext {
-  achievements: number;
-  tournaments: number;
-}
 @Component({
   selector: 'app-left-panel',
   templateUrl: './left-panel.component.html',
@@ -29,12 +23,7 @@ interface countResponseDataContext {
   encapsulation: ViewEncapsulation.None
 })
 export class LeftPanelComponent implements OnInit, OnDestroy {
-  count: countResponseDataContext = {
-    achievements: 0,
-    tournaments: 0
-  };
   profile: any;
-  // profileDataPopulated: boolean = false;
   environment = environment;
   member_type: string = localStorage.getItem('member_type');
   logged_user_id: string = localStorage.getItem('user_id');
@@ -47,12 +36,12 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   @Input() is_following = false;
   @Input() is_footmate = 'Not_footmate';
   @Input() followers: number;
+  @Input() videos: number;
   @Output() sendClubAcademyType = new EventEmitter<string>();
   @Output() sendPlayerType = new EventEmitter<string>();
   @Output() sendMemberType = new EventEmitter<string>();
   @Output() sendProfileData = new EventEmitter<object>();
   @Output() sendFootData = new EventEmitter<object>();
-  @Output() sendAchievementCount = new EventEmitter<number>();
   @Output() sendProfileStatus = new EventEmitter<object>();
   following$: Observable<any>;
   professionalProfile: any = {};
@@ -60,7 +49,6 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   constructor(
     private _authenticationService: AuthenticationService,
     private _profileService: ViewEditProfileService,
-    private _timelineService: TimelineService,
     private _footRequestService: FootRequestService,
     private _router: Router,
     private _publicProfileService: PublicProfileService,
@@ -75,7 +63,6 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     }
     this.getPersonalProfileDetails();
     this.getProfessionalProfileDetails();
-    this.getAchievementCount();
     this.getConnectionStats();
   }
 
@@ -125,7 +112,6 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.profile = response.data;
-          // this.profileDataPopulated = true;
           this.setAvatar(this.profile);
           this.is_following = this.profile.is_followed;
           this.is_footmate = this.profile.footmate_status;
@@ -135,23 +121,6 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
           this.sendProfileData.emit(this.profile);
           this.sendProfileStatus.emit(this.profile.profile_status.status);
           this._router.routeReuseStrategy.shouldReuseRoute = () => false;
-        },
-        error => {}
-      );
-  }
-
-  getAchievementCount() {
-    let data = {};
-    if (this.userId) data = { user_id: this.userId };
-
-    this._timelineService
-      .getAchievementCount(data)
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
-          this.count = response.data;
-          this.achievements = response.data.achievements;
-          this.sendAchievementCount.emit(this.achievements);
         },
         error => {}
       );
@@ -167,6 +136,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.followers = response.data.followers;
+          this.videos = response.data.video_count;
           this.sendFootData.emit(response.data);
         },
         error => {}
