@@ -17,6 +17,11 @@
 
     @include responsive(tablet) {
       width: 100%;
+      min-height: calc(100vh - 8.5rem);
+    }
+
+    @include responsive(bigphone) {
+      min-height: calc(100vh - 14rem);
     }
 
     .footer-fix {

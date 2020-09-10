@@ -59,6 +59,10 @@
   .text-section {
     width: 45%;
 
+    @include responsive(tablet) {
+      width: 50%;
+    }
+
     @include responsive(bigphone) {
       width: 100%;
     }
@@ -103,8 +107,10 @@
           max-width: 6rem;
         }
 
-        @include responsive(smallphone) {
-          display: none;
+        @media (max-width: 360px) {
+          right: -1rem;
+          max-width: 5rem;
+          bottom: 3rem;
         }
       }
     }
@@ -128,6 +134,10 @@
 
   .form-section {
     width: 55%;
+
+    @include responsive(tablet) {
+      width: 50%;
+    }
 
     @include responsive(bigphone) {
       width: 100%;

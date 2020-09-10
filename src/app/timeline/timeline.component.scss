@@ -52,7 +52,8 @@
 
           @include responsive(bigphone) {
             display: none;
-            max-width: 76rem;
+            max-width: 105rem;
+            width: 100%;
           }
 
           .advertise {
