@@ -81,17 +81,13 @@
             [routerLink]="['/member/manage/foot-requests']"
           >
             <mat-icon class="material-icons">people_outline</mat-icon>
-            <span *ngIf="stats.footmate_requests">{{
-              stats.footmate_requests
-            }}</span>
+            <span *ngIf="stats.total_requests">{{ stats.total_requests }}</span>
           </a>
         </li>
         <li *ngIf="member_type !== 'player'">
           <a matTooltip="FooTPlayers" [matMenuTriggerFor]="footplayer">
             <mat-icon class="material-icons">people_outline</mat-icon>
-            <span *ngIf="stats.footmate_requests">{{
-              stats.footmate_requests
-            }}</span>
+            <span *ngIf="stats.total_requests">{{ stats.total_requests }}</span>
           </a>
           <mat-menu #footplayer="matMenu">
             <ul class="menu">

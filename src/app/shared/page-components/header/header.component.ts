@@ -83,7 +83,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this.stats.footmate_requests = response.data.footmate_requests;
+          this.stats.total_requests = response.data.total_requests;
         },
         error => {}
       );
