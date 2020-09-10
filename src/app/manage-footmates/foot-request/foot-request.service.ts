@@ -22,6 +22,7 @@ interface ConnectionStatsResponseContext {
     footmates: number;
     followers: number;
     followings: number;
+    video_count: number;
   };
 }
 interface ConnectionStatsRequestContext {
