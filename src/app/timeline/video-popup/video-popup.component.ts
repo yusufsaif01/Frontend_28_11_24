@@ -338,6 +338,8 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
         requestData.set('media', this.media);
         if (this.showVideoErrorMsg)
           this._toastrService.error('Error', this.videoErrorMsg);
+        else if (this.data.profile_status === 'non-verified')
+          this._toastrService.error('Error', 'Your profile is not verified');
         else this.createVideoPost(requestData);
       } else this._toastrService.error('Error', 'Please select a video file');
     }
