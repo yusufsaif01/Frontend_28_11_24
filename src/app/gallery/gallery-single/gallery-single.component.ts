@@ -303,6 +303,7 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
   editVideoPost(post: any) {
     let member_type = 'player';
     const dialogRef = this.dialog.open(VideoPopupComponent, {
+      panelClass: 'videopopup',
       data: { ...post, member_type }
     });
 
