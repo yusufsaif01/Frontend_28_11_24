@@ -132,6 +132,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   player_type: string;
   member_type: string;
+  profile_status: string;
   avatar_url: string = '';
   userId: string = '';
   postCount: number = 0;
@@ -152,6 +153,10 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   getPlayerType(value: string) {
     this.player_type = value;
+  }
+
+  getProfileStatus(value: string) {
+    this.profile_status = value;
   }
 
   createCommentForm(post: PostContext) {
@@ -422,7 +427,10 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   // Video Popup
   openVideoDialog(): void {
-    let data = { member_type: this.member_type };
+    let data = {
+      member_type: this.member_type,
+      profile_status: this.profile_status
+    };
     const dialogRef = this.dialog.open(VideoPopupComponent, {
       panelClass: 'videopopup',
       data
