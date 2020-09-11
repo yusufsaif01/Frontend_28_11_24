@@ -99,7 +99,7 @@
     background-color: $fourth-color;
   }
   @include responsive(tablet) {
-    width: calc(100vw - 10rem);
+    width: calc(100vw - 8rem);
     overflow-x: auto;
   }
 }

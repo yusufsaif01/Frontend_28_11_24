@@ -261,15 +261,14 @@
 
         .upload-video {
           display: inline-block;
-          cursor: pointer;
-          padding: 1rem 3rem;
-          background: $primary-color;
-          font-size: 1.8rem;
-          color: $white-color;
-          border-radius: 5rem;
 
           label {
             cursor: pointer;
+            padding: 1rem 3rem;
+            background: $primary-color;
+            font-size: 1.8rem;
+            color: $white-color;
+            border-radius: 5rem;
           }
 
           input {
