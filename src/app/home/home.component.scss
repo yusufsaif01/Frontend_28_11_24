@@ -65,9 +65,10 @@
   .down-arrow {
     position: absolute;
     bottom: 5%;
-    left: 50%;
+    left: 46%;
     animation-iteration-count: infinite;
     transition: ease-in 1s;
+    transform: translateX(-50%);
 
     .mat-icon {
       font-size: 8rem;
@@ -89,7 +90,7 @@
 
     @include responsive(mediumphone) {
       width: 100%;
-      position: static;
+      position: relative;
     }
 
     h2 {
