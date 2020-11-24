@@ -12,7 +12,7 @@ import { NotFoundComponent } from '@app/shared/page-components/not-found/not-fou
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'security',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    canActivate: [RestrictionGuard],
+    // canActivate: [RestrictionGuard],
     loadChildren: './core/authentication/login/login.module#LoginModule'
   },
   {
@@ -43,13 +43,13 @@ const routes: Routes = [
   },
   {
     path: 'forgot-password',
-    canActivate: [RestrictionGuard],
+    // canActivate: [RestrictionGuard],
     loadChildren:
       './core/authentication/forgot-password/forgot-password.module#ForgotPasswordModule'
   },
   {
     path: 'reset-password',
-    canActivate: [RestrictionGuard],
+    // canActivate: [RestrictionGuard],
     loadChildren:
       './core/authentication/reset-password/reset-password.module#ResetPasswordModule'
   },
@@ -77,7 +77,7 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    canActivate: [RestrictionGuard],
+    // canActivate: [RestrictionGuard],
     component: RegistrationComponent,
     data: { title: extract('Registration') }
   },
@@ -89,7 +89,7 @@ const routes: Routes = [
   },
   {
     path: 'create-password',
-    canActivate: [RestrictionGuard],
+    // canActivate: [RestrictionGuard],
     loadChildren:
       './core/authentication/create-password/create-password.module#CreatePasswordModule'
   },
