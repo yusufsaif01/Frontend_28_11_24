@@ -34,6 +34,11 @@
         margin-top: 2rem;
         padding-bottom: 10rem;
 
+        @include responsive(tablet) {
+          width: 100%;
+          margin: 2rem;
+        }
+
         @include responsive(bigphone) {
           width: 100%;
           margin: 2rem;
@@ -47,7 +52,8 @@
           position: relative;
 
           @include responsive(tablet) {
-            max-width: 105rem;
+            // max-width: 105rem;
+            max-width: calc(100vw - 4rem);
           }
 
           @include responsive(bigphone) {
@@ -380,7 +386,7 @@
       }
 
       .third-panel {
-        width: 30%;
+        width: 100%;
         margin: 2rem;
 
         @include responsive(bigphone) {
