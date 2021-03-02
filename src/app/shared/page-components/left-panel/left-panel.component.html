@@ -190,7 +190,7 @@
       <ng-container
         *ngIf="!options?.is_public && profile?.member_type === 'player'"
       >
-        <li>
+        <li class="d-none">
           <a>
             <span class="icon">
               <img src="assets/images/global/timer.svg" alt="trial" />
@@ -218,7 +218,7 @@
       <ng-container
         *ngIf="!options?.is_public && profile?.member_type !== 'player'"
       >
-        <li>
+        <li class="d-none">
           <a>
             <span class="icon">
               <img src="assets/images/global/timer.svg" alt="trial" />
