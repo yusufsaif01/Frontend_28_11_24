@@ -55,7 +55,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   duration: number = null;
   showVideoErrorMsg: boolean = false;
   videoErrorMsg: string = '';
-
+  selectedAttributes: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<VideoPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -209,6 +209,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
         break;
       } else {
         this.selectedAbilityIdList.push(ability);
+        this.selectedAttributes = true;
       }
 
       if (
