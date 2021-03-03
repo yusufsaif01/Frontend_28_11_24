@@ -42,6 +42,7 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
 
   public tableConfig: ManagePlayerTableConfig = new ManagePlayerTableConfig();
   public dataSource = new MatTableDataSource([]);
+  public dataSourceToShow = new MatTableDataSource([]);
 
   constructor(
     public dialog: MatDialog,
@@ -87,6 +88,18 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
+        let source: any = [];
+        response.data.records.forEach(ele => {
+          let ourString = ele.name;
+          let firstUpper =
+            ourString.substring(0, 1).toUpperCase() +
+            ourString.substring(1).toLowerCase();
+          let ab = Object.assign({}, ele, {
+            name: firstUpper
+          });
+          source.push(ab);
+        });
+        this.dataSourceToShow = new MatTableDataSource(source);
         this.players_count = response.data.total;
         this.show_count = response.data.records.length;
         this.amateur_count = response.data.players_count.amateur;
