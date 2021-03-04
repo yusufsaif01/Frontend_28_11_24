@@ -85,11 +85,11 @@ export class ManageClubComponent implements OnInit, OnDestroy {
         let source: any = [];
         response.data.records.forEach(ele => {
           let ourString = ele.name;
-          let firstUpper =
+          let firstLetterUpper =
             ourString.substring(0, 1).toUpperCase() +
             ourString.substring(1).toLowerCase();
           let ab = Object.assign({}, ele, {
-            name: firstUpper
+            name: firstLetterUpper
           });
           source.push(ab);
         });
