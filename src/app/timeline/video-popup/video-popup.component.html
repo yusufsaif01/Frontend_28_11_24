@@ -219,11 +219,7 @@
       <!-- actions -->
       <div class="action-block">
         <button class="btn btn-secondary" mat-dialog-close>Cancel</button>
-        <button
-          (click)="videoPost()"
-          [disabled]="!media || !selectedAttributes"
-          class="btn btn-primary"
-        >
+        <button (click)="videoPost()" class="btn btn-primary">
           Save
         </button>
       </div>
