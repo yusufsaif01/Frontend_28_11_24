@@ -175,6 +175,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   addOthersValue(event: any, val: string) {
     if (event.checked && !this.otherValue.includes(val)) {
       this.otherValue.push(val);
+      this.selectedAttributes = true;
     } else {
       this.otherValue.forEach((element: any, index: number) => {
         if (element == val) {
@@ -329,7 +330,6 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     let requestData = this.toFormData({
       ...data
     });
-
     this.setRequestDataObject(requestData, 'tags');
     requestData.set('others', JSON.stringify(this.otherValue));
 
