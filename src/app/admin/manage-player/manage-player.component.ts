@@ -94,10 +94,10 @@ export class ManagePlayerComponent implements OnInit, OnDestroy {
           let firstUpper =
             ourString.substring(0, 1).toUpperCase() +
             ourString.substring(1).toLowerCase();
-          let ab = Object.assign({}, ele, {
+          let temp = Object.assign({}, ele, {
             name: firstUpper
           });
-          source.push(ab);
+          source.push(temp);
         });
         this.dataSourceToShow = new MatTableDataSource(source);
         this.players_count = response.data.total;
