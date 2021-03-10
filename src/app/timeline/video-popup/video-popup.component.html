@@ -85,7 +85,12 @@
                   {{ ability.ability_name }}
                 </button>
               </ng-container>
-              <button (click)="toggleOthersTab()">Other</button>
+              <button
+                [ngClass]="otherValue.length > 0 ? 'btn-active' : ''"
+                (click)="toggleOthersTab()"
+              >
+                Other
+              </button>
             </div>
           </div>
           <!-- Attribute wrapper -->
