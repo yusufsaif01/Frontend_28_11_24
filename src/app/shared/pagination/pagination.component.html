@@ -13,7 +13,7 @@
     <li *ngFor="let val of pages()">
       <a
         [ngClass]="{ active: val == selectedPage, count: val != '...' }"
-        (click)="val != selectedPage && val != '...' && goToPage(val)"
+        (click)="goToPage(val)"
         >{{ val }}</a
       >
     </li>

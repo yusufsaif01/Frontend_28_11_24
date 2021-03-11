@@ -94,6 +94,7 @@ export class GalleryListingComponent implements OnInit {
   }
 
   toggleVideoType(type: string) {
+    this.filter.page_no = 1;
     this.video_type = type;
     this.getGalleryList();
   }
