@@ -196,7 +196,7 @@
           height="240"
           controls
           [attr.src]="videoUrl"
-          (onloadedmetadata)="getDuration($event)"
+          (loadedmetadata)="getDuration($event)"
         ></video>
         <ng-container *ngIf="media || editMode">
           <div class="upload-wrapper">
