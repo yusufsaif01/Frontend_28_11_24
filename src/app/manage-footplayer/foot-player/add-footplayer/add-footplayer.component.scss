@@ -46,12 +46,11 @@
     @include responsive(bigphone) {
       flex-wrap: wrap;
     }
-
     .input-wrapper {
-      width: 28%;
+      width: calc(28% - 6px);
 
       @include responsive(bigphone) {
-        width: 48%;
+        width: calc(48% - 6px);
       }
 
       @include responsive(smallphone) {
