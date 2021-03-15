@@ -55,7 +55,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   duration: number = null;
   showVideoErrorMsg: boolean = false;
   videoErrorMsg: string = '';
-
+  selectedAttributes: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<VideoPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -175,6 +175,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   addOthersValue(event: any, val: string) {
     if (event.checked && !this.otherValue.includes(val)) {
       this.otherValue.push(val);
+      this.selectedAttributes = true;
     } else {
       this.otherValue.forEach((element: any, index: number) => {
         if (element == val) {
@@ -209,6 +210,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
         break;
       } else {
         this.selectedAbilityIdList.push(ability);
+        this.selectedAttributes = true;
       }
 
       if (
@@ -328,7 +330,6 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     let requestData = this.toFormData({
       ...data
     });
-
     this.setRequestDataObject(requestData, 'tags');
     requestData.set('others', JSON.stringify(this.otherValue));
 
