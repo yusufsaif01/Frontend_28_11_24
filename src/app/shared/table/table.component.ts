@@ -55,7 +55,6 @@ export class TableComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.rows) this.rows.data = this.serialNumberGenerator();
-
     if (this.sortEnabled) this.rows.sort = this.sort;
   }
 
