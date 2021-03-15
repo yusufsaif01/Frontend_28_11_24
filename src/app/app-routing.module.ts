@@ -7,6 +7,7 @@ import {
 import { extract, AuthenticationGuard, RestrictionGuard } from '@app/core';
 import { RegistrationComponent } from './registration/registration.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AdminChangePasswordComponent } from './admin-change-password/admin-change-password.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
 import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
 const routes: Routes = [
@@ -85,6 +86,12 @@ const routes: Routes = [
     path: 'change-password',
     component: ChangePasswordComponent,
     data: { title: extract('Change password') },
+    canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'admin-change-password',
+    component: AdminChangePasswordComponent,
+    data: { title: extract('Admin Change password') },
     canActivate: [AuthenticationGuard]
   },
   {
