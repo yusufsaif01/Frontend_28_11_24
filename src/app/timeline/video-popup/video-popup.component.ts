@@ -9,6 +9,7 @@ import { SharedService } from '@app/shared/shared.service';
 import { requiredVideo } from '@app/shared/validators/requiredVideo';
 import { videoTags } from '@app/shared/validators/videoTags';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import getBlobDuration from 'get-blob-duration';
 const R = require('ramda');
 
 export interface TagContext {
@@ -51,11 +52,11 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   otherTags: any = [];
   otherValue: any = [];
   othersTab: boolean = false;
-  videoUrl: SafeUrl;
+  videoUrl: any;
   duration: number = null;
   showVideoErrorMsg: boolean = false;
   videoErrorMsg: string = '';
-
+  selectedAttributes: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<VideoPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -175,6 +176,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   addOthersValue(event: any, val: string) {
     if (event.checked && !this.otherValue.includes(val)) {
       this.otherValue.push(val);
+      this.selectedAttributes = true;
     } else {
       this.otherValue.forEach((element: any, index: number) => {
         if (element == val) {
@@ -209,6 +211,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
         break;
       } else {
         this.selectedAbilityIdList.push(ability);
+        this.selectedAttributes = true;
       }
 
       if (
@@ -277,10 +280,17 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     );
   }
 
-  getDuration(e: any) {
-    this.duration = e.target.duration / 60;
+  getDuration = async (e: any) => {
+    if (e.target.duration == 'Infinity') {
+      const temp = await getBlobDuration(
+        this.videoUrl.changingThisBreaksApplicationSecurity
+      );
+      this.duration = temp / 60;
+    } else {
+      this.duration = e.target.duration / 60;
+    }
     this.validateVideoLength(this.type);
-  }
+  };
 
   toFormData<T>(formValue: T) {
     const formData = new FormData();
@@ -328,7 +338,6 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     let requestData = this.toFormData({
       ...data
     });
-
     this.setRequestDataObject(requestData, 'tags');
     requestData.set('others', JSON.stringify(this.otherValue));
 

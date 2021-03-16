@@ -38,6 +38,7 @@ export class ManageClubComponent implements OnInit, OnDestroy {
 
   public tableConfig: ManageClubTableConfig = new ManageClubTableConfig();
   public dataSource = new MatTableDataSource([]);
+  public dataSourceToShow = new MatTableDataSource([]);
 
   constructor(
     public dialog: MatDialog,
@@ -81,6 +82,18 @@ export class ManageClubComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response.data.records);
+        let source: any = [];
+        response.data.records.forEach(ele => {
+          let ourString = ele.name;
+          let firstLetterUpper =
+            ourString.substring(0, 1).toUpperCase() +
+            ourString.substring(1).toLowerCase();
+          let temp = Object.assign({}, ele, {
+            name: firstLetterUpper
+          });
+          source.push(temp);
+        });
+        this.dataSourceToShow = new MatTableDataSource(source);
         this.clubs_count = response.data.total;
         this.show_count = response.data.records.length;
         this.selectedPage = page_no;

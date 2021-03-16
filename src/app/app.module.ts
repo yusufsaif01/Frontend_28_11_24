@@ -20,6 +20,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { RegistrationComponent } from './registration/registration.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AdminChangePasswordComponent } from './admin-change-password/admin-change-password.component';
 import { MatSortModule } from '@angular/material/sort';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { DeleteConfirmationComponent } from './shared/dialog-box/delete-confirmation/delete-confirmation.component';
@@ -71,6 +72,7 @@ import { SecurityModule } from './security/security.module';
     AppComponent,
     RegistrationComponent,
     ChangePasswordComponent,
+    AdminChangePasswordComponent,
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
     VerificationPopupComponent,
