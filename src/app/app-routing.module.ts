@@ -85,14 +85,14 @@ const routes: Routes = [
   {
     path: 'change-password',
     component: ChangePasswordComponent,
-    data: { title: extract('Change password') },
-    canActivate: [AuthenticationGuard]
+    data: { title: extract('Change password') }
+    // canActivate: [AuthenticationGuard]
   },
   {
     path: 'admin-change-password',
     component: AdminChangePasswordComponent,
-    data: { title: extract('Admin Change password') },
-    canActivate: [AuthenticationGuard]
+    data: { title: extract('Admin Change password') }
+    // canActivate: [AuthenticationGuard]
   },
   {
     path: 'create-password',
