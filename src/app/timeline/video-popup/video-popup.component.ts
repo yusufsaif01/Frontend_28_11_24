@@ -56,6 +56,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   showVideoErrorMsg: boolean = false;
   videoErrorMsg: string = '';
   selectedAttributes: boolean = false;
+  selectedOtherAttributes: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<VideoPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -175,13 +176,17 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   addOthersValue(event: any, val: string) {
     if (event.checked && !this.otherValue.includes(val)) {
       this.otherValue.push(val);
-      this.selectedAttributes = true;
     } else {
       this.otherValue.forEach((element: any, index: number) => {
         if (element == val) {
           this.otherValue.splice(index, 1);
         }
       });
+    }
+    if (this.otherValue.length > 0) {
+      this.selectedOtherAttributes = true;
+    } else {
+      this.selectedOtherAttributes = false;
     }
   }
 
@@ -210,7 +215,6 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
         break;
       } else {
         this.selectedAbilityIdList.push(ability);
-        this.selectedAttributes = true;
       }
 
       if (
@@ -225,6 +229,12 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
         );
         break;
       }
+    }
+    let uniqueSelectedAbility = new Set(this.selectedAbilityIdList);
+    if ([...uniqueSelectedAbility].length > 0) {
+      this.selectedAttributes = true;
+    } else {
+      this.selectedAttributes = false;
     }
   }
 
