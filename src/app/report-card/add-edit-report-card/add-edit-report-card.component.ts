@@ -11,7 +11,8 @@ import { untilDestroyed } from '@app/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { abilityAttribute } from '@app/shared/validators/abilityAttribute';
 import { SharedService } from '@app/shared/shared.service';
-import { result } from 'lodash';
+import { Observable, of, timer } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 export interface AbilityContext {
   ability_id: string;
@@ -60,17 +61,18 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getAbilityAttributeList();
-    this._activatedRoute.params.subscribe(param => {
-      if (param.send_to) {
-        this.send_to = param.send_to;
-        this.getPlayerDetails(this.send_to);
-      }
-      if (param.report_card_id) {
-        this.editMode = true;
-        this.report_card_id = param.report_card_id;
-        this.populateView();
-      }
+    Promise.all([this.getAbilityAttributeList()]).then(value => {
+      this._activatedRoute.params.subscribe(param => {
+        if (param.send_to) {
+          this.send_to = param.send_to;
+          this.getPlayerDetails(this.send_to);
+        }
+        if (param.report_card_id) {
+          this.editMode = true;
+          this.report_card_id = param.report_card_id;
+          this.populateView();
+        }
+      });
     });
   }
 
@@ -127,6 +129,7 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.reportCardData = response.data;
+          // setInterval(() => { this.populateFormFields(); }, 5000);
           this.populateFormFields();
         },
         error => {
@@ -153,7 +156,6 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
         }
       });
     });
-
     return result;
   }
 
@@ -164,16 +166,17 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
 
     let data = this.addEditReportForm.get('abilities') as FormArray;
     Object.keys(this.reportCardData.abilities).forEach(index => {
-      for (let i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.controls.length; i++) {
         if (
           this.reportCardData.abilities[index].ability_id ===
           data.at(i).value.ability_id
         ) {
+          let setAttributes = this.populateAttributes(
+            data.at(i).value.attributes,
+            this.reportCardData.abilities[index].attributes
+          );
           data.at(i).patchValue({
-            attributes: this.populateAttributes(
-              data.at(i).value.attributes,
-              this.reportCardData.abilities[index].attributes
-            )
+            attributes: setAttributes
           });
           break;
         }
