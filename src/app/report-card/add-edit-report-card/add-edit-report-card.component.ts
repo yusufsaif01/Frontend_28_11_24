@@ -11,8 +11,6 @@ import { untilDestroyed } from '@app/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { abilityAttribute } from '@app/shared/validators/abilityAttribute';
 import { SharedService } from '@app/shared/shared.service';
-import { Observable, of, timer } from 'rxjs';
-import { delay } from 'rxjs/operators';
 
 export interface AbilityContext {
   ability_id: string;
@@ -129,7 +127,6 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.reportCardData = response.data;
-          // setInterval(() => { this.populateFormFields(); }, 5000);
           this.populateFormFields();
         },
         error => {
@@ -166,7 +163,7 @@ export class AddEditReportCardComponent implements OnInit, OnDestroy {
 
     let data = this.addEditReportForm.get('abilities') as FormArray;
     Object.keys(this.reportCardData.abilities).forEach(index => {
-      for (let i = 0; i < data.controls.length; i++) {
+      for (let i = 0; i < data.length; i++) {
         if (
           this.reportCardData.abilities[index].ability_id ===
           data.at(i).value.ability_id
