@@ -44,6 +44,7 @@ export class LinkReportCardComponent implements OnInit, OnDestroy {
     this._activatedRoute.params.subscribe(param => {
       if (param.player_id) {
         this.player_id = param.player_id;
+        console.log(this.player_id, 'playerid');
         this.getPlayerReportCardList();
       }
     });

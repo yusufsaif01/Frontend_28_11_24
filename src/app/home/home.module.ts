@@ -9,6 +9,7 @@ import { MaterialModule } from '@app/material.module';
 import { MatInputModule } from '@angular/material/input';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
+import { AdBannerModule } from '../ad-banner/ad-banner.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { HomeComponent } from './home.component';
     FlexLayoutModule,
     MaterialModule,
     HomeRoutingModule,
-    MatInputModule
+    MatInputModule,
+    AdBannerModule
   ],
   declarations: [HomeComponent]
 })

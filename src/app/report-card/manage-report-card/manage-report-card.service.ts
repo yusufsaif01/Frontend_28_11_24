@@ -8,7 +8,6 @@ const routes = {
   getPlayerReportCardList: (query: string) =>
     `/player/report-card/list?${query}`
 };
-
 export interface GetReportCardListContext {
   search?: string;
   page_no?: number;

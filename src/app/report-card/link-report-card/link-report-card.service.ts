@@ -7,6 +7,17 @@ const routes = {
     `/manage/report-card/list/${params}?${query}`
 };
 
+// const routes = {
+//   getPlayerReportCardList: ( query: string) =>
+//     `/manage/report-card/list$?${query}`
+// }
+
+// const routes = {
+//   getReportCardList: (query: string) => `/manage/report-card/list?${query}`,
+//   getPlayerReportCardList: (query: string) =>
+//     `/player/report-card/list?${query}`
+// }
+
 interface GetPlayerReportCardListContext {
   player_id: string;
   page_no: number;

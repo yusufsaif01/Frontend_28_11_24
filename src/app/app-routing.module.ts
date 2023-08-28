@@ -6,10 +6,13 @@ import {
 } from '@angular/router';
 import { extract, AuthenticationGuard, RestrictionGuard } from '@app/core';
 import { RegistrationComponent } from './registration/registration.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy/privacy-policy.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AdminChangePasswordComponent } from './admin-change-password/admin-change-password.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
 import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
+import { ReportCardModule } from './report-card/report-card.module';
+
 const routes: Routes = [
   {
     path: '',
@@ -63,6 +66,10 @@ const routes: Routes = [
     loadChildren: './report-card/report-card.module#ReportCardModule'
   },
   {
+    path: 'member/manage-report-card/link-report-card',
+    loadChildren: './report-card/report-card.module#ReportCardModule'
+  },
+  {
     path: 'member/manage',
     loadChildren:
       './manage-footmates/manage-footmates.module#ManageFootmatesModule'
@@ -104,6 +111,11 @@ const routes: Routes = [
     path: 'link-expired',
     component: LinkExpiredComponent,
     data: { title: extract('Link expired') }
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent,
+    data: { title: extract('Privacy Policy') }
   },
   { path: '404', component: NotFoundComponent },
 

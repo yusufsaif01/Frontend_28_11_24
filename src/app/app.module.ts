@@ -19,6 +19,7 @@ import { LoaderInterceptor } from './core/http/loader.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { RegistrationComponent } from './registration/registration.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy/privacy-policy.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AdminChangePasswordComponent } from './admin-change-password/admin-change-password.component';
 import { MatSortModule } from '@angular/material/sort';
@@ -71,6 +72,7 @@ import { SecurityModule } from './security/security.module';
   declarations: [
     AppComponent,
     RegistrationComponent,
+    PrivacyPolicyComponent,
     ChangePasswordComponent,
     AdminChangePasswordComponent,
     DeleteConfirmationComponent,

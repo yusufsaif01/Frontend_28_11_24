@@ -458,8 +458,26 @@ export abstract class Constants {
 
   static readonly VIDEO_LENGTH: any = {
     player: 2,
-    timeline: 10,
-    learning_or_training: 30,
-    match: 150
+    timeline: 5,
+    learning_or_training: 10,
+    match: 120
+  };
+
+  static readonly VIDEO_LIMIT: any = {
+    player: {
+      timeline: 1,
+      learning_or_training: 3,
+      match: 1
+    },
+    club: {
+      timeline: 3,
+      learning_or_training: 3,
+      match: 1
+    },
+    academy: {
+      timeline: 3,
+      learning_or_training: 3,
+      match: 1
+    }
   };
 }

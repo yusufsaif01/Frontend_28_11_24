@@ -19,16 +19,18 @@
   >
     <div class="right-wrapper">
       <div class="post-container">
-        <div class="slider">
+        <!-- <div class="slider">
           <owl-carousel-o [options]="customOptions">
-            <ng-template carouselSlide>
-              <div class="advertise">
-                <img src="assets/images/member/banner.png" alt="" />
-                <h5>Sponsored by XYZ2020</h5>
-                <h3>
+
+            <ng-template carouselSlide> -->
+        <!-- <div class="advertise"> -->
+        <!-- <img src="assets/images/member/banner.png" alt="" /> -->
+
+        <!-- <h5>Sponsored by XYZ2020</h5> -->
+        <!-- <h3>
                   Register yourself in the biggest football tournament 2020.
-                </h3>
-              </div>
+                </h3> -->
+        <!-- </div>
             </ng-template>
             <ng-template carouselSlide>
               <div class="advertise">
@@ -49,7 +51,7 @@
               </div>
             </ng-template>
           </owl-carousel-o>
-        </div>
+        </div> -->
 
         <div class="create">
           <button class="btn btn-primary btn-shadow" (click)="openDialog()">
@@ -140,7 +142,7 @@
               </p>
             </div>
             <div class="post-img">
-              <img [src]="post.post.media_url" alt="" />
+              <img [src]="post.post.media_url" alt="" width="300" height="700"/>
             </div>
           </div>
 

@@ -44,53 +44,60 @@
           margin: 2rem;
           padding-bottom: 0rem;
         }
+        .ad-container {
+          width: 300px; /* Adjust the width as per your ad dimensions */
+          height: 250px; /* Adjust the height as per your ad dimensions */
+          margin-left: auto; /* Adjust the margin as needed */
+          margin-right: auto; /* Adjust the margin as needed */
+          /* Add more styles as required */
+        }
 
-        .slider {
-          max-width: 95rem;
-          margin-bottom: 2rem;
-          @include shadow;
+        // .slider {
+        //   max-width: 95rem;
+        //   margin-bottom: 2rem;
+        //   @include shadow;
+        //   position: relative;
+
+        @include responsive(tablet) {
+          // max-width: 105rem;
+          max-width: calc(100vw - 4rem);
+        }
+
+        @include responsive(bigphone) {
+          width: calc(100vw - 4rem);
+        }
+
+        .advertise {
           position: relative;
+          width: 100%;
 
-          @include responsive(tablet) {
-            // max-width: 105rem;
-            max-width: calc(100vw - 4rem);
-          }
-
-          @include responsive(bigphone) {
-            width: calc(100vw - 4rem);
-          }
-
-          .advertise {
-            position: relative;
+          img {
             width: 100%;
+          }
 
-            img {
-              width: 100%;
+          h5 {
+            position: absolute;
+            color: $white-color;
+            left: 3rem;
+            top: 2rem;
+            @include responsive(mediumphone) {
+              display: none;
             }
+          }
 
-            h5 {
-              position: absolute;
-              color: $white-color;
-              left: 3rem;
-              top: 2rem;
-              @include responsive(mediumphone) {
-                display: none;
-              }
-            }
-
-            h3 {
-              position: absolute;
-              color: $white-color;
-              width: 60%;
-              left: 50%;
-              top: 50%;
-              transform: translate(-50%, -50%);
-              @include responsive(mediumphone) {
-                display: none;
-              }
+          h3 {
+            position: absolute;
+            color: $white-color;
+            width: 60%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            @include responsive(mediumphone) {
+              display: none;
             }
           }
         }
+        // }
 
         .create {
           background: $white-color;

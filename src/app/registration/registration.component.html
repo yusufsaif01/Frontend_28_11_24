@@ -236,8 +236,7 @@
               class="error-text"
               *ngIf="
                 !registrationForm.controls.name.errors.required &&
-                !registrationForm.controls.name.errors.pattern &&
-                registrationForm.controls.name.errors.maxlength
+                !registrationForm.controls.name.errors.pattern
               "
             >
               Academy name cannot exceed 25 characters
@@ -283,7 +282,7 @@
           </ng-container>
         </div>
         <div class="form-block">
-          <label>Contact no. </label>
+          <label>Contact no</label>
           <div class="phone-block">
             <div class="country-code">
               <select disabled>
@@ -298,13 +297,7 @@
                 autocomplete="off"
                 placeholder="Contact no."
                 trim="blur"
-                [ngClass]="{
-                  'error-input':
-                    registrationForm.controls.phone.invalid &&
-                    registrationForm.controls.phone.touched &&
-                    (registrationForm.controls.phone.errors.required ||
-                      registrationForm.controls.phone.errors.phone)
-                }"
+                
               />
             </div>
             <ng-container
@@ -312,14 +305,14 @@
                 registrationForm.controls.phone.invalid &&
                 registrationForm.controls.phone.touched
               "
-            >
-              <mat-error
+            > 
+            <mat-error
                 class="error-text"
                 *ngIf="registrationForm.controls.phone.errors.required"
               >
                 Contact number is required
               </mat-error>
-              <ng-template #lengthBlock>
+            <ng-template #lengthBlock>
                 <mat-error
                   class="error-text"
                   *ngIf="registrationForm.controls.phone.errors.minlength"
@@ -342,8 +335,9 @@
                   }}
                   digits
                 </mat-error>
-              </ng-template>
-              <mat-error
+               </ng-template>  
+
+            <mat-error
                 class="error-text"
                 *ngIf="
                   registrationForm.controls.phone.errors.pattern;
@@ -351,7 +345,7 @@
                 "
               >
                 Contact number format is invalid
-              </mat-error>
+              </mat-error>  
             </ng-container>
           </div>
         </div>
@@ -365,7 +359,7 @@
               [matDatepicker]="picker"
               placeholder="Date of birth"
               readonly
-              [max]="today"
+              [max]="maxDate"
             />
 
             <mat-datepicker-toggle
@@ -433,13 +427,15 @@
             </mat-error>
           </ng-container>
         </div>
-        <div class="recapcha">
+
+        <!-- <div class="recapcha">
           <img src="assets/images/website/recaptcha.png" alt="recaptcha" />
-        </div>
+        </div> -->
+      
 
         <div class="remberme">
-          <mat-checkbox class="example-margin"
-            >Accept terms and conditions
+          <mat-checkbox class="example-margin" formControlName="termsAccepted">
+            <a [routerLink]="['/privacy-policy']" target="_blank">    Accept terms and conditions </a>
           </mat-checkbox>
         </div>
         <button

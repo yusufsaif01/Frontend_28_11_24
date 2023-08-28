@@ -10,6 +10,7 @@ import { SharedService } from '@app/shared/shared.service';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { ActivatedRoute } from '@angular/router';
 
+
 export interface GetGalleryListResponseContext {
   created_at: string;
   id: string;
@@ -36,17 +37,51 @@ export interface GetGalleryListResponseContext {
   status: string;
   type: string;
 }
+
+interface PostContext {
+  id: string;
+  post: {
+    text: string;
+    media_url: string;
+    media_type: string;
+    media_thumbnail: {
+      sizes: string;
+    }[];
+    meta?: {
+      abilities: {
+        ability_name: string;
+        attributes: [];
+      }[];
+      others: [];
+    };
+    status?: string;
+  };
+  posted_by: {
+    avatar: string;
+    member_type: string;
+    user_id: string;
+    name: string;
+    type: string;
+    position: string;
+  };
+
+}
+
+
 @Component({
   selector: 'app-gallery-listing',
   templateUrl: './gallery-listing.component.html',
   styleUrls: ['./gallery-listing.component.scss']
 })
+
+
 export class GalleryListingComponent implements OnInit {
   constructor(
     private _sharedService: SharedService,
     private _galleryListingService: GalleryListingService,
     private _toastrService: ToastrService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+  //  private _timelineService: TimelineService
   ) {
     this._activatedRoute.params.subscribe(params => {
       if (params['handle']) {
@@ -56,7 +91,9 @@ export class GalleryListingComponent implements OnInit {
       }
     });
   }
-
+  postSize: any=0;
+  postCount: number = 0;
+  postListing: PostContext[] = [];
   sidebar: boolean = false;
   filter: GetGalleryListContext = {};
   galleryList: GetGalleryListResponseContext[] = [];
@@ -91,6 +128,7 @@ export class GalleryListingComponent implements OnInit {
     this.filter.page_size = this.pageSize;
     this.filter.page_no = this.pageNo;
     this.getGalleryList();
+    this.getPostListing();
   }
 
   toggleVideoType(type: string) {
@@ -181,6 +219,54 @@ export class GalleryListingComponent implements OnInit {
   attachEnvironmentUrl(value: String) {
     return environment.mediaUrl + value;
   }
+  getPostListing(scrolled?: string) {
+    if (!scrolled) {
+      this.pageNo = 1;
+    }
+    this._galleryListingService
+      .getPostListing({
+        page_no: this.pageNo,
+        page_size: this.pageSize,
+        comments: 1
+      })
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          let posts: PostContext[] = response.data.records;
+          this.postCount = response.data.records.length;
+          posts.forEach(post => {
+            if (post.posted_by.avatar) {
+              post.posted_by.avatar =
+                environment.mediaUrl + post.posted_by.avatar;
+            }
+            if (post.post.media_url) {
+              post.post.media_url = environment.mediaUrl + post.post.media_url;
+              console.log("%%%%%%%%%%%%%%%%%%%%")
+              console.log(post.post.media_url)
+            }
+           
+           
+
+          });
+          if (!scrolled) {
+            this.postListing = posts;
+          } else {
+            posts.forEach(post => {
+              if (!this.postListing.includes(post)) {
+                this.postListing.push(post);
+              }
+            });
+          }
+          console.log("******************************");
+          this.postSize=this.postListing.length
+          console.log(this.postListing.length)
+        },
+        error => {
+          this._toastrService.error('Error', error.error.message);
+        }
+      );
+  }
+
 
   ngOnDestroy() {}
 }

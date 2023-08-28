@@ -54,6 +54,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   othersTab: boolean = false;
   videoUrl: any;
   duration: number = null;
+  videoLimitt: number = null;
   showVideoErrorMsg: boolean = false;
   videoErrorMsg: string = '';
   selectedAttributes: boolean = false;
@@ -271,6 +272,20 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     return Constants.VIDEO_LENGTH[this.type];
   }
 
+  getUploadVideoTime() {
+    if (this.member_type === 'player') {
+      return "Upload videos showcasing match highlights/ academy infrastructure/ staff or player interviews.";
+    }
+    return "Record training drill video for player development.";
+  }
+
+  getUploadVideoTrend() {
+    if (this.member_type === 'player') {
+      return Constants.VIDEO_LENGTH.player;
+    }
+    return Constants.VIDEO_LENGTH[this.type];
+  }
+
   uploadVideo(files: FileList) {
     if (
       this.createVideoPostForm.get('media').errors &&
@@ -300,7 +315,36 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
       this.duration = e.target.duration / 60;
     }
     this.validateVideoLength(this.type);
+    this.validateVideoLimit(this.type);
   };
+  getVideoLimit(userType: string, videoType: string): number {
+    const videoLimits = {
+      player: {
+        timeline: 1,
+        learning_or_training: 3,
+        match: 1
+      },
+      club: {
+        timeline: 3,
+        learning_or_training: 3,
+        match: 1
+      },
+      academy: {
+        timeline: 3,
+        learning_or_training: 3,
+        match: 1
+      }
+    };
+    if (videoLimits[userType][videoType]) {
+      const videoLimit = videoLimits[userType][videoType];
+      // this.validateVideoLimit(videoLimit);
+
+      return videoLimit;
+    }
+
+    // Return a default video limit if the userType or videoType is not found
+    return 0;
+  }
 
   toFormData<T>(formValue: T) {
     const formData = new FormData();
@@ -452,6 +496,12 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   }
 
   validateVideoLength(type: any) {
+    
+    
+    this.validatevideotags(this.type)
+    console.log(this.type);
+   
+    this.validateVideoLimit(this.type);
     this.type = type;
     if (this.duration) {
       this.showVideoErrorMsg = false;
@@ -474,6 +524,66 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
       }
     }
   }
+  validatevideotags(type: any)
+  {
+    if(this.type== "timeline")
+    {
+      return "Perform a skill and record a video” to “Upload videos showcasing match highlights/ academy infrastructure/ staff or player interviews"
+    }
+    else if(this.type=='learning_or_training')
+    {
+      return "Record training drill video for player development."
+    }
+    else if(this.type=='match')
+    {
+      return "Record match video so players can view their game"
+    }
+    else{
+      return "Perform a skill and record a video” to “Upload videos showcasing match highlights/ academy infrastructure/ staff or player interviews"
+    }
+  }
 
+  
+
+  validateVideoLimit(type: any) {
+    //   this.type = type;
+    //   if (this.videoLimitt) {
+    //     this.showVideoErrorMsg = false;
+    //     this.videoErrorMsg = '';
+    //     if (this.member_type ==='player' && this.videoLimitt > Constants.VIDEO_LIMIT.player){
+    //       this.videoErrorMsg= `Max ${Constants.VIDEO_LIMIT.player} number of videos allowed per week`
+    //       this.showVideoErrorMsg= true;
+    //     }
+    //     if(this.member_type!=='player'&& this.videoLimitt > Constants.VIDEO_LIMIT[this.type]){
+    //       this.videoErrorMsg=  `Max ${Constants.VIDEO_LIMIT[this.type]} number of videos allowed per week`;
+    //       this.showVideoErrorMsg = true;
+    //     }
+    //   }
+    // }
+    // validateVideoLimit(type: any ) {
+    //   // const videoLimit = Constants.VIDEO_LIMIT[this.member_type][type];
+    //   this.type = type;
+    //   if(this.videoLimit){
+    //     this.showVideoErrorMsg= false;
+    //     this.videoErrorMsg = ''
+    //     if (this.member_type ==='player' && this.videoLimit > Constants.VIDEO_LIMIT.player){
+    //       this.videoErrorMsg= 'Only 3 videos allowed per week for a user'
+    //       this.showVideoErrorMsg = true;
+    //     }
+    //     if (this.member_type!=='player'&& this.videoLimit > Constants.VIDEO_LIMIT[this.type]){
+    //       this.videoErrorMsg = `Max ${Constants.VIDEO_LIMIT[this.type]} number of videos allowed per week`;
+    //       this.showVideoErrorMsg= true;
+    //     }
+    //   }
+    // const videoLimit = 3
+    // const uploadedVideosThisWeek = 6/* Get the number of uploaded videos for the current week */
+    // this.showVideoErrorMsg = false;
+    // this.videoErrorMsg = '';
+    // if (uploadedVideosThisWeek > videoLimit) {
+    //   console.log("you have exceeded vid limit")
+    //   this.videoErrorMsg = 'You have exceeded video limit for this week';
+    //   this.showVideoErrorMsg = true;
+    // }
+  }
   ngOnDestroy() {}
 }

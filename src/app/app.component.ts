@@ -109,16 +109,27 @@ export class AppComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         response => {
+          
           // if(this.file.progress == '100')
           //   this.dispatcher('PENDING_UPLOAD');
 
           if (response) {
+          
+            if (this.file.progress =='100'){
             this.dispatcher('COMPLETED_UPLOAD');
             this._toastrService.success(
               'Success',
               'Video uploaded successfully'
             );
+          } }
+          
+          else {
+           
+            this._toastrService.error('Error', 'Video Limit Exceeded');
+            
           }
+          // this.file.error = 'Video Limit exceeded'
+          // this.dispatcher('ERROR_UPLOAD')
         },
         error => {
           this.file.error = error.msg;

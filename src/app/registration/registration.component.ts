@@ -16,7 +16,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   playerType: any[] = Constants.PLAYER_TYPE;
   clubAcademyType: any[] = Constants.CLUB_ACADEMY_TYPE;
   registrationForm: FormGroup;
-  today = new Date();
+  // today = new Date();
+  maxDate: Date;
+  // isTermsAccepted: boolean = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -24,6 +26,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private _toastrService: ToastrService
   ) {
     this.createForm();
+
+    const currentDate = new Date();
+    this.maxDate = new Date(
+      currentDate.getFullYear() - 6,
+      currentDate.getMonth(),
+      currentDate.getDate()
+    );
   }
 
   ngOnDestroy() {}
@@ -64,7 +73,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.clearValidators();
     this.registrationForm.controls.name.setValidators([
       Validators.required,
-      Validators.maxLength(25),
+      
       Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
     ]);
     this.registrationForm.controls.type.setValidators([Validators.required]);
@@ -108,6 +117,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       delete form_data.name;
       delete form_data.type;
     }
+    //
     this._authenticationService
       .register(form_data)
       .pipe(untilDestroyed(this))
@@ -121,6 +131,25 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         }
       );
   }
+  // Custom validator function
+  // ageValidator(minAge: number) {
+  //   return (control: AbstractControl) => {
+  //     const currentDate = new Date();
+  //     const selectedDate = new Date(control.value);
+
+  //     const yearsDiff = currentDate.getFullYear() - selectedDate.getFullYear();
+  //     const monthsDiff = currentDate.getMonth() - selectedDate.getMonth();
+  //     const daysDiff = currentDate.getDate() - selectedDate.getDate();
+
+  //     const ageInYears = yearsDiff + (monthsDiff < 0 || (monthsDiff === 0 && daysDiff < 0) ? -1 : 0);
+
+  //     if (ageInYears < minAge) {
+  //       return { minAge: true };
+  //     }
+
+  //     return null;
+  //   };
+  // }
 
   createForm() {
     this.registrationForm = this._formBuilder.group({
@@ -128,17 +157,18 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       last_name: [''],
       email: ['', [Validators.required, Validators.email]],
       phone: [
-        '',
+      '',
         [
-          Validators.required,
-          Validators.minLength(10),
+      Validators.required,
+       Validators.minLength(10),
           Validators.maxLength(10),
           Validators.pattern(/^[0-9]+$/)
-        ]
-      ],
+         ]
+       ],
       name: [''],
       type: ['', [Validators.required]],
-      dob: ['', [Validators.required]]
+      dob: ['', [Validators.required]], // Add the custom validator
+      termsAccepted: [false, [Validators.requiredTrue]]
     });
   }
 

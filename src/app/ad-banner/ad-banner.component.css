@@ -1,0 +1,13 @@
+/* Add your custom styles for the ad banner component here */
+
+
+  .ad-container {
+    width: 300px; /* Adjust the width as per your ad dimensions */
+    height: 250px; /* Adjust the height as per your ad dimensions */
+    margin-left: auto; /* Adjust the margin as needed */
+    margin-right: auto; /* Adjust the margin as needed */
+    /* Add more styles as required */
+  }
+  
+  
+  

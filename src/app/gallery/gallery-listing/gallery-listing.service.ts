@@ -3,10 +3,14 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/custom-http-param-encoder.component';
 
+
+
+
 const routes = {
   getGalleryList: (query: string) => `/video/gallery?${query}`,
   getPublicGalleryList: (user_id: string, query: string) =>
-    `/video/public/gallery/${user_id}?${query}`
+    `/video/public/gallery/${user_id}?${query}`,
+    getPostListing: (query: string) => `/posts/list${query}`,
 };
 
 export interface GetGalleryListContext {
@@ -17,6 +21,64 @@ export interface GetGalleryListContext {
   status?: string;
   from?: string;
   to?: string;
+}
+
+interface GetPostListingResponseContext {
+  status: string;
+  message: string;
+  data: {
+    total: number;
+    records: {
+      id: string;
+      post: {
+        text: string;
+        media_url: string;
+        media_type: string;
+        media_thumbnail: {
+          sizes: string;
+        }[];
+        meta?: {
+          abilities: {
+            ability_name: string;
+            attributes: [];
+          }[];
+          others: [];
+        };
+      };
+      posted_by: {
+        avatar: string;
+        member_type: string;
+        user_id: string;
+        name: string;
+        type: string;
+        position: string;
+      };
+      is_liked: boolean;
+      likes: number;
+      comments: {
+        total: number;
+        data: {
+          comment: string;
+          commented_by: {
+            avatar: string;
+            member_type: string;
+            user_id: string;
+            name: string;
+            type: string;
+            position: string;
+          };
+          commented_at: string;
+        }[];
+      };
+      created_at: string;
+    }[];
+  };
+}
+
+interface GetPostListingContext {
+  page_no?: number;
+  page_size?: number;
+  comments?: number;
 }
 
 interface GetGalleryListResponseContext {
@@ -104,4 +166,29 @@ export class GalleryListingService {
       routes.getPublicGalleryList(userId, httpParams.toString())
     );
   }
+
+  getPostListing(
+    context: GetPostListingContext
+  ): Observable<GetPostListingResponseContext> {
+    let query = '?';
+    if (context['page_no']) {
+      query += 'page_no=' + context['page_no'];
+    }
+
+    if (context['page_size']) {
+      query += '&page_size=' + context['page_size'];
+    }
+
+    if (context['comments']) {
+      query += '&comments=' + context['comments'];
+    }
+
+    return this._httpClient.get<GetPostListingResponseContext>(
+      routes.getPostListing(query)
+    );
+  }
+
+
 }
+
+

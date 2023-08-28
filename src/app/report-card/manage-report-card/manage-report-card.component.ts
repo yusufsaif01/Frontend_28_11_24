@@ -124,9 +124,11 @@ export class ManageReportCardComponent implements OnInit {
         } else {
           record['no_of_report_cards'] = {
             total_report_cards: record.total_report_cards,
-            url: this.attachEnvironmentUrl(
+            url:
+              // this.attachEnvironmentUrl
+              // (
               '/member/manage-report-card/link-report-card/' + record.user_id
-            )
+            // )
           };
         }
         record.avatar = this.attachEnvironmentUrl(record.avatar);
