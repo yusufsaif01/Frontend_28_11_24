@@ -38,6 +38,10 @@ import { StoreModule } from '@ngrx/store';
 import { uploader } from './redux/reducer';
 import { HomeModule } from './home/home.module';
 import { SecurityModule } from './security/security.module';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { TermandconditionComponent } from './termandcondition/termandcondition.component';
+import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
+import { CommunityGuidelinesComponent } from './community-guidelines/community-guidelines.component';
 
 @NgModule({
   imports: [
@@ -81,7 +85,12 @@ import { SecurityModule } from './security/security.module';
     AddEditPopupComponent,
     AddpopupComponent,
     VideoPopupComponent,
-    PersonAddEditPopupComponent
+    PersonAddEditPopupComponent,
+    AboutUsComponent,
+
+    TermandconditionComponent,
+    CookiesPolicyComponent,
+    CommunityGuidelinesComponent
   ],
   providers: [
     RoleGuardService,

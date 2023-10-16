@@ -16,9 +16,9 @@ export class ViewEditProfileComponent implements OnInit {
   renderComponents: any[];
   components: any[] = [
     { name: 'Personal details', value: 'personal' },
-    { name: 'Professional details', value: 'professional' },
-   // { name: 'Documents', value: 'documents' },
-   // { name: 'Employment contracts', value: 'contracts' }
+    { name: 'Professional details', value: 'professional' }
+    // { name: 'Documents', value: 'documents' },
+    // { name: 'Employment contracts', value: 'contracts' }
   ];
   constructor(
     private _activatedRoute: ActivatedRoute,

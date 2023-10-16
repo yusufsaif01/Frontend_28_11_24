@@ -1074,7 +1074,7 @@
                       }}</option>
                     </ng-container>
                   </select>
-               <!--  <mat-error
+                  <!--  <mat-error
                     *ngIf="
                       professionalDetailsForm.controls.league.invalid &&
                       professionalDetailsForm.controls.league.touched
@@ -1248,14 +1248,9 @@
                   <label>
                     <h3>
                       State association affiliated under
-                      
                     </h3>
                   </label>
-                  <select
-                    matNativeControl
-                    formControlName="association"
-                    
-                  >
+                  <select matNativeControl formControlName="association">
                     <option value="">Select association</option>
                     <ng-container
                       *ngFor="let association of stateAssociationArray"
@@ -1265,7 +1260,7 @@
                       }}</option>
                     </ng-container>
                   </select>
-               <!--  <mat-error
+                  <!--  <mat-error
                     *ngIf="
                       professionalDetailsForm.controls.association.invalid &&
                       professionalDetailsForm.controls.association.touched

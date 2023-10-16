@@ -3,14 +3,11 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/custom-http-param-encoder.component';
 
-
-
-
 const routes = {
   getGalleryList: (query: string) => `/video/gallery?${query}`,
   getPublicGalleryList: (user_id: string, query: string) =>
     `/video/public/gallery/${user_id}?${query}`,
-    getPostListing: (query: string) => `/posts/list${query}`,
+  getPostListing: (query: string) => `/posts/list${query}`
 };
 
 export interface GetGalleryListContext {
@@ -187,8 +184,4 @@ export class GalleryListingService {
       routes.getPostListing(query)
     );
   }
-
-
 }
-
-

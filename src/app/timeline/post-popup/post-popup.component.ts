@@ -132,6 +132,10 @@ export class PostPopupComponent implements OnInit {
 
   createNewPost() {
     let requestData = this.toFormData(this.createPostForm.value);
+    console.log('blalalalallalalalalalalalalala');
+    console.log(requestData);
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!');
+    console.log(this.convertedFile);
     if (this.media) requestData.set('media', this.convertedFile);
     this.service
       .createPost(requestData)

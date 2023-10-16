@@ -15,10 +15,7 @@ export class VideoPlayerComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    
-
-  }
+  ngOnInit() {}
 
   ngAfterViewInit() {
     this.vimeoPlayer();
@@ -30,28 +27,24 @@ export class VideoPlayerComponent implements OnInit {
 
   vimeoPlayer() {
     if (this.status === 'published') {
-        let videoId = parseInt(
+      let videoId = parseInt(
         this.source.split('/').find(num => !!parseInt(num))
       );
-      console.log(videoId, "videoId1")
-        // let videoId1: number = 837480403;
+      console.log(videoId, 'videoId1');
+      // let videoId1: number = 837480403;
       if (!this.player) {
         setTimeout(() => {
           this.player = new Player(`vimeo-video-player-${this.postId}`, {
-           id: videoId,
-           // url: 'https://player.vimeo.com/video/837480403?h=f6f5e5bc0d'
-           // url: 'https://player.vimeo.com/video/837480403'
-
+            id: videoId
+            // url: 'https://player.vimeo.com/video/837480403?h=f6f5e5bc0d'
+            // url: 'https://player.vimeo.com/video/837480403'
           });
         }, 1000);
-      } else if  
-      (videoId && this.player) 
-      {
-         this.player.loadVideo(videoId);
-      //   this.player.loadVideo(
-      //     'https://player.vimeo.com/video/837480403?h=f6f5e5bc0d'
-      //  );
-        
+      } else if (videoId && this.player) {
+        this.player.loadVideo(videoId);
+        //   this.player.loadVideo(
+        //     'https://player.vimeo.com/video/837480403?h=f6f5e5bc0d'
+        //  );
 
         //   this.player.loadVideo(videoId).then(function(videoId:number) {
         //     // the video successfully loaded

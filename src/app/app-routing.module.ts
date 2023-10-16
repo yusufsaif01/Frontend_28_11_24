@@ -12,7 +12,10 @@ import { AdminChangePasswordComponent } from './admin-change-password/admin-chan
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
 import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
 import { ReportCardModule } from './report-card/report-card.module';
-
+import { TermandconditionComponent } from './termandcondition/termandcondition.component';
+import { CommunityGuidelinesComponent } from './community-guidelines/community-guidelines.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 const routes: Routes = [
   {
     path: '',
@@ -117,6 +120,28 @@ const routes: Routes = [
     component: PrivacyPolicyComponent,
     data: { title: extract('Privacy Policy') }
   },
+  {
+    path: 'term&condition',
+    component: TermandconditionComponent,
+    data: { title: extract('Term and Condition') }
+  },
+
+  {
+    path: 'community-guidelines',
+    component: CommunityGuidelinesComponent,
+    data: { title: extract('Community') }
+  },
+  {
+    path: 'about-us',
+    component: AboutUsComponent,
+    data: { title: extract('About') }
+  },
+  {
+    path: 'cookie-policy',
+    component: CookiesPolicyComponent,
+    data: { title: extract('Cookies') }
+  },
+
   { path: '404', component: NotFoundComponent },
 
   { path: '**', redirectTo: '/404' }

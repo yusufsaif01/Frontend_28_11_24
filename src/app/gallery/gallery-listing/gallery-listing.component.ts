@@ -10,7 +10,6 @@ import { SharedService } from '@app/shared/shared.service';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { ActivatedRoute } from '@angular/router';
 
-
 export interface GetGalleryListResponseContext {
   created_at: string;
   id: string;
@@ -64,24 +63,19 @@ interface PostContext {
     type: string;
     position: string;
   };
-
 }
-
 
 @Component({
   selector: 'app-gallery-listing',
   templateUrl: './gallery-listing.component.html',
   styleUrls: ['./gallery-listing.component.scss']
 })
-
-
 export class GalleryListingComponent implements OnInit {
   constructor(
     private _sharedService: SharedService,
     private _galleryListingService: GalleryListingService,
     private _toastrService: ToastrService,
-    private _activatedRoute: ActivatedRoute,
-  //  private _timelineService: TimelineService
+    private _activatedRoute: ActivatedRoute //  private _timelineService: TimelineService
   ) {
     this._activatedRoute.params.subscribe(params => {
       if (params['handle']) {
@@ -91,7 +85,7 @@ export class GalleryListingComponent implements OnInit {
       }
     });
   }
-  postSize: any=0;
+  postSize: any = 0;
   postCount: number = 0;
   postListing: PostContext[] = [];
   sidebar: boolean = false;
@@ -241,12 +235,9 @@ export class GalleryListingComponent implements OnInit {
             }
             if (post.post.media_url) {
               post.post.media_url = environment.mediaUrl + post.post.media_url;
-              console.log("%%%%%%%%%%%%%%%%%%%%")
-              console.log(post.post.media_url)
+              console.log('%%%%%%%%%%%%%%%%%%%%');
+              console.log(post.post.media_url);
             }
-           
-           
-
           });
           if (!scrolled) {
             this.postListing = posts;
@@ -257,16 +248,15 @@ export class GalleryListingComponent implements OnInit {
               }
             });
           }
-          console.log("******************************");
-          this.postSize=this.postListing.length
-          console.log(this.postListing.length)
+          console.log('******************************');
+          this.postSize = this.postListing.length;
+          console.log(this.postListing.length);
         },
         error => {
           this._toastrService.error('Error', error.error.message);
         }
       );
   }
-
 
   ngOnDestroy() {}
 }

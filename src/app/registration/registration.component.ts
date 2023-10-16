@@ -73,7 +73,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.clearValidators();
     this.registrationForm.controls.name.setValidators([
       Validators.required,
-      
+
       Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
     ]);
     this.registrationForm.controls.type.setValidators([Validators.required]);
@@ -157,14 +157,14 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       last_name: [''],
       email: ['', [Validators.required, Validators.email]],
       phone: [
-      '',
+        '',
         [
-      Validators.required,
-       Validators.minLength(10),
+          Validators.required,
+          Validators.minLength(10),
           Validators.maxLength(10),
           Validators.pattern(/^[0-9]+$/)
-         ]
-       ],
+        ]
+      ],
       name: [''],
       type: ['', [Validators.required]],
       dob: ['', [Validators.required]], // Add the custom validator

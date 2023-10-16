@@ -293,7 +293,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
                 environment.mediaUrl + post.posted_by.avatar;
             }
             if (post.post.media_url) {
-              post.post.media_url = environment.mediaUrl + post.post.media_url;
+              post.post.media_url = post.post.media_url;
             }
             post.commentPageNo = 1;
             post.commentPageSize = 3;

@@ -274,9 +274,9 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
   getUploadVideoTime() {
     if (this.member_type === 'player') {
-      return "Upload videos showcasing match highlights/ academy infrastructure/ staff or player interviews.";
+      return 'Upload videos showcasing match highlights/ academy infrastructure/ staff or player interviews.';
     }
-    return "Record training drill video for player development.";
+    return 'Record training drill video for player development.';
   }
 
   getUploadVideoTrend() {
@@ -496,11 +496,9 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   }
 
   validateVideoLength(type: any) {
-    
-    
-    this.validatevideotags(this.type)
+    this.validatevideotags(this.type);
     console.log(this.type);
-   
+
     this.validateVideoLimit(this.type);
     this.type = type;
     if (this.duration) {
@@ -524,26 +522,17 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
       }
     }
   }
-  validatevideotags(type: any)
-  {
-    if(this.type== "timeline")
-    {
-      return "Perform a skill and record a video” to “Upload videos showcasing match highlights/ academy infrastructure/ staff or player interviews"
-    }
-    else if(this.type=='learning_or_training')
-    {
-      return "Record training drill video for player development."
-    }
-    else if(this.type=='match')
-    {
-      return "Record match video so players can view their game"
-    }
-    else{
-      return "Perform a skill and record a video” to “Upload videos showcasing match highlights/ academy infrastructure/ staff or player interviews"
+  validatevideotags(type: any) {
+    if (this.type == 'timeline') {
+      return 'Perform a skill and record a video” to “Upload videos showcasing match highlights/ academy infrastructure/ staff or player interviews';
+    } else if (this.type == 'learning_or_training') {
+      return 'Record training drill video for player development.';
+    } else if (this.type == 'match') {
+      return 'Record match video so players can view their game';
+    } else {
+      return 'Perform a skill and record a video” to “Upload videos showcasing match highlights/ academy infrastructure/ staff or player interviews';
     }
   }
-
-  
 
   validateVideoLimit(type: any) {
     //   this.type = type;
