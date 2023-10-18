@@ -259,7 +259,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.findPlayerForm = this._formBuilder.group({
-      name: [''],
+      first_name: [''],
       email: [''],
       phone: ['']
     });

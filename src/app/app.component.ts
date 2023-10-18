@@ -121,7 +121,7 @@ export class AppComponent implements OnInit, OnDestroy {
               );
             }
           } else {
-            this._toastrService.error('Error', 'Video Limit Exceeded');
+            //this._toastrService.error('Error', 'Video Limit Exceeded');
           }
           // this.file.error = 'Video Limit exceeded'
           // this.dispatcher('ERROR_UPLOAD')
