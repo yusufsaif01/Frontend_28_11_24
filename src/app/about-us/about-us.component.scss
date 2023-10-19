@@ -1,4 +1,27 @@
-h1 {
+#imgcss {
+  height: 50%;
+  width: 100%;
+}
+#imgcss2 {
+  height: 2%;
+  width: 25%;
+}
+.imagecontainer {
+  text-align: center;
+}
+.content1 {
+  color: white !important;
+}
+.content11 {
+  color: orange !important;
+}
+.content-class {
+  background-color: black;
+}
+.content-class1 {
+  background-color: white;
+}
+h1 h2 {
   text-align: center;
 }
 .main-div {
@@ -9,10 +32,19 @@ h1 {
 p {
   font-family: sans-serif;
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 700;
 }
-table,
-tr,
-td {
-  border: 1px solid black;
+.width100 {
+  width: 100%;
+}
+.width50-1 {
+  width: 50%;
+  text-align: left;
+}
+.width50-2 {
+  width: 50%;
+  text-align: right;
+}
+.empty {
+  margin-top: 2% !important;
 }
