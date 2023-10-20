@@ -1,3 +1,6 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
 #imgcss {
   height: 50%;
   width: 100%;
@@ -47,4 +50,310 @@ p {
 }
 .empty {
   margin-top: 2% !important;
+}
+
+@media only screen and (min-device-width: 480px) {
+  .colone {
+    width: 100%;
+  }
+  .coltwo {
+    width: 100%;
+  }
+}
+
+// for footballers
+.footballers {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  position: relative;
+  padding: 5rem 0;
+
+  @include responsive(mediumphone) {
+    flex-wrap: wrap;
+  }
+
+  .backtext {
+    position: absolute;
+    font-size: 28rem;
+    color: $third-color;
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    transform: rotate(270deg);
+    font-family: $secondary-text;
+    bottom: -16rem;
+    left: 0;
+    width: 8rem;
+    line-height: 0.8;
+
+    @include responsive(smalldesktop) {
+      font-size: 25rem;
+      bottom: -8rem;
+    }
+
+    @include responsive(tablet) {
+      font-size: 20rem;
+      bottom: -5rem;
+      left: 5rem;
+    }
+
+    @include responsive(mediumphone) {
+      display: none;
+    }
+
+    span {
+      display: block;
+    }
+  }
+
+  .footballers-image {
+    width: 60%;
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    .img-wrap {
+      position: relative;
+
+      @include responsive(mediumphone) {
+        width: 90%;
+        margin: 0 auto;
+      }
+
+      img {
+        width: 80%;
+        z-index: 11;
+        padding-left: 3rem;
+
+        @include responsive(mediumphone) {
+          width: 100%;
+        }
+      }
+
+      &::before {
+        position: absolute;
+        width: 20rem;
+        height: 5rem;
+        background: #323232;
+        bottom: 2px;
+        left: -3rem;
+        z-index: 99;
+      }
+    }
+  }
+
+  .footballers-details {
+    width: 50%;
+    text-align: left;
+
+    @include responsive(mediumphone) {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-size: 6.5rem;
+      font-family: $secondary-text;
+      font-weight: 100;
+      margin-right: 5rem;
+
+      @include responsive(smalldesktop) {
+        font-size: 5.5rem;
+      }
+
+      @include responsive(tablet) {
+        margin-right: 0rem;
+        font-size: 5rem;
+      }
+
+      @include responsive(bigphone) {
+        font-size: 4rem;
+      }
+
+      span {
+        font-size: 8rem;
+        display: block;
+
+        @include responsive(smalldesktop) {
+          font-size: 7rem;
+        }
+
+        @include responsive(tablet) {
+          font-size: 6rem;
+        }
+
+        @include responsive(bigphone) {
+          font-size: 5rem;
+        }
+      }
+    }
+
+    img {
+      max-width: 65rem;
+      width: 100%;
+      margin-top: 5rem;
+
+      @include responsive(tablet) {
+        margin-top: 0rem;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 4rem 4rem 4rem 2rem;
+      border-right: 1.5rem solid $primary-color;
+      margin: 3rem 5rem 3rem 0rem;
+
+      @include responsive(tablet) {
+        margin: 3rem 0rem 3rem 0rem;
+      }
+
+      li {
+        font-size: 3rem;
+      }
+    }
+  }
+}
+
+// 3d strategy
+.stratregy {
+  width: 100%;
+
+  .heading {
+    p {
+      font-size: 2.8rem;
+      padding-left: 4rem;
+      border-left: 1rem solid $primary-color;
+      word-break: normal;
+      color: $fourth-color;
+      margin: 2rem 1rem;
+
+      @include responsive(smalldesktop) {
+        font-size: 2.4rem;
+      }
+
+      @include responsive(bigphone) {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  .stratregy-wrapper {
+    display: flex;
+
+    @include responsive(mediumphone) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stratregy-blocks {
+      width: 100%;
+
+      @include responsive(mediumphone) {
+        width: 100%;
+      }
+
+      @include responsive(mediumphone) {
+        width: 100%;
+      }
+
+      .part-one {
+        display: flex;
+
+        // justify-content: space-between;
+        width: 100%;
+
+        h2 {
+          position: relative;
+          padding-bottom: 3rem;
+
+          ::after {
+            position: absolute;
+            content: "";
+            width: 10rem;
+            height: 2.5rem;
+            background: $fourth-color;
+            left: 0;
+            bottom: 0;
+          }
+
+          ::before {
+            position: absolute;
+            content: "";
+            width: 0.5rem;
+            height: 15rem;
+            background: $fourth-color;
+            left: 0;
+            bottom: -15rem;
+          }
+
+          span {
+            font-size: 4.5rem;
+          }
+        }
+
+        h1 {
+          font-size: 24rem;
+          font-family: $secondary-text;
+          text-align: right;
+          color: $third-color;
+          font-weight: 100;
+
+          @include responsive(tablet) {
+            font-size: 20rem;
+          }
+
+          @include responsive(bigphone) {
+            font-size: 15rem;
+          }
+
+          @include responsive(mediumphone) {
+            margin-left: 3rem;
+          }
+        }
+      }
+
+      img {
+        // max-width: 28rem;
+        width: 100%;
+      }
+
+      .digitize {
+        max-width: 23rem;
+
+        @include responsive(bigphone) {
+          max-width: 20rem;
+        }
+
+        @include responsive(mediumphone) {
+          max-width: 23rem;
+        }
+      }
+
+      .democratize {
+        max-width: 30rem;
+
+        @include responsive(bigphone) {
+          max-width: 25rem;
+        }
+
+        @include responsive(mediumphone) {
+          max-width: 30rem;
+        }
+      }
+
+      .develop {
+        max-width: 30rem;
+
+        @include responsive(bigphone) {
+          max-width: 25rem;
+        }
+
+        @include responsive(mediumphone) {
+          max-width: 30rem;
+        }
+      }
+    }
+  }
 }
