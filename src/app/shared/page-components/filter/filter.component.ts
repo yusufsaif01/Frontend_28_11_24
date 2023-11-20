@@ -15,7 +15,7 @@ import { SharedService } from '@app/shared/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { untilDestroyed } from '@app/core';
 import { FilterService } from './filter.service';
-import { AdminService } from '@app/admin/admin.service';
+
 const R = require('ramda');
 
 interface LocationRangeFilters {
@@ -112,14 +112,13 @@ export class FilterComponent implements OnInit {
     private _toastrService: ToastrService,
     private _sharedService: SharedService,
     private _filterService: FilterService,
-    private _adminService: AdminService,
     private _renderer: Renderer2
   ) {}
 
   ngOnInit() {
     this.initialize();
     this.getLocationStats();
-    this.getAbilityList();
+
     this.getFilterDisplayValue();
     if (this.allowedFilters.abilityAttribute) this.getAbilityAttributeList();
   }
@@ -160,21 +159,6 @@ export class FilterComponent implements OnInit {
   closeFilter() {
     this._sharedService.setFilterDisplayValue(false);
     this.getFilterDisplayValue();
-  }
-
-  getAbilityList() {
-    this._adminService
-      .getAbilityList()
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
-          let records = response.data.records;
-          this.locationRangeFilters.ability = records;
-        },
-        error => {
-          this._toastrService.error(error.error.message, 'Error');
-        }
-      );
   }
 
   getAbilityAttributeList() {

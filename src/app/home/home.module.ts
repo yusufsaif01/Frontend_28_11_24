@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { AdBannerModule } from '../ad-banner/ad-banner.module';
-
+import { AdsenseModule } from 'ng2-adsense';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +21,10 @@ import { AdBannerModule } from '../ad-banner/ad-banner.module';
     MaterialModule,
     HomeRoutingModule,
     MatInputModule,
-    AdBannerModule
+    AdBannerModule,
+    AdsenseModule.forRoot({
+      adClient: 'ca-pub-8133526594590676'
+    })
   ],
   declarations: [HomeComponent]
 })

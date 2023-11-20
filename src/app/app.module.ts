@@ -21,16 +21,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { RegistrationComponent } from './registration/registration.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy/privacy-policy.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { AdminChangePasswordComponent } from './admin-change-password/admin-change-password.component';
 import { MatSortModule } from '@angular/material/sort';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { DeleteConfirmationComponent } from './shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { StatusConfirmationComponent } from './shared/dialog-box/status-confirmation/status-confirmation.component';
 import { VerificationPopupComponent } from './shared/dialog-box/verification-popup/verification-popup.component';
 import { VideoPopupComponent } from '@app/timeline/video-popup/video-popup.component';
-import { AddEditPopupComponent } from './admin/masterdata/player-specialization/manage-position/add-edit-popup/add-edit-popup.component';
-import { AddpopupComponent } from './admin/masterdata/player-specialization/addpopup/addpopup.component';
-import { PersonAddEditPopupComponent } from './admin/manage-privacy/person-add-edit-popup/person-add-edit-popup.component';
 import { RoleGuardService } from './core/authentication/role-guard.service';
 import { JwtInterceptor } from './core/http/jwt.interceptor';
 import { ErrorInterceptor } from './core/http/error.interceptor';
@@ -42,7 +38,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { TermandconditionComponent } from './termandcondition/termandcondition.component';
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 import { CommunityGuidelinesComponent } from './community-guidelines/community-guidelines.component';
-
+import { AdsenseModule } from 'ng2-adsense';
 @NgModule({
   imports: [
     BrowserModule,
@@ -71,21 +67,20 @@ import { CommunityGuidelinesComponent } from './community-guidelines/community-g
       closeButton: true
     }),
     StoreModule.forRoot({ uploader }),
-    NgxTrimDirectiveModule
+    NgxTrimDirectiveModule,
+    AdsenseModule.forRoot({
+      adClient: 'pub-8133526594590676'
+    })
   ],
   declarations: [
     AppComponent,
     RegistrationComponent,
     PrivacyPolicyComponent,
     ChangePasswordComponent,
-    AdminChangePasswordComponent,
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
     VerificationPopupComponent,
-    AddEditPopupComponent,
-    AddpopupComponent,
     VideoPopupComponent,
-    PersonAddEditPopupComponent,
     AboutUsComponent,
 
     TermandconditionComponent,
@@ -113,10 +108,7 @@ import { CommunityGuidelinesComponent } from './community-guidelines/community-g
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
     VerificationPopupComponent,
-    AddEditPopupComponent,
-    AddpopupComponent,
-    VideoPopupComponent,
-    PersonAddEditPopupComponent
+    VideoPopupComponent
   ]
 })
 export class AppModule {}

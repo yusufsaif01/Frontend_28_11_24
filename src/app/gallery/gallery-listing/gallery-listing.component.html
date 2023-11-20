@@ -28,13 +28,7 @@
           </div>-->
         </div>
 
-        <div
-          class="tab-buttons"
-          *ngIf="
-            (member_type !== 'player' && !isPublic) ||
-            (publicMemberType !== 'player' && isPublic && publicFootplayer)
-          "
-        >
+        <div class="tab-buttons">
           <a
             [ngClass]="{ active: video_type === 'timeline' }"
             (click)="toggleVideoType('timeline')"
@@ -88,36 +82,37 @@
               </span>
             </div>
           </ng-container>
-          <ng-container class="post-wrapper" *ngFor="let post of postListing">
-            <div>
-              <!-- postHeader -->
+          <ng-container *ngIf="video_type == 'timeline'">
+            <ng-container class="post-wrapper" *ngFor="let post of postListing">
+              <div>
+                <!-- postHeader -->
 
-              <!-- postbody -->
-              <div
-                class="postbody"
-                *ngIf="
-                  !post.post.media_type || post.post.media_type === 'image'
-                "
-              >
-                <div class="post-content"></div>
+                <!-- postbody -->
+                <div
+                  class="postbody"
+                  *ngIf="
+                    !post.post.media_type || post.post.media_type === 'image'
+                  "
+                >
+                  <div class="post-content"></div>
 
-                <div class="gallery">
-                  <a target="_blank" [href]="post.post.media_url">
-                    <img
-                      [src]="post.post.media_url"
-                      alt="Cinque Terre"
-                      width="600"
-                      height="400"
-                    />
-                  </a>
-                </div>
+                  <div class="gallery">
+                    <a target="_blank" [href]="post.post.media_url">
+                      <img
+                        [src]="post.post.media_url"
+                        alt="Cinque Terre"
+                        width="600"
+                        height="400"
+                      />
+                    </a>
+                  </div>
 
-                <!-- <div class="post-img">
+                  <!-- <div class="post-img">
                   <img [src]="post.post.media_url" alt="" width="100" height="150"/>
                 </div>
-                -->
+                --></div>
               </div>
-            </div>
+            </ng-container>
           </ng-container>
 
           <ng-container *ngIf="galleryList.length === 0">
@@ -154,7 +149,7 @@
   [allowedFilters]="filtersList"
   (filterChanges)="onChangeFilter($event)"
 ></app-filter>
-
+<ng-adsense></ng-adsense>
 <!-- toogle mobile btn -->
 <span class="toggle-btn" (click)="sidebar = !sidebar">
   <mat-icon class=" material-icons">menu_open</mat-icon>

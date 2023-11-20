@@ -8,7 +8,6 @@ import { extract, AuthenticationGuard, RestrictionGuard } from '@app/core';
 import { RegistrationComponent } from './registration/registration.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy/privacy-policy.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { AdminChangePasswordComponent } from './admin-change-password/admin-change-password.component';
 import { LinkExpiredComponent } from '@app/shared/page-components/link-expired/link-expired.component';
 import { NotFoundComponent } from '@app/shared/page-components/not-found/not-found.component';
 import { ReportCardModule } from './report-card/report-card.module';
@@ -35,10 +34,7 @@ const routes: Routes = [
     // canActivate: [RestrictionGuard],
     loadChildren: './core/authentication/login/login.module#LoginModule'
   },
-  {
-    path: 'admin',
-    loadChildren: './admin/admin.module#AdminModule'
-  },
+
   {
     path: 'member/awardcertification',
     loadChildren:
@@ -98,12 +94,7 @@ const routes: Routes = [
     data: { title: extract('Change password') }
     // canActivate: [AuthenticationGuard]
   },
-  {
-    path: 'admin-change-password',
-    component: AdminChangePasswordComponent,
-    data: { title: extract('Admin Change password') }
-    // canActivate: [AuthenticationGuard]
-  },
+
   {
     path: 'create-password',
     // canActivate: [RestrictionGuard],

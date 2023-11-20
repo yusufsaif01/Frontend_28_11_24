@@ -236,7 +236,8 @@ export class GalleryListingComponent implements OnInit {
             if (post.post.media_url) {
               post.post.media_url = environment.mediaUrl + post.post.media_url;
               console.log('%%%%%%%%%%%%%%%%%%%%');
-              console.log(post.post.media_url);
+
+              console.log(post.post);
             }
           });
           if (!scrolled) {
@@ -248,9 +249,8 @@ export class GalleryListingComponent implements OnInit {
               }
             });
           }
-          console.log('******************************');
+
           this.postSize = this.postListing.length;
-          console.log(this.postListing.length);
         },
         error => {
           this._toastrService.error('Error', error.error.message);

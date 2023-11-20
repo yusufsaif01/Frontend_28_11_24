@@ -393,7 +393,7 @@
       }
 
       .third-panel {
-        width: 100%;
+        width: 30%;
         margin: 2rem;
 
         @include responsive(bigphone) {
@@ -529,7 +529,9 @@
   transform: translateY(-50%);
   left: 3rem;
 }
-
+#post-img-section {
+  height: auto;
+}
 //  post popup
 ::ng-deep {
   .postpopup,

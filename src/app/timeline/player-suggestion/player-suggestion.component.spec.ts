@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManageDistrictComponent } from './manage-district.component';
+import { PlayerSuggestionComponent } from './player-suggestion.component';
 
-describe('ManageDistrictComponent', () => {
-  let component: ManageDistrictComponent;
-  let fixture: ComponentFixture<ManageDistrictComponent>;
+describe('PlayerSuggestionComponent', () => {
+  let component: PlayerSuggestionComponent;
+  let fixture: ComponentFixture<PlayerSuggestionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ManageDistrictComponent]
+      declarations: [PlayerSuggestionComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManageDistrictComponent);
+    fixture = TestBed.createComponent(PlayerSuggestionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

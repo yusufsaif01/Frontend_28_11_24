@@ -14,7 +14,8 @@ const routes = {
   getCommentListing: (params: string, query: string) =>
     `/post/${params}/comments${query}`,
   createVideoPost: (query: string) => `/video/${query}`,
-  updateVideoPost: (video_id: string) => `/video/${video_id}`
+  updateVideoPost: (video_id: string) => `/video/${video_id}`,
+  sendFootMate: (c: SendFootMate) => '/connection/request/send'
 };
 
 interface createVideoPostContext {
@@ -130,7 +131,9 @@ interface AddCommentContext {
   post_id: string;
   comment: string;
 }
-
+interface SendFootMate {
+  to: string;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -255,6 +258,13 @@ export class TimelineService {
       routes.createVideoPost(query),
       context.requestData,
       { reportProgress: true, observe: 'events' }
+    );
+  }
+
+  sendFootMate(context: SendFootMate): Observable<CommonResponseContext> {
+    return this.httpClient.post<CommonResponseContext>(
+      routes.sendFootMate(context),
+      context
     );
   }
 

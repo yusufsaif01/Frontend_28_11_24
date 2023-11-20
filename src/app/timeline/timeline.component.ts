@@ -15,6 +15,8 @@ import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confi
 import { VideoPopupComponent } from './video-popup/video-popup.component';
 import { ClipboardService } from 'ngx-clipboard';
 
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 interface PostContext {
   id: string;
   post: {
@@ -33,6 +35,7 @@ interface PostContext {
     };
     status?: string;
   };
+
   posted_by: {
     avatar: string;
     member_type: string;
@@ -61,6 +64,7 @@ interface PostContext {
   created_at: string;
   show_comment_box?: boolean;
   attributeListing?: [];
+  player_list?: [];
   commentListing?: CommentContext[];
   commentForm?: FormGroup;
   commentPageNo?: number;
@@ -82,6 +86,18 @@ interface CommentContext {
   commented_at: string;
 }
 
+interface PlayerListingContext {
+  name: string;
+  email: string;
+  avatar_url: string;
+  user_id: string;
+  account_status: string;
+  is_email_verified: string;
+  position: string;
+  status: string;
+  type: string;
+}
+
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
@@ -91,6 +107,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   sidebar: boolean = false;
   environment = environment;
   postListing: PostContext[] = [];
+  //playerListing:PlayerListingContext[]=[];
   pageNo: number = 1;
   pageSize: number = 5;
   panelOptions: Partial<PanelOptions> = {
@@ -130,20 +147,46 @@ export class TimelineComponent implements OnInit, OnDestroy {
     }
   };
 
+  is_following = false;
+  is_footmate = 'Not_footmate';
+
   player_type: string;
   member_type: string;
   profile_status: string;
   avatar_url: string = '';
   userId: string = '';
   postCount: number = 0;
+  filterValues: any = {};
+  searchText = '';
+
+  selectedPage: number;
+  players_count: number;
+  grassroot_count: number;
+  amateur_count: number;
+  proff_count: number;
+  show_count: number;
+  user_id: string;
+  is_public: boolean;
 
   constructor(
     public dialog: MatDialog,
+
     private _timelineService: TimelineService,
     private _toastrService: ToastrService,
     private _clipboardService: ClipboardService,
-    private _formBuilder: FormBuilder
-  ) {}
+    private _formBuilder: FormBuilder,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
+  ) {
+    this._activatedRoute.params.subscribe(param => {
+      if (param.user_id) {
+        this.user_id = param.user_id;
+        this.is_public = true;
+      } else {
+        this.is_public = false;
+      }
+    });
+  }
 
   ngOnDestroy() {}
 
@@ -201,6 +244,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getPostListing();
+    //this.getPlayerList(this.pageSize, 1);
     this.userId = localStorage.getItem('user_id');
     this.avatar_url = localStorage.getItem('avatar_url');
   }
@@ -442,6 +486,34 @@ export class TimelineComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  //Get Player List
+
+  openPublicProfile(user_id: string) {
+    this._router.navigate([]).then(result => {
+      window.open(`/member/profile/public/${user_id}`, '_blank');
+    });
+  }
+
+  toggleFootMate(user_id: string) {
+    if (this.is_footmate === 'Not_footmate') {
+      this._timelineService
+        .sendFootMate({
+          to: user_id
+        })
+        .pipe(untilDestroyed(this))
+        .subscribe(
+          response => {
+            this.is_footmate = 'Pending';
+          },
+          error => {
+            this._toastrService.error('Error', error.error.message);
+          }
+        );
+    }
+  }
+
+  //End of Player List
 
   copyToClipboard(videoId: string) {
     let url = environment.mediaUrl + '/member/gallery/gallery-view/' + videoId;

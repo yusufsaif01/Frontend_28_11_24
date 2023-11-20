@@ -7,7 +7,7 @@ import { AddEditReportCardComponent } from './add-edit-report-card/add-edit-repo
 import { ViewReportCardComponent } from './view-report-card/view-report-card.component';
 import { ReportCardRoutingModule } from './report-card-routing.module';
 import { LinkReportCardComponent } from './link-report-card/link-report-card.component';
-
+import { AdsenseModule } from 'ng2-adsense';
 @NgModule({
   declarations: [
     ReportCardComponent,
@@ -16,6 +16,13 @@ import { LinkReportCardComponent } from './link-report-card/link-report-card.com
     ViewReportCardComponent,
     LinkReportCardComponent
   ],
-  imports: [CommonModule, ReportCardRoutingModule, SharedModule]
+  imports: [
+    CommonModule,
+    ReportCardRoutingModule,
+    SharedModule,
+    AdsenseModule.forRoot({
+      adClient: 'ca-pub-8133526594590676'
+    })
+  ]
 })
 export class ReportCardModule {}
