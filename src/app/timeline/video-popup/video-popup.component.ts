@@ -320,7 +320,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
   getVideoLimit(userType: string, videoType: string): number {
     const videoLimits = {
       player: {
-        timeline: 1,
+        timeline: 1, //4
         learning_or_training: 3,
         match: 1
       },

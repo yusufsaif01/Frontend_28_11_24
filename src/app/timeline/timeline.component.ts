@@ -14,7 +14,6 @@ import { wordCount } from '@app/shared/validators/wordCount';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { VideoPopupComponent } from './video-popup/video-popup.component';
 import { ClipboardService } from 'ngx-clipboard';
-
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 interface PostContext {
@@ -460,6 +459,9 @@ export class TimelineComponent implements OnInit, OnDestroy {
     console.log('Scrolled Down');
     if (this.postCount === this.pageSize) {
       this.pageNo++;
+      console.log('inside equal to match');
+      console.log('Now page size is');
+      console.log(this.pageNo++);
       this.getPostListing('scrolled');
     }
   }

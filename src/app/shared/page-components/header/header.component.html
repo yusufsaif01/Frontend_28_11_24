@@ -37,7 +37,7 @@
                 *ngFor="let member of memberList"
                 (onSelectionChange)="openPublicProfile(member.user_id)"
               >
-                <img class="dpsss" aria-hidden [src]="avatar_url" />
+                <img class="dpsss" aria-hidden [src]="member.avatar" />
                 <span matTooltip="{{ member.name | capitalize }}">{{
                   (member.name | slice: 0:25) + '...' | capitalize
                 }}</span>
