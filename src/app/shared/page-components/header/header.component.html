@@ -76,6 +76,14 @@
           </a>
         </li>
         <li *ngIf="member_type === 'player'">
+          <a matTooltip="FooTMates" [routerLink]="['/user-guide']">
+            <mat-icon class="material-icons"
+              ><b style="color:orange">?</b></mat-icon
+            >
+            <span *ngIf="stats.total_requests">{{ stats.total_requests }}</span>
+          </a>
+        </li>
+        <li *ngIf="member_type === 'player'">
           <a
             matTooltip="FooTMates"
             [routerLink]="['/member/manage/foot-requests']"

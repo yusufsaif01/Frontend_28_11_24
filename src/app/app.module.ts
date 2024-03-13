@@ -39,6 +39,8 @@ import { TermandconditionComponent } from './termandcondition/termandcondition.c
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 import { CommunityGuidelinesComponent } from './community-guidelines/community-guidelines.component';
 import { AdsenseModule } from 'ng2-adsense';
+import { UserguideComponent } from './userguide/userguide.component';
+import { GuideComponent } from './guide/guide.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -85,7 +87,9 @@ import { AdsenseModule } from 'ng2-adsense';
 
     TermandconditionComponent,
     CookiesPolicyComponent,
-    CommunityGuidelinesComponent
+    CommunityGuidelinesComponent,
+    UserguideComponent,
+    GuideComponent
   ],
   providers: [
     RoleGuardService,
@@ -108,7 +112,8 @@ import { AdsenseModule } from 'ng2-adsense';
     DeleteConfirmationComponent,
     StatusConfirmationComponent,
     VerificationPopupComponent,
-    VideoPopupComponent
+    VideoPopupComponent,
+    GuideComponent
   ]
 })
 export class AppModule {}

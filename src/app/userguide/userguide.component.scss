@@ -1,0 +1,209 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+.site-wrapper {
+  width: 100%;
+  display: flex;
+  background: $third-color;
+  margin-top: 8.5rem;
+
+  @include responsive(bigphone) {
+    margin-top: 13rem;
+  }
+
+  .right-panel {
+    width: 76.25%;
+    position: relative;
+    min-height: calc(100vh - 8.5rem);
+
+    @include responsive(tablet) {
+      width: 100%;
+    }
+
+    .footer-fix {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+    }
+
+    .right-wrapper {
+      padding: 2rem;
+
+      .main {
+        background: $white-color;
+        @include shadow;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        margin-bottom: 10rem;
+
+        // heading css
+        .heading {
+          display: flex;
+          justify-content: space-between;
+          padding: 1rem 2rem 1rem 1rem;
+          color: $fourth-color;
+
+          button {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+
+            &:hover {
+              color: $primary-color;
+            }
+          }
+        }
+
+        // counters
+
+        .counts-wrapper {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          text-align: center;
+          justify-content: center;
+          margin-bottom: 4rem;
+
+          .counts {
+            margin: 0 2rem;
+
+            @include responsive(smallphone) {
+              margin: 0 1rem;
+            }
+
+            h2 {
+              font-weight: 400;
+              font-size: 3.6rem;
+              margin-bottom: 1rem;
+            }
+
+            a {
+              border: 1px solid $primary-color;
+              background: transparent;
+              color: $fourth-color;
+              padding: 1rem 5rem;
+              border-radius: 5rem;
+              font-weight: 500;
+              outline: 0px;
+              display: inline-block;
+              font-size: $heading-fourth;
+
+              &:hover {
+                background: $primary-color;
+                color: $white-color;
+              }
+            }
+
+            .active {
+              background: $primary-color;
+              color: $white-color;
+            }
+          }
+        }
+
+        .tab-buttons {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          @include responsive(mediumphone) {
+            flex-wrap: wrap;
+            flex-direction: column;
+          }
+
+          a {
+            font-size: 2rem;
+            font-weight: 500;
+            padding: 1rem 3rem;
+            border-bottom: 2px solid transparent;
+            color: $fourth-color;
+            margin: 0 3rem;
+
+            @include responsive(bigphone) {
+              padding: 1rem 2rem;
+              margin: 0 2rem;
+            }
+
+            @include responsive(mediumphone) {
+              display: block;
+            }
+          }
+
+          .active {
+            color: $primary-color;
+            border-bottom: 2px solid $primary-color;
+          }
+        }
+
+        // gallery section
+        .gallery-wrapper {
+          display: flex;
+          width: 100%;
+          margin: 2rem auto 0;
+          flex-wrap: wrap;
+
+          .gallery-box {
+            width: calc(50% - 2rem);
+            margin: 1rem;
+            position: relative;
+
+            @include responsive(bigphone) {
+              width: calc(33% - 2rem);
+            }
+
+            @include responsive(mediumphone) {
+              width: calc(50% - 2rem);
+            }
+
+            @include responsive(smallestphone) {
+              width: calc(100% - 2rem);
+            }
+
+            img {
+              width: 100%;
+            }
+
+            .playicon {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+
+              a {
+                color: $white-color;
+
+                &:hover {
+                  color: $primary-color;
+                }
+
+                mat-icon {
+                  font-size: 8rem;
+                  height: 8rem;
+                  width: 8rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//For Gallery
+div.gallery {
+  margin: 5px;
+  border: 1px solid #ccc;
+  float: left;
+  width: 180px;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}

@@ -1,0 +1,40 @@
+<div class="from-container">
+  <form [formGroup]="createPostForm">
+    <div class="header">
+      <div class="title"></div>
+      <div class="close">
+        <mat-icon mat-dialog-close class="material-icons">close</mat-icon>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="form-block">
+        <p style="font-size: 18px; letter-spacing: 1px;">
+          Welcome! Please click on the "?" icon highlighted in orange at the top
+          black coloured bar
+        </p>
+
+        <p style="font-size: 18px; letter-spacing: 1px;">
+          This will help you understand how to use the platform and create your
+          digital football Identity on YFTChain
+        </p>
+
+        <h4>
+          All the best!
+        </h4>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div>
+        <a href="/user-guide" style="border:none"
+          ><button
+            mat-dialog-close
+            class="btn btn-secondary "
+            onclick="openLink()"
+          >
+            Explore
+          </button></a
+        >
+      </div>
+    </div>
+  </form>
+</div>

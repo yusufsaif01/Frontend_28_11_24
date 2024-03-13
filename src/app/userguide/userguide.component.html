@@ -1,0 +1,88 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel" [ngClass]="{ show: sidebar, hide: !sidebar }">
+    <app-left-panel [userId]="userId" [options]="panelOptions">
+    </app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main">
+        <!-- heading -->
+        <div class="heading">
+          <h2>Gallery</h2>
+        </div>
+
+        <!-- gallery section -->
+
+        <div class="gallery-wrapper">
+          <ng-container>
+            <div class="gallery-box">
+              <h2>How to showcase or get scouted by top academies/clubs?</h2>
+              <br /><br />
+              <iframe
+                width="85%"
+                height="400px"
+                src="https://www.youtube.com/embed/jQEa6rigN4Q"
+              >
+              </iframe>
+            </div>
+
+            <div class="gallery-box">
+              <h2>
+                How to create your personal and professional player profile?
+              </h2>
+              <br /><br />
+              <iframe
+                width="85%"
+                height="400px"
+                src="https://www.youtube.com/embed/jQEa6rigN4Q"
+              >
+              </iframe>
+            </div>
+
+            <div class="gallery-box">
+              <h2>
+                How to access your football skills, training and match videos
+              </h2>
+              <br /><br />
+              <iframe
+                width="85%"
+                height="400px"
+                src="https://www.youtube.com/embed/jQEa6rigN4Q"
+              >
+              </iframe>
+            </div>
+            <div class="gallery-box">
+              <h2>Showcase your awards and certificates on</h2>
+              <br /><br />
+              <iframe
+                width="85%"
+                height="400px"
+                src="https://www.youtube.com/embed/jQEa6rigN4Q"
+              >
+              </iframe>
+            </div>
+            <div class="gallery-box">
+              <h2>Introduction to Football Report cards on YFTChain</h2>
+              <br /><br />
+              <iframe
+                width="85%"
+                height="400px"
+                src="https://www.youtube.com/embed/jQEa6rigN4Q"
+              >
+              </iframe>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
+  </div>
+</div>
+
+<!-- toogle mobile btn -->
+<span class="toggle-btn" (click)="sidebar = !sidebar">
+  <mat-icon class=" material-icons">menu_open</mat-icon>
+</span>

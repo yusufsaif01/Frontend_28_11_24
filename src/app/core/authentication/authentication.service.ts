@@ -13,7 +13,8 @@ const routes = {
   changePasssword: (c: ChangePasswordContext) => '/change-password',
   forgotPassword: (c: ForgotPasswordContext) => '/forgot-password',
   createPassword: (c: ResetPasswordContext) => '/create-password',
-  emailVerification: () => '/activate',
+  emailVerification: () =>
+    'http://yftchain.local/registration/in/activateemail',
   resetLinkStatus: () => '/link/status',
   accessTokenRequest: (c: AccessTokenRequestContext) => '/access-token/request',
   accessTokenVerification: (c: AccessTokenVerificationContext) =>

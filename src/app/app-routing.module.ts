@@ -15,6 +15,7 @@ import { TermandconditionComponent } from './termandcondition/termandcondition.c
 import { CommunityGuidelinesComponent } from './community-guidelines/community-guidelines.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
+import { UserguideComponent } from './userguide/userguide.component';
 const routes: Routes = [
   {
     path: '',
@@ -126,6 +127,11 @@ const routes: Routes = [
     path: 'about-us',
     component: AboutUsComponent,
     data: { title: extract('About') }
+  },
+  {
+    path: 'user-guide',
+    component: UserguideComponent,
+    data: { title: extract('User Guide') }
   },
   {
     path: 'cookie-policy',

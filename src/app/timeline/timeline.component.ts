@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '@env/environment';
 import { MatDialog } from '@angular/material/dialog';
 import { PostPopupComponent } from '@app/timeline/post-popup/post-popup.component';
+import { MsgPopupComponent } from '@app/timeline/msg-popup/msg-popup.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { TimelineService } from './timeline.service';
@@ -241,8 +242,26 @@ export class TimelineComponent implements OnInit, OnDestroy {
     });
   }
 
+  openDialogformsg(): void {
+    const dialogRef = this.dialog.open(MsgPopupComponent, {
+      panelClass: 'postpopup'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'success') {
+        this.getPostListing();
+      }
+    });
+  }
+
   ngOnInit() {
+    const check = localStorage.getItem('first_time');
     this.getPostListing();
+    if (check == 'true') {
+      this.openDialogformsg();
+      localStorage.removeItem('first_time');
+    }
+
     //this.getPlayerList(this.pageSize, 1);
     this.userId = localStorage.getItem('user_id');
     this.avatar_url = localStorage.getItem('avatar_url');

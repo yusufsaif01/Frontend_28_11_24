@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService, untilDestroyed } from '@app/core';
 import { ToastrService } from 'ngx-toastr';
 import { Constants } from '@app/shared/static-data/static-data';
-
+import { MatDialog } from '@angular/material/dialog';
+import { GuideComponent } from '@app/guide/guide.component';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -21,6 +22,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   // isTermsAccepted: boolean = false;
 
   constructor(
+    public dialog: MatDialog,
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
     private _toastrService: ToastrService
@@ -93,7 +95,16 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.typeArray = this.playerType;
     }
   }
+  openDialogformsg(): void {
+    const dialogRef = this.dialog.open(GuideComponent, {
+      panelClass: 'postpopup'
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'success') {
+      }
+    });
+  }
   resetFormFields() {
     this.registrationForm.reset();
     this.tooltip = '';
@@ -107,6 +118,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   register() {
     let form_data = this.registrationForm.value;
+    console.log('-----------------------');
+    console.log(this.registrationForm.value);
     form_data.member_type = this.activeForm;
     if (this.activeForm === 'club' || this.activeForm === 'academy') {
       delete form_data.first_name;
@@ -123,8 +136,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         credentials => {
-          this._toastrService.success('Success', 'Registered');
           this.resetFormFields();
+          this.openDialogformsg();
         },
         error => {
           this._toastrService.error(`${error.error.message}`, 'Failed');
@@ -156,6 +169,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       first_name: [''],
       last_name: [''],
       email: ['', [Validators.required, Validators.email]],
+      country_code: [''],
       phone: [
         '',
         [

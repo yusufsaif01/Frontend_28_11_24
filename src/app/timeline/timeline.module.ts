@@ -7,12 +7,14 @@ import { PostPopupComponent } from './post-popup/post-popup.component';
 import { TimelineRoutingModule } from './timeline-routing.module';
 import { AdsenseModule } from 'ng2-adsense';
 import { PlayerSuggestionComponent } from './player-suggestion/player-suggestion.component';
+import { MsgPopupComponent } from './msg-popup/msg-popup.component';
 
 @NgModule({
   declarations: [
     TimelineComponent,
     PostPopupComponent,
-    PlayerSuggestionComponent
+    PlayerSuggestionComponent,
+    MsgPopupComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +25,6 @@ import { PlayerSuggestionComponent } from './player-suggestion/player-suggestion
       adClient: 'ca-pub-8133526594590676'
     })
   ],
-  entryComponents: [PostPopupComponent]
+  entryComponents: [PostPopupComponent, MsgPopupComponent]
 })
 export class TimelineModule {}

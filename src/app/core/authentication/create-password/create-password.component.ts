@@ -39,7 +39,10 @@ export class CreatePasswordComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
+          console.log('response recived is');
+          console.log(response);
           if (response.status === 'success') {
+            console.log('inside response success ===>');
             this.isLinkExpired = true;
             this._toastrService.success(
               'Success',
