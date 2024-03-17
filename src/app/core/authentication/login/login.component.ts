@@ -72,7 +72,10 @@ export class LoginComponent implements OnInit, OnDestroy {
               { replaceUrl: true }
             );
           }
-          localStorage.setItem('first_time', 'true');
+          if (credentials.data.role == 'player') {
+            localStorage.setItem('first_time', 'true');
+          }
+
           localStorage.setItem('user_id', credentials.data.user_id);
           localStorage.setItem('token', credentials.data.token);
           localStorage.setItem('member_type', credentials.data.member_type);
