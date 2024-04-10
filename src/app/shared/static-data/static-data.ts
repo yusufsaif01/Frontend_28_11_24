@@ -375,6 +375,11 @@ export abstract class Constants {
     { name: 'Amateur', value: 'amateur' },
     { name: 'Professional', value: 'professional' }
   ];
+  static readonly coache_TYPE: any[] = [
+    { name: 'Grassroot', value: 'grassroot' },
+    { name: 'Amateur', value: 'amateur' },
+    { name: 'Professional', value: 'professional' }
+  ];
   static readonly CLUB_ACADEMY_TYPE: any[] = [
     { name: 'Residential', value: 'Residential' },
     { name: 'Non-Residential', value: 'Non-Residential' }

@@ -44,9 +44,111 @@
             >
               Academy
             </mat-radio-button>
+            <!-- <mat-radio-button (click)="toggleForm('coache')" class="example-radio-button" value="coache">
+                Coache
+              </mat-radio-button>
+              -->
           </mat-radio-group>
         </div>
         <div class="form-group" *ngIf="activeForm === 'player'">
+          <div class="half">
+            <div class="form-block">
+              <label>First name </label>
+              <input
+                formControlName="first_name"
+                type="text"
+                matInput
+                placeholder="First name"
+                required
+                trim="blur"
+                [ngClass]="{
+                  'error-input':
+                    registrationForm.controls.first_name.invalid &&
+                    registrationForm.controls.first_name.touched &&
+                    (registrationForm.controls.first_name.errors.required ||
+                      registrationForm.controls.first_name.errors.email)
+                }"
+              />
+              <ng-container
+                *ngIf="
+                  registrationForm.controls.first_name.invalid &&
+                  registrationForm.controls.first_name.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="registrationForm.controls.first_name.errors.required"
+                >
+                  First name is required
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    !registrationForm.controls.first_name.errors.required &&
+                    registrationForm.controls.first_name.errors.pattern
+                  "
+                >
+                  First name is invalid
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    !registrationForm.controls.first_name.errors.required &&
+                    !registrationForm.controls.first_name.errors.pattern &&
+                    registrationForm.controls.first_name.errors.maxlength
+                  "
+                >
+                  First name cannot exceed 25 characters
+                </mat-error>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="half">
+            <div class="form-block">
+              <label>Last name </label>
+              <input
+                formControlName="last_name"
+                type="text"
+                matInput
+                placeholder="Last name"
+                required
+                trim="blur"
+                [ngClass]="{
+                  'error-input':
+                    registrationForm.controls.last_name.invalid &&
+                    registrationForm.controls.last_name.touched &&
+                    (registrationForm.controls.last_name.errors.required ||
+                      registrationForm.controls.last_name.errors.email)
+                }"
+              />
+              <ng-container
+                *ngIf="
+                  registrationForm.controls.last_name.invalid &&
+                  registrationForm.controls.last_name.touched
+                "
+              >
+                <mat-error
+                  class="error-text"
+                  *ngIf="registrationForm.controls.last_name.errors.required"
+                >
+                  Last name is required
+                </mat-error>
+                <mat-error
+                  class="error-text"
+                  *ngIf="
+                    !registrationForm.controls.last_name.errors.required &&
+                    registrationForm.controls.last_name.errors.pattern
+                  "
+                >
+                  Last name is invalid
+                </mat-error>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="activeForm === 'coache'">
           <div class="half">
             <div class="form-block">
               <label>First name </label>
@@ -283,11 +385,13 @@
           </ng-container>
         </div>
         <div class="form-block">
-          <label>Contact no. (Optional)</label>
+          <label>Contact no.</label>
           <div class="phone-block">
-            <div class="country-code">
-              <select disabled>
-                <option>+91</option>
+            <div class="country_code" id="country_code">
+              <select name="country_code" formControlName="country_code">
+                <option value="+91">+91</option>
+                <option value="+1">+1</option>
+                <option value="+85">+85</option>
               </select>
             </div>
             <div class="phone-number">
@@ -352,6 +456,39 @@
         </div>
 
         <div class="form-block" *ngIf="activeForm === 'player'">
+          <label>Date of birth </label>
+          <div class="date">
+            <input
+              formControlName="dob"
+              matInput
+              [matDatepicker]="picker"
+              placeholder="Date of birth"
+              readonly
+              [max]="maxDate"
+            />
+
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error
+              class="error-text"
+              *ngIf="
+                registrationForm.controls.dob.invalid &&
+                registrationForm.controls.dob.touched
+              "
+            >
+              <span
+                *ngIf="registrationForm.controls.dob.errors.required"
+                translate
+                >Date of Birth is required</span
+              >
+            </mat-error>
+          </div>
+        </div>
+
+        <div class="form-block" *ngIf="activeForm === 'coache'">
           <label>Date of birth </label>
           <div class="date">
             <input

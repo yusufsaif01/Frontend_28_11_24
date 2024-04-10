@@ -262,6 +262,8 @@ export class PersonalDetailsComponent implements OnInit {
           //   'Successful',
           //   'Data retrieved successfully'
           // );
+          console.log('data in response');
+          console.log(response.data);
           this.profile = response.data;
           this.profile_status = this.profile.profile_status.status;
           this.player_type = this.profile.player_type;

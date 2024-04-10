@@ -87,10 +87,14 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.publicProfileData = response.data;
+          console.log('in front =====>');
+          console.log(response.data);
           this.setAvatar();
           this.is_following = this.publicProfileData.is_followed;
           this.is_footmate = this.publicProfileData.footmate_status;
           this.data = { ...this.data, ...this.publicProfileData };
+          console.log('this is my data');
+          console.log(this.data);
         },
         error => {
           this._toastrService.error('Error', error.error.message);

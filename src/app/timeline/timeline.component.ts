@@ -86,6 +86,12 @@ interface CommentContext {
   commented_at: string;
 }
 
+interface attendaceContext {
+  user_id: string;
+  lat: number;
+  long: number;
+}
+
 interface PlayerListingContext {
   name: string;
   email: string;
@@ -108,6 +114,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   environment = environment;
   postListing: PostContext[] = [];
   //playerListing:PlayerListingContext[]=[];
+
   pageNo: number = 1;
   pageSize: number = 5;
   panelOptions: Partial<PanelOptions> = {
@@ -306,6 +313,38 @@ export class TimelineComponent implements OnInit, OnDestroy {
       );
   }
 
+  markAttendance(post: attendaceContext) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position: Position) => {
+        if (position) {
+          const lat = position.coords.latitude;
+          const long = position.coords.longitude;
+          const user_id = localStorage.getItem('user_id');
+          console.log(user_id);
+          console.log(lat);
+          console.log(long);
+
+          this._timelineService
+            .getAttendance({
+              user_id: user_id,
+              lat: lat,
+              long: long
+            })
+            .pipe(untilDestroyed(this))
+            .subscribe(
+              response => {
+                console.log(response);
+              },
+              error => {
+                this._toastrService.error('Error', error.error.message);
+              }
+            );
+        }
+      });
+    } else {
+      alert('Geolocation is not supported by this browser.');
+    }
+  }
   toggleLike(post: PostContext) {
     if (post.is_liked) {
       post.like$ = this._timelineService.unlikePost({ post_id: post.id }).pipe(

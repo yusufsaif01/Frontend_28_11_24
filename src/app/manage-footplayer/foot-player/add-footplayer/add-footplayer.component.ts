@@ -218,6 +218,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
   }
 
   setValidators() {
+    const name = this.findPlayerForm.get('name');
     const phone = this.findPlayerForm.get('phone');
     const email = this.findPlayerForm.get('email');
 
@@ -259,7 +260,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.findPlayerForm = this._formBuilder.group({
-      first_name: [''],
+      name: [''],
       email: [''],
       phone: ['']
     });

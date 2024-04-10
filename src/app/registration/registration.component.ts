@@ -15,6 +15,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   tooltip: string = '';
   typeArray: any[] = [];
   playerType: any[] = Constants.PLAYER_TYPE;
+  coacheType: any[] = Constants.PLAYER_TYPE;
   clubAcademyType: any[] = Constants.CLUB_ACADEMY_TYPE;
   registrationForm: FormGroup;
   // today = new Date();
@@ -90,7 +91,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.setClubAcademyValidators();
       this.typeArray = this.clubAcademyType;
     }
-    if (this.activeForm === 'player') {
+    if (this.activeForm === 'player' || this.activeForm === 'coache') {
       this.setPlayerValidators();
       this.typeArray = this.playerType;
     }
@@ -126,7 +127,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       delete form_data.last_name;
       delete form_data.dob;
     }
-    if (this.activeForm === 'player') {
+    if (this.activeForm === 'player' || this.activeForm === 'coache') {
       delete form_data.name;
       delete form_data.type;
     }

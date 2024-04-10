@@ -9,6 +9,7 @@ const routes = {
   unlikePost: (params: string) => `/post/${params}/dislike`,
   createPost: () => `/post/add`,
   getPostListing: (query: string) => `/posts/list${query}`,
+  getAttendance: (query: string) => `/attendance/status${query}`,
   updatePost: (post_id: string) => `/post/${post_id}`,
   deletePost: (post_id: string) => `/post/${post_id}`,
   getCommentListing: (params: string, query: string) =>
@@ -33,6 +34,21 @@ interface GetCommentListingContext {
   post_id: string;
   page_no?: number;
   page_size?: number;
+}
+
+interface GetAttendanceListingContext {
+  user_id: string;
+  lat: number;
+  long: number;
+}
+
+interface GetAttendanceListingResponseContext {
+  status: string;
+  message: string;
+  data: {
+    mark: string;
+    suggestion: string;
+  };
 }
 
 interface GetCommentListingResponseContext {
@@ -130,6 +146,11 @@ interface CommonResponseContext {
 interface AddCommentContext {
   post_id: string;
   comment: string;
+}
+interface attendaceContext {
+  user_id: string;
+  lat: number;
+  long: number;
 }
 interface SendFootMate {
   to: string;
@@ -244,6 +265,28 @@ export class TimelineService {
 
     return this.httpClient.get<GetCommentListingResponseContext>(
       routes.getCommentListing(params, query)
+    );
+  }
+
+  getAttendance(
+    context: GetAttendanceListingContext
+  ): Observable<GetAttendanceListingResponseContext> {
+    console.log('inside getAttendance 1111111');
+    let query = '?';
+    if (context['user_id']) {
+      query += 'user_id=' + context['user_id'];
+    }
+
+    if (context['lat']) {
+      query += '&lat=' + context['lat'];
+    }
+
+    if (context['long']) {
+      query += '&long=' + context['long'];
+    }
+
+    return this.httpClient.get<GetAttendanceListingResponseContext>(
+      routes.getAttendance(query)
     );
   }
 

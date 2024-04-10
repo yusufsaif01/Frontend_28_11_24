@@ -132,7 +132,7 @@
             <h4>Email</h4>
           </div>
           <div class="right">
-            <p class="email">{{ profile?.email }}</p>
+            <p class="email">{{ profile.email }}</p>
           </div>
         </div>
         <ng-container *ngIf="member_type === 'player'">
@@ -224,7 +224,7 @@
             <h4>Country</h4>
           </div>
           <div class="right">
-            <p>{{ profile?.country?.name }}</p>
+            <p>{{ profile?.country }}</p>
           </div>
         </div>
       </div>
@@ -235,7 +235,7 @@
             <h4>State / UT</h4>
           </div>
           <div class="right">
-            <p>{{ profile?.state?.name }}</p>
+            <p>{{ profile?.state }}</p>
           </div>
         </div>
       </div>
@@ -246,7 +246,7 @@
             <h4>District</h4>
           </div>
           <div class="right">
-            <p>{{ profile?.district?.name }}</p>
+            <p>{{ profile?.district }}</p>
           </div>
         </div>
       </div>
