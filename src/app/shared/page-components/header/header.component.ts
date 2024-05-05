@@ -43,6 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public isFootplayerActive: boolean = true;
   @Input() public avatar_url: string = localStorage.getItem('avatar_url');
   public member_type: string = localStorage.getItem('member_type');
+
   memberList: MemberListContext[] = [];
   searchText: string = '';
   tempSearchText: string = '';
@@ -73,6 +74,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   ngOnInit() {
+    console.log(this.member_type);
     this.searchInit();
     this.getConnectionStats();
   }

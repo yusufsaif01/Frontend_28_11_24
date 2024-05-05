@@ -55,7 +55,6 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   contact_person: FormArray;
   trophies: FormArray;
   top_signings: FormArray;
-
   environment = environment;
   positionArray: GetPositionListResponseContext['data']['records'];
   strongFootArray = Constants.STRONG_FOOT;
@@ -63,6 +62,10 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   clubAcadTypeArray = Constants.CLUB_ACAD_TYPE_ARRAY;
   stateAssociationArray = Constants.STATE_ASSOCIATION_ARRAY;
   leagueArray = Constants.LEAGUE_ARRAY;
+  coach_role_array = Constants.COACH_ROLE_ARRAY;
+  area_of_specialization_Array = Constants.AREA_OF_SPECIALIZATION;
+  lanuage_spoken_Array = Constants.LANGUAGE_SPOKEN_ARRAY;
+  preferred_traning_style_Array = Constants.preferred_traning_style_Array;
   professionalDetailsForm: FormGroup;
   professionalDetails: GetProfessionalDetailsResponseContext['data'];
   member_type: string = localStorage.getItem('member_type');
@@ -80,7 +83,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   clearFormArray() {
-    if (this.member_type === 'player') {
+    if (this.member_type === 'player' || this.member_type === 'coache') {
       this.position.clear();
     } else {
       this.contact_person.clear();
@@ -154,7 +157,10 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
         response => {
           this.professionalDetails = response.data;
           this.populateFormFields();
-          if (this.professionalDetails.member_type === 'player') {
+          if (
+            this.professionalDetails.member_type === 'player' ||
+            this.professionalDetails.member_type === 'coache'
+          ) {
             this.getPositionList();
             this.populateDynamicPosition();
           }
@@ -188,7 +194,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   populateFormFields() {
-    if (this.member_type === 'player') {
+    if (this.member_type === 'player' || this.member_type === 'coache') {
       if (this.professionalDetails.associated_club_academy === 'yes')
         this.professionalDetailsForm
           .get('associated_club_academy')
@@ -223,6 +229,31 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
         : '',
       league: this.professionalDetails.league
         ? this.professionalDetails.league
+        : '',
+      current_role: this.professionalDetails.current_role
+        ? this.professionalDetails.current_role
+        : '',
+      year_of_exp: this.professionalDetails.year_of_exp
+        ? this.professionalDetails.year_of_exp
+        : '',
+      coache_certificate: this.professionalDetails.coache_certificate
+        ? this.professionalDetails.coache_certificate
+        : '',
+      area_of_spec: this.professionalDetails.area_of_spec
+        ? this.professionalDetails.area_of_spec
+        : '',
+      coaching_philo: this.professionalDetails.coaching_philo
+        ? this.professionalDetails.coaching_philo
+        : '',
+      language: this.professionalDetails.language
+        ? this.professionalDetails.language
+        : '',
+      traning_style: this.professionalDetails.traning_style
+        ? this.professionalDetails.traning_style
+        : '',
+
+      academy_name: this.professionalDetails.academy_name
+        ? this.professionalDetails.academy_name
         : '',
       type: this.professionalDetails.type ? this.professionalDetails.type : '',
       league_other: this.professionalDetails.league_other
@@ -287,7 +318,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   createForm() {
-    if (this.member_type === 'player') {
+    if (this.member_type === 'player' || this.member_type === 'coache') {
       this.professionalDetailsForm = this._formBuilder.group({
         position: this._formBuilder.array([]),
         strong_foot: [''],
@@ -296,7 +327,13 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
         head_coach_name: [''],
         head_coach_phone: [''],
         head_coach_email: [''],
-        former_club_academy: ['']
+        former_club_academy: [''],
+        current_role: [''],
+        year_of_exp: [''],
+        academy_name: [''],
+        coache_certificate: [''],
+        area_of_spec: [''],
+        coaching_philo: ['']
       });
     } else if (this.member_type !== 'player') {
       this.professionalDetailsForm = this._formBuilder.group({
@@ -373,7 +410,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   setCategoryValidators() {
-    if (this.member_type === 'player') {
+    if (this.member_type === 'player' || this.member_type === 'coache') {
       this.setPlayerValidators();
     } else if (this.member_type === 'club') {
       this.checkRequiredValidator(
@@ -421,8 +458,10 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
 
   editProfessionalDetails() {
     let requestData = this.toFormData(this.professionalDetailsForm.value);
-
-    if (this.member_type === 'player') {
+    console.log('request data is ==========>');
+    console.log(requestData);
+    if (this.member_type === 'player' || this.member_type === 'coache') {
+      console.log('inside this.member_typeeeeee');
       this.setRequestDataObject(requestData, 'position');
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
       this.setRequestDataObject(requestData, 'contact_person');

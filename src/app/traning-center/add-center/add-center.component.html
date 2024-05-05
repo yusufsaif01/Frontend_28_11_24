@@ -1,0 +1,261 @@
+<div class="from-container" [hidden]="editMode">
+  <div class="header">
+    <div class="title">
+      <h2>Create Traning Center</h2>
+    </div>
+    <div class="close">
+      <mat-icon mat-dialog-close class="material-icons">close</mat-icon>
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <!-- form section -->
+    <form (ngSubmit)="create_center()" [formGroup]="create_registration_Form">
+      <div class="form-wrapper">
+        <!-- First Name  -->
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label
+              >Center Name
+              <span>*</span>
+            </label>
+            <input
+              formControlName="traning_center_name"
+              type="text"
+              matInput
+              placeholder="Traning Center Name"
+              autocomplete="off"
+              trim="blur"
+            />
+
+            <mat-error
+              class="error-text"
+              *ngIf="
+                create_registration_Form.controls.traning_center_name.invalid &&
+                create_registration_Form.controls.traning_center_name.touched
+              "
+            >
+              <span
+                *ngIf="
+                  create_registration_Form.controls.traning_center_name.errors
+                    .required
+                "
+                translate
+                >Center name is required</span
+              >
+              <span
+                *ngIf="
+                  !create_registration_Form.controls.traning_center_name.errors
+                    .required &&
+                  create_registration_Form.controls.traning_center_name.errors
+                    .pattern
+                "
+                translate
+                >Center name is invalid</span
+              >
+            </mat-error>
+          </div>
+        </div>
+
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label>Start Time<span>*</span></label>
+            <div class="phone-block">
+              <div class="phone-number">
+                <input
+                  formControlName="start_time"
+                  type="time"
+                  matInput
+                  placeholder="Phone number"
+                  autocomplete="off"
+                  trim="blur"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label>End Time<span>*</span></label>
+            <div class="phone-block">
+              <div class="phone-number">
+                <input
+                  formControlName="end_time"
+                  type="time"
+                  matInput
+                  placeholder="End Time"
+                  autocomplete="off"
+                  trim="blur"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-wrapper">
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label>Pincode <span>*</span></label>
+            <input
+              formControlName="pincode"
+              type="text"
+              matInput
+              placeholder="pincode"
+              autocomplete="off"
+              trim="blur"
+            />
+            <mat-error
+              class="error-text"
+              *ngIf="
+                create_registration_Form.controls.pincode.invalid &&
+                create_registration_Form.controls.pincode.touched
+              "
+            >
+              <span
+                *ngIf="
+                  create_registration_Form.controls.pincode.errors.required
+                "
+                translate
+                >Pincode / Zipcode is required</span
+              >
+              <span
+                *ngIf="
+                  create_registration_Form.controls.pincode.errors &&
+                  create_registration_Form.controls.pincode.errors.pattern
+                "
+              >
+                Pincode / Zipcode format is invalid
+              </span>
+            </mat-error>
+          </div>
+        </div>
+
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label>Coache Name<span>*</span></label>
+            <select formControlName="coache_name" matNativeControl required>
+              <option value="">Select Coach </option>
+              <ng-container *ngFor="let coache of coachArray">
+                <option value="{{ coache }}">{{ coache }}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label>Opening Days <span>*</span></label>
+
+            <ng-multiselect-dropdown
+              formControlName="opening_days"
+              [placeholder]="'Opening Days'"
+              [data]="dropdownList"
+              [(ngModel)]="selectedItems"
+              [settings]="dropdownSettings"
+              (onSelect)="onItemSelect($event)"
+              (onSelectAll)="onSelectAll($event)"
+            >
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-wrapper">
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label>Country <span>*</span></label>
+            <select
+              formControlName="country"
+              (change)="onSelectCountry($event)"
+            >
+              <option value="">Select nationality</option>
+              <ng-container *ngFor="let country of countryArray">
+                <option value="{{ country.country_id }}">{{
+                  country.country
+                }}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label>State / UT <span>*</span></label>
+            <select formControlName="state" (change)="onSelectState($event)">
+              <option value="">Select state / UT </option>
+              <ng-container *ngFor="let state of stateArray">
+                <option value="{{ state.id }}">{{ state.name }}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label>District <span>*</span></label>
+            <select formControlName="district">
+              <option value="">Select district</option>
+              <ng-container *ngFor="let district of districtArray">
+                <option value="{{ district.id }}">{{ district.name }}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-wrapper">
+        <div class="input-wrapper1">
+          <div class="form-block">
+            <label>Full Address <span>*</span></label>
+            <input
+              formControlName="full_address"
+              type="textarea"
+              matInput
+              placeholder="Full Address"
+              autocomplete="off"
+              trim="blur"
+            />
+            <mat-error
+              class="error-text"
+              *ngIf="
+                create_registration_Form.controls.full_address.invalid &&
+                create_registration_Form.controls.full_address.touched
+              "
+            >
+              <span
+                *ngIf="
+                  create_registration_Form.controls.full_address.errors.required
+                "
+                translate
+                >Address is required</span
+              >
+              <span
+                *ngIf="
+                  !create_registration_Form.controls.full_address.errors
+                    .required &&
+                  create_registration_Form.controls.full_address.errors.pattern
+                "
+                translate
+                >Address is invalid</span
+              >
+            </mat-error>
+          </div>
+        </div>
+      </div>
+
+      <!-- find button  -->
+      <div class="find-btn">
+        <button
+          class="btn btn-primary"
+          (click)="findPlayer()"
+          [disabled]="create_registration_Form.invalid"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -25,9 +25,11 @@
             [clubAcademyType]="clubAcademyType"
             *ngSwitchCase="'personal'"
           ></app-personal-details>
+
           <app-professional-details
             *ngSwitchCase="'professional'"
           ></app-professional-details>
+
           <app-documents *ngSwitchCase="'documents'"></app-documents>
           <app-employment-contracts
             *ngSwitchCase="'contracts'"

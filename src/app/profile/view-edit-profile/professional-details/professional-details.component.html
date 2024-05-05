@@ -174,7 +174,204 @@
       </ng-container>
     </ng-container>
 
-    <ng-container *ngIf="member_type !== 'player'">
+    <ng-container *ngIf="member_type === 'coache'">
+      <ng-container *ngIf="viewMode; else editMode">
+        <div class="heading">
+          <h2>Professional details</h2>
+
+          <button (click)="toggleMode()">
+            <mat-icon class="material-icons">create</mat-icon>
+          </button>
+        </div>
+
+        <div class="second-section">
+          <!-- row -->
+          <div class="section">
+            <h3 class="section-heading">
+              Current Role
+            </h3>
+            <div class="section-block">
+              <div
+                class="third"
+                *ngFor="let data of coach_role_array; let i = index"
+              >
+                <p>
+                  <span>{{ i + 1 }}.</span> {{ data.name }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-heading mb-0">
+              Academy/Club Name
+            </h3>
+            <div class="section-block">
+              <div class="full">
+                <div class="right">
+                  <p>{{ professionalDetails?.strong_foot | titlecase }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section mb-1">
+            <h3 class="section-heading mb-0">
+              Years of Coaching Experience
+            </h3>
+            <div class="section-block">
+              <div class="full">
+                <div class="right">
+                  <div class="stars">
+                    <ng-container *ngFor="let number of [1, 2, 3, 4, 5]">
+                      <ng-container
+                        *ngIf="number <= professionalDetails?.weak_foot"
+                      >
+                        <mat-icon class="material-icons active">
+                          star_border
+                        </mat-icon>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="number > professionalDetails?.weak_foot"
+                      >
+                        <mat-icon class="material-icons ">
+                          star_border
+                        </mat-icon>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-heading mb-0">
+              Coaching Certifications
+              {{
+                professionalDetails?.association === 'Others' ? '(Other)' : ''
+              }}
+            </h3>
+            <div class="section-block">
+              <div class="full">
+                <div class="right">
+                  <p>
+                    {{
+                      (professionalDetails?.association === 'Others'
+                        ? professionalDetails?.association_other
+                        : professionalDetails?.association
+                      ) | titlecase
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="section"
+            *ngIf="professionalDetails?.player_type !== 'grassroot'"
+          >
+            <h3 class="section-heading mb-0">Previous Coaching Experience</h3>
+            <div class="section-block">
+              <div class="full">
+                <div class="right">
+                  <p>
+                    {{ professionalDetails?.former_club_academy | titlecase }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="associated mt-2">
+            <h3>
+              Coaching Philosophy
+              <span>
+                {{ professionalDetails?.associated_club_academy | titlecase }}
+              </span>
+            </h3>
+          </div>
+
+          <div class="associated mt-2">
+            <h3>
+              Languages Spoken
+              <span>
+                {{ professionalDetails?.associated_club_academy | titlecase }}
+              </span>
+            </h3>
+          </div>
+
+          <div class="associated mt-2">
+            <h3>
+              Social Media Links
+              <span>
+                {{ professionalDetails?.associated_club_academy | titlecase }}
+              </span>
+            </h3>
+          </div>
+          <div class="associated mt-2">
+            <h3>
+              Preferred Training Style
+              <span>
+                {{ professionalDetails?.associated_club_academy | titlecase }}
+              </span>
+            </h3>
+          </div>
+          <ng-container
+            *ngIf="professionalDetails?.associated_club_academy === 'yes'"
+          >
+            <h3 class="mt-1 mb-1">Head coach details</h3>
+            <div class="view-details">
+              <div class="details">
+                <div class="left">
+                  <h4>Name</h4>
+                </div>
+                <div class="right">
+                  <p>
+                    {{
+                      professionalDetails?.club_academy_details?.head_coach_name
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="view-details">
+              <div class="details">
+                <div class="left">
+                  <h4>Mobile number</h4>
+                </div>
+                <div class="right">
+                  <p>
+                    {{
+                      professionalDetails?.club_academy_details
+                        ?.head_coach_phone
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="view-details">
+              <div class="details">
+                <div class="left">
+                  <h4>Email</h4>
+                </div>
+                <div class="right">
+                  <p class="email">
+                    {{
+                      professionalDetails?.club_academy_details
+                        ?.head_coach_email
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="member_type !== 'player' && member_type !== 'coache'">
       <ng-container *ngIf="viewMode; else editMode">
         <div class="heading">
           <h2>Professional details</h2>
@@ -384,6 +581,165 @@
 
     <!-- editwrapper -->
     <ng-template #editMode>
+      <div class="edit-wrapper" *ngIf="member_type === 'coache'">
+        <form [formGroup]="professionalDetailsForm">
+          <div class="heading">
+            <h2>Professional details</h2>
+          </div>
+
+          <div class="second-section">
+            <h3>Current Role</h3>
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <select
+                    formControlName="current_role"
+                    matNativeControl
+                    required
+                  >
+                    <option value="">Select Current Role</option>
+
+                    <option
+                      *ngFor="let data of coach_role_array"
+                      [value]="data.value"
+                    >
+                      {{ data.name }}</option
+                    >
+                  </select>
+                </div>
+              </div>
+            </div>
+            <h3>Academy/Club Name <span class="asterisk">*</span></h3>
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <input
+                    formControlName="academy_name"
+                    placeholder="Academy/Club Name"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+
+            <h3>Years of Coaching Experience</h3>
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <input
+                    formControlName="year_of_exp"
+                    placeholder="Years of Coaching Experience"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+
+            <h3>Coaching Certifications <span class="asterisk">*</span></h3>
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <input
+                    formControlName="coache_certificate"
+                    placeholder="Coaching Certifications"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <h3>Area of Specialization <span class="asterisk">*</span></h3>
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <select
+                    formControlName="area_of_spec"
+                    matNativeControl
+                    required
+                  >
+                    <option value="">Select Area of Specialization</option>
+
+                    <option
+                      *ngFor="let association of area_of_specialization_Array"
+                      [value]="association.value"
+                    >
+                      {{ association.name }}</option
+                    >
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <h3>Coaching Philosophy <span class="asterisk">*</span></h3>
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <input
+                    formControlName="coaching_philo"
+                    placeholder="Coaching Philosophy"
+                    type="textarea"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+
+            <h3>Languages Spoken <span class="asterisk">*</span></h3>
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <select formControlName="language" matNativeControl required>
+                    <option value="">Select association</option>
+
+                    <option
+                      *ngFor="let association of lanuage_spoken_Array"
+                      [value]="association.value"
+                    >
+                      {{ association.name }}</option
+                    >
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <h3>Preferred Training Style <span class="asterisk">*</span></h3>
+            <div class="input-container">
+              <div class="third">
+                <div class="form-block">
+                  <select
+                    formControlName="traning_style"
+                    matNativeControl
+                    required
+                  >
+                    <option value="">Select association</option>
+
+                    <option
+                      *ngFor="let association of preferred_traning_style_Array"
+                      [value]="association.value"
+                    >
+                      {{ association.name }}</option
+                    >
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="actions mt-2 mb-2">
+              <div class="btn-group">
+                <button (click)="toggleMode()" class="btn-normal">
+                  Cancel
+                </button>
+                <button (click)="editProfessionalDetails()" class="btn-active">
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
       <div class="edit-wrapper" *ngIf="member_type === 'player'">
         <form [formGroup]="professionalDetailsForm">
           <div class="heading">
@@ -594,10 +950,10 @@
                     <option value="">Select association</option>
 
                     <option
-                      *ngFor="let association of stateAssociationArray"
-                      [value]="association.value"
+                      *ngFor="let data of stateAssociationArray"
+                      [value]="data.value"
                     >
-                      {{ association.name }}</option
+                      {{ data.name }}</option
                     >
                   </select>
                   <mat-error
@@ -863,7 +1219,10 @@
           </div>
         </form>
       </div>
-      <div class="edit-wrapper" *ngIf="member_type !== 'player'">
+      <div
+        class="edit-wrapper"
+        *ngIf="member_type !== 'player' && member_type !== 'coache'"
+      >
         <form [formGroup]="professionalDetailsForm">
           <div class="heading">
             <h2>Professional details</h2>
@@ -1061,12 +1420,12 @@
 
           <!-- League -->
           <div class="section">
-            <h3>League</h3>
+            <h3>League <span>*</span></h3>
             <div class="input-container">
               <div class="fourth">
                 <div class="form-block">
-                  <label>League name</label>
-                  <select matNativeControl formControlName="league">
+                  <label>League name <span>*</span></label>
+                  <select matNativeControl formControlName="league" required>
                     <option value="">Select league name</option>
                     <ng-container *ngFor="let league of leagueArray">
                       <option value="{{ league.value }}">{{
@@ -1074,7 +1433,7 @@
                       }}</option>
                     </ng-container>
                   </select>
-                  <!--  <mat-error
+                  <mat-error
                     *ngIf="
                       professionalDetailsForm.controls.league.invalid &&
                       professionalDetailsForm.controls.league.touched
@@ -1088,7 +1447,7 @@
                       translate
                       >League is required</span
                     >
-                  </mat-error> -->
+                  </mat-error>
                 </div>
               </div>
 
@@ -1248,9 +1607,14 @@
                   <label>
                     <h3>
                       State association affiliated under
+                      <span>*</span>
                     </h3>
                   </label>
-                  <select matNativeControl formControlName="association">
+                  <select
+                    matNativeControl
+                    formControlName="association"
+                    required
+                  >
                     <option value="">Select association</option>
                     <ng-container
                       *ngFor="let association of stateAssociationArray"
@@ -1260,7 +1624,7 @@
                       }}</option>
                     </ng-container>
                   </select>
-                  <!--  <mat-error
+                  <mat-error
                     *ngIf="
                       professionalDetailsForm.controls.association.invalid &&
                       professionalDetailsForm.controls.association.touched
@@ -1275,7 +1639,7 @@
                       translate
                       >Association is required</span
                     >
-                  </mat-error> -->
+                  </mat-error>
                 </div>
               </div>
               <ng-container

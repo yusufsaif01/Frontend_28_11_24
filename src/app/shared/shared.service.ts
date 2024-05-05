@@ -7,6 +7,7 @@ const routes = {
     `/master/district/list/${countryID}/${stateID}`,
   getStatesList: (countryID: any) => `/master/state/list/${countryID}`,
   getLocationStats: () => `/master/location/stats`,
+  getCoacheList: (id: any) => `/coache/list/${id}`,
   getAbilityAttributeList: () =>
     '/master/player-specialization/ability-attribute/list'
 };
@@ -63,6 +64,12 @@ export class SharedService {
 
   getLocationStats(): Observable<any> {
     return this.httpClient.get<any>(routes.getLocationStats());
+  }
+
+  getCoacheList(id: any): Observable<any> {
+    console.log('iddd recived is ==>');
+    console.log(id);
+    return this.httpClient.get<any>(routes.getCoacheList(id));
   }
 
   setFilterDisplayValue(value: boolean) {

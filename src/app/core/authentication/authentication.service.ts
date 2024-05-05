@@ -9,6 +9,7 @@ const routes = {
   login: (c: LoginContext) => `/login`,
   logout: () => `/logout`,
   register: (c: RegisterContext) => '/register',
+  create_traning_center: (c: create_center) => '/create_traning_center',
   resetPassword: (c: ResetPasswordContext) => '/reset-password',
   changePasssword: (c: ChangePasswordContext) => '/change-password',
   forgotPassword: (c: ForgotPasswordContext) => '/forgot-password',
@@ -35,6 +36,17 @@ export interface RegisterContext {
   last_name?: string;
   name?: string;
   member_type?: string;
+}
+export interface create_center {
+  traning_center_name: string;
+  start_time: string;
+  end_time: string;
+  country: string;
+  state: string;
+  district: string;
+  full_address: string;
+  pincode: string;
+  coache_name: string;
 }
 export interface ForgotPasswordContext {
   email: string;
@@ -78,12 +90,17 @@ export class AuthenticationService {
     return this.httpClient.post(routes.register(context), context);
   }
 
+  create_traning_center(context: create_center): Observable<any> {
+    return this.httpClient.post(routes.create_traning_center(context), context);
+  }
+
   /**
    * Authenticates the user.
    * @param context The login parameters.
    * @return The user credentials.
    */
   login(context: LoginContext): Observable<any> {
+    console.log('login context is', context);
     // Replace by proper authentication call
     return this.httpClient.post(routes.login(context), context);
     // .pipe(

@@ -151,6 +151,80 @@ export abstract class Constants {
     }
   ];
 
+  static readonly COACH_ROLE_ARRAY = [
+    {
+      name: 'Head Coach',
+      value: 'Head Coach '
+    },
+    {
+      name: 'Assistant Coach',
+      value: 'Assistant Coach '
+    },
+    {
+      name: 'Technical Director',
+      value: 'Technical Director'
+    },
+    {
+      name: 'Other',
+      value: 'Other'
+    }
+  ];
+
+  static readonly AREA_OF_SPECIALIZATION = [
+    {
+      name: 'Tactical Analysis',
+      value: 'Tactical Analysis'
+    },
+    {
+      name: 'Player Development',
+      value: 'Player Development'
+    },
+    {
+      name: 'Strength and Conditioning',
+      value: 'Strength and Conditioning'
+    },
+    {
+      name: 'Other',
+      value: 'Other'
+    }
+  ];
+
+  static readonly LANGUAGE_SPOKEN_ARRAY = [
+    {
+      name: 'English',
+      value: 'English'
+    },
+    {
+      name: 'Hindi',
+      value: 'Hindi'
+    },
+
+    {
+      name: 'Other',
+      value: 'Other'
+    }
+  ];
+
+  static readonly preferred_traning_style_Array = [
+    {
+      name: 'Possession-based',
+      value: 'Possession-based'
+    },
+    {
+      name: 'High-pressing',
+      value: 'High-pressing'
+    },
+    {
+      name: 'Counter-attacking',
+      value: 'Counter-attacking'
+    },
+
+    {
+      name: 'Other',
+      value: 'Other'
+    }
+  ];
+
   static readonly CLUB_ACAD_TYPE_ARRAY = [
     {
       name: 'Residential',

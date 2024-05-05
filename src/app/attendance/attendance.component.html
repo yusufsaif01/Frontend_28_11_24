@@ -1,0 +1,101 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel" [ngClass]="{ show: sidebar, hide: !sidebar }">
+    <app-left-panel
+      [achievements]="total_count"
+      [options]="panelOptions"
+      [userId]="userId"
+      (sendMemberType)="getMemberType($event)"
+    >
+    </app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main mt-2">
+        <!-- award heading -->
+        <div class="heading">
+          <h2>Traning Center List</h2>
+          <button class="icon-btn" (click)="openFilter()">
+            <mat-icon class="material-icons">filter_alt</mat-icon>
+          </button>
+        </div>
+        <!-- search and popupbtn -->
+        <div class="search-section">
+          <div class="search-wrapper">
+            <app-grid-search-box
+              placeholder="Search"
+              (sendSearchText)="getSearchText($event)"
+            >
+            </app-grid-search-box>
+          </div>
+        </div>
+        <!-- table -->
+        <div class="table">
+          <app-table
+            [tableConfig]="tableConfig"
+            [NumberColumn]="'true'"
+            [rows]="dataSource"
+            [sortEnabled]="true"
+            [pageSize]="pageSize"
+            [TableActions]="ListAction"
+            [pageNo]="selectedPage"
+          >
+          </app-table>
+          <ng-template
+            #ListAction
+            let-id="id"
+            let-avatar="avatar"
+            let-category="category"
+            let-name="name"
+            let-position="position"
+            let-status="status"
+            let-email="email"
+            let-user_id="user_id"
+            let-profile_status="profile_status"
+            let-canAddContract="canAddContract"
+          >
+            <div
+              [matTooltip]="
+                profile_status !== 'verified' && status === 'added'
+                  ? 'This player is not verified'
+                  : ''
+              "
+            >
+              <div class="action-buttons">
+                <a
+                  routerLink="/member/mark-attendance"
+                  matTooltip="Mark Attendance"
+                >
+                  <mat-icon class="material-icons">add_circle</mat-icon>
+                </a>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <!-- Pagination -->
+        <app-pagination
+          *ngIf="dataSource.data.length !== 0"
+          [showData]="false"
+          [showCount]="show_count"
+          [totalRows]="total_count"
+          [rowsPerPage]="pageSize"
+          [selectedPage]="selectedPage"
+          (onChange)="updatePage($event)"
+        >
+        </app-pagination>
+      </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
+  </div>
+</div>
+<app-filter
+  [allowedFilters]="filtersList"
+  (filterChanges)="onChangeFilter($event)"
+></app-filter>
+
+<!-- toggle btn -->
+<span class="toggle-btn" (click)="sidebar = !sidebar">
+  <mat-icon class=" material-icons">menu_open</mat-icon>
+</span>

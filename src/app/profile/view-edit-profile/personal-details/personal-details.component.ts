@@ -30,7 +30,7 @@ let addressControl = {
 };
 
 export function dateFactory() {
-  return localStorage.getItem('member_type') === 'player'
+  return localStorage.getItem('member_type') === 'player' || 'coache'
     ? Constants.PROFILE_DATE_FORMATS.DOB
     : Constants.PROFILE_DATE_FORMATS.FOUNDED;
 }
@@ -148,7 +148,7 @@ export class PersonalDetailsComponent implements OnInit {
 
   createForm() {
     this.personalProfileDetailsForm = this._formBuilder.group({});
-    if (this.member_type === 'player') {
+    if (this.member_type === 'player' && 'coache') {
       this.personalProfileDetailsForm = this._formBuilder.group({
         email: [
           { value: '', disabled: true },
@@ -178,7 +178,7 @@ export class PersonalDetailsComponent implements OnInit {
             Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
           ]
         ],
-        dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
+        dob: [{ value: '', disabled: true }, [Validators.required]], //2020-04-14T18:30:00.000Z"
         height_feet: [
           '',
           [

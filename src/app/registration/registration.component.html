@@ -44,10 +44,13 @@
             >
               Academy
             </mat-radio-button>
-            <!-- <mat-radio-button (click)="toggleForm('coache')" class="example-radio-button" value="coache">
-                Coache
-              </mat-radio-button>
-              -->
+            <mat-radio-button
+              (click)="toggleForm('coache')"
+              class="example-radio-button"
+              value="coache"
+            >
+              Coache
+            </mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="form-group" *ngIf="activeForm === 'player'">

@@ -46,7 +46,7 @@ export class ViewEditProfileComponent implements OnInit {
 
   getMemberType(value: string) {
     this.renderComponents = this.components.filter(item => {
-      if (value !== 'player') return item.value !== 'contracts';
+      if (value !== 'player' || 'coache') return item.value !== 'contracts';
       return item.value;
     });
   }

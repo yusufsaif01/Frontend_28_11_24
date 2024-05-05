@@ -10,7 +10,7 @@ const appRoutes: Routes = [
     path: '',
     component: TimelineComponent,
     canActivate: [RoleGuardService, AuthenticationGuard],
-    data: { expectedRole: ['player', 'club', 'academy'] },
+    data: { expectedRole: ['player', 'club', 'academy', 'coache'] },
     children: [
       {
         path: '',

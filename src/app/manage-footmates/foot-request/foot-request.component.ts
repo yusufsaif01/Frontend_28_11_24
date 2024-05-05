@@ -61,6 +61,7 @@ export class FootRequestComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getFootRequestList(this.pageSize, 1);
     this.getConnectionStats({});
+    console.log('component hitsssss');
   }
 
   getFootRequestList(page_size: number, page_no: number) {
@@ -84,7 +85,7 @@ export class FootRequestComponent implements OnInit, OnDestroy {
 
   acceptRequest(request: RequestContext) {
     let requestData =
-      this.requested_by === 'player'
+      this.requested_by === 'player' || this.requested_by === 'coache'
         ? { request_id: request.request_id }
         : { user_id: request.user_id };
     this.footRequestService
@@ -101,7 +102,7 @@ export class FootRequestComponent implements OnInit, OnDestroy {
 
   rejectRequest(request: RequestContext) {
     let requestData =
-      this.requested_by === 'player'
+      this.requested_by === 'player' || 'coache'
         ? { request_id: request.request_id }
         : { user_id: request.user_id };
     this.footRequestService
@@ -159,6 +160,7 @@ export class FootRequestComponent implements OnInit, OnDestroy {
       case 'player':
         this.getFootRequestList(this.pageSize, page_no);
         break;
+
       case 'club':
         this.getFootPlayerRequestList(
           this.pageSize,

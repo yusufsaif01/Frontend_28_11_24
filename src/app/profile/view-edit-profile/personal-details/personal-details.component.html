@@ -13,14 +13,14 @@
           <img [src]="profile.avatar_url" alt="" />
         </div>
         <div class="details">
-          <ng-container *ngIf="member_type === 'player'">
+          <ng-container *ngIf="member_type === 'player' && 'coache'">
             <h2>
               {{ profile.first_name | capitalize }}
               {{ profile.last_name }}
             </h2>
             <p>{{ profile.player_type | titlecase }}</p>
           </ng-container>
-          <ng-container *ngIf="member_type !== 'player'">
+          <ng-container *ngIf="member_type !== 'player' && 'coache'">
             <h2>{{ profile?.name | capitalize }}</h2>
             <p>{{ profile?.short_name }}</p>
             <p>{{ (clubAcademyType ? clubAcademyType : '') | titlecase }}</p>
@@ -135,7 +135,7 @@
             <p class="email">{{ profile.email }}</p>
           </div>
         </div>
-        <ng-container *ngIf="member_type === 'player'">
+        <ng-container *ngIf="member_type === 'player' && 'coache'">
           <div class="details">
             <div class="left"></div>
             <div class="right"></div>
@@ -143,7 +143,7 @@
         </ng-container>
       </div>
 
-      <ng-container *ngIf="member_type === 'player'">
+      <ng-container *ngIf="member_type === 'player' && 'coache'">
         <div class="view-details">
           <div class="details">
             <div class="left">
@@ -159,7 +159,7 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="member_type !== 'player'">
+      <ng-container *ngIf="member_type !== 'player' && 'coache'">
         <div class="view-details">
           <div class="details">
             <div class="left">
@@ -182,14 +182,14 @@
         </div>
       </ng-container>
 
-      <ng-container *ngIf="member_type === 'player'">
+      <ng-container *ngIf="member_type === 'player' && 'coache'">
         <div class="view-details">
           <div class="details-full">
             <div class="left">
               <h4>D.O.B</h4>
             </div>
             <div class="right">
-              <p>{{ profile?.dob | date: 'MM-dd-yyyy' }}</p>
+              <p>{{ profile?.dob }}</p>
             </div>
           </div>
         </div>
@@ -205,7 +205,7 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="member_type !== 'player'">
+      <ng-container *ngIf="member_type !== 'player' && 'coache'">
         <div class="view-details">
           <div class="details-full">
             <div class="left">
@@ -251,18 +251,7 @@
         </div>
       </div>
 
-      <ng-container *ngIf="member_type === 'player'">
-        <div class="view-details">
-          <div class="details-full">
-            <div class="left">
-              <h4>School</h4>
-            </div>
-            <div class="right">
-              <p>{{ profile?.institute?.school }}</p>
-            </div>
-          </div>
-        </div>
-
+      <ng-container *ngIf="member_type === 'player' && 'coache'">
         <ng-container *ngIf="['amateur', 'professional'].includes(player_type)">
           <div class="view-details">
             <div class="details-full">
@@ -287,7 +276,7 @@
           </div>
         </ng-container>
       </ng-container>
-      <ng-container *ngIf="member_type !== 'player'">
+      <ng-container *ngIf="member_type !== 'player' && 'coache'">
         <div class="view-details">
           <div class="details">
             <div class="left">
@@ -329,7 +318,9 @@
         <h2>Personal details</h2>
       </div>
       <!-- player -->
-      <ng-container *ngIf="member_type == 'player'; else clubAcademyWrapper">
+      <ng-container
+        *ngIf="member_type == 'player' && 'coache'; else clubAcademyWrapper"
+      >
         <div class="seciton-wrapper">
           <div class="left-seciton">
             <div class="dp-wrapper">

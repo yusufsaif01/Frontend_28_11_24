@@ -1,0 +1,201 @@
+<div class="from-container">
+  <div class="header">
+    <div class="title">
+      <h2>Add new coache</h2>
+    </div>
+    <div class="close">
+      <mat-icon mat-dialog-close class="material-icons">close</mat-icon>
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <!-- form section -->
+    <form [formGroup]="findPlayerForm">
+      <div class="form-wrapper">
+        <!-- First Name  -->
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label
+              >Name
+              <!-- <span>*</span> -->
+            </label>
+            <input
+              formControlName="name"
+              type="text"
+              matInput
+              placeholder="Name"
+              autocomplete="off"
+              trim="blur"
+            />
+          </div>
+        </div>
+        <!-- Email  -->
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label>Email </label>
+            <input
+              formControlName="email"
+              type="email"
+              matInput
+              placeholder="Email"
+              autocomplete="off"
+            />
+            <mat-error
+              class="error-text"
+              *ngIf="
+                findPlayerForm.controls.email.invalid &&
+                findPlayerForm.controls.email.touched
+              "
+            >
+              <span
+                *ngIf="findPlayerForm.controls.email.errors.required"
+                translate
+                >Email is required
+              </span>
+              <span *ngIf="findPlayerForm.controls.email.errors.email" translate
+                >Email format is invalid
+              </span>
+            </mat-error>
+          </div>
+        </div>
+
+        <!-- phone number -->
+        <div class="input-wrapper">
+          <div class="form-block">
+            <label>Phone number<span>*</span></label>
+            <div class="phone-block">
+              <div class="country-code">
+                <select disabled>
+                  <option>+91</option>
+                </select>
+              </div>
+              <div class="phone-number">
+                <input
+                  formControlName="phone"
+                  type="text"
+                  matInput
+                  placeholder="Phone number"
+                  autocomplete="off"
+                  trim="blur"
+                />
+              </div>
+            </div>
+            <mat-error
+              class="error-text"
+              *ngIf="
+                findPlayerForm.controls.phone.invalid &&
+                findPlayerForm.controls.phone.touched
+              "
+            >
+              <span
+                *ngIf="findPlayerForm.controls.phone.errors.required"
+                translate
+                >Phone Number is required</span
+              >
+              <ng-template #lengthBlock>
+                <span
+                  translate
+                  *ngIf="findPlayerForm.controls.phone.errors.minlength"
+                >
+                  Please provide number upto
+                  {{
+                    findPlayerForm.controls.phone.errors.minlength
+                      .requiredLength
+                  }}
+                  digits
+                </span>
+                <span
+                  translate
+                  *ngIf="findPlayerForm.controls.phone.errors.maxlength"
+                >
+                  Please provide number upto
+                  {{
+                    findPlayerForm.controls.phone.errors.maxlength
+                      .requiredLength
+                  }}
+                  digits
+                </span>
+              </ng-template>
+              <span
+                *ngIf="
+                  findPlayerForm.controls.phone.errors.pattern;
+                  else lengthBlock
+                "
+                translate
+              >
+                Phone Number format is invalid
+              </span>
+            </mat-error>
+          </div>
+        </div>
+
+        <!-- find button  -->
+        <div class="find-btn">
+          <button class="btn btn-primary" (click)="findPlayer()">
+            Find
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Table on Data search -->
+    <div class="table">
+      <!-- table -->
+      <div *ngIf="dataSource.data.length" class="table-container">
+        <app-table
+          [tableConfig]="tableConfig"
+          [NumberColumn]="'true'"
+          [rows]="dataSource"
+          [sortEnabled]="true"
+          [pageSize]="pageSize"
+          [TableActions]="ListAction"
+          [pageNo]="selectedPage"
+        >
+        </app-table>
+        <ng-template
+          #ListAction
+          let-user_id="user_id"
+          let-avatar="avatar"
+          let-name="name"
+          let-member_type="member_type"
+          let-category="category"
+          let-position="position"
+          let-is_verified="is_verified"
+          let-club_name="club_name"
+          let-status="status"
+        >
+          <div
+            [matTooltip]="
+              getStateToolTip(is_verified, club_name, member_type, status)
+                .message
+            "
+            class="invite-btn"
+          >
+            <button
+              (click)="sendFootPlayerRequest(user_id)"
+              [ngClass]="{
+                'btn-disable': getStateToolTip(
+                  is_verified,
+                  club_name,
+                  member_type,
+                  status
+                ).state
+              }"
+              class="btn btn-primary"
+            >
+              {{ status === 'pending' ? 'Add request sent' : 'Add' }}
+            </button>
+          </div>
+        </ng-template>
+      </div>
+      <div *ngIf="totalRecordSubject$ | async" class="notonportal">
+        <div class="middle">
+          <h3>Player is not available on the YFTChain portal</h3>
+          <button class="btn-primary btn" (click)="sendFootPlayerInvite()">
+            Send invitation
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

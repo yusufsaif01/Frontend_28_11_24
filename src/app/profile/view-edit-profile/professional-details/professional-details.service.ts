@@ -63,10 +63,19 @@ export interface GetProfessionalDetailsResponseContext {
     top_players: { name: string }[];
     top_signings: { _id: string; name: string }[];
     league: string;
+    coache_role: string;
     league_other: string;
     type: string;
+    current_role: string;
     association: string;
     association_other: string;
+    academy_name: string;
+    year_of_exp: string;
+    coache_certificate: string;
+    area_of_spec: string;
+    coaching_philo: string;
+    language: string;
+    traning_style: string;
     profile_status: {
       status: string;
       remarks: string;

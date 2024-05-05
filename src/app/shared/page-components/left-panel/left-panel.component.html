@@ -9,20 +9,33 @@
     </div>
     <ng-container *ngIf="!options?.is_public">
       <div class="profile-name">
-        <h3 *ngIf="profile?.member_type === 'player'">
+        <h3
+          *ngIf="
+            profile?.member_type === 'player' ||
+            profile?.member_type === 'coache'
+          "
+        >
           {{ profile?.first_name | capitalize }} {{ profile?.last_name }}
         </h3>
-        <h3 *ngIf="profile?.member_type !== 'player'">
+        <h3 *ngIf="profile?.member_type !== 'player' || 'coache'">
           {{ profile?.name | capitalize }}
         </h3>
       </div>
     </ng-container>
     <ng-container *ngIf="options?.is_public">
       <div class="profile-name">
-        <h3 *ngIf="data?.member_type === 'player'">
+        <h3
+          *ngIf="
+            data?.member_type === 'player' || data?.member_type === 'coache'
+          "
+        >
           {{ data?.first_name | capitalize }} {{ data?.last_name }}
         </h3>
-        <h3 *ngIf="data?.member_type !== 'player'">
+        <h3
+          *ngIf="
+            data?.member_type !== 'player' || data?.member_type !== 'coache'
+          "
+        >
           {{ data?.name | capitalize }}
         </h3>
       </div>
@@ -39,10 +52,20 @@
             >
           </span>
 
-          <ng-container *ngIf="profile?.member_type === 'player'">
+          <ng-container
+            *ngIf="
+              profile?.member_type === 'player' ||
+              profile?.member_type === 'coache'
+            "
+          >
             {{ profile?.player_type | titlecase }}
           </ng-container>
-          <ng-container *ngIf="profile?.member_type !== 'player'">
+          <ng-container
+            *ngIf="
+              profile?.member_type !== 'player' ||
+              profile?.member_type !== 'coache'
+            "
+          >
             {{ profile?.member_type | titlecase }}
           </ng-container>
         </h4>
@@ -59,10 +82,18 @@
             </mat-icon>
           </span>
 
-          <ng-container *ngIf="data?.member_type === 'player'">
+          <ng-container
+            *ngIf="
+              data?.member_type === 'player' || data?.member_type === 'coache'
+            "
+          >
             {{ data?.player_type | titlecase }}
           </ng-container>
-          <ng-container *ngIf="data?.member_type !== 'player'">
+          <ng-container
+            *ngIf="
+              data?.member_type !== 'player' || data?.member_type !== 'coache'
+            "
+          >
             {{ data?.member_type | titlecase }}
           </ng-container>
         </h4>
@@ -84,7 +115,7 @@
             ) | titlecase
           }})
         </h4>
-        <h4 *ngIf="profile?.member_type !== 'player'">
+        <h4 *ngIf="profile?.member_type !== 'player' || 'coache'">
           {{
             professionalProfile?.type
               ? '(' + (professionalProfile?.type | titlecase) + ')'
@@ -109,7 +140,7 @@
             ) | titlecase
           }})
         </h4>
-        <h4 *ngIf="data?.member_type !== 'player'">
+        <h4 *ngIf="data?.member_type !== 'player' || 'coache'">
           {{ data?.type ? '(' + (data?.type | titlecase) + ')' : '' }}
         </h4>
       </div>
@@ -188,7 +219,9 @@
         </a>
       </li>
       <ng-container
-        *ngIf="!options?.is_public && profile?.member_type === 'player'"
+        *ngIf="
+          (!options?.is_public && profile?.member_type === 'player') || 'coache'
+        "
       >
         <li class="d-none">
           <a>
@@ -216,7 +249,10 @@
         </li>
       </ng-container>
       <ng-container
-        *ngIf="!options?.is_public && profile?.member_type !== 'player'"
+        *ngIf="
+          (!options?.is_public && profile?.member_type !== 'player') ||
+          (!options?.is_public && profile?.member_type !== 'coache')
+        "
       >
         <li class="d-none">
           <a>
@@ -236,7 +272,52 @@
         </li>
       </ng-container>
       <ng-container
-        *ngIf="options?.is_public && data?.member_type !== 'player'"
+        *ngIf="
+          !options?.is_public &&
+          profile?.member_type !== 'player' &&
+          !options?.is_public &&
+          profile?.member_type !== 'coache'
+        "
+      >
+        <li class="d-none">
+          <a>
+            <span class="icon">
+              <img src="assets/images/global/timer.svg" alt="trial" />
+            </span>
+            <span class="text">Trial management</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/member/manage-coache']">
+            <span class="icon">
+              <img src="assets/images/global/contracts.svg" alt="contracts" />
+            </span>
+            <span class="text">Manage Coaches</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/member/traning-center']">
+            <span class="icon">
+              <img src="assets/images/global/contracts.svg" alt="contracts" />
+            </span>
+            <span class="text">Create Traning Center</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/member/attendance']">
+            <span class="icon">
+              <img src="assets/images/global/contracts.svg" alt="contracts" />
+            </span>
+            <span class="text">Attendance</span>
+          </a>
+        </li>
+      </ng-container>
+      <ng-container
+        *ngIf="
+          options?.is_public &&
+          data?.member_type !== 'player' &&
+          data?.member_type !== 'coache'
+        "
       >
         <li>
           <a [routerLink]="['/member/manage-footplayer/club-academy', userId]">
@@ -255,7 +336,10 @@
         </li>
       </ng-container>
       <ng-container
-        *ngIf="!options?.is_public && profile?.member_type !== 'player'"
+        *ngIf="
+          (!options?.is_public && profile?.member_type !== 'player') ||
+          (!options?.is_public && profile?.member_type !== 'coache')
+        "
       >
         <li>
           <a [routerLink]="['/member/manage-footplayer/club-academy']">
@@ -274,7 +358,10 @@
         </li>
       </ng-container>
       <ng-container
-        *ngIf="!options?.is_public && profile?.member_type !== 'player'"
+        *ngIf="
+          (!options?.is_public && profile?.member_type !== 'player') ||
+          (!options?.is_public && profile?.member_type !== 'coache')
+        "
       >
         <li>
           <a [routerLink]="['/member/manage-report-card']">

@@ -13,7 +13,7 @@ const routes: Routes = [
     path: '',
     component: ReportCardComponent,
     canActivate: [RoleGuardService, AuthenticationGuard],
-    data: { expectedRole: ['player', 'club', 'academy'] },
+    data: { expectedRole: ['player', 'club', 'academy', 'coache'] },
     children: [
       {
         path: '',

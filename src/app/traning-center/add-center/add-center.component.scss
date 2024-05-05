@@ -1,0 +1,115 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+.from-container {
+  margin: -24px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+  align-items: center;
+  background: $fifth-color;
+
+  .title {
+    width: 70%;
+
+    h2 {
+      color: $fourth-color;
+      font-weight: 600;
+    }
+  }
+
+  .close {
+    width: 30%;
+    display: block;
+    text-align: right;
+
+    .mat-icon {
+      cursor: pointer;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+.modal-body {
+  padding: 2rem 3rem 2rem 3rem;
+
+  .form-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    @include responsive(bigphone) {
+      flex-wrap: wrap;
+    }
+    .input-wrapper {
+      width: calc(28% - 6px);
+
+      @include responsive(bigphone) {
+        width: calc(48% - 6px);
+      }
+
+      @include responsive(smallphone) {
+        width: 100%;
+      }
+    }
+
+    .input-wrapper1 {
+      width: calc(98%);
+
+      @include responsive(bigphone) {
+        width: calc(48% - 6px);
+      }
+
+      @include responsive(smallphone) {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.find-btn {
+  align-self: center;
+  width: 16%;
+  max-width: 15rem;
+
+  @include responsive(bigphone) {
+    max-width: 100%;
+    width: 48%;
+  }
+
+  button {
+    padding: 1.2rem 5rem;
+    font-size: 1.8rem;
+  }
+}
+
+// table
+.table {
+  margin-top: 2rem;
+  max-height: 300px;
+
+  .notonportal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $third-color;
+    min-height: 15rem;
+    text-align: center;
+
+    h3 {
+      color: $second-color;
+      font-weight: 500;
+    }
+  }
+
+  ::ng-deep {
+    .mat-table .mat-row .mat-cell .invite-btn button {
+      font-size: 1.6rem !important;
+    }
+  }
+}

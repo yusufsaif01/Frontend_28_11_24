@@ -16,6 +16,10 @@ import { CommunityGuidelinesComponent } from './community-guidelines/community-g
 import { AboutUsComponent } from './about-us/about-us.component';
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 import { UserguideComponent } from './userguide/userguide.component';
+import { ManageCoacheComponent } from './manage-coache/manage-coache.component';
+import { TraningCenterComponent } from './traning-center/traning-center.component';
+import { AttendanceComponent } from './attendance/attendance.component';
+import { MarkAttendanceComponent } from './mark-attendance/mark-attendance.component';
 const routes: Routes = [
   {
     path: '',
@@ -83,6 +87,23 @@ const routes: Routes = [
     loadChildren:
       './manage-footplayer/manage-footplayer.module#ManageFootplayerModule'
   },
+  {
+    path: 'member/manage-coache',
+    component: ManageCoacheComponent
+  },
+  {
+    path: 'member/traning-center',
+    component: TraningCenterComponent
+  },
+  {
+    path: 'member/attendance',
+    component: AttendanceComponent
+  },
+  {
+    path: 'member/mark-attendance',
+    component: MarkAttendanceComponent
+  },
+
   {
     path: 'register',
     // canActivate: [RestrictionGuard],
