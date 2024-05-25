@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManagecoacheComponent } from './manage-coache.component';
+import { OtpPageComponent } from './otp-page.component';
 
-describe('ManagecoacheComponent', () => {
-  let component: ManagecoacheComponent;
-  let fixture: ComponentFixture<ManagecoacheComponent>;
+describe('OtpPageComponent', () => {
+  let component: OtpPageComponent;
+  let fixture: ComponentFixture<OtpPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ManagecoacheComponent]
+      declarations: [OtpPageComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManagecoacheComponent);
+    fixture = TestBed.createComponent(OtpPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

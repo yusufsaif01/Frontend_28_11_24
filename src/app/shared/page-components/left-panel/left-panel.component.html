@@ -220,7 +220,8 @@
       </li>
       <ng-container
         *ngIf="
-          (!options?.is_public && profile?.member_type === 'player') || 'coache'
+          (!options?.is_public && profile?.member_type === 'player') ||
+          (!options?.is_public && profile?.member_type === 'coache')
         "
       >
         <li class="d-none">
@@ -292,7 +293,7 @@
             <span class="icon">
               <img src="assets/images/global/contracts.svg" alt="contracts" />
             </span>
-            <span class="text">Manage Coaches</span>
+            <span class="text">Manage coaches</span>
           </a>
         </li>
         <li>
@@ -337,8 +338,10 @@
       </ng-container>
       <ng-container
         *ngIf="
-          (!options?.is_public && profile?.member_type !== 'player') ||
-          (!options?.is_public && profile?.member_type !== 'coache')
+          !options?.is_public &&
+          profile?.member_type !== 'player' &&
+          !options?.is_public &&
+          profile?.member_type !== 'coache'
         "
       >
         <li>
@@ -359,8 +362,10 @@
       </ng-container>
       <ng-container
         *ngIf="
-          (!options?.is_public && profile?.member_type !== 'player') ||
-          (!options?.is_public && profile?.member_type !== 'coache')
+          !options?.is_public &&
+          profile?.member_type !== 'player' &&
+          !options?.is_public &&
+          profile?.member_type !== 'coache'
         "
       >
         <li>

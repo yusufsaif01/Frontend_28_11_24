@@ -135,10 +135,10 @@
 
         <div class="input-wrapper">
           <div class="form-block">
-            <label>Coache Name<span>*</span></label>
+            <label>coache Name<span>*</span></label>
             <select formControlName="coache_name" matNativeControl required>
-              <option value="">Select Coach </option>
-              <ng-container *ngFor="let coache of coachArray">
+              <option value="">Select coache </option>
+              <ng-container *ngFor="let coache of coacheArray">
                 <option value="{{ coache }}">{{ coache }}</option>
               </ng-container>
             </select>

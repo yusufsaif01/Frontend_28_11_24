@@ -49,6 +49,7 @@
     "material-design-icons-iconfont": "^5.0.1",
     "moment": "^2.27.0",
     "ng-multiselect-dropdown": "^0.2.12",
+    "ng-otp-input": "^1.8.1",
     "ng2-adsense": "^6.0.3",
     "ngx-clipboard": "^12.3.0",
     "ngx-cookie": "^4.1.2",

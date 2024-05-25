@@ -39,7 +39,7 @@ export class TrainingCenterTableConfig extends TableConfig {
       },
       coache_name: {
         code: 'coache_name',
-        text: 'Coache Name',
+        text: 'coache Name',
         getValue: (ele: any) => {
           return ele[this.columns.coache_name.code];
         }

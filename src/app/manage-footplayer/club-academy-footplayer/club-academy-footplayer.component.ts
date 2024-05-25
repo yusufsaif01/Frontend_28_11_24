@@ -114,6 +114,7 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
         }
         this.footplayers = response.data.footplayers;
         this.footPlayerList = records;
+        console.log('records is===>', records);
         this.show_count = response.data.records.length;
         this.total_count = response.data.total;
       });

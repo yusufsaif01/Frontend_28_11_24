@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ManageCoacheTableConfig } from './manage-coache-table-conf';
+import { ManagecoacheTableConfig } from './manage-coache-table-conf';
 import { PanelOptions } from '@app/shared/models/panel-options.model';
 import { environment } from '@env/environment';
-import { ManageCoacheService } from './manage-coache.service';
+import { ManagecoacheService } from './manage-coache.service';
 import { untilDestroyed } from '@app/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material';
 import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import { ToastrService } from 'ngx-toastr';
-import { AddCoacheComponent } from './add-coache/add-coache.component';
+import { AddcoacheComponent } from './add-coache/add-coache.component';
 //import { AddFootplayerComponent } from '../manage-footplayer/foot-player/add-footplayer/add-footplayer.component';
 import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
 import { SharedService } from '@app/shared/shared.service';
@@ -18,8 +18,8 @@ import { SharedService } from '@app/shared/shared.service';
   templateUrl: './manage-coache.component.html',
   styleUrls: ['./manage-coache.component.scss']
 })
-export class ManageCoacheComponent implements OnInit, OnDestroy {
-  public tableConfig: ManageCoacheTableConfig = new ManageCoacheTableConfig();
+export class ManagecoacheComponent implements OnInit, OnDestroy {
+  public tableConfig: ManagecoacheTableConfig = new ManagecoacheTableConfig();
   public dataSource = new MatTableDataSource([]);
   sidebar: boolean = false;
   filter: any = {};
@@ -55,7 +55,7 @@ export class ManageCoacheComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    private _footPlayerService: ManageCoacheService,
+    private _footPlayerService: ManagecoacheService,
     public dialog: MatDialog,
     private _toastrService: ToastrService,
     private _sharedService: SharedService
@@ -111,7 +111,7 @@ export class ManageCoacheComponent implements OnInit, OnDestroy {
     let data = {
       member_type: this.member_type
     };
-    const dialogRef = this.dialog.open(AddCoacheComponent, {
+    const dialogRef = this.dialog.open(AddcoacheComponent, {
       // width: '99%',
       panelClass: 'addfootplayer',
       data: {
@@ -146,7 +146,7 @@ export class ManageCoacheComponent implements OnInit, OnDestroy {
             response => {
               this._toastrService.success(
                 `Success`,
-                'Coach deleted successfully'
+                'coache deleted successfully'
               );
               this.selectedPage = 1;
               this.filter.page_no = 1;

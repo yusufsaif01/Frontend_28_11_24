@@ -62,15 +62,21 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   clubAcadTypeArray = Constants.CLUB_ACAD_TYPE_ARRAY;
   stateAssociationArray = Constants.STATE_ASSOCIATION_ARRAY;
   leagueArray = Constants.LEAGUE_ARRAY;
-  coach_role_array = Constants.COACH_ROLE_ARRAY;
-  area_of_specialization_Array = Constants.AREA_OF_SPECIALIZATION;
+  //coache_role_array = Constants.coache_ROLE_ARRAY;
+  coache_role_array: any[] = [];
+  area_of_specialization_Array: any[] = [];
   lanuage_spoken_Array = Constants.LANGUAGE_SPOKEN_ARRAY;
-  preferred_traning_style_Array = Constants.preferred_traning_style_Array;
+  preferred_traning_style_Array: any[] = [];
   professionalDetailsForm: FormGroup;
   professionalDetails: GetProfessionalDetailsResponseContext['data'];
   member_type: string = localStorage.getItem('member_type');
   viewMode = true;
   showRemoveTrophy = false;
+  default = false;
+  default1 = false;
+  default2 = false;
+  optionValue = '';
+  obj = {};
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -93,7 +99,20 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this._professionalDetailsService
+      .getCoachRole()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        (response: any) => {
+          console.log('response of coachrole', response.data[0]);
+          this.coache_role_array = response.data[0];
+          // this.positionArray = response.data.records;
+        },
+        error => {}
+      );
     this.setCategoryValidators();
+    this.getSpecilisation();
+    this.getCoachTraningStyle();
   }
 
   toggleMode() {
@@ -137,6 +156,26 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  onSelectNewRole(event: any) {
+    console.log(event.target.value);
+    if (event.target.value === 'other') {
+      this.default = true;
+    }
+  }
+  onSelectNewSpecilisation(event: any) {
+    console.log(event.target.value);
+    if (event.target.value === 'other') {
+      this.default1 = true;
+    }
+  }
+
+  onSelectNewTraningStyle(event: any) {
+    console.log(event.target.value);
+    if (event.target.value === 'other') {
+      this.default2 = true;
+    }
+  }
+
   getPositionList() {
     this._professionalDetailsService
       .getPositionList()
@@ -148,7 +187,33 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
         error => {}
       );
   }
+  getSpecilisation() {
+    this._professionalDetailsService
+      .getAreaOfSpecialisation()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        (response: any) => {
+          console.log('response of coachrole', response.data);
+          this.area_of_specialization_Array = response.data[0];
+          // this.positionArray = response.data.records;
+        },
+        error => {}
+      );
+  }
 
+  getCoachTraningStyle() {
+    this._professionalDetailsService
+      .getNewTraningStyle()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        (response: any) => {
+          console.log('response of traningstyle', response.data);
+          this.preferred_traning_style_Array = response.data[0];
+          // this.positionArray = response.data.records;
+        },
+        error => {}
+      );
+  }
   populateView() {
     this._professionalDetailsService
       .getProfessionalDetails()
@@ -156,6 +221,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.professionalDetails = response.data;
+          console.log('professional details subscribe is', response.data);
           this.populateFormFields();
           if (
             this.professionalDetails.member_type === 'player' ||
@@ -212,14 +278,14 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       weak_foot: this.professionalDetails.weak_foot
         ? this.professionalDetails.weak_foot
         : '',
-      head_coach_name: this.professionalDetails.club_academy_details
-        ? this.professionalDetails.club_academy_details.head_coach_name
+      head_coache_name: this.professionalDetails.club_academy_details
+        ? this.professionalDetails.club_academy_details.head_coache_name
         : '',
-      head_coach_phone: this.professionalDetails.club_academy_details
-        ? this.professionalDetails.club_academy_details.head_coach_phone
+      head_coache_phone: this.professionalDetails.club_academy_details
+        ? this.professionalDetails.club_academy_details.head_coache_phone
         : '',
-      head_coach_email: this.professionalDetails.club_academy_details
-        ? this.professionalDetails.club_academy_details.head_coach_email
+      head_coache_email: this.professionalDetails.club_academy_details
+        ? this.professionalDetails.club_academy_details.head_coache_email
         : '',
       former_club_academy: this.professionalDetails.former_club_academy
         ? this.professionalDetails.former_club_academy
@@ -242,16 +308,24 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       area_of_spec: this.professionalDetails.area_of_spec
         ? this.professionalDetails.area_of_spec
         : '',
-      coaching_philo: this.professionalDetails.coaching_philo
-        ? this.professionalDetails.coaching_philo
+      coacheing_philo: this.professionalDetails.coacheing_philo
+        ? this.professionalDetails.coacheing_philo
         : '',
       language: this.professionalDetails.language
         ? this.professionalDetails.language
         : '',
+      new_role: this.professionalDetails.new_role
+        ? this.professionalDetails.new_role
+        : '',
       traning_style: this.professionalDetails.traning_style
         ? this.professionalDetails.traning_style
         : '',
-
+      other_specilisation: this.professionalDetails.other_specilisation
+        ? this.professionalDetails.other_specilisation
+        : '',
+      other_traning_style: this.professionalDetails.other_traning_style
+        ? this.professionalDetails.other_traning_style
+        : '',
       academy_name: this.professionalDetails.academy_name
         ? this.professionalDetails.academy_name
         : '',
@@ -324,16 +398,21 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
         strong_foot: [''],
         associated_club_academy: ['', [Validators.required]],
         weak_foot: ['', []],
-        head_coach_name: [''],
-        head_coach_phone: [''],
-        head_coach_email: [''],
+        head_coache_name: [''],
+        head_coache_phone: [''],
+        head_coache_email: [''],
         former_club_academy: [''],
         current_role: [''],
         year_of_exp: [''],
         academy_name: [''],
         coache_certificate: [''],
         area_of_spec: [''],
-        coaching_philo: ['']
+        coacheing_philo: [''],
+        other_current_role: [''],
+        other_traning_style: [''],
+        other_specilisation: [''],
+        language: [''],
+        traning_style: []
       });
     } else if (this.member_type !== 'player') {
       this.professionalDetailsForm = this._formBuilder.group({
@@ -354,28 +433,30 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   setPlayerValidators() {
-    const head_coach_phone = this.professionalDetailsForm.get(
-      'head_coach_phone'
+    const head_coache_phone = this.professionalDetailsForm.get(
+      'head_coache_phone'
     );
-    const head_coach_email = this.professionalDetailsForm.get(
-      'head_coach_email'
+    const head_coache_email = this.professionalDetailsForm.get(
+      'head_coache_email'
     );
-    const head_coach_name = this.professionalDetailsForm.get('head_coach_name');
+    const head_coache_name = this.professionalDetailsForm.get(
+      'head_coache_name'
+    );
 
-    let headCoachControl = {
-      head_coach_phone: [
+    let headcoacheControl = {
+      head_coache_phone: [
         // Validators.required,
         Validators.minLength(10),
         Validators.maxLength(10),
         Validators.pattern(/^\d+$/)
       ],
-      head_coach_email: [Validators.email],
-      head_coach_name: [
+      head_coache_email: [Validators.email],
+      head_coache_name: [
         // Validators.required,
         Validators.pattern(/^[a-zA-Z0-9\&\-\(\) ]+$/)
       ]
     };
-    this.setControlValidation(this.professionalDetailsForm, headCoachControl);
+    this.setControlValidation(this.professionalDetailsForm, headcoacheControl);
 
     this.professionalDetailsForm
       .get('associated_club_academy')
@@ -383,26 +464,26 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
         if (value === 'yes') {
           this.checkRequiredValidator(
             this.professionalDetailsForm,
-            { head_coach_phone: headCoachControl.head_coach_phone },
+            { head_coache_phone: headcoacheControl.head_coache_phone },
             true
           );
           this.checkRequiredValidator(
             this.professionalDetailsForm,
-            { head_coach_name: headCoachControl.head_coach_name },
+            { head_coache_name: headcoacheControl.head_coache_name },
             true
           );
         } else if (value === 'no') {
-          head_coach_phone.setValue(''); // setValue use to clear any input provided
-          head_coach_email.setValue('');
-          head_coach_name.setValue('');
+          head_coache_phone.setValue(''); // setValue use to clear any input provided
+          head_coache_email.setValue('');
+          head_coache_name.setValue('');
           this.checkRequiredValidator(
             this.professionalDetailsForm,
-            { head_coach_phone: headCoachControl.head_coach_phone },
+            { head_coache_phone: headcoacheControl.head_coache_phone },
             false
           );
           this.checkRequiredValidator(
             this.professionalDetailsForm,
-            { head_coach_name: headCoachControl.head_coach_name },
+            { head_coache_name: headcoacheControl.head_coache_name },
             false
           );
         }
@@ -446,6 +527,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       }
       formData.append(key, value);
     }
+    console.log('before formData return', formData);
     return formData;
   }
 
@@ -458,10 +540,8 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
 
   editProfessionalDetails() {
     let requestData = this.toFormData(this.professionalDetailsForm.value);
-    console.log('request data is ==========>');
-    console.log(requestData);
+
     if (this.member_type === 'player' || this.member_type === 'coache') {
-      console.log('inside this.member_typeeeeee');
       this.setRequestDataObject(requestData, 'position');
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
       this.setRequestDataObject(requestData, 'contact_person');
@@ -478,9 +558,9 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
             'Success',
             'Professional details updated successfully'
           );
+          this.toggleMode();
           this.clearFormArray();
           this.populateView();
-          this.toggleMode();
         },
         error => {
           this._toastrService.error(error.error.message, 'Error');

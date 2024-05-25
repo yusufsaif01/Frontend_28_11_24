@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 interface PostContext {
   id: string;
+  caption: string;
   post: {
     text: string;
     media_url: string;
@@ -38,6 +39,7 @@ interface PostContext {
 
   posted_by: {
     avatar: string;
+
     member_type: string;
     user_id: string;
     name: string;
@@ -61,6 +63,7 @@ interface PostContext {
       commented_at: string;
     }[];
   };
+
   created_at: string;
   show_comment_box?: boolean;
   attributeListing?: [];
@@ -387,6 +390,8 @@ export class TimelineComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           let posts: PostContext[] = response.data.records;
+          const captionIs = response.data.records.map(item => item.caption);
+          console.log('captionIs issssssssssss', captionIs);
           this.postCount = response.data.records.length;
           posts.forEach(post => {
             if (post.posted_by.avatar) {

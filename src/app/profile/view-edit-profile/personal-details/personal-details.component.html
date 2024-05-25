@@ -13,14 +13,18 @@
           <img [src]="profile.avatar_url" alt="" />
         </div>
         <div class="details">
-          <ng-container *ngIf="member_type === 'player' && 'coache'">
+          <ng-container
+            *ngIf="member_type === 'player' || member_type === 'coache'"
+          >
             <h2>
               {{ profile.first_name | capitalize }}
               {{ profile.last_name }}
             </h2>
             <p>{{ profile.player_type | titlecase }}</p>
           </ng-container>
-          <ng-container *ngIf="member_type !== 'player' && 'coache'">
+          <ng-container
+            *ngIf="member_type !== 'player' || member_type !== 'coache'"
+          >
             <h2>{{ profile?.name | capitalize }}</h2>
             <p>{{ profile?.short_name }}</p>
             <p>{{ (clubAcademyType ? clubAcademyType : '') | titlecase }}</p>
@@ -122,7 +126,7 @@
       <div class="boi">
         <h4>Bio</h4>
         <p>
-          {{ profile?.bio }}
+          {{ profile.bio }}
         </p>
       </div>
 
@@ -135,7 +139,9 @@
             <p class="email">{{ profile.email }}</p>
           </div>
         </div>
-        <ng-container *ngIf="member_type === 'player' && 'coache'">
+        <ng-container
+          *ngIf="member_type === 'player' || member_type === 'coache'"
+        >
           <div class="details">
             <div class="left"></div>
             <div class="right"></div>
@@ -143,7 +149,9 @@
         </ng-container>
       </div>
 
-      <ng-container *ngIf="member_type === 'player' && 'coache'">
+      <ng-container
+        *ngIf="member_type === 'player' || member_type === 'coache'"
+      >
         <div class="view-details">
           <div class="details">
             <div class="left">
@@ -159,7 +167,9 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="member_type !== 'player' && 'coache'">
+      <ng-container
+        *ngIf="!(member_type === 'player' || member_type === 'coache')"
+      >
         <div class="view-details">
           <div class="details">
             <div class="left">
@@ -182,7 +192,9 @@
         </div>
       </ng-container>
 
-      <ng-container *ngIf="member_type === 'player' && 'coache'">
+      <ng-container
+        *ngIf="member_type === 'player' || member_type === 'coache'"
+      >
         <div class="view-details">
           <div class="details-full">
             <div class="left">
@@ -205,7 +217,9 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="member_type !== 'player' && 'coache'">
+      <ng-container
+        *ngIf="!(member_type === 'player' || member_type === 'coache')"
+      >
         <div class="view-details">
           <div class="details-full">
             <div class="left">
@@ -224,7 +238,7 @@
             <h4>Country</h4>
           </div>
           <div class="right">
-            <p>{{ profile?.country }}</p>
+            <p>{{ profile?.country_name }}</p>
           </div>
         </div>
       </div>
@@ -235,7 +249,7 @@
             <h4>State / UT</h4>
           </div>
           <div class="right">
-            <p>{{ profile?.state }}</p>
+            <p>{{ profile?.state_name }}</p>
           </div>
         </div>
       </div>
@@ -246,12 +260,14 @@
             <h4>District</h4>
           </div>
           <div class="right">
-            <p>{{ profile?.district }}</p>
+            <p>{{ profile?.district_name }}</p>
           </div>
         </div>
       </div>
 
-      <ng-container *ngIf="member_type === 'player' && 'coache'">
+      <ng-container
+        *ngIf="member_type === 'player' || member_type === 'coache'"
+      >
         <ng-container *ngIf="['amateur', 'professional'].includes(player_type)">
           <div class="view-details">
             <div class="details-full">
@@ -276,7 +292,9 @@
           </div>
         </ng-container>
       </ng-container>
-      <ng-container *ngIf="member_type !== 'player' && 'coache'">
+      <ng-container
+        *ngIf="!(member_type === 'player' || member_type === 'coache')"
+      >
         <div class="view-details">
           <div class="details">
             <div class="left">
@@ -319,7 +337,10 @@
       </div>
       <!-- player -->
       <ng-container
-        *ngIf="member_type == 'player' && 'coache'; else clubAcademyWrapper"
+        *ngIf="
+          member_type === 'player' || member_type === 'coache';
+          else clubAcademyWrapper
+        "
       >
         <div class="seciton-wrapper">
           <div class="left-seciton">
@@ -359,33 +380,6 @@
                       required
                       placeholder="First name"
                     />
-                    <mat-error
-                      class="error-text"
-                      *ngIf="
-                        personalProfileDetailsForm.controls.first_name
-                          .invalid &&
-                        personalProfileDetailsForm.controls.first_name.touched
-                      "
-                    >
-                      <span
-                        *ngIf="
-                          personalProfileDetailsForm.controls.first_name.errors
-                            .required
-                        "
-                        translate
-                        >First name is required</span
-                      >
-                      <span
-                        *ngIf="
-                          !personalProfileDetailsForm.controls.first_name.errors
-                            .required &&
-                          personalProfileDetailsForm.controls.first_name.errors
-                            .pattern
-                        "
-                        translate
-                        >First name is invalid</span
-                      >
-                    </mat-error>
                   </div>
                 </div>
                 <div class="full mr-3">
@@ -399,32 +393,6 @@
                       required
                       placeholder="Last name"
                     />
-                    <mat-error
-                      class="error-text"
-                      *ngIf="
-                        personalProfileDetailsForm.controls.last_name.invalid &&
-                        personalProfileDetailsForm.controls.last_name.touched
-                      "
-                    >
-                      <span
-                        *ngIf="
-                          personalProfileDetailsForm.controls.last_name.errors
-                            .required
-                        "
-                        translate
-                        >Last name is required</span
-                      >
-                      <span
-                        *ngIf="
-                          !personalProfileDetailsForm.controls.last_name.errors
-                            .required &&
-                          personalProfileDetailsForm.controls.last_name.errors
-                            .pattern
-                        "
-                        translate
-                        >Last name is invalid</span
-                      >
-                    </mat-error>
                   </div>
                 </div>
               </div>
@@ -444,21 +412,6 @@
                   placeholder="Write a Bio"
                   maxlength="350"
                 ></textarea>
-                <mat-error
-                  class="error-text"
-                  *ngIf="
-                    personalProfileDetailsForm.controls.bio.invalid &&
-                    personalProfileDetailsForm.controls.bio.touched
-                  "
-                >
-                  <span
-                    *ngIf="
-                      personalProfileDetailsForm.controls.bio.errors.maxlength
-                    "
-                    translate
-                    >Bio cannot be greater than 350 characters</span
-                  >
-                </mat-error>
               </div>
             </div>
           </div>
@@ -486,41 +439,6 @@
                   autocomplete="off"
                   placeholder="Weight"
                 />
-                <mat-error
-                  class="error-text"
-                  *ngIf="
-                    personalProfileDetailsForm.controls.weight.invalid &&
-                    personalProfileDetailsForm.controls.weight.touched
-                  "
-                >
-                  <span
-                    *ngIf="
-                      personalProfileDetailsForm.controls.weight.errors.pattern;
-                      else minBlock
-                    "
-                  >
-                    Weight format is invalid
-                  </span>
-                  <span
-                    *ngIf="
-                      !personalProfileDetailsForm.controls.weight.errors
-                        .pattern &&
-                        personalProfileDetailsForm.controls.weight.errors.max;
-                      else minBlock
-                    "
-                  >
-                    Weight should not exceed 200 kgs
-                  </span>
-                  <ng-template #minBlock>
-                    <span
-                      *ngIf="
-                        personalProfileDetailsForm.controls.weight.errors.min
-                      "
-                    >
-                      Weight must be greater than 0
-                    </span>
-                  </ng-template>
-                </mat-error>
               </div>
             </div>
             <div class="third">
@@ -536,50 +454,6 @@
                       required
                       placeholder="Feet"
                     />
-                    <mat-error
-                      class="error-text"
-                      *ngIf="
-                        personalProfileDetailsForm.controls.height_feet
-                          .invalid &&
-                        personalProfileDetailsForm.controls.height_feet.touched
-                      "
-                    >
-                      <span
-                        class="required"
-                        *ngIf="
-                          personalProfileDetailsForm.controls.height_feet.errors
-                            .required;
-                          else patternBlock
-                        "
-                        translate
-                        >Height in feet is required</span
-                      >
-                      <ng-template #patternBlock>
-                        <span
-                          class="required"
-                          *ngIf="
-                            personalProfileDetailsForm.controls.height_feet
-                              .errors.pattern;
-                            else maxBlock
-                          "
-                        >
-                          Height in feet format is invalid
-                        </span>
-                      </ng-template>
-                      <ng-template #maxBlock>
-                        <span
-                          class="required"
-                          *ngIf="
-                            personalProfileDetailsForm.controls.height_feet
-                              .errors.max ||
-                            personalProfileDetailsForm.controls.height_feet
-                              .errors.min
-                          "
-                        >
-                          Height in feet must be between 1 and 10
-                        </span>
-                      </ng-template>
-                    </mat-error>
                   </div>
                   <div class="half">
                     <input
@@ -590,51 +464,6 @@
                       required
                       placeholder="Inches"
                     />
-                    <mat-error
-                      class="error-text"
-                      *ngIf="
-                        personalProfileDetailsForm.controls.height_inches
-                          .invalid &&
-                        personalProfileDetailsForm.controls.height_inches
-                          .touched
-                      "
-                    >
-                      <span
-                        class="required"
-                        *ngIf="
-                          personalProfileDetailsForm.controls.height_inches
-                            .errors.required;
-                          else patternBlock
-                        "
-                        translate
-                        >Height in inches is required</span
-                      >
-                      <ng-template #patternBlock>
-                        <span
-                          class="required"
-                          *ngIf="
-                            personalProfileDetailsForm.controls.height_inches
-                              .errors.pattern;
-                            else maxBlock
-                          "
-                        >
-                          Height in inches format is invalid
-                        </span>
-                      </ng-template>
-                      <ng-template #maxBlock>
-                        <span
-                          class="limit"
-                          *ngIf="
-                            personalProfileDetailsForm.controls.height_inches
-                              .errors.max ||
-                            personalProfileDetailsForm.controls.height_inches
-                              .errors.min
-                          "
-                        >
-                          Height in inches must be between 0 and 12
-                        </span>
-                      </ng-template>
-                    </mat-error>
                   </div>
                 </div>
               </div>
@@ -658,65 +487,6 @@
                       autocomplete="off"
                       placeholder="Mobile number"
                     />
-                    <mat-error
-                      class="error-text"
-                      *ngIf="
-                        personalProfileDetailsForm.controls.phone.invalid &&
-                        personalProfileDetailsForm.controls.phone.touched
-                      "
-                    >
-                      <span
-                        *ngIf="
-                          personalProfileDetailsForm.controls.phone.errors
-                            .required
-                        "
-                        translate
-                        >Phone number is required</span
-                      >
-                      <ng-template #lengthBlock>
-                        <span
-                          translate
-                          class="error-text"
-                          *ngIf="
-                            personalProfileDetailsForm.controls.phone.errors
-                              .minlength
-                          "
-                        >
-                          Please provide number upto
-                          {{
-                            personalProfileDetailsForm.controls.phone.errors
-                              .minlength.requiredLength
-                          }}
-                          digits
-                        </span>
-                        <span
-                          translate
-                          class="error-text"
-                          *ngIf="
-                            personalProfileDetailsForm.controls.phone.errors
-                              .maxlength
-                          "
-                        >
-                          Please provide number upto
-                          {{
-                            personalProfileDetailsForm.controls.phone.errors
-                              .maxlength.requiredLength
-                          }}
-                          digits
-                        </span>
-                      </ng-template>
-                      <span
-                        class="error-text"
-                        *ngIf="
-                          personalProfileDetailsForm.controls.phone.errors
-                            .pattern;
-                          else lengthBlock
-                        "
-                        translate
-                      >
-                        Phone number format is invalid
-                      </span>
-                    </mat-error>
                   </div>
                 </div>
               </div>
@@ -739,21 +509,6 @@
                     [for]="picker"
                   ></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
-                  <mat-error
-                    class="error-text"
-                    *ngIf="
-                      personalProfileDetailsForm.controls.dob.invalid &&
-                      personalProfileDetailsForm.controls.dob.touched
-                    "
-                  >
-                    <span
-                      *ngIf="
-                        personalProfileDetailsForm.controls.dob.errors.required
-                      "
-                      translate
-                      >Date of birth is required</span
-                    >
-                  </mat-error>
                 </div>
               </div>
             </div>
@@ -768,21 +523,6 @@
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                 </select>
-                <mat-error
-                  class="error-text"
-                  *ngIf="
-                    personalProfileDetailsForm.controls.gender.invalid &&
-                    personalProfileDetailsForm.controls.gender.touched
-                  "
-                >
-                  <span
-                    *ngIf="
-                      personalProfileDetailsForm.controls.gender.errors.required
-                    "
-                    translate
-                    >Gender is required</span
-                  >
-                </mat-error>
               </div>
             </div>
             <div class="third">

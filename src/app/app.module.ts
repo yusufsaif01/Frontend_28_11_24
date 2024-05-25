@@ -41,13 +41,15 @@ import { CommunityGuidelinesComponent } from './community-guidelines/community-g
 import { AdsenseModule } from 'ng2-adsense';
 import { UserguideComponent } from './userguide/userguide.component';
 import { GuideComponent } from './guide/guide.component';
-import { ManageCoacheComponent } from './manage-coache/manage-coache.component';
-import { AddCoacheComponent } from './manage-coache/add-coache/add-coache.component';
+import { ManagecoacheComponent } from './manage-coache/manage-coache.component';
+import { AddcoacheComponent } from './manage-coache/add-coache/add-coache.component';
 import { TraningCenterComponent } from './traning-center/traning-center.component';
 import { AddCenterComponent } from './traning-center/add-center/add-center.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { AttendanceComponent } from './attendance/attendance.component';
 import { MarkAttendanceComponent } from './mark-attendance/mark-attendance.component';
+import { OtpPageComponent } from './otp-page/otp-page.component';
+import { NgOtpInputModule } from 'ng-otp-input';
 @NgModule({
   imports: [
     NgMultiSelectDropDownModule.forRoot(),
@@ -65,6 +67,7 @@ import { MarkAttendanceComponent } from './mark-attendance/mark-attendance.compo
     SharedModule,
     MaterialModule,
     CommonModule,
+    NgOtpInputModule,
     // SecurityModule,
     // LoginModule,
     HomeModule,
@@ -92,17 +95,18 @@ import { MarkAttendanceComponent } from './mark-attendance/mark-attendance.compo
     VerificationPopupComponent,
     VideoPopupComponent,
     AboutUsComponent,
-    AddCoacheComponent,
+    AddcoacheComponent,
     AddCenterComponent,
     TermandconditionComponent,
     CookiesPolicyComponent,
     CommunityGuidelinesComponent,
     UserguideComponent,
     GuideComponent,
-    ManageCoacheComponent,
+    ManagecoacheComponent,
     TraningCenterComponent,
     AttendanceComponent,
-    MarkAttendanceComponent
+    MarkAttendanceComponent,
+    OtpPageComponent
   ],
   providers: [
     RoleGuardService,
@@ -127,7 +131,7 @@ import { MarkAttendanceComponent } from './mark-attendance/mark-attendance.compo
     VerificationPopupComponent,
     VideoPopupComponent,
     GuideComponent,
-    AddCoacheComponent,
+    AddcoacheComponent,
     AddCenterComponent
   ]
 })

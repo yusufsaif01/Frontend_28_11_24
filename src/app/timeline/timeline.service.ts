@@ -78,6 +78,7 @@ interface GetPostListingResponseContext {
     total: number;
     records: {
       id: string;
+      caption: string;
       post: {
         text: string;
         media_url: string;
@@ -235,7 +236,7 @@ export class TimelineService {
     }
 
     if (context['page_size']) {
-      query += '&page_size=' + context['page_size'];
+      query += '&page_size=' + 100;
     }
 
     if (context['comments']) {

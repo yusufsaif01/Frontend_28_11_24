@@ -16,10 +16,11 @@ import { CommunityGuidelinesComponent } from './community-guidelines/community-g
 import { AboutUsComponent } from './about-us/about-us.component';
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 import { UserguideComponent } from './userguide/userguide.component';
-import { ManageCoacheComponent } from './manage-coache/manage-coache.component';
+import { ManagecoacheComponent } from './manage-coache/manage-coache.component';
 import { TraningCenterComponent } from './traning-center/traning-center.component';
 import { AttendanceComponent } from './attendance/attendance.component';
 import { MarkAttendanceComponent } from './mark-attendance/mark-attendance.component';
+import { OtpPageComponent } from './otp-page/otp-page.component';
 const routes: Routes = [
   {
     path: '',
@@ -89,7 +90,11 @@ const routes: Routes = [
   },
   {
     path: 'member/manage-coache',
-    component: ManageCoacheComponent
+    component: ManagecoacheComponent
+  },
+  {
+    path: 'otp-verification',
+    component: OtpPageComponent
   },
   {
     path: 'member/traning-center',

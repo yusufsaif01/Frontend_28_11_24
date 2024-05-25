@@ -34,8 +34,12 @@ export class CreatePasswordComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   ngOnInit() {
+    const obj = { email: '' };
+    const email = localStorage.getItem('email');
+    obj.email = email;
+
     this._authenticationService
-      .emailVerification(this.token)
+      .emailVerification(obj)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
@@ -58,8 +62,9 @@ export class CreatePasswordComponent implements OnInit, OnDestroy {
   }
 
   createPassword() {
+    const email = localStorage.getItem('email');
     this._authenticationService
-      .createPassword(this.createPasswordForm.value, this.token)
+      .createPassword(this.createPasswordForm.value, email)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {

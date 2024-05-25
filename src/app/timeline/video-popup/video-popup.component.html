@@ -10,7 +10,11 @@
   <form>
     <div class="modal-body">
       <!-- radio  -->
-      <div class="radio-block" *ngIf="member_type !== 'player'">
+
+      <div
+        class="radio-block"
+        *ngIf="!(member_type === 'player' || member_type === 'coache')"
+      >
         <mat-radio-group>
           <ng-container
             *ngFor="
@@ -28,6 +32,7 @@
           </ng-container>
         </mat-radio-group>
       </div>
+
       <!-- steps -->
       <div class="stepper">
         <div class="steps active">
@@ -173,9 +178,24 @@
             </ul>
           </div> -->
         </ng-container>
-
+        <div class="modal-body">
+          <div class="form-block">
+            <textarea
+              formControlName="text"
+              row="5"
+              matinput
+              maxlength="3000"
+              placeholder="Write a Caption"
+            ></textarea>
+            <p>
+              Max character length
+              {{ createPostForm.controls.text.value.length }} / 3000
+            </p>
+          </div>
+        </div>
         <ng-container *ngIf="currentStep === 'selectVideo'">
           <!-- video -->
+
           <div class="upload-wrapper" *ngIf="!media">
             <div class="upload">
               <div class="video-upload">
@@ -191,31 +211,6 @@
                   </label>
                 </span>
               </div>
-            </div>
-          </div>
-        </ng-container>
-        <video
-          #video
-          style="display: none;"
-          *ngIf="videoUrl"
-          width="320"
-          height="240"
-          controls
-          [attr.src]="videoUrl"
-          (loadedmetadata)="getDuration($event)"
-        ></video>
-        <ng-container *ngIf="media || editMode">
-          <div class="upload-wrapper">
-            <div class="upload">
-              <img src="assets/images/member/video-placeholder.png" alt="" />
-
-              <!-- <div class="uploader">
-                <mat-progress-bar
-                  mode="determinate"
-                  value="40"
-                ></mat-progress-bar>
-                <span>Uploaded 40%</span>
-              </div> -->
             </div>
           </div>
         </ng-container>

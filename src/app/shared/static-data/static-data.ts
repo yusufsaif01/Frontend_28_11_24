@@ -151,14 +151,14 @@ export abstract class Constants {
     }
   ];
 
-  static readonly COACH_ROLE_ARRAY = [
+  static readonly coache_ROLE_ARRAY: any[] = [
     {
-      name: 'Head Coach',
-      value: 'Head Coach '
+      name: 'Head coach',
+      value: 'Head coach '
     },
     {
-      name: 'Assistant Coach',
-      value: 'Assistant Coach '
+      name: 'Assistant coach',
+      value: 'Assistant coach '
     },
     {
       name: 'Technical Director',

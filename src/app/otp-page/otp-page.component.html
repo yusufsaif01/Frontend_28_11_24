@@ -1,0 +1,56 @@
+<header class="header">
+  <div class="logo">
+    <a [routerLink]="['/home']">
+      <img src="assets/images/website/logo.png" alt="brand-logo" />
+    </a>
+  </div>
+</header>
+<div class="site-wrapper">
+  <div class="text-section">
+    <h2>
+      <span>Digitize,</span>
+      <span>Democratize,</span>and Develop.
+      <img
+        src="assets/images/website/footballer-Icon.png"
+        alt="footballer-Icon"
+      />
+    </h2>
+    <p>The showcase of youth talent in Indian football</p>
+  </div>
+  <div class="form-section">
+    <div class="form-box">
+      <h2>Otp Verification</h2>
+      <p>Please Enter the 4 digit code sent to your email address</p>
+      <form [formGroup]="otpVerifyForm">
+        <div class="form-block">
+          <label></label>
+          <input
+            type="text"
+            matinput
+            formControlName="otp"
+            autocomplete="off"
+            required
+            placeholder="Enter Your Otp"
+          />
+          <input
+            type="text"
+            matinput
+            formControlName="email"
+            [value]="email"
+            hidden
+          />
+          <input type="text" matinput formControlName="name" value="" hidden />
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          (click)="otpVerify()"
+        >
+          Verify
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

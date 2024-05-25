@@ -30,7 +30,8 @@ let addressControl = {
 };
 
 export function dateFactory() {
-  return localStorage.getItem('member_type') === 'player' || 'coache'
+  return localStorage.getItem('member_type') === 'player' ||
+    localStorage.getItem('member_type') === 'coache'
     ? Constants.PROFILE_DATE_FORMATS.DOB
     : Constants.PROFILE_DATE_FORMATS.FOUNDED;
 }
@@ -148,7 +149,7 @@ export class PersonalDetailsComponent implements OnInit {
 
   createForm() {
     this.personalProfileDetailsForm = this._formBuilder.group({});
-    if (this.member_type === 'player' && 'coache') {
+    if (this.member_type === 'player' || this.member_type === 'coache') {
       this.personalProfileDetailsForm = this._formBuilder.group({
         email: [
           { value: '', disabled: true },
@@ -178,7 +179,7 @@ export class PersonalDetailsComponent implements OnInit {
             Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
           ]
         ],
-        dob: [{ value: '', disabled: true }, [Validators.required]], //2020-04-14T18:30:00.000Z"
+        dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
         height_feet: [
           '',
           [
@@ -262,19 +263,23 @@ export class PersonalDetailsComponent implements OnInit {
           //   'Successful',
           //   'Data retrieved successfully'
           // );
-          console.log('data in response');
+          console.log('data in responseEEEEEE');
           console.log(response.data);
           this.profile = response.data;
+          this.populateFormFields(this.profile);
           this.profile_status = this.profile.profile_status.status;
           this.player_type = this.profile.player_type;
           if (this.profile.avatar_url) {
+            console.log('inside ifffffffff');
             this.profile.avatar_url =
               environment.mediaUrl + this.profile.avatar_url;
           } else {
+            console.log('inside elseeeeeeeeeee');
             this.profile.avatar_url =
               environment.mediaUrl + '/uploads/avatar/user-avatar.png';
           }
-          this.populateFormFields(this.profile);
+          console.log('before insert in popluateFormFields are ----->');
+
           this.setCategoryValidators();
         },
         error => {
@@ -283,6 +288,8 @@ export class PersonalDetailsComponent implements OnInit {
       );
   }
   populateFormFields(profileData: any) {
+    console.log('populate form fields are==>');
+    console.log(profileData);
     this.personalProfileDetailsForm.valueChanges.subscribe(val => {
       this.player_type = val.player_type;
     });
@@ -349,8 +356,9 @@ export class PersonalDetailsComponent implements OnInit {
           : ''
     });
     if (
-      this.member_type === 'player' &&
-      this.profile.profile_status.status === 'verified'
+      this.member_type === 'player' ||
+      (this.member_type === 'coache' &&
+        this.profile.profile_status.status === 'verified')
     ) {
       this.personalProfileDetailsForm.controls.dob.disable();
     }
@@ -470,7 +478,9 @@ export class PersonalDetailsComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
+          console.log('country response is', response.data);
           this.countryArray = response.data;
+          console.log('country array is', this.countryArray);
         },
         error => {
           this._toastrService.error('Error', error.error.message);
@@ -479,6 +489,7 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   getStatesListing(countryID: string) {
+    console.log('country id inside getStateListing is///==>', countryID);
     this._sharedService
       .getStatesListing(countryID)
       .pipe(untilDestroyed(this))
@@ -510,6 +521,7 @@ export class PersonalDetailsComponent implements OnInit {
     if (!event.target.value) {
       this.resetStateDistrict();
     } else {
+      console.log('inside onSelectCountry function=>', event.target.value);
       this.getStatesListing(event.target.value);
     }
   }
@@ -574,7 +586,7 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   dateModifier(requestData: any) {
-    this.member_type === 'player'
+    this.member_type === 'player' || this.member_type === 'coache'
       ? requestData.set(
           'dob',
           this._dateConversion.convert(

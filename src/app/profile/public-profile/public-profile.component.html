@@ -413,7 +413,7 @@
                   <ng-container
                     *ngIf="publicProfileData?.associated_club_academy === 'yes'"
                   >
-                    <h4 class="mb-2">Head coach details</h4>
+                    <h4 class="mb-2">Head coache details</h4>
                     <div class="block">
                       <div class="left">
                         <h4>Name</h4>
@@ -422,7 +422,7 @@
                         <p>
                           {{
                             publicProfileData?.club_academy_details
-                              ?.head_coach_name | titlecase
+                              ?.head_coache_name | titlecase
                           }}
                         </p>
                       </div>
@@ -436,10 +436,10 @@
                         <p>
                           {{
                             publicProfileData?.club_academy_details
-                              ?.head_coach_phone
+                              ?.head_coache_phone
                               ? '+91 ' +
                                 publicProfileData?.club_academy_details
-                                  ?.head_coach_phone
+                                  ?.head_coache_phone
                               : ''
                           }}
                         </p>
@@ -454,7 +454,7 @@
                         <p>
                           {{
                             publicProfileData?.club_academy_details
-                              ?.head_coach_email
+                              ?.head_coache_email
                           }}
                         </p>
                       </div>

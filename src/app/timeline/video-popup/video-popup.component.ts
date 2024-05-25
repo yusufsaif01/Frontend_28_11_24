@@ -47,7 +47,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     attributes: []
   };
   currentStep = 'selectVideo';
-  member_type = '';
+  member_type = 'player';
   editMode: boolean = false;
   otherTags: any = [];
   otherValue: any = [];
@@ -389,6 +389,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
   videoPost() {
     let data = this.changeFormData(this.createVideoPostForm.value);
+    console.log("data in videoPost api's", data);
     let requestData = this.toFormData({
       ...data
     });
@@ -442,6 +443,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     this.createVideoPostForm = this._formBuilder.group({
       media: ['', [Validators.required, requiredVideo]],
       tags: this._formBuilder.array([], [videoTags]),
+      text: ['', [Validators.required]],
       others: this._formBuilder.array([])
     });
   }

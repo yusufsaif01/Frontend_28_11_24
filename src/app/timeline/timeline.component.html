@@ -160,6 +160,7 @@
           <div class="postbody" *ngIf="post.post.media_type === 'video'">
             <div class="post-content">
               <p>
+                <span>"{{ post.caption }}"</span>
                 <span *ngFor="let attribute of post.attributeListing"
                   >#{{ attribute }}</span
                 >
@@ -187,7 +188,7 @@
             <ng-container
               *ngIf="!['amateur', 'grassroot'].includes(player_type)"
             >
-              <span
+              <!--  <span
                 (click)="activateCommentBox(post)"
                 [ngClass]="{
                   chatdisable:
@@ -199,6 +200,7 @@
                 >
                 {{ post.comments.total }}
               </span>
+              -->
             </ng-container>
           </div>
           <div class="comment">

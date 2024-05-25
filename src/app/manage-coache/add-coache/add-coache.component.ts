@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { AddCoacheTableConfig } from './add-coache-table-conf';
+import { AddcoacheTableConfig } from './add-coache-table-conf';
 import {
   FormGroup,
   FormBuilder,
   Validators,
   ValidatorFn
 } from '@angular/forms';
-import { ManageCoacheService } from '../manage-coache.service';
+import { ManagecoacheService } from '../manage-coache.service';
 import { untilDestroyed } from '@app/core';
 import { environment } from '@env/environment';
 import { Subject } from 'rxjs';
@@ -34,9 +34,9 @@ let phoneControl = {
   styleUrls: ['./add-coache.component.scss'],
   providers: [CapitalizePipe]
 })
-export class AddCoacheComponent implements OnInit, OnDestroy {
+export class AddcoacheComponent implements OnInit, OnDestroy {
   // TABLE CONFIG
-  public tableConfig: AddCoacheTableConfig = new AddCoacheTableConfig();
+  public tableConfig: AddcoacheTableConfig = new AddcoacheTableConfig();
   public dataSource = new MatTableDataSource([]);
 
   own_member_type: string;
@@ -49,9 +49,9 @@ export class AddCoacheComponent implements OnInit, OnDestroy {
   totalRecordSubject$ = new Subject();
 
   constructor(
-    private _manageCoacheService: ManageCoacheService,
+    private _managecoacheService: ManagecoacheService,
     private _formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<AddCoacheComponent>,
+    public dialogRef: MatDialogRef<AddcoacheComponent>,
     private _toastrService: ToastrService,
     @Inject(MAT_DIALOG_DATA) private data: any,
     private capitalize?: CapitalizePipe
@@ -71,7 +71,7 @@ export class AddCoacheComponent implements OnInit, OnDestroy {
 
   findPlayer() {
     console.log('dindPlayerFormValue', this.findPlayerForm.value);
-    this._manageCoacheService
+    this._managecoacheService
       .findPlayer(this.findPlayerForm.value)
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -115,7 +115,7 @@ export class AddCoacheComponent implements OnInit, OnDestroy {
   sendFootPlayerRequest(user_id: string) {
     console.log('inside sendFootPlayerRequesta');
     console.log(user_id);
-    this._manageCoacheService
+    this._managecoacheService
       .sendFootPlayerRequest({ to: user_id })
       .pipe(untilDestroyed(this))
       .subscribe(
@@ -137,7 +137,7 @@ export class AddCoacheComponent implements OnInit, OnDestroy {
     Object.keys(formValues).forEach(
       key => formValues[key] == '' && delete formValues[key]
     );
-    this._manageCoacheService
+    this._managecoacheService
       .sendFootPlayerInvite(formValues)
       .pipe(untilDestroyed(this))
       .subscribe(

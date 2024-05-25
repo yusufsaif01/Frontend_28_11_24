@@ -16,15 +16,16 @@ export class ViewEditProfileComponent implements OnInit {
   renderComponents: any[];
   components: any[] = [
     { name: 'Personal details', value: 'personal' },
-    { name: 'Professional details', value: 'professional' }
+    { name: 'Professional details', value: 'professional' },
     // { name: 'Documents', value: 'documents' },
-    // { name: 'Employment contracts', value: 'contracts' }
+    { name: 'Employment contracts', value: 'contracts' }
   ];
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router
   ) {
     this._activatedRoute.params.subscribe(params => {
+      console.log('routinggg', params);
       if (params['tabname']) this.componentName = params['tabname'];
     });
   }
@@ -46,7 +47,8 @@ export class ViewEditProfileComponent implements OnInit {
 
   getMemberType(value: string) {
     this.renderComponents = this.components.filter(item => {
-      if (value !== 'player' || 'coache') return item.value !== 'contracts';
+      if (value !== 'player') return item.value !== 'contracts';
+      console.log('item value isss', item.value);
       return item.value;
     });
   }

@@ -39,7 +39,7 @@ export class AddCenterComponent implements OnInit, OnDestroy {
   member_type: string = localStorage.getItem('member_type') || 'coache';
   dropdownSettings: IDropdownSettings;
   countryArray: any[] = [];
-  coachArray: any[] = [];
+  coacheArray: any[] = [];
   stateArray: any[] = [];
   districtArray: any[] = [];
   own_member_type: string;
@@ -74,7 +74,7 @@ export class AddCenterComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const academy_id = localStorage.getItem('user_id');
     this.getLocationStats();
-    this.getCoacheStats(academy_id);
+    this.getcoacheStats(academy_id);
     this.dropdownList = [
       { item_id: 1, item_text: 'Sunday' },
       { item_id: 2, item_text: 'Monday' },
@@ -252,13 +252,13 @@ export class AddCenterComponent implements OnInit, OnDestroy {
 
   //Get coache list
 
-  getCoacheStats(id: any) {
+  getcoacheStats(id: any) {
     this._sharedService
-      .getCoacheList(id)
+      .getcoacheList(id)
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
-          this.coachArray = response.data.map(data => data.send_to.name);
+          this.coacheArray = response.data.map(data => data.send_to.name);
         },
         error => {
           this._toastrService.error('Error', error.error.message);
@@ -298,22 +298,19 @@ export class AddCenterComponent implements OnInit, OnDestroy {
 
   //Center creation Form
   toggleMode() {
-    console.log('inside toggleMode');
     this.editMode = !this.editMode;
   }
+
   create_center() {
     let form_data = this.create_registration_Form.value;
     form_data.academy_user_id = localStorage.getItem('user_id');
     form_data.opening_days = this.daysSelect;
-    console.log('-----------------------');
-    console.log(form_data);
 
     this._authenticationService
       .create_traning_center(form_data)
       .pipe(untilDestroyed(this))
       .subscribe(
         credentials => {
-          console.log(credentials);
           this.toggleMode();
         },
         error => {

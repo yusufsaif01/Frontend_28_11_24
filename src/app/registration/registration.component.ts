@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Constants } from '@app/shared/static-data/static-data';
 import { MatDialog } from '@angular/material/dialog';
 import { GuideComponent } from '@app/guide/guide.component';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -23,6 +24,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   // isTermsAccepted: boolean = false;
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     public dialog: MatDialog,
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
@@ -139,6 +142,15 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         credentials => {
           this.resetFormFields();
           this.openDialogformsg();
+          this.router.navigate(
+            [this.route.snapshot.queryParams.redirect || '/otp-verification'],
+            { replaceUrl: true }
+          );
+          console.log('credentialsss', credentials);
+          console.log(form_data);
+          localStorage.setItem('email', form_data.email);
+          localStorage.setItem('name', form_data.name);
+          localStorage.setItem('userId', form_data.userId);
         },
         error => {
           this._toastrService.error(`${error.error.message}`, 'Failed');

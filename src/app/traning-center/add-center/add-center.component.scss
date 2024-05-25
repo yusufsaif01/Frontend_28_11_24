@@ -37,7 +37,7 @@
 }
 
 .modal-body {
-  padding: 2rem 3rem 2rem 3rem;
+  padding: 2rem 6rem 2rem 6rem;
 
   .form-wrapper {
     display: flex;
@@ -47,7 +47,7 @@
       flex-wrap: wrap;
     }
     .input-wrapper {
-      width: calc(28% - 6px);
+      width: calc(32% - 6px);
 
       @include responsive(bigphone) {
         width: calc(48% - 6px);

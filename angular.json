@@ -68,7 +68,8 @@
           "options": {
             "hmr": true,
             "hmrWarning": false,
-            "browserTarget": "yftchain:build"
+            "browserTarget": "yftchain:build",
+            "disableHostCheck": true
           },
           "configurations": {
             "production": {

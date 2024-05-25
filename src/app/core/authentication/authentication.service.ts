@@ -27,6 +27,9 @@ export interface LoginContext {
   password: string;
   remember?: boolean;
 }
+export interface EmailVerificationContext {
+  email: string;
+}
 export interface RegisterContext {
   email: string;
   phone: string;
@@ -55,6 +58,7 @@ export interface ForgotPasswordContext {
 export interface ResetPasswordContext {
   password: string;
   confirmPassword: string;
+  email: string;
 }
 
 export interface ChangePasswordContext {
@@ -154,18 +158,15 @@ export class AuthenticationService {
 
   createPassword(
     context: ResetPasswordContext,
-    token: string
+    email: string
   ): Observable<any> {
-    let httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token
-      })
-    };
-    return this.httpClient.post(
-      routes.createPassword(context),
-      context,
-      httpOptions
-    );
+    // let httpOptions = {
+    //   headers: new HttpHeaders({
+    //    Authorization: 'Bearer ' + token
+    //   })
+    //  };
+    context.email = email;
+    return this.httpClient.post(routes.createPassword(context), context);
   }
 
   changePassword(context: ChangePasswordContext): Observable<any> {
@@ -176,17 +177,18 @@ export class AuthenticationService {
     return this.httpClient.post(routes.forgotPassword(context), context);
   }
 
-  emailVerification(token: string): Observable<any> {
-    let httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token
-      })
-    };
-
+  emailVerification(obj: any): Observable<any> {
+    //  let httpOptions = {
+    //  headers: new HttpHeaders({
+    //    Authorization: 'Bearer ' + token
+    // })
+    //  };
+    console.log('email in emailVerification');
+    console.log(obj);
     return this.httpClient.put<any>(
       routes.emailVerification(),
-      token,
-      httpOptions
+      obj
+      // httpOptions
     );
   }
 

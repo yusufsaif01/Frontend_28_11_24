@@ -53,9 +53,9 @@ export interface GetPublicProfileDetailsResponseContext {
 
     district: { id: string; name: string };
     club_academy_details: {
-      head_coach_name: string;
-      head_coach_phone: string;
-      head_coach_email: string;
+      head_coache_name: string;
+      head_coache_phone: string;
+      head_coache_email: string;
     };
     dob: string;
     height: { feet: string; inches: string };

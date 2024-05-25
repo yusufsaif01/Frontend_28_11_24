@@ -1,6 +1,6 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
 import { CapitalizePipe } from '@app/shared/pipes/capitalize.pipe';
-export class ManageCoacheTableConfig extends TableConfig {
+export class ManagecoacheTableConfig extends TableConfig {
   constructor(private capitalize?: CapitalizePipe) {
     super();
     this.allowedColumns = ['name', 'email', 'phone', 'status'];
@@ -9,7 +9,7 @@ export class ManageCoacheTableConfig extends TableConfig {
     this.columns = {
       name: {
         code: 'name',
-        text: 'Coach name',
+        text: 'coache name',
         getValue: (ele: any) => {
           return this.capitalize.transform(ele[this.columns.name.code]);
         }

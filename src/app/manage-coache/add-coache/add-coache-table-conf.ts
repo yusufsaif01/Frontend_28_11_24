@@ -1,5 +1,5 @@
 import { TableConfig } from '@app/shared/table/TableConfig';
-export class AddCoacheTableConfig extends TableConfig {
+export class AddcoacheTableConfig extends TableConfig {
   constructor() {
     super();
     this.allowedColumns = ['player_name', 'category', 'position'];

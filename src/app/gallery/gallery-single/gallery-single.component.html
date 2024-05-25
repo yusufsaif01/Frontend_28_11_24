@@ -68,11 +68,12 @@
                     <mat-icon class="material-icons">link</mat-icon>
                   </a>
                 </span>
-                <span>
+                <!--   <span>
                   <a (click)="editVideoPost(post)">
                     <mat-icon class="material-icons">edit</mat-icon>
                   </a>
                 </span>
+                -->
                 <span>
                   <a (click)="deleteVideo(post.id)">
                     <mat-icon class="material-icons">delete</mat-icon>
@@ -106,7 +107,7 @@
               <ng-container
                 *ngIf="!['amateur', 'grassroot'].includes(player_type)"
               >
-                <span
+                <!--  <span
                   (click)="activateCommentBox(post)"
                   [ngClass]="{
                     chatdisable:
@@ -117,7 +118,7 @@
                     >mode_comment</mat-icon
                   >
                   {{ post.comments.total }}
-                </span>
+                </span>-->
               </ng-container>
             </div>
             <div class="comment">

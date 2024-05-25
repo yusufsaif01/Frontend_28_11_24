@@ -124,7 +124,7 @@
           <ng-container
             *ngIf="professionalDetails?.associated_club_academy === 'yes'"
           >
-            <h3 class="mt-1 mb-1">Head coach details</h3>
+            <h3 class="mt-1 mb-1">Head coache details</h3>
             <div class="view-details">
               <div class="details">
                 <div class="left">
@@ -133,7 +133,8 @@
                 <div class="right">
                   <p>
                     {{
-                      professionalDetails?.club_academy_details?.head_coach_name
+                      professionalDetails?.club_academy_details
+                        ?.head_coache_name
                     }}
                   </p>
                 </div>
@@ -148,7 +149,7 @@
                   <p>
                     {{
                       professionalDetails?.club_academy_details
-                        ?.head_coach_phone
+                        ?.head_coache_phone
                     }}
                   </p>
                 </div>
@@ -163,7 +164,7 @@
                   <p class="email">
                     {{
                       professionalDetails?.club_academy_details
-                        ?.head_coach_email
+                        ?.head_coache_email
                     }}
                   </p>
                 </div>
@@ -193,7 +194,7 @@
             <div class="section-block">
               <div
                 class="third"
-                *ngFor="let data of coach_role_array; let i = index"
+                *ngFor="let data of coache_role_array; let i = index"
               >
                 <p>
                   <span>{{ i + 1 }}.</span> {{ data.name }}
@@ -209,7 +210,7 @@
             <div class="section-block">
               <div class="full">
                 <div class="right">
-                  <p>{{ professionalDetails?.strong_foot | titlecase }}</p>
+                  <p>{{ professionalDetails?.academy_name | titlecase }}</p>
                 </div>
               </div>
             </div>
@@ -217,29 +218,12 @@
 
           <div class="section mb-1">
             <h3 class="section-heading mb-0">
-              Years of Coaching Experience
+              Years of coacheing Experience
             </h3>
             <div class="section-block">
               <div class="full">
                 <div class="right">
-                  <div class="stars">
-                    <ng-container *ngFor="let number of [1, 2, 3, 4, 5]">
-                      <ng-container
-                        *ngIf="number <= professionalDetails?.weak_foot"
-                      >
-                        <mat-icon class="material-icons active">
-                          star_border
-                        </mat-icon>
-                      </ng-container>
-                      <ng-container
-                        *ngIf="number > professionalDetails?.weak_foot"
-                      >
-                        <mat-icon class="material-icons ">
-                          star_border
-                        </mat-icon>
-                      </ng-container>
-                    </ng-container>
-                  </div>
+                  <p>{{ professionalDetails?.year_of_exp | titlecase }}</p>
                 </div>
               </div>
             </div>
@@ -247,32 +231,13 @@
 
           <div class="section">
             <h3 class="section-heading mb-0">
-              Coaching Certifications
-              {{
-                professionalDetails?.association === 'Others' ? '(Other)' : ''
-              }}
+              Coacheing Certifications
+              <p>{{ professionalDetails.coache_certificate }}</p>
             </h3>
-            <div class="section-block">
-              <div class="full">
-                <div class="right">
-                  <p>
-                    {{
-                      (professionalDetails?.association === 'Others'
-                        ? professionalDetails?.association_other
-                        : professionalDetails?.association
-                      ) | titlecase
-                    }}
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
 
-          <div
-            class="section"
-            *ngIf="professionalDetails?.player_type !== 'grassroot'"
-          >
-            <h3 class="section-heading mb-0">Previous Coaching Experience</h3>
+          <div class="section">
+            <h3 class="section-heading mb-0">Previous coacheing Experience</h3>
             <div class="section-block">
               <div class="full">
                 <div class="right">
@@ -284,44 +249,36 @@
             </div>
           </div>
 
-          <div class="associated mt-2">
+          <!--    <div class="associated mt-2">
             <h3>
-              Coaching Philosophy
+              coacheing Philosophy
               <span>
                 {{ professionalDetails?.associated_club_academy | titlecase }}
               </span>
             </h3>
           </div>
-
+-->
           <div class="associated mt-2">
             <h3>
               Languages Spoken
-              <span>
-                {{ professionalDetails?.associated_club_academy | titlecase }}
-              </span>
+              <p>
+                {{ professionalDetails?.language | titlecase }}
+              </p>
             </h3>
           </div>
 
           <div class="associated mt-2">
             <h3>
-              Social Media Links
-              <span>
-                {{ professionalDetails?.associated_club_academy | titlecase }}
-              </span>
-            </h3>
-          </div>
-          <div class="associated mt-2">
-            <h3>
               Preferred Training Style
-              <span>
-                {{ professionalDetails?.associated_club_academy | titlecase }}
-              </span>
+              <p>
+                {{ professionalDetails?.other_traning_style | titlecase }}
+              </p>
             </h3>
           </div>
           <ng-container
             *ngIf="professionalDetails?.associated_club_academy === 'yes'"
           >
-            <h3 class="mt-1 mb-1">Head coach details</h3>
+            <h3 class="mt-1 mb-1">Head coache details</h3>
             <div class="view-details">
               <div class="details">
                 <div class="left">
@@ -330,7 +287,8 @@
                 <div class="right">
                   <p>
                     {{
-                      professionalDetails?.club_academy_details?.head_coach_name
+                      professionalDetails?.club_academy_details
+                        ?.head_coache_name
                     }}
                   </p>
                 </div>
@@ -345,7 +303,7 @@
                   <p>
                     {{
                       professionalDetails?.club_academy_details
-                        ?.head_coach_phone
+                        ?.head_coache_phone
                     }}
                   </p>
                 </div>
@@ -360,7 +318,7 @@
                   <p class="email">
                     {{
                       professionalDetails?.club_academy_details
-                        ?.head_coach_email
+                        ?.head_coache_email
                     }}
                   </p>
                 </div>
@@ -596,11 +554,12 @@
                     formControlName="current_role"
                     matNativeControl
                     required
+                    (change)="onSelectNewRole($event)"
                   >
                     <option value="">Select Current Role</option>
 
                     <option
-                      *ngFor="let data of coach_role_array"
+                      *ngFor="let data of coache_role_array"
                       [value]="data.value"
                     >
                       {{ data.name }}</option
@@ -609,6 +568,22 @@
                 </div>
               </div>
             </div>
+
+            <div class="input-container" *ngIf="default === true">
+              <div class="third">
+                <h3>Enter New Role</h3>
+                <div class="form-block">
+                  <input
+                    formControlName="other_current_role"
+                    placeholder="Enter Role"
+                    type="text"
+                    value=""
+                    (change)="onUpdateNewRole($event)"
+                  />
+                </div>
+              </div>
+            </div>
+
             <h3>Academy/Club Name <span class="asterisk">*</span></h3>
             <div class="input-container">
               <div class="third">
@@ -623,13 +598,13 @@
               </div>
             </div>
 
-            <h3>Years of Coaching Experience</h3>
+            <h3>Years of coacheing Experience</h3>
             <div class="input-container">
               <div class="third">
                 <div class="form-block">
                   <input
                     formControlName="year_of_exp"
-                    placeholder="Years of Coaching Experience"
+                    placeholder="Years of coacheing Experience"
                     type="text"
                     value=""
                   />
@@ -637,13 +612,13 @@
               </div>
             </div>
 
-            <h3>Coaching Certifications <span class="asterisk">*</span></h3>
+            <h3>coacheing Certifications</h3>
             <div class="input-container">
               <div class="third">
                 <div class="form-block">
                   <input
                     formControlName="coache_certificate"
-                    placeholder="Coaching Certifications"
+                    placeholder="coacheing Certifications"
                     type="text"
                     value=""
                   />
@@ -658,6 +633,7 @@
                     formControlName="area_of_spec"
                     matNativeControl
                     required
+                    (change)="onSelectNewSpecilisation($event)"
                   >
                     <option value="">Select Area of Specialization</option>
 
@@ -671,27 +647,40 @@
                 </div>
               </div>
             </div>
-
-            <h3>Coaching Philosophy <span class="asterisk">*</span></h3>
+            <div class="input-container" *ngIf="default1 === true">
+              <div class="third">
+                <h3>Enter New Specialization</h3>
+                <div class="form-block">
+                  <input
+                    formControlName="other_specilisation"
+                    placeholder="Enter Specialization"
+                    type="text"
+                    value=""
+                    (change)="onUpdateNewSpecilisation($event)"
+                  />
+                </div>
+              </div>
+            </div>
+            <!--    <h3>coacheing Philosophy <span class="asterisk">*</span></h3>
             <div class="input-container">
               <div class="third">
                 <div class="form-block">
                   <input
-                    formControlName="coaching_philo"
-                    placeholder="Coaching Philosophy"
+                    formControlName="coacheing_philo"
+                    placeholder="coacheing Philosophy"
                     type="textarea"
                     value=""
                   />
                 </div>
               </div>
             </div>
-
+-->
             <h3>Languages Spoken <span class="asterisk">*</span></h3>
             <div class="input-container">
               <div class="third">
                 <div class="form-block">
                   <select formControlName="language" matNativeControl required>
-                    <option value="">Select association</option>
+                    <option value="">Select Language</option>
 
                     <option
                       *ngFor="let association of lanuage_spoken_Array"
@@ -712,6 +701,7 @@
                     formControlName="traning_style"
                     matNativeControl
                     required
+                    (change)="onSelectNewTraningStyle($event)"
                   >
                     <option value="">Select association</option>
 
@@ -725,7 +715,20 @@
                 </div>
               </div>
             </div>
-
+            <div class="input-container" *ngIf="default2 === true">
+              <div class="third">
+                <h3>Enter New Traning Style</h3>
+                <div class="form-block">
+                  <input
+                    formControlName="other_traning_style"
+                    placeholder="Enter Traning Style"
+                    type="text"
+                    value=""
+                    (change)="onUpdateNewSpecilisation($event)"
+                  />
+                </div>
+              </div>
+            </div>
             <div class="actions mt-2 mb-2">
               <div class="btn-group">
                 <button (click)="toggleMode()" class="btn-normal">
@@ -1026,13 +1029,13 @@
                 'yes'
               "
             >
-              <h3>Head coach</h3>
+              <h3>Head coache</h3>
               <div class="input-container">
                 <div class="third">
                   <div class="form-block">
                     <label>Name<span>*</span></label>
                     <input
-                      formControlName="head_coach_name"
+                      formControlName="head_coache_name"
                       type="text"
                       matInput
                       autocomplete="off"
@@ -1043,26 +1046,27 @@
                     <mat-error
                       class="error-text"
                       *ngIf="
-                        professionalDetailsForm.controls.head_coach_name
+                        professionalDetailsForm.controls.head_coache_name
                           .invalid &&
-                        professionalDetailsForm.controls.head_coach_name.touched
+                        professionalDetailsForm.controls.head_coache_name
+                          .touched
                       "
                     >
                       <span
                         *ngIf="
-                          professionalDetailsForm.controls.head_coach_name
+                          professionalDetailsForm.controls.head_coache_name
                             .errors.required
                         "
                         translate
-                        >Head coach name is required
+                        >Head coache name is required
                       </span>
                       <span
                         *ngIf="
-                          professionalDetailsForm.controls.head_coach_name
+                          professionalDetailsForm.controls.head_coache_name
                             .errors.pattern
                         "
                         translate
-                        >Head coach name format is invalid
+                        >Head coache name format is invalid
                       </span>
                     </mat-error>
                   </div>
@@ -1078,7 +1082,7 @@
                       </div>
                       <div class="phone-number">
                         <input
-                          formControlName="head_coach_phone"
+                          formControlName="head_coache_phone"
                           type="text"
                           matInput
                           autocomplete="off"
@@ -1091,43 +1095,43 @@
                     <mat-error
                       class="error-text"
                       *ngIf="
-                        professionalDetailsForm.controls.head_coach_phone
+                        professionalDetailsForm.controls.head_coache_phone
                           .invalid &&
-                        professionalDetailsForm.controls.head_coach_phone
+                        professionalDetailsForm.controls.head_coache_phone
                           .touched
                       "
                     >
                       <span
                         *ngIf="
-                          professionalDetailsForm.controls.head_coach_phone
+                          professionalDetailsForm.controls.head_coache_phone
                             .errors.required
                         "
                         translate
-                        >Head coach phone is required</span
+                        >Head coache phone is required</span
                       >
                       <ng-template #lengthBlock>
                         <span
                           *ngIf="
-                            professionalDetailsForm.controls.head_coach_phone
+                            professionalDetailsForm.controls.head_coache_phone
                               .errors.minlength
                           "
                         >
                           Please provide number upto
                           {{
-                            professionalDetailsForm.controls.head_coach_phone
+                            professionalDetailsForm.controls.head_coache_phone
                               .errors.minlength.requiredLength
                           }}
                           digits
                         </span>
                         <span
                           *ngIf="
-                            professionalDetailsForm.controls.head_coach_phone
+                            professionalDetailsForm.controls.head_coache_phone
                               .errors.maxlength
                           "
                         >
                           Please provide number upto
                           {{
-                            professionalDetailsForm.controls.head_coach_phone
+                            professionalDetailsForm.controls.head_coache_phone
                               .errors.maxlength.requiredLength
                           }}
                           digits
@@ -1137,7 +1141,7 @@
                         translate
                         class="error-text"
                         *ngIf="
-                          professionalDetailsForm.controls.head_coach_phone
+                          professionalDetailsForm.controls.head_coache_phone
                             .errors.pattern;
                           else lengthBlock
                         "
@@ -1151,7 +1155,7 @@
                   <div class="form-block">
                     <label>Email address</label>
                     <input
-                      formControlName="head_coach_email"
+                      formControlName="head_coache_email"
                       type="email"
                       matInput
                       autocomplete="off"
@@ -1161,19 +1165,19 @@
                     <mat-error
                       class="error-text"
                       *ngIf="
-                        professionalDetailsForm.controls.head_coach_email
+                        professionalDetailsForm.controls.head_coache_email
                           .invalid &&
-                        professionalDetailsForm.controls.head_coach_email
+                        professionalDetailsForm.controls.head_coache_email
                           .touched
                       "
                     >
                       <span
                         *ngIf="
-                          professionalDetailsForm.controls.head_coach_email
+                          professionalDetailsForm.controls.head_coache_email
                             .errors.email
                         "
                         translate
-                        >Head coach email format is invalid
+                        >Head coache email format is invalid
                       </span>
                     </mat-error>
                   </div>

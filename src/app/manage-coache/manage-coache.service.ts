@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/custom-http-param-encoder.component';
 
 const routes = {
-  getFootPlayerList: (query: string) => `/footplayers?${query}`,
+  getFootPlayerList: (query: string) => `/footcoachlist?${query}`,
   deleteFootplayer: (id: string) => `/footplayers/${id}`,
   findPlayer: (query: string) => `/coache/search${query}`,
   sendFootPlayerRequest: () => '/coache/request',
@@ -92,7 +92,7 @@ interface GetFootPlayerListContext {
 @Injectable({
   providedIn: 'root'
 })
-export class ManageCoacheService {
+export class ManagecoacheService {
   constructor(private httpClient: HttpClient) {}
 
   getFootPlayerList(
