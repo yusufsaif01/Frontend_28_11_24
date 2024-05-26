@@ -251,8 +251,10 @@
       </ng-container>
       <ng-container
         *ngIf="
-          (!options?.is_public && profile?.member_type !== 'player') ||
-          (!options?.is_public && profile?.member_type !== 'coache')
+          !options?.is_public &&
+          profile?.member_type !== 'player' &&
+          !options?.is_public &&
+          profile?.member_type !== 'coache'
         "
       >
         <li class="d-none">

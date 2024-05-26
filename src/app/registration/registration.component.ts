@@ -141,7 +141,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       .subscribe(
         credentials => {
           this.resetFormFields();
-          this.openDialogformsg();
+          //  this.openDialogformsg();
           this.router.navigate(
             [this.route.snapshot.queryParams.redirect || '/otp-verification'],
             { replaceUrl: true }

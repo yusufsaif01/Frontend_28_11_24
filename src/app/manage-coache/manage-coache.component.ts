@@ -140,7 +140,7 @@ export class ManagecoacheComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this._footPlayerService
-          .deleteFootPlayer(id)
+          .deleteFootCoach(id)
           .pipe(untilDestroyed(this))
           .subscribe(
             response => {

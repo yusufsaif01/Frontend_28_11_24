@@ -5,7 +5,7 @@ import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/cu
 
 const routes = {
   getFootPlayerList: (query: string) => `/footcoachlist?${query}`,
-  deleteFootplayer: (id: string) => `/footplayers/${id}`,
+  deleteFootCoach: (id: string) => `/deleteFootCoach/${id}`,
   findPlayer: (query: string) => `/coache/search${query}`,
   sendFootPlayerRequest: () => '/coache/request',
   sendFootPlayerInvite: () => '/footplayer/invite',
@@ -107,8 +107,8 @@ export class ManagecoacheService {
     );
   }
 
-  deleteFootPlayer(id: string) {
-    return this.httpClient.delete<any>(routes.deleteFootplayer(id));
+  deleteFootCoach(id: string) {
+    return this.httpClient.delete<any>(routes.deleteFootCoach(id));
   }
 
   findPlayer(
