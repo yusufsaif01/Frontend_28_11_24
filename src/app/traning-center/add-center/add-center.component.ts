@@ -45,7 +45,7 @@ export class AddCenterComponent implements OnInit, OnDestroy {
   own_member_type: string;
   create_registration_Form: FormGroup;
   environment = environment;
-  editMode: boolean = false;
+
   show_count: number;
   total_count: number;
   pageSize: number = 5;
@@ -296,22 +296,18 @@ export class AddCenterComponent implements OnInit, OnDestroy {
     this.create_registration_Form.controls.district.patchValue('');
   }
 
-  //Center creation Form
-  toggleMode() {
-    this.editMode = !this.editMode;
-  }
-
   create_center() {
     let form_data = this.create_registration_Form.value;
     form_data.academy_user_id = localStorage.getItem('user_id');
     form_data.opening_days = this.daysSelect;
-
+    console.log('days select in create_center function is', this.daysSelect);
+    console.log('form data is ==>', form_data);
     this._authenticationService
       .create_traning_center(form_data)
       .pipe(untilDestroyed(this))
       .subscribe(
         credentials => {
-          this.toggleMode();
+          this.dialogRef.close('refresh');
         },
         error => {
           this._toastrService.error(`${error.error.message}`, 'Failed');

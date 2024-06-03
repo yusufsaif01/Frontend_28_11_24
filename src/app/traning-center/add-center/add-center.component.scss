@@ -2,7 +2,7 @@
 @import "src/assets/sass/abstracts/mixins";
 
 .from-container {
-  margin: -24px;
+  margin: 20px;
 }
 
 .header {
@@ -47,7 +47,7 @@
       flex-wrap: wrap;
     }
     .input-wrapper {
-      width: calc(32% - 6px);
+      width: calc(45% - 6px);
 
       @include responsive(bigphone) {
         width: calc(48% - 6px);

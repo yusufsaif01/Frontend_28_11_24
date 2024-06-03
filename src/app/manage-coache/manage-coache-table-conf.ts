@@ -9,7 +9,7 @@ export class ManagecoacheTableConfig extends TableConfig {
     this.columns = {
       name: {
         code: 'name',
-        text: 'coache name',
+        text: 'coach name',
         getValue: (ele: any) => {
           return this.capitalize.transform(ele[this.columns.name.code]);
         }

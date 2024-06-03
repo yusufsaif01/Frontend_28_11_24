@@ -49,6 +49,16 @@
         >
           Verify
         </button>
+        <br />
+        <br />
+
+        <button
+          class="btn btn-primary btn-block"
+          [hidden]="editMode"
+          (click)="reSendOtp()"
+        >
+          Resend Otp
+        </button>
       </form>
     </div>
   </div>

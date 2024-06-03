@@ -82,7 +82,7 @@
             >
           </a>
         </li>
-        <li *ngIf="member_type === 'coache' || 'player'">
+        <li *ngIf="member_type === 'coache' || member_type === 'player'">
           <a
             matTooltip="FooTMates"
             [routerLink]="['/member/manage/foot-requests']"
@@ -91,7 +91,7 @@
             <span *ngIf="stats.total_requests">{{ stats.total_requests }}</span>
           </a>
         </li>
-        <li *ngIf="member_type !== 'player' || 'coache'">
+        <li *ngIf="!(member_type === 'player' || member_type === 'coache')">
           <a matTooltip="FooTPlayers" [matMenuTriggerFor]="footplayer">
             <mat-icon class="material-icons">people_outline</mat-icon>
             <span *ngIf="stats.total_requests">{{ stats.total_requests }}</span>

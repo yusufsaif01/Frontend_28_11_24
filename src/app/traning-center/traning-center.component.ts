@@ -120,7 +120,7 @@ export class TraningCenterComponent implements OnInit, OnDestroy {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
+      if (result === 'refresh') {
         this.selectedPage = 1;
         this.filter.page_no = 1;
         this.getTraningCenterList(this.userId, this.pageSize, 1);

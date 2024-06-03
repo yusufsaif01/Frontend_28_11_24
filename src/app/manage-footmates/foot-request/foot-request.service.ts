@@ -128,6 +128,7 @@ export class FootRequestService {
     let params = '';
 
     if (context['request_id']) {
+      console.log('inside request_id');
       params += `${context['request_id']}`;
       return this.httpClient.patch<CommonResponseContext>(
         routes.rejectFootRequest(params),
@@ -135,6 +136,7 @@ export class FootRequestService {
       );
     }
     if (context['user_id']) {
+      console.log('inside user_id');
       params += context['user_id'];
       return this.httpClient.patch<CommonResponseContext>(
         routes.rejectFootPlayerRequest(params),

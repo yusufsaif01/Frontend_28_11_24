@@ -5,7 +5,8 @@ import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/cu
 
 const routes = {
   deleteTraningCenter: (id: string) => `/traning-center/${id}`,
-  verifyOtp: (query: string) => `/otp/verify/?${query}`
+  verifyOtp: (query: string) => `/otp/verify/?${query}`,
+  reSendOtp: (query: string) => `/resendOtp/?${query}`
 };
 
 interface ResendFootPlayerInviteContext {
@@ -49,6 +50,24 @@ export class OtpService {
     if (context['name']) {
       query += '&name=' + context['name'];
     }
+    console.log(
+      'return of this.httpClient',
+      this.httpClient.get<OtpResponseContext>(routes.verifyOtp(query))
+    );
     return this.httpClient.get<OtpResponseContext>(routes.verifyOtp(query));
+  }
+
+  reSendOtp(context: FindOtpContext): Observable<OtpResponseContext> {
+    let query = '';
+    if (context['email']) {
+      query += 'email=' + context['email'];
+    }
+    if (context['otp']) {
+      query += '&otp=' + context['otp'];
+    }
+    if (context['name']) {
+      query += '&name=' + context['name'];
+    }
+    return this.httpClient.get<OtpResponseContext>(routes.reSendOtp(query));
   }
 }
