@@ -104,7 +104,6 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
-          console.log('response of coachrole', response.data[0]);
           this.coache_role_array = response.data[0];
           this.positionArray = response.data.records;
         },
@@ -177,13 +176,11 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   getPositionList() {
-    console.log('000000000000000000');
     this._professionalDetailsService
       .getPositionList()
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          console.log('position listttt isiss', response.data.records);
           this.positionArray = response.data.records;
         },
         error => {}
@@ -195,7 +192,6 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
-          console.log('response of coachrole', response.data);
           this.area_of_specialization_Array = response.data[0];
           // this.positionArray = response.data.records;
         },
@@ -209,7 +205,6 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         (response: any) => {
-          console.log('response of traningstyle', response.data);
           this.preferred_traning_style_Array = response.data[0];
           // this.positionArray = response.data.records;
         },
@@ -225,15 +220,16 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
           this.professionalDetails = response.data;
           console.log('professional details subscribe is', response.data);
           this.populateFormFields();
-          this.getPositionList();
-          this.populateDynamicPosition();
-          if (this.professionalDetails.member_type === 'player') {
+
+          if (this.professionalDetails.player_type === 'player') {
             this.getPositionList();
             this.populateDynamicPosition();
           }
+          console.log('7777777777', this.professionalDetails.player_type);
           if (
             ['club', 'academy'].includes(this.professionalDetails.member_type)
           ) {
+            console.log('inside club,academy');
             let controlFuncObject = {
               contact_person: [
                 this.professionalDetails.contact_person,

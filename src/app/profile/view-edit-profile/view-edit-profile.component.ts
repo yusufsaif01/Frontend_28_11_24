@@ -25,7 +25,6 @@ export class ViewEditProfileComponent implements OnInit {
     private _router: Router
   ) {
     this._activatedRoute.params.subscribe(params => {
-      console.log('routinggg', params);
       if (params['tabname']) this.componentName = params['tabname'];
     });
   }
