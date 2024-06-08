@@ -123,6 +123,8 @@ export class AuthenticationService {
   }
 
   resetPassword(context: ResetPasswordContext, token: string): Observable<any> {
+    const userId = localStorage.getItem('userId');
+
     let httpOptions = {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token

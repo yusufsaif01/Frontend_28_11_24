@@ -14,6 +14,7 @@ import { untilDestroyed } from '@app/core';
 export class ResetPasswordComponent implements OnInit, OnDestroy {
   resetPasswordForm: FormGroup;
   token: string;
+  userId: string;
   isLinkExpired: boolean = false;
   tooltip: string =
     'Please provide at least 1 special character, 1 number and 1 alphabet';
@@ -34,25 +35,30 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   ngOnInit() {
-    this._authenticationService
-      .resetLinkStatus(this.token)
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
-          if (response.status === 'success') {
-            this.isLinkExpired = true;
-          }
-        },
-        error => {
-          // if (error.error.code === 'LINK_EXPIRED' || error.error.code === 'INVALID_TOKEN')
-          this._router.navigate(['/link-expired']);
-        }
-      );
+    this.userId = localStorage.getItem('userId');
+    console.log('user id is=>', this.userId);
+    //  this._authenticationService
+    //    .resetLinkStatus(this.token)
+    //    .pipe(untilDestroyed(this))
+    //    .subscribe(
+    //      response => {
+    //        if (response.status === 'success') {
+    //          this.isLinkExpired = true;
+    //       }
+    //     },
+    //     error => {
+    // if (error.error.code === 'LINK_EXPIRED' || error.error.code === 'INVALID_TOKEN')
+    //       this._router.navigate(['/link-expired']);
+    //     }
+    //   );
   }
 
   resetPassword() {
+    const userdata = localStorage.getItem('userId');
+
+    console.log('form value is=>', this.resetPasswordForm.value);
     this._authenticationService
-      .resetPassword(this.resetPasswordForm.value, this.token)
+      .resetPassword(this.resetPasswordForm.value, userdata)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
@@ -69,6 +75,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
 
   createForm() {
+    const userid = localStorage.getItem('userId');
     this.resetPasswordForm = this._formBuilder.group(
       {
         password: [
@@ -92,7 +99,8 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
               /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\~\`\!\@\#\$\%\^\&\*\(\)\-\_\+\=\{\}\[\]\\\|\:\;\'\"\,\.\<\>\/\?])/
             )
           ]
-        ]
+        ],
+        userid: [userid]
       },
       {
         validator: matchingPassword

@@ -182,7 +182,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       first_name: [''],
       last_name: [''],
       email: ['', [Validators.required, Validators.email]],
-      country_code: [''],
+      country_code: ['+91'],
       phone: [
         '',
         [

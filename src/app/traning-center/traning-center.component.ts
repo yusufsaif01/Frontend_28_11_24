@@ -92,7 +92,7 @@ export class TraningCenterComponent implements OnInit, OnDestroy {
       // .pipe(untilDestroyed(this))
       .subscribe(response => {
         console.log('response in api hits');
-        console.log(response.data);
+        const od = response.data.records.map(item => item.opening_days);
 
         this.dataSource = new MatTableDataSource(response.data.records);
         this.show_count = response.data.records.length;

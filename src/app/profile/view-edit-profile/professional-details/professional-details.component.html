@@ -18,10 +18,7 @@
             <div class="section-block">
               <div
                 class="third"
-                *ngFor="
-                  let data of professionalDetails?.position;
-                  let i = index
-                "
+                *ngFor="let data of professionalDetails.position; let i = index"
               >
                 <p>
                   <span>{{ i + 1 }}.</span> {{ data.name | titlecase }}
@@ -115,10 +112,18 @@
           <div class="associated mt-2">
             <h3>
               Currently associated with club / academy :
-              <span>
-                {{ professionalDetails?.associated_club_academy | titlecase }}
-              </span>
             </h3>
+            <div class="section-block">
+              <div class="full">
+                <div class="right">
+                  <p>
+                    {{
+                      professionalDetails?.associated_club_academy | titlecase
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <ng-container
@@ -192,13 +197,12 @@
               Current Role
             </h3>
             <div class="section-block">
-              <div
-                class="third"
-                *ngFor="let data of coache_role_array; let i = index"
-              >
-                <p>
-                  <span>{{ i + 1 }}.</span> {{ data.name }}
-                </p>
+              <div class="full">
+                <div class="right">
+                  <p>
+                    {{ professionalDetails?.current_role | titlecase }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -237,6 +241,19 @@
           </div>
 
           <div class="section">
+            <h3 class="section-heading mb-0">Area of specialization</h3>
+            <div class="section-block">
+              <div class="full">
+                <div class="right">
+                  <p>
+                    {{ professionalDetails?.area_of_spec | titlecase }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="section">
             <h3 class="section-heading mb-0">Previous coaching Experience</h3>
             <div class="section-block">
               <div class="full">
@@ -248,7 +265,7 @@
               </div>
             </div>
           </div>
-
+-->
           <!--    <div class="associated mt-2">
             <h3>
               coacheing Philosophy

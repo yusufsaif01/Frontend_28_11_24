@@ -143,17 +143,8 @@ export class AuthenticationService {
     return of(true);
   }
 
-  resetPassword(context: ResetPasswordContext, token: string): Observable<any> {
-    let httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token
-      })
-    };
-    return this.httpClient.post(
-      routes.resetPassword(context),
-      context,
-      httpOptions
-    );
+  resetPassword(context: ResetPasswordContext, userId: any): Observable<any> {
+    return this.httpClient.post(routes.resetPassword(context), context, userId);
   }
 
   createPassword(

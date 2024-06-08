@@ -73,8 +73,8 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getLocationStats();
     this.getPersonalProfileDetails();
+    this.getLocationStats();
   }
 
   transformURL(url: string): SafeHtml {
@@ -572,11 +572,12 @@ export class PersonalDetailsComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
+          this.getPersonalProfileDetails();
           this._toastrService.success(
             'Success',
             'Profile updated successfully'
           );
-          this.getPersonalProfileDetails();
+          //this.getPersonalProfileDetails();
           this.toggleMode();
         },
         error => {

@@ -50,6 +50,7 @@ import { AttendanceComponent } from './attendance/attendance.component';
 import { MarkAttendanceComponent } from './mark-attendance/mark-attendance.component';
 import { OtpPageComponent } from './otp-page/otp-page.component';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { OtpForForgotPasswordComponent } from './otp-for-forgot-password/otp-for-forgot-password.component';
 @NgModule({
   imports: [
     NgMultiSelectDropDownModule.forRoot(),
@@ -106,7 +107,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
     TraningCenterComponent,
     AttendanceComponent,
     MarkAttendanceComponent,
-    OtpPageComponent
+    OtpPageComponent,
+    OtpForForgotPasswordComponent
   ],
   providers: [
     RoleGuardService,

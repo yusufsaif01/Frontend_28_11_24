@@ -21,6 +21,7 @@ import { TraningCenterComponent } from './traning-center/traning-center.componen
 import { AttendanceComponent } from './attendance/attendance.component';
 import { MarkAttendanceComponent } from './mark-attendance/mark-attendance.component';
 import { OtpPageComponent } from './otp-page/otp-page.component';
+import { OtpForForgotPasswordComponent } from './otp-for-forgot-password/otp-for-forgot-password.component';
 const routes: Routes = [
   {
     path: '',
@@ -96,6 +97,11 @@ const routes: Routes = [
     path: 'otp-verification',
     component: OtpPageComponent
   },
+  {
+    path: 'OtpForForgotPasswordComponent',
+    component: OtpForForgotPasswordComponent
+  },
+
   {
     path: 'member/traning-center',
     component: TraningCenterComponent

@@ -201,7 +201,7 @@
               <h4>D.O.B</h4>
             </div>
             <div class="right">
-              <p>{{ profile?.dob }}</p>
+              <p>{{ profile?.dob | date: 'MM-dd-yyyy' }}</p>
             </div>
           </div>
         </div>
@@ -453,6 +453,7 @@
                       autocomplete="off"
                       required
                       placeholder="Feet"
+                      max="1"
                     />
                   </div>
                   <div class="half">
@@ -463,6 +464,7 @@
                       autocomplete="off"
                       required
                       placeholder="Inches"
+                      max="2"
                     />
                   </div>
                 </div>
