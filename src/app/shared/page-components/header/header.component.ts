@@ -85,6 +85,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
+          console.log('total request in header is=>', response.data);
           this.stats.total_requests = response.data.total_requests;
         },
         error => {}

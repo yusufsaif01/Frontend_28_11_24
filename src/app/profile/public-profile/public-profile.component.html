@@ -240,13 +240,13 @@
                     <div class="right">
                       <p>
                         {{
-                          publicProfileData?.height?.feet
-                            ? publicProfileData?.height?.feet + 'ft'
+                          publicProfileData?.height_feet
+                            ? publicProfileData?.height_feet + 'ft'
                             : ''
                         }}
                         {{
-                          publicProfileData?.height?.inches
-                            ? publicProfileData?.height?.inches + 'inches'
+                          publicProfileData?.height_inches
+                            ? publicProfileData?.height_inches + 'inches'
                             : ''
                         }}
                       </p>
@@ -258,7 +258,7 @@
                       <h4>Nationality</h4>
                     </div>
                     <div class="right">
-                      <p>{{ publicProfileData?.country?.name | titlecase }}</p>
+                      <p>{{ publicProfileData?.country_name | titlecase }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -266,7 +266,7 @@
                       <h4>State / UT</h4>
                     </div>
                     <div class="right">
-                      <p>{{ publicProfileData?.state?.name | titlecase }}</p>
+                      <p>{{ publicProfileData?.state_name | titlecase }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -274,7 +274,7 @@
                       <h4>District</h4>
                     </div>
                     <div class="right">
-                      <p>{{ publicProfileData?.district?.name | titlecase }}</p>
+                      <p>{{ publicProfileData?.district_name | titlecase }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -283,7 +283,7 @@
                     </div>
                     <div class="right">
                       <p>
-                        {{ publicProfileData?.institute?.school | titlecase }}
+                        {{ publicProfileData?.institute_school | titlecase }}
                       </p>
                     </div>
                   </div>
@@ -399,14 +399,14 @@
                       <h4>Former club / academy</h4>
                     </div>
                     <div class="right">
-                      <p>{{ publicProfileData?.associated_club_academy }}</p>
+                      <p>{{ publicProfileData.former_club_academy }}</p>
                     </div>
                   </div>
 
                   <h4 class="mb-2 mt-2">
                     Current associated club / academy :<span>
                       {{
-                        publicProfileData?.associated_club_academy | titlecase
+                        publicProfileData.associated_clud_academy | titlecase
                       }}
                     </span>
                   </h4>
@@ -505,7 +505,7 @@
                       <h4>Country</h4>
                     </div>
                     <div class="right">
-                      <p>{{ publicProfileData?.country?.name | titlecase }}</p>
+                      <p>{{ publicProfileData?.country_name | titlecase }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -513,7 +513,7 @@
                       <h4>State/ UT</h4>
                     </div>
                     <div class="right">
-                      <p>{{ publicProfileData?.state?.name | titlecase }}</p>
+                      <p>{{ publicProfileData?.state_name | titlecase }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -521,7 +521,7 @@
                       <h4>District</h4>
                     </div>
                     <div class="right">
-                      <p>{{ publicProfileData?.district?.name | titlecase }}</p>
+                      <p>{{ publicProfileData?.district_name | titlecase }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -529,7 +529,7 @@
                       <h4>Pincode/ Zipcode</h4>
                     </div>
                     <div class="right">
-                      <p>{{ publicProfileData?.address?.pincode }}</p>
+                      <p>{{ publicProfileData?.address_pincode }}</p>
                     </div>
                   </div>
                   <div class="full">
@@ -538,9 +538,7 @@
                     </div>
                     <div class="right">
                       <p>
-                        {{
-                          publicProfileData?.address?.full_address | titlecase
-                        }}
+                        {{ publicProfileData?.address_fulladdress | titlecase }}
                       </p>
                     </div>
                   </div>

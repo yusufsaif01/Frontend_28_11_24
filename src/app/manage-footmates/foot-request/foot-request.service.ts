@@ -28,6 +28,7 @@ interface ConnectionStatsResponseContext {
 }
 interface ConnectionStatsRequestContext {
   user_id: string;
+  userType: string;
 }
 interface RequestContext {
   request_id: string;
@@ -151,13 +152,13 @@ export class FootRequestService {
     let query = '?';
     if (context['user_id']) {
       query += 'user_id=' + context['user_id'];
-      return this.httpClient.get<ConnectionStatsResponseContext>(
-        routes.connectionStats() + query
-      );
+      const userType = localStorage.getItem('member_type');
+      query += '&userType=' + userType;
     }
 
+    console.log('final query is', query);
     return this.httpClient.get<ConnectionStatsResponseContext>(
-      routes.connectionStats()
+      routes.connectionStats() + query
     );
   }
 

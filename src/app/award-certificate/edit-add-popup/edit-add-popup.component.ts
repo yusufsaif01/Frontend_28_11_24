@@ -75,9 +75,9 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
     if (this.member_type === 'player' || this.member_type === 'coache') {
       this.awardsArray = Constants.AWARD_TYPE.PLAYER;
     } else if (this.member_type === 'club') {
-      this.awardsArray = Constants.AWARD_TYPE.CLUB;
+      this.awardsArray = Constants.AWARD_TYPE.PLAYER;
     } else if (this.member_type === 'academy') {
-      this.awardsArray = Constants.AWARD_TYPE.ACADEMY;
+      this.awardsArray = Constants.AWARD_TYPE.PLAYER;
     }
 
     if (this.data.id) {

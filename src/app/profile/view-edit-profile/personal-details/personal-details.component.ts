@@ -58,7 +58,7 @@ export class PersonalDetailsComponent implements OnInit {
   personalProfileDetailsForm: FormGroup;
   profile_status: string;
   editMode: boolean = false;
-  player_type: string = 'grassroot';
+  player_type: string = '';
   @Output() avatar_url = new EventEmitter<string>();
   constructor(
     private _editProfileService: ViewEditProfileService,
@@ -179,7 +179,8 @@ export class PersonalDetailsComponent implements OnInit {
             Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
           ]
         ],
-        dob: ['', [Validators.required]], //2020-04-14T18:30:00.000Z"
+        dob: ['', { disabled: true }, [Validators.required]], //2020-04-14T18:30:00.000Z"
+        bio: ['', [Validators.required]],
         height_feet: [
           '',
           [
@@ -208,7 +209,7 @@ export class PersonalDetailsComponent implements OnInit {
         ],
         school: ['', []],
         university: [''],
-        college: ['']
+        college: ['', []]
       });
     } else {
       this.personalProfileDetailsForm = this._formBuilder.group({
@@ -269,16 +270,14 @@ export class PersonalDetailsComponent implements OnInit {
           this.populateFormFields(this.profile);
           this.profile_status = this.profile.profile_status.status;
           this.player_type = this.profile.player_type;
+          console.log('ddddddd', this.player_type);
           if (this.profile.avatar_url) {
-            console.log('inside ifffffffff');
             this.profile.avatar_url =
               environment.mediaUrl + this.profile.avatar_url;
           } else {
-            console.log('inside elseeeeeeeeeee');
             this.profile.avatar_url =
               environment.mediaUrl + '/uploads/avatar/user-avatar.png';
           }
-          console.log('before insert in popluateFormFields are ----->');
 
           this.setCategoryValidators();
         },
@@ -291,37 +290,43 @@ export class PersonalDetailsComponent implements OnInit {
     console.log('populate form fields are==>');
     console.log(profileData);
     this.personalProfileDetailsForm.valueChanges.subscribe(val => {
-      this.player_type = val.player_type;
+      // this.player_type = val.player_type;
+      console.log(
+        'on click value change',
+        this.player_type,
+        val.player_type,
+        val
+      );
     });
     this.personalProfileDetailsForm.patchValue(profileData);
-    if (this.profile.country) {
-      this.getStatesListing(this.profile.country.id);
-      this.getDistrictsListing(this.profile.country.id, this.profile.state.id);
+    if (this.profile.country_name) {
+      this.getStatesListing(this.profile.country_id);
+      this.getDistrictsListing(this.profile.country_id, this.profile.state_id);
     }
 
     this.personalProfileDetailsForm.patchValue({
-      state: this.profile.state ? this.profile.state.id : '',
-      district: this.profile.district ? this.profile.district.id : '',
-      country: this.profile.country ? this.profile.country.id : '',
+      country: this.profile.country_name ? this.profile.country_id : '',
+      state: this.profile.state_name ? this.profile.state_id : '',
+      district: this.profile.district_name ? this.profile.district_id : '',
       height_feet:
-        this.profile.height && this.profile.height.feet
-          ? this.profile.height.feet
+        this.profile.height_feet && this.profile.height_feet
+          ? this.profile.height_feet
           : '',
       height_inches:
-        this.profile.height && this.profile.height.inches
-          ? this.profile.height.inches
+        this.profile.height_inches && this.profile.height_inches
+          ? this.profile.height_inches
           : '',
       school:
-        this.profile.institute && this.profile.institute.school
-          ? this.profile.institute.school
+        this.profile.institute_school && this.profile.institute_school
+          ? this.profile.institute_school
           : '',
       university:
-        this.profile.institute && this.profile.institute.university
-          ? this.profile.institute.university
+        this.profile.institute_university && this.profile.institute_university
+          ? this.profile.institute_university
           : '',
       college:
-        this.profile.institute && this.profile.institute.college
-          ? this.profile.institute.college
+        this.profile.institute_college && this.profile.institute_college
+          ? this.profile.institute_college
           : '',
       youtube:
         this.profile.social_profiles && this.profile.social_profiles.youtube
@@ -347,12 +352,12 @@ export class PersonalDetailsComponent implements OnInit {
         ? new Date(this.profile.founded_in)
         : '',
       address:
-        this.profile.address && this.profile.address.full_address
-          ? this.profile.address.full_address
+        this.profile.address_fulladdress && this.profile.address_fulladdress
+          ? this.profile.address_fulladdress
           : '',
       pincode:
-        this.profile.address && this.profile.address.pincode
-          ? this.profile.address.pincode
+        this.profile.address_pincode && this.profile.address_pincode
+          ? this.profile.address_pincode
           : ''
     });
     if (
@@ -408,6 +413,7 @@ export class PersonalDetailsComponent implements OnInit {
       {
         name: 'bio',
         abstractControl: this._formBuilder.control('', [
+          Validators.required,
           Validators.maxLength(350)
         ])
       }
@@ -424,7 +430,7 @@ export class PersonalDetailsComponent implements OnInit {
         },
         {
           name: 'short_name',
-          abstractControl: this._formBuilder.control('', [])
+          abstractControl: this._formBuilder.control('', [Validators.required])
         },
         {
           name: 'founded_in',
@@ -439,6 +445,7 @@ export class PersonalDetailsComponent implements OnInit {
         {
           name: 'phone',
           abstractControl: this._formBuilder.control('', [
+            Validators.required,
             Validators.minLength(10),
             Validators.maxLength(10),
             Validators.pattern(/^\d+$/)
@@ -455,11 +462,11 @@ export class PersonalDetailsComponent implements OnInit {
         },
         {
           name: 'address',
-          abstractControl: this._formBuilder.control('')
+          abstractControl: this._formBuilder.control('', [Validators.required])
         },
         {
           name: 'pincode',
-          abstractControl: this._formBuilder.control('')
+          abstractControl: this._formBuilder.control('', [Validators.required])
         },
         {
           name: 'stadium_name',

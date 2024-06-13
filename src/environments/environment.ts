@@ -16,7 +16,7 @@ export const environment = {
   serverUrl: 'http://yftchain.local/api',
   // serverUrl: 'http://yftchain.local/',
 
-  mediaUrl: 'http://yftchain.local',
+  mediaUrl: 'https://www.yftchain.com',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'fr-FR']
 };

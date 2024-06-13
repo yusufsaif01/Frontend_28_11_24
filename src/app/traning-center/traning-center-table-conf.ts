@@ -48,9 +48,10 @@ export class TrainingCenterTableConfig extends TableConfig {
         code: 'opening_days',
         text: 'Opening Days',
         getValue: (ele: any) => {
-          return '---';
+          return ele[this.columns.opening_days.code];
         }
       },
+
       full_address: {
         code: 'full_address',
         text: 'Address',

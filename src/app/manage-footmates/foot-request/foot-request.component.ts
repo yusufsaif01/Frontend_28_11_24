@@ -35,6 +35,7 @@ export class FootRequestComponent implements OnInit, OnDestroy {
   };
 
   foot_data: any;
+  userType: any;
   pageSize: number = 12;
   show_count: number = 0;
   selectedPage: number;
@@ -123,6 +124,9 @@ export class FootRequestComponent implements OnInit, OnDestroy {
   }
 
   getConnectionStats(data: object) {
+    const userType = localStorage.getItem('member_type');
+    console.log('userType is', userType);
+    this.userType = userType;
     this.foot_data = data;
   }
 

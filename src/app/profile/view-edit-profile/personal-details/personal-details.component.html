@@ -20,7 +20,9 @@
               {{ profile.first_name | capitalize }}
               {{ profile.last_name }}
             </h2>
-            <p>{{ profile.player_type | titlecase }}</p>
+            <ng-container *ngIf="member_type !== 'coache'">
+              <p>{{ profile.player_type | titlecase }}</p>
+            </ng-container>
           </ng-container>
           <ng-container
             *ngIf="member_type !== 'player' || member_type !== 'coache'"
@@ -275,7 +277,7 @@
                 <h4>College</h4>
               </div>
               <div class="right">
-                <p>{{ profile?.institute?.college }}</p>
+                <p>{{ profile?.institute_college }}</p>
               </div>
             </div>
           </div>
@@ -286,7 +288,7 @@
                 <h4>University</h4>
               </div>
               <div class="right">
-                <p>{{ profile?.institute?.university }}</p>
+                <p>{{ profile?.institute_university }}</p>
               </div>
             </div>
           </div>
@@ -295,28 +297,28 @@
       <ng-container
         *ngIf="!(member_type === 'player' || member_type === 'coache')"
       >
-        <!--  <div class="view-details">
+        <div class="view-details">
           <div class="details">
             <div class="left">
               <h4>Pincode / Zipcode</h4>
             </div>
             <div class="right">
-              <p>{{ profile?.address?.pincode }}</p>
+              <p>{{ profile?.address_pincode }}</p>
             </div>
           </div>
         </div>
-        
+
         <div class="view-details">
           <div class="details">
             <div class="left">
               <h4>Office address</h4>
             </div>
             <div class="right">
-              <p>{{ profile?.address?.full_address }}</p>
+              <p>{{ profile?.address_fulladdress }}</p>
             </div>
           </div>
         </div>
-      -->
+
         <div class="view-details">
           <div class="details">
             <div class="left">
@@ -406,7 +408,7 @@
           <div class="input-container">
             <div class="full">
               <div class="form-block">
-                <label>Bio</label>
+                <label>Bio <span>*</span></label>
                 <textarea
                   formControlName="bio"
                   class="txtarea-height"
@@ -813,7 +815,7 @@
           <div class="input-container">
             <div class="full">
               <div class="form-block">
-                <label>Bio</label>
+                <label>Bio <span>*</span></label>
                 <textarea
                   formControlName="bio"
                   class="txtarea-height"
@@ -827,7 +829,7 @@
           <div class="input-container">
             <div class="third">
               <div class="form-block">
-                <label>Phone number </label>
+                <label>Phone number <span>*</span></label>
                 <div class="phone-block">
                   <div class="country-code">
                     <select disabled>
@@ -1069,10 +1071,7 @@
           <div class="input-container">
             <div class="two-third">
               <div class="form-block">
-                <label
-                  >Office address
-                  <span *ngIf="member_type === 'academy'">*</span></label
-                >
+                <label>Office address <span>*</span></label>
                 <input
                   formControlName="address"
                   type="text"
@@ -1106,7 +1105,7 @@
               <div class="form-block">
                 <label
                   >Pincode / Zipcode
-                  <span *ngIf="member_type === 'academy'">*</span>
+                  <span>*</span>
                 </label>
                 <input
                   formControlName="pincode"

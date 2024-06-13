@@ -80,14 +80,17 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
   getPublicProfileDetails() {
     let data = { user_id: '' };
     data.user_id = this.user_id ? this.user_id : this.logged_user_id;
-
+    console.log('user id is==>', data.user_id);
     this._publicProfileService
       .getPublicProfileDetails(data)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this.publicProfileData = response.data;
-          console.log('in front =====>');
+          console.log(
+            'public profile data front =====>',
+            this.publicProfileData
+          );
           console.log(response.data);
           this.setAvatar();
           this.is_following = this.publicProfileData.is_followed;

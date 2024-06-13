@@ -52,12 +52,7 @@
             >
           </span>
 
-          <ng-container
-            *ngIf="
-              profile?.member_type === 'player' ||
-              profile?.member_type === 'coache'
-            "
-          >
+          <ng-container *ngIf="profile?.member_type === 'player'">
             {{ profile?.player_type | titlecase }}
           </ng-container>
           <ng-container
@@ -295,7 +290,7 @@
             <span class="icon">
               <img src="assets/images/global/contracts.svg" alt="contracts" />
             </span>
-            <span class="text">Manage coaches</span>
+            <span class="text">Manage coach</span>
           </a>
         </li>
         <li>
