@@ -157,6 +157,8 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
     member_type: string,
     status: string
   ) {
+    console.log('clieckkkkkkkkkkkkkkk');
+    console.log(is_verified, club_name, member_type, status);
     if (status === 'pending') {
       return {
         message: 'Add request sent',

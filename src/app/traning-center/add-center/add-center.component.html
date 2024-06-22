@@ -99,7 +99,7 @@
       <div class="form-wrapper">
         <div class="input-wrapper">
           <div class="form-block">
-            <label>coach Name<span>*</span></label>
+            <label>Coach Name<span>*</span></label>
             <select formControlName="coache_name" matNativeControl required>
               <option value="">Select coach </option>
               <ng-container *ngFor="let coache of coacheArray">
@@ -111,7 +111,7 @@
 
         <div class="input-wrapper">
           <div class="form-block">
-            <label>training days <span>*</span></label>
+            <label>Traning days <span>*</span></label>
 
             <ng-multiselect-dropdown
               formControlName="opening_days"
@@ -132,7 +132,7 @@
           <div class="form-block">
             <label>Pincode <span>*</span></label>
             <input
-              formControlName="pincode"
+              formControlName="Pincode"
               type="text"
               matInput
               placeholder="pincode"
@@ -171,7 +171,7 @@
               formControlName="country"
               (change)="onSelectCountry($event)"
             >
-              <option value="">Select nationality</option>
+              <option value="">Select Country</option>
               <ng-container *ngFor="let country of countryArray">
                 <option value="{{ country.country_id }}">{{
                   country.country
@@ -248,11 +248,7 @@
 
       <!-- find button  -->
       <div class="find-btn">
-        <button
-          class="btn btn-primary"
-          (click)="create_center()"
-          [disabled]="create_registration_Form.invalid"
-        >
+        <button class="btn btn-primary" (click)="create_center()">
           Submit
         </button>
       </div>

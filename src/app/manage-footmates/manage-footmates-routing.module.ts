@@ -13,7 +13,7 @@ const appRoutes: Routes = [
     path: '',
     component: ManageFootmatesComponent,
     canActivate: [RoleGuardService, AuthenticationGuard],
-    data: { expectedRole: ['player', 'coache'] },
+    data: { expectedRole: ['player', 'coach'] },
     children: [
       {
         path: 'foot-requests',

@@ -12,7 +12,7 @@ const appRoutes: Routes = [
     path: '',
     component: GalleryComponent,
     canActivate: [RoleGuardService, AuthenticationGuard],
-    data: { expectedRole: ['player', 'club', 'academy', 'coache'] },
+    data: { expectedRole: ['player', 'club', 'academy', 'coach'] },
     children: [
       {
         path: '',

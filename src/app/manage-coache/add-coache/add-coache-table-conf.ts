@@ -2,30 +2,24 @@ import { TableConfig } from '@app/shared/table/TableConfig';
 export class AddcoacheTableConfig extends TableConfig {
   constructor() {
     super();
-    this.allowedColumns = ['player_name', 'category', 'position'];
+    this.allowedColumns = ['player_name', 'category'];
 
     this.columns = {
       player_name: {
         code: 'player_name',
-        text: 'Player name',
+        text: 'Coach name',
         getValue: (ele: any) => {
           return ele[this.columns.player_name.code];
         }
       },
       category: {
         code: 'category',
-        text: 'Category',
+        text: 'Role',
         getValue: (ele: any) => {
-          return ele[this.columns.category.code];
+          return '-';
         }
       },
-      position: {
-        code: 'position',
-        text: 'Position',
-        getValue: (ele: any) => {
-          return ele[this.columns.position.code];
-        }
-      },
+
       action: {
         code: 'action',
         text: 'Action',

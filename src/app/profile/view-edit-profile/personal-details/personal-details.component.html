@@ -14,18 +14,18 @@
         </div>
         <div class="details">
           <ng-container
-            *ngIf="member_type === 'player' || member_type === 'coache'"
+            *ngIf="member_type === 'player' || member_type === 'coach'"
           >
             <h2>
               {{ profile.first_name | capitalize }}
               {{ profile.last_name }}
             </h2>
-            <ng-container *ngIf="member_type !== 'coache'">
+            <ng-container *ngIf="member_type !== 'coach'">
               <p>{{ profile.player_type | titlecase }}</p>
             </ng-container>
           </ng-container>
           <ng-container
-            *ngIf="member_type !== 'player' || member_type !== 'coache'"
+            *ngIf="member_type !== 'player' || member_type !== 'coach'"
           >
             <h2>{{ profile?.name | capitalize }}</h2>
             <p>{{ profile?.short_name }}</p>
@@ -128,7 +128,7 @@
       <div class="boi">
         <h4>Bio</h4>
         <p>
-          {{ profile.bio }}
+          {{ profile?.bio }}
         </p>
       </div>
 
@@ -142,7 +142,7 @@
           </div>
         </div>
         <ng-container
-          *ngIf="member_type === 'player' || member_type === 'coache'"
+          *ngIf="member_type === 'player' || member_type === 'coach'"
         >
           <div class="details">
             <div class="left"></div>
@@ -151,9 +151,7 @@
         </ng-container>
       </div>
 
-      <ng-container
-        *ngIf="member_type === 'player' || member_type === 'coache'"
-      >
+      <ng-container *ngIf="member_type === 'player' || member_type === 'coach'">
         <div class="view-details">
           <div class="details">
             <div class="left">
@@ -170,7 +168,7 @@
         </div>
       </ng-container>
       <ng-container
-        *ngIf="!(member_type === 'player' || member_type === 'coache')"
+        *ngIf="!(member_type === 'player' || member_type === 'coach')"
       >
         <div class="view-details">
           <div class="details">
@@ -194,9 +192,7 @@
         </div>
       </ng-container>
 
-      <ng-container
-        *ngIf="member_type === 'player' || member_type === 'coache'"
-      >
+      <ng-container *ngIf="member_type === 'player' || member_type === 'coach'">
         <div class="view-details">
           <div class="details-full">
             <div class="left">
@@ -220,7 +216,7 @@
         </div>
       </ng-container>
       <!--<ng-container
-        *ngIf="!(member_type === 'player' || member_type === 'coache')"
+        *ngIf="!(member_type === 'player' || member_type === 'coach')"
       >
         <div class="view-details">
           <div class="details-full">
@@ -267,9 +263,7 @@
         </div>
       </div>
 
-      <ng-container
-        *ngIf="member_type === 'player' || member_type === 'coache'"
-      >
+      <ng-container *ngIf="member_type === 'player' || member_type === 'coach'">
         <ng-container *ngIf="['amateur', 'professional'].includes(player_type)">
           <div class="view-details">
             <div class="details-full">
@@ -295,7 +289,7 @@
         </ng-container>
       </ng-container>
       <ng-container
-        *ngIf="!(member_type === 'player' || member_type === 'coache')"
+        *ngIf="!(member_type === 'player' || member_type === 'coach')"
       >
         <div class="view-details">
           <div class="details">
@@ -342,7 +336,7 @@
       <!-- player -->
       <ng-container
         *ngIf="
-          member_type === 'player' || member_type === 'coache';
+          member_type === 'player' || member_type === 'coach';
           else clubAcademyWrapper
         "
       >
@@ -435,10 +429,10 @@
             </div>
             <div class="third">
               <div class="form-block">
-                <label>Weight (kg) </label>
+                <label>Weight (kg) <span>*</span></label>
                 <input
                   formControlName="weight"
-                  type="Name"
+                  type="name"
                   matinput
                   autocomplete="off"
                   placeholder="Weight"

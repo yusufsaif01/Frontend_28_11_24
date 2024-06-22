@@ -36,7 +36,7 @@ export class AddCenterComponent implements OnInit, OnDestroy {
   public dataSource = new MatTableDataSource([]);
   dropdownList = [];
   selectedItems = [];
-  member_type: string = localStorage.getItem('member_type') || 'coache';
+  member_type: string = localStorage.getItem('member_type') || 'coach';
   dropdownSettings: IDropdownSettings;
   countryArray: any[] = [];
   coacheArray: any[] = [];

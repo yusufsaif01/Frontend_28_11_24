@@ -142,6 +142,7 @@
     <div class="table">
       <!-- table -->
       <div *ngIf="dataSource.data.length" class="table-container">
+        <h1></h1>
         <app-table
           [tableConfig]="tableConfig"
           [NumberColumn]="'true'"
@@ -160,6 +161,7 @@
           let-member_type="member_type"
           let-category="category"
           let-position="position"
+          let-current_role="current_role"
           let-is_verified="is_verified"
           let-club_name="club_name"
           let-status="status"

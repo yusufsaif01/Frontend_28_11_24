@@ -45,7 +45,7 @@
               Academy
             </mat-radio-button>
             <mat-radio-button
-              (click)="toggleForm('coache')"
+              (click)="toggleForm('coach')"
               class="example-radio-button"
               value="coach"
             >
@@ -151,7 +151,7 @@
           </div>
         </div>
 
-        <div class="form-group" *ngIf="activeForm === 'coache'">
+        <div class="form-group" *ngIf="activeForm === 'coach'">
           <div class="half">
             <div class="form-block">
               <label>First name </label>
@@ -494,7 +494,7 @@
           </div>
         </div>
 
-        <div class="form-block" *ngIf="activeForm === 'coache'">
+        <div class="form-block" *ngIf="activeForm === 'coach'">
           <label>Date of birth </label>
           <div class="date">
             <input

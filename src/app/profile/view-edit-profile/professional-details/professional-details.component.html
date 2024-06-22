@@ -129,7 +129,7 @@
           <ng-container
             *ngIf="professionalDetails?.associated_club_academy === 'yes'"
           >
-            <h3 class="mt-1 mb-1">Head coache details</h3>
+            <h3 class="mt-1 mb-1">Head coach details</h3>
             <div class="view-details">
               <div class="details">
                 <div class="left">
@@ -180,7 +180,7 @@
       </ng-container>
     </ng-container>
 
-    <ng-container *ngIf="member_type === 'coache'">
+    <ng-container *ngIf="member_type === 'coach'">
       <ng-container *ngIf="viewMode; else editMode">
         <div class="heading">
           <h2>Professional details</h2>
@@ -346,7 +346,7 @@
       </ng-container>
     </ng-container>
 
-    <ng-container *ngIf="member_type !== 'player' && member_type !== 'coache'">
+    <ng-container *ngIf="member_type !== 'player' && member_type !== 'coach'">
       <ng-container *ngIf="viewMode; else editMode">
         <div class="heading">
           <h2>Professional details</h2>
@@ -556,7 +556,7 @@
 
     <!-- editwrapper -->
     <ng-template #editMode>
-      <div class="edit-wrapper" *ngIf="member_type === 'coache'">
+      <div class="edit-wrapper" *ngIf="member_type === 'coach'">
         <form [formGroup]="professionalDetailsForm">
           <div class="heading">
             <h2>Professional details</h2>
@@ -1046,7 +1046,7 @@
                 'yes'
               "
             >
-              <h3>Head coache</h3>
+              <h3>Head coach</h3>
               <div class="input-container">
                 <div class="third">
                   <div class="form-block">
@@ -1075,7 +1075,7 @@
                             .errors.required
                         "
                         translate
-                        >Head coache name is required
+                        >Head coach name is required
                       </span>
                       <span
                         *ngIf="
@@ -1083,7 +1083,7 @@
                             .errors.pattern
                         "
                         translate
-                        >Head coache name format is invalid
+                        >Head coach name format is invalid
                       </span>
                     </mat-error>
                   </div>
@@ -1124,7 +1124,7 @@
                             .errors.required
                         "
                         translate
-                        >Head coache phone is required</span
+                        >Head coach phone is required</span
                       >
                       <ng-template #lengthBlock>
                         <span
@@ -1242,7 +1242,7 @@
       </div>
       <div
         class="edit-wrapper"
-        *ngIf="member_type !== 'player' && member_type !== 'coache'"
+        *ngIf="member_type !== 'player' && member_type !== 'coach'"
       >
         <form [formGroup]="professionalDetailsForm">
           <div class="heading">

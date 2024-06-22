@@ -94,7 +94,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.setClubAcademyValidators();
       this.typeArray = this.clubAcademyType;
     }
-    if (this.activeForm === 'player' || this.activeForm === 'coache') {
+    if (this.activeForm === 'player' || this.activeForm === 'coach') {
       this.setPlayerValidators();
       this.typeArray = this.playerType;
     }
@@ -130,7 +130,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       delete form_data.last_name;
       delete form_data.dob;
     }
-    if (this.activeForm === 'player' || this.activeForm === 'coache') {
+    if (this.activeForm === 'player' || this.activeForm === 'coach') {
       delete form_data.name;
       delete form_data.type;
     }

@@ -31,7 +31,7 @@ let addressControl = {
 
 export function dateFactory() {
   return localStorage.getItem('member_type') === 'player' ||
-    localStorage.getItem('member_type') === 'coache'
+    localStorage.getItem('member_type') === 'coach'
     ? Constants.PROFILE_DATE_FORMATS.DOB
     : Constants.PROFILE_DATE_FORMATS.FOUNDED;
 }
@@ -149,7 +149,7 @@ export class PersonalDetailsComponent implements OnInit {
 
   createForm() {
     this.personalProfileDetailsForm = this._formBuilder.group({});
-    if (this.member_type === 'player' || this.member_type === 'coache') {
+    if (this.member_type === 'player' || this.member_type === 'coach') {
       this.personalProfileDetailsForm = this._formBuilder.group({
         email: [
           { value: '', disabled: true },
@@ -202,6 +202,7 @@ export class PersonalDetailsComponent implements OnInit {
         weight: [
           '',
           [
+            Validators.required,
             Validators.min(1),
             Validators.max(200),
             Validators.pattern(/^\d+(\.\d)?$/)
@@ -261,16 +262,14 @@ export class PersonalDetailsComponent implements OnInit {
       .subscribe(
         response => {
           // this._toastrService.success(
-          //   'Successful',
-          //   'Data retrieved successfully'
+          // 'Successful',
+          // 'Data retrieved successfully'
           // );
-          console.log('data in responseEEEEEE');
-          console.log(response.data);
           this.profile = response.data;
           this.populateFormFields(this.profile);
           this.profile_status = this.profile.profile_status.status;
           this.player_type = this.profile.player_type;
-          console.log('ddddddd', this.player_type);
+
           if (this.profile.avatar_url) {
             this.profile.avatar_url =
               environment.mediaUrl + this.profile.avatar_url;
@@ -280,6 +279,10 @@ export class PersonalDetailsComponent implements OnInit {
           }
 
           this.setCategoryValidators();
+          this._toastrService.success(
+            'Successful',
+            'Data retrieved successfully'
+          );
         },
         error => {
           this._toastrService.error(error.error.message, 'Error');
@@ -362,7 +365,7 @@ export class PersonalDetailsComponent implements OnInit {
     });
     if (
       this.member_type === 'player' ||
-      (this.member_type === 'coache' &&
+      (this.member_type === 'coach' &&
         this.profile.profile_status.status === 'verified')
     ) {
       this.personalProfileDetailsForm.controls.dob.disable();
@@ -579,12 +582,16 @@ export class PersonalDetailsComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          this.getPersonalProfileDetails();
+          // this.getPersonalProfileDetails();
           this._toastrService.success(
             'Success',
             'Profile updated successfully'
           );
-          //this.getPersonalProfileDetails();
+
+          setTimeout(() => {
+            this.getPersonalProfileDetails();
+          }, 1000);
+
           this.toggleMode();
         },
         error => {
@@ -594,7 +601,7 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   dateModifier(requestData: any) {
-    this.member_type === 'player' || this.member_type === 'coache'
+    this.member_type === 'player' || this.member_type === 'coach'
       ? requestData.set(
           'dob',
           this._dateConversion.convert(

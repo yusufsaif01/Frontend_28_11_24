@@ -79,6 +79,7 @@ export class AddcoacheComponent implements OnInit, OnDestroy {
           let records = response.data.records;
           for (let i = 0; i < records.length; i++) {
             records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
+            // records[i]['avatar'] =  records[i]['avatar'];
           }
           if (response.data.total) {
             this.totalRecordSubject$.next(false);
@@ -88,6 +89,7 @@ export class AddcoacheComponent implements OnInit, OnDestroy {
           if (records.length) {
             this.prepareResponse(records);
           }
+          console.log('record is=>', records);
           this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
           this.total_count = response.data.total;
@@ -160,9 +162,15 @@ export class AddcoacheComponent implements OnInit, OnDestroy {
     member_type: string,
     status: string
   ) {
+    console.log(is_verified, club_name, member_type, status);
     if (status === 'pending') {
       return {
         message: 'Add request sent',
+        state: true
+      };
+    } else if (status === 'added') {
+      return {
+        message: 'Already added',
         state: true
       };
     } else if (['club', 'academy'].includes(member_type)) {

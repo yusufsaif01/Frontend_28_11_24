@@ -86,7 +86,7 @@ export class FootRequestComponent implements OnInit, OnDestroy {
 
   acceptRequest(request: RequestContext) {
     let requestData =
-      this.requested_by === 'player' || this.requested_by === 'coache'
+      this.requested_by === 'player' || this.requested_by === 'coach'
         ? { request_id: request.request_id }
         : { user_id: request.user_id };
     this.footRequestService
@@ -103,7 +103,7 @@ export class FootRequestComponent implements OnInit, OnDestroy {
 
   rejectRequest(request: RequestContext) {
     let requestData =
-      this.requested_by === 'player' || this.requested_by === 'coache'
+      this.requested_by === 'player' || this.requested_by === 'coach'
         ? { request_id: request.request_id }
         : { user_id: request.user_id };
     this.footRequestService

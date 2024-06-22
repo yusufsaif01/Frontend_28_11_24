@@ -72,7 +72,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.member_type === 'player' || this.member_type === 'coache') {
+    if (this.member_type === 'player' || this.member_type === 'coach') {
       this.awardsArray = Constants.AWARD_TYPE.PLAYER;
     } else if (this.member_type === 'club') {
       this.awardsArray = Constants.AWARD_TYPE.PLAYER;

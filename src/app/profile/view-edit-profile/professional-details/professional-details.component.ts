@@ -89,7 +89,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   clearFormArray() {
-    if (this.member_type === 'player' || this.member_type === 'coache') {
+    if (this.member_type === 'player' || this.member_type === 'coach') {
       this.position.clear();
     } else {
       this.contact_person.clear();
@@ -225,7 +225,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
             this.getPositionList();
             this.populateDynamicPosition();
           }
-          console.log('7777777777', this.professionalDetails.player_type);
+
           if (
             ['club', 'academy'].includes(this.professionalDetails.member_type)
           ) {
@@ -257,7 +257,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   populateFormFields() {
-    if (this.member_type === 'player' || this.member_type === 'coache') {
+    if (this.member_type === 'player' || this.member_type === 'coach') {
       if (this.professionalDetails.associated_club_academy === 'yes')
         this.professionalDetailsForm
           .get('associated_club_academy')
@@ -389,7 +389,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   createForm() {
-    if (this.member_type === 'player' || this.member_type === 'coache') {
+    if (this.member_type === 'player' || this.member_type === 'coach') {
       this.professionalDetailsForm = this._formBuilder.group({
         position: this._formBuilder.array([]),
         strong_foot: [''],
@@ -488,7 +488,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   setCategoryValidators() {
-    if (this.member_type === 'player' || this.member_type === 'coache') {
+    if (this.member_type === 'player' || this.member_type === 'coach') {
       this.setPlayerValidators();
     } else if (this.member_type === 'club') {
       this.checkRequiredValidator(
@@ -538,7 +538,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   editProfessionalDetails() {
     let requestData = this.toFormData(this.professionalDetailsForm.value);
 
-    if (this.member_type === 'player' || this.member_type === 'coache') {
+    if (this.member_type === 'player' || this.member_type === 'coach') {
       this.setRequestDataObject(requestData, 'position');
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
       this.setRequestDataObject(requestData, 'contact_person');
@@ -555,9 +555,13 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
             'Success',
             'Professional details updated successfully'
           );
+
+          setTimeout(() => {
+            this.populateView();
+          }, 1000);
+
           this.toggleMode();
           this.clearFormArray();
-          this.populateView();
         },
         error => {
           this._toastrService.error(error.error.message, 'Error');
