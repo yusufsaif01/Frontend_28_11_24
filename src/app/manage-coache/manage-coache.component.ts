@@ -90,6 +90,7 @@ export class ManagecoacheComponent implements OnInit, OnDestroy {
       // .pipe(untilDestroyed(this))
       .subscribe(response => {
         let records = response.data.records;
+        console.log('recoed is=>', records);
         for (let i = 0; i < records.length; i++) {
           records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
         }

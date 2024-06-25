@@ -473,7 +473,7 @@ export class PersonalDetailsComponent implements OnInit {
         },
         {
           name: 'stadium_name',
-          abstractControl: this._formBuilder.control('')
+          abstractControl: this._formBuilder.control('', [Validators.required])
         }
       ];
       this.formControlAdder(

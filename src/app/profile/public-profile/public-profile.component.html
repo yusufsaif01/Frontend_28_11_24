@@ -197,7 +197,12 @@
             </ul>
           </div>
           <div class="tab-panel">
-            <ng-container *ngIf="publicProfileData?.member_type === 'player'">
+            <ng-container
+              *ngIf="
+                publicProfileData?.member_type === 'player' ||
+                publicProfileData?.member_type === 'coach'
+              "
+            >
               <!-- player personal -->
               <div class="player-personal" *ngIf="tab === 'personal'">
                 <div class="details">
@@ -343,7 +348,7 @@
                       <h4>Strong foot</h4>
                     </div>
                     <div class="right">
-                      <p>{{ publicProfileData?.strong_foot | titlecase }}</p>
+                      <p>left</p>
                     </div>
                   </div>
 
@@ -464,7 +469,12 @@
               </div>
             </ng-container>
 
-            <ng-container *ngIf="publicProfileData?.member_type !== 'player'">
+            <ng-container
+              *ngIf="
+                publicProfileData?.member_type !== 'player' &&
+                publicProfileData?.member_type !== 'coach'
+              "
+            >
               <!-- Club/Academy personal -->
               <div class="club-academy-personal" *ngIf="tab === 'personal'">
                 <div class="details">

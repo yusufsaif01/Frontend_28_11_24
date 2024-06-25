@@ -117,7 +117,9 @@ export class TimelineComponent implements OnInit, OnDestroy {
   environment = environment;
   postListing: PostContext[] = [];
   //playerListing:PlayerListingContext[]=[];
-
+  show = false;
+  visible = false;
+  visible1 = false;
   pageNo: number = 1;
   pageSize: number = 5;
   panelOptions: Partial<PanelOptions> = {

@@ -364,7 +364,7 @@ export class AddCenterComponent implements OnInit, OnDestroy {
           Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
         ]
       ],
-      pincode: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      pincode: [''],
       coache_name: ['', [Validators.required]]
     });
   }

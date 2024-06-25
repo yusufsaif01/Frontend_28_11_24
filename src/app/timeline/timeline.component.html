@@ -143,10 +143,13 @@
             *ngIf="!post.post.media_type || post.post.media_type === 'image'"
           >
             <div class="post-content">
-              <p>
+              <p class="container">
                 {{ post.post.text }}
               </p>
-            </div>
+              <!--
+             
+             <button (click)="visible = !visible">{{ visible ? 'Show less': 'Show More' }}</button>
+            --></div>
             <div class="post-img">
               <img
                 [src]="post.post.media_url"
@@ -159,8 +162,14 @@
 
           <div class="postbody" *ngIf="post.post.media_type === 'video'">
             <div class="post-content">
+              <!--[class.show]="visible1"-->
+              <p class="container">
+                {{ post.caption }}
+              </p>
+              <!--
+              <button (click)="visible1 = !visible">{{ visible1 ? 'Show less': 'Show More' }}</button>
+              -->
               <p>
-                <span>"{{ post.caption }}"</span>
                 <span *ngFor="let attribute of post.attributeListing"
                   >#{{ attribute }}</span
                 >

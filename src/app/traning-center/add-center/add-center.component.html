@@ -100,7 +100,7 @@
         <div class="input-wrapper">
           <div class="form-block">
             <label>Coach Name<span>*</span></label>
-            <select formControlName="coache_name" matNativeControl required>
+            <select formControlName="coache_name" matNativeControl>
               <option value="">Select coach </option>
               <ng-container *ngFor="let coache of coacheArray">
                 <option value="{{ coache }}">{{ coache }}</option>
@@ -248,7 +248,11 @@
 
       <!-- find button  -->
       <div class="find-btn">
-        <button class="btn btn-primary" (click)="create_center()">
+        <button
+          class="btn btn-primary"
+          (click)="create_center()"
+          [disabled]="create_registration_Form.invalid"
+        >
           Submit
         </button>
       </div>

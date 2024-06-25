@@ -70,7 +70,6 @@ export class AddcoacheComponent implements OnInit, OnDestroy {
   }
 
   findPlayer() {
-    console.log('dindPlayerFormValue', this.findPlayerForm.value);
     this._managecoacheService
       .findPlayer(this.findPlayerForm.value)
       .pipe(untilDestroyed(this))
@@ -89,7 +88,7 @@ export class AddcoacheComponent implements OnInit, OnDestroy {
           if (records.length) {
             this.prepareResponse(records);
           }
-          console.log('record is=>', records);
+
           this.dataSource = new MatTableDataSource(records);
           this.show_count = response.data.records.length;
           this.total_count = response.data.total;
@@ -115,8 +114,6 @@ export class AddcoacheComponent implements OnInit, OnDestroy {
   }
 
   sendFootPlayerRequest(user_id: string) {
-    console.log('inside sendFootPlayerRequesta');
-    console.log(user_id);
     this._managecoacheService
       .sendFootPlayerRequest({ to: user_id })
       .pipe(untilDestroyed(this))
@@ -162,7 +159,6 @@ export class AddcoacheComponent implements OnInit, OnDestroy {
     member_type: string,
     status: string
   ) {
-    console.log(is_verified, club_name, member_type, status);
     if (status === 'pending') {
       return {
         message: 'Add request sent',
