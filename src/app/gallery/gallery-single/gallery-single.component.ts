@@ -288,7 +288,7 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
     }
     if (postmeta.others) {
       postmeta.others.map((d: any) => {
-        hashtags.push(d);
+        // hashtags.push(d);
       });
     }
     return hashtags;

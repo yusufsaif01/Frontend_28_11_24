@@ -299,13 +299,13 @@ export class AddCenterComponent implements OnInit, OnDestroy {
   create_center() {
     let form_data = this.create_registration_Form.value;
     form_data.academy_user_id = localStorage.getItem('user_id');
-    //form_data.opening_days = this.daysSelect;
+    form_data.opening_days = this.daysSelect;
     var names = this.daysSelect.map(function(item) {
       return item['item_text'];
     });
-    console.log('namesss', names);
-    const daystring = names.toString();
-    form_data.opening_days = daystring;
+    //console.log('namesss', names);
+    //const daystring = names.toString();
+    //form_data.opening_days = daystring;
 
     console.log('days select in create_center function is', this.daysSelect);
     console.log('form data is ==>', form_data);
