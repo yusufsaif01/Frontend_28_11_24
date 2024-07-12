@@ -69,11 +69,9 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
 
   setAvatar() {
     if (this.publicProfileData.avatar_url) {
-      this.publicProfileData.avatar_url =
-        this.environment.mediaUrl + this.publicProfileData.avatar_url;
+      this.publicProfileData.avatar_url = this.publicProfileData.avatar_url;
     } else {
-      this.publicProfileData.avatar_url =
-        this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';
+      this.publicProfileData.avatar_url = '/uploads/avatar/user-avatar.png';
     }
   }
 

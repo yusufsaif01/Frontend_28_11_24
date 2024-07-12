@@ -87,6 +87,7 @@ export class PersonalDetailsComponent implements OnInit {
     return this._sanitizer.bypassSecurityTrustResourceUrl(`https://${url}`);
   }
   toggleMode() {
+    console.log('click on toggleMode button');
     this.editMode = !this.editMode;
   }
 
@@ -266,23 +267,23 @@ export class PersonalDetailsComponent implements OnInit {
           // 'Data retrieved successfully'
           // );
           this.profile = response.data;
+          console.log('profile response issss=>', this.profile.email);
           this.populateFormFields(this.profile);
           this.profile_status = this.profile.profile_status.status;
           this.player_type = this.profile.player_type;
 
           if (this.profile.avatar_url) {
-            this.profile.avatar_url =
-              environment.mediaUrl + this.profile.avatar_url;
+            this.profile.avatar_url = this.profile.avatar_url;
           } else {
             this.profile.avatar_url =
               environment.mediaUrl + '/uploads/avatar/user-avatar.png';
           }
 
           this.setCategoryValidators();
-          this._toastrService.success(
-            'Successful',
-            'Data retrieved successfully'
-          );
+          //this._toastrService.success(
+          // 'Successful',
+          // 'Data retrieved successfully'
+          // );
         },
         error => {
           this._toastrService.error(error.error.message, 'Error');
@@ -294,12 +295,6 @@ export class PersonalDetailsComponent implements OnInit {
     console.log(profileData);
     this.personalProfileDetailsForm.valueChanges.subscribe(val => {
       // this.player_type = val.player_type;
-      console.log(
-        'on click value change',
-        this.player_type,
-        val.player_type,
-        val
-      );
     });
     this.personalProfileDetailsForm.patchValue(profileData);
     if (this.profile.country_name) {

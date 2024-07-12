@@ -85,10 +85,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
           localStorage.setItem('email', credentials.data.email);
           if (credentials.data.avatar_url) {
-            localStorage.setItem(
-              'avatar_url',
-              environment.mediaUrl + credentials.data.avatar_url
-            );
+            localStorage.setItem('avatar_url', credentials.data.avatar_url);
           }
           // this.router.navigate(
           //   [this.route.snapshot.queryParams.redirect || '/xyz'],

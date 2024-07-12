@@ -296,8 +296,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
           let comments: CommentContext[] = response.data.records;
           comments.forEach(comment => {
             if (comment.commented_by.avatar) {
-              comment.commented_by.avatar =
-                environment.mediaUrl + comment.commented_by.avatar;
+              comment.commented_by.avatar = comment.commented_by.avatar;
             }
           });
           if (!shouldLoad) {
@@ -393,12 +392,11 @@ export class TimelineComponent implements OnInit, OnDestroy {
         response => {
           let posts: PostContext[] = response.data.records;
           const captionIs = response.data.records.map(item => item.caption);
-          console.log('captionIs issssssssssss', captionIs);
+
           this.postCount = response.data.records.length;
           posts.forEach(post => {
             if (post.posted_by.avatar) {
-              post.posted_by.avatar =
-                environment.mediaUrl + post.posted_by.avatar;
+              post.posted_by.avatar = post.posted_by.avatar;
             }
             if (post.post.media_url) {
               post.post.media_url = post.post.media_url;
@@ -409,8 +407,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
             let comments: CommentContext[] = post.comments.data;
             comments.forEach(comment => {
               if (comment.commented_by.avatar) {
-                comment.commented_by.avatar =
-                  environment.mediaUrl + comment.commented_by.avatar;
+                comment.commented_by.avatar = comment.commented_by.avatar;
               }
             });
             post.commentListing = comments;

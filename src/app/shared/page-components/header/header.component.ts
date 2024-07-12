@@ -74,7 +74,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   ngOnInit() {
-    console.log(this.member_type);
     this.searchInit();
     this.getConnectionStats();
   }
@@ -85,7 +84,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          console.log('total request in header is=>', response.data);
           this.stats.total_requests = response.data.total_requests;
         },
         error => {}
@@ -178,7 +176,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               response => {
                 let records = response.data.records;
                 for (let i = 0; i < records.length; i++) {
-                  records[i].avatar = environment.mediaUrl + records[i].avatar;
+                  records[i].avatar = records[i].avatar;
                 }
 
                 if (!data.scrolled) {

@@ -145,7 +145,8 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
 
   setAvatar(data: any) {
     if (data.avatar_url) {
-      data.avatar_url = this.environment.mediaUrl + data.avatar_url;
+      //data.avatar_url = this.environment.mediaUrl + data.avatar_url;
+      data.avatar_url = data.avatar_url;
     } else {
       data.avatar_url =
         this.environment.mediaUrl + '/uploads/avatar/user-avatar.png';

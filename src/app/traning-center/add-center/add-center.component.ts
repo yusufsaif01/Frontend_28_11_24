@@ -303,18 +303,17 @@ export class AddCenterComponent implements OnInit, OnDestroy {
     var names = this.daysSelect.map(function(item) {
       return item['item_text'];
     });
-    //console.log('namesss', names);
-    //const daystring = names.toString();
-    //form_data.opening_days = daystring;
-
-    console.log('days select in create_center function is', this.daysSelect);
-    console.log('form data is ==>', form_data);
     this._authenticationService
       .create_traning_center(form_data)
       .pipe(untilDestroyed(this))
       .subscribe(
-        credentials => {
+        response => {
           this.dialogRef.close('refresh');
+          this._toastrService.success(
+            `${response.message}`,
+            'Award added successfully'
+          );
+          //window.location.reload()
         },
         error => {
           this._toastrService.error(`${error.error.message}`, 'Failed');

@@ -551,12 +551,12 @@ export abstract class Constants {
     club: {
       timeline: 3,
       learning_or_training: 3,
-      match: 1
+      match: 50
     },
     academy: {
       timeline: 3,
       learning_or_training: 3,
-      match: 1
+      match: 50
     }
   };
 }

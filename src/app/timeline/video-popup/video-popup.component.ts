@@ -389,7 +389,7 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
   videoPost() {
     let data = this.changeFormData(this.createVideoPostForm.value);
-    console.log("data in videoPost api's", data);
+
     let requestData = this.toFormData({
       ...data
     });
@@ -411,7 +411,8 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
 
   createVideoPost(requestData: any) {
     this._sharedService.setVideoRequest({ requestData, type: this.type });
-    this.dialogRef.close('success');
+    this.dialogRef.close('refresh');
+
     this._toastrService.success(
       'Success',
       'Video uploading would start shortly'

@@ -178,11 +178,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   // }
 
   createForm() {
+    console.log('inside create form');
     this.registrationForm = this._formBuilder.group({
       first_name: [''],
       last_name: [''],
       email: ['', [Validators.required, Validators.email]],
-      country_code: ['+91'],
+      country_code: ['+91', [Validators.required]],
       phone: [
         '',
         [
