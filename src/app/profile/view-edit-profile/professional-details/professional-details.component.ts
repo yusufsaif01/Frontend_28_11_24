@@ -556,9 +556,9 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
             'Professional details updated successfully'
           );
 
-          setTimeout(() => {
-            this.populateView();
-          }, 1000);
+          //setTimeout(() => {
+          //this.populateView();
+          // }, 1000);
 
           this.toggleMode();
           this.clearFormArray();

@@ -173,7 +173,7 @@
         <div class="view-details">
           <div class="details">
             <div class="left">
-              <h4>Mobile number</h4>
+              <h4>Phone number</h4>
             </div>
             <div class="right">
               <p>{{ profile?.mobile_number }}</p>
@@ -183,7 +183,7 @@
         <div class="view-details">
           <div class="details">
             <div class="left">
-              <h4>Phone number</h4>
+              <h4>Mobile number</h4>
             </div>
             <div class="right">
               <p>{{ profile?.phone }}</p>
@@ -416,7 +416,16 @@
           <div class="input-container">
             <div class="third">
               <div class="form-block">
-                <label>Email <span>*</span></label>
+                <label
+                  >Email <span>*</span
+                  ><span
+                    >&nbsp;&nbsp;&nbsp;&nbsp;<button
+                      (click)="openModalForVerifyEmail(profile.user_id, value)"
+                    >
+                      verify
+                    </button></span
+                  ></label
+                >
                 <input
                   formControlName="email"
                   type="Name"
@@ -424,6 +433,8 @@
                   autocomplete="off"
                   required
                   placeholder="Email"
+                  [(ngModel)]="text"
+                  (input)="sendTheNewValue($event)"
                 />
               </div>
             </div>
@@ -472,7 +483,21 @@
           <div class="input-container">
             <div class="third">
               <div class="form-block">
-                <label>Mobile number <span>*</span></label>
+                <label
+                  >Mobile number <span>*</span
+                  ><span
+                    >&nbsp;&nbsp;&nbsp;&nbsp;<button
+                      (click)="
+                        openModalForVerifyMobile(
+                          profile.user_id,
+                          valueForMobile
+                        )
+                      "
+                    >
+                      verify
+                    </button></span
+                  ></label
+                >
                 <div class="phone-block">
                   <div class="country-code">
                     <select disabled>
@@ -486,6 +511,8 @@
                       matInput
                       autocomplete="off"
                       placeholder="Mobile number"
+                      [(ngModel)]="tex"
+                      (input)="sendTheNewValueForMobile($event)"
                     />
                   </div>
                 </div>
@@ -790,13 +817,26 @@
                 </div>
                 <div class="full mr-3">
                   <div class="form-block">
-                    <label>Email <span>*</span></label>
+                    <label
+                      >Email <span>*</span
+                      ><span
+                        >&nbsp;&nbsp;&nbsp;&nbsp;<button
+                          (click)="
+                            openModalForVerifyEmail(profile.user_id, value)
+                          "
+                        >
+                          verify
+                        </button></span
+                      ></label
+                    >
                     <input
                       formControlName="email"
                       type="email"
                       matinput
                       autocomplete="off"
                       placeholder="Email"
+                      [(ngModel)]="text"
+                      (input)="sendTheNewValue($event)"
                     />
                   </div>
                 </div>
@@ -832,7 +872,7 @@
                   </div>
                   <div class="phone-number">
                     <input
-                      formControlName="phone"
+                      formControlName="mobile_number"
                       type="text"
                       matInput
                       autocomplete="off"
@@ -892,7 +932,21 @@
             </div>
             <div class="third">
               <div class="form-block">
-                <label>Mobile number <span>*</span></label>
+                <label
+                  >Mobile number <span>*</span
+                  ><span
+                    >&nbsp;&nbsp;&nbsp;&nbsp;<button
+                      (click)="
+                        openModalForVerifyMobile(
+                          profile.user_id,
+                          valueForMobile
+                        )
+                      "
+                    >
+                      verify
+                    </button></span
+                  ></label
+                >
                 <div class="phone-block">
                   <div class="country-code">
                     <select disabled>
@@ -901,12 +955,15 @@
                   </div>
                   <div class="phone-number">
                     <input
-                      formControlName="mobile_number"
+                      formControlName="phone"
                       type="text"
                       matInput
                       autocomplete="off"
                       placeholder="Mobile number"
+                      [(ngModel)]="tex"
+                      (input)="sendTheNewValueForMobile($event)"
                     />
+
                     <mat-error
                       class="error-text"
                       *ngIf="

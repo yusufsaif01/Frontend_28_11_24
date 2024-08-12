@@ -52,7 +52,8 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.forgotPasswordForm = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.email]],
+      mobile_number: ['']
     });
   }
 }

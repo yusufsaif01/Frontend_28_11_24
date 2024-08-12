@@ -1,0 +1,77 @@
+<header class="header">
+  <div class="logo">
+    <a [routerLink]="['/home']">
+      <img src="assets/images/website/logo.png" alt="brand-logo" />
+    </a>
+  </div>
+</header>
+<div class="site-wrapper">
+  <div class="text-section">
+    <h2>
+      <span>Digitize,</span>
+      <span>Democratize,</span>and Develop.
+      <img
+        src="assets/images/website/footballer-Icon.png"
+        alt="footballer-Icon"
+      />
+    </h2>
+    <p>The showcase of youth talent in Indian football</p>
+  </div>
+  <div class="form-section">
+    <div class="form-box">
+      <div class="" text-center>
+        <h2>Otp Verification</h2>
+        <p>Choose Phone Number or Email to verify your identity</p>
+      </div>
+
+      <form [formGroup]="otpTypeForm">
+        <div class="form-block">
+          <label for="emilType"
+            >Email
+            <input
+              type="radio"
+              name="radio_type"
+              id="emailType"
+              value="email_select"
+              placeholder="email_select"
+              matinput
+              formControlName="email_select"
+            />
+          </label>
+          <label for="mobileType"
+            >Mobile
+            <input
+              type="radio"
+              name="radio_type"
+              id="mobileType"
+              value="phone_number_select"
+              placeholder="mobile"
+              matinput
+              formControlName="phone_select"
+              _select
+            />
+          </label>
+
+          <input
+            type="text"
+            matinput
+            formControlName="email"
+            [value]="email"
+            hidden
+          />
+          <input type="text" matinput formControlName="name" value="" hidden />
+
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            (click)="otpVerificationType()"
+          >
+            Send Otp
+          </button>
+        </div>
+        <br />
+      </form>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

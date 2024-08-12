@@ -1,0 +1,205 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+// Header CSS
+.header {
+  .logo {
+    margin-top: 1rem;
+
+    a {
+      background-color: $third-color;
+      padding: 1rem 5rem 1rem 3rem;
+      display: inline-block;
+      -webkit-border-top-right-radius: 8rem;
+      -webkit-border-bottom-right-radius: 8rem;
+      -moz-border-top-right-radius: 8rem;
+      -moz-border-bottom-right-radius: 8rem;
+      border-top-right-radius: 8rem;
+      border-bottom-right-radius: 8rem;
+      cursor: pointer;
+
+      img {
+        max-width: 25rem;
+
+        @include responsive(bigphone) {
+          max-width: 21rem;
+        }
+      }
+    }
+  }
+}
+
+// Middle CSS
+.site-wrapper {
+  width: 85%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  min-height: 80vh;
+
+  @include responsive(tablet) {
+    width: 95%;
+  }
+
+  @include responsive(bigphone) {
+    min-height: initial;
+    padding: 3rem 0;
+  }
+
+  @include responsive(mediumphone) {
+    flex-direction: column;
+    width: 80%;
+  }
+
+  @include responsive(smallphone) {
+    width: 100%;
+    padding: 4rem 3rem;
+  }
+
+  .text-section {
+    width: 45%;
+
+    @include responsive(tablet) {
+      width: 50%;
+    }
+
+    @include responsive(bigphone) {
+      width: 100%;
+    }
+
+    h2 {
+      font-size: 6rem;
+      color: $fourth-color;
+      font-family: $secondary-text;
+      position: relative;
+      padding-bottom: 2rem;
+      letter-spacing: 1px;
+      font-weight: 100;
+      max-width: 61rem;
+
+      @include responsive(tablet) {
+        font-size: 5rem;
+      }
+
+      @include responsive(bigphone) {
+        font-size: 4rem;
+      }
+
+      @include responsive(mediumphone) {
+        font-size: 5rem;
+      }
+
+      span {
+        display: block;
+      }
+
+      img {
+        position: absolute;
+        bottom: 0;
+        right: 3.5rem;
+        max-width: 8rem;
+
+        @include responsive(bigphone) {
+          max-width: 5rem;
+        }
+
+        @include responsive(mediumphone) {
+          max-width: 6rem;
+        }
+
+        @media (max-width: 375px) {
+          display: none;
+        }
+      }
+    }
+
+    p {
+      font-size: $heading-Seoncdary;
+      padding-right: 2rem;
+      color: $fourth-color;
+      word-break: normal;
+
+      @include responsive(bigphone) {
+        font-size: $heading-third;
+      }
+
+      @include responsive(mediumphone) {
+        font-size: $heading-Seoncdary;
+        padding-right: 0rem;
+      }
+    }
+  }
+
+  .form-section {
+    width: 55%;
+
+    @include responsive(tablet) {
+      width: 50%;
+    }
+
+    @include responsive(bigphone) {
+      width: 100%;
+    }
+
+    .form-box {
+      width: 60%;
+      margin: auto;
+      -webkit-box-shadow: 0rem 0rem 1.8rem 0rem rgba($fourth-color, 0.12);
+      -moz-box-shadow: 0rem 0rem 1.8rem 0rem rgba($fourth-color, 0.12);
+      box-shadow: 0rem 0rem 1.8rem 0rem rgba($fourth-color, 0.12);
+      -webkit-border-radius: 1rem;
+      -moz-border-radius: 1rem;
+      border-radius: 1rem;
+      padding: 3rem 4rem;
+      max-width: 45rem;
+
+      @include responsive(tablet) {
+        width: 100%;
+      }
+
+      @include responsive(mediumphone) {
+        width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+        padding: 1rem 0rem;
+      }
+
+      .forget-text {
+        display: block;
+        text-align: right;
+        width: 100%;
+
+        a {
+          color: $primary-color;
+        }
+      }
+
+      h2 {
+        font-size: $heading-primary;
+        color: $fourth-color;
+        font-family: $secondary-text;
+        position: relative;
+        padding-bottom: 2rem;
+        font-weight: 100;
+
+        @include responsive(mediumphone) {
+          padding-bottom: 0.5rem;
+        }
+      }
+
+      p {
+        color: $fourth-color;
+        display: block;
+        text-align: center;
+        font-weight: 500;
+        font-size: $heading-fourth;
+        margin-top: 2rem;
+
+        a {
+          color: $primary-color;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}

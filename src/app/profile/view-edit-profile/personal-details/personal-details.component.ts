@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ViewEditProfileService } from '../view-edit-profile.service';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
 import { untilDestroyed } from '@app/core';
 import { SharedService } from '@app/shared/shared.service';
 import { Constants } from '@app/shared/static-data/static-data';
@@ -21,6 +22,7 @@ import {
 } from '@angular/material';
 import { DateConversion } from '@app/shared/utilities/date-conversion';
 import { AppDateAdapter } from '@app/shared/utilities/format-datepicker';
+import { VerificationComponent } from '../verification/verification.component';
 
 let pincodeControl = {
   pincode: [Validators.required, Validators.pattern(/^\d+$/)]
@@ -59,8 +61,13 @@ export class PersonalDetailsComponent implements OnInit {
   profile_status: string;
   editMode: boolean = false;
   player_type: string = '';
+  email: string;
+  emailChange: string = '';
+  value: string;
+  valueForMobile: string;
   @Output() avatar_url = new EventEmitter<string>();
   constructor(
+    public dialog: MatDialog,
     private _editProfileService: ViewEditProfileService,
     private _sharedService: SharedService,
     private _toastrService: ToastrService,
@@ -73,10 +80,20 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.email = localStorage.getItem('email');
     this.getPersonalProfileDetails();
     this.getLocationStats();
   }
 
+  sendTheNewValue(event) {
+    console.log(event.target.value);
+    this.value = event.target.value;
+    console.log(event.target.value);
+  }
+  sendTheNewValueForMobile(event) {
+    this.valueForMobile = event.target.value;
+    console.log(event.target.value);
+  }
   transformURL(url: string): SafeHtml {
     return this._sanitizer.bypassSecurityTrustResourceUrl(url);
   }
@@ -152,10 +169,7 @@ export class PersonalDetailsComponent implements OnInit {
     this.personalProfileDetailsForm = this._formBuilder.group({});
     if (this.member_type === 'player' || this.member_type === 'coach') {
       this.personalProfileDetailsForm = this._formBuilder.group({
-        email: [
-          { value: '', disabled: true },
-          [Validators.required, Validators.email]
-        ],
+        email: [{ value: '' }, [Validators.required, Validators.email]],
         phone: [
           '',
           [
@@ -215,10 +229,7 @@ export class PersonalDetailsComponent implements OnInit {
       });
     } else {
       this.personalProfileDetailsForm = this._formBuilder.group({
-        email: [
-          { value: '', disabled: true },
-          [Validators.required, Validators.email]
-        ]
+        email: [{ value: '' }, [Validators.required, Validators.email]]
       });
     }
   }
@@ -267,7 +278,7 @@ export class PersonalDetailsComponent implements OnInit {
           // 'Data retrieved successfully'
           // );
           this.profile = response.data;
-          console.log('profile response issss=>', this.profile.email);
+          console.log('profile response issss=>', this.profile);
           this.populateFormFields(this.profile);
           this.profile_status = this.profile.profile_status.status;
           this.player_type = this.profile.player_type;
@@ -426,6 +437,7 @@ export class PersonalDetailsComponent implements OnInit {
             Validators.pattern(/^(?:[0-9]+[ a-zA-Z]|[a-zA-Z])[a-zA-Z0-9 ]*$/)
           ])
         },
+
         {
           name: 'short_name',
           abstractControl: this._formBuilder.control('', [Validators.required])
@@ -567,8 +579,13 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   updatePersonalProfileDetails() {
-    let requestData = this.toFormData(this.personalProfileDetailsForm.value);
+    delete this.personalProfileDetailsForm.value.email;
+    const memberType = localStorage.getItem('member_type');
 
+    delete this.personalProfileDetailsForm.value.phone;
+
+    let requestData = this.toFormData(this.personalProfileDetailsForm.value);
+    console.log('request data is =>', this.personalProfileDetailsForm.value);
     this.dateModifier(requestData);
     if (this.profile_status === 'verified') requestData.delete('dob');
 
@@ -609,6 +626,92 @@ export class PersonalDetailsComponent implements OnInit {
             this.personalProfileDetailsForm.get('founded_in').value
           )
         );
+  }
+
+  openModalForVerifyEmail(
+    id: string,
+    dataToVerify: string = this.profile.email
+  ) {
+    console.log('id and email recived are', id, dataToVerify);
+    if (this.value == undefined) {
+      console.log('inside uuuuuuuuuuuuuuuuuuuuu');
+      this.value = dataToVerify;
+    }
+    this._editProfileService
+      .verifyEmailOrMobile(id, dataToVerify)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          console.log('response in api hits');
+          console.log(response);
+          if (response.data) {
+            this._toastrService.success(`Success`, 'Otp Send successfully');
+            const dialogRef = this.dialog.open(VerificationComponent, {
+              panelClass: 'postpopup',
+              data: {
+                name: response.data.name,
+                email: this.value,
+                userId: response.data.user_id,
+                mobile_number: this.valueForMobile
+              }
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              if (result === 'success') {
+                // this.getPostListing();
+              }
+            });
+          }
+        },
+        error => {
+          console.log('inside otpverify ===========>');
+          this._toastrService.error(`Error`, 'Otp Not matched');
+          // this.error = error;
+        }
+      );
+  }
+  openModalForVerifyMobile(
+    id: string,
+    dataToVerify: string = this.profile.phone
+  ) {
+    console.log('id and mobile recived are', id, dataToVerify);
+    console.log('profile data is=>', this.profile);
+    console.log('profile data is=>', this.profile.phone);
+    if (this.valueForMobile == undefined) {
+      this.valueForMobile = dataToVerify;
+    }
+    this._editProfileService
+      .verifyEmailOrMobile(id, dataToVerify)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          console.log('response in api hits');
+          console.log(response);
+          if (response.data) {
+            this._toastrService.success(`Success`, 'Otp Send successfully');
+            const dialogRef = this.dialog.open(VerificationComponent, {
+              panelClass: 'postpopup',
+              data: {
+                name: response.data.name,
+                email: this.value,
+                userId: response.data.user_id,
+                mobile_number: this.valueForMobile
+              }
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              if (result === 'success') {
+                // this.getPostListing();
+              }
+            });
+          }
+        },
+        error => {
+          console.log('inside otpverify ===========>');
+          this._toastrService.error(`Error`, 'Otp Not matched');
+          // this.error = error;
+        }
+      );
   }
 
   ngOnDestroy() {}

@@ -13,6 +13,7 @@ import { ProfessionalDetailsComponent } from './view-edit-profile/professional-d
 import { DocumentsComponent } from './view-edit-profile/documents/documents.component';
 import { EmploymentContractsComponent } from './view-edit-profile/employment-contracts/employment-contracts.component';
 import { PublicProfileComponent } from './public-profile/public-profile.component';
+import { VerificationComponent } from './view-edit-profile/verification/verification.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PublicProfileComponent } from './public-profile/public-profile.componen
     ProfessionalDetailsComponent,
     DocumentsComponent,
     EmploymentContractsComponent,
-    PublicProfileComponent
+    PublicProfileComponent,
+    VerificationComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +34,7 @@ import { PublicProfileComponent } from './public-profile/public-profile.componen
     ReactiveFormsModule,
     ProfileRoutingModule,
     NgxTrimDirectiveModule
-  ]
+  ],
+  entryComponents: [VerificationComponent]
 })
 export class ProfileModule {}

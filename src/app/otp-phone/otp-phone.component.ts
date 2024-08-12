@@ -3,15 +3,15 @@ import { MatDialog } from '@angular/material';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '@app/shared/shared.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { OtpService } from './otp.Service';
+import { PhoneOtpService } from './phoneOtp.Service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService, untilDestroyed } from '@app/core';
 @Component({
-  selector: 'app-otp-page',
-  templateUrl: './otp-page.component.html',
-  styleUrls: ['./otp-page.component.scss']
+  selector: 'app-otp-phone',
+  templateUrl: './otp-phone.component.html',
+  styleUrls: ['./otp-phone.component.scss']
 })
-export class OtpPageComponent implements OnInit, OnDestroy {
+export class OtpPhoneComponent implements OnInit, OnDestroy {
   otpVerifyForm: FormGroup;
   otpTypeForm: FormGroup;
   error: string | undefined;
@@ -24,7 +24,7 @@ export class OtpPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private _formBuilder: FormBuilder,
-    private _otpService: OtpService,
+    private _otpService: PhoneOtpService,
     public dialog: MatDialog,
     private _toastrService: ToastrService,
     private _sharedService: SharedService

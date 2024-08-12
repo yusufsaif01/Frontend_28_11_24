@@ -9,9 +9,27 @@ const routes = {
   updateAvatar: () => `/update-avatar`,
   getEmploymentContractList: () => '/employment-contract/list',
   deleteContract: (id: string) => `/employment-contract/${id}`,
-  getCoachRole: () => '/profile/getcoach/role'
+  getCoachRole: () => '/profile/getcoach/role',
+  verifyEmailOrMobile: (id: string, dataToVerify: string) =>
+    `/verifyIdentity/${id}/${dataToVerify}`,
+  verifyOtp: (query: string) => `/otp-type/verification/?${query}`
 };
 
+interface FindOtpContext {
+  name: string;
+  email: string;
+  otp: string;
+  mobile_number: string;
+}
+interface OtpResponseContext {
+  status: string;
+  message: string;
+  data: {
+    records: {
+      otp_id: string;
+    }[];
+  };
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -41,5 +59,28 @@ export class ViewEditProfileService {
   }
   deleteContract(id: string): Observable<any> {
     return this.httpClient.delete<any>(routes.deleteContract(id));
+  }
+
+  verifyEmailOrMobile(id: string, dataToVerify: string): Observable<any> {
+    return this.httpClient.get<any>(
+      routes.verifyEmailOrMobile(id, dataToVerify)
+    );
+  }
+
+  verifyOtp(context: FindOtpContext): Observable<OtpResponseContext> {
+    let query = '';
+    if (context['email']) {
+      query += 'email=' + context['email'];
+    }
+    if (context['mobile_number']) {
+      query += 'mobile_number=' + context['mobile_number'];
+    }
+    if (context['otp']) {
+      query += '&otp=' + context['otp'];
+    }
+    if (context['name']) {
+      query += '&name=' + context['name'];
+    }
+    return this.httpClient.get<OtpResponseContext>(routes.verifyOtp(query));
   }
 }

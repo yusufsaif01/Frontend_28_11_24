@@ -142,15 +142,19 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         credentials => {
           this.resetFormFields();
           //  this.openDialogformsg();
-          this.router.navigate(
-            [this.route.snapshot.queryParams.redirect || '/otp-verification'],
-            { replaceUrl: true }
-          );
+          if (credentials.status === 'success') {
+            this.router.navigate([
+              this.route.snapshot.queryParams.redirect ||
+                'otp/otp-verfication-type'
+            ]);
+          }
+
           console.log('credentialsss', credentials);
           console.log(form_data);
           localStorage.setItem('email', form_data.email);
           localStorage.setItem('name', form_data.name);
           localStorage.setItem('userId', form_data.userId);
+          localStorage.setItem('mobile_number', form_data.phone);
         },
         error => {
           this._toastrService.error(`${error.error.message}`, 'Failed');

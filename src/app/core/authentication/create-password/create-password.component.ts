@@ -36,6 +36,7 @@ export class CreatePasswordComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const obj = { email: '' };
     const email = localStorage.getItem('email');
+    const isEmail = localStorage.getItem('isEmail');
     obj.email = email;
 
     this._authenticationService

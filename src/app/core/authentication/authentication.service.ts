@@ -53,6 +53,7 @@ export interface create_center {
 }
 export interface ForgotPasswordContext {
   email: string;
+  mobile_number: string;
 }
 
 export interface ResetPasswordContext {

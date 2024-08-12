@@ -1,0 +1,87 @@
+<header class="header">
+  <div class="logo">
+    <a [routerLink]="['/home']">
+      <img src="assets/images/website/logo.png" alt="brand-logo" />
+    </a>
+  </div>
+</header>
+<div class="site-wrapper">
+  <div class="text-section">
+    <h2>
+      <span>Digitize,</span>
+      <span>Democratize,</span>and Develop.
+      <img
+        src="assets/images/website/footballer-Icon.png"
+        alt="footballer-Icon"
+      />
+    </h2>
+    <p>The showcase of youth talent in Indian football</p>
+  </div>
+  <div class="form-section">
+    <div class="form-box">
+      <div class="" text-center>
+        <h2>Otp Verification</h2>
+        <p>Choose Mobile Number or Email to verify your identity</p>
+      </div>
+
+      <form [formGroup]="otpTypeForm">
+        <div class="form-block">
+          <!-- <label for="emilType">Email</label>
+          <input type="radio" name="radio_type" id="emailType" value="email_select" formControlName="email_select">
+
+
+
+         
+         <label for="mobileType">Mobile </label>
+          <input type="radio" name="radio_type" id="mobileType" value="phone_number_select" formControlName="phone_select"> -->
+
+          <div class="radio-block">
+            <mat-radio-group class="example-radio-group">
+              <mat-radio-button
+                (click)="email_select('email_select')"
+                class="example-radio-button"
+                value="email_select"
+              >
+                Email
+              </mat-radio-button>
+              <br /><br />
+              <mat-radio-button
+                (click)="mobile_select('phone_select')"
+                class="example-radio-button"
+                value="phone_number_select"
+              >
+                Mobile Number
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <input
+            type="text"
+            matinput
+            formControlName="email"
+            [value]="email"
+            hidden
+          />
+          <input
+            type="text"
+            matinput
+            formControlName="mobile_number"
+            [value]="mobile_number"
+            hidden
+          />
+          <input type="text" matinput formControlName="name" value="" hidden />
+
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            (click)="otpVerificationType()"
+          >
+            Send Otp
+          </button>
+        </div>
+        <br />
+      </form>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

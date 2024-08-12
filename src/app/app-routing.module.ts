@@ -21,7 +21,10 @@ import { TraningCenterComponent } from './traning-center/traning-center.componen
 import { AttendanceComponent } from './attendance/attendance.component';
 import { MarkAttendanceComponent } from './mark-attendance/mark-attendance.component';
 import { OtpPageComponent } from './otp-page/otp-page.component';
+import { VerificationTypeComponent } from './verification-type/verification-type.component';
 import { OtpForForgotPasswordComponent } from './otp-for-forgot-password/otp-for-forgot-password.component';
+import { OtpPhoneComponent } from './otp-phone/otp-phone.component';
+import { OtpTypeComponent } from './otp-type/otp-type.component';
 const routes: Routes = [
   {
     path: '',
@@ -94,8 +97,20 @@ const routes: Routes = [
     component: ManagecoacheComponent
   },
   {
+    path: 'otp/otp-verfication-type',
+    component: OtpTypeComponent
+  },
+  {
     path: 'otp-verification',
     component: OtpPageComponent
+  },
+  {
+    path: 'otp/verification-type',
+    component: VerificationTypeComponent
+  },
+  {
+    path: 'otp-phone',
+    component: OtpPhoneComponent
   },
   {
     path: 'OtpForForgotPasswordComponent',
