@@ -45,6 +45,7 @@
             >Match videos</a
           >
         </div>
+
         <!-- gallery section -->
 
         <div class="gallery-wrapper">
@@ -61,6 +62,7 @@
                     : ''
                 "
               />
+
               <img
                 alt="video-placehoder"
                 *ngIf="gallery.status === 'pending'"
@@ -80,6 +82,36 @@
                   >
                 </a>
               </span>
+              <div style="text-align: center;">
+                <p
+                  style="font-size: large; color: black; text-align: center;"
+                  *ngIf="!isPublic"
+                >
+                  <a
+                    [routerLink]="
+                      isPublic
+                        ? ['/member/gallery/gallery-view', gallery.id, userId]
+                        : ['/member/gallery/gallery-view', gallery.id]
+                    "
+                  >
+                    {{ gallery.caption.slice(0, 20) }} ...</a
+                  >
+                </p>
+                <p
+                  style="font-size: large; color: black; text-align: center;"
+                  *ngIf="isPublic"
+                >
+                  <a
+                    [routerLink]="
+                      isPublic
+                        ? ['/member/gallery/gallery-view', gallery.id, userId]
+                        : ['/member/gallery/gallery-view', gallery.id]
+                    "
+                  >
+                    {{ gallery.caption }} ...</a
+                  >
+                </p>
+              </div>
             </div>
           </ng-container>
 

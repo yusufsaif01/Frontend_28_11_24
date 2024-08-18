@@ -19,7 +19,7 @@
   </div>
   <div class="form-section">
     <div class="form-box">
-      <div class="" text-center>
+      <div text-center>
         <h2>Otp Verification</h2>
         <p>Choose Mobile Number or Email to verify your identity</p>
       </div>
@@ -29,9 +29,6 @@
           <!-- <label for="emilType">Email</label>
           <input type="radio" name="radio_type" id="emailType" value="email_select" formControlName="email_select">
 
-
-
-         
          <label for="mobileType">Mobile </label>
           <input type="radio" name="radio_type" id="mobileType" value="phone_number_select" formControlName="phone_select"> -->
 
@@ -42,7 +39,7 @@
                 class="example-radio-button"
                 value="email_select"
               >
-                Email
+                Email<span>{{ email }}</span>
               </mat-radio-button>
               <br /><br />
               <mat-radio-button
@@ -50,7 +47,7 @@
                 class="example-radio-button"
                 value="phone_number_select"
               >
-                Mobile Number
+                Mobile Number <span>{{ mobile_number }}</span>
               </mat-radio-button>
             </mat-radio-group>
           </div>

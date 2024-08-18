@@ -136,6 +136,7 @@ export class GalleryListingComponent implements OnInit {
   }
 
   updatePage(event: any) {
+    console.log('update page details areeeeeee', event);
     this.selectedPage = event.selectedPage;
     this.pageNo = this.selectedPage;
     this.filter.page_no = this.pageNo;
@@ -173,6 +174,8 @@ export class GalleryListingComponent implements OnInit {
         .subscribe(
           response => {
             this.galleryList = response.data.records;
+
+            console.log('data recive isLLLL=====>', response.data.records);
             this.publicMemberType = response.data.posted_by.member_type;
             this.publicFootplayer = response.data.is_footplayer;
             this.show_count = response.data.records.length;
@@ -235,9 +238,6 @@ export class GalleryListingComponent implements OnInit {
             }
             if (post.post.media_url) {
               post.post.media_url = environment.mediaUrl + post.post.media_url;
-              console.log('%%%%%%%%%%%%%%%%%%%%');
-
-              console.log(post.post);
             }
           });
           if (!scrolled) {
