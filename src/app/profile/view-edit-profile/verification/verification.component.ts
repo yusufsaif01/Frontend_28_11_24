@@ -25,6 +25,7 @@ export class VerificationComponent implements OnInit {
   userId: string = '';
   mobile_number = '';
   error: string | undefined;
+  editMode: boolean = true;
 
   constructor(
     public dialogRef: MatDialogRef<VerificationComponent>,
@@ -55,8 +56,41 @@ export class VerificationComponent implements OnInit {
     this.otpVerifyForm.controls.email.patchValue(this.email);
     this.otpVerifyForm.controls.userId.patchValue(this.userId);
     this.otpVerifyForm.controls.mobile_number.patchValue(this.mobile_number);
+    this.startTime();
   }
 
+  interval: any;
+
+  startTime() {
+    this.interval = setTimeout(() => {
+      this.editMode = false;
+    }, 20000);
+  }
+
+  openModalForVerifyEmail(id: string, email: string, mobile: string) {
+    console.log('id and email recived are', id, email, mobile);
+    let dataToSend = email;
+    if (email === undefined) {
+      dataToSend = mobile;
+    }
+    this._editProfileService
+      .verifyEmailOrMobile(id, dataToSend)
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        response => {
+          console.log('response in api hits');
+          console.log(response);
+          if (response.data) {
+            this._toastrService.success(`Success`, 'Otp Send successfully');
+          }
+        },
+        error => {
+          console.log('inside otpverify ===========>');
+          this._toastrService.error(`Error`, 'Otp Not matched');
+          // this.error = error;
+        }
+      );
+  }
   otpVerify() {
     console.log('inside otpVerify is=>');
     let requestData = this.otpVerifyForm.value;

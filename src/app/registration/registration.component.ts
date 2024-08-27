@@ -134,6 +134,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       delete form_data.name;
       delete form_data.type;
     }
+
     //
     this._authenticationService
       .register(form_data)
@@ -150,7 +151,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           }
 
           console.log('credentialsss', credentials);
-          console.log(form_data);
+          console.log('form data is ', form_data);
           localStorage.setItem('email', form_data.email);
           localStorage.setItem('name', form_data.name);
           localStorage.setItem('userId', form_data.userId);

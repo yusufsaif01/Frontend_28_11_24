@@ -34,8 +34,7 @@ export class OtpPhoneComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.email = localStorage.getItem('email');
-    console.log('email is');
-    console.log(this.email);
+
     this.startTime();
     // this.otpVerify();
   }

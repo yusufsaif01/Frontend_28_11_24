@@ -240,8 +240,7 @@ export class GallerySingleComponent implements OnInit, OnDestroy {
           this.postListing = [];
           let post: PostContext = response.data;
           if (post.posted_by.avatar) {
-            post.posted_by.avatar =
-              environment.mediaUrl + post.posted_by.avatar;
+            post.posted_by.avatar = post.posted_by.avatar;
           }
           if (post.post.media_url) {
             post.post.media_url = environment.mediaUrl + post.post.media_url;

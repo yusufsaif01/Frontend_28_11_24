@@ -90,7 +90,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
       .subscribe(response => {
         let records = response.data.records;
         for (let i = 0; i < records.length; i++) {
-          records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
+          records[i]['avatar'] = records[i]['avatar'];
         }
         this.dataSource = new MatTableDataSource(response.data.records);
         this.show_count = response.data.records.length;

@@ -16,6 +16,7 @@ export class VerificationTypeComponent implements OnInit, OnDestroy {
   error: string | undefined;
   userId: string;
   email: string;
+  name: string;
 
   constructor(
     private router: Router,

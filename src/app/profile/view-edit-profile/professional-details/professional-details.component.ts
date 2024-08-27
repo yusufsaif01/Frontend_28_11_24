@@ -529,6 +529,7 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
   }
 
   setRequestDataObject(requestData: any, name: string) {
+    console.log('request data object in setRequestDataObject is', requestData);
     requestData.set(
       name,
       JSON.stringify(this.professionalDetailsForm.get(name).value)
@@ -537,15 +538,18 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
 
   editProfessionalDetails() {
     let requestData = this.toFormData(this.professionalDetailsForm.value);
-
-    if (this.member_type === 'player' || this.member_type === 'coach') {
+    console.log('rrrrrrrrrrr', requestData);
+    if (this.member_type === 'player') {
       this.setRequestDataObject(requestData, 'position');
     } else if (this.member_type === 'club' || this.member_type === 'academy') {
       this.setRequestDataObject(requestData, 'contact_person');
       this.setRequestDataObject(requestData, 'trophies');
       this.setRequestDataObject(requestData, 'top_signings');
     }
-
+    if (this.member_type === 'coach') {
+      console.log('all request data is for coach');
+    }
+    console.log('before send', requestData);
     this._professionalDetailsService
       .editProfessionalDetails(requestData)
       .pipe(untilDestroyed(this))
@@ -556,9 +560,9 @@ export class ProfessionalDetailsComponent implements OnInit, OnDestroy {
             'Professional details updated successfully'
           );
 
-          //setTimeout(() => {
-          //this.populateView();
-          // }, 1000);
+          setTimeout(() => {
+            this.populateView();
+          }, 1000);
 
           this.toggleMode();
           this.clearFormArray();

@@ -77,7 +77,7 @@ export class AddcoacheComponent implements OnInit, OnDestroy {
         response => {
           let records = response.data.records;
           for (let i = 0; i < records.length; i++) {
-            records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
+            records[i]['avatar'] = records[i]['avatar'];
             // records[i]['avatar'] =  records[i]['avatar'];
           }
           if (response.data.total) {
@@ -93,11 +93,11 @@ export class AddcoacheComponent implements OnInit, OnDestroy {
           this.show_count = response.data.records.length;
           this.total_count = response.data.total;
           if (!response.data.total) {
-            this._toastrService.error('find player', 'No player found');
+            this._toastrService.error('find coach', 'No coach found');
           }
         },
         error => {
-          this._toastrService.error(`${error.error.message}`, 'Find Player');
+          this._toastrService.error(`${error.error.message}`, 'Find Coach');
         }
       );
   }
