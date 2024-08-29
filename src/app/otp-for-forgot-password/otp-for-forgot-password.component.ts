@@ -44,6 +44,7 @@ export class OtpForForgotPasswordComponent implements OnInit, OnDestroy {
   startTime() {
     this.interval = setTimeout(() => {
       this.editMode = false;
+      console.log('timerrrrr');
     }, 20000);
   }
 

@@ -84,14 +84,16 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   }
 
   getFootPlayerList() {
+    console.log('++++++++++++++++++');
     this._footPlayerService
       .getFootPlayerList(this.filter)
       // .pipe(untilDestroyed(this))
       .subscribe(response => {
         let records = response.data.records;
-        for (let i = 0; i < records.length; i++) {
-          records[i]['avatar'] = records[i]['avatar'];
-        }
+        // for (let i = 0; i < records.length; i++) {
+        //   records[i]['avatar'] = records[i]['avatar'];
+        // }
+        console.log('response is++++++++++', response.data.records);
         this.dataSource = new MatTableDataSource(response.data.records);
         this.show_count = response.data.records.length;
         this.total_count = response.data.total;

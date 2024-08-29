@@ -881,44 +881,46 @@
                     <mat-error
                       class="error-text"
                       *ngIf="
-                        personalProfileDetailsForm.controls.phone.invalid &&
-                        personalProfileDetailsForm.controls.phone.touched
+                        personalProfileDetailsForm.controls.mobile_number
+                          .invalid &&
+                        personalProfileDetailsForm.controls.mobile_number
+                          .touched
                       "
                     >
                       <ng-template #lengthBlock>
                         <span
                           translate
                           *ngIf="
-                            personalProfileDetailsForm.controls.phone.errors
-                              .minlength
+                            personalProfileDetailsForm.controls.mobile_number
+                              .errors.minlength
                           "
                         >
                           Please provide number upto
                           {{
-                            personalProfileDetailsForm.controls.phone.errors
-                              .minlength.requiredLength
+                            personalProfileDetailsForm.controls.mobile_number
+                              .errors.minlength.requiredLength
                           }}
                           digits
                         </span>
                         <span
                           translate
                           *ngIf="
-                            personalProfileDetailsForm.controls.phone.errors
-                              .maxlength
+                            personalProfileDetailsForm.controls.mobile_number
+                              .errors.maxlength
                           "
                         >
                           Please provide number upto
                           {{
-                            personalProfileDetailsForm.controls.phone.errors
-                              .maxlength.requiredLength
+                            personalProfileDetailsForm.controls.mobile_number
+                              .errors.maxlength.requiredLength
                           }}
                           digits
                         </span>
                       </ng-template>
                       <span
                         *ngIf="
-                          personalProfileDetailsForm.controls.phone.errors
-                            .pattern;
+                          personalProfileDetailsForm.controls.mobile_number
+                            .errors.pattern;
                           else lengthBlock
                         "
                         translate
@@ -967,16 +969,14 @@
                     <mat-error
                       class="error-text"
                       *ngIf="
-                        personalProfileDetailsForm.controls.mobile_number
-                          .invalid &&
-                        personalProfileDetailsForm.controls.mobile_number
-                          .touched
+                        personalProfileDetailsForm.controls.phone.invalid &&
+                        personalProfileDetailsForm.controls.phone.touched
                       "
                     >
                       <span
                         *ngIf="
-                          personalProfileDetailsForm.controls.mobile_number
-                            .errors.required
+                          personalProfileDetailsForm.controls.phone.errors
+                            .required
                         "
                         translate
                         >Mobile number is required</span
@@ -985,36 +985,36 @@
                         <span
                           translate
                           *ngIf="
-                            personalProfileDetailsForm.controls.mobile_number
-                              .errors.minlength
+                            personalProfileDetailsForm.controls.phone.errors
+                              .minlength
                           "
                         >
                           Please provide number upto
                           {{
-                            personalProfileDetailsForm.controls.mobile_number
-                              .errors.minlength.requiredLength
+                            personalProfileDetailsForm.controls.phone.errors
+                              .minlength.requiredLength
                           }}
                           digits
                         </span>
                         <span
                           translate
                           *ngIf="
-                            personalProfileDetailsForm.controls.mobile_number
-                              .errors.maxlength
+                            personalProfileDetailsForm.controls.phone.errors
+                              .maxlength
                           "
                         >
                           Please provide number upto
                           {{
-                            personalProfileDetailsForm.controls.mobile_number
-                              .errors.maxlength.requiredLength
+                            personalProfileDetailsForm.controls.phone.errors
+                              .maxlength.requiredLength
                           }}
                           digits
                         </span>
                       </ng-template>
                       <span
                         *ngIf="
-                          personalProfileDetailsForm.controls.mobile_number
-                            .errors.pattern;
+                          personalProfileDetailsForm.controls.phone.errors
+                            .pattern;
                           else lengthBlock
                         "
                         translate

@@ -77,7 +77,7 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
         response => {
           let records = response.data.records;
           for (let i = 0; i < records.length; i++) {
-            records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
+            records[i]['avatar'] = records[i]['avatar'];
           }
           if (response.data.total) {
             this.totalRecordSubject$.next(false);

@@ -94,7 +94,7 @@ export class VerificationComponent implements OnInit {
   otpVerify() {
     console.log('inside otpVerify is=>');
     let requestData = this.otpVerifyForm.value;
-    this.otpVerifyForm.controls.email.setValue('ravi');
+    //this.otpVerifyForm.controls.email.setValue('ravi');
     console.log('request send from frontend', requestData);
     this._editProfileService
       .verifyOtp(requestData)
