@@ -25,6 +25,8 @@ import { VerificationTypeComponent } from './verification-type/verification-type
 import { OtpForForgotPasswordComponent } from './otp-for-forgot-password/otp-for-forgot-password.component';
 import { OtpPhoneComponent } from './otp-phone/otp-phone.component';
 import { OtpTypeComponent } from './otp-type/otp-type.component';
+
+import { AccountDeleteComponent } from './account-delete/account-delete.component';
 const routes: Routes = [
   {
     path: '',
@@ -140,6 +142,12 @@ const routes: Routes = [
     path: 'change-password',
     component: ChangePasswordComponent,
     data: { title: extract('Change password') }
+    // canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'member/delete-account',
+    component: AccountDeleteComponent,
+    data: { title: extract('Delete Account') }
     // canActivate: [AuthenticationGuard]
   },
 

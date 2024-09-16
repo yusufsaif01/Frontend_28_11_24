@@ -31,6 +31,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   show_count: number;
   total_count: number;
   searchText = '';
+  serial_no = 1;
 
   // LEFT PANEL
   panelOptions: Partial<PanelOptions> = {

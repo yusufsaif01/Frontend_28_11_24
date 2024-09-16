@@ -2,9 +2,23 @@ import { TableConfig } from '@app/shared/table/TableConfig';
 export class AwardCertificateTableConfig extends TableConfig {
   constructor() {
     super();
-    this.allowedColumns = ['type', 'name', 'year', 'position', 'media'];
+    this.allowedColumns = [
+      'Ser_no',
+      'type',
+      'name',
+      'year',
+      'position',
+      'media'
+    ];
 
     this.columns = {
+      Ser_no: {
+        code: 'Ser_no',
+        text: 'Ser.No',
+        getValue: (ele: any) => {
+          return ele[this.columns.Ser_no.code];
+        }
+      },
       type: {
         code: 'type',
         text: 'Type',

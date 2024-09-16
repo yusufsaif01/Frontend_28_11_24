@@ -89,9 +89,14 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
             'public profile data front =====>',
             this.publicProfileData
           );
+
           console.log(response.data);
           this.setAvatar();
           this.is_following = this.publicProfileData.is_followed;
+          localStorage.setItem(
+            'is_followed',
+            JSON.stringify(this.is_following)
+          );
           this.is_footmate = this.publicProfileData.footmate_status;
           this.data = { ...this.data, ...this.publicProfileData };
           console.log('this is my data');
@@ -135,6 +140,7 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
           }),
           untilDestroyed(this)
         );
+      localStorage.setItem('is_followed', JSON.stringify(false));
     } else {
       this.following$ = this._publicProfileService
         .followUser({
@@ -151,6 +157,7 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
           }),
           untilDestroyed(this)
         );
+      localStorage.setItem('is_followed', JSON.stringify(true));
     }
   }
 

@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { untilDestroyed } from '@app/core';
 import { SharedService } from '@app/shared/shared.service';
 import { Constants } from '@app/shared/static-data/static-data';
+import { DeleteConfirmationComponent } from '@app/shared/dialog-box/delete-confirmation/delete-confirmation.component';
 import {
   FormGroup,
   FormBuilder,
@@ -23,7 +24,7 @@ import {
 import { DateConversion } from '@app/shared/utilities/date-conversion';
 import { AppDateAdapter } from '@app/shared/utilities/format-datepicker';
 import { VerificationComponent } from '../verification/verification.component';
-
+import { Router, ActivatedRoute } from '@angular/router';
 let pincodeControl = {
   pincode: [Validators.required, Validators.pattern(/^\d+$/)]
 };
@@ -67,6 +68,8 @@ export class PersonalDetailsComponent implements OnInit {
   valueForMobile: string;
   @Output() avatar_url = new EventEmitter<string>();
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     public dialog: MatDialog,
     private _editProfileService: ViewEditProfileService,
     private _sharedService: SharedService,
@@ -108,6 +111,40 @@ export class PersonalDetailsComponent implements OnInit {
     this.editMode = !this.editMode;
   }
 
+  deleteAccount() {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      panelClass: 'deletepopup',
+      data: {
+        message: 'Are you sure you want to delete Your Account?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        const user_id = localStorage.getItem('user_id');
+        this._editProfileService
+          .deleteAccount(user_id)
+          .pipe(untilDestroyed(this))
+          .subscribe(
+            response => {
+              this._toastrService.success(
+                `Success`,
+                'Account deleted successfully'
+              );
+              this.router.navigate(
+                [this.route.snapshot.queryParams.redirect || '/login'],
+                { replaceUrl: true }
+              );
+            },
+            error => {
+              this._toastrService.error(
+                `${error.error.message}`,
+                'Delete Account'
+              );
+            }
+          );
+      }
+    });
+  }
   setControlValidation(
     form: FormGroup,
     controlObject: { [name: string]: ValidatorFn[] }

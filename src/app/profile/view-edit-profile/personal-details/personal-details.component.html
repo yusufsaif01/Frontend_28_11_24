@@ -30,6 +30,11 @@
             <h2>{{ profile?.name | capitalize }}</h2>
             <p>{{ profile?.short_name }}</p>
             <p>{{ (clubAcademyType ? clubAcademyType : '') | titlecase }}</p>
+            <p style="color: black;">
+              <button class="btn-normal" (click)="deleteAccount()">
+                Delete Account
+              </button>
+            </p>
           </ng-container>
         </div>
       </div>
@@ -1193,7 +1198,7 @@
             </div>
             <div class="third">
               <div class="form-block">
-                <label>Stadium name</label>
+                <label>Stadium name <span>*</span></label>
                 <input
                   formControlName="stadium_name"
                   type="text"

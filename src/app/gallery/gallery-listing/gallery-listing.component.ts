@@ -91,19 +91,23 @@ export class GalleryListingComponent implements OnInit {
   sidebar: boolean = false;
   filter: GetGalleryListContext = {};
   galleryList: GetGalleryListResponseContext[] = [];
-  pageSize = 12;
+  captionList: any = [];
+  pageSize = 1000;
   pageNo = 1;
   selectedPage = 1;
   show_count = 0;
   total_count = 0;
   searchText = '';
   isPublic = false;
+  isFollowed = false;
   publicMemberType: string;
   publicFootplayer: boolean;
   member_type: string = localStorage.getItem('member_type');
   video_type: string = 'timeline';
+  errorMsg = '';
   userId: string;
-
+  show = false;
+  visible = false;
   filtersList = {
     abilityAttribute: true,
     otherTags: true
@@ -119,6 +123,8 @@ export class GalleryListingComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.isFollowed = JSON.parse(localStorage.getItem('is_followed'));
+    console.log('555555', this.isFollowed);
     this.filter.page_size = this.pageSize;
     this.filter.page_no = this.pageNo;
     this.getGalleryList();
@@ -159,12 +165,14 @@ export class GalleryListingComponent implements OnInit {
     }
     this.selectedPage = 1;
     this.filter.page_no = 1;
-    this.filter.page_size = 10;
+    this.filter.page_size = 1000;
     this.getGalleryList();
   }
 
   getGalleryList() {
     if (this.isPublic) {
+      //!this.isFollowed ? this.video_type="match":''
+
       this._galleryListingService
         .getPublicGalleryList(this.userId, {
           type: this.video_type,
@@ -174,24 +182,30 @@ export class GalleryListingComponent implements OnInit {
         .subscribe(
           response => {
             this.galleryList = response.data.records;
-
-            console.log('data recive isLLLL=====>', response.data.records);
+            //console.log("response for public gallery",this.galleryList)
             this.publicMemberType = response.data.posted_by.member_type;
             this.publicFootplayer = response.data.is_footplayer;
             this.show_count = response.data.records.length;
             this.total_count = response.data.total;
           },
           error => {
-            this._toastrService.error(error.error.message, 'Error');
+            //console.log(error.error.message)
+            this.errorMsg = error.error.message;
+            this.galleryList = [];
+            //this._toastrService.error(error.error.message, 'Error');
           }
         );
     } else {
+      console.log('inside not public{}{}}');
       this._galleryListingService
         .getGalleryList({ type: this.video_type, ...this.filter })
         .pipe(untilDestroyed(this))
         .subscribe(
           response => {
+            console.log('else wala part is');
             this.galleryList = response.data.records;
+            console.log('response isss9999', response.data.records);
+
             this.show_count = response.data.records.length;
             this.total_count = response.data.total;
           },

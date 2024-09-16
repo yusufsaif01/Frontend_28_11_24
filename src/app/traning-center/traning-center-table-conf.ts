@@ -16,7 +16,7 @@ export class TrainingCenterTableConfig extends TableConfig {
     this.columns = {
       traning_center_name: {
         code: 'traning_center_name',
-        text: 'Center name',
+        text: 'Center Name',
         getValue: (ele: any) => {
           return this.capitalize.transform(
             ele[this.columns.traning_center_name.code]
@@ -39,7 +39,7 @@ export class TrainingCenterTableConfig extends TableConfig {
       },
       coache_name: {
         code: 'coache_name',
-        text: 'coache Name',
+        text: 'Coach Name',
         getValue: (ele: any) => {
           return ele[this.columns.coache_name.code];
         }

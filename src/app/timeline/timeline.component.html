@@ -111,9 +111,9 @@
             <div class="actions" *ngIf="userId == post.posted_by.user_id">
               <ng-container *ngIf="post.post.media_type === 'video'">
                 <span>
-                  <a (click)="copyToClipboard(post.id)">
+                  <!-- <a (click)="copyToClipboard(post.id)">
                     <mat-icon class="material-icons">link</mat-icon>
-                  </a>
+                  </a> -->
                 </span>
               </ng-container>
               <ng-container *ngIf="post.post.media_type === 'video'">

@@ -141,7 +141,9 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
           for (let i = 0; i < records.length; i++) {
             records[i]['media'] = environment.mediaUrl + records[i]['media'];
           }
+
           this.dataSource = new MatTableDataSource(records);
+          console.log('data source is=>', this.dataSource);
           this.show_count = response.data.records.length;
           this.total_count = response.data.total;
           this.selectedPage = page_no;

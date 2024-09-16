@@ -167,7 +167,7 @@ export class EditAddPopupComponent implements OnInit, OnDestroy {
 
           this.toastrService.success(
             `${response.message}`,
-            'Traning Center Created successfully'
+            'Award added successfully'
           );
         },
         error => {

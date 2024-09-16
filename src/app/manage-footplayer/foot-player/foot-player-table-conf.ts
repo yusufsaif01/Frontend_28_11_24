@@ -4,6 +4,7 @@ export class FootPlayerTableConfig extends TableConfig {
   constructor(private capitalize?: CapitalizePipe) {
     super();
     this.allowedColumns = [
+      'serialNumber',
       'name',
       'category',
       'position',
@@ -14,9 +15,16 @@ export class FootPlayerTableConfig extends TableConfig {
     this.capitalize = new CapitalizePipe();
 
     this.columns = {
+      serialNumber: {
+        code: 'serialNumber',
+        text: 'Ser.No',
+        getValue: (ele: any) => {
+          return ele[this.columns.serialNumber.code];
+        }
+      },
       name: {
         code: 'name',
-        text: 'Player name',
+        text: 'Player Name',
         getValue: (ele: any) => {
           return this.capitalize.transform(ele[this.columns.name.code]);
         }
@@ -44,7 +52,7 @@ export class FootPlayerTableConfig extends TableConfig {
       },
       phone: {
         code: 'phone',
-        text: 'Phone number',
+        text: 'Phone Number',
         getValue: (ele: any) => {
           return ele[this.columns.phone.code];
         }

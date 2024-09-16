@@ -54,6 +54,8 @@ import { OtpForForgotPasswordComponent } from './otp-for-forgot-password/otp-for
 import { VerificationTypeComponent } from './verification-type/verification-type.component';
 import { OtpPhoneComponent } from './otp-phone/otp-phone.component';
 import { OtpTypeComponent } from './otp-type/otp-type.component';
+import { AccountDeleteComponent } from './account-delete/account-delete.component';
+
 @NgModule({
   imports: [
     NgMultiSelectDropDownModule.forRoot(),
@@ -114,7 +116,8 @@ import { OtpTypeComponent } from './otp-type/otp-type.component';
     OtpForForgotPasswordComponent,
     VerificationTypeComponent,
     OtpPhoneComponent,
-    OtpTypeComponent
+    OtpTypeComponent,
+    AccountDeleteComponent
   ],
   providers: [
     RoleGuardService,

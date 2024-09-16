@@ -14,6 +14,9 @@ const routes = {
   changePasssword: (c: ChangePasswordContext) => '/change-password',
   forgotPassword: (c: ForgotPasswordContext) => '/forgot-password',
   createPassword: (c: ResetPasswordContext) => '/create-password',
+
+  accountDelete: (user_id: string) => `/member/delete/${user_id}`,
+
   emailVerification: () =>
     'http://yftchain.local/registration/in/activateemail',
   resetLinkStatus: () => '/link/status',
@@ -167,6 +170,9 @@ export class AuthenticationService {
 
   forgotPassword(context: ForgotPasswordContext): Observable<any> {
     return this.httpClient.post(routes.forgotPassword(context), context);
+  }
+  accountDelete(user_id: string): Observable<any> {
+    return this.httpClient.delete<any>(routes.accountDelete(user_id));
   }
 
   emailVerification(obj: any): Observable<any> {

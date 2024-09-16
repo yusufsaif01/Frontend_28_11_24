@@ -12,7 +12,8 @@ const routes = {
   getCoachRole: () => '/profile/getcoach/role',
   verifyEmailOrMobile: (id: string, dataToVerify: string) =>
     `/verifyIdentity/${id}/${dataToVerify}`,
-  verifyOtp: (query: string) => `/otp-type/verification/?${query}`
+  verifyOtp: (query: string) => `/otp-type/verification/?${query}`,
+  deleteAccount: (user_id: string) => `/member/delete/${user_id}`
 };
 
 interface FindOtpContext {
@@ -36,6 +37,9 @@ interface OtpResponseContext {
 export class ViewEditProfileService {
   constructor(private httpClient: HttpClient) {}
 
+  deleteAccount(user_id: string): Observable<any> {
+    return this.httpClient.delete<any>(routes.deleteAccount(user_id));
+  }
   getPersonalProfileDetails(): Observable<any> {
     return this.httpClient.get<any>(routes.getPersonalProfileDetails());
   }

@@ -6,9 +6,10 @@ export class ManageReportCardTableConfig extends TableConfig {
     super();
     this.capitalize = new CapitalizePipe();
     if (member_type === 'player') {
-      this.allowedColumns = ['created_by', 'name', 'published_at'];
+      this.allowedColumns = ['Ser_no', 'created_by', 'name', 'published_at'];
     } else if (member_type !== 'player') {
       this.allowedColumns = [
+        'Ser_no',
         'name',
         'category',
         'published_at',
@@ -18,6 +19,13 @@ export class ManageReportCardTableConfig extends TableConfig {
     }
 
     this.columns = {
+      Ser_no: {
+        code: 'Ser_no',
+        text: 'Ser.No',
+        getValue: (ele: any) => {
+          return ele[this.columns.Ser_no.code];
+        }
+      },
       name: {
         code: 'name',
         text: member_type === 'player' ? 'Name' : 'Player name',
