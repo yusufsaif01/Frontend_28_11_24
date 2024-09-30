@@ -38,7 +38,13 @@ export class ViewEditProfileService {
   constructor(private httpClient: HttpClient) {}
 
   deleteAccount(user_id: string): Observable<any> {
-    return this.httpClient.delete<any>(routes.deleteAccount(user_id));
+    console.log('inside deleteAccount Service');
+    console.log('user id is', user_id);
+    console.log(this.httpClient.delete<any>(routes.deleteAccount(user_id)));
+    return this.httpClient.get<any>(routes.deleteAccount(user_id));
+  }
+  deleteContract(id: string): Observable<any> {
+    return this.httpClient.delete<any>(routes.deleteContract(id));
   }
   getPersonalProfileDetails(): Observable<any> {
     return this.httpClient.get<any>(routes.getPersonalProfileDetails());
@@ -60,9 +66,6 @@ export class ViewEditProfileService {
   }
   getEmploymentContractList(): Observable<any> {
     return this.httpClient.get<any>(routes.getEmploymentContractList());
-  }
-  deleteContract(id: string): Observable<any> {
-    return this.httpClient.delete<any>(routes.deleteContract(id));
   }
 
   verifyEmailOrMobile(id: string, dataToVerify: string): Observable<any> {

@@ -25,8 +25,8 @@ import { VerificationTypeComponent } from './verification-type/verification-type
 import { OtpForForgotPasswordComponent } from './otp-for-forgot-password/otp-for-forgot-password.component';
 import { OtpPhoneComponent } from './otp-phone/otp-phone.component';
 import { OtpTypeComponent } from './otp-type/otp-type.component';
-
 import { AccountDeleteComponent } from './account-delete/account-delete.component';
+
 const routes: Routes = [
   {
     path: '',

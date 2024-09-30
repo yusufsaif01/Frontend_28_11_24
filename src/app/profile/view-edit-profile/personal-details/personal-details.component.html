@@ -31,9 +31,11 @@
             <p>{{ profile?.short_name }}</p>
             <p>{{ (clubAcademyType ? clubAcademyType : '') | titlecase }}</p>
             <p style="color: black;">
-              <button class="btn-normal" (click)="deleteAccount()">
-                Delete Account
-              </button>
+              <a href="/member/delete-account">
+                <button class="btn-normal">
+                  Delete Account
+                </button>
+              </a>
             </p>
           </ng-container>
         </div>

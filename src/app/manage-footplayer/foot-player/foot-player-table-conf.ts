@@ -17,7 +17,7 @@ export class FootPlayerTableConfig extends TableConfig {
     this.columns = {
       serialNumber: {
         code: 'serialNumber',
-        text: 'Ser.No',
+        text: 'Sno.',
         getValue: (ele: any) => {
           return ele[this.columns.serialNumber.code];
         }

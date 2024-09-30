@@ -23,7 +23,7 @@
         />
         <mat-autocomplete class="autocomplete-height" #auto="matAutocomplete">
           <div
-            *ngIf="searchText.length > 2"
+            *ngIf="searchText.length > 0"
             infiniteScroll
             [infiniteScrollUpDistance]="1.5"
             [infiniteScrollDistance]="2"
@@ -49,11 +49,7 @@
                 }}</small>
               </mat-option>
               <ng-container
-                *ngIf="
-                  searchText.length >= 3 &&
-                    memberList.length === 0 &&
-                    totalRecordSubject$ | async
-                "
+                *ngIf="searchText.length >= 0 && totalRecordSubject$ | async"
               >
                 <mat-option>
                   No results found

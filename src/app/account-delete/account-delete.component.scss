@@ -1,69 +1,115 @@
 @import "src/assets/sass/abstracts/variables";
 @import "src/assets/sass/abstracts/mixins";
 
-// Middle CSS
 .site-wrapper {
   width: 100%;
-  margin: auto;
   display: flex;
-  align-items: center;
-  height: calc(100vh - 8.5rem);
+  background: $third-color;
   margin-top: 8.5rem;
-  position: relative;
 
-  .fixing-footer {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
+  @include responsive(bigphone) {
+    margin-top: 13rem;
   }
 
-  .form-section {
-    max-width: 50rem;
-    width: 100%;
-    margin: auto;
+  .right-panel {
+    width: 76.25%;
+    position: relative;
 
-    .form-box {
-      // width: 100%;
-      margin: auto;
-      -webkit-box-shadow: 0rem 0rem 1.8rem 0rem rgba($fourth-color, 0.12);
-      -moz-box-shadow: 0rem 0rem 1.8rem 0rem rgba($fourth-color, 0.12);
-      box-shadow: 0rem 0rem 1.8rem 0rem rgba($fourth-color, 0.12);
-      -webkit-border-radius: 1rem;
-      -moz-border-radius: 1rem;
-      border-radius: 1rem;
-      padding: 3rem 4rem;
+    @include responsive(tablet) {
+      width: 100%;
+      min-height: calc(100vh - 8.5rem);
+    }
 
-      @include responsive(bigphone) {
-        box-shadow: none;
-      }
+    @include responsive(bigphone) {
+      min-height: calc(100vh - 13rem);
+    }
 
-      h2 {
-        font-size: $heading-primary;
-        color: $fourth-color;
-        font-family: $secondary-text;
-        position: relative;
-        padding-bottom: 2rem;
-        font-weight: 100;
-      }
+    .footer-fix {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+    }
 
-      p {
-        color: $fourth-color;
-        display: block;
-        text-align: center;
-        font-weight: 500;
-        font-size: $heading-fourth;
-        margin-top: 2rem;
+    .right-wrapper {
+      padding: 2rem;
 
-        a {
-          color: $primary-color;
-          font-weight: 700;
+      .main {
+        background: $white-color;
+        @include shadow;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        margin-bottom: 10rem;
+
+        // heading
+        .heading {
+          display: flex;
+          justify-content: space-between;
+          padding: 2rem 0;
+          color: $fourth-color;
+        }
+
+        // search section
+        .search-section {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+
+          @include responsive(smallphone) {
+            flex-wrap: wrap;
+          }
+
+          .search-wrapper {
+            max-width: 35rem;
+            width: 100%;
+
+            @include responsive(mediumphone) {
+              max-width: 32rem;
+            }
+
+            @include responsive(smallestphone) {
+              max-width: 100rem;
+            }
+          }
+
+          button.secondary-btn {
+            @include responsive(smallestphone) {
+              margin: 2rem 0 1rem;
+              width: 100%;
+            }
+          }
         }
       }
     }
   }
 }
 
-.error-position {
-  position: absolute;
-  bottom: -0.8rem !important;
+::ng-deep {
+  .deletepopup,
+  .statusconfirmation {
+    width: 50%;
+
+    @include responsive(tablet) {
+      width: 60%;
+    }
+
+    @include responsive(bigphone) {
+      width: 75%;
+    }
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallphone) {
+      max-width: 95vw !important;
+    }
+  }
+}
+
+::ng-deep {
+  .addfootplayer {
+    @include responsive(tablet) {
+      max-width: 95vw !important;
+    }
+  }
 }

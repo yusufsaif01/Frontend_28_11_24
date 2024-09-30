@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   searchText: string = '';
   tempSearchText: string = '';
   pageNo: number = 1;
-  pageSize: number = 10;
+  pageSize: number = 25;
   keyCode: number;
 
   results$: Observable<any>;
@@ -140,15 +140,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.searchText = value;
 
-    if (value.length === 0) {
-      this.memberList = [];
-      this.pageNo = 1;
-    }
-    if (value.length < 3) {
-      this.memberList = [];
-      this.pageNo = 1;
-      return;
-    }
+    // if (value.length === 0) {
+    //   this.memberList = [];
+    //   this.pageNo = 1;
+    // }
+    // if (value.length < 3) {
+    //   this.memberList = [];
+    //   this.pageNo = 1;
+    //   return;
+    // }
     if (!scrolled) {
       this.pageNo = 1;
     }

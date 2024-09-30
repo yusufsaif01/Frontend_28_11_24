@@ -21,7 +21,7 @@ export class ManageReportCardTableConfig extends TableConfig {
     this.columns = {
       Ser_no: {
         code: 'Ser_no',
-        text: 'Ser.No',
+        text: 'Sno.',
         getValue: (ele: any) => {
           return ele[this.columns.Ser_no.code];
         }

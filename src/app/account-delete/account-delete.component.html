@@ -1,15 +1,54 @@
 <app-header></app-header>
 <div class="site-wrapper">
-  <div class="form-section">
-    <div class="form-box">
-      <h2>Delete Account</h2>
-
-      <button (click)="accountDelete()" class="btn btn-primary btn-block">
-        Delete Account
-      </button>
-    </div>
+  <div class="left-panel" [ngClass]="{ show: sidebar, hide: !sidebar }">
+    <app-left-panel
+      [achievements]="total_count"
+      [options]="panelOptions"
+      [userId]="userId"
+      (sendMemberType)="getMemberType($event)"
+    >
+    </app-left-panel>
   </div>
-  <div class="fixing-footer">
-    <app-copyright></app-copyright>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main mt-2">
+        <div class="">
+          <h2>Delete Account</h2>
+          <br /><br />
+          <h2>Are you sure you want to delete this account?</h2>
+          <br /><br />
+          <h3>
+            Deleting an account will permanently remove all your data, including
+            your match history,<br />
+            profile information, and any associated purchases or subscription.
+          </h3>
+          <br />
+          <br />
+          <h3 style="color: red;">
+            Once deleted, your account cannot be recovered, and this action is
+            irreversible.
+          </h3>
+          <br />
+          <br />
+          <h2>Legal Notice:</h2>
+          <br /><br />
+          <h3>
+            By deleting your account, you agree that your data will be erased
+            according to our Privacy Policy and Terms of Services.
+          </h3>
+          <br /><br />
+          <button
+            class="btn-active"
+            (click)="deleteAccount()"
+            style="background-color: #FF9933; padding: 0.9rem; color: black;  border: none; border-radius: 10rem;"
+          >
+            Delete Account
+          </button>
+        </div>
+      </div>
+      <div class="footer-fix">
+        <app-copyright></app-copyright>
+      </div>
+    </div>
   </div>
 </div>
