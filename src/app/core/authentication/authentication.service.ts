@@ -18,7 +18,7 @@ const routes = {
   accountDelete: (user_id: string) => `/member/delete/${user_id}`,
 
   emailVerification: () =>
-  'https://www.yftchain.com/registration/in/activateemail',
+  'http://test.yftchain.com/registration/in/activateemail',
   resetLinkStatus: () => '/link/status',
   accessTokenRequest: (c: AccessTokenRequestContext) => '/access-token/request',
   accessTokenVerification: (c: AccessTokenVerificationContext) =>
