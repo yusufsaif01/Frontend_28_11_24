@@ -14,7 +14,7 @@ import {
 } from '@app/core';
 
 const log = new Logger('Login');
-
+declare let gtag: Function; // Declare gtag function globally
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -37,6 +37,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     private toastrService: ToastrService
   ) {
     this.createForm();
+  }
+  trackButtonClick() {
+    gtag('event', 'submit_button_click', {
+      event_category: 'Button',
+      event_label: 'Submit Button',
+      value: 1
+    });
+    console.log('Submit button clicked and tracked');
   }
 
   ngOnInit() {}

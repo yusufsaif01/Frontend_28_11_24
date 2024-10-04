@@ -9,6 +9,7 @@ import { SharedService } from '@app/shared/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { Gtag } from 'angular-gtag';
 const log = new Logger('App');
 
 @Component({
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
   file: any;
 
   constructor(
+    private gtag: Gtag,
     private titleService: Title,
     private i18nService: I18nService,
     private _timelineService: TimelineService,
@@ -31,6 +33,13 @@ export class AppComponent implements OnInit, OnDestroy {
     private _store: Store<any>,
     private router: Router
   ) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.gtag.pageview({
+          page_path: event.urlAfterRedirects
+        });
+      }
+    });
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         var title = this.getTitle(

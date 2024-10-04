@@ -89,6 +89,7 @@
           type="submit"
           class="btn btn-primary btn-block"
           [disabled]="loginForm.invalid || isLoading"
+          (click)="trackButtonClick()"
         >
           Sign in
         </button>

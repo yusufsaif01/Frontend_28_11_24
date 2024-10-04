@@ -55,6 +55,7 @@ import { VerificationTypeComponent } from './verification-type/verification-type
 import { OtpPhoneComponent } from './otp-phone/otp-phone.component';
 import { OtpTypeComponent } from './otp-type/otp-type.component';
 import { AccountDeleteComponent } from './account-delete/account-delete.component';
+import { GtagModule } from 'angular-gtag';
 
 @NgModule({
   imports: [
@@ -63,6 +64,7 @@ import { AccountDeleteComponent } from './account-delete/account-delete.componen
     ServiceWorkerModule.register('./ngsw-worker.js', {
       enabled: environment.production
     }),
+    GtagModule.forRoot({ trackingId: 'G-H3P0ESG258' }), // Google tags
     MatSortModule,
     FormsModule,
     ReactiveFormsModule,
