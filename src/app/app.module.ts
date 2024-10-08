@@ -56,6 +56,8 @@ import { OtpPhoneComponent } from './otp-phone/otp-phone.component';
 import { OtpTypeComponent } from './otp-type/otp-type.component';
 import { AccountDeleteComponent } from './account-delete/account-delete.component';
 import { GtagModule } from 'angular-gtag';
+import { AccountDeleteInstructionComponent } from './account-delete-instruction/account-delete-instruction.component';
+import { AccountDeleteInstructionForMobileComponent } from './account-delete-instruction-for-mobile/account-delete-instruction-for-mobile.component';
 
 @NgModule({
   imports: [
@@ -119,7 +121,9 @@ import { GtagModule } from 'angular-gtag';
     VerificationTypeComponent,
     OtpPhoneComponent,
     OtpTypeComponent,
-    AccountDeleteComponent
+    AccountDeleteComponent,
+    AccountDeleteInstructionComponent,
+    AccountDeleteInstructionForMobileComponent
   ],
   providers: [
     RoleGuardService,

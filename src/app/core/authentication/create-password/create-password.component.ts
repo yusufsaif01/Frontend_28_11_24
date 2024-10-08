@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { matchingPassword } from '@app/shared/validators/matchingPassword';
 import { untilDestroyed } from '@app/core';
-
+declare let gtag: Function;
 @Component({
   selector: 'app-reset-password',
   templateUrl: './create-password.component.html',
@@ -32,7 +32,13 @@ export class CreatePasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {}
-
+  trackCreatePasswordButtonClick() {
+    gtag('event', 'create_password_button_click', {
+      event_category: 'Button',
+      event_label: 'Create Password Button Click',
+      value: 1
+    });
+  }
   ngOnInit() {
     const obj = { email: '' };
     const email = localStorage.getItem('email');
@@ -63,6 +69,7 @@ export class CreatePasswordComponent implements OnInit, OnDestroy {
   }
 
   createPassword() {
+    this.trackCreatePasswordButtonClick();
     const email = localStorage.getItem('email');
     this._authenticationService
       .createPassword(this.createPasswordForm.value, email)

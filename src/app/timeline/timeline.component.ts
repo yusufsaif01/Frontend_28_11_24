@@ -106,7 +106,7 @@ interface PlayerListingContext {
   status: string;
   type: string;
 }
-
+declare let gtag: Function;
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
@@ -199,7 +199,13 @@ export class TimelineComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  trackButtonClick() {
+    gtag('event', 'login_button_click', {
+      event_category: 'Button',
+      event_label: 'Login Button',
+      value: 1
+    });
+  }
   ngOnDestroy() {}
 
   getMemberType(value: string) {

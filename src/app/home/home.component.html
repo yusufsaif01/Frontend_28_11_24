@@ -20,12 +20,16 @@
       Revolutionizing football through digital innovation, inclusivity, and
       progress.
     </p>
-    <a class="btn btn-primary btn-primary-shadow" [routerLink]="['/register']"
+    <a
+      class="btn btn-primary btn-primary-shadow"
+      [routerLink]="['/register']"
+      (click)="trackJoinButtonClick()"
       >Join now</a
     >
     <a
       class="btn btn-primary btn-primary-shadow"
       href="assets/apk/app-release.apk"
+      (click)="trackAppDownloadButtonClick()"
       >Download app for android</a
     >
   </div>

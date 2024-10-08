@@ -39,12 +39,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.createForm();
   }
   trackButtonClick() {
-    gtag('event', 'submit_button_click', {
+    gtag('event', 'login_button_click', {
       event_category: 'Button',
-      event_label: 'Submit Button',
+      event_label: 'Login Button',
       value: 1
     });
-    console.log('Submit button clicked and tracked');
   }
 
   ngOnInit() {}

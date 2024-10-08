@@ -6,6 +6,7 @@ import { Constants } from '@app/shared/static-data/static-data';
 import { MatDialog } from '@angular/material/dialog';
 import { GuideComponent } from '@app/guide/guide.component';
 import { Router, ActivatedRoute } from '@angular/router';
+declare let gtag: Function;
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -42,7 +43,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {}
-
+  trackSingupButtonClick() {
+    gtag('event', 'singup_button_click', {
+      event_category: 'Button',
+      event_label: 'Singup Button',
+      value: 1
+    });
+  }
   ngOnInit() {
     this.typeArray = this.playerType;
     this.setPlayerValidators();
