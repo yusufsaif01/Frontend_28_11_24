@@ -85,7 +85,6 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
   }
 
   getFootPlayerList() {
-    console.log('++++++++++++++++++');
     this._footPlayerService
       .getFootPlayerList(this.filter)
       // .pipe(untilDestroyed(this))

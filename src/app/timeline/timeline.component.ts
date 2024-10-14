@@ -199,10 +199,24 @@ export class TimelineComponent implements OnInit, OnDestroy {
       }
     });
   }
-  trackButtonClick() {
-    gtag('event', 'login_button_click', {
+  timelinePostButtonClick() {
+    gtag('event', 'timeline_post_button_click', {
       event_category: 'Button',
-      event_label: 'Login Button',
+      event_label: 'Timeline Post Button',
+      value: 1
+    });
+  }
+  videoPostButtonClick() {
+    gtag('event', 'video_post_button_click', {
+      event_category: 'Button',
+      event_label: 'Video Post Button',
+      value: 1
+    });
+  }
+  imagePostButtonClick() {
+    gtag('event', 'image_post_button_click', {
+      event_category: 'Button',
+      event_label: 'image Post Button',
       value: 1
     });
   }
@@ -249,6 +263,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   }
 
   openDialog(): void {
+    this.imagePostButtonClick();
     const dialogRef = this.dialog.open(PostPopupComponent, {
       panelClass: 'postpopup'
     });
@@ -273,6 +288,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.timelinePostButtonClick();
     const check = localStorage.getItem('first_time');
     this.getPostListing();
     if (check == 'true') {
@@ -545,6 +561,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
       member_type: this.member_type,
       profile_status: this.profile_status
     };
+    this.videoPostButtonClick();
     const dialogRef = this.dialog.open(VideoPopupComponent, {
       panelClass: 'videopopup',
       data

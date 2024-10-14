@@ -311,7 +311,7 @@ export class AddCenterComponent implements OnInit, OnDestroy {
           this.dialogRef.close('refresh');
           this._toastrService.success(
             `${response.message}`,
-            'Traning Center Created successfully'
+            'Training Center Created successfully'
           );
           //window.location.reload()
         },

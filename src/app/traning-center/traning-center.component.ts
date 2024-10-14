@@ -147,7 +147,7 @@ export class TraningCenterComponent implements OnInit, OnDestroy {
             response => {
               this._toastrService.success(
                 `Success`,
-                'Traning Center deleted successfully'
+                'Training Center deleted successfully'
               );
               this.selectedPage = 1;
               this.filter.page_no = 1;

@@ -64,7 +64,7 @@ interface PostContext {
     position: string;
   };
 }
-
+declare let gtag: Function; // Declare gtag function globally
 @Component({
   selector: 'app-gallery-listing',
   templateUrl: './gallery-listing.component.html',
@@ -103,7 +103,7 @@ export class GalleryListingComponent implements OnInit {
   publicMemberType: string;
   publicFootplayer: boolean;
   member_type: string = localStorage.getItem('member_type');
-  video_type: string = 'timeline';
+  video_type: string = 'match';
   errorMsg = '';
   userId: string;
   show = false;
@@ -121,10 +121,15 @@ export class GalleryListingComponent implements OnInit {
     footplayers: true,
     is_public: false
   };
-
+  trackButtonClick() {
+    gtag('event', 'visit_gallery_page', {
+      event_category: 'engagemnt',
+      event_label: 'Gallery Page Click',
+      value: 1
+    });
+  }
   ngOnInit() {
     this.isFollowed = JSON.parse(localStorage.getItem('is_followed'));
-    console.log('555555', this.isFollowed);
     this.filter.page_size = this.pageSize;
     this.filter.page_no = this.pageNo;
     this.getGalleryList();
