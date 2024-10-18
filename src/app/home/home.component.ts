@@ -12,6 +12,15 @@ export class HomeComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  tracksinginbuttonclick() {
+    gtag('event', 'track_singin_button_click', {
+      event_category: 'Button',
+      event_label: 'Singin Button',
+      value: 1
+    });
+  }
+
   trackJoinButtonClick() {
     gtag('event', 'join_button_click', {
       event_category: 'Button',
@@ -19,6 +28,7 @@ export class HomeComponent implements OnInit {
       value: 1
     });
   }
+
   trackAppDownloadButtonClick() {
     gtag('event', 'apk_button_click', {
       event_category: 'Button',

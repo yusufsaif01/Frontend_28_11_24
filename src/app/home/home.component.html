@@ -4,7 +4,11 @@
       <img src="assets/images/website/logo.png" alt="brand-logo" />
     </a>
   </div>
-  <a class="btn btn-primary btn-primary-shadow" [routerLink]="['/login']">
+  <a
+    class="btn btn-primary btn-primary-shadow"
+    [routerLink]="['/login']"
+    (click)="tracksinginbuttonclick()"
+  >
     Sign in
   </a>
 </header>

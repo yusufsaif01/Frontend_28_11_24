@@ -128,6 +128,27 @@ export class GalleryListingComponent implements OnInit {
       value: 1
     });
   }
+  timelineVideoViewbuttonclick() {
+    gtag('event', 'view_timeline_video_page', {
+      event_category: 'engagemnt',
+      event_label: 'View learning video Button Click',
+      value: 1
+    });
+  }
+  learningVideoViewbuttonclick() {
+    gtag('event', 'view_learning_video_page', {
+      event_category: 'engagemnt',
+      event_label: 'View learning video Button Click',
+      value: 1
+    });
+  }
+  matchVideoViewbuttonclick() {
+    gtag('event', 'view_match_video_page', {
+      event_category: 'engagemnt',
+      event_label: 'View Match video Button Click',
+      value: 1
+    });
+  }
   ngOnInit() {
     this.isFollowed = JSON.parse(localStorage.getItem('is_followed'));
     this.filter.page_size = this.pageSize;
@@ -140,6 +161,15 @@ export class GalleryListingComponent implements OnInit {
     this.filter.page_no = 1;
     this.video_type = type;
     this.getGalleryList();
+    if (type === 'timeline') {
+      this.timelineVideoViewbuttonclick();
+    }
+    if (type === 'learning_or_training') {
+      this.learningVideoViewbuttonclick();
+    }
+    if (type === 'match') {
+      this.matchVideoViewbuttonclick();
+    }
   }
 
   openFilter() {

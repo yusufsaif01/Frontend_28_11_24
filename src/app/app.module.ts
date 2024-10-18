@@ -66,7 +66,7 @@ import { AccountDeleteInstructionForMobileComponent } from './account-delete-ins
     ServiceWorkerModule.register('./ngsw-worker.js', {
       enabled: environment.production
     }),
-    GtagModule.forRoot({ trackingId: 'G-H3P0ESG258' }), // Google tags
+    GtagModule.forRoot({ trackingId: 'G-ZNGK6MZ27R' }), // Google tags
     MatSortModule,
     FormsModule,
     ReactiveFormsModule,

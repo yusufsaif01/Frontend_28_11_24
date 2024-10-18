@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AddFootplayerComponent } from './add-footplayer/add-footplayer.component';
 import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
 import { SharedService } from '@app/shared/shared.service';
-
+declare let gtag: Function;
 @Component({
   selector: 'app-foot-player',
   templateUrl: './foot-player.component.html',
@@ -69,6 +69,13 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {}
 
+  addFootplayerbuttonclick() {
+    gtag('event', 'track_AddPlayer_button_click', {
+      event_category: 'Button',
+      event_label: 'Add Player Button',
+      value: 1
+    });
+  }
   openFilter() {
     this._sharedService.setFilterDisplayValue(true);
   }
@@ -112,6 +119,7 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
     let data = {
       member_type: this.member_type
     };
+    this.addFootplayerbuttonclick();
     const dialogRef = this.dialog.open(AddFootplayerComponent, {
       // width: '99%',
       panelClass: 'addfootplayer',

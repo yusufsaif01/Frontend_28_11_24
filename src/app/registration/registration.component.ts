@@ -36,7 +36,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
     const currentDate = new Date();
     this.maxDate = new Date(
-      currentDate.getFullYear() - 6,
+      currentDate.getFullYear() - 13,
       currentDate.getMonth(),
       currentDate.getDate()
     );

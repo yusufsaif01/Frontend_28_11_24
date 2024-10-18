@@ -12,7 +12,7 @@ import { AddCenterComponent } from './add-center/add-center.component';
 //import { AddFootplayerComponent } from '../manage-footplayer/foot-player/add-footplayer/add-footplayer.component';
 import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
 import { SharedService } from '@app/shared/shared.service';
-
+declare let gtag: Function;
 @Component({
   selector: 'app-traning-center',
   templateUrl: './traning-center.component.html',
@@ -74,7 +74,13 @@ export class TraningCenterComponent implements OnInit, OnDestroy {
   openFilter() {
     this._sharedService.setFilterDisplayValue(true);
   }
-
+  addFootplayerButtonClick() {
+    gtag('event', 'add_footplayer_button_click', {
+      event_category: 'Button',
+      event_label: 'Add Footplayer Button',
+      value: 1
+    });
+  }
   getMemberType(value: string) {
     this.member_type = value;
   }
@@ -112,6 +118,7 @@ export class TraningCenterComponent implements OnInit, OnDestroy {
     let data = {
       member_type: this.member_type
     };
+    this.addFootplayerButtonClick();
     const dialogRef = this.dialog.open(AddCenterComponent, {
       // width: '99%',
       panelClass: 'addfootplayer',
