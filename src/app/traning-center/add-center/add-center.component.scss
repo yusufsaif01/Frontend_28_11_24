@@ -4,13 +4,33 @@
 .from-container {
   margin: 20px;
 }
-.multiselect-dropdown[_ngcontent-unl-c22] {
-  font-size: 15px !important;
+// .multiselect-dropdown[_ngcontent-unl-c22] {
+//   font-size: 15px !important;
+// }
+:host ::ng-deep .multiselect-dropdown .dropdown-btn {
+  display: inline-block;
+  border: 1px solid #adadad;
+  width: 100%;
+  padding: 8px 12px !important;
+  margin-bottom: 0;
+  font-size: 1.6rem !important;
+  font-weight: 300;
+  line-height: 1.1;
+  text-align: left;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #f6f6f6 !important;
+  border-radius: 4px;
+}
+:host ::ng-deep .dropdown-list li {
+  //padding: 6px 10px;
+  cursor: pointer;
+  text-align: center !important;
 }
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 1.5rem 3rem;
+  padding: 1rem 2rem;
   align-items: center;
   background: $fifth-color;
 
@@ -19,7 +39,7 @@
 
     h2 {
       color: $fourth-color;
-      font-weight: 600;
+      font-weight: 500;
     }
   }
 
@@ -87,6 +107,10 @@
   button {
     padding: 1.2rem 5rem;
     font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 }
 

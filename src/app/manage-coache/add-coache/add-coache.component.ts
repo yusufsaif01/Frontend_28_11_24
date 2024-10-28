@@ -125,7 +125,7 @@ export class AddcoacheComponent implements OnInit, OnDestroy {
         error => {
           this._toastrService.error(
             `${error.error.message}`,
-            'Request Footplayer'
+            'Request Footcoach'
           );
         }
       );
@@ -133,24 +133,29 @@ export class AddcoacheComponent implements OnInit, OnDestroy {
 
   sendFootPlayerInvite() {
     let formValues = this.findPlayerForm.value;
-    Object.keys(formValues).forEach(
-      key => formValues[key] == '' && delete formValues[key]
-    );
-    this._managecoacheService
-      .sendFootPlayerInvite(formValues)
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
-          this._toastrService.success('Success', 'Send invite successfully');
-          this.dialogRef.close(true);
-        },
-        error => {
-          this._toastrService.error(
-            `${error.error.message}`,
-            'Invite Footplayer'
-          );
-        }
+    console.log('formvaluesssssss', formValues);
+    if (!formValues.name) {
+      this._toastrService.error('Name is required', 'Please Enter Coach Name');
+    } else {
+      Object.keys(formValues).forEach(
+        key => formValues[key] == '' && delete formValues[key]
       );
+      this._managecoacheService
+        .sendFootPlayerInvite(formValues)
+        .pipe(untilDestroyed(this))
+        .subscribe(
+          response => {
+            this._toastrService.success('Success', 'Send invite successfully');
+            this.dialogRef.close(true);
+          },
+          error => {
+            this._toastrService.error(
+              `${error.error.message}`,
+              'Invite Footcoach'
+            );
+          }
+        );
+    }
   }
 
   getStateToolTip(
@@ -178,7 +183,7 @@ export class AddcoacheComponent implements OnInit, OnDestroy {
       return { message: 'Add', state: false };
     } else if (is_verified && club_name) {
       return {
-        message: `This player is already a member of ${this.capitalize.transform(
+        message: `This coach is already a member of ${this.capitalize.transform(
           club_name
         )}`,
         state: true

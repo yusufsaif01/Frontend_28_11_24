@@ -239,8 +239,6 @@ export class GalleryListingComponent implements OnInit {
           response => {
             console.log('else wala part is');
             this.galleryList = response.data.records;
-            console.log('response isss9999', response.data.records);
-
             this.show_count = response.data.records.length;
             this.total_count = response.data.total;
           },

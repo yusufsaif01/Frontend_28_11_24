@@ -55,10 +55,10 @@ export class OtpTypeComponent implements OnInit, OnDestroy {
     console.log('requestData for type select', requestData);
     if (this.is_email_select) {
       requestData.email_select = 'email_select';
-    } else {
+    }
+    if (this.is_mobile_select) {
       requestData.phone_select = 'phone_select';
     }
-
     console.log('After requestData for select', requestData);
     this._verificationTypeService
       .verificationType(requestData)
@@ -77,7 +77,10 @@ export class OtpTypeComponent implements OnInit, OnDestroy {
         },
         error => {
           console.log('inside otpverify ===========>');
-          this._toastrService.error(`Error`, 'Otp Not matched');
+          this._toastrService.error(
+            `Error`,
+            'Please Select Verification Method'
+          );
           this.error = error;
         }
       );

@@ -70,6 +70,8 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
   }
 
   findPlayer() {
+    console.log('inside find player');
+    console.log('form value is', this.findPlayerForm.value);
     this._footPlayerService
       .findPlayer(this.findPlayerForm.value)
       .pipe(untilDestroyed(this))
@@ -131,24 +133,28 @@ export class AddFootplayerComponent implements OnInit, OnDestroy {
 
   sendFootPlayerInvite() {
     let formValues = this.findPlayerForm.value;
-    Object.keys(formValues).forEach(
-      key => formValues[key] == '' && delete formValues[key]
-    );
-    this._footPlayerService
-      .sendFootPlayerInvite(formValues)
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        response => {
-          this._toastrService.success('Success', 'Send invite successfully');
-          this.dialogRef.close(true);
-        },
-        error => {
-          this._toastrService.error(
-            `${error.error.message}`,
-            'Invite Footplayer'
-          );
-        }
+    if (!formValues.name) {
+      this._toastrService.error('Name is required', 'Please Enter Player Name');
+    } else {
+      Object.keys(formValues).forEach(
+        key => formValues[key] == '' && delete formValues[key]
       );
+      this._footPlayerService
+        .sendFootPlayerInvite(formValues)
+        .pipe(untilDestroyed(this))
+        .subscribe(
+          response => {
+            this._toastrService.success('Success', 'Send invite successfully');
+            this.dialogRef.close(true);
+          },
+          error => {
+            this._toastrService.error(
+              `${error.error.message}`,
+              'Invite Footplayer'
+            );
+          }
+        );
+    }
   }
 
   getStateToolTip(

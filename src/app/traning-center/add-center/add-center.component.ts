@@ -28,6 +28,7 @@ let addressControl = {
   selector: 'app-add-center',
   templateUrl: './add-center.component.html',
   styleUrls: ['./add-center.component.scss'],
+
   providers: [CapitalizePipe]
 })
 export class AddCenterComponent implements OnInit, OnDestroy {

@@ -8,7 +8,7 @@ const routes = {
   deleteFootCoach: (id: string) => `/deleteFootCoach/${id}`,
   findPlayer: (query: string) => `/coache/search${query}`,
   sendFootPlayerRequest: () => '/coache/request',
-  sendFootPlayerInvite: () => '/footplayer/invite',
+  sendFootPlayerInvite: () => '/footcoach/invite',
   resendFootPlayerInvite: () => `/footplayer/resend-invite`
 };
 

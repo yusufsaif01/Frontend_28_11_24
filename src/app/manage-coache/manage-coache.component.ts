@@ -92,7 +92,7 @@ export class ManagecoacheComponent implements OnInit, OnDestroy {
         let records = response.data.records;
         console.log('recoed is=>', records);
         for (let i = 0; i < records.length; i++) {
-          records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
+          records[i]['avatar'] = '';
         }
         this.dataSource = new MatTableDataSource(response.data.records);
         this.show_count = response.data.records.length;
