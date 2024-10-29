@@ -537,6 +537,7 @@ export abstract class Constants {
 
   static readonly VIDEO_LENGTH: any = {
     player: 2,
+    coach: 5,
     timeline: 5,
     learning_or_training: 20,
     match: 120

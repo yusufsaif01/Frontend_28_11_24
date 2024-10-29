@@ -415,8 +415,19 @@
                   class="txtarea-height"
                   matinput
                   placeholder="Write a Bio"
-                  maxlength="350"
+                  maxlength="1000"
                 ></textarea>
+                <p
+                  *ngIf="
+                    personalProfileDetailsForm.controls.bio.value &&
+                    personalProfileDetailsForm.controls.bio.value.length >= 0 &&
+                    personalProfileDetailsForm.controls.bio.value.length <= 1000
+                  "
+                >
+                  Max character length
+                  {{ personalProfileDetailsForm.controls.bio.value.length }} /
+                  1000
+                </p>
               </div>
             </div>
           </div>
@@ -862,8 +873,19 @@
                   class="txtarea-height"
                   matinput
                   placeholder="Write a Bio"
-                  maxlength="350"
+                  maxlength="1000"
                 ></textarea>
+                <p
+                  *ngIf="
+                    personalProfileDetailsForm.controls.bio.value &&
+                    personalProfileDetailsForm.controls.bio.value.length >= 0 &&
+                    personalProfileDetailsForm.controls.bio.value.length <= 1000
+                  "
+                >
+                  Max character length
+                  {{ personalProfileDetailsForm.controls.bio.value.length }} /
+                  1000
+                </p>
               </div>
             </div>
           </div>

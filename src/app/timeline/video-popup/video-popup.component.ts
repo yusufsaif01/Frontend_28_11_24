@@ -269,6 +269,9 @@ export class VideoPopupComponent implements OnInit, OnDestroy {
     if (this.member_type === 'player') {
       return Constants.VIDEO_LENGTH.player;
     }
+    if (this.member_type === 'coach') {
+      return Constants.VIDEO_LENGTH.coach;
+    }
     return Constants.VIDEO_LENGTH[this.type];
   }
 

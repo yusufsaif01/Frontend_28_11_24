@@ -232,7 +232,14 @@ export class PersonalDetailsComponent implements OnInit {
           ]
         ],
         dob: ['', { disabled: true }, [Validators.required]], //2020-04-14T18:30:00.000Z"
-        bio: ['', [Validators.required]],
+        bio: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(1000),
+            Validators.pattern(/^[\w\s\W]*$/)
+          ]
+        ],
         height_feet: [
           '',
           [
@@ -460,7 +467,8 @@ export class PersonalDetailsComponent implements OnInit {
         name: 'bio',
         abstractControl: this._formBuilder.control('', [
           Validators.required,
-          Validators.maxLength(350)
+          Validators.maxLength(1000),
+          Validators.pattern(/^[\w\s\W]*$/)
         ])
       }
     ];
@@ -509,8 +517,12 @@ export class PersonalDetailsComponent implements OnInit {
         },
         {
           name: 'address',
-          abstractControl: this._formBuilder.control('', [Validators.required])
+          abstractControl: this._formBuilder.control('', [
+            Validators.required,
+            Validators.pattern(/^[\w\s\W]*$/)
+          ])
         },
+
         {
           name: 'pincode',
           abstractControl: this._formBuilder.control('', [Validators.required])

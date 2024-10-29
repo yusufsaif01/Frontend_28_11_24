@@ -43,9 +43,11 @@ export class OtpTypeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   email_select(email_select) {
+    console.log('inside email select function');
     this.is_email_select = email_select;
   }
-  phone_select(phone_select) {
+  mobile_select(phone_select) {
+    console.log('inisde phone select function');
     this.is_mobile_select = phone_select;
   }
   otpVerificationType() {
