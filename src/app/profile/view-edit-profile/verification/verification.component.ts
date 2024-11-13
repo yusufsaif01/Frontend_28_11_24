@@ -40,6 +40,7 @@ export class VerificationComponent implements OnInit {
     private _toastrService: ToastrService
   ) {
     this.createForm();
+    console.log('this create form data is', this.data);
     if (this.data) {
       this.email = data.email;
       this.name = data.name;
@@ -53,9 +54,15 @@ export class VerificationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.otpVerifyForm.controls.email.patchValue(this.email);
-    this.otpVerifyForm.controls.userId.patchValue(this.userId);
-    this.otpVerifyForm.controls.mobile_number.patchValue(this.mobile_number);
+    // this.otpVerifyForm.controls.email.patchValue(this.email);
+    // this.otpVerifyForm.controls.userId.patchValue(this.userId);
+    // this.otpVerifyForm.controls.mobile_number.patchValue(this.mobile_number);
+
+    this.otpVerifyForm.patchValue({
+      email: this.email,
+      userId: this.userId,
+      mobile_number: this.mobile_number
+    });
     this.startTime();
   }
 
@@ -67,14 +74,14 @@ export class VerificationComponent implements OnInit {
     }, 20000);
   }
 
-  openModalForVerifyEmail(id: string, email: string, mobile: string) {
+  resendOtp(id: string, email: string, mobile: string) {
     console.log('id and email recived are', id, email, mobile);
     let dataToSend = email;
     if (email === undefined) {
       dataToSend = mobile;
     }
     this._editProfileService
-      .verifyEmailOrMobile(id, dataToSend)
+      .verifyEmail(id, dataToSend)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
@@ -91,11 +98,13 @@ export class VerificationComponent implements OnInit {
         }
       );
   }
-  otpVerify() {
-    console.log('inside otpVerify is=>');
+
+  verifyOtp() {
+    console.log('inside verifyOtp is=>');
     let requestData = this.otpVerifyForm.value;
-    //this.otpVerifyForm.controls.email.setValue('ravi');
-    console.log('request send from frontend', requestData);
+
+    console.log('verify otp data is', requestData);
+    console.log(this.email, this.name, this.userId, this.mobile_number);
     this._editProfileService
       .verifyOtp(requestData)
       .pipe(untilDestroyed(this))
@@ -104,6 +113,7 @@ export class VerificationComponent implements OnInit {
           console.log('response in api hits');
           console.log(response);
           if (response.data) {
+            this.otpVerifyForm.reset();
             this._toastrService.success(`Success`, 'Otp verified successfully');
             this.dialogRef.close('success');
             this.router.navigate(

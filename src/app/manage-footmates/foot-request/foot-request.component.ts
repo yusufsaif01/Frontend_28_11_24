@@ -73,7 +73,7 @@ export class FootRequestComponent implements OnInit, OnDestroy {
         response => {
           let records = response.data.records;
           for (let i = 0; i < records.length; i++) {
-            records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
+            records[i]['avatar'] = records[i]['avatar'];
           }
           this.requestList = records;
           this.show_count = response.data.records.length;
@@ -142,7 +142,7 @@ export class FootRequestComponent implements OnInit, OnDestroy {
         response => {
           let records = response.data.records;
           for (let i = 0; i < records.length; i++) {
-            records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
+            records[i]['avatar'] = records[i]['avatar'];
           }
           this.requestList = records;
           this.show_count = response.data.records.length;

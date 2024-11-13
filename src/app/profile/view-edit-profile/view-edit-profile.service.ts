@@ -10,9 +10,11 @@ const routes = {
   getEmploymentContractList: () => '/employment-contract/list',
   deleteContract: (id: string) => `/employment-contract/${id}`,
   getCoachRole: () => '/profile/getcoach/role',
-  verifyEmailOrMobile: (id: string, dataToVerify: string) =>
-    `/verifyIdentity/${id}/${dataToVerify}`,
-  verifyOtp: (query: string) => `/otp-type/verification/?${query}`,
+  sendOtpToVerifyEmail: (id: string, dataToVerify: string) =>
+    `/otp-for-email-verify/${id}/${dataToVerify}`,
+  sendOtpToVerifyMobile: (id: string, dataToVerify: string) =>
+    `/otp-for-mobile-verify/${id}/${dataToVerify}`,
+  verifyOtp: (query: string) => `/otp/verification/?${query}`,
   deleteAccount: (user_id: string) => `/member/delete/${user_id}`
 };
 
@@ -68,14 +70,20 @@ export class ViewEditProfileService {
     return this.httpClient.get<any>(routes.getEmploymentContractList());
   }
 
-  verifyEmailOrMobile(id: string, dataToVerify: string): Observable<any> {
+  verifyEmail(id: string, dataToVerify: string): Observable<any> {
     return this.httpClient.get<any>(
-      routes.verifyEmailOrMobile(id, dataToVerify)
+      routes.sendOtpToVerifyEmail(id, dataToVerify)
+    );
+  }
+  verifyMobile(id: string, dataToVerify: string): Observable<any> {
+    return this.httpClient.get<any>(
+      routes.sendOtpToVerifyMobile(id, dataToVerify)
     );
   }
 
   verifyOtp(context: FindOtpContext): Observable<OtpResponseContext> {
     let query = '';
+    console.log('co');
     if (context['email']) {
       query += 'email=' + context['email'];
     }

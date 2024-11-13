@@ -1,0 +1,476 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel" [ngClass]="{ show: sidebar, hide: !sidebar }">
+    <app-left-panel
+      [achievements]="total_count"
+      [options]="panelOptions"
+      [userId]="userId"
+      (sendMemberType)="getMemberType($event)"
+    >
+    </app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <mat-tab-group>
+        <mat-tab label="Player Details">
+          <div class="main mt-2">
+            <div class="public-wrapper">
+              <!-- heading and follow unfollow -->
+              <div class="heading">
+                <div class="left">
+                  <h2 *ngIf="publicProfileData?.member_type === 'player'">
+                    About {{ publicProfileData?.first_name | capitalize }}
+                    {{ publicProfileData?.last_name }}
+                  </h2>
+                  <h2 *ngIf="publicProfileData?.member_type !== 'player'">
+                    About {{ publicProfileData?.name | capitalize }}
+                  </h2>
+                </div>
+              </div>
+              <!-- Boi -->
+              <div class="boi">
+                <h4>Bio</h4>
+                <p>
+                  {{ publicProfileData?.bio }}
+                </p>
+              </div>
+
+              <!-- tab buttons -->
+              <div class="tabs-buttons">
+                <ul>
+                  <li>
+                    <a
+                      [ngClass]="tab === 'personal' ? 'active' : ''"
+                      [routerLinkActive]="['active']"
+                      (click)="getTab('personal')"
+                      >Personal details</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      [ngClass]="tab === 'professional' ? 'active' : ''"
+                      [routerLinkActive]="['active']"
+                      (click)="getTab('professional')"
+                      >Professional details</a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="tab-panel">
+                <ng-container
+                  *ngIf="
+                    publicProfileData?.member_type === 'player' ||
+                    publicProfileData?.member_type === 'coach'
+                  "
+                >
+                  <!-- player personal -->
+                  <div class="player-personal" *ngIf="tab === 'personal'">
+                    <div class="details">
+                      <div class="half">
+                        <div class="left">
+                          <h4>D.O.B</h4>
+                        </div>
+                        <div class="right">
+                          <p>
+                            {{ publicProfileData?.dob | date: 'MM-dd-yyyy' }}
+                          </p>
+                        </div>
+                      </div>
+                      <div class="half">
+                        <div class="left">
+                          <h4>Weight</h4>
+                        </div>
+                        <div class="right">
+                          <p>
+                            {{
+                              publicProfileData?.weight
+                                ? publicProfileData?.weight + 'kg'
+                                : ''
+                            }}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="half">
+                        <div class="left">
+                          <h4>Gender</h4>
+                        </div>
+                        <div class="right">
+                          <p>{{ publicProfileData?.gender | titlecase }}</p>
+                        </div>
+                      </div>
+
+                      <div class="half">
+                        <div class="left">
+                          <h4>Height</h4>
+                        </div>
+                        <div class="right">
+                          <p>
+                            {{
+                              publicProfileData?.height_feet
+                                ? publicProfileData?.height_feet + 'ft'
+                                : ''
+                            }}
+                            {{
+                              publicProfileData?.height_inches
+                                ? publicProfileData?.height_inches + 'inches'
+                                : ''
+                            }}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="full">
+                        <div class="left">
+                          <h4>Nationality</h4>
+                        </div>
+                        <div class="right">
+                          <p>
+                            {{ publicProfileData?.country_name | titlecase }}
+                          </p>
+                        </div>
+                      </div>
+                      <div class="full">
+                        <div class="left">
+                          <h4>State / UT</h4>
+                        </div>
+                        <div class="right">
+                          <p>{{ publicProfileData?.state_name | titlecase }}</p>
+                        </div>
+                      </div>
+                      <div class="full">
+                        <div class="left">
+                          <h4>District</h4>
+                        </div>
+                        <div class="right">
+                          <p>
+                            {{ publicProfileData?.district_name | titlecase }}
+                          </p>
+                        </div>
+                      </div>
+                      <div class="full">
+                        <div class="left">
+                          <h4>School</h4>
+                        </div>
+                        <div class="right">
+                          <p>
+                            {{
+                              publicProfileData?.institute_school | titlecase
+                            }}
+                          </p>
+                        </div>
+                      </div>
+                      <ng-container
+                        *ngIf="
+                          ['amateur', 'professional'].includes(
+                            publicProfileData?.player_type
+                          )
+                        "
+                      >
+                        <div class="full">
+                          <div class="left">
+                            <h4>College</h4>
+                          </div>
+                          <div class="right">
+                            <p>
+                              {{
+                                publicProfileData?.institute?.college
+                                  | titlecase
+                              }}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="full">
+                          <div class="left">
+                            <h4>University</h4>
+                          </div>
+                          <div class="right">
+                            <p>
+                              {{
+                                publicProfileData?.institute?.university
+                                  | titlecase
+                              }}
+                            </p>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <!-- player professional -->
+                  <div
+                    class="player-professioal"
+                    *ngIf="tab === 'professional'"
+                  >
+                    <div class="section">
+                      <h4>Preferred playing position :</h4>
+                      <div class="positions">
+                        <p
+                          *ngFor="
+                            let data of publicProfileData?.position;
+                            let i = index
+                          "
+                        >
+                          <span>{{ i + 1 }}. </span>
+                          {{ data.name | titlecase }}
+                        </p>
+                      </div>
+
+                      <div class="block">
+                        <div class="left">
+                          <h4>Strong foot</h4>
+                        </div>
+                        <div class="right">
+                          <p>left</p>
+                        </div>
+                      </div>
+
+                      <div class="block">
+                        <div class="left">
+                          <h4>Weak foot</h4>
+                        </div>
+                        <div class="right">
+                          <ng-container *ngFor="let number of [1, 2, 3, 4, 5]">
+                            <ng-container
+                              *ngIf="number <= publicProfileData?.weak_foot"
+                            >
+                              <mat-icon class="material-icons active">
+                                star_border
+                              </mat-icon>
+                            </ng-container>
+                            <ng-container
+                              *ngIf="number > publicProfileData?.weak_foot"
+                            >
+                              <mat-icon class="material-icons ">
+                                star_border
+                              </mat-icon>
+                            </ng-container>
+                          </ng-container>
+                        </div>
+                      </div>
+
+                      <div class="block">
+                        <div class="left">
+                          <h4>
+                            Current state association
+                            {{
+                              publicProfileData?.association === 'Others'
+                                ? '(Other)'
+                                : ''
+                            }}
+                          </h4>
+                        </div>
+                        <div class="right">
+                          <p>
+                            {{
+                              (publicProfileData?.association === 'Others'
+                                ? publicProfileData?.association_other
+                                : publicProfileData?.association
+                              ) | titlecase
+                            }}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="block">
+                        <div class="left">
+                          <h4>Former club / academy</h4>
+                        </div>
+                        <div class="right">
+                          <p>{{ publicProfileData.former_club_academy }}</p>
+                        </div>
+                      </div>
+
+                      <h4 class="mb-2 mt-2">
+                        Current associated club / academy :<span>
+                          {{
+                            publicProfileData.associated_clud_academy
+                              | titlecase
+                          }}
+                        </span>
+                      </h4>
+                      <ng-container
+                        *ngIf="
+                          publicProfileData?.associated_club_academy === 'yes'
+                        "
+                      >
+                        <h4 class="mb-2">Head coache details</h4>
+                        <div class="block">
+                          <div class="left">
+                            <h4>Name</h4>
+                          </div>
+                          <div class="right">
+                            <p>
+                              {{
+                                publicProfileData?.club_academy_details
+                                  ?.head_coache_name | titlecase
+                              }}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="block">
+                          <div class="left">
+                            <h4>Phone number</h4>
+                          </div>
+                          <div class="right">
+                            <p>
+                              {{
+                                publicProfileData?.club_academy_details
+                                  ?.head_coache_phone
+                                  ? '+91 ' +
+                                    publicProfileData?.club_academy_details
+                                      ?.head_coache_phone
+                                  : ''
+                              }}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="block">
+                          <div class="left">
+                            <h4>Email</h4>
+                          </div>
+                          <div class="right">
+                            <p>
+                              {{
+                                publicProfileData?.club_academy_details
+                                  ?.head_coache_email
+                              }}
+                            </p>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </ng-container>
+                <button
+                  matTooltip="Delete"
+                  (click)="deleteFootplayerPopup(id)"
+                  class="secondary-btn"
+                >
+                  Remove Player
+                </button>
+                <ng-container
+                  *ngIf="
+                    publicProfileData?.member_type !== 'player' &&
+                    publicProfileData?.member_type !== 'coach'
+                  "
+                >
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Assign Training Center">
+          <div class="main mt-2">
+            <!-- award heading -->
+            <div class="heading">
+              <h2>Assign Training Center</h2>
+              <!-- <button class="icon-btn" (click)="openFilter()">
+            <mat-icon class="material-icons">filter_alt</mat-icon>
+          </button> -->
+            </div>
+            <!-- search and popupbtn -->
+            <div class="search-section">
+              <div class="search-wrapper">
+                <app-grid-search-box
+                  placeholder="Search"
+                  (sendSearchText)="getSearchText($event)"
+                >
+                </app-grid-search-box>
+              </div>
+              <button class="secondary-btn" (click)="onAddFootPlayer()">
+                Assign center
+              </button>
+            </div>
+            <!-- table -->
+            <div class="table">
+              <app-table
+                [tableConfig]="tableConfig"
+                [NumberColumn]="'true'"
+                [rows]="dataSource"
+                [sortEnabled]="true"
+                [pageSize]="pageSize"
+                [TableActions]="ListAction"
+                [pageNo]="selectedPage"
+              >
+              </app-table>
+              <ng-template
+                #ListAction
+                let-row="row"
+                let-id="id"
+                let-avatar="avatar"
+                let-category="category"
+                let-name="name"
+                let-position="position"
+                let-status="status"
+                let-email="email"
+                let-user_id="user_id"
+                let-profile_status="profile_status"
+                let-canAddContract="canAddContract"
+              >
+                <div
+                  [matTooltip]="
+                    profile_status !== 'verified' && status === 'added'
+                      ? 'This player is not verified'
+                      : ''
+                  "
+                >
+                  <div
+                    class="action-buttons"
+                    *matCellDef="let element"
+                    [ngClass]="{
+                      'icon-disable':
+                        profile_status !== 'verified' && status === 'added'
+                    }"
+                  >
+                    <!-- <button matTooltip="Delete" (click)="deletePopup(id)">
+                  <mat-icon class="material-icons">delete</mat-icon>
+                </button> -->
+                  </div>
+
+                  <div class="action-buttons" *matCellDef="let element"></div>
+                  <!-- Checkbox for each row to allow selection -->
+
+                  <mat-checkbox
+                    [(ngModel)]="id.selected"
+                    (change)="onCheckboxChange(id)"
+                  >
+                  </mat-checkbox>
+                  <!-- <mat-checkbox  [checked]="isSelected(row)" 
+         >Check me!</mat-checkbox> -->
+                </div>
+              </ng-template>
+            </div>
+
+            <!-- Pagination -->
+            <app-pagination
+              *ngIf="dataSource.data.length !== 0"
+              [showData]="false"
+              [showCount]="show_count"
+              [totalRows]="total_count"
+              [rowsPerPage]="pageSize"
+              [selectedPage]="selectedPage"
+              (onChange)="updatePage($event)"
+            >
+            </app-pagination>
+          </div>
+        </mat-tab>
+        <!-- <mat-tab label="Third"> Content 3 </mat-tab> -->
+      </mat-tab-group>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
+  </div>
+</div>
+<app-filter
+  [allowedFilters]="filtersList"
+  (filterChanges)="onChangeFilter($event)"
+></app-filter>
+
+<!-- toggle btn -->
+<span class="toggle-btn" (click)="sidebar = !sidebar">
+  <mat-icon class=" material-icons">menu_open</mat-icon>
+</span>

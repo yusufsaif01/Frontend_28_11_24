@@ -141,30 +141,6 @@
               </h2>
             </div>
             <ng-container *ngIf="is_public && user_id !== logged_user_id">
-              <div class="right">
-                <button
-                  *ngIf="
-                    publicProfileData?.member_type === 'player' &&
-                    member_type === 'player'
-                  "
-                  (click)="toggleFootMate()"
-                >
-                  {{
-                    is_footmate === 'Accepted'
-                      ? 'Delete FooTMate'
-                      : is_footmate === 'Not_footmate'
-                      ? 'Send FooTMate Request'
-                      : 'Pending'
-                  }}
-                </button>
-                <ng-container *ngIf="following$ | async"></ng-container>
-                <button
-                  *ngIf="is_footmate !== 'Pending'"
-                  (click)="toggleFollow()"
-                >
-                  {{ is_following ? 'Unfollow' : 'Follow' }}
-                </button>
-              </div>
             </ng-container>
           </div>
           <!-- Boi -->
@@ -196,6 +172,7 @@
               </li>
             </ul>
           </div>
+
           <div class="tab-panel">
             <ng-container
               *ngIf="

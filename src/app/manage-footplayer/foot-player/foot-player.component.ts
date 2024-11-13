@@ -173,7 +173,8 @@ export class FootPlayerComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  // Manage Player
+  managePlayer(id: string) {}
   resendInvitationPopup(email: string) {
     const dialogRef = this.dialog.open(StatusConfirmationComponent, {
       panelClass: 'statusconfirmation',

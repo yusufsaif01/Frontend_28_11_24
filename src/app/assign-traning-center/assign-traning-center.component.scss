@@ -1,0 +1,731 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+.site-wrapper {
+  width: 100%;
+  display: flex;
+  background: $third-color;
+  margin-top: 8.5rem;
+
+  @include responsive(bigphone) {
+    margin-top: 13rem;
+  }
+
+  .right-panel {
+    width: 76.25%;
+    position: relative;
+
+    @include responsive(tablet) {
+      width: 100%;
+      min-height: calc(100vh - 8.5rem);
+    }
+
+    @include responsive(bigphone) {
+      min-height: calc(100vh - 13rem);
+    }
+    table {
+      width: 100%;
+    }
+    .footer-fix {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+    }
+
+    .right-wrapper {
+      padding: 2rem;
+
+      .main {
+        background: $white-color;
+        @include shadow;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        margin-bottom: 10rem;
+
+        // heading
+        .heading {
+          display: flex;
+          justify-content: space-between;
+          padding: 2rem 0;
+          color: $fourth-color;
+        }
+
+        // search section
+        .search-section {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+
+          @include responsive(smallphone) {
+            flex-wrap: wrap;
+          }
+
+          .search-wrapper {
+            max-width: 35rem;
+            width: 100%;
+
+            @include responsive(mediumphone) {
+              max-width: 32rem;
+            }
+
+            @include responsive(smallestphone) {
+              max-width: 100rem;
+            }
+          }
+
+          button.secondary-btn {
+            @include responsive(smallestphone) {
+              margin: 2rem 0 1rem;
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .deletepopup,
+  .statusconfirmation {
+    width: 50%;
+
+    @include responsive(tablet) {
+      width: 60%;
+    }
+
+    @include responsive(bigphone) {
+      width: 75%;
+    }
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallphone) {
+      max-width: 95vw !important;
+    }
+  }
+}
+
+::ng-deep {
+  .addfootplayer {
+    @include responsive(tablet) {
+      max-width: 95vw !important;
+    }
+  }
+}
+
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+.site-wrapper {
+  width: 100%;
+  display: flex;
+  background: $third-color;
+  margin-top: 8.5rem;
+
+  @include responsive(bigphone) {
+    margin-top: 13rem;
+  }
+
+  .right-panel {
+    width: 76.25%;
+    position: relative;
+
+    @include responsive(tablet) {
+      width: 100%;
+    }
+
+    .footer-fix {
+      left: 0;
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+    }
+
+    .right-wrapper {
+      padding: 2rem;
+
+      .main {
+        background: $white-color;
+        @include shadow;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        margin-bottom: 10rem;
+
+        .public-wrapper {
+          width: 90%;
+          margin: auto;
+
+          // social links
+          .social-links {
+            margin: 3rem 0px 2rem 0;
+
+            ul {
+              list-style: none;
+              text-align: right;
+
+              li {
+                display: inline-block;
+                margin: 0 1rem;
+
+                a {
+                  img {
+                    width: 3rem;
+                    height: 3rem;
+                  }
+
+                  &:hover {
+                    img {
+                      opacity: 0.6;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          // heading
+          .heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            @include responsive(mediumphone) {
+              flex-wrap: wrap;
+            }
+
+            // buttons
+            .right {
+              @include responsive(mediumphone) {
+                width: 100%;
+                margin-top: 1rem;
+              }
+
+              button {
+                padding: 1rem 3rem;
+                border: 1px solid $primary-color;
+                margin-left: 1rem;
+                border-radius: 5rem;
+                background: transparent;
+                cursor: pointer;
+                outline: none;
+
+                @include responsive(mediumphone) {
+                  margin-left: 0rem;
+                  margin-right: 1rem;
+                }
+
+                @include responsive(smallestphone) {
+                  margin: 1rem 0rem 1rem 0;
+                  width: 100%;
+                }
+
+                &:hover {
+                  background: $primary-color;
+                  color: $white-color;
+                }
+              }
+
+              .active {
+                background: $primary-color;
+                color: $white-color;
+              }
+            }
+          }
+
+          // Boi
+          .boi {
+            margin-top: 2rem;
+
+            h4 {
+              margin-bottom: 0.5rem;
+              font-size: 2rem;
+            }
+
+            p {
+              border: 1px solid $grey;
+              padding: 1rem 2rem;
+              font-size: $heading-fourth;
+              border-radius: 1rem;
+              color: $second-color;
+              word-break: break-all;
+            }
+          }
+
+          // tabs buttons
+          .tabs-buttons {
+            width: 100%;
+            margin-top: 2rem;
+
+            ul {
+              list-style: none;
+
+              li {
+                display: inline-block;
+                margin: 0 1rem;
+
+                @include responsive(smallestphone) {
+                  width: 100%;
+                  text-align: center;
+                  margin-bottom: 1rem;
+                }
+
+                a {
+                  color: $fourth-color;
+                  font-size: $heading-fourth;
+                  font-weight: 700;
+                  display: inline-block;
+                  padding: 1rem 2rem 1rem 0;
+                  border-bottom: 2px solid transparent;
+
+                  @include responsive(smallestphone) {
+                    width: 100%;
+                    text-align: center;
+                    margin-bottom: 1rem;
+                    font-weight: 500;
+                    border-radius: 5rem;
+                    border: 2px solid $black-color;
+                    background: $black-color;
+                    color: $white-color;
+                  }
+                }
+
+                a.active {
+                  color: $primary-color;
+                  border-color: $primary-color;
+
+                  @include responsive(smallestphone) {
+                    background: $primary-color;
+                    color: $white-color;
+                  }
+                }
+              }
+            }
+          }
+
+          .tab-panel {
+            width: 100%;
+            margin: 2rem 0;
+          }
+        }
+      }
+    }
+
+    .footer-fix {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+    }
+  }
+}
+
+// personal -- Academy/club/Player
+.details {
+  display: flex;
+  padding: 0 1rem;
+  flex-wrap: wrap;
+
+  .half {
+    width: 48%;
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallestphone) {
+      flex-wrap: wrap;
+    }
+
+    .left {
+      width: 44%;
+
+      @include responsive(smallestphone) {
+        width: 100%;
+      }
+
+      h4 {
+        font-weight: 500;
+      }
+    }
+
+    .right {
+      width: 53%;
+
+      @include responsive(smallestphone) {
+        width: 100%;
+      }
+
+      p {
+        font-size: $heading-fourth;
+        color: $second-color;
+
+        @include responsive(smallestphone) {
+          padding: 0.5rem 0;
+        }
+      }
+    }
+  }
+
+  .full {
+    width: 96%;
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+
+    @include responsive(mediumphone) {
+      width: 100%;
+    }
+
+    @include responsive(smallestphone) {
+      flex-wrap: wrap;
+    }
+
+    .left {
+      width: 22%;
+
+      @include responsive(mediumphone) {
+        width: 44%;
+      }
+
+      @include responsive(smallestphone) {
+        width: 100%;
+      }
+
+      h4 {
+        font-weight: 500;
+      }
+    }
+
+    .right {
+      width: 75%;
+
+      @include responsive(mediumphone) {
+        width: 53%;
+      }
+
+      @include responsive(smallestphone) {
+        width: 100%;
+      }
+
+      p {
+        font-size: $heading-fourth;
+        color: $second-color;
+
+        @include responsive(smallestphone) {
+          padding: 0.5rem 0;
+        }
+      }
+    }
+  }
+}
+
+// professional player
+.section {
+  width: 70%;
+
+  @include responsive(bigphone) {
+    width: 100%;
+  }
+
+  .positions {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+
+    @include responsive(smallphone) {
+      flex-wrap: wrap;
+    }
+
+    p {
+      color: $second-color;
+
+      @include responsive(smallphone) {
+        width: 100%;
+      }
+
+      span {
+        font-weight: 700;
+        width: 2rem;
+        display: inline-block;
+      }
+    }
+  }
+
+  .block {
+    display: flex;
+    margin: 1rem 0;
+
+    @include responsive(smallestphone) {
+      flex-wrap: wrap;
+    }
+
+    .left {
+      width: 35%;
+
+      @include responsive(smallestphone) {
+        width: 100%;
+      }
+
+      h4 {
+        font-weight: 500;
+      }
+    }
+
+    .right {
+      width: 65%;
+
+      @include responsive(smallestphone) {
+        width: 100%;
+      }
+
+      p {
+        color: $second-color;
+        font-size: $heading-fourth;
+
+        @include responsive(smallestphone) {
+          padding: 0.5rem 0;
+        }
+      }
+
+      .stars {
+        display: flex;
+      }
+    }
+  }
+}
+
+// professional Academy/club
+.section {
+  margin-bottom: 1rem;
+
+  .trophy-list {
+    display: flex;
+
+    span {
+      width: 2rem;
+      margin: 1rem 0;
+      font-weight: 500;
+      font-size: $heading-fourth;
+    }
+
+    .trophy-detials {
+      width: 100%;
+
+      .full {
+        display: flex;
+        margin: 1rem 0;
+
+        @include responsive(smallphone) {
+          flex-wrap: wrap;
+        }
+
+        .left {
+          width: 35%;
+
+          @include responsive(smallphone) {
+            width: 100%;
+          }
+
+          h4 {
+            font-weight: 500;
+          }
+        }
+
+        .right {
+          width: 65%;
+
+          @include responsive(smallphone) {
+            width: 100%;
+          }
+
+          p {
+            font-size: $heading-fourth;
+            color: $fourth-color;
+
+            @include responsive(smallphone) {
+              padding: 0.5rem 0;
+            }
+          }
+        }
+      }
+    }
+
+    .league {
+      .full {
+        display: flex;
+        margin: 1rem 0;
+
+        .left {
+          width: 35%;
+
+          h4 {
+            font-weight: 500;
+          }
+        }
+
+        .right {
+          width: 65%;
+
+          p {
+            font-size: $heading-fourth;
+            color: $fourth-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+.league {
+  margin-bottom: 2rem;
+
+  .full {
+    display: flex;
+    margin: 1rem 0;
+
+    @include responsive(smallphone) {
+      flex-wrap: wrap;
+    }
+
+    .left {
+      width: 25.5%;
+
+      @include responsive(smallphone) {
+        width: 100%;
+      }
+
+      h4 {
+        font-weight: 500;
+      }
+    }
+
+    .right {
+      width: 74.5%;
+
+      @include responsive(smallphone) {
+        width: 100%;
+      }
+
+      p {
+        font-size: $heading-fourth;
+        color: $fourth-color;
+
+        @include responsive(smallphone) {
+          padding: 0.5rem 0;
+        }
+      }
+    }
+  }
+}
+
+.signings {
+  margin-bottom: 2rem;
+
+  .full {
+    display: flex;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+    width: 80%;
+
+    p {
+      width: 33%;
+      margin-bottom: 1rem;
+      font-size: $heading-fourth;
+
+      span {
+        font-weight: 500;
+        width: 2rem;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.contact-list {
+  display: flex;
+
+  span {
+    width: 2rem;
+    margin: 0.5rem 0;
+    font-weight: 500;
+    font-size: $heading-fourth;
+  }
+
+  .contact-detials {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    .full {
+      display: flex;
+      margin: 0.5rem 0;
+      width: 48%;
+
+      @include responsive(mediumphone) {
+        width: 100%;
+      }
+
+      @include responsive(smallphone) {
+        flex-wrap: wrap;
+      }
+
+      .left {
+        width: 35%;
+
+        @include responsive(smallphone) {
+          width: 100%;
+        }
+
+        h4 {
+          font-weight: 500;
+        }
+      }
+
+      .right {
+        width: 65%;
+
+        @include responsive(smallphone) {
+          width: 100%;
+        }
+
+        p {
+          font-size: $heading-fourth;
+          color: $fourth-color;
+
+          @include responsive(smallphone) {
+            padding: 0.5rem 0;
+          }
+        }
+      }
+    }
+
+    .league {
+      .full {
+        display: flex;
+        margin: 1rem 0;
+
+        .left {
+          width: 35%;
+
+          h4 {
+            font-weight: 500;
+          }
+        }
+
+        .right {
+          width: 65%;
+
+          p {
+            font-size: $heading-fourth;
+            color: $fourth-color;
+          }
+        }
+      }
+    }
+  }
+}

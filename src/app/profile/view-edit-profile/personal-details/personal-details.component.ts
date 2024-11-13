@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectorRef
+} from '@angular/core';
 import { ViewEditProfileService } from '../view-edit-profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
@@ -76,7 +83,8 @@ export class PersonalDetailsComponent implements OnInit {
     private _toastrService: ToastrService,
     private _formBuilder: FormBuilder,
     private _sanitizer: DomSanitizer,
-    private _dateConversion: DateConversion
+    private _dateConversion: DateConversion,
+    private cdr: ChangeDetectorRef
   ) {
     this.createForm();
     this.manageCommonControls();
@@ -295,16 +303,23 @@ export class PersonalDetailsComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe(
         res => {
-          if (res.data.avatar_url) {
-            this.profile.avatar_url =
-              environment.mediaUrl + res.data.avatar_url;
+          if (res.data && res.data.avatar_url) {
+            const newAvatarUrl = res.data.avatar_url;
+            this.profile.avatar_url = newAvatarUrl;
+            localStorage.setItem('avatar_url', newAvatarUrl);
+            this.avatar_url.emit(newAvatarUrl);
+            // Trigger change detection
+            this.cdr.detectChanges();
+            this._toastrService.success(
+              'Success',
+              'Avatar updated successfully'
+            );
+          } else {
+            this._toastrService.error(
+              'Error',
+              'Avatar URL not found in response.'
+            );
           }
-          localStorage.setItem(
-            'avatar_url',
-            environment.mediaUrl + res.data.avatar_url
-          );
-          this.avatar_url.emit(localStorage.getItem('avatar_url'));
-          this._toastrService.success('Success', 'Avatar updated successfully');
         },
         err => {
           this._toastrService.error('Error', err.error.message);
@@ -687,7 +702,7 @@ export class PersonalDetailsComponent implements OnInit {
       this.value = dataToVerify;
     }
     this._editProfileService
-      .verifyEmailOrMobile(id, dataToVerify)
+      .verifyEmail(id, dataToVerify)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
@@ -700,8 +715,7 @@ export class PersonalDetailsComponent implements OnInit {
               data: {
                 name: response.data.name,
                 email: this.value,
-                userId: response.data.user_id,
-                mobile_number: this.valueForMobile
+                userId: response.data.user_id
               }
             });
 
@@ -719,6 +733,7 @@ export class PersonalDetailsComponent implements OnInit {
         }
       );
   }
+
   openModalForVerifyMobile(
     id: string,
     dataToVerify: string = this.profile.phone
@@ -730,7 +745,7 @@ export class PersonalDetailsComponent implements OnInit {
       this.valueForMobile = dataToVerify;
     }
     this._editProfileService
-      .verifyEmailOrMobile(id, dataToVerify)
+      .verifyMobile(id, dataToVerify)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
@@ -742,9 +757,8 @@ export class PersonalDetailsComponent implements OnInit {
               panelClass: 'postpopup',
               data: {
                 name: response.data.name,
-                email: this.value,
-                userId: response.data.user_id,
-                mobile_number: this.valueForMobile
+                mobile_number: this.valueForMobile,
+                userId: response.data.user_id
               }
             });
 

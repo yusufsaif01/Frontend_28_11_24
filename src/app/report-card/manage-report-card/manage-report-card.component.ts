@@ -131,7 +131,8 @@ export class ManageReportCardComponent implements OnInit {
             // )
           };
         }
-        record.avatar = this.attachEnvironmentUrl(record.avatar);
+
+        // record.avatar = this.attachEnvironmentUrl(record.avatar);
       });
 
       return records;
@@ -151,7 +152,7 @@ export class ManageReportCardComponent implements OnInit {
   }
 
   attachEnvironmentUrl(value: String) {
-    return environment.mediaUrl + value;
+    return value;
   }
 
   ngOnDestroy() {}

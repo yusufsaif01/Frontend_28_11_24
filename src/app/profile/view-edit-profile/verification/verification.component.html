@@ -19,7 +19,7 @@
           maxlength="4"
           placeholder="Please enter otp"
         />
-        <input
+        <!-- <input
           type="text"
           formControlName="email"
           matinput
@@ -39,12 +39,12 @@
           matinput
           [value]="mobile_number"
           hidden
-        />
+        /> -->
 
         <button
           class="btn btn-primary "
           [disabled]="!otpVerifyForm.value.otp"
-          (click)="otpVerify()"
+          (click)="verifyOtp()"
         >
           Verify Otp
         </button>
@@ -52,7 +52,7 @@
           type="submit"
           class="btn btn-primary"
           [hidden]="editMode"
-          (click)="openModalForVerifyEmail(userId, email, mobile_number)"
+          (click)="resendOtp(userId, email, mobile_number)"
         >
           Resend Otp
         </button>

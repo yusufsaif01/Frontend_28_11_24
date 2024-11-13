@@ -110,7 +110,7 @@ export class ClubAcademyFootplayerComponent implements OnInit, OnDestroy {
       .subscribe(response => {
         let records = response.data.records;
         for (let i = 0; i < records.length; i++) {
-          records[i]['avatar'] = environment.mediaUrl + records[i]['avatar'];
+          records[i]['avatar'] = records[i]['avatar'];
         }
         this.footplayers = response.data.footplayers;
         this.footPlayerList = records;

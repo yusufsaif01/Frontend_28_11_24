@@ -129,8 +129,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   register() {
     let form_data = this.registrationForm.value;
-    console.log('-----------------------');
-    console.log(this.registrationForm.value);
+
     form_data.member_type = this.activeForm;
     if (this.activeForm === 'club' || this.activeForm === 'academy') {
       delete form_data.first_name;
@@ -141,14 +140,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       delete form_data.name;
       delete form_data.type;
     }
-
-    //
     this._authenticationService
       .register(form_data)
       .pipe(untilDestroyed(this))
       .subscribe(
         credentials => {
           this.resetFormFields();
+          console.log('credentialsss', credentials);
           //  this.openDialogformsg();
           if (credentials.status === 'success') {
             this.router.navigate([
@@ -156,8 +154,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
                 'otp/otp-verfication-type'
             ]);
           }
-
-          console.log('credentialsss', credentials);
           console.log('form data is ', form_data);
           localStorage.setItem('email', form_data.email);
           localStorage.setItem('name', form_data.name);
@@ -165,6 +161,17 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           localStorage.setItem('mobile_number', form_data.phone);
         },
         error => {
+          console.log('inside erorr', error);
+          if (error.error.message === 'Email is not verified') {
+            this.router.navigate([
+              this.route.snapshot.queryParams.redirect ||
+                'otp/otp-verfication-type'
+            ]);
+            localStorage.setItem('email', form_data.email);
+            localStorage.setItem('name', form_data.name);
+            localStorage.setItem('userId', form_data.userId);
+            localStorage.setItem('mobile_number', form_data.phone);
+          }
           this._toastrService.error(`${error.error.message}`, 'Failed');
         }
       );

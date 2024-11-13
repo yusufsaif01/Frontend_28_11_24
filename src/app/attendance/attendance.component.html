@@ -61,14 +61,17 @@
                   : ''
               "
             >
-              <div class="action-buttons">
+              <!-- <div class="action-buttons">
                 <a
-                  routerLink="/member/mark-attendance"
+                  routerLink="/member/mark-attendance/",id
                   matTooltip="Mark Attendance"
                 >
                   <mat-icon class="material-icons">add_circle</mat-icon>
                 </a>
-              </div>
+              </div> -->
+              <button [routerLink]="['/member/mark-attendance/', user_id]">
+                Mark Attendance
+              </button>
             </div>
           </ng-template>
         </div>

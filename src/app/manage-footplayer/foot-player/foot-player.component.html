@@ -72,7 +72,7 @@
                     profile_status !== 'verified' && status === 'added'
                 }"
               >
-                <button
+                <!-- <button
                   matTooltip="Resend invitation"
                   [ngClass]="{
                     'icon-disable': ['pending', 'added', 'rejected'].includes(
@@ -82,7 +82,7 @@
                   (click)="resendInvitationPopup(email)"
                 >
                   <mat-icon class="material-icons">autorenew</mat-icon>
-                </button>
+                </button> -->
 
                 <!--    <button
                   [ngClass]="{
@@ -98,8 +98,14 @@
                 </button>
                 -->
 
-                <button matTooltip="Delete" (click)="deletePopup(id)">
+                <!-- <button matTooltip="Delete" (click)="deletePopup(id)">
                   <mat-icon class="material-icons">delete</mat-icon>
+                </button> -->
+
+                <button
+                  [routerLink]="['/member/assign-traning-center/', user_id]"
+                >
+                  Manage Player
                 </button>
               </div>
             </div>

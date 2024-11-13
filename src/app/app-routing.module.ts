@@ -28,6 +28,8 @@ import { OtpTypeComponent } from './otp-type/otp-type.component';
 import { AccountDeleteComponent } from './account-delete/account-delete.component';
 import { AccountDeleteInstructionComponent } from './account-delete-instruction/account-delete-instruction.component';
 import { AccountDeleteInstructionForMobileComponent } from './account-delete-instruction-for-mobile/account-delete-instruction-for-mobile.component';
+import { AssignTraningCenterComponent } from './assign-traning-center/assign-traning-center.component';
+import { AttendanceHistoryComponent } from './attendance-history/attendance-history.component';
 
 const routes: Routes = [
   {
@@ -126,11 +128,19 @@ const routes: Routes = [
     component: TraningCenterComponent
   },
   {
+    path: 'member/assign-traning-center/:send_to',
+    component: AssignTraningCenterComponent
+  },
+  {
     path: 'member/attendance',
     component: AttendanceComponent
   },
   {
-    path: 'member/mark-attendance',
+    path: 'member/attendance-history',
+    component: AttendanceHistoryComponent
+  },
+  {
+    path: 'member/mark-attendance/:send_to',
     component: MarkAttendanceComponent
   },
 
