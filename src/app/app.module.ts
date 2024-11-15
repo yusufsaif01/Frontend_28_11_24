@@ -59,7 +59,6 @@ import { GtagModule } from 'angular-gtag';
 import { AccountDeleteInstructionComponent } from './account-delete-instruction/account-delete-instruction.component';
 import { AccountDeleteInstructionForMobileComponent } from './account-delete-instruction-for-mobile/account-delete-instruction-for-mobile.component';
 import { AssignTraningCenterComponent } from './assign-traning-center/assign-traning-center.component';
-import { AttendanceHistoryComponent } from './attendance-history/attendance-history.component';
 
 @NgModule({
   imports: [
@@ -126,8 +125,7 @@ import { AttendanceHistoryComponent } from './attendance-history/attendance-hist
     AccountDeleteComponent,
     AccountDeleteInstructionComponent,
     AccountDeleteInstructionForMobileComponent,
-    AssignTraningCenterComponent,
-    AttendanceHistoryComponent
+    AssignTraningCenterComponent
   ],
   providers: [
     RoleGuardService,
