@@ -15,7 +15,9 @@ const routes = {
   assignTrainingCenter: (user_id: string) =>
     `/assign/training-center/${user_id}`,
   getPublicProfileDetails: (params: string) =>
-    `/member/public/profile/${params}`
+    `/member/public/profile/${params}`,
+
+  getPlayerAttendanceDetails: () => `/player/attendance`
 };
 
 interface ResendFootPlayerInviteContext {
@@ -81,6 +83,10 @@ interface GetTraningCenterListResponseContext {
   };
 }
 interface GetPublicProfileDetailsContext {
+  user_id: string;
+  academy_user_id: string;
+}
+interface GetPublicProfileDetailsContext1 {
   user_id: string;
 }
 export interface GetPublicProfileDetailsResponseContext {
@@ -211,7 +217,7 @@ export class AssignTraningCenterService {
   }
 
   getPublicProfileDetails(
-    context: GetPublicProfileDetailsContext
+    context: GetPublicProfileDetailsContext1
   ): Observable<GetPublicProfileDetailsResponseContext> {
     let params = '';
     if (context['user_id']) {
@@ -221,6 +227,27 @@ export class AssignTraningCenterService {
       routes.getPublicProfileDetails(params)
     );
   }
+
+  getPlayerAttendanceDetails(
+    context: GetPublicProfileDetailsContext
+  ): Observable<GetPublicProfileDetailsResponseContext> {
+    // Create a query parameter object
+    const params = {
+      user_id: context.user_id || '', // Default to empty string if undefined
+      academy_user_id: context.academy_user_id || '' // Default to empty string if undefined
+    };
+
+    console.log('Service hit with params:', params);
+
+    // Use HttpClient's `HttpParams` to encode the parameters properly
+    const httpParams = new HttpParams({ fromObject: params });
+
+    return this.httpClient.get<GetPublicProfileDetailsResponseContext>(
+      routes.getPlayerAttendanceDetails(), // Pass the base route
+      { params: httpParams } // Pass the HttpParams object here
+    );
+  }
+
   deleteTraningCenter(id: string) {
     return this.httpClient.delete<any>(routes.deleteTraningCenter(id));
   }

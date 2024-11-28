@@ -294,7 +294,7 @@
         <li>
           <a [routerLink]="['/member/traning-center']">
             <span class="icon">
-              <img src="assets/images/global/contracts.svg" alt="contracts" />
+              <img src="assets/images/global/timer.svg" alt="contracts" />
             </span>
             <span class="text">Create Training Center</span>
           </a>
@@ -302,7 +302,7 @@
         <li>
           <a [routerLink]="['/member/attendance']">
             <span class="icon">
-              <img src="assets/images/global/contracts.svg" alt="contracts" />
+              <img src="assets/images/global/calender.svg" alt="contracts" />
             </span>
             <span class="text">Attendance</span>
           </a>
@@ -382,63 +382,56 @@
         "
       >
         <li>
-          <!-- <a [routerLink]="['/member/manage-report-card']">
-            <span class="icon">
-              <img src="assets/images/global/report-icon.svg" alt="Report" />
-            </span>
-            <span class="text">Manage report card</span>
-          </a> -->
-          <a>
-            <span class="icon">
-              <img src="assets/images/global/contracts.svg" alt="contracts" />
-            </span>
-            <!-- <mat-accordion>
-<mat-expansion-panel>
-  <mat-expansion-panel-header>
-    <mat-panel-title class="mptitle">
-      Manage
-    </mat-panel-title>
-  </mat-expansion-panel-header>
-  <ng-template matExpansionPanelContent>
-    <p [routerLink]="['/member/manage-footplayer']">FooTPlayers</p>
-    <p [routerLink]="['/member/manage-coache']">Coach</p>
-    <p [routerLink]="['/member/manage-report-card']">Report Card</p>
-  </ng-template>
-</mat-expansion-panel>
-
-</mat-accordion> -->
-            <mat-form-field>
-              <mat-select #mode value="side">
-                <mat-option value="side">Manage</mat-option>
-                <mat-option [routerLink]="['/member/manage-footplayer']"
-                  >FooTPlayers</mat-option
-                >
-                <mat-option [routerLink]="['/member/manage-coache']"
-                  >Coach</mat-option
-                >
-                <mat-option [routerLink]="['/member/manage-report-card']"
-                  >Report Card</mat-option
-                >
-              </mat-select>
-            </mat-form-field>
-            <!-- <mat-form-field>
-      <mat-label>Has backdrop</mat-label>
-      <mat-select #hasBackdrop>
-        <mat-option>Unset</mat-option>
-        <mat-option [value]="true">True</mat-option>
-        <mat-option [value]="false">False</mat-option>
-      </mat-select>
-    </mat-form-field> -->
-            <!-- <mat-form-field > 
-  <mat-label>Manage</mat-label> 
-  <mat-select> 
-    <mat-option [routerLink]="['/member/manage-footplayer']"> Manage FooTPlayers </mat-option> 
-    <mat-option [routerLink]="['/member/manage-coache']">Manage Coach</mat-option> 
-    <mat-option [routerLink]="['/member/manage-report-card']">Manage Report Card</mat-option> 
-  </mat-select> 
-  
-</mat-form-field> -->
-          </a>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <span class="icon">
+                  <img
+                    src="assets/images/global/contracts.svg"
+                    alt="Manage Icon"
+                  />
+                </span>
+                <span class="text">Manage</span>
+              </mat-expansion-panel-header>
+              <ng-template matExpansionPanelContent>
+                <ul class="submenu">
+                  <li>
+                    <a [routerLink]="['/member/manage-footplayer']">
+                      <span class="icon">
+                        <img
+                          src="assets/images/global/club-academy.svg"
+                          alt="contracts"
+                        />
+                      </span>
+                      <span> FooTPlayers</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['/member/manage-coache']">
+                      <span class="icon">
+                        <img
+                          src="assets/images/global/club-academy.svg"
+                          alt="contracts"
+                        />
+                      </span>
+                      <span>Coach</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['/member/manage-report-card']">
+                      <span class="icon">
+                        <img
+                          src="assets/images/global/contracts.svg"
+                          alt="contracts"
+                        />
+                      </span>
+                      <span>Report Card</span>
+                    </a>
+                  </li>
+                </ul>
+              </ng-template>
+            </mat-expansion-panel>
+          </mat-accordion>
         </li>
       </ng-container>
     </ul>

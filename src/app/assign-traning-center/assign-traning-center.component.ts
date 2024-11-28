@@ -36,10 +36,12 @@ export class AssignTraningCenterComponent implements OnInit {
   public tableConfig: AssignTraningCenterTableConfig = new AssignTraningCenterTableConfig();
   // public dataSource = new MatTableDataSource([]);
   public dataSource = new MatTableDataSource<any>([]);
+  dataSourceForAttendance: any[] = [];
   publicProfileData: GetPublicProfileDetailsResponseContext['data'];
   selectedRows: any[] = [];
   sidebar: boolean = false;
   filter: any = {};
+  academy_user_id = '';
   tab = 'personal';
   pageSize: number = 10;
   data: any;
@@ -53,7 +55,7 @@ export class AssignTraningCenterComponent implements OnInit {
   send_to = '';
   searchText = '';
   selection = new SelectionModel<PeriodicElement>(true, []);
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['name', 'email', 'phone', 'date', 'status'];
   list = [];
   userId: string;
   // LEFT PANEL
@@ -97,6 +99,7 @@ export class AssignTraningCenterComponent implements OnInit {
         this.send_to = param.send_to;
         console.log('player id is', this.send_to);
         this.getPublicProfileDetails();
+        this.getPlayerAttendanceDetails();
       }
     });
   }
@@ -154,7 +157,6 @@ export class AssignTraningCenterComponent implements OnInit {
       .traningCenterList(userid, { page_size, page_no })
       // .pipe(untilDestroyed(this))
       .subscribe(response => {
-        console.log('TraningCenterList api hits', response.data.records);
         const od = response.data.records.map(item => item.opening_days);
         // Add `checked: false` to each object
         response.data.records = response.data.records.map(item => ({
@@ -172,36 +174,76 @@ export class AssignTraningCenterComponent implements OnInit {
   getPublicProfileDetails() {
     let data = { user_id: '' };
     data.user_id = this.send_to;
-    console.log('user id in getPublicProfileDetails==>', data.user_id);
+
     this._footPlayerService
       .getPublicProfileDetails(data)
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
           this.publicProfileData = response.data;
-          console.log(
-            'public profile data front =====>',
-            this.publicProfileData
-          );
 
-          console.log(response.data);
-          // this.setAvatar();
-          // this.is_following = this.publicProfileData.is_followed;
-          // localStorage.setItem(
-          //   'is_followed',
-          //   JSON.stringify(this.is_following)
-          // );
-          // this.is_footmate = this.publicProfileData.footmate_status;
           this.data = { ...this.data, ...this.publicProfileData };
-          console.log('this is my data');
-          console.log(this.data);
         },
         error => {
           this._toastrService.error('Error', error.error.message);
         }
       );
   }
+  // getPlayerAttendanceDetails() {
+  //   let data = { user_id: '' };
+  //   data.user_id = this.send_to;
 
+  //   this._footPlayerService
+  //     .getPlayerAttendanceDetails(data)
+  //     .pipe(untilDestroyed(this))
+  //     .subscribe(
+  //       response => {
+
+  //         console.log('this is my data');
+  //         console.log(response.data);
+  //       },
+  //       error => {
+  //         this._toastrService.error('Error', error.error.message);
+  //       }
+  //     );
+  // }
+
+  getPlayerAttendanceDetails() {
+    const data = {
+      user_id: this.send_to,
+      academy_user_id: this.userId
+    };
+    console.log('user-id- is', data);
+    this._footPlayerService.getPlayerAttendanceDetails(data).subscribe(
+      response => {
+        // Ensure response.data is an array
+        if (Array.isArray(response.data)) {
+          this.dataSourceForAttendance = response.data.map(item => {
+            const playerData =
+              item.player_data.length > 0 ? item.player_data[0] : null;
+            const playerDetails =
+              playerData && playerData.player_details
+                ? playerData.player_details
+                : {};
+
+            return {
+              first_name: playerDetails.first_name || 'N/A',
+              last_name: playerDetails.last_name || 'N/A',
+              email: playerDetails.email || 'N/A',
+              phone: playerDetails.phone || 'N/A',
+              status: playerData ? playerData.status : 'N/A',
+              date: playerData ? playerData.date : 'N/A'
+            };
+          });
+        } else {
+          this._toastrService.error('Invalid data format received from API');
+        }
+      },
+      error => {
+        this._toastrService.error('Error', error.error.message);
+      }
+    );
+  }
   getSearchText(value: string) {
     this.searchText = value;
     this.filter.search = this.searchText;
@@ -232,14 +274,11 @@ export class AssignTraningCenterComponent implements OnInit {
             response => {
               this._toastrService.success(
                 `Success`,
-                'Resend invite successfully'
+                'Training Center Assign successfully'
               );
             },
             error => {
-              this._toastrService.error(
-                `${error.error.message}`,
-                'Resend Invitation'
-              );
+              this._toastrService.error(`${error.error.message}`, 'Error');
             }
           );
       }

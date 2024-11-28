@@ -105,7 +105,24 @@
     }
   }
 }
+.custom-button {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  color: #6c757d;
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
 
+.custom-button:hover {
+  background-color: #e9ecef;
+  /* Slightly darker on hover */
+  border-color: #ccc;
+  /* Darker border on hover */
+}
 ::ng-deep {
   .addfootplayer {
     @include responsive(tablet) {

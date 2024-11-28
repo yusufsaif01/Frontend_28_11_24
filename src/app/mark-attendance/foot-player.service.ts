@@ -4,13 +4,12 @@ import { Observable } from 'rxjs';
 import { CustomHttpParamEncoder } from '@app/shared/custom-http-param-encoder/custom-http-param-encoder.component';
 
 const routes = {
-  getFootPlayerList: (query: string) =>
-    `/training-center/footplayers/?${query}`,
+  getFootPlayerList: (center_user_id: string) =>
+    `/training-center/footplayers/${center_user_id}`,
   deleteFootplayer: (id: string) => `/footplayers/${id}`,
   findPlayer: (query: string) => `/footplayer/search${query}`,
   sendFootPlayerRequest: () => '/footplayer/request',
-  sendFootPlayerInvite: () => '/footplayer/invite',
-  resendFootPlayerInvite: () => `/footplayer/resend-invite`
+  markAttendance: () => '/mark-attendance'
 };
 
 interface ResendFootPlayerInviteContext {
@@ -35,6 +34,12 @@ interface FindPlayerContext {
   name: string;
   email: string;
   phone: string;
+}
+interface MarkAttendanceContext {
+  center_user_id: string;
+  player_user_id: string;
+  status: string;
+  date: string;
 }
 interface FindPlayerResponseContext {
   status: string;
@@ -97,14 +102,11 @@ export class FootPlayerService {
   constructor(private httpClient: HttpClient) {}
 
   getFootPlayerList(
-    context: GetFootPlayerListContext
+    center_user_id: any
   ): Observable<GetFootPlayerListResponseContext> {
-    let httpParams = new HttpParams({ encoder: new CustomHttpParamEncoder() });
-    Object.keys(context).forEach(key => {
-      if (context[key]) httpParams = httpParams.append(key, context[key]);
-    });
+    console.log('inside getFootPlayerList serviceeee');
     return this.httpClient.get<GetFootPlayerListResponseContext>(
-      routes.getFootPlayerList(httpParams.toString())
+      routes.getFootPlayerList(center_user_id)
     );
   }
 
@@ -130,30 +132,12 @@ export class FootPlayerService {
     );
   }
 
-  sendFootPlayerRequest(
-    context: sendFootPlayerRequestContext
+  markAttendanceBatch(
+    attendanceData: MarkAttendanceContext[]
   ): Observable<CommonResponseContext> {
     return this.httpClient.post<CommonResponseContext>(
-      routes.sendFootPlayerRequest(),
-      context
-    );
-  }
-
-  sendFootPlayerInvite(
-    context: SendFootPlayerInviteContext
-  ): Observable<CommonResponseContext> {
-    return this.httpClient.post<CommonResponseContext>(
-      routes.sendFootPlayerInvite(),
-      context
-    );
-  }
-
-  resendFootPlayerInvite(
-    context: ResendFootPlayerInviteContext
-  ): Observable<CommonResponseContext> {
-    return this.httpClient.post<CommonResponseContext>(
-      routes.resendFootPlayerInvite(),
-      context
+      routes.markAttendance(), // Adjust the route if you have a specific endpoint for batch processing, e.g., `routes.markAttendanceBatch()`
+      attendanceData // Send the entire array as the payload
     );
   }
 }

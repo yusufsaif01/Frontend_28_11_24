@@ -82,7 +82,24 @@
     }
   }
 }
+.custom-button {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  color: #6c757d;
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
 
+.custom-button:hover {
+  background-color: #e9ecef;
+  /* Slightly darker on hover */
+  border-color: #ccc;
+  /* Darker border on hover */
+}
 ::ng-deep {
   .deletepopup,
   .statusconfirmation {
@@ -182,6 +199,23 @@
   margin-top: 8px;
   font-size: 16px;
   font-weight: bold;
+}
+::ng-deep {
+  .mat-sort-header-button {
+    border: none;
+    background: 0 0;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    cursor: inherit;
+    outline: 0;
+    font-size: 15px !important;
+    color: black;
+  }
+  .mat-table .mat-row .mat-cell p {
+    font-size: 1.6rem;
+    line-height: 3rem;
+  }
 }
 ::ng-deep {
   .addfootplayer {

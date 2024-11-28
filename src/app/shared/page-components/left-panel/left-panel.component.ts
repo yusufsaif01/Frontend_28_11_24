@@ -28,6 +28,7 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
   member_type: string = localStorage.getItem('member_type');
   logged_user_id: string = localStorage.getItem('user_id');
   profile_status: string;
+  isDiscoverExpanded = false;
 
   @Input() data: any;
   @Input() achievements: number = 0;
@@ -65,7 +66,9 @@ export class LeftPanelComponent implements OnInit, OnDestroy {
     this.getProfessionalProfileDetails();
     this.getConnectionStats();
   }
-
+  toggleDiscover() {
+    this.isDiscoverExpanded = !this.isDiscoverExpanded;
+  }
   getPublicProfileDetails() {
     let data = { user_id: '' };
     data.user_id = this.userId ? this.userId : this.logged_user_id;

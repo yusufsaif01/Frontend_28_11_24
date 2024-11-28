@@ -100,6 +100,7 @@ export class AwardCertificateComponent implements OnInit, OnDestroy {
       player_type: this.player_type,
       member_type: this.member_type
     };
+    console.log('edit award data view', data);
     const dialogRef = this.dialog.open(EditAddPopupComponent, {
       panelClass: 'addeditawards',
       data: {

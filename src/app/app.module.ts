@@ -59,6 +59,8 @@ import { GtagModule } from 'angular-gtag';
 import { AccountDeleteInstructionComponent } from './account-delete-instruction/account-delete-instruction.component';
 import { AccountDeleteInstructionForMobileComponent } from './account-delete-instruction-for-mobile/account-delete-instruction-for-mobile.component';
 import { AssignTraningCenterComponent } from './assign-traning-center/assign-traning-center.component';
+import { DateListPopupComponent } from './attendance/attendance/date-list-popup/date-list-popup.component';
+import { AttendanceHistoryViewComponent } from './attendance/attendance-history-view/attendance-history-view.component';
 
 @NgModule({
   imports: [
@@ -125,7 +127,9 @@ import { AssignTraningCenterComponent } from './assign-traning-center/assign-tra
     AccountDeleteComponent,
     AccountDeleteInstructionComponent,
     AccountDeleteInstructionForMobileComponent,
-    AssignTraningCenterComponent
+    AssignTraningCenterComponent,
+    DateListPopupComponent,
+    AttendanceHistoryViewComponent
   ],
   providers: [
     RoleGuardService,
@@ -151,7 +155,8 @@ import { AssignTraningCenterComponent } from './assign-traning-center/assign-tra
     VideoPopupComponent,
     GuideComponent,
     AddcoacheComponent,
-    AddCenterComponent
+    AddCenterComponent,
+    DateListPopupComponent
   ]
 })
 export class AppModule {}

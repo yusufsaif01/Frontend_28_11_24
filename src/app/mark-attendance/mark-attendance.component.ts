@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
 import { SharedService } from '@app/shared/shared.service';
+
 declare let gtag: Function;
 
 export interface PeriodicElement {
@@ -46,14 +47,9 @@ export class MarkAttendanceComponent implements OnInit {
   searchText = '';
   send_to = '';
   serial_no = 1;
+  academy_user_id = '';
   i = 1;
-  displayedColumns: string[] = [
-    'serialNo',
-    'name',
-    'email',
-    'category',
-    'action'
-  ];
+  displayedColumns: string[] = ['serialNo', 'name', 'email', 'phone', 'action'];
   public dataSource = new MatTableDataSource([]);
   // LEFT PANEL
   panelOptions: Partial<PanelOptions> = {
@@ -81,17 +77,19 @@ export class MarkAttendanceComponent implements OnInit {
     public dialog: MatDialog,
     private _toastrService: ToastrService,
     private _sharedService: SharedService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.filter.page_size = this.pageSize;
     this.filter.page_no = this.pageNo;
-    this.getFootPlayerList();
+    this.academy_user_id = localStorage.getItem('user_id');
     this._activatedRoute.params.subscribe(param => {
       if (param.send_to) {
         this.send_to = param.send_to;
         console.log('player id is', this.send_to);
+        this.getFootPlayerList(this.send_to);
       }
     });
   }
@@ -117,15 +115,55 @@ export class MarkAttendanceComponent implements OnInit {
     this.selectedPage = event.selectedPage;
     this.pageNo = this.selectedPage;
     this.filter.page_no = this.pageNo;
-    this.getFootPlayerList();
   }
+
   markAttendance() {
-    // Logic for marking attendance based on selected radio button values
-    const markedRows = this.dataSource.data.filter(row => row.action);
-    markedRows.forEach(row => {
-      console.log(`Marking attendance for ${row.name}: ${row.action}`);
-      // Implement additional attendance marking logic here if needed
-    });
+    // Gather all marked rows with attendance data into an array
+
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(currentDate.getDate()).padStart(2, '0');
+
+    const formattedDate = `${year}-${month}-${day}`;
+
+    const markedRows = this.dataSource.data
+      .filter(row => row.action)
+      .map(row => ({
+        center_user_id: this.send_to,
+        player_user_id: row.user_id,
+        status: row.action,
+        date: formattedDate,
+        academy_user_id: this.academy_user_id
+      }));
+
+    if (markedRows.length === 0) {
+      console.log('No attendance to mark');
+      return; // Exit if there are no marked rows
+    }
+
+    console.log('Sending attendance data:', markedRows);
+
+    // Send the entire array in a single request
+    this._footPlayerService
+      .markAttendanceBatch(markedRows) // Assuming markAttendanceBatch accepts an array
+      .subscribe(
+        response => {
+          // Handle the response, updating data source and counts
+          const records = response;
+          console.log('Batch attendance response:', records);
+          this._toastrService.success(
+            `Success`,
+            'Attendance Mark successfully'
+          );
+          this.router.navigate(['/member/attendance']);
+        },
+        error => {
+          console.error('Error marking attendance in batch:', error);
+          this._toastrService.error(`${error.error.message}`, 'Error');
+          // Optionally, handle the error (e.g., show a notification)
+        }
+      );
   }
 
   saveDraft() {
@@ -133,9 +171,10 @@ export class MarkAttendanceComponent implements OnInit {
     console.log('Draft saved');
     // Implement save draft logic here
   }
-  getFootPlayerList() {
+  getFootPlayerList(traningCenter_userId) {
+    console.log('inside getFootplayerListtttt');
     this._footPlayerService
-      .getFootPlayerList(this.filter)
+      .getFootPlayerList(traningCenter_userId)
       // .pipe(untilDestroyed(this))
       .subscribe(response => {
         let records = response.data.records;
@@ -153,80 +192,6 @@ export class MarkAttendanceComponent implements OnInit {
     this.filter.search = this.searchText;
     this.filter.page_no = 1;
     this.selectedPage = 1;
-    this.getFootPlayerList();
-  }
-
-  // delete
-  deletePopup(id: string) {
-    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      panelClass: 'deletepopup',
-      data: {
-        header: 'Please confirm',
-        message: 'Are you sure you want to delete?',
-        acceptText: 'Yes',
-        rejectText: 'No'
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        this._footPlayerService
-          .deleteFootPlayer(id)
-          .pipe(untilDestroyed(this))
-          .subscribe(
-            response => {
-              this._toastrService.success(
-                `Success`,
-                'FootPlayer deleted successfully'
-              );
-              this.selectedPage = 1;
-              this.filter.page_no = 1;
-              this.getFootPlayerList();
-            },
-            error => {
-              // log.debug(`Login error: ${error}`);
-
-              this._toastrService.error(
-                `${error.error.message}`,
-                'Delete Footplayer'
-              );
-            }
-          );
-      }
-    });
-  }
-  // Manage Player
-  managePlayer(id: string) {}
-  resendInvitationPopup(email: string) {
-    const dialogRef = this.dialog.open(StatusConfirmationComponent, {
-      panelClass: 'statusconfirmation',
-      data: {
-        header: 'Please confirm',
-        message: 'Do you want to Resend Invitation?',
-        acceptText: 'Yes',
-        rejectText: 'No'
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        this._footPlayerService
-          .resendFootPlayerInvite({ email })
-          .pipe(untilDestroyed(this))
-          .subscribe(
-            response => {
-              this._toastrService.success(
-                `Success`,
-                'Resend invite successfully'
-              );
-            },
-            error => {
-              this._toastrService.error(
-                `${error.error.message}`,
-                'Resend Invitation'
-              );
-            }
-          );
-      }
-    });
   }
 
   onChangeFilter(event: any) {
@@ -238,6 +203,5 @@ export class MarkAttendanceComponent implements OnInit {
     this.selectedPage = 1;
     this.filter.page_no = 1;
     this.filter.page_size = 10;
-    this.getFootPlayerList();
   }
 }

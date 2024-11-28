@@ -8,6 +8,9 @@ const routes = {
     `/traning/center_list/${user_id}`,
   deleteTraningCenter: (id: string) => `/traning-center/${id}`,
   findPlayer: (query: string) => `/footplayer/search${query}`,
+  findCenter: (user_id: any) => `/datelist/search/${user_id}`,
+  getAttendanceDetails: (center_id: any) =>
+    `/get-attendance-details/search/${center_id}`,
   sendFootPlayerRequest: () => '/footplayer/request',
   sendFootPlayerInvite: () => '/footplayer/invite',
   resendFootPlayerInvite: () => `/footplayer/resend-invite`
@@ -17,6 +20,9 @@ interface ResendFootPlayerInviteContext {
   email: string;
 }
 
+interface dateContext {
+  alldate?: string;
+}
 interface CommonContext {
   page_no?: number;
   page_size?: number;
@@ -39,6 +45,10 @@ interface FindPlayerContext {
   name: string;
   email: string;
   phone: string;
+}
+interface FindDateContext {
+  date: string;
+  center_user_id: string;
 }
 interface FindPlayerResponseContext {
   status: string;
@@ -127,6 +137,39 @@ export class AttendanceService {
     return this.httpClient.get<FindPlayerResponseContext>(
       routes.findPlayer(query)
     );
+  }
+
+  findCenter(user_id: string, context: dateContext = {}): Observable<any> {
+    let query = '';
+
+    // Add `alldate` if it exists in the context
+    if (context.alldate) {
+      query = `?alldate=${encodeURIComponent(context.alldate)}`;
+    }
+
+    // Construct the URL
+    const url = routes.findCenter(user_id) + query;
+
+    // Make the HTTP GET request
+    return this.httpClient.get<any>(url);
+  }
+
+  getAttendanceDetails(
+    center_id: string,
+    context: dateContext = {}
+  ): Observable<any> {
+    let query = '';
+
+    // Add `alldate` if it exists in the context
+    if (context.alldate) {
+      query = `?alldate=${encodeURIComponent(context.alldate)}`;
+    }
+
+    // Construct the URL
+    const url = routes.getAttendanceDetails(center_id) + query;
+
+    // Make the HTTP GET request
+    return this.httpClient.get<any>(url);
   }
 
   sendFootPlayerRequest(

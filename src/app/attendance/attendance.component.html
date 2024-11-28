@@ -71,7 +71,10 @@
                   <mat-icon class="material-icons">add_circle</mat-icon>
                 </a>
               </div> -->
-                  <button [routerLink]="['/member/mark-attendance/', user_id]">
+                  <button
+                    [routerLink]="['/member/mark-attendance/', user_id]"
+                    class="custom-button"
+                  >
                     Mark Attendance
                   </button>
                 </div>
@@ -103,20 +106,36 @@
 
             <!-- table -->
             <div class="table">
-              <mat-accordion *ngFor="let data of dataForHistory">
+              <div
+                *ngIf="dataForHistory.length === 0"
+                class="no-data"
+                style=" text-align: center;
+                font-size: 24px;
+                color: gray;
+                margin-top: 20px;"
+              >
+                <p>No Record Found</p>
+              </div>
+
+              <mat-accordion *ngFor="let data of dataForHistory; let i = index">
                 <mat-expansion-panel>
                   <mat-expansion-panel-header>
                     <mat-panel-title class="mptitle">
-                      {{ data.traning_center_name }}
+                      {{ i + 1 }}.
+                      {{ capitalizeFirst(data.traning_center_name) }}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <ng-template matExpansionPanelContent>
                     <div class="year-selector">
-                      <span (click)="changeYear(-1)" class="year-arrow"
+                      <span
+                        (click)="changeYear(-1, data.user_id)"
+                        class="year-arrow"
                         >&#x25B2;</span
                       >
                       <span class="year-display">{{ selectedYear }}</span>
-                      <span (click)="changeYear(1)" class="year-arrow"
+                      <span
+                        (click)="changeYear(1, data.user_id)"
+                        class="year-arrow"
                         >&#x25BC;</span
                       >
                     </div>
@@ -137,7 +156,9 @@
                           matInput
                           [(ngModel)]="selectedDates[i]"
                           [matDatepicker]="picker"
-                          (dateChange)="onDateChange($event.value, i)"
+                          (dateChange)="
+                            onDateChange($event.value, i, data.user_id)
+                          "
                           hidden
                         />
                         <mat-datepicker
@@ -145,11 +166,6 @@
                           startView="month"
                           panelClass="hide-year-month"
                         ></mat-datepicker>
-
-                        <!-- Display the formatted selected date (month and day only) -->
-                        <div *ngIf="formattedDates[i]">
-                          Selected Date: {{ formattedDates[i] }}
-                        </div>
                       </div>
                     </div>
                   </ng-template>

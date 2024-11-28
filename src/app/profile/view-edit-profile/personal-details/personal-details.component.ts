@@ -738,9 +738,6 @@ export class PersonalDetailsComponent implements OnInit {
     id: string,
     dataToVerify: string = this.profile.phone
   ) {
-    console.log('id and mobile recived are', id, dataToVerify);
-    console.log('profile data is=>', this.profile);
-    console.log('profile data is=>', this.profile.phone);
     if (this.valueForMobile == undefined) {
       this.valueForMobile = dataToVerify;
     }
@@ -749,8 +746,6 @@ export class PersonalDetailsComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe(
         response => {
-          console.log('response in api hits');
-          console.log(response);
           if (response.data) {
             this._toastrService.success(`Success`, 'Otp Send successfully');
             const dialogRef = this.dialog.open(VerificationComponent, {
@@ -761,7 +756,6 @@ export class PersonalDetailsComponent implements OnInit {
                 userId: response.data.user_id
               }
             });
-
             dialogRef.afterClosed().subscribe(result => {
               if (result === 'success') {
                 // this.getPostListing();

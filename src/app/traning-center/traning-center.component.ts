@@ -74,6 +74,7 @@ export class TraningCenterComponent implements OnInit, OnDestroy {
   openFilter() {
     this._sharedService.setFilterDisplayValue(true);
   }
+
   addFootplayerButtonClick() {
     gtag('event', 'add_footplayer_button_click', {
       event_category: 'Button',
@@ -81,6 +82,7 @@ export class TraningCenterComponent implements OnInit, OnDestroy {
       value: 1
     });
   }
+
   getMemberType(value: string) {
     this.member_type = value;
   }

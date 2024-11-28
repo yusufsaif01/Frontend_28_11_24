@@ -156,7 +156,6 @@ export class FootRequestService {
       query += '&userType=' + userType;
     }
 
-    console.log('final query is', query);
     return this.httpClient.get<ConnectionStatsResponseContext>(
       routes.connectionStats() + query
     );

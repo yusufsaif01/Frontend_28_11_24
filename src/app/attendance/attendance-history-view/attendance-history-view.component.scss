@@ -82,22 +82,39 @@
     }
   }
 }
-table {
-  width: 100%;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1) !important; // Reduced shadow
-  border-radius: 0.5rem !important; // Optional: keep corners smooth
-}
-.action-buttons {
-  margin-top: 16px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
+.table {
+  display: grid;
+  /* Use grid layout for better control */
+  grid-template-columns: repeat(4, 1fr);
+  /* 4 cards in one row */
+  gap: 1.5rem;
+  /* Add spacing between cards */
+  justify-items: center;
+  /* Center the cards horizontally */
+  align-items: start;
+  /* Align cards vertically */
+  margin-top: 2rem;
 
-.row-buttons {
-  margin-top: 8px;
-  display: flex;
-  gap: 5px;
+  @include responsive(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 cards per row on tablets */
+  }
+
+  @include responsive(smallphone) {
+    grid-template-columns: 1fr;
+    /* 1 card per row on small screens */
+  }
+}
+.card-image {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  display: block;
+  border-radius: 50%;
+}
+.custom-card {
+  width: 250px; // Fixed width for uniformity
+  max-width: 100%;
 }
 ::ng-deep {
   .deletepopup,
@@ -121,19 +138,34 @@ table {
     }
   }
 }
-/* Change the background color of header cells */
-.mat-header-cell {
+.custom-card {
   background-color: #ff9933;
-  /* Change this to your desired color */
-  color: #ffffff !important;
+  /* Orange background */
+  color: #fff;
+  /* White text color */
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.mat-row:hover {
-  background-color: #f8ebeb;
-  /* Light gray background */
-  cursor: pointer;
-  /* Pointer cursor for interactivity */
-  transition: background-color 0.3s;
-  /* Smooth transition */
+
+.custom-card mat-card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.custom-card img {
+  width: 50px;
+  /* Adjust size as needed */
+  height: 50px;
+  margin: 0 auto;
+  display: block;
+}
+
+.custom-card mat-card-content {
+  font-size: 14px;
+  margin-top: 12px;
 }
 ::ng-deep {
   .addfootplayer {

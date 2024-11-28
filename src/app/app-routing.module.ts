@@ -29,6 +29,7 @@ import { AccountDeleteComponent } from './account-delete/account-delete.componen
 import { AccountDeleteInstructionComponent } from './account-delete-instruction/account-delete-instruction.component';
 import { AccountDeleteInstructionForMobileComponent } from './account-delete-instruction-for-mobile/account-delete-instruction-for-mobile.component';
 import { AssignTraningCenterComponent } from './assign-traning-center/assign-traning-center.component';
+import { AttendanceHistoryViewComponent } from './attendance/attendance-history-view/attendance-history-view.component';
 
 const routes: Routes = [
   {
@@ -134,7 +135,10 @@ const routes: Routes = [
     path: 'member/attendance',
     component: AttendanceComponent
   },
-
+  {
+    path: 'member/attendance-history-view',
+    component: AttendanceHistoryViewComponent
+  },
   {
     path: 'member/mark-attendance/:send_to',
     component: MarkAttendanceComponent

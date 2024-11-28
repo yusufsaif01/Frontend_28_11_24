@@ -1,0 +1,83 @@
+@import "src/assets/sass/abstracts/variables";
+@import "src/assets/sass/abstracts/mixins";
+
+.from-container {
+  margin: -24px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+  align-items: center;
+  background: $fifth-color;
+
+  .title {
+    width: 70%;
+
+    h3 {
+      font-size: $heading-third;
+      color: $fourth-color;
+      font-weight: 600;
+    }
+  }
+
+  .close {
+    width: 30%;
+    display: block;
+    text-align: right;
+
+    .mat-icon {
+      cursor: pointer;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+.modal-body {
+  padding: 2rem 3rem 0rem 3rem;
+
+  .from-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    @include responsive(smallphone) {
+      flex-wrap: wrap;
+    }
+
+    .form-block {
+      width: 48%;
+
+      @include responsive(smallphone) {
+        width: 100%;
+      }
+    }
+  }
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  padding: 5px 0;
+  font-size: 16px;
+}
+.modal-footer {
+  padding: 0rem 3rem 2rem 3rem;
+  display: block;
+  text-align: right;
+
+  .action-block {
+    button {
+      margin-right: 0rem;
+
+      &:hover {
+        box-shadow: none;
+      }
+    }
+  }
+}

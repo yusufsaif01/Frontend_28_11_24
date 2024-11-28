@@ -19,6 +19,8 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { StatusConfirmationComponent } from '@app/shared/dialog-box/status-confirmation/status-confirmation.component';
 import { SharedService } from '@app/shared/shared.service';
 import { DatePipe } from '@angular/common';
+import { DateListPopupComponent } from './attendance/date-list-popup/date-list-popup.component';
+
 @Component({
   selector: 'app-attendance',
   templateUrl: './attendance.component.html',
@@ -111,11 +113,6 @@ export class AttendanceComponent implements OnInit, OnDestroy {
     this.member_type = value;
   }
 
-  // openDatePicker(monthIndex: number) {
-  //   this.selectedMonth = monthIndex;
-  //   this.showDatePicker = true;
-  // }
-
   closeDatePicker() {
     this.showDatePicker = false;
     this.selectedDate = '';
@@ -148,47 +145,81 @@ export class AttendanceComponent implements OnInit, OnDestroy {
   }
 
   @ViewChildren('picker') datePickers: QueryList<MatDatepicker<any>>;
-  // openDatePicker(index: number) {
-  //   this.datePickers.toArray()[index].open();
-  // }
+
   ngAfterViewInit() {
     // `datePickers` is fully available here
   }
+  openDialog(): void {}
+
   openDatePicker(index: number) {
     const datePickersArray = this.datePickers.toArray();
     this.selectedMonth = index;
-    console.log('selected months is', this.selectedMonth);
+    console.log('selected months isssss', this.selectedMonth);
     if (datePickersArray[index]) {
       // Set the selected date to the start of the month (e.g., January 1 for the first icon)
       const selectedDate = this.monthDates[index];
-
-      // Set the date in the date picker and open it
       datePickersArray[index].select(selectedDate);
-      datePickersArray[index].open();
+
+      // datePickersArray[index].open();
     }
   }
+
+  capitalizeFirst(value: string): string {
+    if (!value) return '';
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+
   // Call this method when a date is selected to store the formatted month and day
-  onDateChange(date: Date | null, index: number) {
+  onDateChange(date: Date | null, index: number, user_id: any) {
     this.selectedDates[index] = date; // Store the raw date
     if (date) {
-      this.formattedDates[index] = this.datePipe.transform(date, 'dd-MM') || ''; // Format as 'MMM dd' and store
+      this.formattedDates[index] = this.datePipe.transform(date, 'MM') || ''; // dd-MM Format as 'MMM dd' and store
       console.log(
         `Selected date for ${this.months[index]}: ${this.formattedDates[index]}`
       );
       console.log('selected year is', this.selectedYear);
 
-      const alldate = this.formattedDates[index] + '-' + this.selectedYear;
+      // const alldate =
+      //   this.formattedDates[index] + '-' + this.selectedYear;
+      const alldate = this.selectedYear + '-' + this.formattedDates[index];
       console.log('whole date is', alldate);
+      console.log('center user id is', user_id);
+
+      this._footPlayerService
+        .findCenter(user_id, { alldate })
+        .subscribe(response => {
+          console.log('response in API hits', response);
+
+          // Extract dates from the response
+          const allDates = response.data
+            .flatMap((item: any) => item.player_data) // Flatten all player_data arrays
+            .map((player: any) => player.date); // Extract the date field
+          const centerUserId = response.data[0].center_user_id;
+          console.log('Extracted dates:', allDates);
+
+          // Open the dialog and pass the extracted dates
+          const dialogRef = this.dialog.open(DateListPopupComponent, {
+            panelClass: 'addeditawards',
+            data: {
+              center_id: centerUserId,
+
+              dates: allDates // Pass the extracted dates to the dialog
+            },
+            autoFocus: false
+          });
+
+          dialogRef.afterClosed().subscribe(result => {
+            if (result === 'refresh') {
+              this.getTraningCenterList(this.userId, this.pageSize, 1);
+            }
+          });
+        });
     } else {
       this.formattedDates[index] = '';
     }
   }
 
-  // changeYear(direction: number) {
-  //   this.selectedYear += direction;
-  //   console.log('selected year is', this.selectedYear);
-  // }
-  changeYear(direction: number) {
+  changeYear(direction: number, user_id: string) {
     this.selectedYear += direction;
     console.log('selected year is', this.selectedYear);
 
@@ -198,13 +229,13 @@ export class AttendanceComponent implements OnInit, OnDestroy {
         // Set the year of the date based on the updated selectedYear
         const updatedDate = new Date(date);
         updatedDate.setFullYear(this.selectedYear); // Update the year
-        this.onDateChange(updatedDate, index);
+        this.onDateChange(updatedDate, index, user_id);
       }
     });
   }
   selectMonth(monthIndex: number) {
     this.selectedMonth = monthIndex;
-    console.log('selected months is', this.selectedMonth);
+    console.log('selected months issssss', this.selectedMonth);
   }
   getSelectedDate(index: number): Date | null {
     return this.selectedDates[index];

@@ -1,0 +1,73 @@
+<app-header></app-header>
+<div class="site-wrapper">
+  <div class="left-panel" [ngClass]="{ show: sidebar, hide: !sidebar }">
+    <app-left-panel
+      [achievements]="total_count"
+      [options]="panelOptions"
+      [userId]="userId"
+      (sendMemberType)="getMemberType($event)"
+    >
+    </app-left-panel>
+  </div>
+  <div class="right-panel">
+    <div class="right-wrapper">
+      <div class="main mt-2">
+        <!-- award heading -->
+        <div class="heading">
+          <h2>Attendance Details</h2>
+        </div>
+
+        <!-- table -->
+        <div class="table">
+          <mat-card class="custom-card" *ngFor="let data of attendanceData">
+            <mat-card-title
+              >{{ capitalizeFirst(data.player_details.first_name) }}
+              {{
+                capitalizeFirst(data.player_details.last_name)
+              }}</mat-card-title
+            >
+            <img
+              [src]="data.player_details.avatar_url"
+              alt="Card image"
+              class="card-image"
+              (error)="onImageError($event)"
+            />
+            <mat-card-content>
+              <p>
+                <strong> Date: {{ data.date }} </strong>
+              </p>
+              <br />
+              <h5>
+                <strong> Status: {{ data.status }} </strong>
+              </h5>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <!-- Pagination -->
+        <app-pagination
+          *ngIf="dataSource.data.length !== 0"
+          [showData]="false"
+          [showCount]="show_count"
+          [totalRows]="total_count"
+          [rowsPerPage]="pageSize"
+          [selectedPage]="selectedPage"
+          (onChange)="updatePage($event)"
+        >
+        </app-pagination>
+      </div>
+    </div>
+    <div class="footer-fix">
+      <app-copyright></app-copyright>
+    </div>
+  </div>
+</div>
+<app-filter
+  [allowedFilters]="filtersList"
+  (filterChanges)="onChangeFilter($event)"
+></app-filter>
+
+<!-- toggle btn -->
+<span class="toggle-btn" (click)="sidebar = !sidebar">
+  <mat-icon class=" material-icons">menu_open</mat-icon>
+</span>
